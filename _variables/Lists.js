@@ -26,6 +26,7 @@ function InitiateLists() {
 		"ClassSubList",
 		"CompanionList",
 		"CreatureList",
+		"DefaultEvalsList",
 		"FeatsList",
 		"MagicItemsList",
 		"ArmourList",
@@ -245,8 +246,8 @@ var Menus = {
 		cName : "GitHub",
 		cReturn : "contact#github"
 	}, {
-		cName : "Twitter",
-		cReturn : "contact#twitter"
+		cName : "Bluesky",
+		cReturn : "contact#bluesky"
 	}],
 	"feats" : "",
 	"attacks" : "",
@@ -666,7 +667,7 @@ var SetPrintPages_Dialog = {
 	bWSfront : false,
 	bALlog : false,
 	bSSfront : false,
-	bPRsheet : false,
+	// bPRsheet : false, // No reference sheet in 2024 version
 	bASoverflow : false,
 	bHide : false,
 	bDupl : false,
@@ -680,7 +681,7 @@ var SetPrintPages_Dialog = {
 	aWSfront : true,
 	aALlog : true,
 	aSSfront : false,
-	aPRsheet : false,
+	// aPRsheet : false, // No reference sheet in 2024 version
 	aASoverflow : false,
 
 	//when starting the dialog
@@ -696,7 +697,7 @@ var SetPrintPages_Dialog = {
 			"Pag7" : this.bWSfront,
 			"Pag8" : this.bALlog,
 			"Pag9" : this.bSSfront,
-			"Pag0" : this.bPRsheet,
+			// "Pag0" : this.bPRsheet, // No reference sheet in 2024 version
 			"Pa10" : this.bASoverflow,
 			"Hide" : this.bHide
 		});
@@ -711,9 +712,10 @@ var SetPrintPages_Dialog = {
 			});
 		}
 
-		dialog.visible({
-			"Pag0" : this.bshowPR
-		})
+		/* No reference sheet in 2024 version */
+		// dialog.visible({
+		// 	"Pag0" : this.bshowPR
+		// })
 
 		dialog.enable({
 			"Pag1" : this.aCSfront,
@@ -725,7 +727,7 @@ var SetPrintPages_Dialog = {
 			"Pag7" : this.aWSfront,
 			"Pag8" : this.aALlog,
 			"Pag9" : this.aSSfront,
-			"Pag0" : this.aPRsheet,
+			// "Pag0" : this.aPRsheet, // No reference sheet in 2024 version
 			"Pa10" : this.aASoverflow
 		});
 	},
@@ -750,7 +752,7 @@ var SetPrintPages_Dialog = {
 		this.bWSfront = oResult["Pag7"];
 		this.bALlog = oResult["Pag8"];
 		this.bSSfront = oResult["Pag9"];
-		this.bPRsheet = oResult["Pag0"];
+		// this.bPRsheet = oResult["Pag0"]; // No reference sheet in 2024 version
 		this.bASoverflow = oResult["Pa10"];
 		this.bDupl = oResult["dupl"];
 	},
@@ -841,10 +843,11 @@ var SetPrintPages_Dialog = {
 							type : "check_box",
 							item_id : "Pag8",
 							name : "Adventurers Logsheet(s)"
-						}, {
-							type : "check_box",
-							item_id : "Pag0",
-							name : "Reference sheet"
+						/* No reference sheet in 2024 version */
+						// }, {
+						// 	type : "check_box",
+						// 	item_id : "Pag0",
+						// 	name : "Reference sheet"
 						}]
 					}]
 				}, {

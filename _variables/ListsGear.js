@@ -812,7 +812,7 @@ var Base_WeaponsList = {
 		damage: [1, 4, "fire"],
 		range: "20 ft",
 		weight: 1,
-		description: "Target starts Burning; Dex save to avoid",
+		description: "Dex save to avoid; Target starts Burning",
 		abilitytodamage: false,
 		ammo: "alchemist fire",
 		dc: true,
@@ -1028,6 +1028,19 @@ var Base_WeaponsList = {
 		description: "Target cannot take reactions until its next turn starts",
 		abilitytodamage: false
 	},
+	"true strike": {
+		regExpSearch: /^true.strike$/i, // only an exact match to not clash with the default eval
+		name: "True Strike",
+		source: [["SRD24", 171], ["P24", 336]],
+		list: "spell",
+		ability: 6,
+		type: "Cantrip",
+		damage: ["+B", 6, "radiant"],
+		range: "As weapon",
+		description: "Add to weapon damage, which can also be made Radiant",
+		abilitytodamage: false,
+		tooltip: 'Tip: add "True Strike", "[TS]", or "TS" to the name of another weapon to get the True Strike bonuses integrated.'
+	},
 	"vicious mockery": {
 		regExpSearch: /^(?=.*vicious)(?=.*mockery).*$/i,
 		name: "Vicious Mockery",
@@ -1037,23 +1050,11 @@ var Base_WeaponsList = {
 		type: "Cantrip",
 		damage: ["C", 6, "psychic"],
 		range: "60 ft",
-		description: "Target has disadv. on its next attack roll before its next turn ends; Wis save to avoid",
+		description: "Wis save to avoid; Target has disadv. on its next attack roll before its next turn ends",
 		abilitytodamage: false,
 		dc: true
 	}
 };
-
-// Add weapon die scaling for shillelagh
-addEvals({ atkAdd : [
-	function (fields, v) {
-		if (v.WeaponName === "shillelagh-club" || v.WeaponName === "shillelagh-quarterstaff") {
-			fields.Damage_Die = function(n){ return n < 5 ? '1d8' : n < 11 ? '1d10' : n < 17 ? '1d12' : '2d6'}(classes.totallevel);
-		}
-	},
-	"", // no description means it doesn't appear in the attack line menu's pop-up dialog
-	1
-] }, "Shillelagh damage progression", true, "items");
-CurrentUpdates.types = []; // don't trigger the changes dialog for this
 
 //A list of all types of 'ammo' for the ammunition section on the first page
 var Base_AmmoList = {

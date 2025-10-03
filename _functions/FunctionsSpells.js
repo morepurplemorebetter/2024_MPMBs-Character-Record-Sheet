@@ -108,9 +108,15 @@ function GetSpellObject(theSpl, theCast, firstCol, noOverrides, tipShortDescr) {
 	if (!foundSpell) return aSpell;
 	var aDescrAttr = ["description", "descriptionMetric", "descriptionShorter", "descriptionShorterMetric"];
 	var aCast = theCast && CurrentSpells[theCast] ? CurrentSpells[theCast] : "";
+	var isMetric = What("Unit System") === "metric";
 	for (var key in foundSpell) {
 		if (key === 'allowUpCasting') continue;
 		aSpell[key] = foundSpell[key];
+	}
+	if (CurrentCasters.useDependencies === false && aSpell.withoutDependencies) {
+		for (var key in aSpell.withoutDependencies) {
+			aSpell[key] = aSpell.withoutDependencies[key];
+		}
 	}
 	// set the firstCol attribute so the CurrentEval can change it
 	aSpell.firstCol = firstCol ? firstCol : aSpell.firstCol ? aSpell.firstCol : "";
@@ -126,7 +132,7 @@ function GetSpellObject(theSpl, theCast, firstCol, noOverrides, tipShortDescr) {
 		aSpell.changesObj["Magic Item"] = "\n \u2022 Spells cast by magic items don't require any components except the magic item itself, unless otherwise specified in the magic item's description.";
 	}
 	// If this spell is gained from an item, feat, or race, remove scaling effects
-	if (aCast && !aCast.allowUpCasting && (aCast.allowUpCasting === false || (/^(item|feat|race)$/i).test(aCast.typeSp) || (aCast.refType && (/^(item|feat|race)$/i).test(aCast.refType))) && (aSpell.level || aCast.typeSp == "item" || (aCast.refType && aCast.refType == "item"))) {
+	if (aCast && !aCast.allowUpCasting && (aCast.allowUpCasting === false || /^(item|feat|race)$/i).test(aCast.typeSp) || (aCast.refType && (/^(item|feat|race)$/i.test(aCast.refType))) && (aSpell.level || aCast.typeSp == "item" || (aCast.refType && aCast.refType == "item"))) {
 		if (removeSpellUpcasting(aSpell)) {
 			aSpell.changesObj["Innate Spellcasting"] = "\n \u2022 Spell cast by magic items, from feats, or from racial traits can only be cast at the spell's level, not with higher level spell slots.";
 		}
@@ -147,7 +153,7 @@ function GetSpellObject(theSpl, theCast, firstCol, noOverrides, tipShortDescr) {
 	if (aSpell.allowUpCasting === false) removeSpellUpcasting(aSpell);
 
 	// Change some things into metric if set to do so
-	if (What("Unit System") === "metric") {
+	if (isMetric) {
 		aSpell.description = aSpell.descriptionMetric ? aSpell.descriptionMetric : ConvertToMetric(aSpell.description, 0.5);
 		aSpell.range = aSpell.rangeMetric ? aSpell.rangeMetric : ConvertToMetric(aSpell.range, 0.5);
 	}
@@ -157,7 +163,7 @@ function GetSpellObject(theSpl, theCast, firstCol, noOverrides, tipShortDescr) {
 		// apply cantrip die
 		if (aSpell.descriptionCantripDie) {
 			var cDie = cantripDie[Math.min(CurrentFeats.level, cantripDie.length) - 1];
-			var newCantripDieDescr = aSpell.descriptionCantripDie;
+			var newCantripDieDescr = isMetric && aSpell.descriptionCantripDieMetric ? aSpell.descriptionCantripDieMetric : aSpell.descriptionCantripDie;
 			var rxCanDie = /`CD([\-+*]*\d*\.?\d*)`/;
 			var execCanDie = rxCanDie.exec(newCantripDieDescr);
 			while (execCanDie !== null) {
@@ -166,6 +172,9 @@ function GetSpellObject(theSpl, theCast, firstCol, noOverrides, tipShortDescr) {
 				execCanDie = rxCanDie.exec(newCantripDieDescr);
 			}
 			aSpell.description = newCantripDieDescr.replace(/\b0d\d+/g, "0");
+			if (isMetric && !aSpell.descriptionCantripDieMetric) {
+				aSpell.description = ConvertToMetric(aSpell.description, 0.5);
+			}
 		}
 		// apply ability score modifier or check
 		var spellAbiDescr = applySpellcastingAbility(aSpell, aCast);
@@ -206,7 +215,7 @@ function GetSpellObject(theSpl, theCast, firstCol, noOverrides, tipShortDescr) {
 	}
 
 	// Backwards compatibility - update the time attribute from the old to the new way
-	ttSpellObj.time = ttSpellObj.time.replace("1 a", "Act").replace("1 bns", "Bns Act").replace("1 rea", "React");
+	aSpell.time = aSpell.time.replace("1 a", "Act").replace("1 bns", "Bns Act").replace("1 rea", "React");
 
 	// Make the tooltip for the description field
 	var spTooltip = "";
@@ -270,7 +279,7 @@ function fixSpellRangeOverflow(rangeStr) {
 	rangeStr = rangeStr.trim();
 	if (What("Unit System") === "metric") {
 		var testRx = typePF ? /S:\d+[,.]\d+[- /]?m (cone|cube)/i : /S:\d+[,.]?\d+[- /]?m (cone|cube|line)|S:\d+[,.]\d+[- /]?m rad/i;
-		if (testRx.test(rangeStr)) rangeStr = rangeStr.replace(/[- /]?m ((con|cub)e|line)/i, "m $1").replace(/[- /]?m rad/i, "m rad");
+		if (testRx.test(rangeStr)) rangeStr = rangeStr.replace(/[- /]?m ((con|cub)e|(line))/i, "m $2").replace(/[- /]?m rad/i, "m rad");
 	} else if (!typePF) {
 		var testRx = /S:\d+[,.]?\d+[- /]?ft (cone|cube|line)|S:\d+[- /]?miles? rad/i;
 		if (testRx.test(rangeStr)) rangeStr = rangeStr.replace(/[- /]?ft (cone|cube|line)/i, "ft $1").replace(/[- /]?miles? rad/i, "mile rad");
@@ -303,23 +312,22 @@ function applySpellcastingAbility(oSpell, oCast) {
 	if (theAbi) {
 		var theAbiMod = Number(What(theAbi + " Mod"));
 		var newSpellDescr = oSpell.description;
-		if (/spell(casting)? (ability )?mod(ifier)?/i.test(newSpellDescr)) { // modifier
-			newSpellDescr = newSpellDescr.replace(/\+? ?(my )?spell(casting)? (ability )?mod(ifier)?/i, (theAbiMod >= 0 ? "+" + theAbiMod : theAbiMod) + " (" + theAbi + ")");
-		} else if (/spell(casting)? (ability )?check/i.test(newSpellDescr)) { // check
-			var theAbiName = AbilityScores.names[castAbi -1];
-			// Bonus from Jack of All Trades and/or Remarkable Athlete
-			var jackOf = tDoc.getField("Jack of All Trades").isBoxChecked(0) === 1;
-			var remAth = tDoc.getField("Remarkable Athlete").isBoxChecked(0) === 1 && ["Str", "Dex", "Con"].indexOf(theAbi) !== -1;
-			var profB = Number(How("Proficiency Bonus"));
-			theAbiMod += remAth ? Math.ceil(profB/2) : jackOf ? Math.floor(profB/2) : 0;
-			newSpellDescr = newSpellDescr.replace(/spell(casting)? (ability )?check/i, theAbiName + " check (" + (theAbiMod >= 0 ? "+" + theAbiMod : theAbiMod) + ")");
+		var spellAbiModRx = /(\+ ?)?(my )?spell(casting)? (ability )?mod(ifier)?/i;
+		if (spellAbiModRx.test(newSpellDescr)) { // modifier
+			newSpellDescr = newSpellDescr.replace(spellAbiModRx, (theAbiMod >= 0 ? "+" + theAbiMod : theAbiMod) + " (" + theAbi + ")");
 		}
 		return newSpellDescr !== oSpell.description ? newSpellDescr : false;
 	}
 }
 
-// call this on validation of the hidden spell remember field, to apply something to the spell line
-// "" = reset all the fields; "HideThisLine" = hide all the fields; recognized spell = apply that spell; not recognized spell = don't do anything (assume name change); "setcaptions" or  "setcaptions##Me" = make this a caption line; if followed by "##Me" or "##Kn", change the first line to be either "Me" or "Kn" as the first column, or show or hide the box for checkmark; "___" = put all lines in the fields, making it fillable by hand
+/* call this on validation of the hidden spell remember field, to apply something to the spell line
+	"" = reset all the fields
+	"HideThisLine" = hide all the fields
+	recognized spell = apply that spell
+	not recognized spell = don't do anything (assume name change)
+	"setcaptions##Xx" = make this a caption line with Xx as the first column
+	"___" = put all lines in the fields, making it fillable by hand
+*/
 function ApplySpell(FldValue, rememberFldName) {
 	calcStop();
 
@@ -328,7 +336,7 @@ function ApplySpell(FldValue, rememberFldName) {
 	var spFlds = ReturnSpellFieldsArray(undefined, undefined, base);
 
 	//make this a header line if the input is "setcaptions"
-	if ((/setcaptions/i).test(input[0])) {
+	if (/setcaptions/i.test(input[0])) {
 		//have a function to create rich text span
 		var createSpan = function(inTxt) {
 			var toCap = inTxt.substring(0, inTxt.indexOf(" ") === 0 ? 2 : 1)
@@ -344,8 +352,8 @@ function ApplySpell(FldValue, rememberFldName) {
 		}
 
 		//set the headers values
-		var HeaderList = ReturnSpellFieldsContentArray(false, (/psionic/i).test(input[0]));
-		if (input[1]) HeaderList[0] = input[1].substring(0, (/\(.\)|\d-\d/).test(input[1]) ? 3 : 2).toUpperCase();
+		var HeaderList = ReturnSpellFieldsContentArray(false, /psionic/i.test(input[0]));
+		if (input[1]) HeaderList[0] = input[1].substring(0, /\(.\)|\d-\d/.test(input[1]) ? 3 : 2).toUpperCase();
 		for (var i = 0; i < HeaderList.length; i++) {
 			var theFld = tDoc.getField(spFlds[i]);
 			if (!typePF) {
@@ -378,14 +386,14 @@ function ApplySpell(FldValue, rememberFldName) {
 	}
 
 	// Now test if the fields should be hidden, or revealed
-	if ((/hidethisline|setheader|setdivider|setglossary/i).test(input[0])) {
+	if (/hidethisline|setheader|setdivider|setglossary/i.test(input[0])) {
 		//reset all the field's values and hide them
 		for (var i = 0; i < spFlds.length - 1; i++) {
 			Value(spFlds[i], i !== 0 ? "" : "hide", "");
 			Hide(spFlds[i]);
 		}
 		//and don't do the rest of this function if we are here to hide this line
-		if ((/hidethisline/i).test(input[0])) return;
+		if (/hidethisline/i.test(input[0])) return;
 	} else if (tDoc.getField(spFlds[1]).display === display.hidden) { //if the name field is hidden, but the value has been removed, show them again
 		for (var i = 1; i < spFlds.length - 1; i++) { Show(spFlds[i]); }
 	}
@@ -395,9 +403,11 @@ function ApplySpell(FldValue, rememberFldName) {
 		var okChecks = ["checkbox", "checkedbox", "markedbox", "atwill", "oncelr", "oncesr"];
 		var currentCheck = What(spFlds[0]).toLowerCase();
 		var input1 = input[1] ? input[1].toLowerCase() : "";
-		if (!input1 || okChecks.indexOf(input1) === -1) {
-			Value(spFlds[0], input1 ? input1.toUpperCase().substring(0, (/\(.\)|\d-\d/).test(input1) ? 3 : 2) : "");
-		} else if (input1 !== currentCheck && okChecks.indexOf(input1) !== -1 && (input1.substring(0, 4) !== currentCheck.substring(0, 4) || okChecks.indexOf(input1) > 1)) {
+		if (currentCheck === input1) return;
+		var isImage = okChecks.indexOf(input1) !== -1;
+		if (!input1 || !isImage) {
+			Value(spFlds[0], input1 ? input1.toUpperCase().substring(0, /\(.\)|\d-\d/.test(input1) ? 3 : 2) : "");
+		} else if (isImage && !( /^check/.test(currentCheck) && /^check/.test(input1) )) {
 			Value(spFlds[0], input1);
 		}
 	}
@@ -410,20 +420,20 @@ function ApplySpell(FldValue, rememberFldName) {
 			Value(spFlds[i], "", "");
 		};
 		if (!resetAll) setCheck();
-	} else if ((/setheader/i).test(input[0])) {
+	} else if (/setheader/i.test(input[0])) {
 		var theClass = input[1] && CurrentSpells[input[1].toLowerCase()] ? input[1].toLowerCase() : "";
 		var theSuffix = input[2] !== undefined && !isNaN(parseFloat(input[2])) ? parseFloat(input[2]) : false;
 		var hidePrepared = input.indexOf("nopreps") !== -1;
 		if (theSuffix !== false ) {
 			SetSpellSheetElement(base, "header", theSuffix, theClass, hidePrepared, input[3], input[4], input[5], input[6], input[7]);
 		}
-	} else if ((/setdivider/i).test(input[0])) {
+	} else if (/setdivider/i.test(input[0])) {
 		var theLevel = input[1] !== undefined && !isNaN(parseFloat(input[1])) ? parseFloat(input[1]) : false;
 		var theSuffix = input[2] !== undefined && !isNaN(parseFloat(input[2])) ? parseFloat(input[2]) : false;
 		if (theLevel !== false && theSuffix !== false) {
 			SetSpellSheetElement(base, "divider", theSuffix, theLevel, false, input[3]);
 		}
-	} else if ((/setglossary/i).test(input[0])) {
+	} else if (/setglossary/i.test(input[0])) {
 		SetSpellSheetElement(base, "glossary", "");
 	} else if (input[0].indexOf("_") === 0) { //make all the fields lines
 		//reset all the field's values and tooltips to the lines defined in the array
@@ -444,10 +454,12 @@ function ApplySpell(FldValue, rememberFldName) {
 			// if the name used is a shortened version, set the full name as a tooltip
 			var NameFld = base.replace("remember", "name");
 			var NameFldValue = What(NameFld);
+			var NameFldReqLos = NameFldValue.indexOf(SpellReqLosTag) !== -1;
 			var NameFldRitual = NameFldValue.indexOf(SpellRitualTag) !== -1;
-			if (input[0] !== NameFldValue || (aSpell.ritual && !NameFldRitual)) {
+			if (input[0] !== NameFldValue || (aSpell.reqLoS && !NameFldReqLos) || (aSpell.ritual && !NameFldRitual)) {
 				var spName = getSpNm(theSpl, true, aSpell);
-				if (aSpell.ritual) spName[0] += " "+SpellRitualTag;
+				if (aSpell.reqLoS && !NameFldReqLos) spName[0] += " "+SpellReqLosTag;
+				if (aSpell.ritual && !NameFldRitual) spName[0] += " "+SpellRitualTag;
 				Value(NameFld, spName[0], spName[1]);
 			}
 
@@ -510,7 +522,7 @@ function SetSpell(FldValue, nameFldName) {
 	var input = FldValue ? FldValue : What(event.target.name);
 	var base = nameFldName ? nameFldName : event.target.name;
 	var remFld = base.replace("name", "remember");
-	if (input.toLowerCase() === "" || (/setcaptions/).test(input) || input.indexOf("##") !== -1) { //if the name field has a ## in it, assume we need to replace everything in the remember field
+	if (input.toLowerCase() === "" || /setcaptions/.test(input) || input.indexOf("##") !== -1) { //if the name field has a ## in it, assume we need to replace everything in the remember field
 		var toUseValue = input;
 	} else { //otherwise only replace the first entry in the remember field
 		var remFldValue = What(remFld).split("##");
@@ -667,9 +679,9 @@ function SetSpellSheetElement(target, type, suffix, caster, hidePrepared, forceT
 
 		if (caster && CurrentSpells[caster]) {
 			var spCast = CurrentSpells[caster];
-			var isPsionics = spCast.factor && (/psionic/i).test(spCast.factor[1]);
+			var isPsionics = spCast.factor && /psionic/i.test(spCast.factor[1]);
 			var casterName = forceTxt ? forceTxt : spCast.name.replace(/book of /i, "").replace(/ (\(|\[).+?(\)|\])/g, "");
-			if (!forceTxt) casterName = casterName + (casterName.length >= testLength || (/\b(spells|powers|psionics)\b/i).test(casterName) ? "" : isPsionics ? " Psionics" : " Spells");
+			if (!forceTxt) casterName = casterName + (casterName.length >= testLength || /\b(spells|powers|psionics)\b/i.test(casterName) ? "" : isPsionics ? " Psionics" : " Spells");
 			//set the variable to true to later hide the prepared fields if not concerning a list or book
 			if (!spCast.level || spCast.typeSp === "known" || !spCast.known || !spCast.known.prepared || spCast.typeList === 3) {
 				hidePrepared = true;
@@ -694,10 +706,10 @@ function SetSpellSheetElement(target, type, suffix, caster, hidePrepared, forceT
 			var casterName = " ";
 			if (caster) {
 				var casterObj = ClassList[caster] ? ClassList[caster] : ClassSubList[caster] ? ClassSubList[caster] : false;
-				var isPsionics = casterObj && casterObj.spellcastingFactor && (/psionic/i).test(casterObj.spellcastingFactor);
+				var isPsionics = casterObj && casterObj.spellcastingFactor && /psionic/i.test(casterObj.spellcastingFactor);
 				casterName = !casterObj ? caster.capitalize() : (casterObj.fullname ? casterObj.fullname : casterObj.subname ? casterObj.subname : casterObj.name);
 				casterName = casterName.replace(/book of | (\(|\[).+?(\)|\])/ig, "").replace(/ (\(|\[).+?(\)|\])/g, "");
-				casterName = casterName + (casterName.length >= testLength || (/\b(spells|powers|psionics)\b/i).test(casterName) ? "" : isPsionics ? " Psionics" : " Spells");
+				casterName = casterName + (casterName.length >= testLength || /\b(spells|powers|psionics)\b/i.test(casterName) ? "" : isPsionics ? " Psionics" : " Spells");
 				if (casterObj) {
 					PickDropdown(headerArray[3], casterObj.abilitySave);
 				}
@@ -794,7 +806,7 @@ function CalcSpellScores() {
 		}
 	}
 
-	if (modFld == "nothing" && !fixedDC) {
+	if (modFld == "nothing" && !fixedDC && !fixedSpAttack) {
 		setResults(false);
 		return;
 	}
@@ -1097,7 +1109,7 @@ function CreateSpellList(inputObject, toDisplay, extraArray, returnOrdered, objN
 			addSp = inputObject.school.indexOf(aSpell.school) !== -1;
 		}
 		if (addSp && inputObject.attackOnly !== undefined) {
-			var isAttackSpell = (/^(booming blade|green-flame blade)$/).test(key) || (/spell attack/i).test(aSpell.description + aSpell.descriptionFull);
+			var isAttackSpell = /^(booming blade|green-flame blade)$/.test(key) || /spell attack/i.test(aSpell.description + aSpell.descriptionFull);
 			addSp = isAttackSpell == inputObject.attackOnly;
 		}
 		if (addSp && inputObject.ritual !== undefined) {
@@ -1292,7 +1304,7 @@ function showSpellDescriptionDialog(fSpell, aClass, fullDescr, sourceStr) {
 	}
 	if (sourceStr) { 
 		sourceStr = "\n\n__________\n\n" + toUni("Source(s) of the Spell") + "\n \u2022 " + sourceStr.replace(/\n/g, "\n \u2022 ");
-		if ((/>>  CHANGES BY FEATURES/i).test(fullDescr)) {
+		if (/>>  CHANGES BY FEATURES/i.test(fullDescr)) {
 			fullDescr = fullDescr.replace(/\n*(>>  CHANGES BY FEATURES)/i, sourceStr + "\n\n__________\n\n$1");
 		} else {
 			fullDescr += sourceStr;
@@ -1386,6 +1398,7 @@ function DefineSpellSheetDialogs(force, formHeight) {
 		dashEmptyFields : true,
 		amendSpellDescriptions : true,
 		allowSpellAdd : true,
+		useDependencies : true,
 
 		initialize : function (dialog) {
 			//set the ExcLuded list
@@ -1400,7 +1413,8 @@ function DefineSpellSheetDialogs(force, formHeight) {
 				"Glos" : this.glossary,
 				"Dash" : this.dashEmptyFields,
 				"Amnd" : this.amendSpellDescriptions,
-				"SAdd" : this.allowSpellAdd
+				"SAdd" : this.allowSpellAdd,
+				"SDep" : this.useDependencies,
 			});
 
 			//set the IncLuded list
@@ -1436,6 +1450,7 @@ function DefineSpellSheetDialogs(force, formHeight) {
 			this.dashEmptyFields = oResult["Dash"];
 			this.amendSpellDescriptions = oResult["Amnd"];
 			this.allowSpellAdd = oResult["SAdd"];
+			this.useDependencies = oResult["SDep"];
 		},
 
 		BTRA : function (dialog) {
@@ -1689,6 +1704,10 @@ function DefineSpellSheetDialogs(force, formHeight) {
 					type : "check_box",
 					item_id : "SAdd",
 					name : "Allow features to dynamically change spells (e.g. allow a feature to add Charisma modifier to fire damage spells)"
+				}, {
+					type : "check_box",
+					item_id : "SDep",
+					name : "Allow spells to take up multiple lines"
 				}, {
 					type : "check_box",
 					item_id : "Dash",
@@ -2895,7 +2914,7 @@ function AskUserSpellSheet() {
 		spCast.maxSpell = maxSpell;
 
 		//see if this is a psionic caster
-		var isPsionics = spCast.factor && (/psionic/i).test(spCast.factor[1]);
+		var isPsionics = spCast.factor && /psionic/i.test(spCast.factor[1]);
 
 		//set all the general parts of the dialog
 		dia.caNm = isPsionics ? spellLevelList[10] : spellLevelList[0].replace(/ \(.*/, '');
@@ -2949,7 +2968,7 @@ function AskUserSpellSheet() {
 			}
 
 			//show the spell radio buttons if concerning a level-dependent spellcaster (classes)
-			dia.showSpRadio = (/list|book|known/i).test(dia.typeSp);
+			dia.showSpRadio = /list|book|known/i.test(dia.typeSp);
 
 			if (dia.showSpRadio) { // set the name of the radio buttons and set the selection
 				var diaRadBtns = [];
@@ -3159,7 +3178,7 @@ function AskUserSpellSheet() {
 						if (BonusSpecialActions.atwill[boNmr]) spCast.special.atwill.push(dia.selectBo[boNmr]); //those that are usable at will for referencing it later
 						if (BonusSpecialActions.oncelr[boNmr]) spCast.special.oncelr.push(dia.selectBo[boNmr]); //those that are usable once per LR for referencing it later
 						if (BonusSpecialActions.oncesr[boNmr]) spCast.special.oncesr.push(dia.selectBo[boNmr]); //those that are usable once per SR for referencing it later
-						if (BonusSpecialActions.other[boNmr]) spCast.special.other[dia.selectBo[boNmr]] = (/^(atwill|oncelr|oncesr|markedbox|checkbox|checkedbox)$/).test(BonusSpecialActions.other[boNmr]) ? BonusSpecialActions.other[boNmr] : BonusSpecialActions.other[boNmr].substring(0, (/\(.\)|\d-\d/).test(BonusSpecialActions.other[boNmr]) ? 3 : 2); //those that have a special first column, up to two/three characters
+						if (BonusSpecialActions.other[boNmr]) spCast.special.other[dia.selectBo[boNmr]] = /^(atwill|oncelr|oncesr|markedbox|checkbox|checkedbox)$/.test(BonusSpecialActions.other[boNmr]) ? BonusSpecialActions.other[boNmr] : BonusSpecialActions.other[boNmr].substring(0, /\(.\)|\d-\d/.test(BonusSpecialActions.other[boNmr]) ? 3 : 2); //those that have a special first column, up to two/three characters
 						spBonusi.selection[y-1] = dia.selectBo[boNmr]; //set the selection(s)
 						boNmr += 1; //count the number of bonus things
 					}
@@ -3360,6 +3379,7 @@ function AskUserSpellSheet() {
 		spDias.sheetOrder.dashEmptyFields = CurrentCasters.emptyFields ? false : true;
 		spDias.sheetOrder.amendSpellDescriptions = CurrentCasters.amendSpDescr || CurrentCasters.amendSpDescr === undefined ? true : false;
 		spDias.sheetOrder.allowSpellAdd = CurrentCasters.allowSpellAdd || CurrentCasters.allowSpellAdd === undefined ? true : false;
+		spDias.sheetOrder.useDependencies = CurrentCasters.useDependencies || CurrentCasters.useDependencies === undefined ? true : false;
 		if (app.execDialog(spDias.sheetOrder) !== "ok") {
 			toReturn = "stop"; //don't continue with the rest of the function and let the other function know not to continue either
 		} else {
@@ -3385,6 +3405,7 @@ function AskUserSpellSheet() {
 			CurrentCasters.emptyFields = !spDias.sheetOrder.dashEmptyFields;
 			CurrentCasters.amendSpDescr = spDias.sheetOrder.amendSpellDescriptions;
 			CurrentCasters.allowSpellAdd = spDias.sheetOrder.allowSpellAdd;
+			CurrentCasters.useDependencies = spDias.sheetOrder.useDependencies;
 		}
 		thermoM(0.5); //progress the progress dialog so that it looks like something is happening (don't close it yet)
 	}
@@ -3519,10 +3540,21 @@ function GenerateSpellSheet(GoOn) {
 			continue;
 		};
 
+		/* Now all Prepared ('Pr') in D&D 2024
 		//add "Me" or "Kn" to the column headers or not?
-		var MeKn = spCast.firstCol !== undefined ? "##" + spCast.firstCol :
+		var MeKn = spCast.firstCol !== undefined ? spCast.firstCol :
 		spCast.known && spCast.known.prepared && spCast.typeList !== 3 ? (spCast.typeSp === "book" && spCast.typeList === 4 ? "##sb" : "##me") :
-		spCast.typeList === 4 || (/race|feat|item/i).test(spCast.typeSp) ? "##kn" : "##"; 
+		spCast.typeList === 4 || /race|feat|item/i.test(spCast.typeSp) ? "##kn" : "##";
+		*/
+
+		var captionFirstCol = "##";
+		if (spCast.firstCol !== undefined) {
+			// defined by CurrentSpells object
+			captionFirstCol += spCast.firstCol;
+		} else if (spCast.known && spCast.known.prepared && spCast.typeList !== 3 || spCast.typeList === 4) {
+			// prepared, of spellbook (SB) if a book caster and generating a full list
+			captionFirstCol += spCast.typeSp === "book" && spCast.typeList === 4 ? 'sb' : 'pr';
+		}
 
 		//see if we need to stop short of doing all the spells
 		var maxLvl = 9;
@@ -3552,7 +3584,7 @@ function GenerateSpellSheet(GoOn) {
 			// once we surpass the highest level (9) now do the psionic talents/disciplines
 			if (lvl === 10) {
 				isPsionics = "psionic";
-				MeKn = spCast.firstCol !== undefined ? "##" + spCast.firstCol : "##pp";
+				captionFirstCol = spCast.firstCol !== undefined ? "##" + spCast.firstCol : "##pp";
 			}
 			var spArray = orderedSpellList[lvl];
 			if (!spArray || !spArray.length) continue;
@@ -3587,7 +3619,9 @@ function GenerateSpellSheet(GoOn) {
 			dividerCurrent += 1;
 
 			//then add the title line
-			Value(prefixCurrent + "spells.remember." + lineCurrent, isPsionics + "setcaptions" + ((lvl === 0 || lvl === 10) && spCast.typeList === 4 && spCast.firstCol === undefined ? "##kn" : MeKn));
+			// Now all Prepared ('Pr') in D&D 2024
+			// Value(prefixCurrent + "spells.remember." + lineCurrent, isPsionics + "setcaptions" + ((lvl === 0 || lvl === 10) && spCast.typeList === 4 && spCast.firstCol === undefined ? "##kn" : captionFirstCol));
+			Value(prefixCurrent + "spells.remember." + lineCurrent, isPsionics + "setcaptions" + captionFirstCol);
 			lineCurrent += 1;
 
 			for (var y = 0; y < spArray.length; y++) {
@@ -3988,8 +4022,11 @@ function ParseSpellMenu() {
 			if (spellsArray.length > 0) {
 				var spellsTemp = {cName : nameArray[y], oSubMenu : []};
 				for (var i = 0; i < spellsArray.length; i++) {
+					var spellObj = SpellsList[spellsArray[i]];
 					spellsTemp.oSubMenu.push({
-						cName : SpellsList[spellsArray[i]].name + (SpellsList[spellsArray[i]].ritual ? " "+SpellRitualTag : ""),
+						cName : spellObj.name+
+							(spellObj.ritual ? " "+SpellRitualTag : "")+
+							(spellObj.dependencies && CurrentCasters.useDependencies !== false ? " [uses " + (1 + spellObj.dependencies.length) + " rows]" : ""),
 						cReturn : "spell" + "#" + spellsArray[i] + "#"
 					})
 				}
@@ -4030,13 +4067,13 @@ function ParseSpellMenu() {
 	var moreSpellCasters = [];
 	for (var aClass in ClassList) {
 		if (aClass === "rangerua") continue;
-		if (ClassList[aClass].spellcastingFactor && !(/psionic/i).test(ClassList[aClass].spellcastingFactor)) {
+		if (ClassList[aClass].spellcastingFactor && !/psionic/i.test(ClassList[aClass].spellcastingFactor)) {
 			if (allSpellCasters.indexOf(aClass) === -1 && moreSpellCasters.indexOf(aClass) === -1 && !testSource(aClass, ClassList[aClass], "classExcl")) moreSpellCasters.push(aClass);
 		} else {
 			var subClasses = ClassList[aClass].subclasses[1];
 			for (var SC = 0; SC < subClasses.length; SC++) {
 				var aSubClass = subClasses[SC];
-				if (ClassSubList[aSubClass].spellcastingFactor && !(/psionic/i).test(ClassSubList[aSubClass].spellcastingFactor) && allSpellCasters.indexOf(aSubClass) === -1 && moreSpellCasters.indexOf(aSubClass) === -1 && !testSource(aSubClass, ClassSubList[aSubClass], "classExcl")) moreSpellCasters.push(aSubClass);
+				if (ClassSubList[aSubClass].spellcastingFactor && !/psionic/i.test(ClassSubList[aSubClass].spellcastingFactor) && allSpellCasters.indexOf(aSubClass) === -1 && moreSpellCasters.indexOf(aSubClass) === -1 && !testSource(aSubClass, ClassSubList[aSubClass], "classExcl")) moreSpellCasters.push(aSubClass);
 			}
 		}
 	};
@@ -4115,8 +4152,11 @@ function ParsePsionicsMenu() {
 			if (spellsArray.length > 0) {
 				var spellsTemp = {cName : nameArray[y > 1 ? 2 : y], oSubMenu : []};
 				for (var i = 0; i < spellsArray.length; i++) {
+					var spellObj = SpellsList[spellsArray[i]];
 					spellsTemp.oSubMenu.push({
-						cName : SpellsList[spellsArray[i]].name + (SpellsList[spellsArray[i]].dependencies ? " [uses " + (1 + SpellsList[spellsArray[i]].dependencies.length) + " rows]" : ""),
+						cName : spellObj.name+
+							(spellObj.ritual ? " "+SpellRitualTag : "")+
+							(spellObj.dependencies && CurrentCasters.useDependencies !== false ? " [uses " + (1 + spellObj.dependencies.length) + " rows]" : ""),
 						cReturn : "spell" + "#" + spellsArray[i] + (SpellsList[spellsArray[i]].firstCol ? "#" : SpellsList[spellsArray[i]].level ? "#checkbox" : "#atwill")
 					})
 				}
@@ -4133,13 +4173,13 @@ function ParsePsionicsMenu() {
 
 	var morePsionicists = [];
 	for (var aClass in ClassList) {
-		if (ClassList[aClass].spellcastingFactor && (/psionic/i).test(ClassList[aClass].spellcastingFactor)) {
+		if (ClassList[aClass].spellcastingFactor && /psionic/i.test(ClassList[aClass].spellcastingFactor)) {
 			if (allPsionicists.indexOf(aClass) === -1 && morePsionicists.indexOf(aClass) === -1 && !testSource(aClass, ClassList[aClass], "classExcl")) morePsionicists.push(aClass);
 		} else {
 			var subClasses = ClassList[aClass].subclasses[1];
 			for (var SC = 0; SC < subClasses.length; SC++) {
 				var aSubClass = subClasses[SC];
-				if (ClassSubList[aSubClass].spellcastingFactor && (/psionic/i).test(ClassSubList[aSubClass].spellcastingFactor) && allPsionicists.indexOf(aSubClass) === -1 && morePsionicists.indexOf(aSubClass) === -1 && !testSource(aSubClass, ClassSubList[aSubClass], "classExcl")) morePsionicists.push(aSubClass);
+				if (ClassSubList[aSubClass].spellcastingFactor && /psionic/i.test(ClassSubList[aSubClass].spellcastingFactor) && allPsionicists.indexOf(aSubClass) === -1 && morePsionicists.indexOf(aSubClass) === -1 && !testSource(aSubClass, ClassSubList[aSubClass], "classExcl")) morePsionicists.push(aSubClass);
 			}
 		}
 	};
@@ -4305,7 +4345,9 @@ function MakeSpellLineMenu_SpellLineOptions() {
 	// add a way to see the spell's full description in a dialog
 	var fullDescr = Who(base.replace("checkbox", "description"));
 	if (fullDescr) {
-		menuLVL1(spellsLineMenu, [["Show full text of " + What(base.replace("checkbox", "name")), "popup"]])
+		var spellNameFld = base.replace("checkbox", "name");
+		var spellName = Who(spellNameFld) ? Who(spellNameFld) : What(spellNameFld).replace(SpellRitualTag, "").replace(SpellReqLosTag, "");
+		menuLVL1(spellsLineMenu, [["Show full text of " + spellName, "popup"]])
 		spellsLineMenu.push({cName : "-"});
 	}
 
@@ -4317,7 +4359,9 @@ function MakeSpellLineMenu_SpellLineOptions() {
 	menuLVL2(spellsLineMenu, ["Empty Printable Line", "___"], lineTypes);
 
 	//add the options for adding a caption line
-	var captionArray = [["with empty first column", ""], ["with 'Me' as first column (memorized)", "me"], ["with 'Kn' as first column (known)", "kn"], ["Ask me for the first column", "askuserinput"]];
+	// Now all Prepared ('Pr') in D&D 2024
+	// var captionArray = [["with empty first column", ""], ["with 'Me' as first column (memorized)", "me"], ["with 'Kn' as first column (known)", "kn"], ["Ask me for the first column", "askuserinput"]];
+	var captionArray = [["with empty first column", ""], ["with 'Pr' as first column (prepared)", "pr"], ["with 'Sb' as first column (spellbook)", "sb"], ["Ask me for the first column", "askuserinput"]];
 	if (addPsionics) captionArray.splice(3, 0, ["for Psionics", "psionicpp"]);
 	menuLVL2(spellsLineMenu, ["Column Captions", "setcaptions"], captionArray);
 
@@ -4402,7 +4446,7 @@ function MakeSpellLineMenu_SpellLineOptions() {
 			MenuSelection[2] = AskUserTwoLetters(false);
 		};
 		Value(RemLine, MenuSelection[1] + "##" + MenuSelection[2]);
-		if (SpellsList[MenuSelection[1]] && SpellsList[MenuSelection[1]].dependencies) {
+		if (CurrentCasters.useDependencies !== false && SpellsList[MenuSelection[1]] && SpellsList[MenuSelection[1]].dependencies) {
 			theDeps = SpellsList[MenuSelection[1]].dependencies;
 			var theNextLineValue = What(RemLine.replace("." + lineNmbr, "." + (lineNmbr + 1)));
 			insertSpellRow(prefix, lineNmbr + 1, theDeps.length - (theNextLineValue ? 0 : 1));
@@ -4416,13 +4460,13 @@ function MakeSpellLineMenu_SpellLineOptions() {
 	 case "setdivider" :
 		if (MenuSelection[1] === "askuserinput") {
 			MenuSelection[1] = AskUserTwoLetters(MenuSelection[0] !== "___");
-		} else if ((/psionic/i).test(MenuSelection[1])) {
+		} else if (/psionic/i.test(MenuSelection[1])) {
 			MenuSelection[0] = "psionic" + MenuSelection[0];
 			MenuSelection[1] = MenuSelection[1].replace(/psionic/i, "");
 		}
 	 case "setheader" :
 	 case "setglossary" :
-		if ((/set(header|divider|glossary)/i).test(MenuSelection[0])) {
+		if (/set(header|divider|glossary)/i.test(MenuSelection[0])) {
 			tDoc.resetForm([RemLine]);
 			insertSpellRow(prefix, lineNmbr, MenuSelection[0] === "setheader" ? 3 : MenuSelection[0] === "setdivider" ? 1 : 11, true);
 		};
@@ -4447,7 +4491,7 @@ function MakeSpellLineMenu_SpellLineOptions() {
 		break;
 	 case "firstcolumn" :
 		if (MenuSelection[1] === "askuserinput") {
-			MenuSelection[1] = AskUserTwoLetters((/setcaptions/i).test(What(RemLine)));
+			MenuSelection[1] = AskUserTwoLetters(/setcaptions/i.test(What(RemLine)));
 		}
 		thermoTxt = thermoM("Setting " + MenuSelection[1] + " as the spell row first column...", false);
 		var RemLineValue = What(RemLine).split("##");
@@ -4557,18 +4601,18 @@ function deleteSpellRow(prefix, lineNmbr) {
 	// Function
 	var returnClearance = function(prefix, offsetNmbr) {
 		var fldVal = What(prefix + "spells.remember." + offsetNmbr);
-		if (!(/set(header|divider|glossary)/i).test(fldVal)) {
+		if (!/set(header|divider|glossary)/i.test(fldVal)) {
 			return 0;
-		} else if ((/setglossary/i).test(fldVal)) {
+		} else if (/setglossary/i.test(fldVal)) {
 			return 12;
 		}
 		// See how many lines before the next header/divider or until we have 11 lines
-		var clearance = (/setdivider/i).test(fldVal) ? 2 : 5;
-		var breakAt = (/setdivider/i).test(fldVal) ? 13 : 17;
+		var clearance = /setdivider/i.test(fldVal) ? 2 : 5;
+		var breakAt = /setdivider/i.test(fldVal) ? 13 : 17;
 		var trailingEmpty = 0;
 		for (var i = clearance + offsetNmbr; i <= FieldNumbers.spells[1]; i++) {
 			var lineVal = What(prefix + "spells.remember." + i);
-			if ((/set(header|divider|glossary)/i).test(lineVal)) break;
+			if (/set(header|divider|glossary)/i.test(lineVal)) break;
 			clearance++;
 			trailingEmpty = lineVal && lineVal.indexOf("___") != 0 ? 0 : trailingEmpty + 1;
 			if (clearance == breakAt) break;
@@ -4639,7 +4683,7 @@ function deleteSpellRow(prefix, lineNmbr) {
 				}
 			}
 			// Copy every field's value from the next row (+ offset) and empty the next row
-			var nextHasImage = !(/set(header|divider|glossary)/i).test(nextLineVals[0]) ? false : (/setheader/i).test(nextLineVals[0]) ? "header" : (/setdivider/i).test(nextLineVals[0]) ? "divider" : "glos"
+			var nextHasImage = !/set(header|divider|glossary)/i.test(nextLineVals[0]) ? false : /setheader/i.test(nextLineVals[0]) ? "header" : /setdivider/i.test(nextLineVals[0]) ? "divider" : "glos"
 			for (var i = 0; i < thisLineFlds.length; i++) {
 				if (i === 0 && nextHasImage) {
 					var splitVal = nextLineVals[i].split("##");
@@ -4695,7 +4739,7 @@ function insertSpellRow(prefix, lineNmbr, toMove, ignoreEmptyTop) {
 	if (!SSmoreA[0]) SSmoreA.shift();
 	var thisSheet = SSmoreA.indexOf(prefix);
 	// If the next row is an image, start inserting one row below
-	if (lineNmbr < FieldNumbers.spells[prefix.indexOf("SSfront") != -1 ? 0 : 1] && (/setheader|setdivider|setglossary/i).test(What(prefix + "spells.remember." + (lineNmbr + 1)))) {
+	if (lineNmbr < FieldNumbers.spells[prefix.indexOf("SSfront") != -1 ? 0 : 1] && /setheader|setdivider|setglossary/i.test(What(prefix + "spells.remember." + (lineNmbr + 1)))) {
 		lineNmbr += 1;
 	}
 	// Make an array of all the remember field values, starting with the one we are at, until we find enough empty rows (same as toMove)
@@ -4732,7 +4776,7 @@ function insertSpellRow(prefix, lineNmbr, toMove, ignoreEmptyTop) {
 				};
 				emptyCount = 0;
 			}
-			if (rememberRow[0] === 0 && (/setheader|setdivider|setglossary/i).test(thisLineVals[0])) {
+			if (rememberRow[0] === 0 && /setheader|setdivider|setglossary/i.test(thisLineVals[0])) {
 				//if the amount of lines we need to move down to is not on this page anymore, we need to add some empty lines to move it to the next page
 				var setType = thisLineVals[0].indexOf("setheader") !== -1 ? "header" : thisLineVals[0].indexOf("setdivider") !== -1 ? "divider" : "glossary";
 				var thisValueArray = thisLineVals[0].split("##");
@@ -5028,8 +5072,8 @@ function AddSpellSheetTextLines(prefix, boxes, maxLine) {
 
 //generate the spell sheet for all the different classes
 function GenerateCompleteSpellSheet(thisClass, skipdoGoOn) {
-	if ((/alphabetical|grouped by level/i).test(thisClass)) {
-		GenerateSpellSheetWithAll((/alphabetical/i).test(thisClass), skipdoGoOn);
+	if (/alphabetical|grouped by level/i.test(thisClass)) {
+		GenerateSpellSheetWithAll(/alphabetical/i.test(thisClass), skipdoGoOn);
 		return;
 	};
 	if (app.viewerType !== "Reader" && tDoc.info.SpellsOnly) {
@@ -5108,7 +5152,9 @@ function GenerateCompleteSpellSheet(thisClass, skipdoGoOn) {
 		//add spell dependencies to fill out the array
 		spArray = addSpellDependencies(spArray);
 		spArray = spArray.concat(["___", "___", "___"]); //add three empty lines to the end of the level-array
-		var MeKn = isPsionics ? "##pp" : lvl === 0 ? "##Kn" : (isPrep ? "##Me" : "##Kn");
+		// Now all Prepared ('Pr') in D&D 2024
+		// var MeKn = isPsionics ? "##pp" : lvl === 0 ? "##Kn" : (isPrep ? "##Me" : "##Kn");
+		var captionFirstCol = isPsionics ? "##pp" : "##pr";
 
 		//first test if there is enough space left on the current page to add what we need to
 		//assume that we need to add at least 10 of the spells, the total of this level of spells, whichever is less
@@ -5133,7 +5179,7 @@ function GenerateCompleteSpellSheet(thisClass, skipdoGoOn) {
 		dividerCurrent += 1;
 
 		//then add the title line
-		Value(prefixCurrent + "spells.remember." + lineCurrent, isPsionics + "setcaptions" + MeKn);
+		Value(prefixCurrent + "spells.remember." + lineCurrent, isPsionics + "setcaptions" + captionFirstCol);
 		lineCurrent += 1;
 
 		for (var y = 0; y < spArray.length; y++) {
@@ -5242,7 +5288,7 @@ function ChangeToCompleteSpellSheet(thisClass, FAQpath) {
 		'this.info.SheetType = "' + tDoc.info.SheetType + '";',
 		'this.info.Keywords = "' + (!typePF ? keyCF : (tDoc.info.SheetType === "Printer Friendly" ? keyPF : keyPFR)) + '";',
 		'this.info.ContactEmail = "' + tDoc.info.ContactEmail + '";',
-		'this.info.Subject = "D&D 5e; Character Sheet; Spell Sheet; Spell Sheet Generator";',
+		'this.info.Subject = "D&D 2024; Character Sheet; Spell Sheet; Spell Sheet Generator";',
 		"setGlobalVars();",
 		"this.info.Title = MakeDocName();",
 		"CreateBkmrksCompleteSpellSheet();",
@@ -5354,7 +5400,7 @@ function SpellPointsLimFea(AddRemove) {
 		var SPexists = false;
 		//first see if the limited feature not already exists
 		for (var i = 1; i <= FieldNumbers.limfea; i++) {
-			if ((/spell.?points?/i).test(What("Limited Feature " + i))) {
+			if (/spell.?points?/i.test(What("Limited Feature " + i))) {
 				SPexists = true;
 				break;
 			}
@@ -5470,6 +5516,7 @@ function testSpellArray(spArr) {
 
 //a way to add dependencies of spells to an array of spells at the right spot
 function addSpellDependencies(spArr) {
+	if (CurrentCasters.useDependencies === false) return spArr;
 	var returnArray = [];
 	spArr.forEach(function (sp) {
 		if (SpellsList[sp]) {
@@ -5692,12 +5739,58 @@ function getSpellcastingAbility(theCast) {
 	return [spAbility, casterArray];
 };
 
+/** Compare casters' spellcasting ability with another ability and return ability with the highest bonus
+ * @param {string[]|string} aCasters CurrentSpells object key(s)
+ * @param {number} [fallbackAbi] ability to beat (1=Str, 2=Dex, 3=Con, 4=Int, 5=Wis, 6=Cha)
+ * @param {boolean} [isDC] [optional] set to `true` if this is concerning a dc and not an attack bonus (default)
+ * 
+ * @returns {object} {ability[number], bonus[number], caster[string]}
+ */
+function getHighestSpellcastingAbility(aCasters, fallbackAbi, isDC) {
+	if (!isArray(aCasters)) aCasters = [aCasters];
+	var sCast;
+	var flatBonus = getProfBonus() + (isDC ? 8 : 0);
+	// include the score so thie higer scores is preferred even if modifiers are equal
+	var iToBeat = !fallbackAbi ? 0 : getAbiModValue(fallbackAbi, false, false, "tiebreak") + flatBonus;
+	var iAbility = fallbackAbi ? fallbackAbi : 0;
+	// loop through aCasters and overwrite the variables if it returns a higher value
+	for (var i = 0; i < aCasters.length; i++) {
+		// Get the CurrentSpells object or return the input if it doesn't exist
+		var oCast = CurrentSpells[aCasters[i]];
+		if (!oCast) continue;
+
+		// Get the oCast's spellcasting ability, create it if it hasn't been generated
+		if (!oCast.abilityToUse) oCast.abilityToUse = getSpellcastingAbility(aCasters[i]);
+		var iCastAbi = oCast.abilityToUse[0];
+
+		// Get the DC / Spell attack for the caster to compare, or calulated its likely value if it hasn't been calculated because no spell sheet has been generated
+		var iScore = oCast.calcSpellScores ? oCast.calcSpellScores[isDC ? "dc" : "attack"] + (getAbiModValue(iCastAbi, false, false, true) / 100) : getAbiModValue(iCastAbi, false, false, "tiebreak") + flatBonus;
+
+		if (iScore > iToBeat) {
+			iAbility = iCastAbi;
+			iToBeat = iScore;
+			sCast = aCasters[i];
+		}
+	}
+
+	return { ability: iAbility, bonus: iToBeat, caster: sCast };
+}
+
+/** Test if these casters are currently present
+ * @param {string[]|string} aCasters CurrentSpells object key(s)
+ * @returns {boolean} true if any of the entries in the array are a valid CurrentSpels object key
+ */
+function existsInCurrentSpells(aCasters) {
+	if (!isArray(aCasters)) aCasters = [aCasters];
+	return aCasters.some(function(n) { return CurrentSpells[n] });
+}
+
 // A generic function to call from a calcChanges.spellAdd object to add a certain ability score
 // dmgType has to be already escaped for use in regular expressions
 // ability has to be the three-letter abbreviation of an ability starting with a capital, a number, or dice type (e.g. '1d8'). Anything else will cause the function call to fail (nothing happens)
 function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, onlyRolls, maximizeRolls) {
 	if (!spellKey || !SpellsList[spellKey] || !spellObj || !dmgType || (spellObj.dynamicDamageBonus && spellObj.dynamicDamageBonus.doNotProcess)) return;
-	var isDieType = (/^\d*d\d+$/i).test(ability), addDieType;
+	var isDieType = /^\d*d\d+$/i.test(ability), addDieType;
 	var abiMod = isDieType ? ability.replace(/^1d(\d+)$/i, "d$1") : !isNaN(ability) ? ability : tDoc.getField(ability + " Mod") ? Number(What(ability + " Mod")) : ability;
 	var abiIsStr = !isDieType && isNaN(abiMod);
 	var abiIfUpcasting = abiIsStr && /\/(\d*SL|PP|extra \w+)/i.test(abiMod);
@@ -5760,7 +5853,7 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 		var slMatch = strSl.match(/(\+?)(\d+d?\d*)(\/\d*SL|\/PP|\/extra \w+)\+(\d+d?\d*|\(.*?\))(\3)/i);
 		if (!slMatch) return strSl;
 		var aVals = [slMatch[2], slMatch[4]]; // Make an array of just the numerical/dice parts
-		if ((/\(.*?\)/).test(aVals[1])) {
+		if (/\(.*?\)/.test(aVals[1])) {
 			// The second group is already a joined group, untangle it to just its numerical/dice parts
 			var justNums = aVals[1].match(/\d+d?\d*/ig);;
 			if (justNums) aVals = [slMatch[2]].concat(justNums);
@@ -5793,11 +5886,11 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 	// The function to fix a string of multiple constants not being added together
 	var fixMultiConstants = function(strSl) {
 		var qRx = /([\+\-]?\b\d+\b)(?![)/])(?: \((?:Str|Dex|Con|Int|Wis|Cha)\))?/ig;
-		var qExec = qRx.exec(strSl);
-		if (qExec) {
-			var qMatch = strSl.match(qRx);
+		var qMatch = strSl.match(qRx);
+		if (qMatch && qMatch.length > 1) {
 			var qTotal = qMatch.reduce((a, b) => a + Number(b.match(/[\+\-]?\d+/)[0]), 0);
 			// remove all the matches from their string (but use exec, as we could easily get false positives)
+			var qExec = qRx.exec(strSl);
 			var isStart = !isNaN(qExec[0][0])
 			var qInsertIdx = [];
 			do {
@@ -5849,7 +5942,12 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 	}
 
 	// Create the matching regex with non-capturing inner groups
-	var isHealing = /heal|\bhp\b|restore/.test(dmgType);
+	var isHealing = false;
+	if (/heal|\bhp\b|restore/.test(dmgType)) {
+		isHealing = true;
+	} else if (/\bany\b/i.test(dmgType)) {
+		dmgType = "\\w+\\.?";
+	}
 	var sRegex = (isHealing ? "(heals? |to life with )" : "") + "((?:\\+?\\d+d?\\d*)+)((?:\\+(?:\\((?:\\+?\\d+d?\\d*)+\\)|\\d+d?\\d*)\\/(?:\\d*SL|PP|extra \\w+))*(?:\\+ ?(?:my )?spell(?:casting)? (?:ability )?mod(?:ifier)?|(?:\\+|-)\\d+ \\(.{3}\\))? (?:" + (isHealing ? "" : dmgType) + ") ?(?:" + (isHealing ? "hp|hit points?" : "dmg|damage") + ")(?: per \\w+| each|/rnd|/turn)?)";
 
 	// If the spell has multiple damage types, we need to check if any or all of them match the dmgType we are looking for
@@ -5883,7 +5981,7 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 	var arrRegex = [tRx];
 	var tRxMatch = useSpellDescr.match(tRx);
 	// Stop now if no match or a match but not for any dice while onlyRolls == true
-	var bRollMatch = tRxMatch && (/\d*d\d+/i).test(tRxMatch[2]);
+	var bRollMatch = tRxMatch && /\d*d\d+/i.test(tRxMatch[2]);
 	if (!tRxMatch || (onlyRolls && !bRollMatch) || (maximizeRolls && !bRollMatch && !ability)) return;
 
 	// Spells that have a secondary (or more) damage group of the same damage type that doesn't follow the syntax
@@ -5898,7 +5996,7 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 
 	// If adding dice instead of a static value
 	if (isDieType) {
-		if (!(/^\d+d\d+$/i).test(ability)) ability = "1" + ability;
+		if (!/^\d+d\d+$/i.test(ability)) ability = "1" + ability;
 		addDieType = ability.match(/^(\d+)d(\d+)$/i);
 	}
 
@@ -5913,7 +6011,7 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 			spellObj.description = useSpellDescr;
 			return true; // We are done
 		}
-		// If a spell has a longer duration than instantaneous or 1 round and is not just on the next weapon hit, we should only add the addition once, not to all damage rolls
+		// If a spell has a longer duration than instantaneous or 1 round and is not just together with or on the next weapon hit, we should only add the addition once, not to all damage rolls
 		// There are some spells for which this is true and should be done as normal (falsePositives) or spells for which this is not true, but should be done anyway (falseNegatives)
 		var isFalsePositive, isFalseNegative;
 		if (spellObj.dynamicDamageBonus && spellObj.dynamicDamageBonus.multipleDmgMoments !== undefined) {
@@ -5923,7 +6021,7 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 				isFalsePositive = true;
 			}
 		}
-		var hasMultipleDmgInstances = isFalseNegative || (!isFalsePositive && !(/instant|1 r(ou)?nd/i).test(spellObj.duration) && !(/next (melee |ranged|rngd )?wea(pon)? (atk|hit) \+?\d+/i).test(useSpellDescr));
+		var hasMultipleDmgInstances = isFalseNegative || (!isFalsePositive && !/instant|1 r(ou)?nd/i.test(spellObj.duration) && !/next (melee |ranged|rngd )?wea(pon)? (atk|hit) \+?\d+|cast on (melee |ranged )?wea(pon)? hit/i.test(useSpellDescr));
 		if (onlySomeDmgTypes || hasMultipleDmgInstances) {
 			var sOnceBonus = (notMultiple && hasMultipleDmgInstances ? " (1\xD7 +" : " (+") + abiMod + (onlySomeDmgTypes ? " if.." : "") + ")";
 			// Add the " (1× +X)" after the "dmg/damage" part, unless there are multiple damage types
@@ -5976,6 +6074,7 @@ function getSpellShortDescription(spellKey, spellObj) {
 	}
 	// Do some common replacements to save space for the very limited short description
 	var arrTxtReplace = [
+		[/\bdamaged?\b/ig, 'dmg'],
 		[/ and /ig, ' \u0026 '],
 		[/(dif)ficult (ter)(rain|\.)|(dif)(ficult|\.) (ter)rain/ig, '$1. $2.'],
 		[/(crea)tures?/ig, '$1'],

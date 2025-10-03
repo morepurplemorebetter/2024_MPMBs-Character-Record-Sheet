@@ -733,7 +733,7 @@ function ReturnSpellcastingAbility(sCast, vAbility, bAbilitySave) {
 	vAbility.sort();
 	for (var i = 0; i < vAbility.length; i++) {
 		if (isNaN(vAbility[i]) && !/^(class|race)$/i.test(vAbility[i])) continue;
-		var sAbiTxt = !isNaN(vAbility[i]) ? AbilityScores.names[vAbility[i] - 1] : vAbility[i].toLowerCase() === "race" ? "Race: the same as the racial spellcasting ability score." : "Class: the same as the highest class spellcasting ability score.";
+		var sAbiTxt = !isNaN(vAbility[i]) ? AbilityScores.names[vAbility[i] - 1] : vAbility[i].toLowerCase() === "race" ? "Race: the same as the species spellcasting ability score." : "Class: the same as the highest class spellcasting ability score.";
 		if (aAbiOptions.indexOf(sAbiTxt) === -1) {
 			aAbiOptions.push(sAbiTxt);
 			oAbiRef[sAbiTxt] = vAbility[i];
@@ -3032,10 +3032,12 @@ function ParseMagicItemMenu() {
 			firstLetter = itemName[0].toUpperCase();
 		}
 		iMenus.ref[itemName] = subItem ? mainItem + "#" + subItem : mainItem;
+		// Add the entry for the alphabetical
 		if (!iMenus.alphabetical[firstLetter]) iMenus.alphabetical[firstLetter] = [];
 		iMenus.alphabetical[firstLetter].push(itemName);
-		if (tObj.source) {
-			var aSrcs = parseSource(tObj.source);
+		// Add to its source listing
+		var aSrcs = parseSource(tObj.source);
+		if (aSrcs) {
 			for (var a = 0; a < aSrcs.length; a++) {
 				var aSrc = SourceList[aSrcs[a][0]];
 				var uSrc = aSrc.name + " (" + aSrc.abbreviation + ")";

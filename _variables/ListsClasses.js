@@ -276,7 +276,7 @@ var Base_ClassList = {
 	"bard" : {
 		regExpSearch : /(bard|minstrel|troubadour|jongleur)/i,
 		name : "Bard",
-		source : [["SRD", 11], ["P", 51]],
+		source : [["SRD24", 31], ["P24", 59]],
 		primaryAbility : "Charisma",
 		abilitySave : 6,
 		prereqs : "Charisma 13",
@@ -437,7 +437,7 @@ var Base_ClassList = {
 	"cleric" : {
 		regExpSearch : /(cleric|priest|clergy|acolyte)/i,
 		name : "Cleric",
-		source : [["SRD", 15], ["P", 56]],
+		source : [["SRD24", 36], ["P24", 69]],
 		primaryAbility : "Wisdom",
 		abilitySave : 5,
 		prereqs : "Wisdom 13",
@@ -535,7 +535,7 @@ var Base_ClassList = {
 	"druid" : {
 		regExpSearch : /(druid|shaman)/i,
 		name : "Druid",
-		source : [["SRD", 19], ["P", 61]],
+		source : [["SRD24", 40], ["P24", 79]],
 		primaryAbility : "Wisdom",
 		abilitySave : 5,
 		prereqs : "Wisdom 13",
@@ -659,7 +659,7 @@ var Base_ClassList = {
 	"fighter" : {
 		regExpSearch : /^(?!.*(feral|tribal|dark|green|fey|horned|totem|spiritual|exalted|sacred|holy|divine|nature|odin|thor|nature|natural|green|beast|animal))(?=.*(fighter|warrior|militant|warlord|phalanx|gladiator|trooper)).*$/i,
 		name : "Fighter",
-		source : [["SRD", 24], ["P", 70]],
+		source : [["SRD24", 47], ["P24", 91]],
 		primaryAbility : "Strength or Dexterity",
 		prereqs : "Strength 13 or Dexterity 13",
 		die : 10,
@@ -1013,7 +1013,7 @@ var Base_ClassList = {
 	"paladin" : {
 		regExpSearch : /^((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		name : "Paladin",
-		source : [["SRD", 30], ["P", 82]],
+		source : [["SRD24", 53], ["P24", 109]],
 		primaryAbility : "Strength and Charisma",
 		abilitySave : 6,
 		prereqs : "Strength 13 and Charisma 13",
@@ -1166,7 +1166,7 @@ var Base_ClassList = {
 	"ranger" : {
 		regExpSearch : /^((?=.*(ranger|strider))|((?=.*(nature|natural))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		name : "Ranger",
-		source : [["SRD", 35], ["P", 89]],
+		source : [["SRD24", 57], ["P24", 119]],
 		primaryAbility : "Dexterity and Wisdom",
 		abilitySave : 5,
 		prereqs : "Dexterity 13 and Wisdom 13",
@@ -1451,7 +1451,7 @@ var Base_ClassList = {
 	"rogue" : {
 		regExpSearch : /(rogue|miscreant)/i,
 		name : "Rogue",
-		source : [["SRD", 39], ["P", 94]],
+		source : [["SRD24", 61], ["P24", 129]],
 		primaryAbility : "Rogue: Dexterity",
 		prereqs : "Dexterity 13",
 		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6],
@@ -1629,7 +1629,7 @@ var Base_ClassList = {
 	"sorcerer" : {
 		regExpSearch : /sorcerer|witch/i,
 		name : "Sorcerer",
-		source : [["SRD", 42], ["P", 99]],
+		source : [["SRD24", 64], ["P24", 139]],
 		primaryAbility : "Charisma",
 		abilitySave : 6,
 		prereqs : "Charisma 13",
@@ -1769,7 +1769,7 @@ var Base_ClassList = {
 	"warlock" : {
 		regExpSearch : /warlock/i,
 		name : "Warlock",
-		source : [["SRD", 46], ["P", 105]],
+		source : [["SRD24", 70], ["P24", 153]],
 		primaryAbility : "Charisma",
 		abilitySave : 6,
 		prereqs : "Charisma 13",
@@ -2471,7 +2471,7 @@ var Base_ClassList = {
 	"wizard" : {
 		regExpSearch : /^(?=.*(wizard|mage|magus))(?!.*wild mage).*$/i,
 		name : "Wizard",
-		source : [["SRD", 52], ["P", 112]],
+		source : [["SRD24", 77], ["P24", 165]],
 		primaryAbility : "Intelligence",
 		abilitySave : 4,
 		prereqs : "Intelligence 13",
@@ -2668,6 +2668,9 @@ var Base_ClassSubList = {
 						function (spellKey, spellObj, spName) {
 							if (spellObj.psionic || !spellObj.level) return;
 							switch (spellKey) {
+								case "arcane vigor" :
+									spellObj.description = spellObj.descriptionShorter.replace(/in HP/i, "+ " + (spellObj.level + 2) + "+1/SL HP");
+									return true;
 								case "enervation" :
 								case "life transference" :
 								case "vampiric touch" :
@@ -2710,11 +2713,16 @@ var Base_ClassSubList = {
 						// note that several healing spells are skipped because they don't restore hp at casting (only later)
 						function (spellKey, spellObj, spName) {
 							var otherHealSpells = ["mass heal", "life transference", "power word heal", "resurrection", "true resurrection"];
-							var noHealAtCast = ["aura of life", "aura of vitality", "goodberry", "healing elixir-uass", "healing spirit"];
+							var noHealAtCast = ["aura of life", "goodberry", "healing elixir-uass", "healing spirit"];
 							if (noHealAtCast.indexOf(spellKey) !== -1) return;
 							if (spellObj.discipleOfLife || otherHealSpells.indexOf(spellKey) !== -1) {
 								var useSpellDescr = getSpellShortDescription(spellKey, spellObj).replace(/spell(casting)? (ability )?mod(ifier)?/i, "spell mod");
+								var strPart = "";
 								switch (spellKey) {
+									case "aura of vitality":
+										useSpellDescr = useSpellDescr.replace("at the start of each of my turns", "at my turn's start");
+										strPart = "; if other at cast, I heal ";
+										break;
 									case "heal" :
 									case "life transference" :
 									case "mass heal" :
@@ -2732,7 +2740,7 @@ var Base_ClassSubList = {
 										break;
 								};
 								var alwaysOthers = ["life transference", "raise dead", "revivify", "resurrection", "true resurrection"];
-								var strPart = alwaysOthers.indexOf(spellKey) === -1 ? "; if other, I heal " : "; I heal ";
+								if (!strPart) strPart = alwaysOthers.indexOf(spellKey) === -1 ? "; if other, I heal " : "; I heal ";
 								var strAdd = spellObj.level < 9 ? strPart + (spellObj.level + 2) + (spellObj.noSpellUpcasting ? "" : "+1/SL") + " HP" : strPart + "11 HP";
 								spellObj.description = useSpellDescr + strAdd;
 								return true;

@@ -1,5 +1,5 @@
 function MakeDocName() {
-	return "MorePurpleMoreBetter's D&D 5th edition " + (tDoc.info.SpellsOnly ? "Complete " + tDoc.info.SpellsOnly.capitalize() + " Spell Sheet" : (tDoc.info.AdvLogOnly ? "Adventure Logsheet" : "Character Record Sheet")) + " v" + semVers + " (" + tDoc.info.SheetType + ")";
+	return "MorePurpleMoreBetter's D&D 2024 edition " + (tDoc.info.SpellsOnly ? "Complete " + tDoc.info.SpellsOnly.capitalize() + " Spell Sheet" : (tDoc.info.AdvLogOnly ? "Adventure Logsheet" : "Character Record Sheet")) + " v" + semVers + " (" + tDoc.info.SheetType + ")";
 };
 
 function MakeButtons() {
@@ -38,7 +38,7 @@ function MakeButtons() {
 				cName : "SourcesButton",
 				cExec : "resourceDecisionDialog();",
 				oIcon : allIcons.sources,
-				cTooltext : toUni("Select Sources") + "\nOpen a dialog where you can select which sourcebooks and materials the sheet is allowed to use and which it has to excluded from the automation." + (this.info.SpellsOnly ? "\n\nHere you can select which sources are used for the spells or even exclude certain spells or spell schools. After you have set this, you will have to manually re-generate the spell sheet using the 'Spells' button/bookmark." : "\n\nHere you can make the sheet include all Unearthed Arcana material or even have the sheet exclude certain classes, races, spells, etc. etc.\n\nYou are advised to set the sources before filling out the sheet as it may cause certain fields to be reset."),
+				cTooltext : toUni("Select Sources") + "\nOpen a dialog where you can select which sourcebooks and materials the sheet is allowed to use and which it has to excluded from the automation." + (this.info.SpellsOnly ? "\n\nHere you can select which sources are used for the spells or even exclude certain spells or spell schools. After you have set this, you will have to manually re-generate the spell sheet using the 'Spells' button/bookmark." : "\n\nHere you can make the sheet include all Unearthed Arcana material or even have the sheet exclude certain classes, species, spells, etc. etc.\n\nYou are advised to set the sources before filling out the sheet as it may cause certain fields to be reset."),
 				nPos : 3,
 				cLabel : "Sources"
 			});
@@ -68,7 +68,7 @@ function MakeButtons() {
 				cName : "SetToManualButton",
 				cExec : "SetToManual_Button();",
 				oIcon : allIcons.automanual,
-				cTooltext : toUni("Auto / Manual") + "\nSwitch between manual or automatic calculation\/implementation of:\n   \u2022  Attacks;\n   \u2022  Background;\n   \u2022  Class;\n   \u2022  Feats;\n   \u2022  Race.",
+				cTooltext : toUni("Auto / Manual") + "\nSwitch between manual or automatic calculation\/implementation of:\n   \u2022  Attacks;\n   \u2022  Background;\n   \u2022  Class;\n   \u2022  Feats;\n   \u2022  Species.",
 				nPos : 6,
 				cLabel : "Manual"
 			});
@@ -104,7 +104,7 @@ function MakeButtons() {
 				cName : "SpellsButton",
 				cExec : "MakeSpellMenu_SpellOptions();",
 				oIcon : allIcons.spells,
-				cTooltext : toUni("Spells Options") + "\nGet a menu with the options to:\n   \u2022  Create a Spell Sheet;\n   \u2022  Select the sources for that Spell Sheet;\n   \u2022  Delete an existing Spell Sheet;" + (!typePF ? "\n   \u2022  Set the visibility of the Spell Slot check boxes to the Spell Sheet, the Limited Feature section, or both;" : "") + "\n   \u2022  Set the sheet to use Spell Points instead of Spell Slots.\n\nGenerating a Spell Sheet will involve filling out a dialog for each spellcasting class/race/feat. After that you can select which is included in the Spell Sheet and in what order.", //\n\nAlternatively you can create an empty Spell Sheet which you can fill out manually.",
+				cTooltext : toUni("Spells Options") + "\nGet a menu with the options to:\n   \u2022  Create a Spell Sheet;\n   \u2022  Select the sources for that Spell Sheet;\n   \u2022  Delete an existing Spell Sheet;" + (!typePF ? "\n   \u2022  Set the visibility of the Spell Slot check boxes to the Spell Sheet, the Limited Feature section, or both;" : "") + "\n   \u2022  Set the sheet to use Spell Points instead of Spell Slots.\n\nGenerating a Spell Sheet will involve filling out a dialog for each spellcasting class/species/feat. After that you can select which is included in the Spell Sheet and in what order.", //\n\nAlternatively you can create an empty Spell Sheet which you can fill out manually.",
 				nPos : 10,
 				cLabel : "Spells"
 			});
@@ -158,7 +158,7 @@ function MakeButtons() {
 			cName : "FAQButton",
 			cExec : "MakeFaqMenu_FaqOptions();",
 			oIcon : allIcons.faq,
-			cTooltext : toUni("FAQ") + "\nOpen the frequently asked questions website or pdf, find the latest version, or contact MPMB.\n\nThere you can find information on how to add custom code to the sheet, like homebrew races\/weapons\/feats\/etc.",
+			cTooltext : toUni("FAQ") + "\nOpen the frequently asked questions website or pdf, find the latest version, or contact MPMB.\n\nThere you can find information on how to add custom code to the sheet, like homebrew species\/weapons\/feats\/etc.",
 			nPos : 16,
 			cLabel : "FAQ"
 		});
@@ -181,7 +181,7 @@ function OpeningStatement() {
 		var oldVerAlert = app.alert({
 			nIcon : 0,
 			cTitle : "Please update your Adobe Acrobat",
-			cMsg : "This version of Adobe Acrobat is not supported for use with MPMB's D&D 5e Character Tools. You need at least Adobe Acrobat DC (Reader, Pro, or Standard) to use this PDF's full automation. Please know that if you continue to use the sheet with this outdated version of Adobe Acrobat, some features will not work (correctly) and others might produce errors (e.g. the Source Selection and the Mystic class).\n\nDo you want to close this pdf and visit the Adobe website where you can download the latest version of Adobe Acrobat Reader for free (https://get.adobe.com/reader/)?\n\nPlease understand that if you choose 'No', there will be no support if anything doesn't work.\n\n" + (!reminders ? "As you aren't using Adobe Acrobat to view this PDF, you will not be redirected to the website to download Adobe Acrobat Reader for free. Please go there manually.\n\nhttps://get.adobe.com/reader/" : reminders == 1 ? "You will get this warning again the next two times that you open this sheet in an unsupported version of Adobe Acrobat." : reminders == 2 ? "You will get this warning again the next time you open this sheet in an unsupported version of Adobe Acrobat." : "This is the last time this pdf character sheet shows this warning."),
+			cMsg : "This version of Adobe Acrobat is not supported for use with MPMB's D&D 2024 Character Tools. You need at least Adobe Acrobat DC (Reader, Pro, or Standard) to use this PDF's full automation. Please know that if you continue to use the sheet with this outdated version of Adobe Acrobat, some features will not work (correctly) and others might produce errors (e.g. the Source Selection and the Mystic class).\n\nDo you want to close this pdf and visit the Adobe website where you can download the latest version of Adobe Acrobat Reader for free (https://get.adobe.com/reader/)?\n\nPlease understand that if you choose 'No', there will be no support if anything doesn't work.\n\n" + (!reminders ? "As you aren't using Adobe Acrobat to view this PDF, you will not be redirected to the website to download Adobe Acrobat Reader for free. Please go there manually.\n\nhttps://get.adobe.com/reader/" : reminders == 1 ? "You will get this warning again the next two times that you open this sheet in an unsupported version of Adobe Acrobat." : reminders == 2 ? "You will get this warning again the next time you open this sheet in an unsupported version of Adobe Acrobat." : "This is the last time this pdf character sheet shows this warning."),
 			nType : 2
 		});
 		if (oldVerAlert === 4) {
@@ -194,18 +194,13 @@ function OpeningStatement() {
 	if (What("Opening Remember") === "No") {
 		tDoc.dirty = false;
 		tDoc.pane = "bookmarks"; //open the bookmarks so that on the first opening people can see its existence
-		var sheetTitle = "MorePurpleMoreBetter's " + (tDoc.info.SpellsOnly ? "Complete " + tDoc.info.SpellsOnly.capitalize() + " Spell Sheet" : (tDoc.info.AdvLogOnly ? "Adventure Logsheet" : "Character Record Sheet")) + " (" + tDoc.info.SheetType + ") v" + semVers;
+		var sheetTitle = "MorePurpleMoreBetter's D&D 2024 " + (tDoc.info.SpellsOnly ? "Complete " + tDoc.info.SpellsOnly.capitalize() + " Spell Sheet" : (tDoc.info.AdvLogOnly ? "Adventure Logsheet" : "Character Record Sheet")) + " (" + tDoc.info.SheetType + ") v" + semVers;
 		var Text = "[Can't see the 'OK' button at the bottom? Use ENTER to close this dialog]\n\n";
 		Text += "Welcome to " + toUni(sheetTitle);
-		Text += " (get the latest version using the bookmark).";
-		Text += patreonVersion ? "" : "\n\n" + toUni("Only SRD") + ": This sheet is only allowed to contain content from the System Reference Document and no other Wizards of the Coast publications, as they are protected by copyright. If you want to get more content to use with the sheet, see the \"Add Extra Materials\" bookmark.";
-		Text += "\n\n" + toUni("Tooltips") + ": This sheet makes extensive use of tooltips (mouseover texts). Hover your cursor over a field to find how you can enter things into the field, reference to the source, explanatory text, or even a list of options your selection offers you.";
-		Text += "\n\n" + toUni("Functions") + ": Check out the buttons in the \'JavaScript Window\'-toolbar and the bookmarks. Hover your cursor over a button in the \'JavaScript Window\'-toolbar to see what it does.";
-		Text += minVer ? "" : "\n\n" + toUni("Modifiers") + ": With the \"Mods\" button you can add modifiers to the calculated values.";
-		Text += tDoc.info.SpellsOnly ? "" : "\n\n" + toUni("Layout") + ": With the \"Layout\" button you can hide, add, and remove certain pages.";
-		Text += tDoc.info.AdvLogOnly ? "" : "\n\n" + toUni("Spells") + ": With the \"Spells\" button you can have the sheet generate a spell sheet based on your character, or manually create one.";
-		Text += !typePF ? "\n\n" + toUni("Color Options") + ": With the \"Color\" button or the top right logo on the first page, you can change the graphical elements of this sheet to 11 different colors." : "";
-		Text += tDoc.info.AdvLogOnly ? "" : "\n\n" + toUni("Sources") + ": With the \"Sources\" button you can set which resources you want the sheet to use, including most Unearthed Arcana material (e.g. the Revised Ranger). You can also get more using the \"Get Additional Content\" bookmark, like the Gunslinger, Blood Hunter, College of the Maestro by Matthew Mercer, and many others...";
+		Text += ".\n>> get the latest version using the bookmark.";
+		Text += patreonVersion ? "" : "\n\n" + toUni("SRD only") + '. The System Reference Document content is the only Wizards of the Coast publication this sheet is allowed to contain. The rest is protected by WotC\'s copyright. Use the "Get More Content" bookmark to get add-on scripts to increase the available options.';
+		Text += "\n\n" + toUni("2024 version") + ". The 2024 edition (5.5e) of Dungeons & Dragons is what this sheet is made for. Visit MPMB's website to get a sheet for 5e (2014) D&D.";
+		Text += "\n\n" + toUni("Advanced features") + ". The buttons in the \'JavaScript Window\'-toolbar and the bookmarks by the same name allow for many customization options. Please try them out. They are reversible.";
 		Text += "\n\nHave fun with the sheet and the adventures you embark on with its help!\n - MorePurpleMoreBetter - ";
 		var oCk = {
 			bInitialValue : true,
@@ -445,7 +440,8 @@ function ResetAll(GoOn, noTempl, deleteImports) {
 
 	//delete any extra templates and make any template that is invisible, visible
 	RemoveSpellSheets(); //first do all the Spell Sheets
-	var defaultShowTempl = ["ASfront", "ASbackgr", "PRsheet"];
+	var defaultShowTempl = ["ASfront", "ASbackgr"];
+	// if (typePF) defaultShowTempl.push("PRsheet"); // No reference sheet in 2024 version
 	for (var R in TemplateDep) {
 		if (R === "SSfront" || R === "SSmore" || (!typePF && R === "PRsheet")) continue; //don't do this for the spell sheets, they have their own function; also don't do it for the player reference sheet in not the Printer Friendly version, as it doesn't exist
 		//first see if the template is visible
@@ -503,6 +499,7 @@ function ResetAll(GoOn, noTempl, deleteImports) {
 		resourceDecisionDialog(true, true); //to make sure that even if the sheet is used before re-opening, the resources are set to default
 		UpdateDropdown("resources");
 		spellsAfterUserScripts(true);
+		AddDefaultEvals();
 	};
 
 	// Reset the calculation order
@@ -670,7 +667,7 @@ function LayerVisibilityOptions(showMenu, useSelect) {
 	var isReset = false;
 	if (CurrentVars.vislayers === undefined) {
 		isReset = !showMenu;
-		CurrentVars.vislayers = ["rules", "equipment"];
+		CurrentVars.vislayers = ["notes", "equipment"]; // Hide rules by default for 2024 D&D
 	}
 	MakeMobileReady(false); // Undo flatten, if needed
 
@@ -1050,10 +1047,13 @@ function MakeAdventureLeagueMenu() {
 		[["Remove DMG actions from 1st page (not legal in AL play)", "actions", true]] // 2
 	).concat([
 		[typePF ? "Show space for Faction Rank on the Background page" : "Show space for Faction, Faction Rank, and Renown on the Background page", "factionrank", isDisplay("Background_FactionRank.Text") === display.visible], // 3
-	]).concat(typePF ?
-		[["Mark actions on the Player Reference page that are not legal in AL play", "asterisks", isDisplay("Text.PRsheet.AL.asterisk") === display.visible]] : //4
-		[]
-	).concat([
+	])
+	/* No reference sheet in 2024 version */
+	// .concat(typePF ?
+	// 	[["Mark actions on the Player Reference page that are not legal in AL play", "asterisks", isDisplay("Text.PRsheet.AL.asterisk") === display.visible]] : //4
+	// 	[]
+	// )
+	.concat([
 		["Use the fixed carrying capacity rules", "encumbrance", tDoc.getField("Weight Carrying Capacity.Field").display === display.visible], // 5
 		["-", "-", false], // 6
 		["Show Adventure Logsheet(s)", "allog", isTemplVis("ALlog")], // 7
@@ -1189,10 +1189,12 @@ function ToggleAdventureLeague(Setting) {
 	};
 
 	//Show the asterisks on the reference sheet field
-	if (typePF && Setting.asterisks !== undefined) {
-		tDoc[Setting.asterisks ? "Show" : "Hide"]("Text.PRsheet.AL");
-	};
+	/* No reference sheet in 2024 version */
+	// if (typePF && Setting.asterisks !== undefined) {
+	// 	tDoc[Setting.asterisks ? "Show" : "Hide"]("Text.PRsheet.AL");
+	// };
 
+	/* No longer applicable in D&D 2024
 	//Remove the DMG actions on the 1st page
 	if (!typePF && Setting.actions !== undefined) {
 		if (Setting.actions) {
@@ -1203,6 +1205,7 @@ function ToggleAdventureLeague(Setting) {
 			AddAction("action", "As 1 attack: Disarm / Grapple / Shove", "Default action", "Grapple / Shove (instead of 1 attack)");
 		};
 	};
+	*/
 
 	//Set the HP to using fixed values
 	if (Setting.hp !== undefined) {
@@ -1457,18 +1460,21 @@ function ApplyShield(input) {
 //Change advantage or disadvantage of saves, skills, checks, attacks, etc. based on condition
 function ConditionSet(isReset) {
 	if (!isReset && !IsNotConditionSet) return;
-	if (typePF) { // only the stealth disadvantage is part of the printer friendly version
+	var isStealthDisadv = event.target && event.target.name && event.target.name === "ArmDis";
+	// if (typePF) { // only the stealth disadvantage is part of the printer friendly version
+	if (isStealthDisadv) { // Only do the stealth disadvantage part for the 2024 rules version
 		// Start progress bar and stop calculations
 		var thermoTxt = thermoM("Armor stealth disadvantage...");
 		calcStop();
 		IsNotConditionSet = false;
-		var thisFld = "ArmDis";
 		var thisChck = !isReset && tDoc.getField("AC Stealth Disadvantage").isBoxChecked(0) ? true : false;
 		SetProf("advantage", thisChck, ["Ste", false], "Armor");
 		IsNotConditionSet = true;
 		thermoM(thermoTxt, true); // Stop progress bar
 		return;
-	}
+	} 
+	// Don't do the rest of this function as it is no longer applicable with the 2024 rules
+	return;
 	var cFlds = {
 		Exh1 : { name : "Extra.Exhaustion Level 1" },
 		Exh2 : { name : "Extra.Exhaustion Level 2" },
@@ -1509,7 +1515,7 @@ function ConditionSet(isReset) {
 
 	// Do something with other fields dependent on the selection
 	//var stealthLoc = Who("Text.SkillsNames") === "alphabeta" ? "Ste" : "Ath";
-	if (isReset || (/Exh\d/).test(thisFld)) {
+	if (isReset || /Exh\d/.test(thisFld)) {
 		// If this is an exhaustion level, check the ones below and/or uncheck the ones above
 		if (!isReset) {
 			var exhNmbr = Number(thisFld.slice(-1));
@@ -1546,7 +1552,7 @@ function ConditionSet(isReset) {
 			}
 		}
 	}
-	if (isReset || (/Unconscious|Paralyzed|Petrified|Stunned/).test(thisFld)) {
+	if (isReset || /Unconscious|Paralyzed|Petrified|Stunned/.test(thisFld)) {
 		if (thisFld == "Unconscious" && thisChck) {
 			// if unconscious, also check prone, but don't automatically stand up when no longer unconscious
 			Checkbox(cFlds.Prone.name, true);
@@ -1583,7 +1589,7 @@ function ConditionSet(isReset) {
 	thermoM(0.25); //increment the progress dialog's progress
 
 	// Ability checks disadvantage
-	if (isReset || (/Exh|Frightened|Poisoned/).test(thisFld)) {
+	if (isReset || /Exh|Frightened|Poisoned/.test(thisFld)) {
 		var abiDisadv = cFlds.Exh1.checked || cFlds.Frightened.checked || cFlds.Poisoned.checked;
 		for (var S = 0; S < SkillsList.abbreviations.length; S++) {
 			SetProf("advantage", abiDisadv, [SkillsList.abbreviations[S], false], "Exhaustion, Frightened, or Poisoned (conditions)");
@@ -1592,14 +1598,14 @@ function ConditionSet(isReset) {
 	thermoM(0.5); //increment the progress dialog's progress
 
 	// Attack disadvantage
-	if (isReset || (/Exh|Blinded|Frightened|Poisoned|Prone|Restrained/).test(thisFld)) {
+	if (isReset || /Exh|Blinded|Frightened|Poisoned|Prone|Restrained/.test(thisFld)) {
 		var attDisadv = cFlds.Exh3.checked || cFlds.Frightened.checked || cFlds.Poisoned.checked || cFlds.Prone.checked || cFlds.Restrained.checked || (cFlds.Blinded.checked && What("Class Features").toLowerCase().indexOf("feral senses") === -1);
 		SetProf("advantage", attDisadv, ["Att", false], "Exhaustion, Blinded, Frightened, Poisoned, Prone, or Restrained (conditions)");
 	}
 	thermoM(0.75); //increment the progress dialog's progress
 
 	// Set movement speed
-	if (isReset || (/Exh|Grappled|Paralyzed|Petrified|Restrained|Stunned|Unconscious/).test(thisFld)) {
+	if (isReset || /Exh|Grappled|Paralyzed|Petrified|Restrained|Stunned|Unconscious/.test(thisFld)) {
 		var spdFormat = cFlds.Exh5.checked || cFlds.Grappled.checked || cFlds.Paralyzed.checked || cFlds.Petrified.checked || cFlds.Restrained.checked || cFlds.Stunned.checked || cFlds.Unconscious.checked ? "event.value = '0 " + (What("Unit System") == "imperial" ? "ft" : "m") + "';" :"";
 		var spdFlds = ["Speed", "Speed encumbered"];
 		for (var i = 0; i < spdFlds.length; i++) {
@@ -2405,7 +2411,7 @@ function ParseRace(input) {
 					var subKey = key + "-" + sVar;
 					var sObj = RaceSubList[subKey];
 					if (!sObj) {
-						console.println("The racial variant '" + sVar + "' for the '" + kObj.name + "' race missing from the RaceSubList object. Please contact its author to have this issue corrected. The variant will be ignored for now.");
+						console.println("The racial variant '" + sVar + "' for the '" + kObj.name + "' species missing from the RaceSubList object. Please contact its author to have this issue corrected. The variant will be ignored for now.");
 						console.show();
 						// Remove this array entry, but make sure we don't skip an entry
 						kObj.variants.splice(v, 1);
@@ -2489,7 +2495,7 @@ function FindRace(inputracetxt, novardialog, aOldRace) {
 		if (!novardialog && IsNotImport && inputracetxt && !tempFound[1] && !CurrentVars.manual.race) {
 			var aRace = RaceList[tempFound[0]];
 			var rSource = stringSource(aRace, 'first,abbr', "    [", "]");
-			// v14 change: no longer allow just selecting the RaceList entry if linked RaceSubList exist
+			// v24 change: no longer allow just selecting the RaceList entry if linked RaceSubList exist
 			var rVarNames = [];
 			var rVarObj = {};
 			for (var i = 0; i < tempFound[2].length; i++) {
@@ -2609,7 +2615,7 @@ function ApplyRace(inputracetxt, novardialog, newLvlForce) {
 	}
 
 	// Start progress bar and stop calculations
-	var thermoTxt = thermoM("Applying race...");
+	var thermoTxt = thermoM("Applying species...");
 	calcStop();
 
 	if (newRace[0] !== oldRace[0] || newRace[1] !== oldRace[1]) {
@@ -2661,7 +2667,7 @@ function ApplyRace(inputracetxt, novardialog, newLvlForce) {
 		thermoM(3/4); //increment the progress dialog's progress
 	};
 
-	thermoTxt = thermoM("Finalizing the changes of the race...", false); //change the progress dialog text
+	thermoTxt = thermoM("Finalizing the changes of the species...", false); //change the progress dialog text
 	SetTheAbilitySaveDCs();
 
 	SetStringifieds(); // set the global variables to their fields for future reference
@@ -2685,8 +2691,8 @@ function AmendOldToNewRace(oInstr, bSkipDialogAndForce) {
 		if (bSkipDialogAndForce === undefined && !CurrentRace.knownOld) {
 			app.alert({
 				nIcon : 3, // Status
-				cTitle : "Tip for using the " + CurrentRace.name + " race",
-				cMsg : "The " + CurrentRace.name + " race has the option to use some specific traits from another race, its 'base race'. To use this option, first select a race as normal, and then change it to " + CurrentRace.name + ". If you do that, you will be prompted wheter or not you want to use the race you had selected first as the base race. This base race can't also have the option to use traits from another race." + (oInstr.message ? "\n\n" + oInstr.message : "")
+				cTitle : "Tip for using the " + CurrentRace.name + " species",
+				cMsg : "The " + CurrentRace.name + " species has the option to use some specific traits from another species, its 'base species'. To use this option, first select a species as normal, and then change it to " + CurrentRace.name + ". If you do that, you will be prompted wheter or not you want to use the species you had selected first as the base species. This base species can't also have the option to use traits from another species." + (oInstr.message ? "\n\n" + oInstr.message : "")
 			})
 		}
 	} else if (bSkipDialogAndForce === undefined) {
@@ -2696,7 +2702,7 @@ function AmendOldToNewRace(oInstr, bSkipDialogAndForce) {
 			nIcon : 2, // Question
 			nType : 2, // Yes (return = 4), No (return = 3)
 			cTitle : "Use traits from " + sOldRaceName + " for " + CurrentRace.name,
-			cMsg : "The " + CurrentRace.name + " race has the option to use some specific traits from another race. As you had previously selected " + sOldRaceName + " as the race, would you want to use its features?\n\n" + toUni("Press 'Yes' to use traits from " + sOldRaceName + " or\npress 'No' to use the default traits for " + CurrentRace.name + ".") + (oInstr.message ? "\n\n" + oInstr.message : "")
+			cMsg : "The " + CurrentRace.name + " species has the option to use some specific traits from another species. As you had previously selected " + sOldRaceName + " as the species, would you want to use its features?\n\n" + toUni("Press 'Yes' to use traits from " + sOldRaceName + " or\npress 'No' to use the default traits for " + CurrentRace.name + ".") + (oInstr.message ? "\n\n" + oInstr.message : "")
 		});
 		CurrentVars.oldRaceAmendRemember = iAskUser === 4;
 		SetStringifieds("vars");
@@ -3272,9 +3278,9 @@ function SetBackgrounddropdown(forceTooltips) {
 
 function SetRacesdropdown(forceTooltips) {
 	var ArrayDing = [""];
-	var tempString = toUni("Race") + "\nType in the name of the race (or select it from the drop-down menu) and its traits and features will be filled out automatically, provided that its a recognized race. You are not limited by the names in the list. Just typing \"Drow\" will also be recognized, for example.";
-	tempString += "\n\n" + toUni("Alternative spelling") + "\nDifferent, setting-dependent race names are recognized as well. For example, typing \"Moon Elf\" will result in all the traits and features of the \"High Elf\" from the Player's Handbook.";
-	tempString += "\n\n" + toUni("Changing race") + "\nIf you change the race, all the features of the previous race will be removed and the features of the new race will be applied.";
+	var tempString = toUni("Species") + "\nType in the name of the species (or select it from the drop-down menu) and its traits and features will be filled out automatically, provided that its a recognized species. You are not limited by the names in the list. Just typing \"Drow\" will also be recognized, for example.";
+	tempString += "\n\n" + toUni("Alternative spelling") + "\nDifferent, setting-dependent species names are recognized as well. For example, typing \"Moon Elf\" will result in all the traits and features of the \"High Elf\" from the Player's Handbook.";
+	tempString += "\n\n" + toUni("Changing species") + "\nIf you change the species, all the features of the previous species will be removed and the features of the new species will be applied.";
 
 	for (var key in RaceList) {
 		if (testSource(key, RaceList[key], "racesExcl")) continue;
@@ -5577,11 +5583,12 @@ function ParseFeatMenu() {
 			firstLetter = featName[0].toUpperCase();
 		}
 		fMenus.ref[featName] = subFeat ? mainFeat + "#" + subFeat : mainFeat;
-		// Add the entry for the alphabetical and source listings
+		// Add the entry for the alphabetical
 		if (!fMenus.alphabetical[firstLetter]) fMenus.alphabetical[firstLetter] = [];
 		fMenus.alphabetical[firstLetter].push(featName);
-		if (tObj.source) {
-			var aSrcs = parseSource(tObj.source);
+		// Add to its source listing
+		var aSrcs = parseSource(tObj.source);
+		if (aSrcs) {
 			for (var a = 0; a < aSrcs.length; a++) {
 				var aSrc = SourceList[aSrcs[a][0]];
 				var uSrc = aSrc.name + " (" + aSrc.abbreviation + ")";
@@ -6374,7 +6381,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 						false // forceNonCurrent
 					);
 				} catch (error) {
-					var eText = 'The "' + propFea.name + '" feature from the "' + CurrentRace.name + '" race produced an error! Please contact the author of the feature to correct this issue:\n ' + error;
+					var eText = 'The "' + propFea.name + '" feature from the "' + CurrentRace.name + '" species produced an error! Please contact the author of the feature to correct this issue:\n ' + error;
 					for (var e in error) eText += "\n " + e + ": " + error[e];
 					console.println(eText);
 					console.show();
@@ -7013,10 +7020,11 @@ function PrintButton() {
 		"SSfront",
 		"ALlog"
 	];
-	if (typePF) {
-		thePageOptions.push("PRsheet");
-		SetPrintPages_Dialog.bshowPR = true;
-	}
+	/* No reference sheet in 2024 version */
+	// if (typePF) {
+	// 	thePageOptions.push("PRsheet");
+	// 	SetPrintPages_Dialog.bshowPR = true;
+	// }
 
 	var PrintFld = What("Print Remember").split("!#TheListSeparator#!");
 	var PageArray = PrintFld[1] !== "0" ? PrintFld[1].split(",") : null;
@@ -9203,7 +9211,7 @@ function MakeRaceMenu() {
 
 	if (racialVarArr.length === 1) {
 		RaceMenu = [{
-			cName : "No race options that require a choice",
+			cName : "No species options that require a choice",
 			cReturn : "nothing",
 			bEnabled : false
 		}];
@@ -9253,13 +9261,13 @@ function ConvertToMetric(inputString, rounded, exact) {
 			total = amount * UnitsList[ratio].lengthInch;
 			unit = "cm";
 			break;
-		 case "cu ft" : case "cubic foot" : case "cubic feet" : case "cu foot" : case "cu feet" : case "cubic ft" :
+		 case "cu ft" : case "cubic foot" : case "cubic feet" : case "cu foot" : case "cu feet" : case "cubic ft" : case "ft3" : case "ft\u00B3" :
 			total = amount * UnitsList[ratio].volume;
-			unit = "m3";
+			unit = "m\u00B3"; // m³
 			if (total < 0.25) {
 				// for very small volumes, we are going to use dm3
 				total *= 1000;
-				unit = 'dm3';
+				unit = 'dm\u00B3'; // dm³
 			} else if (total < 1 && rounding > 0.03) {
 				// for relatively small volumes, we are going to round to 0.03 accuracy
 				total = RoundTo(total, 0.03, false, true);
@@ -9270,9 +9278,9 @@ function ConvertToMetric(inputString, rounded, exact) {
 				isRounded = true;
 			}
 			break;
-		 case "sq ft" : case "square foot" : case "square feet" : case "sq feet" : case "sq foot" : case "square ft" :
+		 case "sq ft" : case "square foot" : case "square feet" : case "sq feet" : case "sq foot" : case "square ft" : case "ft2" : case "ft\u00B2" :
 			total = amount * UnitsList[ratio].surface;
-			unit = "m2";
+			unit = "m\u00B2"; // m²
 			break;
 		 case "lb" : case "lbs" : case "pound" : case "pounds" :
 			total = amount * UnitsList[ratio].mass;
@@ -9288,7 +9296,7 @@ function ConvertToMetric(inputString, rounded, exact) {
 			break;
 		 case "\u00B0 f" : case "\u00B0f" : case "degree fahrenheit" : case "degrees fahrenheit" : case "fahrenheit" :
 			total = RoundTo((amount - 32) * 5/9, exact ? 0.01 : 1, false, true);
-			unit = "\u00B0C";
+			unit = "\u00B0C"; //°C
 			isRounded = true;
 			break;
 		}
@@ -9296,23 +9304,23 @@ function ConvertToMetric(inputString, rounded, exact) {
 	}
 
 	// find all labeled measurements in string
-	var measurements = inputString.match(/(\b|-)\d+[,./]?\d*\/?(-?\d+?[,./]?\d*)?\s?-?('\d+\w?"($|\W)|'($|\W)|"($|\W)|(in|inch|inches|miles?|(?:cubic|cu|square|sq)? ?f(?:oo|ee)?t|lbs?|pounds?|gal(?:lons?)?|q(?:uar)ts?|\u00B0 ?f|(?:degrees? )?fahrenheit)\b)/ig);
+	var measurements = inputString.match(/(\b|-)\d+[,./]?\d*\/?(-?\d+?[,./]?\d*)?\s?-?('\d+\w?"($|\W)|'($|\W)|"($|\W)|f(?:oo|ee)?t[\u00B2\u00B3]|(in|inch|inches|miles?|(?:cubic|cu|square|sq)? ?f(?:oo|ee)?t[23]?|lbs?|pounds?|gal(?:lons?)?|q(?:uar)?ts?|\u00B0 ?f|(?:degrees? )?fahrenheit)\b)/ig);
 
 	if (measurements) {
 		for (var i = 0; i < measurements.length; i++) {
-			if ((/'.+"/).test(measurements[i])) {
-				if ((/'.+"\W/).test(measurements[i])) {
+			if (/'.+"/.test(measurements[i])) {
+				if (/'.+"\W/.test(measurements[i])) {
 					measurements[i] = measurements[i].substr(0, measurements[i].length - 1);
 				}
 				var orgFT = parseFloat(measurements[i].substring(0,measurements[i].indexOf("'")));
 				var orgIN = parseFloat(measurements[i].substring(measurements[i].indexOf("'") + 1, measurements[i].indexOf('"')));
 				var resulted = theConvert(parseFloat(orgIN/12) + parseFloat(orgFT), "ft");
 			} else {
-				if ((/\d+('|")\W/).test(measurements[i])) {
+				if (/\d+('|")\W/.test(measurements[i])) {
 					measurements[i] = measurements[i].substr(0, measurements[i].length - 1);
 				}
 				var org = measurements[i].replace(/,/g, ".");
-				var orgUnit = org.match(/[-\s]*([\u00B0 A-z'"]+)$/)[1].toLowerCase();
+				var orgUnit = org.match(/[-\s]*([\u00B0 A-z'"]+[\u00B22\u00B33]?)$/)[1].toLowerCase();
 				var fraction;
 
 				if (fraction = org.match(/(-?\d+\.?\d*)\/(-?\d+\.?\d*)/) ){
@@ -9322,7 +9330,7 @@ function ConvertToMetric(inputString, rounded, exact) {
 				}
 			}
 	
-			var delimiter = (/.*\d+([\s- ]*?)\w/).test(measurements[i]) ? measurements[i].match(/.*\d+([\s- ]*?)\w/)[1] : " ";
+			var delimiter = /.*\d+([\s- ]*?)\w/.test(measurements[i]) ? measurements[i].match(/.*\d+([\s- ]*?)\w/)[1] : " ";
 
 			if (isArray(resulted[0])) {
 				var theResult = RoundTo(resulted[0][0], rounding, false, true) + "/" + RoundTo(resulted[1][0], rounding, false, true) + delimiter + resulted[1][1];
@@ -9360,9 +9368,9 @@ function ConvertToImperial(inputString, rounded, exact, toshorthand) {
 			total = amount / UnitsList[ratio].distance;
 			unit = total === 1 ? "mile" : "miles";
 			break;
-		 case "dm3" : case "cubic decimeter" : case "cubic decimeters" : case "cubic decimetre" : case "cubic decimetres" :
+		 case "dm3" : case "dm\u00B3" : case "cubic decimeter" : case "cubic decimeters" : case "cubic decimetre" : case "cubic decimetres" :
 			amount /= 1000;
-		 case "m3" : case "cubic meter" : case "cubic meters" : case "cubic metre" : case "cubic metres" :
+		 case "m3" : case "m\u00B3" : case "cubic meter" : case "cubic meters" : case "cubic metre" : case "cubic metres" :
 			total = amount / UnitsList[ratio].volume;
 			unit = "cu ft";
 			if (total > 41 && rounding < 2) {
@@ -9370,7 +9378,7 @@ function ConvertToImperial(inputString, rounded, exact, toshorthand) {
 				rounding = 10;
 			}
 			break;
-		 case "m2" : case "square metre" : case "square metres" : case "square meter" : case "square meters" :
+		 case "m2" : case "m\u00B2" : case "square metre" : case "square metres" : case "square meter" : case "square meters" :
 			total = amount / UnitsList[ratio].surface;
 			unit = "sq ft";
 			break;
@@ -9391,7 +9399,7 @@ function ConvertToImperial(inputString, rounded, exact, toshorthand) {
 			break;
 		 case "\u00B0 c" : case "\u00B0c" : case "degree celsius" : case "degrees celsius" : case "celsius" :
 			total = RoundTo((amount * 9/5) + 32, exact ? 0.01 : 1, false, true);
-			unit = "\u00B0F";
+			unit = "\u00B0F"; // °F
 			isRounded = true;
 			break;
 		}
@@ -9399,12 +9407,12 @@ function ConvertToImperial(inputString, rounded, exact, toshorthand) {
 	}
 
 	// find all labeled measurements in string
-	var measurements = inputString.match(/(\b|-)\d+[,./]?\d*\/?(-?\d+?[,./]?\d*)?\s?-?(m2|d?m3|(?:square )?met(?:re|er)s?|cubic (?:deci)?met(?:re|er)s?|(?:c|k)?m|l|lit(?:er|re)s?|k?g|kilo(?:gram)?s?|\u00B0 ?c|(?:degrees? )?celsius)\b/ig);
+	var measurements = inputString.match(/(\b|-)\d+[,./]?\d*\/?(-?\d+?[,./]?\d*)?\s?-?([dck]?m[\u00B2\u00B3]|([dck]?m[23]?|(?:sq |square )?met(?:re|er)s?|(?:cu |cubic )(?:deci)?met(?:re|er)s?|l|lit(?:er|re)s?|k?g|grams?|kilo(?:gram)?s?|\u00B0 ?c|(?:degrees? )?celsius)\b)/ig);
 
 	if (measurements) {
 		for (var i = 0; i < measurements.length; i++) {
 			var org = measurements[i].replace(/,/g, ".");
-			var orgUnit = org.match(/[-\s]*([\u00B0 A-z']+[23]?)$/)[1].toLowerCase();
+			var orgUnit = org.match(/[-\s]*([\u00B0 A-z']+[\u00B22\u00B33]?)$/)[1].toLowerCase();
 			var fraction;
 
 			if (fraction = org.match(/(-?\d+\.?\d*)\/(-?\d+\.?\d*)/)){
@@ -9413,7 +9421,7 @@ function ConvertToImperial(inputString, rounded, exact, toshorthand) {
 				var resulted = theConvert(parseFloat(org), orgUnit);
 			}
 
-			var delimiter = (/.*\d+([\s- ]*?)\w/).test(measurements[i]) ? measurements[i].match(/.*\d+([\s- ]*?)\w/)[1] : " ";
+			var delimiter = /.*\d+([\s- ]*?)\w/.test(measurements[i]) ? measurements[i].match(/.*\d+([\s- ]*?)\w/)[1] : " ";
 
 			if (isArray(resulted[0])) {
 				var theResult = RoundTo(resulted[0][0], rounding, false, true) + "/" + RoundTo(resulted[1][0], rounding, false, true) + delimiter + resulted[1][1];

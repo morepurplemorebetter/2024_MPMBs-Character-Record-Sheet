@@ -262,7 +262,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 
 	if (aCrea.typeFound === "race") {// do the following if a race was found
 		tDoc.resetForm(compFields); //reset all the fields
-		thermoTxt = thermoM("Adding the companion's player race...", false); //change the progress dialog text
+		thermoTxt = thermoM("Adding the companion's player species...", false); //change the progress dialog text
 
 		//set descriptive tooltips
 		var theHeight = What("Unit System") === "imperial" ? aCrea.height : aCrea.heightMetric ? aCrea.heightMetric : aCrea.height;
@@ -476,9 +476,9 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		// If the race has any other features that aren't applied here
 		if (aCrea.eval || aCrea.features || aCrea.scores || aCrea.action) {
 			app.alert({
-				cTitle : "Player race not fully compatible with companion page",
+				cTitle : "Player species not fully compatible with companion page",
 				nIcon : 3,
-				cMsg : "The companion page is not fully compatible with all the possible features of races that are designed to be used as a player race (i.e. normally used to create a character with levels).\n\nThe sheet has tried its best to add the '" + aCrea.name + "' race to the companion page, but some aspects will be missing:\n\u2022 Anything gained from level-dependent features;\n\u2022 Limited features;\n\u2022 Racial spellcasting;\n\u2022 Additional actions, bonus actions, and reactions;\n\u2022 Automated attack calculation changes;\n\u2022 Anything added using the 'eval' or 'changeeval' attributes."
+				cMsg : "The companion page is not fully compatible with all the possible features of species that are designed to be used as a player species (i.e. normally used to create a character with levels).\n\nThe sheet has tried its best to add the '" + aCrea.name + "' species to the companion page, but some aspects will be missing:\n\u2022 Anything gained from level-dependent features;\n\u2022 Limited features;\n\u2022 Racial spellcasting;\n\u2022 Additional actions, bonus actions, and reactions;\n\u2022 Automated attack calculation changes;\n\u2022 Anything added using the 'eval' or 'changeeval' attributes."
 			})
 		}
 
@@ -2220,9 +2220,9 @@ function SetWildshapeDropdown(forceTooltips) {
 
 //set the drop-down menus for companion race
 function SetCompDropdown(forceTooltips) {
-	var tempString = "Type (or select) the name of the race you want to have on this page. Note that first a list of player races is given, followed by an alphabetical list of creatures. You are not limited by the names in the list. Just typing \"Drow\" will also be recognized, for example.";
+	var tempString = "Type (or select) the name of the race you want to have on this page. Note that first a list of player species is given, followed by an alphabetical list of creatures. You are not limited by the names in the list. Just typing \"Drow\" will also be recognized, for example.";
 	tempString += "\n\n" + toUni("Selecting a creature") + "\nAll information of the creature will automatically be added. This includes ability scores, proficiencies, senses, weapons, etc. You can change the things afterwards.\nBecause not all creatures need the same amount of space for all their feature text,some fields may overflow. You can manually edit these fields so that everything is visible when printed (e.g. move things to the \"Noted\" below).";
-	tempString += "\n\n" + toUni("Selecting a player race") + "\nAll the same things as selecting a player race on the first page will happen, with the exception that no limited feature or ability DC is added as there is no room for that."
+	tempString += "\n\n" + toUni("Selecting a player species") + "\nAll the same things as selecting a player species on the first page will happen, with the exception that no limited feature or ability DC is added as there is no room for that."
 	tempString += "\n\n" + toUni("Changing the race") + "\nIf you entered a race that was recognized and then change the entry to something that is not recognized, all the features and abilities of the recognized race will remain in place. This way, you can change the name of the race to something, while keeping the stats of something else. For example, you can choose \"Frog\" and then change it to \"Salamander\", creating a salamander with the stats of a frog.";
 
 	var theListStart = [], theListR = [], theListC = [];
@@ -3167,7 +3167,8 @@ function MakePagesMenu() {
 	menuLvl2templ(pagesMenu, ["AScomp", "ASnotes", "WSfront", "ALlog"]);
 
 	//the menu item for the refence sheet, if applicable
-	if (typePF) menuLvl1(pagesMenu, ["PRsheet"]);
+	/* No reference sheet in 2024 version */
+	// if (typePF) menuLvl1(pagesMenu, ["PRsheet"]);
 
 	//a function for adding menu items with a submenu
 	var menuLVL2 = function (menu, name, array) {
@@ -4821,7 +4822,7 @@ function ChangeToCompleteAdvLogSheet(FAQpath) {
 		tDoc.info.SheetVersionBuild ? 'this.info.SheetVersionBuild = "' + tDoc.info.SheetVersionBuild + '";' : '',
 		'this.info.SheetType = "' + tDoc.info.SheetType + '";',
 		'this.info.Keywords = "' + (!typePF ? keyCF : (tDoc.info.SheetType === "Printer Friendly" ? keyPF : keyPFR)) + '";',
-		'this.info.Subject = "D&D 5e; Character Sheet; Adventurers League; Adventure Logsheet";',
+		'this.info.Subject = "D&D 2024; Character Sheet; Adventurers League; Adventure Logsheet";',
 		'this.info.ContactEmail = "' + tDoc.info.ContactEmail + '";',
 		"setGlobalVars();",
 		"this.info.Title = MakeDocName();",
@@ -5402,8 +5403,8 @@ function contactMPMB(medium) {
 		case "reddit" :
 			app.launchURL("https://www.reddit.com/r/mpmb/", true);
 			break;
-		case "twitter" :
-			app.launchURL("https://twitter.com/BetterOfPurple", true);
+		case "bluesky" :
+			app.launchURL("https://bsky.app/profile/flapkan.com", true);
 			break;
 	};
 };
@@ -5501,9 +5502,16 @@ function PatreonStatement(force) {
 function addEvals(evalObj, NameEntity, Add, type, level) {
 	if (!evalObj) return;
 
+	if (Add && type === "default") {
+		// If a default eval, store it so we won't add duplicates
+		if (!CurrentEvals.defaultsProcessed) CurrentEvals.defaultsProcessed = {};
+		if (CurrentEvals.defaultsProcessed[NameEntity]) return;
+		CurrentEvals.defaultsProcessed[NameEntity] = evalObj;
+	}
+
 	// Calculate the priority
 	var priority = level ? level : 0;
-	switch (GetFeatureType(type)) {
+	switch (GetFeatureType(type, true)) {
 		case "magic":
 			priority += 100;
 			break;
@@ -5605,7 +5613,7 @@ function addEvals(evalObj, NameEntity, Add, type, level) {
 	// Remove any remaining empty objects when removing stuff
 	if (!Add) CurrentEvals = CleanObject(CurrentEvals);
 	// Finally, set this global variable to its field for safekeeping
-	SetStringifieds("evals");
+	if (type !== "default") SetStringifieds("evals");
 };
 
 // make a string of all the things affecting the attack calculations
@@ -5620,6 +5628,30 @@ function StringEvals(aType) {
 		}
 	}
 	return txt.join("\n\n");
+}
+
+// Startup function - Add the default evals, if not yet added
+function AddDefaultEvals() {
+	// Iterate over all in DefaultEvalsList and add them if they don't yet exist
+	for (var evalName in DefaultEvalsList) {
+		var oDefaultEval = DefaultEvalsList[evalName];
+		addEvals(oDefaultEval, evalName, true, "default", 1);
+	}
+
+	// Iterate over all in CurrentEvals.defaultsProcessed and remove any that no longer exist in DefaultEvalsList
+	if (CurrentEvals.defaultsProcessed) {
+		for (var evalName in CurrentEvals.defaultsProcessed) {
+			if (!DefaultEvalsList[evalName]) {
+				addEvals(CurrentEvals.defaultsProcessed[evalName], evalName, false, "default", 1);
+				delete CurrentEvals.defaultsProcessed[evalName];
+			}
+		}
+	}
+
+	// Set the global variable to its field for safekeeping
+	SetStringifieds("evals");
+	// don't trigger the changes dialog for this
+	CurrentUpdates.types = [];
 }
 
 // test if the main character is proficient with a weapon (return true) or not (return false)
@@ -5748,65 +5780,21 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 			theWea.modifiers && theWea.modifiers[1] ? theWea.modifiers[1] : 0;
 
 		// Select the ability score
-		var StrDex = What(QI ? "Str" : prefix + "Comp.Use.Ability.Str.Score") < What(QI ? "Dex" : prefix + "Comp.Use.Ability.Dex.Score") ? 2 : 1;
+		var StrDex = getHighestAbility(["Str","Dex"], prefix);
 		var weaponMod = /finesse/i.test(theWea.description) ? StrDex : theWea.ability;
 
 		// Change the selected ability to that of a spellcaster, if so defined
-		var useSpellModRem = theWea.useSpellMod && CurrentSpells[theWea.useSpellMod] ? theWea.useSpellMod : undefined;
+		var useSpellModRem = existsInCurrentSpells(theWea.useSpellMod) ? theWea.useSpellMod : undefined;
 		var forceUseSpellcastingMod = theWea.useSpellcastingAbility === undefined ? false : theWea.useSpellcastingAbility ? "y" : "n";
 		var isDC = /dc/i.test(fields.To_Hit_Bonus);
-		var getCasterSpellAbi = function(sCast, iCurrentAbi, iToBeat) {
-			var oCast = CurrentSpells[sCast];
-			if (!oCast) return iToBeat === undefined ? iCurrentAbi : false;
-			if (!oCast.abilityToUse) oCast.abilityToUse = getSpellcastingAbility(sCast);
-			var iCastAbi = oCast.abilityToUse[0];
-			if (iToBeat === undefined) {
-				return iCastAbi;
-			} else {
-				// Get the DC / Spell attack for the caster to compare, unless it hasn't been calculated or this is not a recognized spell, then just get the ability score
-				var iScore = thisWeapon[4].length && oCast.calcSpellScores ? oCast.calcSpellScores[isDC ? "dc" : "attack"] : getAbiModValue(iCastAbi, false, false, true) - 10; // prefer the calculated value, so -10 for scores
-				return iScore > iToBeat ? { ability : iCastAbi, iToBeat : iScore } : false;
-			}
-		}
 		if (useSpellModRem) {
 			// If the weapon has `useSpellMod`, set the ability to the matching spellcaster
-			weaponMod = getCasterSpellAbi(useSpellModRem, weaponMod);
+			weaponMod = getHighestSpellcastingAbility(useSpellModRem, false, isDC).ability;
 		} else if (QI && (thisWeapon[3] || forceUseSpellcastingMod === "y") && forceUseSpellcastingMod !== "n") {
-	// TESTING - new way
 			// Get an array of all the caster classes that can cast the spell (or just all cast classes for non-recognized spells)
 			var aCasters = thisWeapon[4].length ? thisWeapon[4] : Object.keys(CurrentSpells);
-			// Loop through these and get the ability of the caster with the highest bonus
-			var iToBeat = 0;
-			for (var i = 0; i < aCasters.length; i++) {
-				var oTest = getCasterSpellAbi(aCasters[i], weaponMod, iToBeat);
-				if (oTest) {
-					weaponMod = oTest.ability;
-					iToBeat = oTest.iToBeat;
-				}
-			}
-/* TESTING - old way below
-			//change mod if this is concerning a spell/cantrip
-			if (thisWeapon[4].length) {
-				var abiArr = thisWeapon[4].map( function(sCast) {
-					return getCasterSpellAbi(sCast);
-				});
-			} else {
-				// the spell is not known by any class, so just gather the ability scores from all spellcasting entries so we can select the highest
-				var abiArr = [];
-				for (var sCast in CurrentSpells) {
-					abiArr.push(getCasterSpellAbi(sCast));
-				}
-			}
-			var abiDone = [];
-			var abiModArr = [];
-			for (var i = 0; i < abiArr.length; i++) {
-				if (abiDone.indexOf(abiArr[i]) !== -1) continue;
-				abiDone.push(abiArr[i]);
-				var thisMod = !abiArr[i] ? 0 : Number(What(AbilityScores.abbreviations[abiArr[i] - 1]));
-				if (thisMod >= Math.max.apply(Math, abiModArr)) weaponMod = abiArr[i];
-				abiModArr.push(thisMod);
-			}
-*/
+			// Get the highest spellcasting ability from these
+			weaponMod = getHighestSpellcastingAbility(aCasters, false, isDC).ability;
 		}
 		fields.Mod = weaponMod;
 
@@ -5863,9 +5851,9 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 				}
 			}
 
-			// if the `useSpellMod` was changed, change the ability to match unless something already changed the ability to select
-			if (useSpellModRem !== theWea.useSpellMod && CurrentSpells[theWea.useSpellMod] && fields.Mod === weaponMod) {
-				fields.Mod = getCasterSpellAbi(theWea.useSpellMod, fields.Mod);
+			// if the `useSpellMod` was changed, get the associated spellcasting ability unless something already changed the selected ability
+			if (useSpellModRem !== theWea.useSpellMod && existsInCurrentSpells(theWea.useSpellMod) && fields.Mod === weaponMod) {
+				fields.Mod = getHighestSpellcastingAbility(theWea.useSpellMod, false, /dc/i.test(fields.To_Hit_Bonus)).ability;
 			}
 		};
 
@@ -5962,6 +5950,7 @@ function CalcAttackDmgHit(fldName) {
 		Damage_Die : What(fldBaseBT + "Damage Die")
 	};
 
+	var isDC = /dc/i.test(fields.To_Hit_Bonus);
 	var thisWeapon = QI ? CurrentWeapons.known[ArrayNmbr] : CurrentWeapons.compKnown[prefix][ArrayNmbr];
 	var WeaponName = thisWeapon[0];
 	var aWea = QI || isNaN(parseFloat(WeaponName)) ? WeaponsList[WeaponName] : !QI && !isNaN(parseFloat(WeaponName)) && CurrentCompRace[prefix] && CurrentCompRace[prefix].attacks ? CurrentCompRace[prefix].attacks[WeaponName] : false;
@@ -5972,8 +5961,10 @@ function CalcAttackDmgHit(fldName) {
 		for (var attr in WeaponsList[aWea.baseWeapon]) theWea[attr] = WeaponsList[aWea.baseWeapon][attr];
 	}
 	if (aWea) for (var attr in aWea) theWea[attr] = aWea[attr];
-	var oFixedCaster = theWea.useSpellMod && CurrentSpells[theWea.useSpellMod] ? CurrentSpells[theWea.useSpellMod] : false;
-	if (oFixedCaster && !oFixedCaster.abilityToUse) oFixedCaster.abilityToUse = getSpellcastingAbility(theWea.useSpellMod); // make sure this exists
+	var useSpellModRem = existsInCurrentSpells(theWea.useSpellMod) ? theWea.useSpellMod : false;
+	var sFixedCaster = useSpellModRem ? getHighestSpellcastingAbility(useSpellModRem, false, isDC).caster : false;
+	var oFixedCaster = sFixedCaster ? CurrentSpells[sFixedCaster] : false;
+	if (oFixedCaster && !oFixedCaster.abilityToUse) oFixedCaster.abilityToUse = getSpellcastingAbility(sFixedCaster);
 	var aWeaNoAbi = theWea.ability === 0 || (oFixedCaster && (oFixedCaster.fixedDC || oFixedCaster.fixedSpAttack !== undefined) && oFixedCaster.abilityToUse[0] === 0);
 
 	if (!WeaponTextName || (/^(| |empty)$/.test(fields.Mod) && !aWeaNoAbi)) {
@@ -5997,7 +5988,6 @@ function CalcAttackDmgHit(fldName) {
 	};
 
 	// define some variables that we can check against later or with the CurrentEvals
-	var isDC = /dc/i.test(fields.To_Hit_Bonus);
 	var spType = isDC ? "dc" : "attack", spTypeShort = isDC ? "dc" : "atk";
 	var notUseSpellcastingAbility = theWea && theWea.useSpellcastingAbility === false;
 
@@ -6059,14 +6049,18 @@ function CalcAttackDmgHit(fldName) {
 		}
 
 		// The useSpellMod might've been changed
-		oFixedCaster = theWea.useSpellMod && CurrentSpells[theWea.useSpellMod] ? CurrentSpells[theWea.useSpellMod] : false;
+		if (useSpellModRem !== theWea.useSpellMod) {
+			sFixedCaster = existsInCurrentSpells(theWea.useSpellMod) ? getHighestSpellcastingAbility(theWea.useSpellMod, false, isDC).caster : false;
+			oFixedCaster = sFixedCaster ? CurrentSpells[sFixedCaster] : false;
+			if (oFixedCaster && !oFixedCaster.abilityToUse) oFixedCaster.abilityToUse = getSpellcastingAbility(sFixedCaster);
+		}
 	};
 
 	// If this is a spell (or weapon with useSpellMod), determine which spellcasting bonus to use
 	var aCasters = [], spType = isDC ? "dc" : "attack";
 	if (oFixedCaster) {
 		// Weapon has a fixed affeliated spellcasting class that exists
-		aCasters.push(theWea.useSpellMod);
+		aCasters.push(sFixedCaster);
 		// If this uses a different ability score, fix the field and output to match
 		if (oFixedCaster.abilityToUse[0] !== fields.Mod) {
 			fields.Mod = oFixedCaster.abilityToUse[0];
@@ -6320,38 +6314,79 @@ function FunctionIsNotAvailable() {
 	app.alert({
 		nIcon : 0,
 		cTitle : "Please update your Adobe Acrobat",
-		cMsg : "This feature doesn't work (correctly) with the version of Adobe Acrobat you are using. This version of Adobe Acrobat is not supported for use with MPMB's D&D 5e Character Tools. Please update to Adobe Acrobat DC.\n\nYou can get Adobe Acrobat Reader DC for free at https://get.adobe.com/reader/"
+		cMsg : "This feature doesn't work (correctly) with the version of Adobe Acrobat you are using. This version of Adobe Acrobat is not supported for use with MPMB's D&D 2024 Character Tools. Please update to Adobe Acrobat DC.\n\nYou can get Adobe Acrobat Reader DC for free at https://get.adobe.com/reader/"
 	});
 };
 
-// get the string for the modifier field
-// this can be based on index number Str = 1, Dex = 2, etc.
-// or on the abbreviation string "Str", "Dex", etc.
-// wildshapeNo is the index of the monser on wild shape page, starting with 1
-function getAbiModValue(ability, prefix, wildshapeNo, bReturnScore) {
-	var mod = 0;
-	var abi = !isNaN(ability) && ability > 0 && ability <= AbilityScores.abbreviations.length ?  AbilityScores.abbreviations[ability - 1] : AbilityScores.abbreviations.indexOf(ability) !== -1 ? ability : "error";
-	if (abi === "error") return mod;
-	var suffix = bReturnScore ? (prefix ? ".Score" : "") : (prefix ? ".Mod" : " Mod");
-	if (!prefix) {
-		mod = Number(What(abi + suffix));
-	} else if (wildshapeNo) {
-		mod = Number(What(prefix + "Wildshape." + wildshapeNo + ".Ability." + abi + suffix));
+/** Get the modifier or score for an ability
+ * wildshapeNo is the index of the monser on wild shape page, starting with 1
+ * @param {number|string} ability index number Str = 1, Dex = 2, etc. or abbreviation string "Str", "Dex"
+ * @param {string} [prefix] [optional] the prefix for the companion or wild shape page
+ * @param {number} [wildshapeNo] [optional, requires `prefix`] index of the monster on wild shape page, starting with 1
+ * @param {boolean|string} [returnScore] [optional] can be `true`, `false`, or `"tiebreak"`
+ * 
+ * @return {number} depends on returnScore: if `=== true` returns the modifier, if `== false` returns the score, if `=== "tiebreak"` returns the modifier with the score as decimals
+ */
+function getAbiModValue(ability, prefix, wildshapeNo, returnScore) {
+	var mod = 0, score = 0, abi;
+	if (AbilityScores.abbreviations.indexOf(ability) !== -1) {
+		abi = ability;
+	} else if (!isNaN(ability) && ability > 0 && ability <= AbilityScores.abbreviations.length) {
+		abi = AbilityScores.abbreviations[ability - 1];
+	} else if (What("HoSRememberState") && (ability === 7 || ability === "HoS")) {
+		abi = "HoS";
 	} else {
-		mod = Number(What(prefix + "Comp.Use.Ability." + abi + suffix));
+		return mod;
 	}
-	return mod;
+	if (!prefix) {
+		mod = Number(What(abi + " Mod"));
+		score = Number(What(abi));
+	} else if (wildshapeNo) {
+		mod = Number(What(prefix + "Wildshape." + wildshapeNo + ".Ability." + abi + ".Mod"));
+		score = Number(What(prefix + "Wildshape." + wildshapeNo + ".Ability." + abi + ".Score"));
+	} else {
+		mod = Number(What(prefix + "Comp.Use.Ability." + abi + ".Mod"));
+		score = Number(What(prefix + "Wildshape." + wildshapeNo + ".Ability." + abi + ".Score"));
+	}
+	if (returnScore === "tiebreak") mod += score / 100;
+	return returnScore === true ? score : mod;
 }
 
-// a way to eval the content of a modifier field; prefix === true if it is the character (true) or a string if it is for a companion page (the prefix of the companion page); if isSpecial === "test" it will output undefined if an error occurs; if isSpecial is a number it will look for that entry on the Wild Shape page with the corresponding prefix variable as a prefix;
+/** Get the highest ability score
+ * Compare ability scores, optionally limited to a subset, and return which one has the highest
+ * If multiple scores are equal, the first one in the provided array will be returned, thus order of the array matters
+ * @param {number[]|string[]} [abilities] [optional] index number Str = 1, Dex = 2, etc. or abbreviation string "Str", "Dex", etc. If omitted, look at all abilities
+ * @param {string} [prefix] [optional] the prefix for the companion or wild shape page
+ * @param {number} [wildshapeNo] [optional, requires `prefix`] index of the monster on wild shape page, starting with 1
+ * @param {boolean} [returnAbbr] [optional] set to `true` if this should return
+ * 
+ * @return {number} depends on returnAbbr: if `== true` returns abbreviation ("Str", "Dex", etc.), otherwise (default) returns index number (1=Str, 2=Dex, 3=Con, 4=Int, 5=Wis, 6=Cha)
+*/
+function getHighestAbility(abilities, prefix, wildshapeNo, returnAbbr) {
+	var defaultAbilities = AbilityScores.abbreviations.concat('HoS');
+	var oResult = abilities.reduce(function (acc, abi) {
+		var score = getAbiModValue(abi, prefix, wildshapeNo, true);
+		if (score > acc.score) {
+			return { score: score, abi: abi };
+		}
+		return acc;
+	}, {score: 0, abi: 0});
+	if (returnAbbr) {
+		return isNaN(oResult.abi) ? oResult.abi : defaultAbilities[oResult.abi - 1];
+	} else {
+		return !isNaN(oResult.abi) ? oResult.abi : defaultAbilities.indexOf(oResult.abi) + 1;
+	}
+}
+
+// a way to eval the content of a modifier field; (!prefix || prefix === true) if it is the character (true) or a string if it is for a companion page (the prefix of the companion page); if isSpecial === "test" it will output undefined if an error occurs; if isSpecial is a number it will look for that entry on the Wild Shape page with the corresponding prefix variable as a prefix;
 function EvalBonus(input, prefix, isSpecial, useProfB) {
 	if (!input) {
 		return 0;
 	} else if (!isNaN(input)) {
 		return Number(input);
 	};
-	var modStr = prefix === true ? ["", " Mod"] : !isSpecial || isSpecial === "test" ? [prefix + "Comp.Use.Ability.", ".Mod"] : [prefix + "Wildshape." + isSpecial + ".Ability.", ".Mod"];
-	var ProfB = useProfB !== undefined && !isNaN(useProfB) ? useProfB : prefix === true ? Number(How("Proficiency Bonus")) : Number(What(!isSpecial || isSpecial === "test" ? prefix + "Comp.Use.Proficiency Bonus" : prefix + "Wildshape." + isSpecial + ".Proficiency Bonus"));
+	var modStr = !prefix || prefix === true ? ["", " Mod"] : !isSpecial || isSpecial === "test" ? [prefix + "Comp.Use.Ability.", ".Mod"] : [prefix + "Wildshape." + isSpecial + ".Ability.", ".Mod"];
+	var ProfB = useProfB !== undefined && !isNaN(useProfB) ? useProfB : !prefix || prefix === true ? Number(How("Proficiency Bonus")) : Number(What(!isSpecial || isSpecial === "test" ? prefix + "Comp.Use.Proficiency Bonus" : prefix + "Wildshape." + isSpecial + ".Proficiency Bonus"));
 	// remove 'dc' and convert commas to dots for decimal handling
 	input = input.replace(/,/g, ".").replace(/dc/ig, "");
 	// add a "+" between abbreviations that have no operator. Do this twice, so we also catch uneven groups
@@ -6382,7 +6417,7 @@ function EvalBonus(input, prefix, isSpecial, useProfB) {
 	};
 };
 
-// a way to eval the content of a weapon damage die field; prefix if it is the character (true) or if it is for a companion page (the prefix of the companion page); if isSpecial === "test" it will output _ERROR_ for the part that produces an error; if isSpecial is a number it will look for that entry on the Wild Shape page with the corresponding prefix variable as a prefix; useProfB is just here to pass to EvalBonus if present
+// a way to eval the content of a weapon damage die field; (!prefix || prefix === true) if it is the character or if it is for a companion page (the prefix of the companion page); if isSpecial === "test" it will output _ERROR_ for the part that produces an error; if isSpecial is a number it will look for that entry on the Wild Shape page with the corresponding prefix variable as a prefix; useProfB is just here to pass to EvalBonus if present
 function EvalDmgDie(input, prefix, isSpecial, useProfB) {
 	if (!input) {
 		return 0;
@@ -6392,7 +6427,7 @@ function EvalDmgDie(input, prefix, isSpecial, useProfB) {
 	// resolve the C, B, and Q for cantrip die, if present
 	if ((/^(?=.*(B|C|Q))(?=.*d\d).*$/).test(input)) { //if this involves a cantrip calculation
 		// Get the character level, or HD for the companion page (wild shape uses character level)
-		var cLvl = Number(What(prefix === true || (isSpecial && isSpecial !== "test") ? "Character Level" :  prefix + "Comp.Use.HD.Level"));
+		var cLvl = Number(What(!prefix || prefix === true || (isSpecial && isSpecial !== "test") ? "Character Level" : prefix + "Comp.Use.HD.Level"));
 		var cDie = cantripDie[Math.min(Math.max(cLvl, 1), cantripDie.length) - 1];
 		input = input.replace(/cha/ig, "kha").replace(/con/ig, "kon");
 		input = input.replace(/C/g, cDie).replace(/B/g, cDie - 1).replace(/Q/g, cDie + 1).replace(/0.?d\d+/g, 0);
@@ -6575,7 +6610,7 @@ function SetThisFldVal() {
 					}].concat(theExpl ? [{
 						type : "cluster",
 						alignment : "align_fill",
-						name : "Modifiers set by class features, race, feats, or magic items",
+						name : "Modifiers set by class features, species, feats, or magic items",
 						font : "dialog",
 						bold : true,
 						elements : [{
@@ -8635,10 +8670,16 @@ function setUnicodeUse(enable, force) {
 				cTitle : "Unicode has been " + (enable ? "ENABLED" : "DISABLED")
 			});
 		}
+
 		// update the sourcelist superscript
+		var isNewAcrobat = false;
+		try {
+			isNewAcrobat = /hamburger/i.test(app.listMenuItems().toSource());
+		} catch (e) {}
 		for (var aSrc in SourceList) {
-			SourceList[aSrc].uniS = toSup(SourceList[aSrc].abbreviation);
+			SourceList[aSrc].uniS = toSup(SourceList[aSrc].abbreviation, isNewAcrobat);
 		};
+
 		// update the tooltips that use unicode
 		UpdateDropdown("tooltips");
 		AbilityScores_Button(true);

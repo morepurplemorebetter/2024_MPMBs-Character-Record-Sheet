@@ -39,7 +39,7 @@
 				You will also need the syntax for adding a source if you want the feat
 				to have a source that doesn't yet exist in the sheet.
 
-	Sheet:		v14.0.0 and newer (PHB'24)
+	Sheet:		v24.0.0 and newer (PHB'24)
 */
 
 var iFileName = "Homebrew Syntax - FeatsList.js";
@@ -96,7 +96,7 @@ FeatsList["purple power"] = {
 /*	name // OPTIONAL //
 	TYPE:	string
 	USE:	name of the feat as it will be shown in the menu for selecting feats
-	ADDED:	v14.0.0
+	ADDED:	v24.0.0
 
 	This name will only be used to display the feat in the menu.
 	This attribute is not used to recognize the feats or fill the field on the sheet.
@@ -130,7 +130,7 @@ FeatsList["purple power"] = {
 /*	type // OPTIONAL, but RECOMMENDED //
 	TYPE:	string
 	USE:	define which type of feat this is
-	ADDED:	v14.0.0
+	ADDED:	v24.0.0
 
 	This attribute is used to sort the feats in the drop-down, to populate the feat's tooltip,
 	and it is used by the `featsAdd` common attribute (see "_common attributes.js").
@@ -328,7 +328,7 @@ FeatsList["purple power"] = {
 /*	choicesNotInMenu // OPTIONAL //
 	TYPE:	boolean
 	USE:	omit the choices from the feat (i.e. only list the main feat's name)
-	ADDED:	v14.0.0
+	ADDED:	v24.0.0
 
 	If this attribute is set to true and the feat has the `choices` attribute,
 	the feat will only be listed by the given `name` in the menu.

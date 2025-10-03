@@ -18,6 +18,7 @@ function InitializeEverything(noButtons, noVars) {
 		UpdateTooSkill();
 		SetRichTextFields();
 		MakeAdventureLeagueMenu();
+		AddDefaultEvals();
 	};
 
 	SetHighlighting();

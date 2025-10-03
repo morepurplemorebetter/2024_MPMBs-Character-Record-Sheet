@@ -38,7 +38,7 @@
 				If you want attack cantrips or spells to be added to the attack section,
 				use the syntax for adding a weapon (as well), see "weapon (WeaponsList).js".
 
-	Sheet:		v14.0.0 and newer
+	Sheet:		v24.0.0 and newer (PHB'24)
 
 */
 
@@ -230,7 +230,7 @@ SpellsList["sindering purple"] = {
 /*	time // REQUIRED //
 	TYPE:	string
 	USE:	the casting time of the spell as it should appear on the sheet
-	CHANGE: v14.0.0 (update recommended abbreviations to be more in line with PHB'24)
+	CHANGE: v24.0.0 (update recommended abbreviations to be more in line with PHB'24)
 
 	The text you add here will be put in the appropriate field on the sheet literally,
 	thus it is important to check that it fits in the field.
@@ -451,14 +451,14 @@ SpellsList["sindering purple"] = {
 /*	descriptionFull // OPTIONAL //
 	TYPE:	array or string
 	USE:	description of the spell as it appears in its source
-	CHANGE: v14.0.0 (array option & `>>[...]<<` tags)
+	CHANGE: v24.0.0 (array option & `>>[...]<<` tags)
 
 	This text is used to populate the tooltip of the spell so that the original description can be read.
 	This description will also be available in a pop-up by using the button in the spell's line.
 	There is no limit to how big this description can be,
 	but very long descriptions will not always display correctly.
 
-	From v14.0.0 onwards, this attribute can be an array. Each entry in the array will be put
+	From v24.0.0 onwards, this attribute can be an array. Each entry in the array will be put
 	on a new line. Each entry can be one of the following:
 		1. String.
 		   If the entry is a string that doesn't start with a space character and
@@ -478,7 +478,7 @@ SpellsList["sindering purple"] = {
 
 	You can see an example of this array method above.
 
-	From v14.0.0 onwards, if you put '>>' and '<<' around a part of the string,
+	From v24.0.0 onwards, if you put '>>' and '<<' around a part of the string,
 	that part will be made bold and italic in the displayed description. This is done with
 	unicode. If unicode is disabled, the sheet will capitalize this instead.
 */
@@ -486,7 +486,7 @@ SpellsList["sindering purple"] = {
 /*	ritual // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether this spell can be cast as a ritual
-	CHANGE: v14.0.0 (now adds registered trademark symbol instead of "(R)")
+	CHANGE: v24.0.0 (now adds registered trademark symbol instead of "(R)")
 
 	Spells with the ritual tag will gain a "®" (registered trademark symbol)
 	after their name on the spell sheet.

@@ -149,7 +149,7 @@ var Base_RaceList = {
 				action: [["bonus action", ""]]
 			}
 		},
-		trait: "\n \u2022 Powerful Build: I have Adv. on saves to end being Grappled and I count as one size larger when determining my carrying capacity."+
+		trait: "\n \u2022 Powerful Build: I have Adv. on checks to end being Grappled and I count as one size larger when determining my carrying capacity."+
 			"\n \u2022 Large Form (level 5): As a Bonus Action once per Long Rest, I can become Large, if I fit, for 10 min or until I end it (no action). I have Adv. on Str checks and +10 ft Speed during.",
 		variants: ["cloud", "fire", "frost", "hill", "stone", "storm"],
 		// from VGM:
@@ -580,7 +580,7 @@ var Base_RaceSubList = {
 		},
 		trait: "Goliath (Cloud Giant Ancestry)"+
 			"\n \u2022 Cloud's Jaunt: As a Bonus Action, I can magically teleport up to 30 ft to an unoccupied space I can see. I can do this my Proficiency Bonus times per Long Rest."+
-			"\n \u2022 Powerful Build: I have Adv. on saves to end being Grappled and I count as one size larger when determining my carrying capacity."+
+			"\n \u2022 Powerful Build: I have Adv. on checks to end being Grappled and I count as one size larger when determining my carrying capacity."+
 			"\n \u2022 Large Form (level 5): As a Bonus Action once per Long Rest, I can become Large, if I fit, for 10 min or until I end it (no action). I have Adv. on Str checks and +10 ft Speed during.",
 	},
 	"goliath-fire": {
@@ -600,7 +600,7 @@ var Base_RaceSubList = {
 		},
 		trait: "Goliath (Fire Giant Ancestry)"+
 			"\n \u2022 Fire's Burn: When I hit a target with an attack roll and damage it, I can deal it an extra +1d10 Fire damage. I can do this my Proficiency Bonus times per Long Rest."+
-			"\n \u2022 Powerful Build: I have Adv. on saves to end being Grappled and I count as one size larger when determining my carrying capacity."+
+			"\n \u2022 Powerful Build: I have Adv. on checks to end being Grappled and I count as one size larger when determining my carrying capacity."+
 			"\n \u2022 Large Form (level 5): As a Bonus Action once per Long Rest, I can become Large, if I fit, for 10 min or until I end it (no action). I have Adv. on Str checks and +10 ft Speed during.",
 	},
 	"goliath-frost": {
@@ -620,7 +620,7 @@ var Base_RaceSubList = {
 		},
 		trait: "Goliath (Frost Giant Ancestry)"+
 			"\n \u2022 Frost's Chill: My Prof. Bonus times per Long Rest, when my attack roll deals damage to a target, I can do it +1d6 Cold damage and give it -10 ft Speed until my next turn starts."+
-			"\n \u2022 Powerful Build: I have Adv. on saves to end being Grappled and I count as one size larger when determining my carrying capacity."+
+			"\n \u2022 Powerful Build: I have Adv. on checks to end being Grappled and I count as one size larger when determining my carrying capacity."+
 			"\n \u2022 Large Form (level 5): As a Bonus Action once per Long Rest, I can become Large, if I fit, for 10 min or until I end it (no action). I have Adv. on Str checks and +10 ft Speed during.",
 	},
 	"goliath-hill": {
@@ -640,7 +640,7 @@ var Base_RaceSubList = {
 		},
 		trait: "Goliath (Hill Giant Ancestry)"+
 			"\n \u2022 Hill's Tumble: When I hit a Large or smaller creature with an attack roll and damage it, I can give it the Prone condition. I can do this my Proficiency Bonus times per Long Rest."+
-			"\n \u2022 Powerful Build: I have Adv. on saves to end being Grappled and I count as one size larger when determining my carrying capacity."+
+			"\n \u2022 Powerful Build: I have Adv. on checks to end being Grappled and I count as one size larger when determining my carrying capacity."+
 			"\n \u2022 Large Form (level 5): As a Bonus Action once per Long Rest, I can become Large, if I fit, for 10 min or until I end it (no action). I have Adv. on Str checks and +10 ft Speed during.",
 	},
 	"goliath-stone": {
@@ -661,7 +661,7 @@ var Base_RaceSubList = {
 		},
 		trait: "Goliath (Stone Giant Ancestry)"+
 			"\n \u2022 Stone's Endurance: As a Reaction when I take damage, I can reduce that damage with 1d12 + my Constitution modifier. I can do this my Proficiency Bonus times per Long Rest."+
-			"\n \u2022 Powerful Build: I have Adv. on saves to end being Grappled and I count as one size larger when determining my carrying capacity."+
+			"\n \u2022 Powerful Build: I have Adv. on checks to end being Grappled and I count as one size larger when determining my carrying capacity."+
 			"\n \u2022 Large Form (level 5): As a Bonus Action once per Long Rest, I can become Large, if I fit, for 10 min or until I end it (no action). I have Adv. on Str checks and +10 ft Speed during.",
 	},
 	"goliath-storm": {
@@ -682,7 +682,7 @@ var Base_RaceSubList = {
 		},
 		trait: "Goliath (Storm Giant Ancestry)"+
 			"\n \u2022 Storm's Thunder: As a Reaction when I take damage by a creature within 60 ft, I can deal it 1d8 Thunder damage. I can do this my Proficiency Bonus times per Long Rest."+
-			"\n \u2022 Powerful Build: I have Adv. on saves to end being Grappled and I count as one size larger when determining my carrying capacity."+
+			"\n \u2022 Powerful Build: I have Adv. on checks to end being Grappled and I count as one size larger when determining my carrying capacity."+
 			"\n \u2022 Large Form (level 5): As a Bonus Action once per Long Rest, I can become Large, if I fit, for 10 min or until I end it (no action). I have Adv. on Str checks and +10 ft Speed during.",
 	},
 	"tiefling-abyssal": {

@@ -662,8 +662,8 @@ function toUni(input, altCap) {
 	return output;
 };
 
-function toSup(inString) {
-	if (!What("UseUnicode")) return " ["+inString+"]";
+function toSup(inString, forceNoUnicode) {
+	if (forceNoUnicode || !What("UseUnicode")) return " ["+inString+"]";
 	var doChar = function(aChar) {
 		switch(aChar) {
 			case "0" : return "\u2070";
@@ -1179,7 +1179,7 @@ function getSemVers(version, preRelease, build) {
 		arrV.push(strV[i]);
 	}
 	// Return a semantic versioning (x.y.z-preRelease+build)
-	if (preRelease && !(/\d/).test(preRelease)) preRelease += 1; // Make sure "beta" is written as "beta1"
+	if (version < 14 && preRelease && !(/\d/).test(preRelease)) preRelease += 1; // Make sure "beta" is written as "beta1" for v13 and earlier
 	return arrV.join(".") + (preRelease ? "-" + preRelease : "") + (build ? "+" + build : "");
 }
 
@@ -1219,8 +1219,8 @@ function semVersToNmbr(inSemV) {
 	];
 	// Get the pre-release part
 	var preRelease = inSemV.match(/-([^\+]+)/);
-	if (preRelease && /\d/.test(preRelease[1])) {
-		var preRelBase = Number(preRelease[1].match(/\d+/)[0]);
+	if (preRelease) {
+		var preRelBase = Number(preRelease[1].replace(/.*?(\d+).*?|.+/, "$1"));
 		if (/beta|b\d/i.test(preRelease[1])) {
 			preRelBase += 500;
 		} else if (/alpha|alfa|a\d/i.test(preRelease[1])) {
@@ -1330,8 +1330,9 @@ function getLetterRange(str, aOpt) {
 
 // format a descriptionFull attribute
 function formatDescriptionFull(sDescFull) {
+	var sReturn = sDescFull;
 	if (isArray(sDescFull)) {
-		var sReturn = ttSpellObj.descriptionFull.reduce( function (renderDescription, n) {
+		sReturn = sDescFull.reduce( function (renderDescription, n) {
 			var lineBreak = renderDescription ? '\n' : '';
 			if (isArray(n)) {
 				// Table, every entry in the array is a row, with the first one being the headers
@@ -1346,16 +1347,14 @@ function formatDescriptionFull(sDescFull) {
 				return renderDescription + lineBreak + lineBreak + renderTable + '\n';
 			} else {
 				// Only add three starting spaces if the first character is not a space
-				if (n[0] !== ' ') lineBreak += '   ';
+				if (n[0] !== ' ' && lineBreak) lineBreak += '   ';
 				return renderDescription + lineBreak + n;
 			}
 		}, '' );
-	} else {
-		var sReturn = sDescFull;
 	}
 	// Add the headers in unicode bold/italic
-	sReturn = sReturn.replace(/>>(.*?)<</g, function (n) {
-		return toUni(n, true);
+	sReturn = sReturn.replace(/>>(.*?)<</g, function (n, match) {
+		return toUni(match, true);
 	});
 	return sReturn;
 }

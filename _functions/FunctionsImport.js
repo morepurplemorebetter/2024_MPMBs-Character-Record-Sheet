@@ -576,6 +576,7 @@ function DirectImport(consoleTrigger) {
 			InitiateLists();
 			RunUserScript(true);
 			amendPsionicsToSpellsList();
+			AddDefaultEvals();
 		};
 		// Set the excl./incl. sources
 		if (ImportField("CurrentSources.Stringified")) {
@@ -741,7 +742,9 @@ function DirectImport(consoleTrigger) {
 		var onlySpawnsFrom = FromVersion >= semVersToNmbr(12.996);
 		if (global.docFrom.BookMarkList) { //if no bookmarklist exists where we are importing from, don't do anything
 			for (var templ in TemplateDep) {
-				if (templ === "PRsheet" && (!fromSheetTypePF || !typePF)) continue;
+				/* No reference sheet in 2024 version */
+				// if (templ === "PRsheet" && (!fromSheetTypePF || !typePF)) continue;
+				if (templ === "PRsheet") continue;
 				var onlySpawnsFromT = onlySpawnsFrom || templ.substring(0, 2) === "SS";
 				//see if the template exists in the docFrom
 				var dFfldT = onlySpawnsFrom ? global.docFrom.isTemplVis(templ) : global.docFrom.BookMarkList[templ] ? global.docFrom.getField(global.docFrom.BookMarkList[templ]) : false;
@@ -2092,7 +2095,7 @@ function Import(type) {
 	}
 
 	app.alert({
-		cMsg : "Be aware that some fields might not have imported correctly if you imported data that you exported from another version of this sheet.\n\nTooltips might no longer display the correct information after importing (especially if you exported all the fields and not just the non-calculated ones). Also, some fields may be left empty and other fields may display the wrong information. Unfortunately, this can't be helped.\n\nIt is recommended that you check all the fields whether or not correspond with the data that you wanted to import.\n\nUnfortunately, the portrait and symbol on the fourth page can't be imported, you will have to re-do them manually.\n\nIf the sheet you exported information from has extra pages added (e.g. two companion pages, or multiple adventurers logsheets), than those will only be imported if you create those pages first in this document as well, in the exact same order as you did in the previous document.\n\nThe following only applies if you are importing from a version before v11:\nIf you imported a class and/or race that has any options that are selected via the buttons on the second page, then please select those features that grant spellcasting again (even if they are already displayed). Selecting them again will give the automation the information necessary to produce the proper Spell Sheets.",
+		cMsg : "Be aware that some fields might not have imported correctly if you imported data that you exported from another version of this sheet.\n\nTooltips might no longer display the correct information after importing (especially if you exported all the fields and not just the non-calculated ones). Also, some fields may be left empty and other fields may display the wrong information. Unfortunately, this can't be helped.\n\nIt is recommended that you check all the fields whether or not correspond with the data that you wanted to import.\n\nUnfortunately, the portrait and symbol on the fourth page can't be imported, you will have to re-do them manually.\n\nIf the sheet you exported information from has extra pages added (e.g. two companion pages, or multiple adventurers logsheets), than those will only be imported if you create those pages first in this document as well, in the exact same order as you did in the previous document.\n\nThe following only applies if you are importing from a version before v11:\nIf you imported a class and/or species that has any options that are selected via the buttons on the second page, then please select those features that grant spellcasting again (even if they are already displayed). Selecting them again will give the automation the information necessary to produce the proper Spell Sheets.",
 		nIcon : 1,
 		cTitle : "Notes on Importing",
 		nType : 0
@@ -2317,7 +2320,7 @@ function AddUserScript(retResDia) {
 	var extraTxt = toUni("A character limit of 65642") + " applies to the area below. You can add longer scripts with the \"Open Another Dialog\" button. When you press \"Add Script to Sheet\", the code of all dialogs will be joined together (with no characters put inbetween!), is subsequently run/tested and added to the sheet as a whole.";
 	var extraTxt2 = "An error will result in all content being lost, so please save it somewhere else before exiting this dialog!";
 	var getTxt = toUni("Pre-Written Add-on Scripts") + " can be found using the \"Get Add-on Scripts\" button.\nIt will bring you to the MPMB Community Add-on Script Index, which is a listing of links to all content add-on scripts made by fans and MPMB.";
-	var getTxt2 = toUni("Using the proper JavaScript syntax") + ", you can add homebrew classes, races, weapons, feats, spells, backgrounds, creatures, etc. etc.\nSection 3 of the " + toUni("FAQ") + " has information and links to resources about creating your own additions, as does the \"I don't get it?\" button.";
+	var getTxt2 = toUni("Using the proper JavaScript syntax") + ", you can add homebrew classes, species, weapons, feats, spells, backgrounds, creatures, etc. etc.\nSection 3 of the " + toUni("FAQ") + " has information and links to resources about creating your own additions, as does the \"I don't get it?\" button.";
 	var getTxt3 = toUni("Use the JavaScript Console") + " to better determine errors in your script (with the \"JavaScript Console\" button).";
 	var diaIteration = 1;
 
@@ -2562,7 +2565,7 @@ function AddUserScript(retResDia) {
 	if (askForScripts === "ok") {
 		InitiateLists();
 		theUserScripts = theUserScripts.join("");
-		if (RunUserScript(false, theUserScripts)) {
+		if (!theUserScripts || RunUserScript(false, theUserScripts)) {
 			Value("User Script", theUserScripts);
 			app.alert({
 				cMsg : "Your script has been successfully added/changed in the sheet!\n\nYou will now be returned to the Source Selection Dialog so that you can choose with more detail how your script interact with the sheet.\n\nNote that once you close the Source Selection Dialog, all drop-down boxes will be updated so that your changes will be visible on the sheet. This can take some time.",
@@ -2575,6 +2578,7 @@ function AddUserScript(retResDia) {
 			RunUserScript(false, false);
 		};
 		amendPsionicsToSpellsList();
+		AddDefaultEvals();
 	};
 	if (retResDia) resourceDecisionDialog(false, false, retResDia === "also"); // return to the Dialog for Selecting Resources
 };
@@ -2752,7 +2756,7 @@ function AddRacialVariant(race, variantName, variantObj) {
 	race = race.toLowerCase();
 	if (!RaceList[race]) return;
 	if (!RaceList[race].variants || !isArray(RaceList[race].variants)) {
-		// With v14 change, turn the race itself in a variant so it remains selectable
+		// With v24 change, turn the race itself in a variant so it remains selectable
 		var sBaseVarKey = race + "-basic";
 		RaceSubList[sBaseVarKey] = newObj(RaceList[race]);
 		RaceList[race].variants = [sBaseVarKey];
@@ -3049,7 +3053,7 @@ function ImportScriptFileDialog(retResDia) {
 	var defaultTxt = "Import or delete files that add content and/or custom add-on scripts to the sheet.";
 	var defaultTxt2 = "In modern operating systems, you can enter a URL in the 'Open' dialog directly instead of first downloading a file and then navigating to it.";
 	var defaultTxt3 = "Use the \"Get Add-on Scripts\" buttons below to get pre-written files!";
-	var getTxt2 = toUni("Using the proper JavaScript syntax") + ", you can add homebrew classes, races, weapons, feats, spells, backgrounds, creatures, etc. etc.\nSection 3 of the " + toUni("FAQ") + " has information and links to resources about creating your own additions, as does the \"I don't get it?\" button.";
+	var getTxt2 = toUni("Using the proper JavaScript syntax") + ", you can add homebrew classes, species, weapons, feats, spells, backgrounds, creatures, etc. etc.\nSection 3 of the " + toUni("FAQ") + " has information and links to resources about creating your own additions, as does the \"I don't get it?\" button.";
 	var getTxt = toUni("Pre-Written Add-on Scripts") + " can be found using the \"Get Add-on Scripts\" button.\nIt will bring you to the MPMB Community Add-on Script Index, which is a listing of links to all content add-on scripts made by fans and MPMB.";
 	var getTxt3 = toUni("Use the JavaScript Console") + " to better determine errors in your script (with the \"JavaScript Console\" button).";
 	var filesScriptRem = What("User_Imported_Files.Stringified");
@@ -3308,6 +3312,7 @@ function ImportScriptFileDialog(retResDia) {
 				RunUserScript(false, false);
 			}
 			amendPsionicsToSpellsList();
+			AddDefaultEvals();
 			if (filesScriptRem !== What("User_Imported_Files.Stringified") || runScriptsTest) {
 				retResDia = "also";
 				app.alert({
