@@ -1066,7 +1066,7 @@ function CreateSpellList(inputObject, toDisplay, extraArray, returnOrdered, objN
 		var rSpLevel = (!rSpell.psionic ? "sp" : "ps") + rSpell.level;
 		var rSpName = getSpNm(inSp);
 		if (toDisplay) {
-			spByLvl[rSpLevel].splice(spByLvl[rSpLevel].indexOf(rSpName + (rSpell.ritual ? " "+SpellRitualTag : "")), 1);
+			spByLvl[rSpLevel].splice(spByLvl[rSpLevel].indexOf(rSpName + (rSpell.ritual ? " (R)" : "")), 1);
 		} else {
 			if (returnOrdered) {
 				spByLvl[rSpLevel].splice(spByLvl[rSpLevel].indexOf(rSpName), 1);
@@ -1134,7 +1134,7 @@ function CreateSpellList(inputObject, toDisplay, extraArray, returnOrdered, objN
 			};
 			refspObj[spName] = key;
 			if (toDisplay) {
-				if (aSpell.ritual) spName += " "+SpellRitualTag;
+				if (aSpell.ritual) spName += " (R)";
 				refDisplObj[spName] = key;
 				spByLvl[SpPs + aSpell.level].push(spName);
 			} else {

@@ -8598,20 +8598,39 @@ function setCalcOrder() {
 	};
 };
 
+function BuildFaqMenu() {
+	var hasFaqBuiltin = tDoc.dataObjects.some(function (n) { return n.name === 'FAQ.pdf' });
+	Menus.faq = [{
+		cName : hasFaqBuiltin ? "Go to the online FAQ (more up to date)" : "FAQ online",
+		cReturn : "faq#online"
+	}].concat(!hasFaqBuiltin ? [] : {
+		cName : "Open the built-in FAQ.pdf",
+		cReturn : "faq#pdf"
+	}).concat([{
+		cName : "-"
+	}, {
+		cName : "See the license used for distributing WotC material (SRD)",
+		cReturn : "faq#srd"
+	}, {
+		cName : "See the license under which this document is distributed",
+		cReturn : "faq#gplv3"
+	}]);
+	Menus.faqextended = Menus.faq.concat({
+		cName : "-"
+	}, {
+		cName : "Get the latest version",
+		cReturn : "contact#latest version"
+	}, {
+		cName : "-"
+	}, {
+		cName : "Contact MPMB",
+		oSubMenu : Menus.contact
+	});
+};
+
 function MakeFaqMenu_FaqOptions(MenuSelection) {
 	if (!MenuSelection || MenuSelection === "justMenu") {
-		var arrMenu = Menus.faq.concat({
-			cName : "-"
-		}, {
-			cName : "Get the latest version",
-			cReturn : "contact#latest version"
-		}, {
-			cName : "-"
-		}, {
-			cName : "Contact MPMB",
-			oSubMenu : Menus.contact
-		})
-		Menus.faqextended = arrMenu;
+		BuildFaqMenu();
 		if (MenuSelection == "justMenu") return;
 	}
 	var MenuSelection = MenuSelection ? MenuSelection : getMenu("faqextended");
@@ -8628,6 +8647,7 @@ function MakeFaqMenu_FaqOptions(MenuSelection) {
 
 // The function called when the FAQ button is pressed
 function getFAQ(input, delay) {
+	if (!input) BuildFaqMenu();
 	var MenuSelection = input ? input : getMenu("faq");
 	if (!MenuSelection || MenuSelection[0] != "faq") return;
 	switch (MenuSelection[1]) {

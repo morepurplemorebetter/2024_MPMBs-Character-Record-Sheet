@@ -85,14 +85,14 @@ FeatsList["purple power"] = {
 	If you do use an object name that is already in use, you will be overwriting that object.
 	Note the use of only lower case! Also note the absence of the word "var" and the use of brackets [].
 */
-	name : "Purple Power",
+	name: "Purple Power",
 /*	name // REQUIRED //
 	TYPE:	string
 	USE:	name of the feat as it will be used by the sheet
 
 	This name will also be used to recognize what is selected in the feat drop-down.
 */
-	sortname : "Staff, Purple",
+	sortname: "Staff, Purple",
 /*	name // OPTIONAL //
 	TYPE:	string
 	USE:	name of the feat as it will be shown in the menu for selecting feats
@@ -101,8 +101,8 @@ FeatsList["purple power"] = {
 	This name will only be used to display the feat in the menu.
 	This attribute is not used to recognize the feats or fill the field on the sheet.
 */
-	source : ["SRD", 204],
-	source : [["E", 7], ["S", 115]],
+	source: ["SRD", 204],
+	source: [["E", 7], ["S", 115]],
 /*	source // REQUIRED //
 	TYPE:	array with two entries (or array of these arrays)
 	USE:	define where the feat is found
@@ -123,10 +123,10 @@ FeatsList["purple power"] = {
 	on page 115 of the Sword Coast Adventure Guide.
 
 	If a feat is completely homebrew, or you don't want to make a custom source, just put the following:
-		source : ["HB", 0],
+		source: ["HB", 0],
 	"HB" refers to the 'homebrew' source.
 */
-	type : "origin",
+	type: "origin",
 /*	type // OPTIONAL, but RECOMMENDED //
 	TYPE:	string
 	USE:	define which type of feat this is
@@ -150,7 +150,7 @@ FeatsList["purple power"] = {
 	For example, "origin (dwarf)" would have the feat appear both when `featsAdd.type` is
 	set to `type: "origin"` and `type: "origin (dwarf)"`.
 */
-	defaultExcluded : true,
+	defaultExcluded: true,
 /*	defaultExcluded // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether this feat should be excluded by default (true) or included by default (false)
@@ -164,7 +164,7 @@ FeatsList["purple power"] = {
 
 	Setting this attribute to false is the same as not including this attribute.
 */
-	prerequisite : "Dexterity 13 or higher",
+	prerequisite: "Dexterity 13 or higher",
 /*	prerequisite // OPTIONAL //
 	TYPE:	string
 	USE:	textual explanation of a prerequisite the feat has
@@ -172,10 +172,10 @@ FeatsList["purple power"] = {
 	If the feat doesn't have a prerequisite, you can just leave this attribute out.
 	Setting this to "" is the same as not including this attribute.
 */
-	prereqeval : function(v) {
+	prereqeval: function(v) {
 		return v.isSpellcaster && CurrentRace.known.indexOf('dwarf') !== -1;
 	},
-	prereqeval : "CurrentSpells.toSource() !== '({})' && CurrentRace.known.indexOf('dwarf') !== -1",
+	prereqeval: "CurrentSpells.toSource() !== '({})' && CurrentRace.known.indexOf('dwarf') !== -1",
 /*	prereqeval // OPTIONAL //
 	TYPE:	function or, for backwards-compatibility, string that is evaluated using eval()
 	USE:	this should return 'true' if the prerequisite is met or 'false' otherwise
@@ -218,7 +218,7 @@ FeatsList["purple power"] = {
 		"return classes.known.cleric ? true : false;" // Test if character has any levels in the cleric class
 		"return What('Dex') >= 13;" // Test if character has a Dexterity score of 13 or more
 */
-	allowDuplicates : true,
+	allowDuplicates: true,
 /*	allowDuplicates // OPTIONAL //
 	TYPE:	boolean
 	USE:	set to true if multiples can exist of this feat (e.g. Elemental Adept using the 'choices' attribute)
@@ -232,7 +232,7 @@ FeatsList["purple power"] = {
 	If you don't set this attribute to true, the sheet will only allow this feat to exist once,
 	regardless if another instance has another form (choices) selected.
 */
-	description : "Advantage on Charisma (Deception) and (Performance) if wearing something purple. I can mimic casting any spell perfectly, even producing a purple haze while doing so. Wisdom (Insight) vs. Charisma (Deception) to determine there is no spell being cast. [+1 Charisma]",
+	description: "Advantage on Charisma (Deception) and (Performance) if wearing something purple. I can mimic casting any spell perfectly, even producing a purple haze while doing so. Wisdom (Insight) vs. Charisma (Deception) to determine there is no spell being cast. [+1 Charisma]",
 /*	description // REQUIRED //
 	TYPE:	string
 	USE:	the text to be filled in the description field of the feat
@@ -242,17 +242,55 @@ FeatsList["purple power"] = {
 	The Colourful sheets have less space for feat descriptions than the Printer Friendly versions,
 	so use the Colourful sheets to test if the description fits.
 */
-	descriptionFull : "You have a swimming speed of 40 feet while wearing this ring.",
+	descriptionFull: "I gain proficiency in any combination of three skills or tools of my choice.",
+	descriptionFull: [
+		"Introduction text of the spell. This line will not be preceded by a line break or three spaces as this is the first line.",
+		"Second entry, which will be preceded by a line break and three spaces.",
+		" \u2022 Bullet point entry. This will be preceded by a line break, but not with three spaces, as this entry starts with a space.",
+		" \u2022 Another bullet point entry.",
+		[ // This will render as a table (i.e. a tab between each column)
+			["Column 1 header", "Column 2 header", "Column 3 header"], // The first row, which will be made bold and italic
+			["Column 1 entry", "Column 2 entry", "Column 3 entry"], // The rest of the rows won't be changed
+			["Column 1 entry II", "Column 2 entry II", "Column 3 entry II"], // Table row 2
+		],
+		">>Header Paragraph<<. This paragraph will be preceded by a line break and three spaces. The text 'Header Paragraph' will be rendered with unicode as being bold and italic.",
+	],
 /*	descriptionFull // OPTIONAL //
-	TYPE:	string
+	TYPE:	array or string
 	USE:	description of the feat as it appears in its source
+	CHANGE: v14.0.0 (array option & `>>[...]<<` tags)
 
 	This text is used to populate the tooltip of the feats so that the original description can be read.
 	This description will also be available in a pop-up by using the button in the feat's line.
 	There is no limit to how big this description can be,
 	but very long descriptions will not always display correctly.
+
+	From v14.0.0 onwards, this attribute can be an array. Each entry in the array will be put
+	on a new line. Each entry can be one of the following:
+		1. String.
+		   If the entry is a string that doesn't start with a space character and
+		   it is not the first entry, it will be added on a new line,
+		   proceeded by three spaces (i.e. `\n   `).
+		   If the entry is a string that starts with a space character, it will be added
+		   on a new line, but without any preceding spaces.
+		   For example, to make a bullet point list, you would use ` \u2022 list entry`
+		   (N.B. `\u2022` is unicode for a bullet point).
+		2. Array of arrays, which contain only strings
+		   If the entry is in itself an array, it is treated as a table.
+		   Each entry in that array is a row in the table, with the first row being the headers.
+		   The headers will be made bold and italic. This is done with unicode. If unicode is
+		   disabled, the sheet will capitalize this instead.
+		   Each subarray is rendered with a tab between each column (i.e. `Array.join("\t")`).
+		   If instead of a subarray there is a string, it will be added as is.
+		   The table will be preceded by two line breaks and followed by one line break.
+
+	You can see an example of this array method above.
+
+	From v14.0.0 onwards, if you put '>>' and '<<' around a part of the string,
+	that part will be made bold and italic in the displayed description. This is done with
+	unicode. If unicode is disabled, the sheet will capitalize this instead.
 */
-	calculate : "event.value = \"I can spend 10 minutes inspiring up to 6 friendly creatures within 30 feet who can see or hear and can understand me. Each gains lvl (\" + What(\"Character Level\") + \") + Cha mod (\" + What(\"Cha Mod\") + \") temporary hit points. One can't gain temporary hit points from this feat again until after a short rest.\";",
+	calculate: "event.value = \"I can spend 10 minutes inspiring up to 6 friendly creatures within 30 feet who can see or hear and can understand me. Each gains lvl (\" + What(\"Character Level\") + \") + Cha mod (\" + What(\"Cha Mod\") + \") temporary hit points. One can't gain temporary hit points from this feat again until after a short rest.\";",
 /*	calculate // OPTIONAL //
 	TYPE:	string
 	USE:	this string is set as the field calculation method for the description field of the feat
@@ -264,7 +302,7 @@ FeatsList["purple power"] = {
 
 	If this attribute is present, the 'description' attribute will be useless.
 	Remember that the 'description' attribute is still required, so you might just want to set it to an empty string:
-		description : "",
+		description: "",
 */
 
 /*
@@ -292,7 +330,7 @@ FeatsList["purple power"] = {
 	To set up a choice, add the 'choices' attribute, see below, and add an object for each of those choices.
 	The object name has to be exactly the same as the string in the 'choices' array, but need to be all lowercase.
 */
-	choices : ['Fire', 'Ice'],
+	choices: ['Fire', 'Ice'],
 /*	choices // OPTIONAL //
 	TYPE:	array (variable length)
 	USE:	options for the feat
@@ -305,7 +343,7 @@ FeatsList["purple power"] = {
 	To make a choice object, use the exact name of the entry in this array, but lowercase.
 	See the below example "fire" for more information.
 */
-	selfChoosing : function () {
+	selfChoosing: function () {
 		return classes.known.cleric ? "fire" : "";
 	},
 /*	selfChoosing // OPTIONAL //
@@ -324,7 +362,7 @@ FeatsList["purple power"] = {
 	This attribute will be ignored if the 'choices' attribute is not present.
 	Even with this attribute present, the player can always change the 'choice' using the button on the sheet.
 */
-	choicesNotInMenu : true,
+	choicesNotInMenu: true,
 /*	choicesNotInMenu // OPTIONAL //
 	TYPE:	boolean
 	USE:	omit the choices from the feat (i.e. only list the main feat's name)
@@ -356,7 +394,7 @@ FeatsList["purple power"] = {
 		The parent FeatsList object wil be referred to as 'parent' from here on in.
 	*/
 
-		name : "Purple Fire Power",
+		name: "Purple Fire Power",
 	/*	name (inside choice) // OPTIONAL //
 		TYPE:	string
 		USE:	name of the feat option as it will be used by the sheet
@@ -372,7 +410,7 @@ FeatsList["purple power"] = {
 		The name of an option should be unique, it can't be the same as the parent feat.
 	*/
 
-		description : "As an action, I can drink this potion or administer it to another to gain the effects of Haste for 1 minute (no concentration required).\rThe potion's yellow fluid is streaked with black and swirls on its own.",
+		description: "As an action, I can drink this potion or administer it to another to gain the effects of Haste for 1 minute (no concentration required).\rThe potion's yellow fluid is streaked with black and swirls on its own.",
 	/*
 		>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		>>> FeatsList Attributes (inside choice) >>>
@@ -390,13 +428,13 @@ FeatsList["purple power"] = {
 		something different than the parent.
 
 		For example, if the parent has:
-			source : ["SRD", 204],
+			source: ["SRD", 204],
 		but the choice has:
-			source : ["P", 115],
+			source: ["P", 115],
 		the sheet will show the source as being the Player's Handbook, page 115.
 
 		Another example, if the parent has:
-			prerequisite : "Dexterity 13 or higher",
+			prerequisite: "Dexterity 13 or higher",
 		but the choice has no 'prerequisite' defined,
 		the sheet will use the prerequisite of "Dexterity 13 or higher" for the choice.
 

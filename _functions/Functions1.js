@@ -5328,7 +5328,7 @@ function ApplyFeat(input, FldNmbr) {
 		var theFeat = {
 			name : aFeatVar.name ? aFeatVar.name : event.target.setValPrepared ? event.target.setValPrepared : input
 		}
-		var FeatAttr = ["source", "description", "descriptionFull", "calculate", "prerequisite", "prereqeval"];
+		var FeatAttr = ["source", "description", "descriptionFull", "calculate", "prerequisite", "prereqeval", "type"];
 		for (var a = 0; a < FeatAttr.length; a++) {
 			var aKey = FeatAttr[a];
 			if (aFeatVar[aKey]) {
@@ -5446,7 +5446,7 @@ function ApplyFeat(input, FldNmbr) {
 		if (theFeat.type) tooltipStr += "\n \u2022 Type: " + theFeat.type[0].toUpperCase() +  theFeat.type.substr(1) + (/gift/i.test(theFeat.type) ? "" :" feat");
 		if (theFeat.prerequisite) tooltipStr += "\n \u2022 Prerequisite: " + theFeat.prerequisite;
 		tooltipStr += stringSource(theFeat, "full,page", "\n \u2022 Source: ", ".");
-		if (theFeat.descriptionFull) tooltipStr += isArray(theFeat.descriptionFull) ? desc(theFeat.descriptionFull).replace(/^\n   /i, "\n\n") : "\n\n" + theFeat.descriptionFull;
+		if (theFeat.descriptionFull) tooltipStr += "\n\n" + formatDescriptionFull(theFeat.descriptionFull);
 
 		// Get the description
 		var theDesc = !theFeat.description ? "" : What("Unit System") === "imperial" ? theFeat.description : ConvertToMetric(theFeat.description, 0.5);
@@ -9067,6 +9067,7 @@ function ColoryOptions(input) {
 		case "all" :
 			ApplyColorScheme(MenuSelection[2]);
 			ApplyDragonColorScheme(MenuSelection[2]);
+			if (minVer) break;
 			ApplyHPDragonColorScheme(MenuSelection[2]);
 			ApplyDCColorScheme(MenuSelection[2], 1);
 			ApplyDCColorScheme(MenuSelection[2], 2);

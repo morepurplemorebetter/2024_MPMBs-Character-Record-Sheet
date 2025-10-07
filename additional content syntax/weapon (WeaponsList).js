@@ -87,7 +87,7 @@ WeaponsList["purple sword"] = {
 	If you do use an object name that is already in use, you will be overwriting that object.
 	Note the use of only lower case! Also note the absence of the word "var" and the use of brackets [].
 */
-	name : "Purple Sword",
+	name: "Purple Sword",
 /*	name // REQUIRED //
 	TYPE:	string
 	USE:	name of the weapon as it will be used by the sheet
@@ -95,7 +95,7 @@ WeaponsList["purple sword"] = {
 	This name will be capitalized (first letter of every word) before
 	being added to the weapon drop-down.
 */
-	nameAlt : ["Sword, Purple", "More Purple More Sword"],
+	nameAlt: ["Sword, Purple", "More Purple More Sword"],
 /*	nameAlt // OPTIONAL //
 	TYPE:	array of strings
 	USE:	extra names to be listed in the drop-down box
@@ -106,8 +106,8 @@ WeaponsList["purple sword"] = {
 
 	Make sure that the `regExpSearch` also matches each and every entry in this list.
 */
-	source : ["SRD", 204],
-	source : [["E", 7], ["S", 115]],
+	source: ["SRD", 204],
+	source: [["E", 7], ["S", 115]],
 /*	source // REQUIRED //
 	TYPE:	array with two entries (or array of these arrays)
 	USE:	define where the weapon is found
@@ -128,10 +128,10 @@ WeaponsList["purple sword"] = {
 	on page 115 of the Sword Coast Adventure Guide.
 
 	If a weapon is completely homebrew, or you don't want to make a custom source, just put the following:
-		source : ["HB", 0],
+		source: ["HB", 0],
 	"HB" refers to the 'homebrew' source.
 */
-	defaultExcluded : true,
+	defaultExcluded: true,
 /*	defaultExcluded // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether this weapon/attack should be excluded by default (true) or included by default (false)
@@ -145,7 +145,7 @@ WeaponsList["purple sword"] = {
 
 	Setting this attribute to false is the same as not including this attribute.
 */
-	regExpSearch : /^(?=.*sword)(?=.*purple).*$/i,
+	regExpSearch: /^(?=.*sword)(?=.*purple).*$/i,
 /*	regExpSearch // REQUIRED //
 	TYPE:	regular expression
 	USE:	used to match the text in the weapon field to see if this weapon is present
@@ -154,9 +154,9 @@ WeaponsList["purple sword"] = {
 	Now it looks for any entry that has both the words "sword" and "purple" in it,
 	disregarding capitalization or word order.
 	If this looks too complicated, or you want to match only a single word, or a fixed order of words, just write it like this:
-		regExpSearch : /purple sword/i,
+		regExpSearch: /purple sword/i,
 */
-	type : "Martial",
+	type: "Martial",
 /*	type // REQUIRED //
 	TYPE:	string
 	USE:	type of the weapon
@@ -183,7 +183,7 @@ WeaponsList["purple sword"] = {
 	setting the `list` or `SpellsList` attributes to that of a spell/cantrip.
 	That way, the attack is seen as both a spell and a weapon by other automation.
 */
-	ability : 1,
+	ability: 1,
 /*	ability // REQUIRED //
 	TYPE:	number corresponding to the ability score (1 = Str, 2 = Dex, 3 = Con, 4 = Int, 5 = Wis, 6 = Cha)
 	USE:	set the ability score used for weapon/attack
@@ -210,7 +210,7 @@ WeaponsList["purple sword"] = {
 	Setting this to false is the same as not including this attribute and
 	will cause the weapon to not have any To Hit or Damage calculated.
 */
-	abilitytodamage : true,
+	abilitytodamage: true,
 /*	abilitytodamage // REQUIRED //
 	TYPE:	boolean
 	USE:	whether (true) or not (false) to add the ability score modifier to the damage
@@ -219,7 +219,7 @@ WeaponsList["purple sword"] = {
 	is added to the calculated damage of the weapon/attack.
 	This will happen even if the ability score modifier is negative.
 */
-	damage : [2, 4, "piercing"],
+	damage: [2, 4, "piercing"],
 /*	damage // REQUIRED //
 	TYPE:	array with 3 entries
 	USE:	determine the damage die and type of the damage
@@ -249,7 +249,7 @@ WeaponsList["purple sword"] = {
 
 	The example above is for 2d4 piercing damage.
 */
-	range : "Melee, 20/60 ft",
+	range: "Melee, 20/60 ft",
 /*	range // REQUIRED //
 	TYPE:	string
 	USE:	the text as it will be put in the Range field for the attack
@@ -261,7 +261,7 @@ WeaponsList["purple sword"] = {
 
 	For melee range, just use "Melee".
 */
-	description : "Finesse, light",
+	description: "Finesse, light",
 /*	description // REQUIRED //
 	TYPE:	string
 	USE:	the text as it will be put in the Description field for the attack
@@ -275,7 +275,7 @@ WeaponsList["purple sword"] = {
 	explanation of what that special property is.
 	If you decide to do so, than don't forget to set the `special` attribute but true (see below).
 */
-	tooltip : "Special: I have disadvantage when I use a lance to attack a target within 5 feet. Also, a lance requires two hands to wield when I'm not mounted.",
+	tooltip: "Special: I have disadvantage when I use a lance to attack a target within 5 feet. Also, a lance requires two hands to wield when I'm not mounted.",
 /*	tooltip // OPTIONAL //
 	TYPE:	string
 	USE:	this will be added as a tooltip to the Description field for the attack
@@ -285,7 +285,7 @@ WeaponsList["purple sword"] = {
 	The tooltip is only available when the sheet is used in Adobe Acrobat,
 	it won't show up on a printed version of the sheet (also not when printed to PDF).
 */
-	special : true,
+	special: true,
 /*	special // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether (true) or not (false) this weapon has the 'special' property
@@ -297,7 +297,7 @@ WeaponsList["purple sword"] = {
 
 	Setting this to false is the same as not including this attribute.
 */
-	list : "melee",
+	list: "melee",
 /*	type // OPTIONAL //
 	TYPE:	string
 	USE:	determines the sorting of the weapon in the drop-down field
@@ -323,7 +323,7 @@ WeaponsList["purple sword"] = {
 	The 'list' attribute is ignored for WeaponsList objects used in the 'weaponOptions' attribute.
 	Instead, all things added using the 'weaponOptions' attribute will always be added at the top of the drop-down field.
 */
-	weight : 24,
+	weight: 24,
 /*	weight // OPTIONAL //
 	TYPE:	number
 	USE:	the weight of the weapon in lb
@@ -331,7 +331,7 @@ WeaponsList["purple sword"] = {
 	If the weapon doesn't have a listed weight, you can just leave this attribute out.
 	Setting this to 0 is the same as not including this attribute.
 */
-	dc : true,
+	dc: true,
 /*	dc // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether (true) or not (false) this weapon uses a DC instead of a To Hit
@@ -344,7 +344,7 @@ WeaponsList["purple sword"] = {
 
 	Setting this to false is the same as not including this attribute.
 */
-	modifiers : [1, ""],
+	modifiers: [1, ""],
 /*	modifiers // OPTIONAL //
 	TYPE:	array with 2 entries
 	USE:	add something to the weapon's modifier fields
@@ -373,7 +373,7 @@ WeaponsList["purple sword"] = {
 
 	Setting both entries of the array to either 0 or an empty string ("") is the same as not including this attribute.
 */
-	monkweapon : true,
+	monkweapon: true,
 /*	monkweapon // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether (true) or not (false) this weapon is a monk weapon and should use the Martial Arts die
@@ -382,7 +382,7 @@ WeaponsList["purple sword"] = {
 
 	Setting this to false is the same as not including this attribute.
 */
-	isMagicWeapon : true,
+	isMagicWeapon: true,
 /*	isMagicWeapon // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether (true) or not (false) this weapon is a magical weapon
@@ -396,7 +396,7 @@ WeaponsList["purple sword"] = {
 
 	Setting this to false is the same as not including this attribute.
 */
-	isNotWeapon : true,
+	isNotWeapon: true,
 /*	isNotWeapon // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether (false) or not (true) this attack is counted as a weapon
@@ -427,7 +427,7 @@ WeaponsList["purple sword"] = {
 
 	Setting this to false is the same as not including this attribute.
 */
-	isAlwaysProf : true,
+	isAlwaysProf: true,
 /*	isAlwaysProf // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether (true) or not (false) the proficiency bonus should always be added for this weapon
@@ -463,7 +463,7 @@ WeaponsList["purple sword"] = {
 
 	Setting this to false is NOT the same as not including this attribute!
 */
-	ammo : "bolt",
+	ammo: "bolt",
 /*	ammo // OPTIONAL //
 	TYPE:	string
 	USE:	the AmmoList object name of the ammunition that this attack uses
@@ -478,7 +478,7 @@ WeaponsList["purple sword"] = {
 
 	Setting this to an empty string ("") is the same as not including this attribute.
 */
-	SpellsList : "eldritch blast",
+	SpellsList: "eldritch blast",
 /*	SpellsList // OPTIONAL //
 	TYPE:	string
 	USE:	the SpellsList object name that this attack is linked to
@@ -491,7 +491,7 @@ WeaponsList["purple sword"] = {
 
 	Setting this to an empty string ("") is the same as not including this attribute.
 */
-	useSpellcastingAbility : true,
+	useSpellcastingAbility: true,
 /*	useSpellcastingAbility // OPTIONAL //
 	TYPE:	boolean
 	USE:	force the use of the spellcasting ability for the weapon
@@ -519,8 +519,8 @@ WeaponsList["purple sword"] = {
 
 	Setting this to false is NOT the same as not including this attribute!
 */
-	useSpellMod : ["wizard", "cleric"],
-	useSpellMod : "wizard",
+	useSpellMod: ["wizard", "cleric"],
+	useSpellMod: "wizard",
 /*	useSpellMod // OPTIONAL //
 	TYPE:	string or array of strings
 	USE:	the object name of a spellcasting object that this attack will use the spell attack/DC from
@@ -558,7 +558,7 @@ WeaponsList["purple sword"] = {
 
 	Setting this to an empty string ("") is the same as not including this attribute.
 */
-	baseWeapon : "longsword",
+	baseWeapon: "longsword",
 /*	baseWeapon // OPTIONAL //
 	TYPE:	string
 	USE:	the WeaponsList object name that this attack is based on
@@ -581,7 +581,7 @@ WeaponsList["purple sword"] = {
 
 	Setting this to an empty string ("") is the same as not including this attribute.
 */
-	selectNow : true,
+	selectNow: true,
 /*	selectNow // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether (true) or not (false) this weapon should immediately be selected

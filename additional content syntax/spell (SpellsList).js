@@ -451,14 +451,14 @@ SpellsList["sindering purple"] = {
 /*	descriptionFull // OPTIONAL //
 	TYPE:	array or string
 	USE:	description of the spell as it appears in its source
-	CHANGE: v24.0.0 (array option & `>>[...]<<` tags)
+	CHANGE: v14.0.0 (array option & `>>[...]<<` tags)
 
 	This text is used to populate the tooltip of the spell so that the original description can be read.
 	This description will also be available in a pop-up by using the button in the spell's line.
 	There is no limit to how big this description can be,
 	but very long descriptions will not always display correctly.
 
-	From v24.0.0 onwards, this attribute can be an array. Each entry in the array will be put
+	From v14.0.0 onwards, this attribute can be an array. Each entry in the array will be put
 	on a new line. Each entry can be one of the following:
 		1. String.
 		   If the entry is a string that doesn't start with a space character and
@@ -467,18 +467,19 @@ SpellsList["sindering purple"] = {
 		   If the entry is a string that starts with a space character, it will be added
 		   on a new line, but without any preceding spaces.
 		   For example, to make a bullet point list, you would use ` \u2022 list entry`
-		   (N.B. `u2022` is unicode for a bullet point).
+		   (N.B. `\u2022` is unicode for a bullet point).
 		2. Array of arrays, which contain only strings
-		   The entry is in itself an array, it is treated as a table.
-		   Each entry in that array is a row in the table, with the first being the headers.
+		   If the entry is in itself an array, it is treated as a table.
+		   Each entry in that array is a row in the table, with the first row being the headers.
 		   The headers will be made bold and italic. This is done with unicode. If unicode is
 		   disabled, the sheet will capitalize this instead.
 		   Each subarray is rendered with a tab between each column (i.e. `Array.join("\t")`).
+		   If instead of a subarray there is a string, it will be added as is.
 		   The table will be preceded by two line breaks and followed by one line break.
 
 	You can see an example of this array method above.
 
-	From v24.0.0 onwards, if you put '>>' and '<<' around a part of the string,
+	From v14.0.0 onwards, if you put '>>' and '<<' around a part of the string,
 	that part will be made bold and italic in the displayed description. This is done with
 	unicode. If unicode is disabled, the sheet will capitalize this instead.
 */

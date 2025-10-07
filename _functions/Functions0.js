@@ -587,8 +587,8 @@ function MakeRegex(inputString, extraRegex) {
 	return RegExp("^(?=.*\\b" + inputString.replace(/\W/g, " ").replace(/^ +| +$/g, "").RegEscape().replace(/('?s'?)\b/ig, "\($1\)?").replace(/ +/g, "s?\\b)(?=.*\\b") + "s?\\b)" + (extraRegex ? extraRegex : "") + ".*$", "i");
 };
 
-function toUni(input, altCap) {
-	if (!What("UseUnicode")) return altCap ? input.toUpperCase() : input;
+function toUni(input) {
+	if (!What("UseUnicode")) return input;
 	input = input.toString();
 	var UniBoldItal = {
 		"0" : "\uD835\uDFCE",
@@ -1329,7 +1329,8 @@ function getLetterRange(str, aOpt) {
 };
 
 // format a descriptionFull attribute
-function formatDescriptionFull(sDescFull) {
+function formatDescriptionFull(sDescFull, bIgnoreUnicode) {
+	if (!bIgnoreUnicode && !What("UseUnicode")) bIgnoreUnicode = true;
 	var sReturn = sDescFull;
 	if (isArray(sDescFull)) {
 		sReturn = sDescFull.reduce( function (renderDescription, n) {
@@ -1340,7 +1341,7 @@ function formatDescriptionFull(sDescFull) {
 					var tableRow = typeof t === "string" ? t :
 									isArray(t) ? t.join("\t") : false;
 					if (!tableRow) return finalStr;
-					if (idx === 0) tableRow = toUni(tableRow, true);
+					if (idx === 0) tableRow = bIgnoreUnicode ? tableRow.toUpperCase() : toUni(tableRow);
 					var lineBreakT = finalStr ? '\n' : '';
 					return finalStr + lineBreakT + tableRow;
 				}, '');
@@ -1354,7 +1355,7 @@ function formatDescriptionFull(sDescFull) {
 	}
 	// Add the headers in unicode bold/italic
 	sReturn = sReturn.replace(/>>(.*?)<</g, function (n, match) {
-		return toUni(match, true);
+		return bIgnoreUnicode ? match.toUpperCase() : toUni(match);
 	});
 	return sReturn;
-}
+};
