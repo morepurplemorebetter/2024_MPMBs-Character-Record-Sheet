@@ -513,7 +513,7 @@ function ResetAll(GoOn, noTempl, deleteImports) {
 	ShowCalcBoxesLines();
 	ToggleWhiteout(false);
 	ChangeFont();
-	ToggleTextSize();
+	ToggleTextSize(false, false, true);
 	ToggleAttacks(false);
 	ToggleBlueText(false);
 	Toggle2ndAbilityDC("hide");
@@ -560,17 +560,28 @@ function ResetAll(GoOn, noTempl, deleteImports) {
 };
 
 // Select the text size to use (0 for auto), or if left empty, select the default text size of 5.74 (7 for Printer Friendly)
-function ToggleTextSize(size) {
-	if (CurrentVars.fontsize == undefined) CurrentVars.fontsize = typePF ? 7 : 5.74;
-	var fontSize = size == undefined || isNaN(size) ? (typePF ? 7 : 5.74) : parseFloat(size);
-	if (fontSize == CurrentVars.fontsize) return;
+function ToggleTextSize(size, linespacingSize, forceReset) {
+	if (CurrentVars.fontsize === undefined) CurrentVars.fontsize = typePF ? 7 : 5.74;
+	if (CurrentVars.linespacing === undefined) CurrentVars.linespacing = typePF ? 11 : 10;
+
+	var fontSize = forceReset || size == undefined || isNaN(size) ? (typePF ? 7 : 5.74) : parseFloat(size);
+	var linespacing = forceReset || linespacingSize == undefined || isNaN(linespacingSize) ? (typePF ? 11 : 10) : parseFloat(linespacingSize);
+
+	var fontChange = forceReset || fontSize != CurrentVars.fontsize;
+	var linespacingChange = forceReset || linespacing != CurrentVars.linespacing;
+	if (!fontChange && !linespacingChange) return;
 
 	// Start progress bar and stop calculations
-	var thermoTxt = thermoM("Changing the font size to " + (fontSize ? fontSize : "'Auto'") + "...");
+	var thermoTxt = thermoM("Changing the " + (fontChange ? "font size" : "linespacing") + " to " + (fontChange ? (fontSize ? fontSize : "'Auto'") : (linespacing ? linespacing : "'Auto'")) + "...");
 	calcStop();
 
+	if (fontChange) CurrentVars.fontsize = fontSize;
+	if (linespacingChange) CurrentVars.linespacing = linespacing;
+	SetStringifieds("vars"); // Save the settings to a field
+
+	var LinesFld = [];
 	if (!tDoc.info.AdvLogOnly) {
-		var LinesFld = [
+		LinesFld = [
 			"Vision",
 			"Saving Throw advantages / disadvantages",
 			"HP Current",
@@ -633,8 +644,6 @@ function ToggleTextSize(size) {
 				]);
 			}
 		}
-	} else {
-		var LinesFld = []
 	}
 
 	//add the lines for all the logsheet pages
@@ -647,12 +656,19 @@ function ToggleTextSize(size) {
 	}
 
 	for (var i = 0; i < LinesFld.length; i++) {
-		tDoc.getField(LinesFld[i]).textSize = fontSize;
+		var fieldName = LinesFld[i];
+		var lineFld = tDoc.getField(fieldName);
+		if (!fontChange && lineFld.value === "") continue;
+		// Disable rich text before updating the textSize/linespacing so it actually gets applied
+		lineFld.richText = false;
+		if (fontChange) lineFld.textSize = fontSize;
+		// If not setting auto size, re-enable rich text for those fields with controlled formatting
+		if (lineFld.mpmbRtFormat && lineFld.textSize) {
+			lineFld.richText = true;
+		}
 		thermoM((i+1)/LinesFld.length); // Increment the progress bar
 	};
 
-	CurrentVars.fontsize = fontSize;
-	SetStringifieds("vars"); // Save the settings to a field
 	thermoM(thermoTxt, true); // Stop progress bar
 };
 
@@ -2052,7 +2068,9 @@ function FindClasses(NotAtStartup, isFieldVal) {
 		}
 
 		//add number of attacks to temp array
-		temp.push(Temps.attacks[Math.min(classes.known[aClass].level, Temps.attacks.length) - 1]);
+		if (Temps.attacks && isArray(Temps.attacks)) {
+			temp.push(Temps.attacks[Math.min(classes.known[aClass].level, Temps.attacks.length) - 1]);
+		}
 	}
 	//pick highest number of attacks in temp array and put that into global classes variable
 	classes.attacks = Math.max.apply(Math, temp);
@@ -3637,41 +3655,44 @@ function SetGearVariables() {
 function SetEquipmentMenuTooltip() {
 	var sText = "Recommended: add a pack/class equipment before adding background items.";
 
-	// function to create a string of all starting equipment
 	var reduceEquipToNames = function(array) {
 		return (array[1] ? array[1] + " " : "") + array[0];
 	}
-	var parseStartingEquipment = function(oInput, sName, sGoldAlternative) {
+	var parseStartingEquipment = function(oInput, sCaption, sTrailing) {
 		var aEquipNames = [];
-		if (oInput.pack && PacksList[oInput.pack]) aEquipNames.push(PacksList[oInput.pack].name.replace(/ ?\(.*\)/g, '').toLowerCase());
 		if (oInput.equipleft) aEquipNames = aEquipNames.concat(oInput.equipleft.map(reduceEquipToNames));
 		if (oInput.equipright) aEquipNames = aEquipNames.concat(oInput.equipright.map(reduceEquipToNames));
-		aEquipNames.sort();
+		if (oInput.pack && PacksList[oInput.pack]) aEquipNames.push(PacksList[oInput.pack].name.replace(/ ?\(.*\)/g, ''));
+		//aEquipNames.sort();
 		if (oInput.gold) aEquipNames.push(oInput.gold + " gp");
 		// If nothing was added, return an empty array
 		if (!aEquipNames.length) return "";
-		// Otherwise, add some defaults to the array
-		var bUseOr = false;
-		var sCaption = "\n\n" + sName + "'s starting equipment:";
-		if (oInput.goldAlt || sGoldAlternative) {
-			sGoldAlternative = sGoldAlternative ? sGoldAlternative : oInput.goldAlt;
-			aEquipNames.push("(B) " + sGoldAlternative + " gp.");
-			bUseOr = true;
-			sCaption += " Choose A or B: (A)"
-		}
-		// and then return a formatted line list
-		return formatLineList(sCaption, aEquipNames, bUseOr);
+		// Otherwise return a formatted line list
+		return formatLineList(sCaption, aEquipNames, false) + (sTrailing ? sTrailing : '');
 	}
 	if (classes.primary) {
 		var oClass = CurrentClasses[classes.primary];
 		if (oClass.startingEquipment) {
-			sText += parseStartingEquipment(oClass.startingEquipment, oClass.name);
+			if (!isArray(oClass.startingEquipment)) {
+				sText += "\n\n" + oClass.name + "'s starting equipment: " + parseStartingEquipment(oClass.startingEquipment) + "."
+			} else {
+				// Create the starting part
+				var classCaption = "\n\n" + oClass.name + "'s starting equipment: Choose";
+				var classOptionLetters = oClass.startingEquipment.map(function (n, idx) { return letterFromIndex(idx); });
+				sText += formatLineList(classCaption, classOptionLetters, true) + ": ";
+				// Add the options
+				var classOptionParts = oClass.startingEquipment.map(function (n, idx) {
+					var sCaption = '(' + letterFromIndex(idx) + ')';
+					return parseStartingEquipment(n, sCaption);
+				});
+				sText += formatLineList('', classOptionParts, true, true) + ".";
+			}
 		} else if (oClass.equipment) {
 			sText += "\n\n" + oClass.equipment;
 		}
 	}
 	if (CurrentBackground.known) {
-		sText += parseStartingEquipment(CurrentBackground, CurrentBackground.name, 50);
+		sText += parseStartingEquipment(CurrentBackground, "\n\n" + CurrentBackground.name + "'s starting equipment: Choose A or B: (A)", "; or (B) 50 gp.");
 	}
 
 	AddTooltip("Equipment.menu", sText);
@@ -3716,47 +3737,92 @@ function MakeInventoryMenu() {
 	itemMenu(InvMenu, "Gear", menuExtraTypes, GearMenus.gear);
 	itemMenu(InvMenu, "Tool", menuExtraTypes, GearMenus.tools);
 
+	// Add options for the class starting equipment
+	var oPrimaryClass = classes.primary && CurrentClasses[classes.primary] ? CurrentClasses[classes.primary] : false;
+	if (oPrimaryClass && oPrimaryClass.startingEquipment) {
+		var classEquip = isArray(oPrimaryClass.startingEquipment) ? oPrimaryClass.startingEquipment : [oPrimaryClass.startingEquipment];
+		var classMenuAdd = classEquip.reduce(function (menu, entry, idx) {
+			var hasEquip = entry.pack || entry.equipleft || entry.equipright;
+			var hasGold = entry.gold;
+			var has1stPage = entry.equip1stPage;
+			if (!hasEquip && !hasGold && !has1stPage) return menu;
+			// First add a divider
+			menu.push({ cName: "-" });
+			var multipleOptions = isArray(oPrimaryClass.startingEquipment);
+			var optionString = multipleOptions ? "'s (" + letterFromIndex(idx) + ") " : "'s ";
+			var cReturnIndex = multipleOptions ? "#" + idx : '';
+			if (hasEquip || hasGold) {
+				var equipGoldString = [];
+				if (hasEquip) equipGoldString.push("equipment");
+				if (hasGold) equipGoldString.push("gold");
+				equipGoldString = equipGoldString.join(" and ");
+				menu.push({
+					cName: oPrimaryClass.name + optionString + equipGoldString + " to this equipment section",
+					cReturn: "primaryclass#equipment" + cReturnIndex,
+				});
+			}
+			if (has1stPage) {
+				menu.push({
+					cName: oPrimaryClass.name + optionString + "weapons, armor, and ammo to the 1st page",
+					cReturn: "primaryclass#1stpage" + cReturnIndex,
+				});
+			}
+			if ((hasEquip || hasGold) && has1stPage) {
+				menu.push({
+					cName: "Both of the above, all " + oPrimaryClass.name + optionString + "gear",
+					cReturn: "primaryclass#equipment_1stpage" + cReturnIndex,
+				});
+			}
+			return menu;
+		}, []);
+		if (classMenuAdd.length) InvMenu = InvMenu.concat(classMenuAdd);
+	} else {
+		InvMenu = InvMenu.concat([{
+			cName: ["-"],
+		}, {
+			cName: "[Class starting equipment automation not found, see tooltip instead]",
+			bEnabled: false,
+		}]);
+	}
+
+	// Add options for the background starting equipment
 	var hasBackgrEquip = CurrentBackground.equipleft || CurrentBackground.equipright || CurrentBackground.gold;
 	var hasBackgr1st = CurrentBackground.equip1stPage;
 	var sBackgrName = CurrentBackground.known ? CurrentBackground.name : "Background";
-
-	var oPrimaryClass = classes.primary && CurrentClasses[classes.primary] && CurrentClasses[classes.primary].startingEquipment ? CurrentClasses[classes.primary].startingEquipment : {};
-	var hasPriClassEquip = oPrimaryClass.pack || oPrimaryClass.equipleft || oPrimaryClass.equipright || oPrimaryClass.gold;
-	var hasPriClass1st = oPrimaryClass.equip1stPage;
-	var sPriClassName = classes.primary ? CurrentClasses[classes.primary].name : "Class";
+	if (hasBackgrEquip || hasBackgr1st) {
+		var backgrMenuAdd = [{ cName: "-" }];
+		if (hasBackgrEquip) {
+			backgrMenuAdd.push({
+				cName: sBackgrName + "'s equipment and gold to this equipment section",
+				cReturn: "background#equipment",
+			});
+		}
+		if (hasBackgr1st) {
+			backgrMenuAdd.push({
+				cName: sBackgrName + "'s weapons, armor, and ammo to the 1st page",
+				cReturn: "background#1stpage",
+			});
+		}
+		if (hasBackgrEquip && hasBackgr1st) {
+			backgrMenuAdd.push({
+				cName: "Both of the above, all " + sBackgrName + "'s gear",
+				cReturn: "background#equipment_1stpage",
+			});
+		}
+		InvMenu = InvMenu.concat(backgrMenuAdd);
+	} else {
+		InvMenu = InvMenu.concat([{
+			cName: ["-"],
+		}, {
+			cName: "[Background starting equipment automation not found, see tooltip instead]",
+			bEnabled: false,
+		}]);
+	}
 
 	var aLocationColumns = What("Gear Location Remember").split(",");
 
 	InvMenu = InvMenu.concat([{
-		cName : ["-"]
-	}, {
-		cName : sPriClassName + "'s equipment and gold to this equipment section",
-		cReturn : "primaryclass#equipment",
-		bEnabled : hasPriClassEquip
-	}, {
-		cName : sPriClassName + "'s weapons, armor, and ammo to the 1st page",
-		cReturn : "primaryclass#1stpage",
-		bEnabled : hasPriClass1st
-	}, {
-		cName : "Both of the above (" + sPriClassName + "'s gear)",
-		cReturn : "primaryclass#equipment_1stpage",
-		bEnabled : hasPriClassEquip && hasPriClass1st
-	}, {
-		cName : ["-"]
-	}, {
-		cName : sBackgrName + "'s equipment and gold to this equipment section",
-		cReturn : "background#equipment",
-		bEnabled : hasBackgrEquip
-	}, {
-		cName : sBackgrName + "'s weapons, armor, and ammo to the 1st page",
-		cReturn : "background#1stpage",
-		bEnabled : hasBackgr1st
-	}, {
-		cName : "Both of the above (" + sBackgrName + "'s gear)",
-		cReturn : "background#equipment_1stpage",
-		bEnabled : hasBackgrEquip && hasBackgr1st
-	}, {
-		cName : ["-"]
+		cName: "-"
 	}, {
 		cName : "Armor && Shield (from 1st page) [only adds new]",
 		cReturn : "armour"
@@ -3764,15 +3830,15 @@ function MakeInventoryMenu() {
 		cName : "Weapons && Ammunition (from 1st page) [only updates/adds new]",
 		cReturn : "weapon"
 	}, {
-		cName : "Both the above (armor, weapons)",
+		cName : "Both the above, all armor && weapons",
 		cReturn : "armour#weapon"
 	}, {
-		cName : ["-"]
+		cName: "-"
 	}, {
 		cName : "Reset equipment section",
 		cReturn : "reset"
 	}, {
-		cName : ["-"]
+		cName: "-"
 	}, {
 		cName : "Show 'Attuned Magical Items' subsection",
 		cReturn : "attuned",
@@ -3787,7 +3853,7 @@ function MakeInventoryMenu() {
 		bMarked : aLocationColumns[1] == "true",
 		bEnabled : isTemplVis("ASfront")
 	}, {
-		cName : ["-"]
+		cName: "-"
 	}, {
 		cName : "Change carried weight options (encumbrance rules)",
 		cReturn : "weight"
@@ -3864,10 +3930,17 @@ function InventoryOptions(input) {
 			AddInvWeaponsAmmo();
 			break;
 		case "primaryclass":
-			var bEquipment = MenuSelection[1].indexOf("equipment") !== -1;
-			var b1stPage = MenuSelection[1].indexOf("1stpage") !== -1;
-			thermoTxt = thermoM("Adding background items...", false);
-			AddInvStartingItems(CurrentClasses[classes.primary].startingEquipment, bEquipment, b1stPage);
+			var index = MenuSelection[2];
+			var classStartingEquipment = classes.primary && CurrentClasses[classes.primary] ? CurrentClasses[classes.primary].startingEquipment : false;
+			if (classStartingEquipment && index !== undefined && classStartingEquipment[index]) {
+				classStartingEquipment = classStartingEquipment[index];
+			}
+			if (classStartingEquipment) {
+				var bEquipment = MenuSelection[1].indexOf("equipment") !== -1;
+				var b1stPage = MenuSelection[1].indexOf("1stpage") !== -1;
+				thermoTxt = thermoM("Adding class starting equipment...", false);
+				AddInvStartingItems(classStartingEquipment, bEquipment, b1stPage);
+			}
 			break;
 		case "background":
 			var bEquipment = MenuSelection[1].indexOf("equipment") !== -1;
@@ -4067,12 +4140,12 @@ function MakeInventoryLineMenu() {
 			oSubMenu : amendMenu(GearMenus.tools)
 		}]
 	}, {
-		cName : "-"
+		cName: "-"
 	}];
 
 	var menuLVL1 = function (menu, array) {
 		for (var i = 0; i < array.length; i++) {
-			var isEnabled = (array[i][1] === "up" && !upRow) || (array[i][1] === "down" && !downRow) || (!theField && (/move|insert/i).test(array[i][1])) ? false : true;
+			var isEnabled = (array[i][1] === "up" && !upRow) || (array[i][1] === "down" && !downRow) || (!theField && /move|insert/i.test(array[i][1])) ? false : true;
 			menu.push({
 				cName : array[i][0],
 				cReturn : type + "#" + lineNmbr + "#" + array[i][1],
@@ -4117,13 +4190,13 @@ function MakeInventoryLineMenu() {
 	if (!typePF || type.indexOf("Comp.") === -1) menuLVL1(gearMenu, [["Move to " + moveCol + " column", "movecol#" + moveCol.substr(0, 1) + "only"]]);
 	if (moveCol2) menuLVL1(gearMenu, [["Move to " + moveCol2 + " column", "movecol#" + moveCol2.substr(0, 1) + "only"]]);
 
-	gearMenu.push({cName : "-"});
+	gearMenu.push({cName: "-"});
 
 	if (type !== "Adventuring ") menuLVL1(gearMenu, [["Move to Equipment (page 2)", "movepage#gear"]]);
 	if (type !== "Extra.") menuLVL1(gearMenu, [["Move to Extra Equipment (page 3)", "movepage#extra"]]);
 	AddCompOptions(gearMenu);
 
-	gearMenu.push({cName : "-"});
+	gearMenu.push({cName: "-"});
 
 	if (magic) menuLVL1(gearMenu, [["Copy to Magic Items (page 3)", "copy#magic"], ["-", "-"]]);
 
@@ -4550,7 +4623,7 @@ function MakeBackgroundMenu_BackgroundOptions(MenuSelection) {
 			cName : "Reset the four fields",
 			cReturn : "backgroundtraits#reset"
 		}, {
-			cName : "-"
+			cName: "-"
 		}].concat(backMenu);
 
 		if (MenuSelection == "justMenu") return;
@@ -5338,7 +5411,6 @@ function ApplyFeat(input, FldNmbr) {
 			}
 		}
 	}
-
 	// Check if the feat doesn't already exist (with the same choice, if any)
 	if (IsNotImport && !ignoreDuplicates && aFeat) {
 		// count occurrence of parent & choice
@@ -5355,17 +5427,51 @@ function ApplyFeat(input, FldNmbr) {
 			var stopFunct = app.alert({
 				cTitle : "Can only have one instance of a feat",
 				cMsg : "The feat that you have selected, '" + (choiceDupl ? theFeat.name : aFeat.name) + "' is already present on the sheet and you can't have duplicates of it." + (newFeatVar && !choiceDupl ? "\n\nHowever, as this is a composite feat that exists in different forms, and you don't have '" + theFeat.name + "' yet, the sheet can allow you to add it regardless of the rules. Do you want to continue adding this feat?" : ""),
-				nIcon : !newFeatVar || choiceDupl ? 0 : 1,
+				nIcon : 1,
 				nType : !newFeatVar || choiceDupl ? 0 : 2
 			});
-			if (stopFunct === 1 || stopFunct === 3) {
+			if (stopFunct === 1 || stopFunct === 3) { // If "OK" or "No" were pressed
 				doNotCommit();
 				return;
 			}
 		}
 	}
 
-	// Before stopping the calculations, first test if the feat has a prerequisite and if it meets that
+	// Fighting Style feats, add `prerequisite` & `prereqeval`
+	// Stop if already selected this particular fighting style as a class feature
+	if (theFeat && /fighting style/i.test(theFeat.type)) {
+		var fightingStyleSelected = GetFightingStyleSelection()[newFeat];
+		if (fightingStyleSelected) {
+			// Do not add
+			app.alert({
+				cTitle: "Can only have one instance of a Fighting Style",
+				cMsg: 'The "' + aFeat.name + '" fighting style is already present on the sheet and you can\'t have duplicates of it.'+
+				'\n\nIt was added by: "' + fightingStyleSelected[3] + '".',
+				nIcon: 1,
+				nType: 0
+			});
+			doNotCommit();
+			return;
+		}
+		if (!theFeat.prerequisite) theFeat.prerequisite = "Fighting Style Feature";
+		if (!theFeat.prereqeval) theFeat.prereqeval = function (v) {
+			for (var sClass in classes.known) {
+				if (!CurrentClasses[sClass]) return;
+				var lvl = classes.known[sClass].level;
+				var features = CurrentClasses[sClass].features;
+				for (var sFea in features) {
+					var oFea = features[sFea];
+					if (oFea.minlevel < lvl) continue;
+					if (oFea.choicesFightingStyles || /fighting style/i.test(sFea + oFea.name)) {
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+	}
+
+	// Test if the feat has a prerequisite and if it meets that
 	if (IsNotImport && IsNotReset && theFeat && theFeat.prereqeval && !ignorePrereqs && event.target && event.target.name == Fflds[0]) {
 		try {
 			if (typeof theFeat.prereqeval == 'string') {
@@ -5393,7 +5499,7 @@ function ApplyFeat(input, FldNmbr) {
 				nType : 2
 			});
 
-			if (askUserFeat !== 4) { // If "NO" was pressed
+			if (askUserFeat !== 4) { // If "Yes" was pressed
 				doNotCommit();
 				return;
 			}
@@ -5674,7 +5780,7 @@ function ParseFeatMenu() {
 	AddFeatsMenu.push({
 		cName: "By source",
 		oSubMenu: aMenuSource
-	}, { cName : "-" });
+	}, { cName: "-" });
 	// Add the listing per type
 	var aMenuType = [], aMenuTypeSub;
 	for (var sTypeLC in fMenus.type) {
@@ -5687,7 +5793,7 @@ function ParseFeatMenu() {
 		})
 	}
 	if (aMenuType.length) {
-		aMenuType.push({ cName : "-" });
+		aMenuType.push({ cName: "-" });
 		AddFeatsMenu = AddFeatsMenu.concat(aMenuType);
 	}
 	// Add the listing per ability score
@@ -5762,14 +5868,14 @@ function MakeFeatMenu_FeatOptions(MenuSelection, itemNmbr) {
 			// an option to read the whole description
 			if (Who(Fflds[2])) menuLVL1([["Show full text of " + fullFeatName, "popup"]]);
 			// add a separator if we have any items in the menu so far
-			if (featMenu.length) featMenu.push({cName : "-"});
+			if (featMenu.length) featMenu.push({cName: "-"});
 		}
 		// a way to select another feat
 		if (!AddFeatsMenu) ParseFeatMenu();
 		featMenu.push({
 			cName : keyFeat ? "Change feat to" : "Apply feat",
 			oSubMenu : AddFeatsMenu
-		},{ cName : "-" });
+		},{ cName: "-" });
 		// now all the default options
 		menuLVL1([
 			["Move up" + upToOtherPage, "up", !noUp],
@@ -6237,7 +6343,7 @@ function ParseClassFeature(theClass, theFeature, FeaLvl, ForceOld, SubChoice, Fe
 	// First make sure we know where the feature comes from (if it exists in both class and subclass, use subclass, unless ForceOld is true)
 	var aSubClass = classes.known[theClass].subclass;
 	var FeaList = ClassList[theClass].features[theFeature] && (ForceOld || !aSubClass || !ClassSubList[aSubClass].features[theFeature]) ? 'ClassList' : ClassSubList[aSubClass].features[theFeature] ? 'ClassSubList' : false;
-	if (!FeaList) return ["", ""];
+	if (!FeaList) return ["", "", ""];
 
 	var FeaKey = FeaList == 'ClassList' ? ClassList[theClass].features[theFeature] : ClassSubList[aSubClass].features[theFeature];
 	var old = (ForceOld || ForceFeaOld) && Fea ? "Old" : "";
@@ -6245,11 +6351,13 @@ function ParseClassFeature(theClass, theFeature, FeaLvl, ForceOld, SubChoice, Fe
 	var FeaClass = FeaList == 'ClassSubList' && CurrentClasses[theClass].subname ? CurrentClasses[theClass].subname : CurrentClasses[theClass].name;
 	if (!Fea) Fea = GetLevelFeatures(FeaKey, FeaLvl, SubChoice, "", "");
 
-	if (!Fea.UseName) return ["", ""]; // return empty strings if there is no name
+	if (!Fea.UseName) return ["", "", ""]; // return empty strings if there is no name
 
 	var FeaSource = stringSource(Fea, "first,abbr", ", ");
 	var FeaRef = " (" + FeaClass + " " + FeaKey.minlevel + FeaSource + ")";
-	var FeaUse = Fea["Use" + old] + (Fea["Use" + old] && !isNaN(Fea["Use" + old]) ? "\xD7 per " : "") + Fea["Recov" + old] + (Fea["AltRecov" + old] ? " or " + Fea["AltRecov" + old] : "");
+	var FeaUse = Fea["Use" + old] + (Fea["Use" + old] && !isNaN(Fea["Use" + old]) ? "\xD7 per " : "") + Fea["Recov" + old];
+	if (FeaUse && Fea["AltRecov" + old]) FeaUse += " or " + Fea["AltRecov" + old];
+
 	var FeaPost = "";
 	if (Fea["Add" + old] && FeaUse) {
 		FeaPost = " [" + Fea["Add" + old] + ", " + FeaUse + "]";
@@ -6258,18 +6366,22 @@ function ParseClassFeature(theClass, theFeature, FeaLvl, ForceOld, SubChoice, Fe
 	} else if (FeaUse) {
 		FeaPost = " [" + FeaUse + "]";
 	}
+	FeaPost += "#";
 
 	var FeaName = SubChoice && FeaKey[SubChoice] ? FeaKey[SubChoice].name : FeaKey.name;
-	var FeaFirstLine = "\u25C6 " + FeaName + FeaRef;
+	var FeaFirstLine = "#\u25C6 " + FeaName + FeaRef;
 	var FeaDescr = Fea["Descr" + old];
 	if (isArray(FeaDescr)) FeaDescr = desc(FeaDescr);
 	if (What("Unit System") == "metric") {
 		FeaPost = ConvertToMetric(FeaPost, 0.5);
 		FeaDescr = ConvertToMetric(FeaDescr, 0.5);
 	}
-	var FeaOtherLines = FeaPost + FeaDescr;
 
-	return [FeaFirstLine + (Fea.extFirst ? FeaPost : ""), "\r" + FeaFirstLine + FeaOtherLines, FeaFirstLine];
+	return [
+		FeaFirstLine + (Fea.extFirst ? FeaPost : ""),
+		"\r" + FeaFirstLine + FeaPost + FeaDescr,
+		FeaFirstLine
+	];
 };
 
 function ParseClassFeatureExtra(theClass, theFeature, extraChoice, Fea, ForceOld, ForceExtraname) {
@@ -6281,7 +6393,9 @@ function ParseClassFeatureExtra(theClass, theFeature, extraChoice, Fea, ForceOld
 
 	var extraNm = FeaKey.extraname ? FeaKey.extraname : ForceExtraname ? ForceExtraname : clObj.extraname ? clObj.extraname : clObj.name;
 	var FeaRef = " (" + extraNm + stringSource(Fea, "first,abbr", ", ") + ")";
-	var FeaUse = Fea["Use" + old] + (Fea["Use" + old] && !isNaN(Fea["Use" + old]) ? "\xD7 per " : "") + Fea["Recov" + old] + (Fea["AltRecov" + old] ? " or " + Fea["AltRecov" + old] : "");
+	var FeaUse = Fea["Use" + old] + (Fea["Use" + old] && !isNaN(Fea["Use" + old]) ? "\xD7 per " : "") + Fea["Recov" + old];
+	if (FeaUse && Fea["AltRecov" + old]) FeaUse += " or " + Fea["AltRecov" + old];
+
 	var FeaPost = "";
 	if (Fea["Add" + old] && FeaUse) {
 		FeaPost = " [" + Fea["Add" + old] + ", " + FeaUse + "]";
@@ -6290,8 +6404,9 @@ function ParseClassFeatureExtra(theClass, theFeature, extraChoice, Fea, ForceOld
 	} else if (FeaUse) {
 		FeaPost = " [" + FeaUse + "]";
 	};
+	FeaPost += "#";
 
-	var FeaFirstLine = "\u25C6 " + FeaKey.name + FeaRef;
+	var FeaFirstLine = "#\u25C6 " + FeaKey.name + FeaRef;
 	var FeaDescr = Fea["Descr" + old];
 	if (isArray(FeaDescr)) FeaDescr = desc(FeaDescr);
 	if (What("Unit System") == "metric") {
@@ -6300,7 +6415,11 @@ function ParseClassFeatureExtra(theClass, theFeature, extraChoice, Fea, ForceOld
 	}
 	var FeaOtherLines = FeaPost + FeaDescr;
 
-	return [FeaFirstLine + (ForceOld ? "" : FeaPost), "\r" + FeaFirstLine + FeaOtherLines, FeaFirstLine];
+	return [
+		FeaFirstLine + (ForceOld ? "" : FeaPost),
+		"\r" + FeaFirstLine + FeaOtherLines,
+		FeaFirstLine
+	];
 };
 
 //change all the level-variables gained from classes and races
@@ -6504,15 +6623,15 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 
 			// process the class heading
 			if (newClassLvl[aClass] == 0) { // remove the heading
-				var oldHeaderString = cl.fullname + ", level " + oldClassLvl[aClass] + ":";
+				var oldHeaderString = "**" + cl.fullname + ", level " + oldClassLvl[aClass] + ":**";
 				if (What("Class Features").indexOf("\r\r" + oldHeaderString) !== -1) oldHeaderString = "\r\r" + oldHeaderString;
 				RemoveString("Class Features", oldHeaderString, false);
 			} else if (oldClassLvl[aClass] == 0) { // add the heading
-				var newHeaderString = cl.fullname + ", level " + newClassLvl[aClass] + ":";
+				var newHeaderString = "**" + cl.fullname + ", level " + newClassLvl[aClass] + ":**";
 				if (What("Class Features")) newHeaderString = "\r\r" + newHeaderString;
 				AddString("Class Features", newHeaderString, false);
 			} else { // update the heading
-				var newHeaderString = cl.fullname + ", level " + newClassLvl[aClass] + ":";
+				var newHeaderString = "**" + cl.fullname + ", level " + newClassLvl[aClass] + ":**";
 				var oldHeaderString = !classes.old[aClass] ? "" : classes.old[aClass].fullname.RegEscape() + ".*, level \\d+:";
 				ReplaceString("Class Features", newHeaderString, false, oldHeaderString, true);
 			}
@@ -6559,7 +6678,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 						var doTextAction = applyClassFeatureText(textAction, ["Class Features"], FeaOldString, FeaNewString, LastProp);
 						if (doTextAction === false && textAction !== "remove") {
 							// This failed, so just add it to the end of the field
-							AddString("Class Features", FeaNewString[1], true);
+							AddString("Class Features", FeaNewString[1].replace(/^[\r\n]*/, ''), false);
 						}
 					}
 
@@ -6605,7 +6724,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 						if (IsNotImport && xtrTextAction) {
 							applyClassFeatureText(xtrTextAction, ["Extra.Notes", "Class Features"], xtrFeaOldString, xtrFeaNewString, false);
 						} else if (propFea.extrachoices && !IsNotImport) {
-							AddString("Extra.Notes", xtrFeaNewString[1].replace(/^(\r|\n)*/, ''), true);
+							AddString("Extra.Notes", xtrFeaNewString[1].replace(/^[\r\n]*/, ''), true);
 						}
 					}
 				}
@@ -6695,15 +6814,19 @@ function MakeClassMenu() {
 			};
 			// test if the menu entry shouldn't be another layer deeper
 			if (feaObjA.submenu) {
-				// create entry for this submenu if it doesn't already exist
-				if (!toSub[feaObjA.submenu]) {
-					toSub[feaObjA.submenu] = [];
-					temp.push({
-						cName : feaObjA.submenu,
-						oSubMenu : []
-					})
+				var submenus = isArray(feaObjA.submenu) ? feaObjA.submenu : [feaObjA.submenu];
+				for (var s = 0; s < submenus.length; s++) {
+					var submenu = submenus[s];
+					// create entry for this submenu if it doesn't already exist
+					if (!toSub[submenu]) {
+						toSub[submenu] = [];
+						temp.push({
+							cName : submenu,
+							oSubMenu : []
+						})
+					}
+					toSub[submenu].push(mItem);
 				}
-				toSub[feaObjA.submenu].push(mItem);
 			} else {
 				temp.push(mItem);
 			}
@@ -6767,10 +6890,10 @@ function MakeClassMenu() {
 			// Add dividers
 			if (tempSorted.optional.length && (tempSorted.variants.length || tempSorted.features.length)) {
 				tempSorted.optional.sort();
-				tempSorted.optional.push({ cName : "-", cReturn : "-" });
+				tempSorted.optional.push({ cName: "-" });
 			}
 			if (tempSorted.variants.length && tempSorted.features.length) {
-				tempSorted.variants.push({ cName : "-", cReturn : "-" });
+				tempSorted.variants.push({ cName: "-" });
 			}
 			ClassMenu.push({
 				cName : cl.fullname,
@@ -6780,7 +6903,7 @@ function MakeClassMenu() {
 	};
 
 	var bonusClassFeatures = getBonusClassExtraChoices();
-	if (bonusClassFeatures.length) ClassMenu.push({ cName : "-" }); // Add a divider
+	if (bonusClassFeatures.length) ClassMenu.push({ cName: "-" }); // Add a divider
 	for (var i = 0; i < bonusClassFeatures.length; i++) {
 		var oBonus = bonusClassFeatures[i];
 		aClass = oBonus.class;
@@ -6893,7 +7016,7 @@ function ClassFeatureOptions(Input, AddRemove, ForceExtraname) {
 			prop, choice, Fea, !addIt, ForceExtraname);
 
 		if (addIt) { // add the string to the third page
-			AddString("Extra.Notes", feaString[1].replace(/^(\r|\n)*/, ''), true);
+			AddString("Extra.Notes", feaString[1].replace(/^[\r\n]*/, ''), true);
 			show3rdPageNotes(); // for a Colourful sheet, show the notes section on the third page
 			var extraNm = propFeaCs.extraname ? propFeaCs.extraname : ForceExtraname ? ForceExtraname : propFea.extraname ? propFea.extraname : propFea.name;
 			var changeMsg = "The " + extraNm + ' "' + propFeaCs.name + '" has been added to the Notes section on the third page' + (!typePF ? ", while the Rules section on the third page has been hidden" : "") + ". They wouldn't fit in the Class Features section if the class is taken to level 20.";
@@ -8248,15 +8371,17 @@ function ApplyAmmo(inputtxt, Fld) {
 function AddAmmo(inputtxt, amount) {
 	var AmmoFlds = [ "AmmoLeftDisplay.Name", "AmmoRightDisplay.Name" ];
 	var AmountFlds = [ "AmmoLeftDisplay.Amount", "AmmoRightDisplay.Amount" ];
+	var AmmoName = AmmoList[inputtxt] ? AmmoList[inputtxt].name : inputtxt;
+	var AmmoRx = RegExp(inputtxt.RegEscape() + '|' + AmmoName.RegEscape(), "i");
 	amount = amount && !isNaN(Number(amount)) ? Number(amount) : 0;
 	for (var n = 1; n <= 2; n++) {
 		for (var i = 0; i < AmmoFlds.length; i++) {
 			var next = tDoc.getField(AmmoFlds[i]);
-			if (n === 1 && ((RegExp(inputtxt.RegEscape(), "i")).test(next.value) || next.value.toLowerCase().indexOf(inputtxt.toLowerCase()) !== -1)) {
+			if (n === 1 && (AmmoRx.test(next.value) || (next.value.toLowerCase().indexOf(AmmoName.toLowerCase()) !== -1))) {
 				if (amount) tDoc.getField(AmountFlds[i]).value += amount;
 				return;
 			} else if (n === 2 && next.value === "") {
-				next.value = AmmoList[inputtxt] ? AmmoList[inputtxt].name : inputtxt;
+				next.value = AmmoName;
 				if (amount) Value(AmountFlds[i], amount);
 				return;
 			}
@@ -8703,6 +8828,9 @@ function ApplyColorScheme(aColour) {
 	if (What("Color.DC").indexOf("headers") != -1) ApplyDCColorScheme();
 	if (What("Color.HPDragon") == "headers") ApplyHPDragonColorScheme();
 
+	// Refresh field that use headers
+	redoFieldFormatIfColored();
+
 	thermoM(thermoTxt, true); // Stop progress bar
 }
 
@@ -9005,12 +9133,12 @@ function MakeColorMenu() {
 			ColorMenu.push(DCMenu);
 		}
 
-		ColorMenu.push({cName : "-"}); //add a divider
+		ColorMenu.push({cName: "-"}); //add a divider
 
 		//make the color menu
 		menuLVL1(ColorMenu, tempArray, "theme");
 
-		ColorMenu.push({cName : "-"}); //add a divider
+		ColorMenu.push({cName: "-"}); //add a divider
 
 		// 'all' option
 		ColorMenu.push(menuLVL2(["All of the above (except highlighting)", "all"], tempArray));
@@ -9736,11 +9864,13 @@ function SetUnitDecimals_Button() {
 }
 
 function SetTextOptions_Button() {
-	var FontSize = CurrentVars.fontsize !== undefined ? CurrentVars.fontsize : typePF ? 7 : 5.74;
+	var FontDefSize = typePF ? 7 : 5.74;
+	var FontSize = CurrentVars.fontsize !== undefined ? CurrentVars.fontsize : FontDefSize;
 	var nowFont = tDoc.getField((tDoc.info.AdvLogOnly ? "AdvLog." : "") + "Player Name").textFont;
 	var FontDef = typePF ? "SegoeUI" : "SegoePrint";
-	var FontDefSize = typePF ? 7 : 5.74;
 	if (FontList[nowFont]) FontDefSize = FontList[nowFont];
+	var linespacingDefSize = typePF ? 11 : 10;
+	var linespacingSize = CurrentVars.linespacing !== undefined ? CurrentVars.linespacing : linespacingDefSize;
 
 	var fontArray = {};
 	for (var fo in FontList) {
@@ -9757,12 +9887,18 @@ function SetTextOptions_Button() {
 	SetTextOptions_Dialog.bFont = nowFont;
 	SetTextOptions_Dialog.bFontsArray = fontArray;
 
+	// linespacing
+	SetTextOptions_Dialog.linespacingDefSize = linespacingDefSize.toString();
+	SetTextOptions_Dialog.linespacingSize = linespacingSize.toString();
+
 	// Call the dialog and do something if ok is pressed
 	if (app.execDialog(SetTextOptions_Dialog) === "ok") {
-		if (SetTextOptions_Dialog.bSize !== FontSize) {
-			ToggleTextSize(SetTextOptions_Dialog.bSize);
+		var newFontSize = SetTextOptions_Dialog.bSize != FontSize ? SetTextOptions_Dialog.bSize : FontSize;
+		var newLinespacing = SetTextOptions_Dialog.linespacingSize != linespacingSize ? SetTextOptions_Dialog.linespacingSize : linespacingSize;
+		if (newFontSize || newLinespacing) {
+			ToggleTextSize(newFontSize, newLinespacing);
 		}
-		if (SetTextOptions_Dialog.bFont !== nowFont) {
+		if (SetTextOptions_Dialog.bFont != nowFont) {
 			ChangeFont(SetTextOptions_Dialog.bFont);
 		}
 	}
@@ -9878,7 +10014,7 @@ function MakeAttackLineMenu_AttackLineOptions(MenuSelection, itemNmbr, prefix) {
 
 		// Add the colour menu
 		if (!typePF) {
-			attackMenu.push({ cName : "-" });
+			attackMenu.push({ cName: "-" });
 			var ColorArray = ["black"];
 			for (var key in ColorList) ColorArray.push(key);
 			ColorArray.sort();

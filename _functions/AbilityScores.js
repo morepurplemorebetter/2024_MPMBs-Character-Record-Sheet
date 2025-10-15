@@ -218,7 +218,7 @@ function AbilityScores_Button(onlySetTooltip) {
 	// set the descriptive text for the dialog
 	var sections = {
 		ref : {
-			title : "Primary class abilities \u0026 Multiclassing prerequisites",
+			title : "Primary class abilities \x26 Multiclassing prerequisites",
 			loc : "left",
 			txt : ""
 		},
@@ -322,14 +322,14 @@ function AbilityScores_Button(onlySetTooltip) {
 		var sect = sections[section];
 		if (!sect.txt) continue;
 		var newCluster = {
-			name : sect.title.replace("\u0026", "\u0026\u0026"),
+			name : sect.title.replace("\x26", "\x26\x26"),
 			type : "cluster",
 			alignment : "align_" + sect.loc,
 			item_id : "cl" + section.substr(0,2),
 			font : "dialog",
 			bold : true,
 			elements : [{
-				name : sect.txt.replace("\u0026", "\u0026\u0026"),
+				name : sect.txt.replace("\x26", "\x26\x26"),
 				type : "static_text",
 				item_id : "tx" + section.substr(0,2),
 				alignment : "align_fill",

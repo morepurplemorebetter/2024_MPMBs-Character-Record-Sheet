@@ -1314,6 +1314,12 @@ function outOfMemoryErrorHandling(closeFile) {
 	tDoc.closeDoc();
 };
 
+// Get a letter corresponding to a number (0=A, 1=B, 2=C, etc)
+function letterFromIndex(index, bLowercase) {
+	var base = bLowercase ? 97 : 65;
+	return String.fromCharCode(base + index);
+}
+
 // return which range of the ones given in `aOpt` the starting character of `str` belongs to. e.g. aOpt = ["A-F", "G-Q", "R-Z"];
 function getLetterRange(str, aOpt) {
 	var iCharNr = removeDiacritics(str)[0].toLowerCase().charCodeAt(0) - 97;
@@ -1359,3 +1365,136 @@ function formatDescriptionFull(sDescFull, bIgnoreUnicode) {
 	});
 	return sReturn;
 };
+
+/** Rich Text formatting of multiline fields
+ *text* = italic
+ **text** = bold
+ _text_ = underlined
+ ~text~ = strikethrough
+ #text# = header: bold and theme color (colourful) or 10% size increase (printer friendly)
+*/
+// Create a singular span from an existing span, but with given text and formatting
+function formatSpan(parentSpan, newText, formatChars, idx) {
+	var span = newObj(parentSpan);
+	span.text = newText;
+	if (formatChars) {
+		if (formatChars.indexOf('**') !== -1) {
+			formatChars = formatChars.replace('**', '');
+			span.fontWeight = 700;
+		}
+		if (formatChars.indexOf('*') !== -1) {
+			span.fontStyle = 'italic';
+		}
+		if (formatChars.indexOf('_') !== -1) {
+			span.underline = true;
+		}
+		if (formatChars.indexOf('~') !== -1) {
+			span.strikethrough = true;
+		}
+		if (formatChars.indexOf('#') !== -1) {
+			span.fontWeight = 700;
+			if (typePF && !(idx === 0 && event.target && event.target.headerFirstLine === newText.replace(/^\s+|\s+$/g, ''))) {
+				span.textSize = span.textSize * 1.1;
+			} else if (!typePF) {
+				span.textColor = ColorList[What("Color.Theme")].RGB;
+				if (event.target) event.target.mpmbRtColor = true;
+			}
+		}
+	}
+	return span;
+}
+// Pick out the formatting characters and create separate spans for them
+function richTextReduce(spans, span, idx, orig) {
+	if (span.linespacing === undefined) span.linespacing = CurrentVars.linespacing !== undefined ? CurrentVars.linespacing : typePF ? 11 : 10;
+	if (idx !== orig.length - 1 && span.endParagraph && !/[\r\n]$/.test(span.text)) span.text += '\r';
+	var matches = span.text.match(/(([*_~#]+).+?\2)/g);
+	if (matches) {
+		var remainingText = span.text;
+		var i = 0;
+		while (remainingText.length) {
+			var match = matches[i];
+			i++;
+			if (match) {
+				var matchIndex = remainingText.indexOf(match);
+				var preMatch = remainingText.substr(0, matchIndex);
+				var matchParts = match.match(/^([*_~#]+)(.+?)\1$/);
+				var formatChars = matchParts[1];
+				var cleanedMatch = matchParts[2];
+				if (preMatch) {
+					if (/^\s+$/.test(preMatch)) {
+						// Just whitespace, no point making it its own span
+						match = preMatch + match;
+						cleanedMatch = preMatch + cleanedMatch;
+					} else {
+						// String part without any matches, so no formatting characters
+						spans.push(formatSpan(span, preMatch));
+						remainingText = remainingText.substr(preMatch.length);
+					}
+				}
+				var postMatch = remainingText.substr(matchIndex + match.length);
+				if (postMatch && /^\s+$/.test(postMatch)) {
+					// Just whitespace, no point making it its own span
+					match += postMatch;
+					cleanedMatch += postMatch;
+				}
+				// The matched string can still contain formatting characters for sub-strings, so put it through this reducer again
+				var newSpan = formatSpan(span, cleanedMatch, formatChars, idx);
+				spans = spans.concat([newSpan].reduce(richTextReduce, []));
+				remainingText = remainingText.substr(match.length);
+			} else {
+				// String part without any matches, so no formatting characters
+				spans.push(formatSpan(span, remainingText));
+				remainingText = "";
+			}
+		}
+	} else {
+		spans.push(span);
+	}
+	return spans;
+}
+// Field Format event, i.e.: .setAction("Format", "formatRichText();");
+function formatRichText() {
+	// Make it easier to query which fields use this method with a custom attribute
+	event.target.mpmbRtFormat = true;
+	event.target.mpmbRtColor  = undefined;
+	if (event.target.richText && event.richValue) {
+		// Format the rich text using the formatting characters
+		var spans = event.richValue.reduce(richTextReduce, []);
+		event.richValue = spans;
+	} else {
+		// Remove formatting characters from displayed string
+		var formatCharRx = /([*_~#]+)(.+?)\1/g
+		while (formatCharRx.test(event.value)) {
+			event.value = event.value.replace(formatCharRx, '$2');
+		}
+	}
+}
+// Field Validate event, i.e.: `.setAction("Validate", "correctRichTextLineSpacing();");`
+function correctRichTextLineSpacing() {
+	if (!event.target.richText) return;
+	// Correct issue if the first line has its size increased
+	var headerFirstLine = typePF ? event.value.match(/^.*#(.+?)#/) : false;
+	event.target.headerFirstLine = headerFirstLine ? headerFirstLine[1].replace(/^\s+|\s+$/g, '') : false;
+	// Make sure the linespacing adheres to the sheet
+	var val = event.richValue;
+	if (!val) return;
+	var processed = val.every(function(span) { return span.linespacing !== undefined; });
+	if (processed) return;
+	var spans = val.map(function(span, idx, spans) {
+		if (span.linespacing === undefined) span.linespacing = CurrentVars.linespacing !== undefined ? CurrentVars.linespacing : typePF ? 11 : 10;
+		if (idx !== spans.length - 1 && span.endParagraph && !/[\r\n]$/.test(span.text)) {
+			span.endParagraph = false;
+			span.text += '\n';
+		}
+		return span;
+	});
+	event.richValue = spans;
+}
+// Redo all format events for all Rich Text fields with the custom `mpmbRtColor` attribute
+function redoFieldFormatIfColored() {
+	for (var F = 0; F < this.numFields; F++) {
+		var Fname = this.getNthFieldName(F);
+		var Ffield = this.getField(Fname);
+		if (Ffield.mpmbRtColor) Ffield.password = false;
+	}
+}

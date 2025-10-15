@@ -695,17 +695,28 @@ function GetFightingStyleSelection() {
 			var clNm = !CurrentClasses[aClass] ? "Unknown" : CurrentClasses[aClass].fullname.indexOf(CurrentClasses[aClass].name) == -1 ? CurrentClasses[aClass].fullname : CurrentClasses[aClass].name;
 			for (var aFea in clObj) {
 				var feaObj = clObj[aFea];
-				var feaNm = CurrentClasses[aClass] && CurrentClasses[aClass].features[aFea] ? CurrentClasses[aClass].features[aFea].name : aFea.capitalize();
-				if (typeof feaObj == "object" && feaObj.choice && (/fighting style/i).test(aFea + feaNm)) fndObj[feaObj.choice] = ["classes", aClass, "\t   (selected: " + clNm + " - " + feaNm + ")"];
+				var feaObjChoice = typeof feaObj == "object" ? feaObj.choice : false;
+				if (!feaObjChoice) continue;
+				var feaClassObj = CurrentClasses[aClass] ? CurrentClasses[aClass].features[aFea] : { name: aFea.capitalize() };
+				var isFS = feaClassObj.choicesFightingStyles || /fighting style/i.test(aFea + feaClassObj.name);
+				if (isFS) {
+					fndObj[feaObj.choice] = ["classes", aClass, "\t   (selected: " + clNm + " - " + feaClassObj.name + ")", clNm + ": " + feaClassObj.name];
+				}
 			}
 		}
 	}
 	for (var i = 0; i < CurrentFeats.known.length; i++) {
 		var sFeat = CurrentFeats.known[i];
 		var oFeat = FeatsList[sFeat];
-		if (!sFeat || !oFeat || !/fighting style/i.test(oFeat.descriptionFull)) continue;
-		var sFeatChoice = CurrentFeats.choices[CurrentFeats.known.indexOf(sFeat)];
-		if (sFeatChoice) fndObj[sFeatChoice] = ["feats", sFeat, "\t   (selected: " + oFeat.name + " - " + sFeatChoice.capitalize() + ")"];
+		if (!sFeat || !oFeat) continue;
+		if (/fighting style/i.test(oFeat.type)) {
+			// Fighting Style type feats
+			fndObj[sFeat] = ["feats", sFeat, "\t   (selected: " + oFeat.name + " Fighting Style Feat)", oFeat.name + " (feat)"];
+		} else if (!oFeat.type && /fighting style/i.test(oFeat.descriptionFull)) {
+			// Legacy feats
+			var sFeatChoice = CurrentFeats.choices[CurrentFeats.known.indexOf(sFeat)];
+			if (sFeatChoice) fndObj[sFeatChoice] = ["feats", sFeat, "\t   (selected: " + oFeat.name + " - " + sFeatChoice.capitalize() + ")", sFeat + " (feat): " + sFeatChoice.capitalize()];
+		}
 	};
 	return fndObj;
 }
@@ -1466,28 +1477,30 @@ function processExtraLimitedFeatures(AddRemove, srcNm, objArr) {
 }
 
 // add/remove a class feature text, replace the first line of it, or insert it after another
-// the string is assumed to start with "\u25C6" (ParseClassFeature | ParseClassFeatureExtra)
+// the string is assumed to start with "#" (ParseClassFeature | ParseClassFeatureExtra)
 // for possible values of 'act', see the switch statement
 // each ...TxtA is [firstline, completetext]
 function applyClassFeatureText(act, fldA, oldTxtA, newTxtA, prevTxt) {
 	if (!oldTxtA || !oldTxtA[0]) return false; // no oldTxt, so we can't do anything
 
 	// make some regex objects
-	var fReplaceLinebreaks = function(str) {
+	var getRx = function(str) {
 		var sEscaped = str.replace(/\n/g, '\r').replace(/^\r+/, '').RegEscape();
 		var sJustLine = RegExp(sEscaped + ".*", "i");
-		var sFullSection = RegExp("\\r?" + sEscaped + "(.|\\r\\s\\s|\\r\\w)*", "i"); // everything until the first line that doesn't start with two spaces or a letter/number (e.g. an empty line or a new bullet point)
-		return [sJustLine, sFullSection];
+		// Regex for everything until the first empty line or the first line that doesn't start with a "#" (the header format character)
+		var sFullSection = RegExp("\\r?" + sEscaped + ".*(\r[^\r#].*)*", "i"); 
+		return {
+			head: sJustLine,
+			full: sFullSection,
+		};
 	}
-	var oldFrstLnRx = fReplaceLinebreaks(oldTxtA[0]);
-	var oldRxHead = oldFrstLnRx[0];
-	var oldRx = oldFrstLnRx[1];
+	var oldRx = getRx(oldTxtA[0]);
 
 	// find the field we are supposed to update
 	var fld = fldA[0];
 	if (fldA.length > 1) {
 		for (var i = 0; i < fldA.length; i++) {
-			if (oldRx.test(What(fldA[i]))) {
+			if (oldRx.full.test(What(fldA[i]))) {
 				fld = fldA[i];
 				break;
 			}
@@ -1499,19 +1512,19 @@ function applyClassFeatureText(act, fldA, oldTxtA, newTxtA, prevTxt) {
 	// apply the change
 	switch (act) {
 		case "first" : // update just the first line (usages, recovery, or additional changed)
-			var changeTxt = fldTxt.replace(oldRxHead, newTxtA[0]);
+			var changeTxt = fldTxt.replace(oldRx.head, newTxtA[0]);
 			break;
 		case "replace" : // replace the oldTxt with the newTxt
-			var changeTxt = fldTxt.replace(oldRx, newTxtA[1]);
+			var changeTxt = fldTxt.replace(oldRx.full, newTxtA[1]);
 			break;
 		case "insert" : // add the newTxt after the prevTxt
 			if (!prevTxt) return false; // no prevTxt, so we can't do anything
-			var prevFrstLnRx = fReplaceLinebreaks(prevTxt);
-			var prevTxtFound = fldTxt.match(prevFrstLnRx[1]);
+			var prevRx = getRx(prevTxt);
+			var prevTxtFound = fldTxt.match(prevRx.full);
 			var changeTxt = prevTxtFound ? fldTxt.replace(prevTxtFound[0], prevTxtFound[0] + newTxtA[1]) : fldTxt;
 			break;
 		case "remove" : // remove the oldTxt
-			var changeTxt = fldTxt.replace(oldRx, '').replace(/^\r+/, '');
+			var changeTxt = fldTxt.replace(oldRx.full, '').replace(/^\r+/, '');
 			break;
 		default :
 			return false;
@@ -1914,7 +1927,7 @@ function UpdateSheetDisplay() {
 			(changedSpellEval ? " and how spells are displayed or spell lists are generated" : "") +
 			" has been detected that require the Spell Sheets to be updated.\nTIP: if you plan to make more changes affecting spellcasting, do those first before generating Spell Sheets, because creating them takes very long.";
 		var buttonSpells = !CurrentSpellsLen ? "Remove Spell Sheets" : (hasSpellSheets ? "Update" : "Create") + " Spell Sheets";
-		var buttonSpellStr = changedSpellEval ? "Spells \u0026\u0026 -List Changes" : "Affecting Spells \u0026\u0026 -Lists";
+		var buttonSpellStr = changedSpellEval ? "Spells \x26\x26 -List Changes" : "Affecting Spells \x26\x26 -Lists";
 		// make the Spells dialog insert
 		dialogParts.push({
 			skipType : "chSP",
@@ -2275,7 +2288,7 @@ function ShowCompareDialog(txtA, arr, canBeLong) {
 		} else {
 			nextElem.elements[0].type = "static_text";
 			nextElem.elements[0].wrap_name = true;
-			nextElem.elements[0].name = arr[i][1].replace(/^(\r|\n)*/, "");
+			nextElem.elements[0].name = arr[i][1].replace(/^[\r\n]*/, "");
 		}
 		clusterArr.push(nextElem);
 	}
@@ -2290,7 +2303,7 @@ function ShowCompareDialog(txtA, arr, canBeLong) {
 			if (!canBeLong) return;
 			var toLoad = {};
 			for (var i = 0; i < arr.length; i++) {
-				toLoad["tx" + ("0" + i).slice(-2)] = arr[i][1].replace(/^(\r|\n)*/, "");
+				toLoad["tx" + ("0" + i).slice(-2)] = arr[i][1].replace(/^[\r\n]*/, "");
 			}
 			dialog.load(toLoad);
 		},

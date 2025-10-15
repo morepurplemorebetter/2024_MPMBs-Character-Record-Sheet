@@ -104,7 +104,7 @@ var Base_RaceList = {
 			text: ["Magic can't put me to sleep"],
 			adv_vs: ["Charmed"]
 		},
-		skillstxt: "Choose one: Insight, Perception, or Survival",
+		skillstxt: "Choose 1: Insight, Perception, or Survival",
 		variants: ["drow", "high", "wood"],
 		// from PHB'14:
 		age: " typically claim adulthood around age 100 and can live to be 750 years old",

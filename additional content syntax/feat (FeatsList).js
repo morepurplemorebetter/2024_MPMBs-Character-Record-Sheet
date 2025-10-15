@@ -56,7 +56,7 @@ var iFileName = "Homebrew Syntax - FeatsList.js";
 	Only the first occurrence of this variable will be used.
 */
 
-RequiredSheetVersion("13.0.6");
+RequiredSheetVersion("24.0.0");
 /*	RequiredSheetVersion // OPTIONAL //
 	TYPE:	function call with one variable, a string or number
 	USE:	the minimum version of the sheet required for the import script to work
@@ -92,7 +92,7 @@ FeatsList["purple power"] = {
 
 	This name will also be used to recognize what is selected in the feat drop-down.
 */
-	sortname: "Staff, Purple",
+	sortname: "Power, Purple",
 /*	name // OPTIONAL //
 	TYPE:	string
 	USE:	name of the feat as it will be shown in the menu for selecting feats
@@ -100,6 +100,12 @@ FeatsList["purple power"] = {
 
 	This name will only be used to display the feat in the menu.
 	This attribute is not used to recognize the feats or fill the field on the sheet.
+
+	FIGHTING STYLES
+	if the `type` attribute is set to "fighting style" (see `type` below), then this
+	`sortname` is also used to populate the `choices` array.
+	Practically this means that the menu displayed when pushing the "Choose Feature" button
+	will show the `sortname` instead of the `name`;
 */
 	source: ["SRD", 204],
 	source: [["E", 7], ["S", 115]],
@@ -149,6 +155,30 @@ FeatsList["purple power"] = {
 	You can also define a custom type, or even a subtype.
 	For example, "origin (dwarf)" would have the feat appear both when `featsAdd.type` is
 	set to `type: "origin"` and `type: "origin (dwarf)"`.
+
+	FIGHTING STYLES
+	If you set this attribute to "fighting style", the feat will be added as a choice to any
+	class feature with the `choicesFightingStyles` attribute.
+
+	This choice will use all the attributes of this feat, but will ignore incompatible ones:
+		INCOMPATIBLE		REMARK
+		`calculate` 		Only uses `description` (or `descriptionClassFeature`)
+		`defaultExcluded`	Exclusion will be based on source only
+		`descriptionFull`	No spot for this to render
+		`choices`   		Class Features don't support sub-choices
+		`allowDuplicates`	Class features choices only offer a single selection
+
+	You don't need to provide a `prerequisite` or `prereqeval`, those will be handled
+	automatically for both the feat selection and the class feature choice.
+	The feat will automatically require "Fighting Style Feature".
+	If you do set a `prerequisite` or `prereqeval`, that will override the automation.
+
+	Regardless of the `prerequisite` or `prereqeval`, the sheet won't allow selecting a
+	`type: "fighting style"` feat if that Fighting Style is already selected by other means.
+
+	If the description in the Class Features field should be different than the `description`,
+	set the `descriptionClassFeature` attribute (see below).
+	Otherwise the `description`, prefixed with a line break, will be used.
 */
 	defaultExcluded: true,
 /*	defaultExcluded // OPTIONAL //
@@ -222,6 +252,7 @@ FeatsList["purple power"] = {
 /*	allowDuplicates // OPTIONAL //
 	TYPE:	boolean
 	USE:	set to true if multiples can exist of this feat (e.g. Elemental Adept using the 'choices' attribute)
+	CHANGE:	v24.0.0 (`type: "fighting style"` feats ignore this attribute)
 
 	If the feat doesn't allow duplicates, you can just leave this attribute out.
 	Setting this to false is the same as not including this attribute.
@@ -231,6 +262,11 @@ FeatsList["purple power"] = {
 	you probably want to set the 'allowDuplicates' attribute to true.
 	If you don't set this attribute to true, the sheet will only allow this feat to exist once,
 	regardless if another instance has another form (choices) selected.
+
+	FIGHTING STYLES
+	if the `type` attribute is set to "fighting style" (see `type` above), then this
+	`allowDuplicates` attribute is ignored.
+	Fighting styles always only allow a single instance to exist.
 */
 	description: "Advantage on Charisma (Deception) and (Performance) if wearing something purple. I can mimic casting any spell perfectly, even producing a purple haze while doing so. Wisdom (Insight) vs. Charisma (Deception) to determine there is no spell being cast. [+1 Charisma]",
 /*	description // REQUIRED //
@@ -240,6 +276,24 @@ FeatsList["purple power"] = {
 	Note that the sheet normally uses the first person for this.
 	Make sure that this description is not too long and fits in the description field.
 	The Colourful sheets have less space for feat descriptions than the Printer Friendly versions,
+	so use the Colourful sheets to test if the description fits.
+*/
+	descriptionClassFeature: "I treat 1 or 2 on damage as 3 for Two-Handed/Versatile Melee weapons held with 2 hands.",
+/*	descriptionClassFeature // OPTIONAL //
+	TYPE:	string
+	USE:	the text to be filled in the Class Features field of the Fighting Style feat
+	ADDED:	v24.0.0
+
+	This attribute is only applicable if the `type` attribute is set to "fighting style",
+	see `type` above.
+	If this attribute is set, it is used instead of the `description` when adding this
+	Fighting Style as a class feature choice in the Class Features field.
+
+	This attribute is used as-is, without prefixing a line break.
+
+	Note that the sheet normally uses the first person for this.
+	Make sure that it is not too long and fits well in the Class Feature field.
+	The Colourful sheets have less space than the Printer Friendly versions,
 	so use the Colourful sheets to test if the description fits.
 */
 	descriptionFull: "I gain proficiency in any combination of three skills or tools of my choice.",
@@ -460,5 +514,5 @@ FeatsList["purple power"] = {
 		'usages', 'additional', 'recovery', 'usagesCalc', and 'limfeaname' will all be
 		merged from the choice object into the parent to generate a single limited feature.
 	*/
-	}
+	},
 }

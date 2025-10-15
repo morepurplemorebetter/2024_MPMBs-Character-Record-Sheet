@@ -58,7 +58,7 @@ var iFileName = "Homebrew Syntax - WeaponsList.js";
 	Only the first occurrence of this variable will be used.
 */
 
-RequiredSheetVersion("13.2.0");
+RequiredSheetVersion("24.0.0");
 /*	RequiredSheetVersion // OPTIONAL //
 	TYPE:	function call with one variable, a string or number
 	USE:	the minimum version of the sheet required for the import script to work

@@ -2585,6 +2585,7 @@ function AddUserScript(retResDia) {
 
 // Run the custom defined user scripts, if any exist
 function RunUserScript(atStartup, manualUserScripts) {
+	if (atStartup) tDoc.noDeprecatedWarnings = []; // make this globally accessible
 	var ScriptsAtEnd = [];
 	var ScriptAtEnd = [];
 	var minSheetVersion = [0, ""];
@@ -2680,6 +2681,12 @@ function RunUserScript(atStartup, manualUserScripts) {
 	// fix wrong reference (common mistake when adding classes)
 	deleteUnknownReferences();
 
+	// amend class features with auto-generated (extra)choices
+	processChoicesFightingStyles();
+	processChoicesWeaponMasteries();
+
+	if (tDoc.noDeprecatedWarnings) delete tDoc.noDeprecatedWarnings; // remove global
+
 	// when run at startup and one of the script fails, update all the dropdowns
 	if (manualScriptResult == "outOfMemory" || runIScript == "outOfMemory") {
 		outOfMemoryErrorHandling(atStartup);
@@ -2716,6 +2723,170 @@ function deleteUnknownReferences() {
 			} else {
 				arrDupl.push(sSubcl);
 			}
+		}
+	}
+}
+
+/** Add all Fighting Style feats as choices to class features with `choicesFightingStyles` attribute
+ * Possible attributes in the choicesFightingStyles object
+ * @param {Object|Boolean} choicesFightingStyles setting to `true` is enough, but optionally can be an object with the following attributes:
+ * @param {string} choicesFightingStyles.description added to feat's descripton
+ * @param {string[]} choicesFightingStyles.exclude Fighting Style names in this array are not added to the choices
+ * @param {string[]} choicesFightingStyles.include only Fighting Style names in this array are added to the choices
+ * @param {string} choicesFightingStyles.submenu add this attribute to each choice (i.e. put them all in the submenu by this name)
+ * @param {string} choicesFightingStyles.namePrefix add this before the name of the Fighting Style instead of the default "Fighting Style: "
+ * 
+ * Note that Fighting Style names are the lowercase version of their `name` attribute, or `sortName` if defined.
+ */
+function processChoicesFightingStyles() {
+	// First go over all the feats and gather the objects that we need to add
+	var fightingStylesChoices = [];
+	var fightingStyles = {};
+	for (var sFeat in FeatsList) {
+		var oFeat = FeatsList[sFeat];
+		if (/fighting style/i.test(oFeat.type)) {
+			var choice = oFeat.sortname ? oFeat.sortname : oFeat.name;
+			var choiceLC = choice.toLowerCase();
+			fightingStylesChoices.push(choice);
+			fightingStyles[choiceLC] = {
+				name: "Fighting Style: " + oFeat.name,
+				description: oFeat.descriptionClassFeature ? oFeat.descriptionClassFeature : "\n" + oFeat.description,
+			}
+			for (var key in oFeat) {
+				if (fightingStyles[choiceLC][key] || /^(type|choices|selfChoosing|defaultExcluded|description(ClassFeature|Full)|calculate)$/.test(key)) continue;
+				fightingStyles[choiceLC][key] = oFeat[key];
+			}
+		}
+	}
+	// Then go over all class features and see where we need to add this
+	var processFsFeature = function(feaObj) {
+		// Amend the choices array
+		if (!feaObj.choices) feaObj.choices = [];
+		feaObj.choices = feaObj.choices.concat(fightingStylesChoices);
+		feaObj.choices.sort();
+		// Add each choice to the object
+		for (var style in fightingStyles) {
+			if (feaObj[style]) continue;
+			var addFS = typeof feaObj.choicesFightingStyles === "object" ? feaObj.choicesFightingStyles : {};
+			if (addFS.exclude && addFS.exclude.indexOf(style) !== -1) continue;
+			if (addFS.include && addFS.include.indexOf(style) === -1) continue;
+			var oFS = fightingStyles[style];
+			feaObj[style] = {};
+			// Make a shallow copy of the object so amendments don't change the original
+			for (var key in oFS) {
+				feaObj[style][key] = oFS[key];
+			}
+			// Process any amendments if present
+			if (addFS.description) feaObj[style].description += addFS.description;
+			if (addFS.submenu) feaObj[style].submenu = addFS.submenu;
+			if (addFS.namePrefix) {
+				feaObj[style].name = feaObj[style].name.replace("Fighting Style: ", addFS.namePrefix);
+			}
+		}
+	}
+	for (var sClass in ClassList) {
+		if (!ClassList[sClass].features) continue;
+		for (var sFeature in ClassList[sClass].features) {
+			var oFeature = ClassList[sClass].features[sFeature];
+			if (oFeature.choicesFightingStyles) processFsFeature(oFeature);
+		}
+	}
+	for (var sSubClass in ClassSubList) {
+		if (!ClassSubList[sSubClass].features) continue;
+		for (var sFeature in ClassSubList[sSubClass].features) {
+			var oFeature = ClassSubList[sSubClass].features[sFeature];
+			if (oFeature.choicesFightingStyles) processFsFeature(oFeature);
+		}
+	}
+}
+
+/** Add all weapons and masteries as extrachoices to class features with `choicesWeaponMasteries` attribute
+ * Possible attributes in the choicesWeaponMasteries object
+ * @param {Object|Boolean} choicesWeaponMasteries setting to `true` is enough, but optionally can be an object with the following attributes:
+ * @param {string[]} choicesWeaponMasteries.exclude Weapon Mastery keys in this array are not added to the choices
+ * @param {string[]} choicesWeaponMasteries.include only Weapon Mastery keys in this array are added to the choices
+ */
+function processChoicesWeaponMasteries() {
+	/** Submenus:
+	 *  Simple Melee Weapons  -> Club (Slow)        " " prefix to make it first in the menu
+	 *  Simple Ranged Weapons -> Dart (Vex)
+	 * Martial Melee Weapons  -> Battleaxe (Topple)
+	 * Martial Ranged Weapons -> Blowgun (Vex)
+	 * With "Cleave" Mastery  -> Halberd (Cleave)   Do this for each mastery
+	 * \xA0Mastery Text Only  -> Cleave             "\xA0" prefix to make it last in the menu
+	 */
+	var reCalcWeaponsOnSelection = function() { ReCalcWeapons(); };
+	var reCalcWeaponsOnDeselection = function() { ReCalcWeapons(false, true); };
+	var createChoiceObject = function(name, oMastery, submenus, weaponKey, addEvals) {
+		var choiceObj = {
+			name: name,
+			source: oMastery.source,
+			description: "\n" + oMastery.description,
+			submenu: submenus,
+		};
+		if (weaponKey) choiceObj.weaponMastery = weaponKey;
+		if (addEvals) {
+			choiceObj.eval = reCalcWeaponsOnSelection;
+			choiceObj.removeeval = reCalcWeaponsOnDeselection;
+		}
+		return choiceObj;
+	}
+	var weaponMasteryChoices = [];
+	var weaponMasteries = {};
+	// First go over all the weapons and gather the objects that we need to add
+	for (var sWeapon in WeaponsList) {
+		var oWeapon = WeaponsList[sWeapon];
+		var oMastery = WeaponMasteriesList[oWeapon.mastery];
+		if (!oMastery || oWeapon.baseWeapon) continue;
+		var submenus = ['With "' + oMastery.name + '" Mastery'];
+		if (/simple|martial/i.test(oWeapon.type) && /melee|ranged/i.test(oWeapon.list)) {
+			var submenuType = /simple/i.test(oWeapon.type) ? " Simple" : "Martial";
+			submenuType += /ranged/i.test(oWeapon.list) ? " Ranged Weapon" : " Melee Weapon";
+			submenus.push(submenuType);
+		}
+		var weaponNameCp = oWeapon.name.capitalize()
+		var choiceName = weaponNameCp + " (" + oMastery.name + ")";
+		var displayName = weaponNameCp + ": " + oMastery.name;
+		weaponMasteryChoices.push(choiceName);
+		weaponMasteries[choiceName.toLowerCase()] = createChoiceObject(displayName, oMastery, submenus, sWeapon, true);
+	}
+	// Then go over all the weapon masteries and add "Mastery Text Only" options for them
+	for (var sMastery in WeaponMasteriesList) {
+		var oMastery = WeaponMasteriesList[sMastery];
+		weaponMasteryChoices.push(oMastery.name);
+		weaponMasteries[oMastery.name.toLowerCase()] = createChoiceObject(oMastery.name, oMastery, "\xA0Mastery Text Only");
+	}
+	// Then go over all class features and see where we need to add this
+	var processWmFeature = function(feaObj) {
+		// Amend the choices array
+		if (!feaObj.extrachoices) feaObj.extrachoices = [];
+		feaObj.extrachoices = feaObj.extrachoices.concat(weaponMasteryChoices);
+		// Add each extrachoice to the object
+		for (var mastery in weaponMasteries) {
+			if (feaObj[mastery]) continue;
+			var addWM = typeof feaObj.choicesWeaponMasteries === "object" ? feaObj.choicesWeaponMasteries : {};
+			if (addWM.exclude && addWM.exclude.indexOf(mastery) !== -1) continue;
+			if (addWM.include && addWM.include.indexOf(mastery) === -1) continue;
+			var oWM = weaponMasteries[mastery];
+			feaObj[mastery] = {};
+			// Make a shallow copy of the object so amendments don't change the original
+			for (var key in oWM) {
+				feaObj[mastery][key] = oWM[key];
+			}
+		}
+	}
+	for (var sClass in ClassList) {
+		if (!ClassList[sClass].features) continue;
+		for (var sFeature in ClassList[sClass].features) {
+			var oFeature = ClassList[sClass].features[sFeature];
+			if (oFeature.choicesWeaponMasteries) processWmFeature(oFeature);
+		}
+	}
+	for (var sSubClass in ClassSubList) {
+		if (!ClassSubList[sSubClass].features) continue;
+		for (var sFeature in ClassSubList[sSubClass].features) {
+			var oFeature = ClassSubList[sSubClass].features[sFeature];
+			if (oFeature.choicesWeaponMasteries) processWmFeature(oFeature);
 		}
 	}
 }
@@ -2879,19 +3050,32 @@ function AddWarlockPactBoon(boonName, boonObj) { // Add a warlock pact boon
 
 // a way to add fighting styles to multiple classes; fsName is how it will appear in the menu
 function AddFightingStyle(classArr, fsName, fsObj) {
+	if (!tDoc.noDeprecatedWarnings && (!tDoc.doneDeprecatedWarnings || tDoc.doneDeprecatedWarnings.indexOf("AddFightingStyle") === -1)) {
+		console.println([
+			'\n[DEPRECATED] Since v24.0.0 `AddFightingStyle()` is no longer used for classes using the 2024 rules.',
+			'Instead, add a fighting style feat (i.e. FeatsList entry with `type: "fighting style"`).',
+			'Class features with `choicesFightingStyles: true` will get all fighting style feats added as choices. The built-in 2024 Fighter, Paladin, and Ranger classes have this attribute set for their Fighting Style features.'
+		].join('\n'));
+		console.show();
+		if (!tDoc.doneDeprecatedWarnings) tDoc.doneDeprecatedWarnings = [];
+		tDoc.doneDeprecatedWarnings.push("AddFightingStyle");
+	}
 	if (classArr.indexOf("ranger") !== -1 && classArr.indexOf("rangerua") == -1 && ClassList["rangerua"]) classArr.push("rangerua");
 	for (var i = 0; i < classArr.length; i++) {
 		var aClass = ClassList[classArr[i]];
 		var sClass = ClassSubList[classArr[i]];
 		if (aClass) {
-			AddFeatureChoice(aClass.features["fighting style"], false, fsName, fsObj);
-			if (classArr[i] === "fighter" && ClassSubList["fighter-champion"]) {
+			var fsClassFeature = aClass.features["fighting style"];
+			if (fsClassFeature && !fsClassFeature.choicesFightingStyles) {
+				AddFeatureChoice(aClass.features["fighting style"], false, fsName, fsObj);
+			}
+			if (classArr[i] === "fighter" && ClassSubList["fighter-champion"] && ClassSubList["fighter-champion"].features["subclassfeature10"] && !ClassSubList["fighter-champion"].features["subclassfeature10"].choicesFightingStyles) {
 				AddFeatureChoice(ClassSubList["fighter-champion"].features["subclassfeature10"], false, fsName, fsObj);
 			}
 		} else if (sClass) {
 			for (var clFea in sClass.features) {
 				var sFea = sClass.features[clFea];
-				if (sFea.choices && (/^(?=.*fighting)(?=.*style).*$/i).test(sFea.name)) {
+				if (sFea.choices && (/^(?=.*fighting)(?=.*style).*$/i).test(sFea.name) && !sFea.choicesFightingStyles) {
 					AddFeatureChoice(sClass.features[clFea], false, fsName, fsObj);
 				}
 			}

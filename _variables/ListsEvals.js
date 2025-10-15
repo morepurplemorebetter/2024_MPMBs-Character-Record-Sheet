@@ -7,8 +7,8 @@ var Base_DefaultEvalsList = {
 				}
 			},
 			'', // no description means it doesn't appear in the dialog/menu listing changes
-			1 // highest priority
-		]
+			1, // highest priority
+		],
 	},
 	"Spare the Dying range progression": {
 		spellAdd: [
@@ -21,8 +21,8 @@ var Base_DefaultEvalsList = {
 				}
 			},
 			"",
-			1
-		]
+			1,
+		],
 	},
 	"True Strike": {
 		atkAdd: [
@@ -45,7 +45,7 @@ var Base_DefaultEvalsList = {
 				}
 			},
 			'Add the text "True Strike", "[TS]", or "(TS)" to the name of a weapon to have the bonuses of the True Strike cantrip added to it and its ability selection default to the correct one.\n   IMPORTANT: when using this, you will no longer be able to manually change the ability, it will instead be determined by the generated spell sheet.',
-			1
+			1,
 		],
 		atkCalc: [
 			function (fields, v, output) {
@@ -59,7 +59,48 @@ var Base_DefaultEvalsList = {
 				}
 			},
 			'',
-			1
-		]
-	}
+			1,
+		],
+	},
+	"Mastery Property": {
+		atkAdd: [
+			function (fields, v) {
+				if (v.masteryAdded || !v.theWea.mastery || !WeaponMasteriesList[v.theWea.mastery]) return;
+				var addMastery = /mastery|[\(\[]WM[\]\)]/i.test(v.WeaponTextName);
+				if (!addMastery && v.baseWeaponName && CurrentFeatureChoices.classes) {
+					// test if weapon eligible through Weapon Mastery class feature
+					for (var sClass in CurrentFeatureChoices.classes) {
+						var chObj = CurrentFeatureChoices.classes[sClass];
+						var clFea = CurrentClasses[sClass].features;
+						if (!clFea) continue;
+						for (var sFea in chObj) {
+							var oFeaChoices = chObj[sFea];
+							var oClassFea = clFea[sFea];
+							if (!oClassFea.choicesWeaponMasteries || !oFeaChoices.extrachoices) continue;
+							var weapons = oFeaChoices.extrachoices.map(function (choice) {
+								return oClassFea[choice].weaponMastery ? oClassFea[choice].weaponMastery : '';
+							});
+							if (weapons.indexOf(v.baseWeaponName) !== -1) {
+								addMastery = true;
+								break;
+							}
+						}
+						if (addMastery) break;
+					}
+				}
+				if (addMastery) {
+					var oMastery = WeaponMasteriesList[v.theWea.mastery];
+					if (fields.Description) fields.Description += fields.Description.indexOf(';') !== -1 ? '; ' : ', ';
+					fields.Description += oMastery.name;
+					if (fields.Description_Tooltip) fields.Description_Tooltip += '\n\n';
+					fields.Description_Tooltip += toUni(oMastery.name + ' Weapon Mastery');
+					fields.Description_Tooltip += stringSource(oMastery, "first,abbr", " (", ")");
+					fields.Description_Tooltip += '\n' + oMastery.descriptionFull;
+					v.masteryAdded = true;
+				}
+			},
+			'Add the text "Mastery", "[WM]", or "(WM)" to the name of a weapon that has a mastery property to have this mastery listed in the description and its explanation added to tooltip of the description field.\n   This is done automatically for weapons selected with the "Choose Feature" button for class features that grant weapon masteries, regardless of the aforementioned text being present.',
+			1,
+		],
+	},
 }

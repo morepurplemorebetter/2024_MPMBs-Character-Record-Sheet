@@ -158,13 +158,13 @@ var Base_WeaponsList = {
 		abilitytodamage: true
 	},
 	"unarmed strike dc": {
-		regExpSearch: /\b(fists?|arms?|legs?|foot|feet|claws?|talons?)\b|^(?=.*unarmed)(?=.*strike).*$|^(?=.*martial)(?=.*arts).*$|^(?=.*tavern)(?=.*brawler).*$/i,
+		regExpSearch: /^(?=.*\b(fists?|arms?|legs?|foot|feet|claws?|talons?)\b)(?=.*dc).*$|^(?=.*unarmed)(?=.*strike)(?=.*dc).*$|^(?=.*martial)(?=.*arts)(?=.*dc).*$|^(?=.*tavern)(?=.*brawler)(?=.*dc).*$/i,
 		name: "Unarmed strike (DC)",
 		// list : "melee", // Hardcoded in dropdown
 		source: [["SRD24", 190], ["P24", 377]],
 		ability: 1,
 		type: "Natural",
-		damage: ["Str save", "", "Shove/Grapple"],
+		damage: ["Str/Dex save", "", "Shove/Grapple"],
 		range: "Melee",
 		description: "Up to 1 size larger; Push 5 ft or prone or grappled condition; Can damage instead (with attack roll)",
 		monkweapon: true,
@@ -185,7 +185,7 @@ var Base_WeaponsList = {
 		weight: 2,
 		description: "Light",
 		abilitytodamage: true,
-		mastery: "Slow"
+		mastery: "slow",
 	},
 	"dagger": {
 		regExpSearch: /dagger|bishou|\btamos?\b|kozuka|\btantos?\b/i,
@@ -200,7 +200,7 @@ var Base_WeaponsList = {
 		weight: 1,
 		description: "Finesse, Light, Thrown",
 		abilitytodamage: true,
-		mastery: "Nick"
+		mastery: "nick",
 	},
 	"greatclub": {
 		regExpSearch: /^(?=.*(great|heavy|big|weida))(?=.*(club|bian|tonfa)s?\b).*$|tetsubo/i,
@@ -216,7 +216,7 @@ var Base_WeaponsList = {
 		weight: 10,
 		description: "Two-Handed",
 		abilitytodamage: true,
-		mastery: "Push"
+		mastery: "push",
 	},
 	"handaxe": {
 		regExpSearch: /^(?=.*(light|hand|short|small|throw))(?=.*(axe|\bfu)s?\b).*$|\bonos?\b/i,
@@ -232,7 +232,7 @@ var Base_WeaponsList = {
 		weight: 2,
 		description: "Light, Thrown",
 		abilitytodamage: true,
-		mastery: "Vex"
+		mastery: "vex",
 	},
 	"javelin": {
 		regExpSearch: /javelin|\bmaus?\b|uchi-ne/i,
@@ -247,7 +247,7 @@ var Base_WeaponsList = {
 		weight: 2,
 		description: "Thrown",
 		abilitytodamage: true,
-		mastery: "Slow"
+		mastery: "slow",
 	},
 	"light hammer": {
 		regExpSearch: /^(?=.*(light|hand|short|small|throw))(?=.*hammer).*$/i,
@@ -263,7 +263,7 @@ var Base_WeaponsList = {
 		weight: 2,
 		description: "Light, Thrown",
 		abilitytodamage: true,
-		mastery: "Nick"
+		mastery: "nick",
 	},
 	"mace": {
 		regExpSearch: /maces?\b|\bchuis?\b|kanabo/i,
@@ -278,7 +278,7 @@ var Base_WeaponsList = {
 		weight: 4,
 		description: "",
 		abilitytodamage: true,
-		mastery: "Sap"
+		mastery: "sap",
 	},
 	"quarterstaff": {
 		regExpSearch: /quarterstaff|\bstaffs?\b|\bbos?\b|^gun(.?(\+|-)\d+)?$/i,
@@ -294,7 +294,7 @@ var Base_WeaponsList = {
 		weight: 4,
 		description: "Versatile (1d8)",
 		abilitytodamage: true,
-		mastery: "Topple"
+		mastery: "topple",
 	},
 	"sickle": {
 		regExpSearch: /sickle|\bkamas?\b/i,
@@ -310,7 +310,7 @@ var Base_WeaponsList = {
 		weight: 2,
 		description: "Light",
 		abilitytodamage: true,
-		mastery: "Nick"
+		mastery: "nick",
 	},
 	"spear": {
 		regExpSearch: /^(?!.*agonizing)(?!.*eldritch)(?=.*(spear|qiang|\byaris?\b)).*$/i,
@@ -325,7 +325,7 @@ var Base_WeaponsList = {
 		weight: 3,
 		description: "Thrown, Versatile (1d8)",
 		abilitytodamage: true,
-		mastery: "Sap"
+		mastery: "sap",
 	},
 	// Simple ranged weapons
 	"dart": {
@@ -342,7 +342,7 @@ var Base_WeaponsList = {
 		weight: 0.25,
 		description: "Finesse, Thrown",
 		abilitytodamage: true,
-		mastery: "Vex"
+		mastery: "vex",
 	},
 	"light crossbow": {
 		regExpSearch: /^(((?=.*light)(?=.*crossbow))|((?!.*(hand|short|great|heavy|bolt))(?=.*\bcrossbows?\b))).*$/i,
@@ -359,7 +359,7 @@ var Base_WeaponsList = {
 		description: "Ammunition, Loading, Two-Handed",
 		abilitytodamage: true,
 		ammo: "bolt",
-		mastery: "Slow"
+		mastery: "slow",
 	},
 	"shortbow": {
 		regExpSearch: /^(?!.*crossbow)(((?=.*short)(?=.*bow))|((?!.*(moon|long))(?=.*\bbows?\b))).*$|hankyus?/i,
@@ -376,7 +376,7 @@ var Base_WeaponsList = {
 		description: "Ammunition, Two-Handed",
 		abilitytodamage: true,
 		ammo: "arrow",
-		mastery: "Vex"
+		mastery: "vex",
 	},
 	"sling": {
 		regExpSearch: /sling/i,
@@ -392,7 +392,7 @@ var Base_WeaponsList = {
 		description: "Ammunition",
 		abilitytodamage: true,
 		ammo: "sling bullet",
-		mastery: "Slow"
+		mastery: "slow",
 	},
 	// Martial melee weapons
 	"battleaxe": {
@@ -409,7 +409,7 @@ var Base_WeaponsList = {
 		weight: 4,
 		description: "Versatile (1d10)",
 		abilitytodamage: true,
-		mastery: "Topple"
+		mastery: "topple",
 	},
 	"flail": {
 		regExpSearch: /flail|nunchaku/i,
@@ -424,7 +424,7 @@ var Base_WeaponsList = {
 		weight: 2,
 		description: "",
 		abilitytodamage: true,
-		mastery: "Sap"
+		mastery: "sap",
 	},
 	"glaive": {
 		regExpSearch: /glaive|guandao|bisento|naginata/i,
@@ -439,7 +439,7 @@ var Base_WeaponsList = {
 		weight: 6,
 		description: "Heavy, Reach, Two-Handed",
 		abilitytodamage: true,
-		mastery: "Graze"
+		mastery: "graze",
 	},
 	"greataxe": {
 		regExpSearch: /^(?=.*(great|heavy|weida))(?=.*(axe|\bono|\bfu|masakari)s?\b).*$/i,
@@ -455,7 +455,7 @@ var Base_WeaponsList = {
 		weight: 7,
 		description: "Heavy, Two-Handed",
 		abilitytodamage: true,
-		mastery: "Cleave"
+		mastery: "cleave",
 	},
 	"greatsword": {
 		regExpSearch: /^(?=.*(great|heavy))(?=.*sword).*$|changdao|nodachi/i,
@@ -471,7 +471,7 @@ var Base_WeaponsList = {
 		weight: 6,
 		description: "Heavy, Two-Handed",
 		abilitytodamage: true,
-		mastery: "Graze"
+		mastery: "graze",
 	},
 	"halberd": {
 		regExpSearch: /halberd|\bjis?\b|kamayari/i,
@@ -486,7 +486,7 @@ var Base_WeaponsList = {
 		weight: 6,
 		description: "Heavy, Reach, Two-Handed",
 		abilitytodamage: true,
-		mastery: "Cleave"
+		mastery: "cleave",
 	},
 	"lance": {
 		regExpSearch: /lance|umayari/i,
@@ -501,7 +501,7 @@ var Base_WeaponsList = {
 		weight: 6,
 		description: "Heavy, Reach, Two-Handed (unless mounted)",
 		abilitytodamage: true,
-		mastery: "Topple"
+		mastery: "topple",
 	},
 	"longsword": {
 		regExpSearch: /katana|\bjians?\b|^(((?=.*long)(?=.*sword))|((?!.*(burst|light|hand|short|small|great|heavy))(?=.*\bswords?\b))).*$/i,
@@ -517,7 +517,7 @@ var Base_WeaponsList = {
 		weight: 3,
 		description: "Versatile (1d10)",
 		abilitytodamage: true,
-		mastery: "Sap"
+		mastery: "sap",
 	},
 	"maul": {
 		regExpSearch: /^((?=.*maul)|((?=.*(great|heavy))(?=.*hammer))).*$/i,
@@ -533,7 +533,7 @@ var Base_WeaponsList = {
 		weight: 10,
 		description: "Heavy, Two-Handed",
 		abilitytodamage: true,
-		mastery: "Topple"
+		mastery: "topple",
 	},
 	"morningstar": {
 		regExpSearch: /morningstar/i,
@@ -548,7 +548,7 @@ var Base_WeaponsList = {
 		weight: 4,
 		description: "",
 		abilitytodamage: true,
-		mastery: "Sap"
+		mastery: "sap",
 	},
 	"pike": {
 		regExpSearch: /^(?!.*armou?r)(?!.*\bspike)(?=.*(pike|\bmaos?\b|nagaeyari)).*$/i,
@@ -563,7 +563,7 @@ var Base_WeaponsList = {
 		weight: 18,
 		description: "Heavy, Reach, Two-Handed",
 		abilitytodamage: true,
-		mastery: "Push"
+		mastery: "push",
 	},
 	"rapier": {
 		regExpSearch: /rapier/i,
@@ -578,7 +578,7 @@ var Base_WeaponsList = {
 		weight: 2,
 		description: "Finesse",
 		abilitytodamage: true,
-		mastery: "Vex"
+		mastery: "vex",
 	},
 	"scimitar": {
 		regExpSearch: /scimitar|liuyedao|wakizashi/i,
@@ -609,7 +609,7 @@ var Base_WeaponsList = {
 		weight: 2,
 		description: "Finesse, Light",
 		abilitytodamage: true,
-		mastery: "Vex"
+		mastery: "vex",
 	},
 	"trident": {
 		regExpSearch: /trident|\bchas?\b|magariyari/i,
@@ -624,7 +624,7 @@ var Base_WeaponsList = {
 		weight: 4,
 		description: "Thrown, Versatile (1d10)", // PHB'24 changed
 		abilitytodamage: true,
-		mastery: "Topple"
+		mastery: "topple",
 	},
 	"warhammer": {
 		regExpSearch: /^(((?=.*hammer)(?=.*war))|((?!.*(light|hand|short|small|great|heavy|throw|maul))(?=.*\bhammers?\b))).*$/i,
@@ -640,7 +640,7 @@ var Base_WeaponsList = {
 		weight: 5, // PHB'24 changed
 		description: "Versatile (1d10)",
 		abilitytodamage: true,
-		mastery: "Push"
+		mastery: "push",
 	},
 	"war pick": {
 		regExpSearch: /^(((?=.*pick)(?=.*war))|((?!.*(heavy|great|light))(?=.*\bpicks?\b))).*$|\bkuwas?\b/i,
@@ -655,7 +655,7 @@ var Base_WeaponsList = {
 		weight: 2,
 		description: "Versatile (1d10)", // PHB'24 changed
 		abilitytodamage: true,
-		mastery: "Sap"
+		mastery: "sap",
 	},
 	"whip": {
 		regExpSearch: /^(?!.*thorn)(?=.*whip).*$/i,
@@ -670,7 +670,7 @@ var Base_WeaponsList = {
 		weight: 3,
 		description: "Finesse, Reach",
 		abilitytodamage: true,
-		mastery: "Slow"
+		mastery: "slow",
 	},
 	// Martial ranged weapons
 	"blowgun": {
@@ -687,7 +687,7 @@ var Base_WeaponsList = {
 		description: "Ammunition, Loading",
 		abilitytodamage: true,
 		ammo: "needle",
-		mastery: "Vex"
+		mastery: "vex",
 	},
 	"hand crossbow": {
 		regExpSearch: /^(?=.*hand)(?=.*crossbow).*$/i,
@@ -704,7 +704,7 @@ var Base_WeaponsList = {
 		description: "Ammunition, Light, Loading",
 		abilitytodamage: true,
 		ammo: "bolt",
-		mastery: "Vex"
+		mastery: "vex",
 	},
 	"heavy crossbow": {
 		regExpSearch: /^(?=.*(great|heavy))(?=.*crossbow).*$/i,
@@ -721,7 +721,7 @@ var Base_WeaponsList = {
 		description: "Ammunition, Heavy, Loading, Two-Handed",
 		abilitytodamage: true,
 		ammo: "bolt",
-		mastery: "Push"
+		mastery: "push",
 	},
 	"longbow": {
 		regExpSearch: /^(?!.*crossbow)(?=.*long)(?=.*bow).*$|daikyu/i,
@@ -738,7 +738,7 @@ var Base_WeaponsList = {
 		description: "Ammunition, Heavy, Two-Handed",
 		abilitytodamage: true,
 		ammo: "arrow",
-		mastery: "Slow"
+		mastery: "slow",
 	},
 	"musket": {
 		regExpSearch: /musket/i,
@@ -754,7 +754,7 @@ var Base_WeaponsList = {
 		description: "Ammunition, Loading, Two-Handed",
 		abilitytodamage: true,
 		ammo: "firearm bullet",
-		mastery: "Slow"
+		mastery: "slow",
 	},
 	"pistol": {
 		regExpSearch: /^(?!.*(automatic|laser|antimatter|needler|paralysis))(?=.*\bpistols?\b).*$/i,
@@ -770,7 +770,7 @@ var Base_WeaponsList = {
 		description: "Ammunition, Loading",
 		abilitytodamage: true,
 		ammo: "firearm bullet",
-		mastery: "Vex"
+		mastery: "vex",
 	},
 	// Adventuring gear that functions as a weapon
 	"improvised weapon": {
@@ -829,7 +829,7 @@ var Base_WeaponsList = {
 		damage: [2, 8, "radiant"], // PHB'24 changed
 		range: "20 ft",
 		weight: 1,
-		description: "Dex save to avoid; Only affects Fiend \u0026 Undead",
+		description: "Dex save to avoid; Only affects Fiend \x26 Undead",
 		abilitytodamage: false,
 		ammo: "holy water",
 		dc: true,
@@ -1004,7 +1004,7 @@ var Base_WeaponsList = {
 		list: "spell",
 		ability: 5,
 		damage: [1, 8, "force"],
-		description: "Light; Imbued club or quarterstaff",
+		description: "Light; Imbued club or quarterstaff"
 	},
 	"shillelagh-quarterstaff": {
 		baseWeapon: "quarterstaff",
@@ -1062,14 +1062,14 @@ var Base_AmmoList = {
 		name: "Arrows",
 		source: [["SRD24", 96], ["P24", 222]],
 		weight: 0.05,
-		icon: "Arrows"
+		icon: "Arrows",
 	},
 	"bolt": {
 		name: "Bolts",
 		weight: 0.075,
 		source: [["SRD24", 96], ["P24", 222]],
 		icon: "Arrows",
-		invName: "Crossbow bolts" // incorrect, but clearer than the PHB'24 "bolt"
+		invName: "Crossbow bolts", // incorrect, but clearer than the PHB'24 "bolt"
 	},
 	"sling bullet": { // PHB'24 changed
 		name: "Bullets, Sling",
@@ -1077,7 +1077,7 @@ var Base_AmmoList = {
 		source: [["SRD24", 96], ["P24", 222]],
 		icon: "Bullets",
 		invName: "Sling bullets",
-		alternatives: [/^(?=.*bullet)(?=.*sling).*$/i]
+		alternatives: [/^(?=.*bullet)(?=.*sling).*$/i],
 	},
 	"firearm bullet": { // PHB'24 new
 		name: "Bullets, Firearm",
@@ -1085,70 +1085,70 @@ var Base_AmmoList = {
 		source: [["SRD24", 96], ["P24", 222]],
 		icon: "Bullets",
 		invName: "Firearm bullets",
-		alternatives: [/^(?=.*bullet)(?=.*firearm).*$/i]
+		alternatives: [/^(?=.*bullet)(?=.*firearm).*$/i],
 	},
 	"dagger": {
 		name: "Daggers",
 		source: [["SRD24", 91], ["P24", 215]],
 		weight: 1,
-		icon: "Daggers"
+		icon: "Daggers",
 	},
 	"dart": {
 		name: "Darts",
 		source: [["SRD24", 91], ["P24", 215]],
 		weight: 0.25,
-		icon: "Arrows"
+		icon: "Arrows",
 	},
 	"flask": {
 		name: "Flasks (1 pint)",
 		source: [["SRD24", 97], ["P24", 225]],
 		weight: 1,
-		icon: "Flasks"
+		icon: "Flasks",
 	},
 	"handaxe": {
 		name: "Handaxes",
 		source: [["SRD24", 91], ["P24", 215]],
 		weight: 2,
 		icon: "Axes",
-		alternatives: ["axe"]
+		alternatives: ["axe"],
 	},
 	"javelin": {
 		name: "Javelins",
 		source: [["SRD24", 91], ["P24", 215]],
 		weight: 2,
-		icon: "Spears"
+		icon: "Spears",
 	},
 	"light hammer": {
 		name: "Light Hammers",
 		source: [["SRD24", 91], ["P24", 215]],
 		weight: 2,
 		icon: "Hammers",
-		alternatives: ["hammer"]
+		alternatives: ["hammer"],
 	},
 	"needle": {
 		name: "Needles",
 		source: [["SRD24", 96], ["P24", 222]],
 		weight: 0.02,
 		icon: "Bullets",
-		invName: "Blowgun needles"
+		invName: "Blowgun needles",
 	},
 	"spear": {
 		name: "Spears",
 		source: [["SRD24", 91], ["P24", 215]],
 		weight: 3,
-		icon: "Spears"
+		icon: "Spears",
 	},
 	"trident": {
 		name: "Tridents",
 		source: [["SRD24", 91], ["P24", 215]],
 		weight: 4,
-		icon: "Spears"
+		icon: "Spears",
 	},
 	"vial": {
 		name: "Vials (4 ounces)",
 		source: [["SRD24", 100], ["P24", 229]],
 		weight: 0.25,
-		icon: "Vials"
+		icon: "Vials",
 	},
 	"alchemist fire": {
 		name: "Alchemist's Fire, flasks",
@@ -1156,7 +1156,7 @@ var Base_AmmoList = {
 		weight: 1,
 		icon: "Flasks",
 		invName: "Alchemist's fire, flasks of",
-		alternatives: [/^(?=.*alchemist)(?=.*fire).*$/i]
+		alternatives: [/^(?=.*alchemist)(?=.*fire).*$/i],
 	},
 	"vials of acid": {
 		name: "Vials of Acid",
@@ -1164,7 +1164,7 @@ var Base_AmmoList = {
 		weight: 1,
 		icon: "Vials",
 		invName: "Acid, vials of",
-		alternatives: [/^(?=.*acid)(?=.*vial).*$/i]
+		alternatives: [/^(?=.*acid)(?=.*vial).*$/i],
 	},
 	"holy water": {
 		name: "Holy Water, flasks",
@@ -1172,7 +1172,7 @@ var Base_AmmoList = {
 		weight: 1,
 		icon: "Flasks",
 		invName: "Holy Water, flasks of",
-		alternatives: [/^(?=.*holy)(?=.*water).*$/i]
+		alternatives: [/^(?=.*holy)(?=.*water).*$/i],
 	},
 	"oil": {
 		name: "Oil, flasks",
@@ -1180,12 +1180,12 @@ var Base_AmmoList = {
 		weight: 1,
 		icon: "Flasks",
 		invName: "Oil, flasks of",
-		alternatives: [/oil/i]
-	}
+		alternatives: [/oil/i],
+	},
 };
 
 var Base_PacksList = {
-	burglar: {
+	"burglar": {
 		name: "Burglar's pack (16 gp)",
 		source: [["SRD24", 96], ["P24", 224]],
 		items: [
@@ -1199,10 +1199,10 @@ var Base_PacksList = {
 			["Oil, flasks of", 7, 1],
 			["Tinderbox", "", 1],
 			["Rations, days of", 5, 2],
-			["Waterskin", "", 5]
-		]
+			["Waterskin", "", 5],
+		],
 	},
-	diplomat: {
+	"diplomat": {
 		name: "Diplomat's pack (39 gp)",
 		source: [["SRD24", 97], ["P24", 225]],
 		items: [
@@ -1216,10 +1216,10 @@ var Base_PacksList = {
 			["Map or scroll case", 2, 1],
 			["Lamp", "", 1],
 			["Oil, flasks of", 4, 1],
-			["Tinderbox", "", 1]
-		]
+			["Tinderbox", "", 1],
+		],
 	},
-	dungeoneer: {
+	"dungeoneer": {
 		name: "Dungeoneer's pack (12 gp)",
 		source: [["SRD24", 97], ["P24", 225]],
 		items: [
@@ -1230,10 +1230,10 @@ var Base_PacksList = {
 			["Tinderbox", "", 1],
 			["Torches", 10, 1],
 			["Rations, days of", 10, 2],
-			["Waterskin", "", 5]
-		]
+			["Waterskin", "", 5],
+		],
 	},
-	entertainer: {
+	"entertainer": {
 		name: "Entertainer's pack (40 gp)",
 		source: [["SRD24", 97], ["P24", 225]],
 		items: [
@@ -1246,10 +1246,10 @@ var Base_PacksList = {
 			["Oil, flasks of", 8, 1],
 			["Tinderbox", "", 1],
 			["Rations, days of", 9, 2],
-			["Waterskin", "", 5]
-		]
+			["Waterskin", "", 5],
+		],
 	},
-	explorer: {
+	"explorer": {
 		name: "Explorer's pack (10 gp)",
 		source: [["SRD24", 97], ["P24", 225]],
 		items: [
@@ -1260,10 +1260,10 @@ var Base_PacksList = {
 			["Tinderbox", "", 1],
 			["Torches", 10, 1],
 			["Rations, days of", 10, 2],
-			["Waterskin", "", 5]
-		]
+			["Waterskin", "", 5],
+		],
 	},
-	priest: {
+	"priest": {
 		name: "Priest's pack (33 gp)",
 		source: [["SRD24", 99], ["P24", 228]],
 		items: [
@@ -1273,10 +1273,10 @@ var Base_PacksList = {
 			["Holy water, flasks of", "", 1],
 			["Lamp", "", 1],
 			["Tinderbox", "", 1],
-			["Rations, days of", 7, 2]
-		]
+			["Rations, days of", 7, 2],
+		],
 	},
-	scholar: {
+	"scholar": {
 		name: "Scholar's pack (40 gp)",
 		source: [["SRD24", 99], ["P24", 228]],
 		items: [
@@ -1287,9 +1287,9 @@ var Base_PacksList = {
 			["Parchment, sheets of", 10, ""],
 			["Lamp", "", 1],
 			["Oil, flasks of", 10, 1],
-			["Tinderbox", "", 1]
-		]
-	}
+			["Tinderbox", "", 1],
+		],
+	},
 };
 
 var Base_GearList = {
@@ -2278,4 +2278,55 @@ var Base_ToolsList = {
 		amount: "",
 		weight: 1
 	}
+};
+
+var Base_WeaponMasteriesList = {
+	"cleave": {
+		name: "Cleave",
+		source: [["SRD24", 90], ["P24", 214]],
+		description: "Once per turn when I hit a creature in melee, I can attack another within 5 ft of the first if it's within reach. I don't add my ability modifier to this attack's damage unless it's negative.",
+		descriptionFull: "If you hit a creature with a melee attack roll using this weapon, you can make a melee attack roll with the weapon against a second creature within 5 feet of the first that is also within your reach. On a hit, the second creature takes the weapon's damage, but don't add your ability modifier to that damage unless that modifier is negative. You can make this extra attack only once per turn.",
+	},
+	"graze": {
+		name: "Graze",
+		source: [["SRD24", 90], ["P24", 214]],
+		description: "If I miss an attack, I can still damage the creature equal to the ability modifier of the attack.",
+		descriptionFull: "If your attack roll with this weapon misses a creature, you can deal damage to that creature equal to the ability modifier you used to make the attack roll. This damage is the same type dealt by the weapon, and the damage can be increased only by increasing the ability modifier.",
+	},
+	"nick": {
+		name: "Nick",
+		source: [["SRD24", 90], ["P24", 214]],
+		description: "When I use this weapon to make the extra attack of the Light property, I can make it as part of the Attack action instead of as a Bonus Action. I can do this only once per turn.",
+		descriptionFull: "When you make the extra attack of the Light property, you can make it as part of the Attack action instead of as a Bonus Action. You can make this extra attack only once per turn.",
+	},
+	"push": {
+		name: "Push",
+		source: [["SRD24", 90], ["P24", 214]],
+		description: "If I hit a Large or smaller creature, I can push it up to 10 ft straight away from myself.",
+		descriptionFull: "If you hit a creature with this weapon, you can push the creature up to 10 feet straight away from yourself if it is Large or smaller.",
+	},
+	"sap": {
+		name: "Sap",
+		source: [["SRD24", 90], ["P24", 214]],
+		description: "If I hit a creature, it has Disadvantage on its next attack roll before the start of my next turn.",
+		descriptionFull: "If you hit a creature with this weapon, that creature has Disadvantage on its next attack roll before the start of your next turn.",
+	},
+	"slow": {
+		name: "Slow",
+		source: [["SRD24", 90], ["P24", 214]],
+		description: "If I damaged a creature, it has -10 ft speed until the start of my next turn. Not cumulative.",
+		descriptionFull: "If you hit a creature with this weapon and deal damage to it, you can reduce its Speed by 10 feet until the start of your next turn. If the creature is hit more than once by weapons that have this property, the Speed reduction doesn't exceed 10 feet.",
+	},
+	"topple": {
+		name: "Topple",
+		source: [["SRD24", 90], ["P24", 214]],
+		description: "If I hit a creature, I can force it make a Constitution saving throw or be knocked Prone.\nThe DC is 8 + the ability modifier used for the attack + my Proficiency Bonus.",
+		descriptionFull: "If you hit a creature with this weapon, you can force the creature to make a Constitution saving throw (DC 8 plus the ability modifier used to make the attack roll and your Proficiency Bonus). On a failed save, the creature has the Prone condition.",
+	},
+	"vex": {
+		name: "Vex",
+		source: [["SRD24", 90], ["P24", 214]],
+		description: "If I damage a creature, I have Advantage on my next attack vs. it before my next turn ends.",
+		descriptionFull: "If you hit a creature with this weapon and deal damage to the creature, you have Advantage on your next attack roll against that creature before the end of your next turn.",
+	},
 };

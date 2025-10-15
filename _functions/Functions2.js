@@ -2316,8 +2316,11 @@ function ChangeFont(newFont, oldFont) {
 	for (var F = 0; F < FldNums; F++) {
 		var Fname = tDoc.getNthFieldName(F);
 		var Fld = tDoc.getField(Fname);
-		if (!(/spells\.|Template\.extras/).test(Fname) && Fld.textFont === oldFont && (Fld.type !== "text" || Fld.richText === false)) {
+		if (!/spells\.|Template\.extras/.test(Fname) && Fld.textFont === oldFont && (Fld.type !== "text" || Fld.richText === false || Fld.mpmbRtFormat)) {
+			// Reset Richt Text support before changing font so it is applied to the content of the field
+			if (Fld.mpmbRtFormat) Fld.richText = false;
 			Fld.textFont = newFont;
+			if (Fld.mpmbRtFormat && Fld.textSize) Fld.richText = true;
 		}
 		thermoM((F+1)/FldNums); //increment the progress dialog's progress
 	}
@@ -4923,7 +4926,7 @@ function MakeSkillsMenu_SkillsOptions(input, onlyTooltips) {
 			cReturn : "skills#jackofalltrades",
 			bMarked : jackOf
 		}, {
-			cName : 'Enable "Remarkable Athlete"',
+			cName : 'Enable "Remarkable Athlete" (5e rules: +1/2 Prof Bonus)',
 			cReturn : "skills#remarkableathlete",
 			bMarked : remAth
 		}]);
@@ -6237,7 +6240,7 @@ function ShowDialog(hdr, strng) {
 	var ShowString_dialog = {
 		initialize : function(dialog) {
 			dialog.load({
-				"Eval" : strng.replace(/^(\r|\n)*/, "")
+				"Eval" : strng.replace(/^[\r\n]*/, "")
 			});
 		},
 		description : {
@@ -7943,14 +7946,14 @@ function formatMultiList(caption, elements) {
 	};
 	return rStr;
 };
-function formatLineList(caption, elements, useOr) {
+function formatLineList(caption, elements, useOr, useSemicolon) {
 	if (!elements || (isArray(elements) && elements.length === 0)) return "";
 	if (!isArray(elements)) elements = [elements];
 	var andOr = useOr ? " or " : " and ";
 	var rStr = (caption ? caption + " " : "") + elements[0];
 	var EL = elements.length;
 	for (var i = 1; i < EL; i++) {
-		rStr += EL > 2 ? "," : "";
+		rStr += useSemicolon ? ";" : EL > 2 ? "," : "";
 		rStr += (i === EL - 1 ? andOr : " ") + elements[i];
 	};
 	return rStr;
@@ -8070,7 +8073,7 @@ function AskUserOptions(optType, optSrc, optSubj, knownOpt, notProficiencies, sB
 		if (knownOpt === "radio") {
 			selectionLines.push({
 				type : "radio",
-				item_id : "sl" + ("0" + i).slice(-2),
+				item_id : "r" + ("00" + i).slice(-3),
 				group_id : "slct",
 				name : optSubj[i]
 			});
@@ -8082,13 +8085,13 @@ function AskUserOptions(optType, optSrc, optSubj, knownOpt, notProficiencies, sB
 				elements : [{
 					type : "edit_text",
 					alignment : "align_left",
-					item_id : "sl" + ("0" + i).slice(-2),
+					item_id : "r" + ("00" + i).slice(-3),
 					char_width : 30,
 					height : 20
 				}, {
 					type : "static_text",
 					alignment : "align_right",
-					item_id : "st" + ("0" + i).slice(-2),
+					item_id : "t" + ("00" + i).slice(-3),
 					font : "dialog",
 					name : "Already known!"
 				}]
@@ -8160,8 +8163,8 @@ function AskUserOptions(optType, optSrc, optSubj, knownOpt, notProficiencies, sB
 			var toLoad = {};
 			var toShow = {};
 			for (var i = 0; i < this.subj.length; i++) {
-				toLoad["sl" + ("0" + i).slice(-2)] = this.subj[i];
-				var stTxt = "st" + ("0" + i).slice(-2);
+				toLoad["r" + ("00" + i).slice(-3)] = this.subj[i];
+				var stTxt = "t" + ("00" + i).slice(-3);
 				toShow[stTxt] = false;
 				dialog.setForeColorRed(stTxt);
 			};
@@ -8172,7 +8175,7 @@ function AskUserOptions(optType, optSrc, optSubj, knownOpt, notProficiencies, sB
 			var oResult = dialog.store();
 			this.choices = [];
 			for (var i = 0; i < this.subj.length; i++) {
-				var theResult = oResult["sl" + ("0" + i).slice(-2)];
+				var theResult = oResult["r" + ("00" + i).slice(-3)];
 				if (this.already === "radio") {
 					if (theResult) {
 						this.choices = this.subj[i];
@@ -8185,8 +8188,8 @@ function AskUserOptions(optType, optSrc, optSubj, knownOpt, notProficiencies, sB
 		},
 		check : function (dialog, nmbr) {
 			if (!this.already || this.already === "radio") return;
-			var toChk = "sl" + ("0" + nmbr).slice(-2);
-			var tTxt = "st" + ("0" + nmbr).slice(-2);
+			var toChk = "r" + ("00" + nmbr).slice(-3);
+			var tTxt = "t" + ("00" + nmbr).slice(-3);
 			var tResult = dialog.store()[toChk].toLowerCase();
 			var toShow = {};
 			toShow[tTxt] = this.already.indexOf(tResult) !== -1;
@@ -8281,7 +8284,7 @@ function AskUserOptions(optType, optSrc, optSubj, knownOpt, notProficiencies, sB
 		}
 	};
 	if (knownOpt !== "radio") { for (var i = 0; i < optSubj.length; i++) {
-		theDialog["sl" + ("0" + i).slice(-2)] = Function("dialog", "this.check(dialog, " + i + ");");
+		theDialog["r" + ("00" + i).slice(-3)] = Function("dialog", "this.check(dialog, " + i + ");");
 	}; };
 	app.execDialog(theDialog)
 	if (bReturnIndex && knownOpt === "radio" && typeof theDialog.choices == 'string') {

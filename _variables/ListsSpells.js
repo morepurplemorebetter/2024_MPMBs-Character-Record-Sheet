@@ -5840,7 +5840,7 @@ var Base_SpellsList = {
 		level: 0,
 		school: "Trans",
 		time: "Bns",
-		range: "Touch",
+		range: "Self",
 		components: "V,S,M",
 		compMaterial: "Mistletoe",
 		duration: "1 min",

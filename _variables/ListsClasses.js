@@ -1,3 +1,4 @@
+// No longer used, but kept for legacy sources that use it
 var FightingStyles = {
 	archery : {
 		name : "Archery Fighting Style",
@@ -28,9 +29,9 @@ var FightingStyles = {
 			atkCalc : [
 				function (fields, v, output) {
 					for (var i = 1; i <= FieldNumbers.actions; i++) {
-						if ((/off.hand.attack/i).test(What('Bonus Action ' + i))) return;
+						if (/off.hand.attack/i.test(What('Bonus Action ' + i))) return;
 					};
-					if (v.isMeleeWeapon && !v.isNaturalWeapon && !(/((^|[^+-]\b)2|\btwo).?hand(ed)?s?\b/i).test(fields.Description)) output.extraDmg += 2;
+					if (v.isMeleeWeapon && !v.isNaturalWeapon && !/((^|[^+-]\b)2|\btwo).?hand(ed)?s?\b/i.test(fields.Description)) output.extraDmg += 2;
 				},
 				"When I'm wielding a melee weapon in one hand and no weapon in my other hand, I do +2 damage with that melee weapon. This condition will always be false if the bonus action 'Off-hand Attack' exists."
 			]
@@ -42,8 +43,8 @@ var FightingStyles = {
 		calcChanges : {
 			atkAdd : [
 				function (fields, v) {
-					if (v.isMeleeWeapon && (/(\bversatile|((^|[^+-]\b)2|\btwo).?hand(ed)?s?)\b/i).test(fields.Description)) {
-						fields.Description += (fields.Description ? '; ' : '') + 'Re-roll 1 or 2 on damage die' + ((/versatile/i).test(fields.Description) ? ' when two-handed' : '');
+					if (v.isMeleeWeapon && /\bversatile\b|((^|[^+-]\b)2|\btwo).?hand(ed)?s?\b/i.test(fields.Description)) {
+						fields.Description += (fields.Description ? '; ' : '') + 'Re-roll 1 or 2 on damage die' + (/versatile/i.test(fields.Description) ? ' when two-handed' : '');
 					}
 				},
 				"While wielding a two-handed or versatile melee weapon in two hands, I can re-roll a 1 or 2 on any damage die once."
@@ -66,12 +67,12 @@ var FightingStyles = {
 				function (fields, v, output) {
 					if (v.isOffHand) output.modToDmg = true;
 				},
-				"When engaging in two-weapon fighting, I can add my ability modifier to the damage of my off-hand attacks. If a melee weapon includes 'off-hand' or 'secondary' in its name or description, it is considered an off-hand attack."
+				'When engaging in two-weapon fighting, I can add my ability modifier to the damage of my off-hand attacks. If a melee weapon includes "off-hand" or "secondary" in its name or description, it is considered an off-hand attack.'
 			]
 		}
 	}
 };
-
+// No longer used, but kept for legacy sources that use it
 var GenericClassFeatures = {
 	"potent spellcasting" : {
 		name : "Potent Spellcasting",
@@ -94,239 +95,289 @@ var GenericClassFeatures = {
 			]
 		}
 	}
-}
+};
 
 var Base_ClassList = {
-	"barbarian" : {
-		regExpSearch : /^((?=.*(marauder|barbarian|viking|(norse|tribes?|clans?)(wo)?m(a|e)n))|((?=.*(warrior|fighter))(?=.*(feral|tribal)))).*$/i,
-		name : "Barbarian",
-		source : [["SRD24", 28], ["P24", 51]],
-		primaryAbility : "Strength",
-		prereqs : "Strength 13",
-		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-		die : 12,
-		saves : ["Str", "Con"],
-		skillstxt : {
-			primary : "Choose two from Animal Handling, Athletics, Intimidation, Nature, Perception, and Survival"
+	"barbarian": {
+		regExpSearch: /^((?=.*(marauder|barbarian|viking|(norse|tribes?|clans?)(wo)?m(a|e)n))|((?=.*(warrior|fighter))(?=.*(feral|tribal)))).*$/i,
+		name: "Barbarian",
+		source: [["SRD24", 28], ["P24", 51]],
+		primaryAbility: "Strength",
+		prereqs: "Strength 13",
+		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
+		die: 12,
+		saves: ["Str", "Con"],
+		skillstxt: {
+			primary: "Choose 2: Animal Handling, Athletics, Intimidation, Nature, Perception, or Survival.",
 		},
-		armorProfs : {
-			primary : [true, true, false, true],
-			secondary : [false, false, false, true]
+		armorProfs: {
+			primary:   [true,  true,  false, true],
+			secondary: [false, false, false, true],
 		},
-		weaponProfs : {
-			primary : [true, true],
-			secondary : [false, true]
+		weaponProfs: {
+			primary:   [true,  true],
+			secondary: [false, true],
 		},
-		startingEquipment : {
-			gold : 15,
-			pack : "explorer",
+		startingEquipment: [{
+			gold: 15,
+			pack: "explorer",
 			equipright: [
 				["Greataxe", "", 7],
-				["Handaxe", 4, 2]
+				["Handaxes", 4, 2]
 			],
-			equip1stPage : {
-				weapons : ["Greataxe", "Handaxe"],
-				ammo : [["Handaxes", 4]]
+			equip1stPage: {
+				weapons: ["Greataxe", "Handaxe"],
+				ammo: [["Handaxes", 4]],
 			},
-			goldAlt : 75
-		},
-		subclasses : ["Primal Path", ["barbarian-berserker"]],
-		attacks : [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-		features : {
-			"rage" : {
-				name : "Rage",
-				source : [["SRD", 8], ["P", 48]],
-				minlevel : 1,
-				description : desc([
-					"Start/end as bonus action; bonus damage to melee weapon attacks using Str; lasts 1 min",
-					"Adv. on Strength checks/saves (not attacks); resistance to bludgeoning/piercing/slashing",
-					"Stops if I end turn without attacking or taking damage since last turn, or unconscious"
-				]),
-				additional : levels.map(function (n) {
-					return "+" + (n < 9 ? 2 : n < 16 ? 3 : 4) + " melee damage";
+		}, {
+			gold: 75,
+		}],
+		subclasses : ["Barbarian Subclass", ["barbarian-berserker"]],
+		attacks: [1, 1, 1, 1, 2],
+		features: {
+			"rage": {
+				name: "Rage",
+				source: [["SRD24", 28], ["P24", 51]],
+				minlevel: 1,
+				description: desc([
+					"As a Bonus Action, I can enter a Rage if I'm not wearing Heavy armor. While I'm in a Rage:",
+ 					" \u2022 I have Resistance to Bludgeoning, Piercing, and Slashing damage.",
+ 					" \u2022 I add bonus damage to my weapon and Unarmed Strike attacks that use Strength.",
+ 					" \u2022 I have Advantage on Strength checks and saves, but can't maintain Concentration.",
+					"Rage lasts until the end of my next turn, I don Heavy armor, or I become Incapacitated.",
+					"On my turn I can extend its duration for another round by attacking an enemy, forcing an enemy to save, or by using a Bonus Action. I can maintain a Rage for up to 10 minutes."
+				], "\n"),
+				additional: levels.map(function (n) {
+					return "+" + (n < 9 ? 2 : n < 16 ? 3 : 4) + " damage, regain 1/SR";
 				}),
-				usages : [2, 2, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, "\u221E\xD7 per "],
-				recovery : "long rest",
-				action : [["bonus action", " (start/end)"]],
-				dmgres : [["Bludgeoning", "Bludgeon. (in rage)"], ["Piercing", "Piercing (in rage)"], ["Slashing", "Slashing (in rage)"]],
-				savetxt : { text : ["Adv. on Str saves in rage"] },
-				calcChanges : {
-					atkCalc : [
+				usages: levels.map(function (n) {
+					return n < 3 ? 2 : n < 6 ? 3 : n < 12 ? 4 : n < 17 ? 5 : 6;
+				}),
+				recovery: "long rest",
+				action: [["bonus action", " (start/extend)"]],
+				dmgres: [
+					["Bludgeoning", "Bludgeon. (in rage)"],
+					["Piercing", "Piercing (in rage)"],
+					["Slashing", "Slashing (in rage)"],
+				],
+				savetxt: { text: ["Adv. on Str saves in rage"] },
+				calcChanges: {
+					atkCalc: [
 						function (fields, v, output) {
-							if (v.isMeleeWeapon && fields.Mod === 1 && classes.known.barbarian && classes.known.barbarian.level && /\brage\b/i.test(v.WeaponTextName)) {
-								output.extraDmg += classes.known.barbarian.level < 9 ? 2 : classes.known.barbarian.level < 16 ? 3 : 4;
+							var lvl = classes.known.barbarian ? classes.known.barbarian.level : false;
+							if (lvl && v.isWeapon && fields.Mod === 1 && /\b(rage|frenzy)\b/i.test(v.WeaponTextName)) {
+								output.extraDmg += lvl < 9 ? 2 : lvl < 16 ? 3 : 4;
 							}
 						},
-						"If I include the word 'Rage' in a melee weapon's name that uses Strength, the calculation will add my Rage's bonus damage to it. Be aware that if the weapon is used to make a ranged attack, the rage bonus damage shouldn't be added (e.g. when using a thrown weapon)."
-					]
-				}
+						"Add the text \"Rage\" or \"Frenzy\" to the name of a weapon that uses Strength to have the Rage's bonus damage added to it."
+					],
+				},
 			},
-			"unarmored defense" : {
-				name : "Unarmored Defense",
-				source : [["SRD24", 29], ["P24", 51]],
-				minlevel : 1,
-				description : desc("Without armor, my AC is 10 + Dexterity modifier + Constitution modifier + shield"),
-				armorOptions : [{
-					regExpSearch : /justToAddToDropDownAndEffectWildShape/,
-					name : "Unarmored Defense (Con)",
-					source : [["SRD24", 29], ["P24", 51]],
-					ac : "10+Con",
-					affectsWildShape : true,
-					selectNow : true
-				}]
+			"unarmored defense": {
+				name: "Unarmored Defense",
+				source: [["SRD24", 29], ["P24", 51]],
+				minlevel: 1,
+				description: "\nIf not wearing armor, my AC is 10 + Dexterity modifier + Constitution modifier + Shield.",
+				armorOptions: [{
+					regExpSearch: /justToAddToDropDownAndEffectWildShape/,
+					name: "Unarmored Defense (Con)",
+					source: [["SRD24", 29], ["P24", 51]],
+					ac: "10+Con",
+					affectsWildShape: true,
+					selectNow: true,
+				}],
 			},
-			"reckless attack" : {
-				name : "Reckless Attack",
-				source : [["SRD", 9], ["P", 48]],
-				minlevel : 2,
-				description : desc("Adv. on Str melee weapon attacks in my turn, but attacks vs. me adv. until next turn")
+			"weapon mastery": {
+				name: "Weapon Mastery",
+				source: [["SRD24", 29], ["P24", 52]],
+				minlevel: 1,
+				description: '\nI gain mastery with a number of Simple/Martial weapons. Whenever I finish a Long Rest,\nI can change one of these choices. Use the "Choose Feature" button above to select them.',
+				additional: levels.map(function (n) {
+					return (n < 4 ? 2 : n < 10 ? 3 : 4) + " Weapon Masteries";
+				}),
+				extraTimes: levels.map(function (n) { return n < 4 ? 2 : n < 10 ? 3 : 4 }),
+				extraname: "Weapon Mastery",
+				choicesWeaponMasteries: true,
 			},
-			"danger sense" : {
-				name : "Danger Sense",
-				source : [["SRD", 9], ["P", 48]],
-				minlevel : 2,
-				description : desc("Adv. on Dexterity saves against seen effects (not blinded/deafened/incapacitated)"),
-				savetxt : { text : ["Adv. on Dex saves vs. seen effects"] }
+			"danger sense": {
+				name: "Danger Sense",
+				source: [["SRD24", 29], ["P24", 52]],
+				minlevel: 2,
+				description: "\nI have Advantage on Dexterity saving throws unless I have the Incapacitated condition.",
+				savetxt: { text: ["Adv. on Dex saves"] },
+				advantages: [["Dexterity", true]],
 			},
-			"subclassfeature3" : {
-				name : "Primal Path",
-				source : [["SRD", 9], ["P", 48]],
-				minlevel : 3,
-				description : desc('Choose a Primal Path that shapes the nature of your rage and put it in the "Class" field ')
+			"reckless attack": {
+				name: "Reckless Attack",
+				source: [["SRD24", 29], ["P24", 52]],
+				minlevel: 2,
+				description: "\nAs I roll my first attack on my turn, I can decide to attack recklessly. This gives me Adv. on attacks using Strength until my next turn starts, but then attacks against me also gain Adv.",
+			},
+			"subclassfeature3": {
+				name: "Barbarian Subclass",
+				source: [["SRD24", 29], ["P24", 52]],
+				minlevel: 3,
+				description: '\nChoose a Barbarian Subclass using the "Class" button/bookmark or type its name into the "Class" field.',
+			},
+			"primal knowledge": {
+				name: "Primal Knowledge",
+				source: [["SRD24", 29], ["P24", 52]],
+				minlevel: 3,
+				description: '\nI gain proficiency in one more Barbarian skill. Use the "Choose Feature" button above to select Animal Handling, Athletics, Intimidation, Nature, Perception, or Survival.\nWhile Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability.',
+				choices: ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
+				"animal handling": {
+					name: "Primal Knowledge: Animal Handling",
+					description: '\nWhile Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Animal Handling ' + (typePF ? 'proficiency.' : 'prof.'),
+					skills: ["Animal Handling"],
+				},
+				"athletics": {
+					name: "Primal Knowledge: Athletics",
+					description: '\nWhile Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Athletics proficiency.',
+					skills: ["Athletics"],
+				},
+				"intimidation": {
+					name: "Primal Knowledge: Intimidation",
+					description: '\nWhile Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Intimidation proficiency.',
+					skills: ["Intimidation"],
+				},
+				"nature": {
+					name: "Primal Knowledge: Nature",
+					description: '\nWhile Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Nature proficiency.',
+					skills: ["Nature"],
+				},
+				"perception": {
+					name: "Primal Knowledge: Perception",
+					description: '\nWhile Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Perception proficiency.',
+					skills: ["Perception"],
+				},
+				"survival": {
+					name: "Primal Knowledge: Survival",
+					description: '\nWhile Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Survival proficiency.',
+					skills: ["Survival"],
+				},
 			},
 			"fast movement" : {
-				name : "Fast Movement",
-				source : [["SRD", 9], ["P", 49]],
-				minlevel : 5,
-				description : desc("I gain +10 ft speed when I'm not wearing heavy armor"),
-				speed : { allModes : "+10" }
+				name: "Fast Movement",
+				source: [["SRD24", 29], ["P24", 53]],
+				minlevel: 5,
+				description: "\nMy speed increases by 10 ft while I'm not wearing Heavy armor.",
+				speed: { allModes: "+10" },
 			},
-			"feral instinct" : {
-				name : "Feral Instinct",
-				source : [["SRD", 9], ["P", 49]],
-				minlevel : 7,
-				description : desc("I get adv. on Initiative; I can enter rage to act normally on the first turn when surprised"),
-				advantages : [["Initiative", true]]
+			"feral instinct": {
+				name: "Feral Instinct",
+				source: [["SRD24", 29], ["P24", 53]],
+				minlevel: 7,
+				description: "\nI have Advantage on Initiative rolls because my instincts are so honed.",
+				advantages: [["Initiative", true]],
 			},
-			"brutal critical" : {
-				name : "Brutal Critical",
-				source : [["SRD", 9], ["P", 49]],
-				minlevel : 9,
-				description : desc("I can roll additional dice for the extra damage on a critical hit with a melee attack"),
-				additional : levels.map(function (n) {
-					return n < 9 ? "" : (n < 13 ? 1 : n < 17 ? 2 : 3) + " additional di" + (n < 13 ? "" : "c") + "e"
+			"brutal strike": { // includes the level 13 and 17 Improved Brutal Strike features
+				name: "Brutal Strike",
+				source: [["SRD24", 29], ["P24", 53]],
+				minlevel: 9,
+				description: levels.map(function (n) {
+					var multiplier = n < 17 ? 1 : 2;
+					var effects = multiplier + ' effect';
+					if (multiplier > 1) effects += 's';
+					var description = [
+						"\nIf I use Reckless Attack, I can forgo any Advantage on one Strength-based attack on my turn that doesn't have Disadvantage. On a hit, it does +" + multiplier + "d10 damage and " + effects + " below:",
+						" \u2022 **Forceful Blow**. The target is pushed 15 ft straight away from me. I can then move\n   half my Speed straight toward the target without provoking Opportunity Attacks.",
+						" \u2022 **Hamstring Blow**. The target has -15 ft Speed until the start of my next turn.\n   A target can only be affected by the most recent Hamstring Blow, they're not cumulative.",
+					];
+					if (n >= 13) {
+						description.push(" \u2022 **Staggering Blow**. The target has Disadvantage on their next saving throw,\n   and it can't make Opportunity Attacks until the start of my next turn.");
+						description.push(" \u2022 **Sundering Blow**. +5 on the next attack roll against the target made by another\n   creature before the start of my next turn. An attack can gain this bonus only once.");
+					}
+					return description.join("\n");
 				}),
-				calcChanges : {
-					atkAdd : [
-						function (fields, v) {
-							if (v.isMeleeWeapon && classes.known.barbarian && classes.known.barbarian.level > 8) {
-								var pExtraCritM = classes.known.barbarian.level < 13 ? 1 : classes.known.barbarian.level < 17 ? 2 : 3;
-								var extraCritRegex = /\d+(d\d+ extra on a crit(ical)?( hit)? in melee)/i;
-								v.extraCritM = (v.extraCritM ? v.extraCritM : 0) + pExtraCritM;
-								if (extraCritRegex.test(fields.Description)) {
-									fields.Description = fields.Description.replace(extraCritRegex, v.extraCritM + '$1');
-								} else if ((/d\d/).test(fields.Damage_Die)) {
-									fields.Description += (fields.Description ? '; ' : '') + v.extraCritM + fields.Damage_Die.replace(/.*(d\d+).*/, '$1') + ' extra on a crit in melee';
-								}
-							}
-						},
-						"I can roll one additional damage die for the extra damage on a critical hit with a melee weapon attack. This increased to 2 additional dice as a 13th-level barbarian, and to 3 additional dice as a 17th-level barbarian.",
-						900
-					]
-				}
+				additional: levels.map(function (n) {
+					return n < 17 ? '+1d10 damage, 1 effect' : '+2d10 damage, 2 effects';
+				}),
 			},
 			"relentless rage" : {
 				name : "Relentless Rage",
-				source : [["SRD", 9], ["P", 49]],
+				source: [["SRD24", 30], ["P24", 53]],
 				minlevel : 11,
-				description : " [DC 10 + 5 per try, per short rest]" + desc([
-					"If I drop to 0 HP while raging, I can make a DC 10 Constitution save to stay at 1 HP",
-					"The DC increases by 5 for every attempt until I finish a short or long rest"
-				]),
-				extraLimitedFeatures : [{
-					name : "Relentless Rage",
-					usages : 1,
-					recovery : "short rest",
-					usagescalc : "var FieldNmbr = parseFloat(event.target.name.slice(-2)); var usages = What('Limited Feature Used ' + FieldNmbr); var DCmod = Number(usages) * 5; event.value = (isNaN(Number(usages)) || usages === '') ? 'DC\u2003\u2003' : 'DC ' + Number(10 + DCmod);"
-				}]
+				description: "\nWhile Raging, if I drop to 0 HP and don't die, I can make a DC 10 Con save to instead have twice my Barbarian level HP. Each attempt adds +5 DC. DC resets to 10 after a Short Rest.",
+				additional: levels.map(function (n) {
+					return (n * 2) + " HP";
+				}),
+				usages: "DC 10 +5/try per ",
+				recovery: "short rest",
+				usagescalc: "var FieldNmbr = parseFloat(event.target.name.slice(-2)); var usages = Number(What('Limited Feature Used ' + FieldNmbr)); var DCval = Number(usages * 5 + 10); event.value = isNaN(usages) || isNaN(DCval) ? 'DC\u2003\u2003' : 'DC ' + DCval;",
 			},
-			"persistent rage" : {
-				name : "Persistent Rage",
-				source : [["SRD", 9], ["P", 49]],
-				minlevel : 15,
-				description : desc("My rage only lasts less than 1 minute if I fall unconscious or I choose to end it")
+			"persistent rage": {
+				name: "Persistent Rage",
+				source: [["SRD24", 30], ["P24", 53]],
+				minlevel: 15,
+				description: "\nOnce per long rest when I roll initiative, I can regain all my expended uses of Rage.\nMy Rage now only ends early if I choose to end it, fall Unconscious, or don Heavy armor.",
+				additional: "regain Rage uses",
+				usages: 1,
+				recovery: "long rest",
 			},
-			"indomitable might" : {
-				name : "Indomitable Might",
-				source : [["SRD", 9], ["P", 49]],
-				minlevel : 18,
-				description : desc("If a Strength check is lower than my Strength score, I can use my Strength score instead")
+			"indomitable might": {
+				name: "Indomitable Might",
+				source: [["SRD24", 30], ["P24", 53]],
+				minlevel: 18,
+				description: "\nIf a Strength check or save is lower than my Strength score, I can use the score instead."
 			},
-			"primal champion" : {
-				name : "Primal Champion",
-				source : [["SRD", 9], ["P", 49]],
-				minlevel : 20,
-				description : desc("I add +4 to both my Strength and Constitution, and their maximums increase to 24"),
-				scores : [4,0,4,0,0,0],
-				scoresMaximum : [24,0,24,0,0,0]
-			}
+			"primal champion": {
+				name: "Primal Champion",
+				source: [["SRD24", 30], ["P24", 53]],
+				minlevel: 20,
+				description: "\nMy Strength and Constitution scores increase by 4, to a maximum of 25.",
+				scores:        [ 4, 0,  4, 0, 0, 0],
+				scoresMaximum: [25, 0, 25, 0, 0, 0],
+			},
 		}
 	},
 
-	"bard" : {
-		regExpSearch : /(bard|minstrel|troubadour|jongleur)/i,
-		name : "Bard",
-		source : [["SRD24", 31], ["P24", 59]],
-		primaryAbility : "Charisma",
-		abilitySave : 6,
-		prereqs : "Charisma 13",
-		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-		die : 8,
-		saves : ["Dex", "Cha"],
-		skillstxt : {
-			primary : "Choose any three skills",
-			secondary : "Choose any one skill"
+	"bard": {
+		regExpSearch: /(bard|minstrel|troubadour|jongleur)/i,
+		name: "Bard",
+		source: [["SRD24", 31], ["P24", 59]],
+		primaryAbility: "Charisma",
+		abilitySave: 6,
+		prereqs: "Charisma 13",
+		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
+		die: 8,
+		save: ["Dex", "Cha"],
+		skillstxt: {
+			primary:   "Choose any 3 skills.",
+			secondary: "Choose any 1 skill.",
 		},
-		toolProfs : {
-			primary : [["Musical instrument", 3]],
-			secondary : [["Musical instrument", 1]]
+		toolProfs: {
+			primary:   [["Musical instrument", 3]],
+			secondary: [["Musical instrument", 1]],
 		},
-		armorProfs : {
-			primary : [true, false, false, false],
-			secondary : [true, false, false, false]
+		armorProfs: {
+			primary:   [true, false, false, false],
+			secondary: [true, false, false, false],
 		},
-		weaponProfs : {
-			primary : [true, false, ["hand crossbow", "longsword", "rapier", "shortsword"]]
+		weaponProfs: {
+			primary: [true, false],
 		},
-		equipment : "Bard starting equipment:" +
-			"\n \u2022 A rapier -or- a longsword -or- any simple weapon;" +
-			"\n \u2022 A diplomat's pack -or- an entertainer's pack;" +
-			"\n \u2022 A lute -or- any other musical instrument;" +
-			"\n \u2022 Leather armor and a dagger." +
-			"\n\nAlternatively, choose 5d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
-		subclasses : ["Bard College", ["bard-college of lore"]],
-		attacks : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		spellcastingFactor : 1,
-		spellcastingKnown : {
-			cantrips : [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-			spells : [4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16, 16, 16, 16]
-		},
-		features : {
-			"spellcasting" : {
-				name : "Spellcasting",
-				source : [["SRD", 11], ["P", 52]],
-				minlevel : 1,
-				description : desc([
-					"I can cast bard cantrips/spells that I know, using Charisma as my spellcasting ability",
-					"I can use a musical instrument as a spellcasting focus for my bard spells",
-					"I can cast my known bard spells as rituals if they have the ritual tag"
-				]),
-				additional : levels.map(function (n, idx) {
-					var cantr = [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4][idx];
-					var splls = [4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 15, 15, 16, 16, 19, 19, 20, 20, 22, 22][idx];
-					return cantr + " cantrips \u0026 " + splls + " spells known";
-				})
+		startingEquipment: [{
+			gold: 19,
+			pack: "entertainer",
+			equipright: [
+				["Leather Armor", "", 10],
+				["Dagger", 2, 1],
+				["Musical Instrument of my choice", "", ""],
+			],
+			equip1stPage: {
+				armor: "Leather",
+				weapons: ["Dagger", "Dagger (off-hand)"],
 			},
+		}, {
+			gold: 90,
+		}],
+		subclasses: ["Bard Subclass", ["bard-lore"]],
+		spellcastingFactor: 1,
+		spellcastingKnown: {
+			cantrips: [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+			spells: [4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22],
+		},
+		features: {
 			"bardic inspiration" : {
 				name : "Bardic Inspiration",
 				source : [["SRD", 12], ["P", 53]],
@@ -343,6 +394,17 @@ var Base_ClassList = {
 					return n < 5 ? "long rest" : "short rest";
 				}),
 				action : [["bonus action", ""]]
+			},
+			"spellcasting": {
+				name: "Spellcasting",
+				source: [["SRD24", 31], ["P24", 59]],
+				minlevel: 1,
+				description: "\nI can cast Bard cantrips/spells I know, using Cha as my spellcasting ability, and use Musical Instruments as Spellcasting Focus for them. I can swap 1 cantrip \x26 spell when I gain a level.",
+				additional: levels.map(function (n, idx) {
+					var cantrips = [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4][idx];
+					var spells = [4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22][idx];
+					return cantrips + " cantrips \x26 " + spells + " spells known";
+				}),
 			},
 			"jack of all trades" : {
 				name : "Jack of All Trades",
@@ -405,7 +467,7 @@ var Base_ClassList = {
 				minlevel : 6,
 				description : desc([
 					"As an action, I can do a performance that lasts until the end of my next turn",
-					"While it lasts, any friend in earshot \u0026 30 ft has adv. on saves vs. frightened/charmed"
+					"While it lasts, any friend in earshot \x26 30 ft has adv. on saves vs. frightened/charmed"
 				]),
 				action : [["action", ""]]
 			},
@@ -413,7 +475,7 @@ var Base_ClassList = {
 				name : "Magical Secrets",
 				source : [["SRD", 13], ["P", 54]],
 				minlevel : 10,
-				description : desc("I can add two spells/cantrips from any class to my spells known; +2 at level 14 \u0026 18"),
+				description : desc("I can add two spells/cantrips from any class to my spells known; +2 at level 14 \x26 18"),
 				additional : levels.map(function (n) {
 					return n < 10 ? "" : (n < 14 ? 2 : n < 18 ? 4 : 6) + " spells/cantrips";
 				}),
@@ -434,46 +496,55 @@ var Base_ClassList = {
 		}
 	},
 
-	"cleric" : {
-		regExpSearch : /(cleric|priest|clergy|acolyte)/i,
-		name : "Cleric",
-		source : [["SRD24", 36], ["P24", 69]],
-		primaryAbility : "Wisdom",
-		abilitySave : 5,
-		prereqs : "Wisdom 13",
-		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-		die : 8,
-		saves : ["Wis", "Cha"],
-		skillstxt : {
-			primary : "Choose two from History, Insight, Medicine, Persuasion, and Religion"
+	"cleric": {
+		regExpSearch: /cleric|priest|clergy|acolyte/i,
+		name: "Cleric",
+		source: [["SRD24", 36], ["P24", 69]],
+		primaryAbility: "Wisdom",
+		abilitySave: 5,
+		prereqs: "Wisdom 13",
+		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
+		die: 8,
+		saves: ["Wis", "Cha"],
+		skillstxt: {
+			primary: "Choose 2: History, Insight, Medicine, Persuasion, or Religion."
 		},
-		armorProfs : {
-			primary : [true, true, false, true],
-			secondary : [true, true, false, true]
+		armorProfs: {
+			primary:   [true, true, false, true],
+			secondary: [true, true, false, true],
 		},
-		weaponProfs : {
-			primary : [true, false]
+		weaponProfs: {
+			primary: [true, false],
 		},
-		equipment : "Cleric starting equipment:" +
-			"\n \u2022 A mace -or- a warhammer (if proficient);" +
-			"\n \u2022 Scale mail -or- leather armor -or- chain mail (if proficient);" +
-			"\n \u2022 A light crossbow and 20 bolts -or- any simple weapon;" +
-			"\n \u2022 A priest's pack -or- an explorer's pack;" +
-			"\n \u2022 A shield and a holy symbol." +
-			"\n\nAlternatively, choose 5d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
-		subclasses : ["Divine Domain", ["cleric-life domain"]],
-		attacks : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		spellcastingFactor : 1,
-		spellcastingKnown : {
-			cantrips : [3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
-			spells : "list",
-			prepared : true
+		startingEquipment: [{
+			gold: 7,
+			pack: "priest",
+			equipright: [
+				["Chain Shirt", "", 20],
+				["Shield", "", 6],
+				["Mace", "", 4],
+				["Holy Symbol of my choice", "", ""],
+			],
+			equip1stPage: {
+				armor: "Chain Shirt",
+				shield: "Shield",
+				weapons: ["Mace"],
+			},
+		}, {
+			gold: 110,
+		}],
+		subclasses: ["Cleric Subclass", ["cleric-life"]],
+		spellcastingFactor: 1,
+		spellcastingKnown: {
+			cantrips: [3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+			spells: "list",
+			prepared: true,
 		},
-		features : {
-			"spellcasting" : {
-				name : "Spellcasting",
-				source : [["SRD", 15], ["P", 58]],
-				minlevel : 1,
+		features: {
+			"spellcasting": {
+				name: "Spellcasting",
+				source: [["SRD24", 36], ["P24", 69]],
+				minlevel: 1,
 				description : desc([
 					"I can cast prepared cleric cantrips/spells, using Wisdom as my spellcasting ability",
 					"I can use a holy symbol as a spellcasting focus for my cleric spells",
@@ -535,7 +606,7 @@ var Base_ClassList = {
 	"druid" : {
 		regExpSearch : /(druid|shaman)/i,
 		name : "Druid",
-		source : [["SRD24", 40], ["P24", 79]],
+		source: [["SRD24", 40], ["P24", 79]],
 		primaryAbility : "Wisdom",
 		abilitySave : 5,
 		prereqs : "Wisdom 13",
@@ -561,7 +632,6 @@ var Base_ClassList = {
 			"\n \u2022 Leather armor, an explorer's pack, and a druidic focus." +
 			"\n\nAlternatively, choose 2d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
 		subclasses : ["Druid Circle", ["druid-circle of the land"]],
-		attacks : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		spellcastingFactor : 1,
 		spellcastingKnown : {
 			cantrips : [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -656,89 +726,142 @@ var Base_ClassList = {
 		}
 	},
 
-	"fighter" : {
-		regExpSearch : /^(?!.*(feral|tribal|dark|green|fey|horned|totem|spiritual|exalted|sacred|holy|divine|nature|odin|thor|nature|natural|green|beast|animal))(?=.*(fighter|warrior|militant|warlord|phalanx|gladiator|trooper)).*$/i,
-		name : "Fighter",
-		source : [["SRD24", 47], ["P24", 91]],
-		primaryAbility : "Strength or Dexterity",
-		prereqs : "Strength 13 or Dexterity 13",
-		die : 10,
-		improvements : [0, 0, 0, 1, 1, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5, 6, 6, 6, 7, 7],
-		saves : ["Str", "Con"],
-		skillstxt : {
-			primary : "Choose two from Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Perception, and Survival"
+	"fighter": {
+		regExpSearch: /^(?!.*(feral|tribal|dark|green|fey|horned|totem|spiritual|exalted|sacred|holy|divine|nature|odin|thor|nature|natural|green|beast|animal))(?=.*(fighter|warrior|militant|warlord|phalanx|gladiator|trooper)).*$/i,
+		name: "Fighter",
+		source: [["SRD24", 47], ["P24", 91]],
+		primaryAbility: "Strength or Dexterity",
+		prereqs: "Strength 13 or Dexterity 13",
+		die: 10,
+		improvements: [0, 0, 0, 1, 1, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5, 6, 6, 6, 7, 7],
+		saves: ["Str", "Con"],
+		skillstxt: {
+			primary: "Choose 2: Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Persuasion, Perception, or Survival."
 		},
-		armorProfs : {
-			primary : [true, true, true, true],
-			secondary : [true, true, false, true]
+		armorProfs: {
+			primary:   [true, true, true,  true],
+			secondary: [true, true, false, true],
 		},
-		weaponProfs : {
-			primary : [true, true],
-			secondary : [true, true]
+		weaponProfs: {
+			primary:   [true,  true],
+			secondary: [false, true],
 		},
-		equipment : "Fighter starting equipment:" +
-			"\n \u2022 Chain mail -or- leather armor, a longbow, and 20 arrows;" +
-			"\n \u2022 A martial weapon and a shield -or- two martial weapons;" +
-			"\n \u2022 A light crossbow and 20 bolts -or- two handaxes;" +
-			"\n \u2022 A dungeoneer's pack -or- an explorer's pack." +
-			"\n\nAlternatively, choose 5d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
-		subclasses : ["Martial Archetype", ["fighter-champion"]],
-		attacks : [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4],
-		features : {
-			"fighting style" : {
-				name : "Fighting Style",
-				source : [["SRD", 24], ["P", 72]],
-				minlevel : 1,
-				description : desc('Choose a Fighting Style for the fighter using the "Choose Feature" button above'),
-				choices : ["Archery", "Defense", "Dueling", "Great Weapon Fighting", "Protection", "Two-Weapon Fighting"],
-				"archery" : FightingStyles.archery,
-				"defense" : FightingStyles.defense,
-				"dueling" : FightingStyles.dueling,
-				"great weapon fighting" : FightingStyles.great_weapon,
-				"protection" : FightingStyles.protection,
-				"two-weapon fighting" : FightingStyles.two_weapon
+		startingEquipment: [{
+			gold: 4,
+			pack: "dungeoneer",
+			equipright: [
+				["Chain Mail", "", 55],
+				["Greatsword", "", 6],
+				["Flail", "", 2],
+				["Javelins", 8, 2],
+			],
+			equip1stPage: {
+				armor: "Chain Mail",
+				weapons: ["Greatsword", "Flail"],
+				ammo: [["Javelins", 8]],
 			},
-			"second wind" : {
-				name : "Second Wind",
-				source : [["SRD", 24], ["P", 72]],
-				minlevel : 1,
-				description : desc("As a bonus action, I regain 1d10 + fighter level HP; I can use this once per short rest"),
-				additional : levels.map(function (n) {
-					return "1d10+" + n;
+		}, {
+			gold: 11,
+			pack: "dungeoneer",
+			equipright: [
+				["Studded Leather Armor", "", 13],
+				["Scimitar", "", 3],
+				["Shortsword", "", 2],
+				["Longbow", "", 2],
+				["Quiver, with:", "", 2],
+				["Arrows", 20, 0.05],
+			],
+			equip1stPage: {
+				armor: "Studded Leather",
+				weapons: ["Longbow", "Scimitar", "Shortsword"],
+				ammo: [["Arrows", 20]],
+			},
+		}, {
+			gold: 155,
+		}],
+		subclasses: ["Fighter Subclass", ["fighter-champion"]],
+		attacks: levels.map(function (n) { return n < 5 ? 1 : n < 11 ? 2 : n < 20 ? 3 : 4; }),
+		features: {
+			"fighting style": {
+				name: "Fighting Style",
+				source: [["SRD24", 47], ["P24", 91]],
+				minlevel: 1,
+				description: '\nChoose a Fighting Style Feat using the "Choose Feature" button above.\nI can swap this fighting style for another whenever I gain a Fighter level.',
+				choicesFightingStyles: {
+					description: '\nI can swap this fighting style for another whenever I gain a Fighter level.',
+				},
+			},
+			"second wind": {
+				name: "Second Wind",
+				source: [["SRD24", 48], ["P24", 91]],
+				minlevel: 1,
+				description: "\nAs a bonus action, I regain 1d10 + my Fighter level HP.",
+				additional: levels.map(function (n) { return "1d10+" + n + ", regain 1/SR"; }),
+				usages: levels.map(function (n) { return n < 4 ? 2 : n < 10 ? 3 : 4; }),
+				recovery: "long rest",
+				action: [["bonus action", ""]],
+			},
+			"weapon mastery": {
+				name: "Weapon Mastery",
+				source: [["SRD24", 48], ["P24", 91]],
+				minlevel: 1,
+				description: '\nI gain mastery with a number of Simple/Martial weapons. Whenever I finish a Long Rest,\nI can change one of these choices. Use the "Choose Feature" button above to select them.',
+				additional: levels.map(function (n) {
+					return (n < 4 ? 3 : n < 10 ? 4 : n < 16 ? 5 : 6) + " Weapon Masteries";
 				}),
-				usages : 1,
-				recovery : "short rest",
-				action : [["bonus action", ""]]
+				extraTimes: levels.map(function (n) { return n < 4 ? 3 : n < 10 ? 4 : n < 16 ? 5 : 6; }),
+				extraname: "Weapon Mastery",
+				choicesWeaponMasteries: true,
 			},
-			"action surge" : {
-				name : "Action Surge",
-				source : [["SRD", 25], ["P", 72]],
-				minlevel : 2,
-				description : desc("I can take one additional action on my turn on top of my normally allowed actions"),
-				usages : [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2],
-				recovery : "short rest"
+			"action surge": {
+				name: "Action Surge",
+				source: [["SRD24", 48], ["P24", 91]],
+				minlevel: 2,
+				description: levels.map(function (n) {
+					return "\nOn my turn I can take an additional action, except the Magic action." + (n < 17 ? '' : "Only once per turn.");
+				}),
+				usages: levels.map(function (n) { return n < 2 ? 0 : n < 17 ? 1 : 2; }),
+				recovery: "short rest",
+			},
+			"tactical mind": {
+				name: "Tactical Mind",
+				source: [["SRD24", 48], ["P24", 91]],
+				minlevel: 2,
+				description: "\nWhen I fail an ability check, I expend a Second Wind to add 1d10. If still fail, not expended.",
 			},
 			"subclassfeature3" : {
-				name : "Martial Archetype",
-				source : [["SRD", 25], ["P", 72]],
-				minlevel : 3,
-				description : desc('Choose a Martial Archetype you strive to emulate and put it in the "Class" field ')
+				name: "Fighter Subclass",
+				source: [["SRD24", 48], ["P24", 92]],
+				minlevel: 3,
+				description: '\nChoose a Fighter Subclass using the "Class" button/bookmark or type its name into the "Class" field.',
 			},
-			"indomitable" : {
-				name : "Indomitable",
-				source : [["SRD", 25], ["P", 72]],
-				minlevel : 9,
-				description : desc("I can reroll a failed saving throw, but must keep the new result"),
-				usages : [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3],
-				recovery : "long rest"
-			}
-		}
+			"tactical shift": {
+				name: "Tactical Shift",
+				source: [["SRD24", 48], ["P24", 92]],
+				minlevel: 5,
+				description: "\nWhen I use Second Wind, I can move half my speed without provoking Opportunity Attacks.",
+			},
+			"indomitable": {
+				name: "Indomitable",
+				source: [["SRD24", 48], ["P24", 92]],
+				minlevel: 9,
+				description: "\nI can reroll a failed saving throw and add my Fighter level, but must keep the new result.",
+				usages: levels.map(function (n) { return n < 9 ? 0 : n < 13 ? 1 : n < 17 ? 2 : 3; }),
+				recovery: "long rest",
+			},
+			"studied attacks": {
+				name: "Studied Attacks",
+				source: [["SRD24", 48], ["P24", 92]],
+				minlevel: 13,
+				description: "\nIf I miss an attack, I have Adv. on next attack vs. same creature before my next turn ends.",
+			},
+		},
 	},
 
-	"monk" : {
-		regExpSearch : /^((?=.*(monk|monastic))|(((?=.*martial)(?=.*(artist|arts)))|((?=.*spiritual)(?=.*warrior)))).*$/i,
-		name : "Monk",
-		source : [["SRD24", 49], ["P24", 101]],
+	"monk": {
+		regExpSearch: /^((?=.*(monk|monastic))|(((?=.*martial)(?=.*(artist|arts)))|((?=.*spiritual)(?=.*warrior)))).*$/i,
+		name: "Monk",
+		source: [["SRD24", 49], ["P24", 101]],
 		primaryAbility : "Dexterity and Wisdom",
 		abilitySave : 5,
 		prereqs : "Dexterity 13 and Wisdom 13",
@@ -764,13 +887,13 @@ var Base_ClassList = {
 			"\n \u2022 10 darts." +
 			"\n\nAlternatively, choose 5d4 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
 		subclasses : ["Monastic Tradition", ["monk-way of the open hand"]],
-		attacks : [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+		attacks: [1, 1, 1, 1, 2],
 		features : {
 			"unarmored defense" : {
 				name : "Unarmored Defense",
 				source : [["SRD24", 50], ["P24", 101]],
 				minlevel : 1,
-				description : desc("Without armor and no shield, my AC is 10 + Dexterity modifier + Wisdom modifier"),
+				description: "\nWithout armor and no shield, my AC is 10 + Dexterity modifier + Wisdom modifier",
 				armorOptions : [{
 					regExpSearch : /justToAddToDropDownAndEffectWildShape/,
 					name : "Unarmored Defense (Wis)",
@@ -1010,10 +1133,10 @@ var Base_ClassList = {
 		}
 	},
 
-	"paladin" : {
-		regExpSearch : /^((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
-		name : "Paladin",
-		source : [["SRD24", 53], ["P24", 109]],
+	"paladin": {
+		regExpSearch: /^((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
+		name: "Paladin",
+		source: [["SRD24", 53], ["P24", 109]],
 		primaryAbility : "Strength and Charisma",
 		abilitySave : 6,
 		prereqs : "Strength 13 and Charisma 13",
@@ -1038,7 +1161,7 @@ var Base_ClassList = {
 			"\n \u2022 Chain mail and a holy symbol." +
 			"\n\nAlternatively, choose 5d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
 		subclasses : ["Sacred Oath", ["paladin-oath of devotion"]],
-		attacks : [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+		attacks: [1, 1, 1, 1, 2],
 		spellcastingFactor : 2,
 		spellcastingKnown : {
 			spells : "list",
@@ -1163,10 +1286,10 @@ var Base_ClassList = {
 		}
 	},
 
-	"ranger" : {
-		regExpSearch : /^((?=.*(ranger|strider))|((?=.*(nature|natural))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
-		name : "Ranger",
-		source : [["SRD24", 57], ["P24", 119]],
+	"ranger": {
+		regExpSearch: /^((?=.*(ranger|strider))|((?=.*(nature|natural))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
+		name: "Ranger",
+		source: [["SRD24", 57], ["P24", 119]],
 		primaryAbility : "Dexterity and Wisdom",
 		abilitySave : 5,
 		prereqs : "Dexterity 13 and Wisdom 13",
@@ -1192,7 +1315,7 @@ var Base_ClassList = {
 			"\n \u2022 A longbow and a quiver of 20 arrows." +
 			"\n\nAlternatively, choose 5d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
 		subclasses : ["Ranger Archetype", ["ranger-hunter"]],
-		attacks : [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+		attacks: [1, 1, 1, 1, 2],
 		spellcastingFactor : 2,
 		spellcastingKnown : {
 			spells : [0, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11]
@@ -1448,10 +1571,10 @@ var Base_ClassList = {
 		}
 	},
 
-	"rogue" : {
-		regExpSearch : /(rogue|miscreant)/i,
-		name : "Rogue",
-		source : [["SRD24", 61], ["P24", 129]],
+	"rogue": {
+		regExpSearch: /rogue|miscreant/i,
+		name: "Rogue",
+		source: [["SRD24", 61], ["P24", 129]],
 		primaryAbility : "Rogue: Dexterity",
 		prereqs : "Dexterity 13",
 		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6],
@@ -1479,7 +1602,6 @@ var Base_ClassList = {
 			"\n \u2022 Leather armor, two daggers, and thieves' tools." +
 			"\n\nAlternatively, choose 4d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
 		subclasses : ["Roguish Archetype", ["rogue-thief"]],
-		attacks : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		features : {
 			"expertise" : function() {
 				var a = {
@@ -1627,20 +1749,20 @@ var Base_ClassList = {
 	},
 
 	"sorcerer" : {
-		regExpSearch : /sorcerer|witch/i,
-		name : "Sorcerer",
-		source : [["SRD24", 64], ["P24", 139]],
-		primaryAbility : "Charisma",
-		abilitySave : 6,
-		prereqs : "Charisma 13",
-		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-		die : 6,
-		saves : ["Con", "Cha"],
-		skillstxt : {
-			primary : "Choose two from Arcana, Deception, Insight, Intimidation, Persuasion, and Religion"
+		regExpSearch: /sorcerer|witch/i,
+		name: "Sorcerer",
+		source: [["SRD24", 64], ["P24", 139]],
+		primaryAbility: "Charisma",
+		abilitySave: 6,
+		prereqs: "Charisma 13",
+		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
+		die: 6,
+		saves: ["Con", "Cha"],
+		skillstxt: {
+			primary: "Choose 2: Arcana, Deception, Insight, Intimidation, Persuasion, or Religion."
 		},
-		weaponProfs : {
-			primary : [false, false, ["dagger", "dart", "light crossbow", "quarterstaff", "sling"]]
+		weaponProfs: {
+			primary: [true, false]
 		},
 		equipment : "Sorcerer starting equipment:" +
 			"\n \u2022 A light crossbow and 20 bolts -or- any simple weapon;" +
@@ -1648,27 +1770,23 @@ var Base_ClassList = {
 			"\n \u2022 A dungeoneer's pack -or- an explorer's pack;" +
 			"\n \u2022 Two daggers." +
 			"\n\nAlternatively, choose 3d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
-		subclasses : ["Sorcerous Origin", ["sorcerer-draconic bloodline"]],
-		attacks : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-		spellcastingFactor : 1,
-		spellcastingKnown : {
-			cantrips : [4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
-			spells : [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 13, 13, 14, 14, 15, 15, 15, 15]
+		subclasses: ["Sorcerer Subclass", ["sorcerer-draconic bloodline"]],
+		spellcastingFactor: 1,
+		spellcastingKnown: {
+			cantrips: [4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+			spells: [2, 4, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22],
 		},
-		features : {
-			"spellcasting" : {
-				name : "Spellcasting",
-				source : [["SRD", 43], ["P", 101]],
-				minlevel : 1,
-				description : desc([
-					"I can cast sorcerer cantrips/spells that I know, using Charisma as my spellcasting ability",
-					"I can use an arcane focus as a spellcasting focus for my sorcerer spells"
-				]),
-				additional : levels.map(function (n, idx) {
-					var cantr = [4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6][idx];
-					var splls = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12, 13, 13, 14, 14, 15, 15, 15, 15][idx];
-					return cantr + " cantrips \u0026 " + splls + " spells known";
-				})
+		features: {
+			"spellcasting": {
+				name: "Spellcasting",
+				source: [["SRD24", 64], ["P24", 139]],
+				minlevel: 1,
+				description: "\nI can cast Sorcerer cantrips/spells I know, using Cha as my casting ability, and use Arcane Focus as Spellcasting Focus for them. I can swap 1 cantrip and 1 spell when I gain a level.",
+				additional: levels.map(function (n, idx) {
+					var cantrips = [4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6][idx];
+					var spells = [2, 4, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22][idx];
+					return cantrips + " cantrips \x26 " + spells + " spells known";
+				}),
 			},
 			"subclassfeature1" : {
 				name : "Sorcerous Origin",
@@ -1766,10 +1884,10 @@ var Base_ClassList = {
 		}
 	},
 
-	"warlock" : {
-		regExpSearch : /warlock/i,
-		name : "Warlock",
-		source : [["SRD24", 70], ["P24", 153]],
+	"warlock": {
+		regExpSearch: /warlock/i,
+		name: "Warlock",
+		source: [["SRD24", 70], ["P24", 153]],
 		primaryAbility : "Charisma",
 		abilitySave : 6,
 		prereqs : "Charisma 13",
@@ -1794,7 +1912,6 @@ var Base_ClassList = {
 			"\n \u2022 Leather armor, any simple weapon, and two daggers." +
 			"\n\nAlternatively, choose 4d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
 		subclasses : ["Otherworldly Patron", ["warlock-the fiend"]],
-		attacks : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		spellcastingFactor : "warlock1",
 		spellcastingKnown : {
 			cantrips : [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -1809,17 +1926,13 @@ var Base_ClassList = {
 				name : "Pact Magic",
 				source : [["SRD", 46], ["P", 107]],
 				minlevel : 1,
-				description : desc([
-					"I can cast warlock cantrips/spells that I know, using Charisma as my spellcasting ability",
-					"I can use an arcane focus as a spellcasting focus for my warlock spells",
-					"I regain these spell slots on a short rest"
-				]),
+				description: "\nI can cast Warlock cantrips/spells I know, using Cha as my casting ability, and use Arcane Focus as Spellcasting Focus for them. I can swap 1 cantrip and 1 spell when I gain a level.",
 				additional : levels.map(function (n, idx) {
 					var cantr = [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4][idx];
 					var splls = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15][idx];
 					var slots = n < 2 ? 1 : n < 11 ? 2 : n < 17 ? 3 : 4;
 					var sllvl = n < 3 ? 1 : n < 5 ? 2 : n < 7 ? 3 : n < 9 ? 4 : 5;
-					return cantr + " cantrips \u0026 " + splls + " spells known; " + slots + "\xD7 " + Base_spellLevelList[sllvl] + " spell slot";
+					return cantr + " cantrips \x26 " + splls + " spells known; " + slots + "\xD7 " + Base_spellLevelList[sllvl] + " spell slot";
 				})
 			},
 			"subclassfeature1" : {
@@ -2247,9 +2360,9 @@ var Base_ClassList = {
 						spellAdd : [
 							function (spellKey, spellObj, spName) {
 								if (spellKey == 'eldritch blast') {
-									spellObj.description = "Spell attack beam 1d10 Force damage \u0026 push 10 ft; beams can be combined; +1 beam at CL5,11,17";
-									spellObj.descriptionShorter = "Spell atk beam 1d10 Force damage \u0026 push 10 ft; can combine beams; +1 beam at CL5,11,17";
-									spellObj.descriptionCantripDie = "Spell atk for `CD` beam(s), each 1d10 Force damage \u0026 push 10 ft; can combine/split beams";
+									spellObj.description = "Spell attack beam 1d10 Force damage \x26 push 10 ft; beams can be combined; +1 beam at CL5,11,17";
+									spellObj.descriptionShorter = "Spell atk beam 1d10 Force damage \x26 push 10 ft; can combine beams; +1 beam at CL5,11,17";
+									spellObj.descriptionCantripDie = "Spell atk for `CD` beam(s), each 1d10 Force damage \x26 push 10 ft; can combine/split beams";
 								}
 							},
 							"When I hit a creature with my Eldritch Blast cantrip, it is pushed 10 ft away from me.",
@@ -2468,10 +2581,10 @@ var Base_ClassList = {
 		}
 	},
 
-	"wizard" : {
-		regExpSearch : /^(?=.*(wizard|mage|magus))(?!.*wild mage).*$/i,
-		name : "Wizard",
-		source : [["SRD24", 77], ["P24", 165]],
+	"wizard": {
+		regExpSearch: /^(?=.*(wizard|mage|magus))(?!.*wild mage).*$/i,
+		name: "Wizard",
+		source: [["SRD24", 77], ["P24", 165]],
 		primaryAbility : "Intelligence",
 		abilitySave : 4,
 		prereqs : "Intelligence 13",
@@ -2491,7 +2604,6 @@ var Base_ClassList = {
 			"\n \u2022 A spellbook." +
 			"\n\nAlternatively, choose 4d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
 		subclasses : ["Arcane Tradition", ["wizard-evocation"]],
-		attacks : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 		spellcastingFactor : 1,
 		spellcastingKnown : {
 			cantrips : [3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
@@ -2555,51 +2667,61 @@ var Base_ClassList = {
 };
 
 var Base_ClassSubList = {
-	"barbarian-berserker" : {
-		regExpSearch : /^((?=.*\b(berserker|berserk|berserkr|ulfheoinn|ulfheonar)s?\b)|((?=.*(warrior|fighter))(?=.*(odin|thor)))).*$/i,
-		subname : "Path of the Berserker",
-		fullname : "Berserker",
-		source : [["SRD", 9], ["P", 49]],
-		abilitySave : 6,
-		features : {
-			"subclassfeature3" : {
-				name : "Frenzy",
-				source : [["SRD", 9], ["P", 49]],
-				minlevel : 3,
-				description : desc([
-					"As a bonus action each turn while raging, I can make a melee attack",
-					"After my rage is over, I suffer one level of exhaustion"
-				]),
-				action : [["bonus action", " attack (while raging)"]]
+	"barbarian-berserker": {
+		regExpSearch: /^((?=.*\b(berserker|berserk|berserkr|ulfheoinn|ulfheonar)s?\b)|((?=.*(warrior|fighter))(?=.*(odin|thor)))).*$/i,
+		subname: "Path of the Berserker",
+		fullname: "Berserker",
+		source: [["SRD24", 30], ["P24", 54]],
+		abilitySave: 1,
+		features: {
+			"subclassfeature3": {
+				name: "Frenzy",
+				source: [["SRD24", 30], ["P24", 54]],
+				minlevel: 3,
+				description: "\nIf I use Reckless Attack " + (typePF ? "while Raging" : "in Rage") + ", my " + (typePF ? "first" : "1st") + " Strength attack hit on my turn deals extra damage.",
+				additional: levels.map(function (n) {
+					return "+" + (n < 9 ? 2 : n < 16 ? 3 : 4) + "d6 damage";
+				}),
+				calcChanges: {
+					atkAdd: [
+						function (fields, v) {
+							var lvl = classes.known.barbarian ? classes.known.barbarian.level : false;
+							if (lvl && v.isWeapon && fields.Mod === 1 && /\bfrenzy\b/i.test(v.WeaponTextName)) {
+								var multiplier = lvl < 9 ? 2 : lvl < 16 ? 3 : 4;
+								fields.Description += (fields.Description ? '; ' : '') + '1/turn +' + multiplier + 'd6 damage';
+							}
+						},
+						"Add the text \"Frenzy\" to the name of a weapon that uses Strength to have the Frenzy bonus damage added to its description."
+					],
+				},
 			},
-			"subclassfeature6" : {
-				name : "Mindless Rage",
-				source : [["SRD", 10], ["P", 49]],
-				minlevel : 6,
-				description : desc("While raging, I can't be charmed or frightened, and such effects are suspended"),
-				savetxt : { text : ["Immune to being charmed/frightened in rage"] }
+			"subclassfeature6": {
+				name: "Mindless Rage",
+				source: [["SRD24", 30], ["P24", 54]],
+				minlevel: 6,
+				description: "\nWhile Raging, I'm immune to being Charmed or Frightened. These end when I enter Rage.",
+				savetxt: { immune: ["Charmed (in rage)", "Frightened (in rage)"] },
 			},
-			"subclassfeature10" : {
-				name : "Intimidating Presence",
-				source : [["SRD", 10], ["P", 49]],
-				minlevel : 10,
-				description : desc([
-					"As an action, frighten one creature in 30 ft for one turn if it fails a Wisdom save",
-					"This effect ends if the creature is out of line of sight or more than 60 ft away",
-					"If a creature succeeds its saving throw, it is immune for 24 hours"
-				]),
-				action : [["action", ""]]
+			"subclassfeature10": {
+				name: "Retaliation",
+				source: [["SRD24", 30], ["P24", 54]],
+				minlevel: 10,
+				description: "\nAs a Reaction when a creature within 5 ft damages me, I can make a melee attack vs. it.",
+				action: [["reaction", " (after taking damage)"]],
 			},
 			"subclassfeature14" : {
-				name : "Retaliation",
-				source : [["SRD", 10], ["P", 50]],
-				minlevel : 14,
-				description : desc("When an enemy within 5 ft damages me, I can make a melee attack as a reaction"),
-				action : [["reaction", " (after taking damage)"]]
-			}
-		}
+				name: "Intimidating Presence",
+				source: [["SRD24", 30], ["P24", 54]],
+				minlevel: 14,
+				description: "\nAs a Bonus Action, I can have any creature of my choice within 30 ft make a Wisdom save or be Frightened of me for 1 minute (DC 8 + Str mod + Prof B.). They can repeat this save at each of their turn's end. I can do this once per Long Rest or by expending a Rage use.",
+				action : [["bonus action", ""]],
+				usages: 1,
+				recovery: "long rest",
+				altResource: "Rage",
+			},
+		},
 	},
-	"bard-college of lore" : {
+	"bard-lore" : {
 		regExpSearch : /^(?=.*(college|bard|minstrel|troubadour|jongleur))(?=.*lore).*$/i,
 		subname : "College of Lore",
 		source : [["SRD", 13], ["P", 54]],
@@ -2616,7 +2738,7 @@ var Base_ClassSubList = {
 				source : [["SRD", 13], ["P", 54]],
 				minlevel : 3,
 				description : desc([
-					"As a reaction, when a foe within earshot & 60 ft rolls ability check, attack or damage,",
+					"As a reaction, when a foe within earshot \x26 60 ft rolls ability check, attack or damage,",
 					"I can subtract a Bardic Inspiration die from the result unless the foe can't be charmed"
 				]),
 				action : [["reaction", ""]]
@@ -2640,7 +2762,7 @@ var Base_ClassSubList = {
 			}
 		}
 	},
-	"cleric-life domain" : {
+	"cleric-life" : {
 		regExpSearch : /^(?=.*(cleric|priest|clergy|acolyte))(?=.*\b(life|living|healing)\b).*$/i,
 		subname : "Life Domain",
 		source : [["SRD", 17], ["P", 60]],
@@ -2912,55 +3034,61 @@ var Base_ClassSubList = {
 		}
 	},
 	"fighter-champion" : {
-		regExpSearch : /champion/i,
-		subname : "Champion",
-		fullname : "Champion",
-		source : [["SRD", 25], ["P", 72]],
-		features : {
-			"subclassfeature3" : {
-				name : "Improved Critical",
-				source : [["SRD", 25], ["P", 72]],
-				minlevel : 3,
-				description : desc("I score a critical hit with my weapon attacks on a roll of 19 and 20"),
-				calcChanges : {
-					atkAdd : [
+		regExpSearch: /champion/i,
+		subname: "Champion",
+		fullname: "Champion",
+		source: [["SRD24", 49], ["P24", 96]],
+		features: {
+			"subclassfeature3": {
+				name: "Improved Critical",
+				source: [["SRD24", 49], ["P24", 96]],
+				minlevel: 3,
+				description: "\nI score a Critical Hit with my weapon and unarmed strike attacks on a roll of 19 and 20.",
+				calcChanges: {
+					atkAdd: [
 						function (fields, v) {
 							if (!v.isSpell && !v.CritChance && !v.isDC && classes.known.fighter && classes.known.fighter.level < 15) {
 								fields.Description += (fields.Description ? '; ' : '') + 'Crit on 19-20';
 								v.CritChance = 19;
 							};
 						},
-						"My weapon attacks score a critical on a to hit roll of both 19 and 20.",
-						19
-					]
-				}
+						"My weapon and unarmed strike attacks score a Critical Hit on a to hit roll of both 19 and 20.",
+						19,
+					],
+				},
 			},
-			"subclassfeature7" : {
+			"subclassfeature3.1": {
 				name : "Remarkable Athlete",
-				source : [["SRD", 25], ["P", 72]],
-				minlevel : 7,
-				description : desc([
-					"I add half my Proficiency Bonus to Str/Dex/Con checks if I would otherwise add none",
-					"When making running long jumps, I add my Strength modifier to the distance in feet"
-				]),
-				eval : function() { Checkbox('Remarkable Athlete', true); },
-				removeeval : function() { Checkbox('Remarkable Athlete', false); }
+				source: [["SRD24", 49], ["P24", 96]],
+				minlevel: 3,
+				description: "\nAfter I score a Critical Hit, I can move half my Speed without provoking Opportunity Attacks. I have Advantage on Initiative rolls and Strength (Athletics) checks.",
+				advantages: [
+					["Initiative", true],
+					["Athletics", true],
+				],
 			},
-			"subclassfeature10" : function () {
-				var FSfea = newObj(Base_ClassList.fighter.features["fighting style"]);
-				FSfea.name = "Additional Fighting Style";
-				FSfea.source = [["SRD", 25], ["P", 73]];
-				FSfea.minlevel = 10;
-				FSfea.description = desc('Choose an Additional Fighting Style using the "Choose Feature" button above ');
-				return FSfea;
-			}(),
-			"subclassfeature15" : {
-				name : "Superior Critical",
-				source : [["SRD", 25], ["P", 73]],
-				minlevel : 15,
-				description : desc("I score a critical hit with my weapon attacks on a roll of 18, 19, and 20"),
-				calcChanges : {
-					atkAdd : [
+			"subclassfeature7": {
+				name: "Additional Fighting Style",
+				source: [["SRD24", 49], ["P24", 96]],
+				minlevel: 7,
+				description: '\nChoose another Fighting Style Feat using the "Choose Feature" button above.',
+				choicesFightingStyles: {
+					namePrefix: "Additional Fighting Style: ",
+				},
+			},
+			"subclassfeature10": {
+				name: "Heroic Warrior",
+				source: [["SRD24", 49], ["P24", 96]],
+				minlevel: 10,
+				description: "\nI can give myself Heroic Inspiration whenever I start my turn in combat without it.",
+			},
+			"subclassfeature15": {
+				name: "Superior Critical",
+				source: [["SRD24", 49], ["P24", 96]],
+				minlevel: 15,
+				description: "\nI now score a Critical Hit with my weapons \x26 unarmed strikes on a roll of 18, 19, and 20.",
+				calcChanges: {
+					atkAdd: [
 						function (fields, v) {
 							if (v.isSpell || v.isDC) return;
 							if (v.CritChance && v.CritChance > 18) {
@@ -2971,16 +3099,16 @@ var Base_ClassSubList = {
 								v.CritChance = 18;
 							};
 						},
-						"My weapon attacks also score a critical on a to hit roll of 18.",
-						18
-					]
-				}
+						"My weapon and unarmed strike attacks noww also score a Critical Hit on a to hit roll of 18.",
+						18,
+					],
+				},
 			},
-			"subclassfeature18" : {
-				name : "Survivor",
-				source : [["SRD", 25], ["P", 73]],
-				minlevel : 18,
-				description : desc("At the start of my turn, if I'm not above half or at 0 HP, I regain 5 + Con mod HP")
+			"subclassfeature18": {
+				name: "Survivor",
+				source: [["SRD24", 49], ["P24", 96]],
+				minlevel: 18,
+				description: "\n**Defy Death**. I have Adv. on Death saves and 18-20 on those saves count as a natural 20.\n**Heroic Rally**. If I'm Blooded and at 1+ HP at the start of my turn, I heal 5 + Con mod HP.",
 			}
 		}
 	},

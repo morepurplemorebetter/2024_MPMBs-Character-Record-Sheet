@@ -6075,7 +6075,7 @@ function getSpellShortDescription(spellKey, spellObj) {
 	// Do some common replacements to save space for the very limited short description
 	var arrTxtReplace = [
 		[/\bdamaged?\b/ig, 'dmg'],
-		[/ and /ig, ' \u0026 '],
+		[/ and /ig, ' \x26 '],
 		[/(dif)ficult (ter)(rain|\.)|(dif)(ficult|\.) (ter)rain/ig, '$1. $2.'],
 		[/(crea)tures?/ig, '$1'],
 		[/(obj)ects?/ig, '$1'],
