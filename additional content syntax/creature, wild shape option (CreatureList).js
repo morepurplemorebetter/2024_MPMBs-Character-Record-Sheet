@@ -42,7 +42,7 @@
 	        	You will also need the syntax for common attributes if you want to use a
 	        	custom calculation for hit points (calcChanges.hp).
 
-	Sheet:		v13.1.11 and newer
+	Sheet:		v24.0.0 and newer
 
 */
 
@@ -60,7 +60,7 @@ var iFileName = "Homebrew Syntax - CreatureList.js";
 	Only the first occurrence of this variable will be used.
 */
 
-RequiredSheetVersion("13.1.11");
+RequiredSheetVersion("24.0.0");
 /*	RequiredSheetVersion // OPTIONAL //
 	TYPE:	function call with one variable, a string or number
 	USE:	the minimum version of the sheet required for the import script to work
@@ -89,7 +89,7 @@ CreatureList["purple crawler"] = {
 	If you do use an object name that is already in use, you will be overwriting that object.
 	Note the use of only lower case! Also note the absence of the word "var" and the use of brackets [].
 */
-	name : "Purple Crawler",
+	name: "Purple Crawler",
 /*	name // REQUIRED //
 	TYPE:	string
 	USE:	name of the creature as it will be used by the sheet
@@ -97,7 +97,7 @@ CreatureList["purple crawler"] = {
 	This name will also be used to recognize what is selected in the race drop-down on
 	the companion and wild shape pages.
 */
-	nameAlt : ["Purple Creeper"],
+	nameAlt: ["Purple Creeper"],
 /*	nameAlt // OPTIONAL //
 	TYPE:	array of strings (variable size)
 	USE:	alternative names for the creature
@@ -113,8 +113,8 @@ CreatureList["purple crawler"] = {
 	Find Steed, Find Greater Steed, a ranger's companion or something similar,
 	then these alternative names will also be shown in the menu options.
 */
-	source : ["SRD", 204],
-	source : [["E", 7], ["S", 115]],
+	source: ["SRD", 204],
+	source: [["E", 7], ["S", 115]],
 /*	source // REQUIRED //
 	TYPE:	array with two entries (or array of these arrays)
 	USE:	define where the creature is found
@@ -135,10 +135,10 @@ CreatureList["purple crawler"] = {
 	on page 115 of the Sword Coast Adventure Guide.
 
 	If a creature is completely homebrew, or you don't want to make a custom source, just put the following:
-		source : ["HB", 0],
+		source: ["HB", 0],
 	"HB" refers to the 'homebrew' source.
 */
-	defaultExcluded : true,
+	defaultExcluded: true,
 /*	defaultExcluded // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether this creature should be excluded by default (true) or included by default (false)
@@ -152,8 +152,8 @@ CreatureList["purple crawler"] = {
 
 	Setting this attribute to false is the same as not including this attribute.
 */
-	size : 3,
-	size : [4, 3],
+	size: 3,
+	size: [4, 3],
 /*	size // REQUIRED //
 	TYPE:	number or array (since v13.0.6)
 	USE:	set the size category drop-down box
@@ -166,7 +166,7 @@ CreatureList["purple crawler"] = {
 		to make a choice which one to use.
 		Add the numbers corresponding to the size categories of the creature (see table below) to the array.
 		For example, if you do
-			size : [4, 3],
+			size: [4, 3],
 		the player will be prompted to select either Small or Medium as the creature's size category.
 
 	The corresponding number to the size categories are as follows:
@@ -178,8 +178,8 @@ CreatureList["purple crawler"] = {
 		4	Small
 		5	Tiny
 */
-	type : "Fiend",
-	type : ["Celestial", "Fey", "Fiend"],
+	type: "Fiend",
+	type: ["Celestial", "Fey", "Fiend"],
 /*	type // REQUIRED //
 	TYPE:	string or array (since v13.1.0)
 	USE:	set the type drop-down box
@@ -210,8 +210,8 @@ CreatureList["purple crawler"] = {
 	This value is put in the type drop-down box of the sheet without any changes,
 	thus it is recommended to capitalize it for consistency.
 */
-	subtype : "devil",
-	subtype : ["demon", "devil"],
+	subtype: "devil",
+	subtype: ["demon", "devil"],
 /*	subtype // OPTIONAL //
 	TYPE:	string or array (since v13.1.0)
 	USE:	add the subtype in the type drop-down box
@@ -230,8 +230,8 @@ CreatureList["purple crawler"] = {
 	This value is put in the type drop-down box of the sheet without any changes,
 	only with added brackets around it,	thus it is recommended to have it all lowercase for consistency.
 */
-	companion : "familiar",
-	companion : ["familiar_not_al", "mount"],
+	companion: "familiar",
+	companion: ["familiar_not_al", "mount"],
 /*	companion // OPTIONAL //
 	TYPE:	array of strings (or string, for backwards compatibility)
 	USE:	list this creature as an option for a special type of companion
@@ -273,7 +273,7 @@ CreatureList["purple crawler"] = {
 	When the DCI field is visible (i.e. Adventurers League enabled), the creature
 	will not be listed in the menu for that companion type.
 */
-	companionApply : "companion",
+	companionApply: "companion",
 /*	companionApply // OPTIONAL //
 	TYPE:	string
 	USE:	always set this creature to be this special type of companion
@@ -304,7 +304,7 @@ CreatureList["purple crawler"] = {
 
 	Be aware that this list is slightly different than the one for the `companion` attribute!
 */
-	alignment : "Unaligned",
+	alignment: "Unaligned",
 /*	alignment // REQUIRED //
 	TYPE:	string
 	USE:	set the alignment drop-down box
@@ -312,7 +312,7 @@ CreatureList["purple crawler"] = {
 	This value is put in the alignment drop-down box of the sheet without any changes,
 	thus it is recommended to capitalize it for consistency.
 */
-	ac : 11,
+	ac: 11,
 /*	ac // REQUIRED //
 	TYPE:	number
 	USE:	set the armour class
@@ -320,7 +320,7 @@ CreatureList["purple crawler"] = {
 	This number is filled in the AC field as-is, no calculations are done with regards to armour worn
 	or anything like that.
 */
-	hp : 10,
+	hp: 10,
 /*	hp // REQUIRED //
 	TYPE:	number
 	USE:	set the maximum amount of hit points
@@ -330,7 +330,7 @@ CreatureList["purple crawler"] = {
 	It is still possible to enable automatic updates for the Max HP field using the "Set Max HP" button,
 	but by default only the hp value set here will be displayed and it will not automatically update.
 */
-	hd : [3, 4],
+	hd: [3, 4],
 /*	hd // REQUIRED //
 	TYPE:	array with two number entries
 	USE:	set the hit dice
@@ -347,8 +347,8 @@ CreatureList["purple crawler"] = {
 
 	The example above is for 3d4 hit dice.
 */
-	hdLinked : ["ranger", "rangerua"],
-	hdLinked : function(prefix) { return classes.known.ranger ? classes.known.ranger.level - 3 : 0; },
+	hdLinked: ["ranger", "rangerua"],
+	hdLinked: function(prefix) { return classes.known.ranger ? classes.known.ranger.level - 3 : 0; },
 /*	hdLinked // OPTIONAL //
 	TYPE:	array with ClassList object names (variable length) or function
 	USE:	dynamically set the number of HD to a class level (array) or anything you want (function)
@@ -371,7 +371,7 @@ CreatureList["purple crawler"] = {
 		If it returns false, 0, "", or anything that is not a number, the sheet will default to
 		the first entry in the `hd` attribute, see above.
 */
-	speed : "20 ft, climb 30 ft",
+	speed: "20 ft, climb 30 ft",
 /*	speed // REQUIRED //
 	TYPE:	string
 	USE:	set the movement speed
@@ -380,7 +380,7 @@ CreatureList["purple crawler"] = {
 	except that on the Printer Friendly sheets any comma followed by a space is replaced with
 	a comma followed by a line break.
 */
-	proficiencyBonus : 2,
+	proficiencyBonus: 2,
 /*	speed // REQUIRED //
 	TYPE:	number
 	USE:	set the proficiency bonus
@@ -388,7 +388,7 @@ CreatureList["purple crawler"] = {
 	This value is put in the proficiency bonus field without any changes.
 	It is also used for determining the creature's proficiency with skills and saving throws (see below).
 */
-	proficiencyBonusLinked : true,
+	proficiencyBonusLinked: true,
 /*	proficiencyBonusLinked // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether the proficiency bonus is the same (true) as the main character or not (false)
@@ -404,7 +404,7 @@ CreatureList["purple crawler"] = {
 
 	Setting this attribute to false is the same as not including this attribute.
 */
-	challengeRating : "1/2",
+	challengeRating: "1/2",
 /*	challengeRating // REQUIRED //
 	TYPE:	string
 	USE:	set the challenge rating
@@ -412,7 +412,7 @@ CreatureList["purple crawler"] = {
 	This value is put in the challenge rating field (on the wild shape page) without any changes.
 	This value is used on the wild shape page to show the creature in the right submenu.
 */
-	scores : [15, 13, 12, 2, 13, 8],
+	scores: [15, 13, 12, 2, 13, 8],
 /*	scores // REQUIRED //
 	TYPE:	array of six numbers
 	USE:	set the ability scores
@@ -430,7 +430,7 @@ CreatureList["purple crawler"] = {
 
 	[Str, Dex, Con, Int, Wis, Cha]
 */
-	saves : ["", 3, "", "", "", ""],
+	saves: ["", 3, "", "", "", ""],
 /*	saves // OPTIONAL //
 	TYPE:	array of six numbers
 	USE:	set the saving throw proficiencies
@@ -445,7 +445,7 @@ CreatureList["purple crawler"] = {
 	and determine if the creature is proficient and/or has other modifiers.
 	Then it will check the proficiency box and/or fill the modifier field, as appropriate.
 */
-	savesLinked : true,
+	savesLinked: true,
 /*	savesLinked // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether the total save bonus is the same (true) as the main character or not (false)
@@ -464,7 +464,7 @@ CreatureList["purple crawler"] = {
 
 	Setting this attribute to false is the same as not including this attribute.
 */
-	senses : "Darkvision 60 ft",
+	senses: "Darkvision 60 ft",
 /*	senses	// REQUIRED //
 	TYPE:	string
 	USE:	add text to the Senses section on the Companion page
@@ -475,7 +475,7 @@ CreatureList["purple crawler"] = {
 	to add the bonus to the modifier field.
 
 	If the creature doesn't have any special senses, set an empty string for this attribute, like so:
-		senses : "",
+		senses: "",
 
 	This text are also displayed on the wild shape page, but in the singular Traits & Features section,
 	together with all other descriptive string, traits, features, and action attributes.
@@ -483,7 +483,7 @@ CreatureList["purple crawler"] = {
 	the other attributes together will fit.
 	If they don't fit (well), consider using the `wildshapeString` attribute, see below.
 */
-	attacksAction : 2,
+	attacksAction: 2,
 /*	attacksAction // REQUIRED //
 	TYPE:	number
 	USE:	set the number of attacks per action
@@ -492,12 +492,12 @@ CreatureList["purple crawler"] = {
 	This value is not displayed on the wild shape page, hence it is recommended to also explain
 	the multiattack trait in the description of the appropriate attack and/or in the `traits` attribute.
 */
-	attacks : [{
-		name : "Claws",
-		ability : 1,
-		damage : [2, 6, "slashing"],
-		range : "Melee (5 ft)",
-		description : "Two claws attacks as an Attack action"
+	attacks: [{
+		name: "Claws",
+		ability: 1,
+		damage: [2, 6, "slashing"],
+		range: "Melee (5 ft)",
+		description: "Two claws attacks as an Attack action"
 	}],
 /*	attacks // REQUIRED //
 	TYPE:	array (variable length) of WeaponsList objects
@@ -518,7 +518,7 @@ CreatureList["purple crawler"] = {
 	You can have attacks with identical names as weapon options in the attack drop-down box.
 	The companion page will always use the attacks defined in the creature's entry over those in the WeaponsList.
 */
-	skills : {
+	skills: {
 		"Athletics" : 4,
 		"Perception" : 5
 	},
@@ -541,63 +541,88 @@ CreatureList["purple crawler"] = {
 	as it only has Wis 13 (+1), so the total of +5 Perception must be due adding twice
 	the Proficiency Bonus of +2.
 */
-	damage_vulnerabilities : "cold",
-	damage_resistances : "lightning; thunder; bludgeoning, piercing, and slashing from nonmagical weapons",
-	damage_immunities : "poison",
-	condition_immunities : "exhaustion, grappled, paralyzed, petrified, poisoned, prone, restrained, unconscious",
-	languages : "Terran",
+	damage_vulnerabilities: "cold",
+	vulnerabilities: "cold",
+	damage_resistances: "lightning; thunder; bludgeoning, piercing, and slashing from nonmagical weapons",
+	resistances: "Cold, Fire, Lightning",
+	damage_immunities: "poison",
+	condition_immunities: "exhaustion, grappled, paralyzed, petrified, poisoned, prone, restrained, unconscious",
+	immunities: "Acid, Poison; Poisoned",
+	languages: "Terran",
 /*	damage_vulnerabilities	// OPTIONAL //
-	damage_resistances	  	// OPTIONAL //
+	vulnerabilities       	// OPTIONAL //
+	damage_resistances    	// OPTIONAL //
+	resistances	          	// OPTIONAL //
 	damage_immunities     	// OPTIONAL //
 	condition_immunities  	// OPTIONAL //
+	immunities            	// OPTIONAL //
 	languages             	// OPTIONAL //
 	TYPE:	string
 	USE:	add text to the Features section on the Companion/Wild Shape page
+	CHANGE: v14.0.0 (formatting characters)
+	CHANGE: v24.0.0 (added `vulnerabilities`, `resistances`, and `immunities`)
 
 	All of these optional attributes are strings that get their content added to the Features section.
-	Each will be preceded with a bullet point and the appropriate name, for example:
-		languages : "Sylvan and Elvish",
+	Each will be preceded with a bullet point and the appropriate name, with the name made
+	into a "header 2", for example:
+		languages: "Sylvan and Elvish",
 	Will result in:
-		◆ Languages: Sylvan and Elvish.
+		##◆ Languages##. Sylvan and Elvish.
  
-	These text are also displayed on the wild shape page, but all together in the singular Traits & Features section,
-	together with all other descriptive string, traits, features, and action attributes.
+	These text are also displayed on the wild shape page, but all together in the singular 
+	Traits & Features section, together with all other descriptive string, traits, features,
+	and action attributes.
 	As the wild shape pages offer limited space, it is recommended to test if all of these and
 	the other attributes together will fit.
 	If they don't fit (well), consider using the `wildshapeString` attribute, see below.
+
+	FORMATTING CHARACTERS (since v14.0.0)
+	These can be formatted using the Rich Text formatting characters.
+	Text between the formatting characters will be displayed differently on the sheet.
+	The formatting characters are as follows:
+		*text*   = italic
+		**text** = bold
+		_text_   = underlined [doesn't work in tooltips/pop-ups]
+		~text~   = strikethrough [doesn't work in tooltips/pop-ups]
+		#text#   = Header 1:
+		           - bold and theme color (Colourful)
+		           - bold and 15% size increase (Printer Friendly)
+		##text## = Header 2:
+		           - italic, bold, and theme color (Colourful)
+		           - italic and bold (Printer Friendly)
 */
-	features : [{
-		name : "False Appearance",
-		description : "While the purple crawler remains motionless, it is indistinguishable from an ordinary purple flower.",
-		joinString : "\n   "
+	features: [{
+		name: "False Appearance",
+		description: "While the purple crawler remains motionless, it is indistinguishable from an ordinary purple flower.",
+		joinString: "\n   "
 	}],
-	actions : [{
-		name : "Invisibility",
-		minlevel : 5,
-		description : "As an action, the purple crawler magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell).",
-		addMod : [{ type : "skill", field : "all", mod : "max(oCha|1)", text : "The purple crawler adds its master's Charisma modifier (min 1) to all its skill checks." }]
+	actions: [{
+		name: "Invisibility",
+		minlevel: 5,
+		description: "As an action, the purple crawler magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell).",
+		addMod: [{ type : "skill", field : "all", mod : "max(oCha|1)", text : "The purple crawler adds its master's Charisma modifier (min 1) to all its skill checks." }]
 	}],
-	traits : [{
-		name : "Keen Sight",
-		minlevel : 8,
-		description : "The purple crawler has advantage on Wisdom (Perception) checks that rely on sight. It size increases to Large.",
-		eval : function(prefix, lvl) {
+	traits: [{
+		name: "Keen Sight",
+		minlevel: 8,
+		description: "The purple crawler has advantage on Wisdom (Perception) checks that rely on sight. It size increases to Large.",
+		eval: function(prefix, lvl) {
 			// Increase size to Large
 			PickDropdown(prefix + "Comp.Desc.Size", 2);
 		},
-		removeeval : function(prefix, lvl) {
+		removeeval: function(prefix, lvl) {
 			// Change size back to Medium
 			PickDropdown(prefix + "Comp.Desc.Size", 3);
 		}
 	}],
-	notes : [{
-		name : "Lila Laser Light (Purplemancer 13)",
-		minlevel : 13,
-		description : desc([
+	notes: [{
+		name: "Lila Laser Light (Purplemancer 13)",
+		minlevel: 13,
+		description: desc([
 			"The purple companion gains the ability to shine in a bright purple color",
 			"Once per long rest, it can cast Hypnotic Pattern without requiring components"
 		]),
-		joinString : ""
+		joinString: ""
 	}],
 /*	features // OPTIONAL //
 	actions  // OPTIONAL //
@@ -607,6 +632,7 @@ CreatureList["purple crawler"] = {
 	USE:	add text to the Traits and Features sections on the Companion page
 	CHANGE:	v13.1.0 (added `joinString` attribute)
 	CHANGE:	v13.1.11 (added `notes`)
+	CHANGE: v14.0.0 (formatting characters)
 
 	Each of these three attributes work in the same way.
 	Each is an array with objects that have at least two attributes, `name` and `description`, that each contain a string.
@@ -620,24 +646,24 @@ CreatureList["purple crawler"] = {
 	For a more detailed explanation of these attributes, see below in the
 	Companion Page Only section.
 
-	Each name is preceded by a bullet point and, by default, followed by a colon and the description when
-	added to the right section, for example:
+	Each name is preceded by a bullet point, made into a "header 2" and, by default, followed
+	by a period and the description, for example:
 		{
-			name : "Invisibility",
-			description : "As an action, the purple crawler magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell)."
+			name: "Invisibility",
+			description: "As an action, the purple crawler magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell)."
 		}
 	Will result in:
-		◆ Invisibility: As an action, the purple crawler magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell).
+		##◆ Invisibility##. As an action, the purple crawler magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell).
 	
-	If you want something else than a colon, you can change it to anything you like by adding the
-	`joinString` attribute. For example:
+	If you want something else than a period, you can change it to anything you like by
+	adding the `joinString` attribute. For example:
 		{
-			name : "False Appearance",
-			description : "While the purple crawler remains motionless, it is indistinguishable from an ordinary purple flower.",
-			joinString : "\n   "
+			name: "False Appearance",
+			description: "While the purple crawler remains motionless, it is indistinguishable from an ordinary purple flower.",
+			joinString: "\n   "
 		}
 	Will result in:
-		◆ False Appearance
+		##◆ False Appearance##
 		   While the purple crawler remains motionless, it is indistinguishable from an ordinary purple flower.
 
 	If the `description` attribute is not present, no string will be added to the field.
@@ -673,6 +699,21 @@ CreatureList["purple crawler"] = {
 	As the wild shape pages offer limited space, it is recommended to test if all of
 	these and the other attributes together will fit.
 	If they don't fit (well), consider using the `wildshapeString` attribute, see below.
+
+	FORMATTING CHARACTERS (since v14.0.0)
+	The `description` can be formatted using the Rich Text formatting characters.
+	Text between the formatting characters will be displayed differently on the sheet.
+	The formatting characters are as follows:
+		*text*   = italic
+		**text** = bold
+		_text_   = underlined [doesn't work in tooltips/pop-ups]
+		~text~   = strikethrough [doesn't work in tooltips/pop-ups]
+		#text#   = Header 1:
+		           - bold and theme color (Colourful)
+		           - bold and 15% size increase (Printer Friendly)
+		##text## = Header 2:
+		           - italic, bold, and theme color (Colourful)
+		           - italic and bold (Printer Friendly)
 */
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>> //
@@ -712,8 +753,8 @@ CreatureList["purple crawler"] = {
 	using the `minlevel` attribute, see above.
 */
 
-	minlevelLinked : ["artificer", "wizard"],
-	minlevelLinked : function(prefix) { return classes.known.warlock ? classes.known.warlock.level + 1 : 0; },
+	minlevelLinked: ["artificer", "wizard"],
+	minlevelLinked: function(prefix) { return classes.known.warlock ? classes.known.warlock.level + 1 : 0; },
 /*	minlevelLinked // OPTIONAL //
 	TYPE:	array with ClassList object names (variable length) or function
 	USE:	dynamically select which level to use for level-dependent features
@@ -740,7 +781,7 @@ CreatureList["purple crawler"] = {
 	ADDED:	v13.0.6
 */
 
-	header : "Summon",
+	header: "Summon",
 /*	header // OPTIONAL //
 	TYPE:	string
 	USE:	set the single-word header at the top left of the companion page
@@ -758,7 +799,7 @@ CreatureList["purple crawler"] = {
 
 	This attribute is generally reserved for creatures included in a creatureOptions attribute.
 */
-	addMod : [
+	addMod: [
 		{ type : "skill", field : "Init", mod : "Int", text : "The purple crawler adds its Intelligence modifier to initiative rolls." },
 		{ type : "save", field : "all", mod : "max(oCha|1)", text : "The purple crawler adds its master's Charisma modifier (min 1) to all its saving throws." }
 	],
@@ -771,7 +812,7 @@ CreatureList["purple crawler"] = {
 	"_common attributes.js" file.
 	Please look there for a complete explanation.
 */
-	calcChanges : {
+	calcChanges: {
 /*	calcChanges // OPTIONAL //
 	TYPE:	object (optional attributes)
 	USE:	change how the hit points automation works
@@ -783,7 +824,7 @@ CreatureList["purple crawler"] = {
 	Note that `calcChanges` also appears in the list of common attributes,
 	but only its `hp` attribute is shared with the object here.
 */
-		hp : function (totalHD, HDobj, prefix) {
+		hp: function (totalHD, HDobj, prefix) {
 			if (!classes.known.ranger) return;
 			var creaHP = CurrentCompRace[prefix] && CurrentCompRace[prefix].hp ? CurrentCompRace[prefix].hp : 0;
 			var creaName = CurrentCompRace[prefix] && CurrentCompRace[prefix].name ? CurrentCompRace[prefix].name : "the creature";
@@ -800,7 +841,7 @@ CreatureList["purple crawler"] = {
 		"_common attributes.js" file.
 		Please look there for a complete explanation.
 	*/
-		setAltHp : true,
+		setAltHp: true,
 	/*	setAltHp // OPTIONAL //
 		TYPE:	boolean
 		USE:	set the maximum HP field to automatically assume the alternative calculation method added with the `hp` function
@@ -812,7 +853,7 @@ CreatureList["purple crawler"] = {
 	*/
 	},
 
-	eval : function(prefix, lvl) {
+	eval: function(prefix, lvl) {
 		var fldName = prefix + "Comp.Use.Speed";
 		var newSpeed = "40 ft, fly 60 ft, swim 40 ft";
 		if (What("Unit System") === "metric") newSpeed = ConvertToMetric(newSpeed, 0.5);
@@ -839,7 +880,7 @@ CreatureList["purple crawler"] = {
 	This attribute is processed last, after all other attributes are processed.
 */
 
-	removeeval : function(prefix, lvl) {
+	removeeval: function(prefix, lvl) {
 		var fldName = prefix + "Comp.Use.Speed";
 		var newSpeed = "30 ft, fly 45 ft, swim 30 ft";
 		if (What("Unit System") === "metric") newSpeed = ConvertToMetric(newSpeed, 0.5);
@@ -862,7 +903,7 @@ CreatureList["purple crawler"] = {
 	This attribute is processed last, after all other attributes are processed.
 */
 
-	changeeval : function(prefix, lvl) {
+	changeeval: function(prefix, lvl) {
 		Value( prefix + "Comp.Use.HD.Die", lvl[1] < 15 ? 8 : 10 );
 	},
 /*	changeeval // OPTIONAL //
@@ -901,7 +942,7 @@ CreatureList["purple crawler"] = {
 	but they will work on a Wild Shape page.
 */
 
-	wildshapeString : "Darkvision 60 ft; Tremorsense 60 ft| Knows Terran| Vulnerable to: thunder| Resistant to: bludgeoning, piercing, and slashing from nonmagical weapons| Immune to: poison, exhaustion, paralyzed, petrified, poisoned, unconscious| Earth Glide: can burrow through nonmagical, unworked earth and stone without disturbing the material| Siege Monster: does double damage to objects and structures",
+	wildshapeString: "Darkvision 60 ft; Tremorsense 60 ft| Knows Terran| Vulnerable to: thunder| Resistant to: bludgeoning, piercing, and slashing from nonmagical weapons| Immune to: poison, exhaustion, paralyzed, petrified, poisoned, unconscious| Earth Glide: can burrow through nonmagical, unworked earth and stone without disturbing the material| Siege Monster: does double damage to objects and structures",
 /*	wildshapeString	// OPTIONAL	 //
 	TYPE:	string
 	USE:	add text to the Traits & Features section on the Wild Shape page

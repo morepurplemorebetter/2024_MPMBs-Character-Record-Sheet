@@ -141,10 +141,60 @@ WeaponMasteriesList["purplefication"] = {
 	in the notes section of the 3rd page, like other optional class features.
 	The Colourful sheets have less space in the 3rd page notes section,
 	so use the Colourful sheets to test if the description fits.
+
+	FORMATTING CHARACTERS
+	This can be formatted using the Rich Text formatting characters.
+	Text between the formatting characters will be displayed differently on the sheet.
+	The formatting characters are as follows:
+		*text*   = italic
+		**text** = bold
+		_text_   = underlined [doesn't work in tooltips/pop-ups]
+		~text~   = strikethrough [doesn't work in tooltips/pop-ups]
+		#text#   = Header 1:
+		           - bold and theme color (Colourful)
+		           - bold and 15% size increase (Printer Friendly)
+		##text## = Header 2:
+		           - italic, bold, and theme color (Colourful)
+		           - italic and bold (Printer Friendly)
+
+	You can combine the formatting characters to apply multiple formatting options to one
+	string, but there are some limitations to consider.
+		1. Formatting characters don't work across line breaks (`\r` and `\n`).
+			This won't work:
+				"**text before and" + "\n" + "text after line break**"
+			Instead do this:
+				"**text before and**" + "\n" + "**text after line break**"
+		2. Combining formatting characters requires them to be in the same or reversed order.
+			This won't work:
+				_**~underlined, strikethrough, and bold**_~"
+			Instead do this:
+				"_**~underlined, strikethrough, and bold~**_"
+			or this:
+				"_**~underlined, strikethrough, and bold_**~"
+		3. Tabs (`\t`) and multiple spaces will break the formatting if the field is edited manually.
+			This should be avoided:
+				"**text before and" + "\t" + "text after tab**"
+			Instead do this:
+				"**text before and**" + "\t" + "**text after tab**
+
+	Be aware that the default font on the Colourful sheets is already italic,
+	so making something only italic won't be visible on the Colourful sheets.
 */
 	descriptionFull: "If you hit a creature with this weapon, I can temporarily syphon off its purple energy and make my skin and anything I'm wearing dark purple. Until the end of my next turn, I have advantage on Dexterity (Stealth) checks to hide.",
+	descriptionFull: [
+		"Introduction text of the weapon mastery. This will not be preceded by a line break or three spaces as this is the first paragraph.",
+		"Second entry, which will be preceded by a line break and three spaces.",
+		" \u2022 Bullet point entry. This will be preceded by a line break, but not with three spaces, as this entry starts with a space.",
+		" \u2022 Another bullet point entry.",
+		[ // This will render as a table (i.e. a tab between each column)
+			["Column 1 header", "Column 2 header", "Column 3 header"], // The first row, which will be made bold and italic
+			["Column 1 entry", "Column 2 entry", "Column 3 entry"], // The rest of the rows won't be changed
+			["Column 1 entry II", "Column 2 entry II", "Column 3 entry II"], // Table row 2
+		],
+		">>Header Paragraph<<. This paragraph will be preceded by a line break and three spaces. The text 'Header Paragraph' will be rendered with unicode as being bold and italic.",
+	],
 /*	descriptionFull // OPTIONAL //
-	TYPE:	string
+	TYPE:	array or string
 	USE:	description of the mastery as it will appear in a tooltip
 
 	This text is used to populate the tooltip of the attack description field,
@@ -152,5 +202,34 @@ WeaponMasteriesList["purplefication"] = {
 
 	There is no limit to how big this description can be,
 	but long descriptions will not always display correctly.
+
+	ARRAY
+	This attribute can be an array. Each entry in the array will be put
+	on a new line. Each entry can be one of the following:
+		1. String
+		   If the entry is a string that doesn't start with a space character and
+		   it is not the first entry, it will be added on a new line proceeded by
+		   three spaces (i.e. `\n   `).
+		   If the entry is a string that starts with a space character,
+		   it will be added on a new line without any preceding spaces.
+		   For example, to make a bullet point list, you would use ` \u2022 list entry`
+		   (N.B. `\u2022` is unicode for a bullet point).
+		2. Array of arrays, which contain only strings
+		   If the entry is in itself an array, it is treated as a table.
+		   Each entry in that array is a row in the table, with the first row being the headers.
+		   The headers will be made bold with the `**` formatting character, see below.
+		   Each subarray is rendered with a tab between each column (i.e. `Array.join("\t")`).
+		   If instead of a subarray there is a string, it will be added as is.
+		   The table will be preceded by two line breaks and followed by one line break
+
+	FORMATTING CHARACTERS
+	Regardless if you use a string or an array, the `descriptionFull` can be formatted
+	using the Rich Text formatting characters, see the `description` attribute above.
+
+	The `descriptionFull` of weapon masteries is only used to populate the tooltip and pop-up
+	dialogs, which don't support formatting except through unicode.
+	This means that only the bold and italic formatting will have any effect.
+	Other formatting characters will be ignored (e.g. no underlining or strikethrough).
+	If unicode is disabled, the sheet will instead capitalize everything between formatting characters.
 */
 }

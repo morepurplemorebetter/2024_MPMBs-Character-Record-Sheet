@@ -2758,7 +2758,7 @@ function ApplyMagicItem(input, FldNmbr) {
 		// Create the tooltip
 		var tooltipStr = (theMI.type ? theMI.type + ", " : "") + (theMI.rarity ? theMI.rarity : "");
 		if (theMI.attunement) tooltipStr += tooltipStr ? " (requires attunement)" : "requires attunement";
-		tooltipStr = toUni(theMI.name) + (tooltipStr ? "\n" + tooltipStr[0].toUpperCase() + tooltipStr.substr(1) : "");
+		tooltipStr = toUni(theMI.name, "bold") + (tooltipStr ? "\n" + tooltipStr[0].toUpperCase() + tooltipStr.substr(1) : "");
 
 		if (theMI.notLegalAL) {
 			tooltipStr += "\n \u2022 Illegal in Adventurers League play";

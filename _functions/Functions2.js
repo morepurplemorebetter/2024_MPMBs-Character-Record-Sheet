@@ -190,7 +190,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		for (var c = 0; c < clearSubmitNames.length; c++) AddTooltip(clearSubmitNames[c], undefined, "");
 	}
 
-	var undoCreaturePresistents = function(prefix, objCrea) {
+	var undoCreaturePersists = function(prefix, objCrea) {
 		// remove special companion type
 		ApplyCompanionType(false, prefix); // also empties Companion.Remember field
 		// undo calcChanges (just calcChanges.hp)
@@ -221,7 +221,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 	var oldCrea = CurrentCompRace[prefix];
 	if (newRace === "") {
 		thermoTxt = thermoM("Resetting the companion page...", false); //change the progress dialog text
-		undoCreaturePresistents(prefix, oldCrea);
+		undoCreaturePersists(prefix, oldCrea);
 		CurrentCompRace[prefix] = {}; //reset the global variable to nothing
 		thermoM(1/3); //increment the progress dialog's progress
 		tDoc.resetForm(compFields); //reset all the fields
@@ -247,7 +247,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 	}
 
 	// Undo things from a previous race, if any
-	undoCreaturePresistents(prefix, oldCrea);
+	undoCreaturePersists(prefix, oldCrea);
 
 	// save the companion type
 	if (sCompType && CompanionList[sCompType]) {
@@ -337,7 +337,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 					theLangs.push("+" + aLang);
 				};
 			};
-			var languageString = formatLineList("\u25C6 Languages:", theLangs);
+			var languageString = formatLineList("##\u25C6 Languages##.", theLangs);
 			if (languageString) AddString(prefix + "Comp.Use.Features", languageString + ".", true);
 		};
 
@@ -346,19 +346,19 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		//add a string of the saveText to the features
 		if (aCrea.savetxt) {
 			if (typeof aCrea.savetxt === "string") {
-				var svString = "\u25C6 Saving Throws: " + aCrea.savetxt + ".";
+				var svString = "##\u25C6 Saving Throws##. " + aCrea.savetxt + ".";
 			} else {
 				var svObj = aCrea.savetxt;
 				var svString = "";
 				if (svObj.text) {
-					svString += svString ? "; " : "\u25C6 Saving Throws: ";
+					svString += svString ? "; " : "##\u25C6 Saving Throws##. ";
 					svString += svObj.text.join("; ");
 				};
 				if (svObj.adv_vs) {
-					svString += formatLineList((svString ? "; " : "\u25C6 Saving Throws: ") + "Adv. on saves vs.", svObj.adv_vs);
+					svString += formatLineList((svString ? "; " : "##\u25C6 Saving Throws##. ") + "Adv. on saves vs.", svObj.adv_vs);
 				};
 				if (svObj.immune) {
-					svString += formatLineList((svString ? "; " : "\u25C6 Saving Throws: ") + "Immune to", svObj.immune);
+					svString += formatLineList((svString ? "; " : "##\u25C6 Saving Throws##. ") + "Immune to", svObj.immune);
 				};
 				svString += ".";
 			};
@@ -591,31 +591,39 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		thermoM(7/10); //increment the progress dialog's progress
 
 		// >>>> Features section <<<<
-		var strFeatures = "";
+		var strFeatures = [];
 
 		//add special stat block info
 		if (aCrea.damage_vulnerabilities) {
-			strFeatures += "\u25C6 Damage Vulnerabilities: " + aCrea.damage_vulnerabilities + ".";
+			strFeatures.push("##\u25C6 Damage Vulnerabilities##. " + aCrea.damage_vulnerabilities + ".");
 		}
 		if (aCrea.damage_resistances) {
-			strFeatures += "\n\u25C6 Damage Resistances: " + aCrea.damage_resistances + ".";
+			strFeatures.push("##\u25C6 Damage Resistances##. " + aCrea.damage_resistances + ".");
+		}
+		if (aCrea.resistances) { // 2024 notation
+			strFeatures.push("##\u25C6 Resistances##. " + aCrea.resistances + ".");
 		}
 		if (aCrea.damage_immunities) {
-			strFeatures += "\n\u25C6 Damage Immunities: " + aCrea.damage_immunities + ".";
+			strFeatures.push("##\u25C6 Damage Immunities##. " + aCrea.damage_immunities + ".");
 		}
 		if (aCrea.condition_immunities) {
-			strFeatures += "\n\u25C6 Condition Immunities: " + aCrea.condition_immunities + ".";
+			strFeatures.push("##\u25C6 Condition Immunities##. " + aCrea.condition_immunities + ".");
+		}
+		if (aCrea.immunities) { // 2024 notation
+			strFeatures.push("##\u25C6 Immunities##. " + aCrea.immunities + ".");
 		}
 		if (aCrea.languages) {
-			strFeatures += "\n\u25C6 Languages: " + aCrea.languages + ".";
+			strFeatures.push("##\u25C6 Languages##. " + aCrea.languages + ".");
 		}
+
+		strFeatures = strFeatures.join("\n");
 
 		thermoM(8/10); //increment the progress dialog's progress
 
 		// Set the strings to the fields but remove starting line breaks and implement name
 		if (strFeatures) {
 			if (What("Unit System") === "metric") strFeatures = ConvertToMetric(strFeatures, 0.5);
-			strFeatures = strFeatures.replace(/^\n+|^\r+/g, "").replace(/\[THIS\]/g, strRaceEntry);
+			strFeatures = strFeatures.replace(/\[THIS\]/g, strRaceEntry);
 			AddString(prefix + "Comp.Use.Features", strFeatures, true);
 		}
 
@@ -918,9 +926,9 @@ function ApplyCompanionType(bAddRemove, prefix) {
 // Create and add or remove the heading for a CompanionList entry
 function SetCompanionListHeading(bAddRemove, prefix, sCompType, sFld) {
 	var oComp = CompanionList[sCompType];
-	if (!oComp) return "";
+	if (!oComp) return;
 	if (!sFld) sFld = prefix + "Cnote.Left";
-	var sHeading = oComp.name;
+	var sHeading = "**" + oComp.name + "**";
 	var sOrigin = oComp.nameOrigin ? oComp.nameOrigin : "";
 	var sSource = stringSource(oComp, "first,abbr", sOrigin ? ", " : "");
 	if (sSource || sOrigin) sHeading += " (" + sOrigin + sSource + ")";
@@ -1031,9 +1039,10 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 				var addIt = newLvl >= propMinLvl;
 				if (doPropTxt) {
 					// Create the strings for the property
-					var sNameDescrCoupler = prop.joinString !== undefined ? prop.joinString : ": ";
-					var propFirstLine = "\u25C6 " + (isMetric ? ConvertToMetric(prop.name, 0.5) : prop.name);
-					var propFullLine = propFirstLine + sNameDescrCoupler + (isMetric ? ConvertToMetric(prop.description, 0.5) : prop.description);
+					var propFirstLine = "##\u25C6 " + (isMetric ? ConvertToMetric(prop.name, 0.5) : prop.name) + "##";
+					var propDescription = isMetric ? ConvertToMetric(prop.description, 0.5) : prop.description;
+					var sNameDescrCoupler = prop.joinString !== undefined ? prop.joinString : ". ";
+					var propFullLine = propFirstLine + sNameDescrCoupler + propDescription;
 					// Apply the name of the creature if [THIS] is present in the strings
 					if (/\[THIS\]/.test(propFullLine)) {
 						if (addIt) {
@@ -1044,6 +1053,28 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 							propFullLine = propFullLine.replace(/\[THIS\][\s\S]*/, "");
 						}
 					}
+				} else if (prop.useSpellDescription && SpellsList[prop.useSpellDescription] && SpellsList[prop.useSpellDescription].descriptionFull) {
+					var oSpell = SpellsList[prop.useSpellDescription];
+					// Get the type of spell string
+					var strSchool = spellSchoolList[oSpell.school] ? spellSchoolList[oSpell.school] : oSpell.school;
+					if (strSchool && oSpell.subSchool) strSchool += " [" + oSpell.subSchool + "]";
+					if (!strSchool) strSchool = oSpell.level == 0 ? "" : "spell";
+					var useLevel = oSpell.level + (oSpell.psionic ? 10 : 0);
+					var strLevel = spellLevelList[useLevel] ? spellLevelList[useLevel].replace(/s\b| \(.+\)/g, '') : "";
+					if (oSpell.psionic) {
+						var strSpellType = oSpell.level == 0 ? strLevel : strSchool.capitalize() + " " + strLevel.toLowerCase();
+					} else {
+						var strSpellType = oSpell.level != 0 ? strLevel + " " + strSchool + " spell" : strSchool ? strSchool.capitalize() + " " + strLevel.toLowerCase() : strLevel;
+					}
+					// Get the source string
+					var strSource = stringSource(oSpell, "first,abbr", ", ");
+					// Create the full property string
+					var propFirstLine = "##\u25C6 " + oSpell.name + "##";
+					var propRef = " (" + strSpellType + strSource + ")";
+					var spellDescription = ConvertToFirstPerson(formatDescriptionFull(oSpell.descriptionFull, true), prop.formatSpellDescription, objUse.name);
+					if (isMetric) spellDescription = ConvertToMetric(spellDescription, 0.5);
+					var propFullLine = propFirstLine + propRef + "\n" + spellDescription;
+					doPropTxt = true;
 				}
 				// See if we need to do this prop
 				if (minLvl < propMinLvl && maxLvl >= propMinLvl) {
@@ -1740,49 +1771,61 @@ function ApplyWildshape() {
 	thermoM(7/10); //increment the progress dialog's progress
 
 	//add traits & features
-	var strTraits = "";
+	var strTraits = [];
 	if (theCrea.wildshapeString !== undefined && typeof theCrea.wildshapeString === "string") {
-		strTraits = theCrea.wildshapeString;
+		strTraits = [theCrea.wildshapeString];
 	} else {
 		//set senses
 		var sensesToAdd = theCrea.senses.replace(/(\; )?Adv\..+(hearing|sight|smell)/i, ""); //avoid duplicating the information with regards to the keen hearing/sight/smell traits
 		if (sensesToAdd) {
-			strTraits += "\u25C6 Senses: " + sensesToAdd; 
+			strTraits.push("##\u25C6 Senses##. " + sensesToAdd); 
 		}
 		//add resistances & immunities
 		if (theCrea.damage_vulnerabilities) {
-			strTraits += "\n\u25C6 Damage Vulnerabilities: " + theCrea.damage_vulnerabilities + ".";
+			strTraits.push("##\u25C6 Damage Vulnerabilities##. " + theCrea.damage_vulnerabilities + ".");
+		}
+		if (theCrea.vulnerabilities) {
+			strTraits.push("##\u25C6 Vulnerabilities##. " + theCrea.vulnerabilities + ".");
 		}
 		if (theCrea.damage_resistances) {
-			strTraits += "\n\u25C6 Damage Resistances: " + theCrea.damage_resistances + ".";
+			strTraits.push("##\u25C6 Damage Resistances##. " + theCrea.damage_resistances + ".");
+		}
+		if (theCrea.resistances) { // 2024 notation
+			strTraits.push("##\u25C6 Resistances##. " + theCrea.resistances + ".");
 		}
 		if (theCrea.damage_immunities) {
-			strTraits += "\n\u25C6 Damage Immunities: " + theCrea.damage_immunities + ".";
+			strTraits.push("##\u25C6 Damage Immunities##. " + theCrea.damage_immunities + ".");
 		}
 		if (theCrea.condition_immunities) {
-			strTraits += "\n\u25C6 Condition Immunities: " + theCrea.condition_immunities + ".";
+			strTraits.push("##\u25C6 Condition Immunities##. " + theCrea.condition_immunities + ".");
+		}
+		if (theCrea.immunities) { // 2024 notation
+			strFeatures.push("##\u25C6 Immunities##. " + theCrea.immunities + ".");
 		}
 		//add actions
 		if (theCrea.actions) {
 			for (var t = 0; t < theCrea.actions.length; t++) {
-				strTraits += "\n\u25C6 " + theCrea.actions[t].name + (theCrea.actions[t].joinString !== undefined ? theCrea.actions[t].joinString : ": ") + theCrea.actions[t].description;
+				var joinStr = theCrea.actions[t].joinString !== undefined ? theCrea.actions[t].joinString : ". ";
+				strTraits.push("##\u25C6 " + theCrea.actions[t].name + "##" + joinStr + theCrea.actions[t].description);
 			}
 		}
 		//add traits
 		if (theCrea.traits) {
 			for (var t = 0; t < theCrea.traits.length; t++) {
-				strTraits += "\n\u25C6 " + theCrea.traits[t].name + (theCrea.traits[t].joinString !== undefined ? theCrea.traits[t].joinString : ": ") + theCrea.traits[t].description;
+				var joinStr = theCrea.traits[t].joinString !== undefined ? theCrea.traits[t].joinString : ". ";
+				strTraits.push("##\u25C6 " + theCrea.traits[t].name + "##" + joinStr + theCrea.traits[t].description);
 			}
 		}
+
+		strTraits = strTraits.join("\n");
 	}
 
 	thermoM(9/10); //increment the progress dialog's progress
 
-	//convert to metric, if applicable
-	if (strTraits && What("Unit System") === "metric") strTraits = ConvertToMetric(strTraits, 0.5);
 	// add the string to the field
 	if (strTraits) {
-		strTraits = strTraits.replace(/^\n+|^\r+/g, "").replace(/\[THIS\]/g, clean(newForm));
+		if (What("Unit System") === "metric") strTraits = ConvertToMetric(strTraits, 0.5);
+		strTraits = strTraits.replace(/\[THIS\]/g, clean(newForm));
 		AddString(prefix + "Wildshape." + Fld + ".Traits", strTraits, true);
 	}
 
@@ -6935,7 +6978,7 @@ function setSkillTooltips(noPopUp) {
 	var iSet = CurrentProfs.skill.descrTxt;
 	var tooltipTxt = "";
 	var tooltipArr = [];
-	for (var aSrc in iSet) tooltipArr.push(toUni(aSrc) + ": " + iSet[aSrc]);
+	for (var aSrc in iSet) tooltipArr.push(toUni(aSrc, "bold") + ": " + iSet[aSrc]);
 	if (tooltipArr.length) {
 		tooltipArr.sort();
 		tooltipTxt = formatMultiList("Skill proficiencies gained from:", tooltipArr);
@@ -6979,7 +7022,7 @@ function applySkillClick(theSkill, isExp) {
 // [true, true, ["dagger", "sling"]] >> [simple, martial, [other array]]
 function processWeaponProfs(AddRemove, srcNm, itemArr) {
 	if (!itemArr) return;
-	var weaponTypes = ["simple", "martial", "other"]
+	var weaponTypes = ["simple", "martial", "other", "otherEval"];
 	for (var i = 0; i < itemArr.length; i++) {
 		if (itemArr[i] && weaponTypes[i]) {
 			SetProf("weapon", AddRemove, weaponTypes[i], srcNm,
@@ -7154,7 +7197,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 	}; break;
 	case "weapon" : // if this is the 'other' weapons do something special. If not, it is Simple/Martial weapons and they can be treated just like armour
 		if (ProfObj == "other") {
-			if (!set.otherWea) set.otherWea = { finalProfs : [], finalString : "", finalNamesNotManual : [], finalProfsNotManual : [] };
+			if (!set.otherWea) set.otherWea = { finalProfs: [], finalString: "", finalNamesNotManual: [], finalProfsNotManual: [] };
 			var iSet = set.otherWea;
 			// Add or remove the new weapons from the objects
 			var toDo = Extra && isArray(Extra) ? Extra : false;
@@ -7175,7 +7218,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 			var simpleProf = tDoc.getField("Proficiency Weapon Simple").isBoxChecked(0) === 1;
 			var martialProf = tDoc.getField("Proficiency Weapon Martial").isBoxChecked(0) === 1;
 			for (var key in iSet) {
-				if ((/^final(Names|Profs|String)/).test(key)) continue;
+				if (/^final(Names|Profs|String)/.test(key)) continue;
 				var aWea = iSet[key];
 				// create the tooltip
 				var lineTooltip = [];
@@ -7188,7 +7231,18 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 					var theName = theW ? theW.name : theWeaKey[0].toUpperCase() + theWeaKey.substr(1);
 					// add the weapon to the tooltip
 					lineTooltip.push(theName);
-					if (theW && theW.type && ((/natural|spell|cantrip/i).test(theW.type) || ((/^simple$/i).test(theW.type) && simpleProf) || ((/^martial$/i).test(theW.type) && martialProf))) continue; // already proficient
+					if (theW && theW.type) {
+						// Do not add this weapon to the string if already proficient in some other way
+						if ( /natural|spell|cantrip/i.test(theW.type) ||
+							(simpleProf  &&  /^simple$/i.test(theW.type)) ||
+							(martialProf && /^martial$/i.test(theW.type))
+						) continue; // already proficient
+					} else {
+						// Do not add this string if it is referencing simple or martial weapons, but already proficient in those (e.g. "Light Martial Weapon" proficiency from Monks)
+						if ((simpleProf  &&  /simple/.test(aWeaI)) ||
+							(martialProf && /martial/.test(aWeaI))
+						) continue;
+					}
 					if (iSet.finalProfs.indexOf(theWeaKey) === -1) {
 						// not yet proficient, so add the weapon to the final arrays
 						iSet.finalProfs.push(theWeaKey);
@@ -8332,10 +8386,11 @@ function processToNotesPage(AddRemove, items, type, mainObj, parentObj, namesArr
 	if (!isArray(items)) items = [items];
 	// set the alertType, determined by type
 	var fallback = {
-		alertType : "Class Features section",
-		noteOrig : namesArr[1],
-		noteSrc : mainObj.source ? stringSource(mainObj, "first,abbr", ", ") : parentObj && parentObj.source ? stringSource(parentObj, "first,abbr", ", ") : ""
-	}
+		alertType: "Class Features section",
+		noteOrig: namesArr[1],
+		noteSrc: mainObj.source ? stringSource(mainObj, "first,abbr", ", ") : parentObj && parentObj.source ? stringSource(parentObj, "first,abbr", ", ") : "",
+		descrFull: mainObj.descriptionFull ? mainObj.descriptionFull : parentObj.descriptionFull ? parentObj.descriptionFull : false,
+	};
 	switch (GetFeatureType(type)) {
 		case "classes":
 			fallback.alertType = "Class Features section";
@@ -8365,9 +8420,23 @@ function processToNotesPage(AddRemove, items, type, mainObj, parentObj, namesArr
 		var noteObj = items[i];
 		var alertTxt = noteObj.popupName ? noteObj.popupName : noteObj.name + ' from "' + namesArr[0] + '"';
 		var noteSrc = noteObj.source ? stringSource(noteObj, "first,abbr", ", ") : fallback.noteSrc;
-		var noteDesc = (isArray(noteObj.note) ? desc(noteObj.note) : noteObj.note).replace(/\n/g, "\r");
-		if (What("Unit System") === "metric") noteDesc = ConvertToMetric(noteDesc, 0.5);
-		var noteStr = "\u25C6 " + noteObj.name + " (" + fallback.noteOrig + noteSrc + ")" + (noteObj.additional ? " [" + noteObj.additional + "]" : "") + noteDesc;
+		var noteDesc = "";
+		if (noteObj.useDescriptionFull && fallback.descriptionFull) {
+			noteDesc = ConvertToFirstPerson(
+				formatDescriptionFull(fallback.descriptionFull, true),
+				noteObj.useDescriptionFull,
+				fallback.noteOrig
+			);
+		} else {
+			noteDesc = isArray(noteObj.note) ? "\r" + formatDescriptionFull(noteObj.note, true) : noteObj.note;
+		}
+		noteDesc = noteDesc.replace(/\n/g, "\r");
+		var noteAdditional = noteObj.additional ? " #[" + noteObj.additional + "]#" : "";
+		if (What("Unit System") === "metric") {
+			noteDesc = ConvertToMetric(noteDesc, 0.5);
+			noteAdditional = ConvertToMetric(noteAdditional, 0.5);
+		}
+		var noteStr = "#\u25C6 " + noteObj.name + "# (" + fallback.noteOrig + noteSrc + ")" + noteAdditional + noteDesc;
 		if (noteObj.page3notes) { // add to 3rd page notes section
 			if (AddRemove) {
 				AddString('Extra.Notes', noteStr, true);
@@ -8710,5 +8779,8 @@ function setUnicodeUse(enable, force) {
 		MakeSkillsMenu_SkillsOptions(true, true);
 		SetHPTooltip();
 		AtHigherLevels = "\n   " + toUni("At Higher Levels") + ": ";
+		UsingHigherLvl = toUni("Using a Higher-Level Spell Slot") + ". ";
+		CantripUpgrade = toUni("Cantrip Upgrade") + ". ";
+		PsychicFocus = "\n   " + toUni("Psychic Focus") + ": "
 	}
 }

@@ -131,10 +131,10 @@ function GetSpellObject(theSpl, theCast, firstCol, noOverrides, tipShortDescr) {
 		})
 		aSpell.changesObj["Magic Item"] = "\n \u2022 Spells cast by magic items don't require any components except the magic item itself, unless otherwise specified in the magic item's description.";
 	}
-	// If this spell is gained from an item, feat, or race, remove scaling effects
-	if (aCast && !aCast.allowUpCasting && (aCast.allowUpCasting === false || /^(item|feat|race)$/i).test(aCast.typeSp) || (aCast.refType && (/^(item|feat|race)$/i.test(aCast.refType))) && (aSpell.level || aCast.typeSp == "item" || (aCast.refType && aCast.refType == "item"))) {
+	// If this spell is gained from an item remove scaling effects (2024 change: race & feat spells can now be upcast by default)
+	if (aCast && !aCast.allowUpCasting && (aCast.allowUpCasting === false || aCast.typeSp == "item" || aCast.refType == "item")) {
 		if (removeSpellUpcasting(aSpell)) {
-			aSpell.changesObj["Innate Spellcasting"] = "\n \u2022 Spell cast by magic items, from feats, or from racial traits can only be cast at the spell's level, not with higher level spell slots.";
+			aSpell.changesObj["Innate Spellcasting"] = "\n \u2022 Spell cast by magic items can only be cast at the spell's lowest possible level, not with higher level spell slots.";
 		}
 	}
 	// Apply spell overrides for this CurrentSpells entry
@@ -221,7 +221,7 @@ function GetSpellObject(theSpl, theCast, firstCol, noOverrides, tipShortDescr) {
 	var spTooltip = "";
 	var ttSpellObj = aSpell.completeRewrite ? aSpell : foundSpell;
 	if (ttSpellObj.descriptionFull || tipShortDescr) {
-		spTooltip = toUni(ttSpellObj.name) + " \u2014 ";
+		spTooltip = toUni(ttSpellObj.name, "bold") + " \u2014 ";
 
 		if (ttSpellObj.school) {
 			var spSchoolNm = spellSchoolList[ttSpellObj.school] ? spellSchoolList[ttSpellObj.school] : ttSpellObj.school;
@@ -1964,6 +1964,8 @@ function DefineSpellSheetDialogs(force, formHeight) {
 		nameAd : "[always prepared]",
 		prevBtn : false,
 		curCast : "",
+		showCaPr : false,
+		preparedCantrips : false,
 
 
 		initialize : function (dialog) {
@@ -2015,7 +2017,7 @@ function DefineSpellSheetDialogs(force, formHeight) {
 				"SplT" : this.typeSp === "book" ? "Spellbook" : this.spNm,
 				"AdET" : this.nameAd,
 				"ClLo" : psiSpells + " Lookup",
-				"AlLo" : this.listAl[0]
+				"AlLo" : this.listAl[0],
 			};
 			if (this.showSpRadio) toLoad["SpR" + this.selectSpRadio] = true;
 
@@ -2031,6 +2033,11 @@ function DefineSpellSheetDialogs(force, formHeight) {
 				"bPre" : this.prevBtn
 			};
 			if (this.showSp) toShow.SplK = this.typeSp !== "book";
+
+			if (this.showCaPr) {
+				toLoad["CaPr"] = this.preparedCantrips;
+				toEnable["CaPr"] = this.selectSpRadio < 3;
+			}
 
 			//a function to set the right object to positive
 			for (var i = 1; i <= 22; i++) {
@@ -2089,6 +2096,7 @@ function DefineSpellSheetDialogs(force, formHeight) {
 
 			//set the results of the radio button
 			this.selectSpRadio = oResult["SpR1"] ? 1 : oResult["SpR2"] ? 2 : oResult["SpR3"] ? 3 : 4;
+			if (this.showCaPr) this.preparedCantrips = oResult["CaPr"];
 		},
 
 		// When committing the dialog check if this wasn't a field search ended by pressing ENTER
@@ -2179,6 +2187,18 @@ function DefineSpellSheetDialogs(force, formHeight) {
 			var fSpell = spDias.fnFindSpell(oResult["AlLo"], this.listAl);
 			buttonAddSpellToDialog(dialog, this, fSpell, types);
 		},
+
+		// Toggle the treat cantrips as prepared spells 
+		toggleCaPr: function(dialog, enable) {
+			if (this.showCaPr) {
+				dialog.enable({ "CaPr": enable });
+			}
+		},
+
+		SpR1: function (dialog) { this.toggleCaPr(dialog, true); },
+		SpR2: function (dialog) { this.toggleCaPr(dialog, true); },
+		SpR3: function (dialog) { this.toggleCaPr(dialog, false); },
+		SpR4: function (dialog) { this.toggleCaPr(dialog, false); },
 
 		description : {
 			name : "SPELL SELECTION DIALOG",
@@ -3014,6 +3034,16 @@ function AskUserSpellSheet() {
 					});
 				};
 
+				if (spCast.known.cantrips && spCast.known.cantripsPrepare) {
+					diaRadBtns.push({
+						type: "check_box",
+						item_id: "CaPr",
+						name: "Treat cantrips as spells that can be prepared (i.e. show all of them)",
+					});
+					dia.showCaPr = true;
+					dia.preparedCantrips = spCast.preparedCantrips;
+				}
+
 				dia.selectSpRadio = spCast.typeList ? spCast.typeList : spCast.level && maxSpell ? 1 : 2;
 
 				diaDynCol1.push({
@@ -3154,6 +3184,9 @@ function AskUserSpellSheet() {
 			if (dia.showSpRadio) {
 				spCast.typeList = dia.selectSpRadio;
 			};
+			if (dia.showCaPr) {
+				spCast.preparedCantrips = dia.preparedCantrips;
+			}
 			spCast.selectBo = dia.selectBo;
 			spCast.offsetBo = dia.offsetBo;
 			spCast.special = {
@@ -3518,7 +3551,7 @@ function GenerateSpellSheet(GoOn) {
 			// Set the list level to generate
 			var iLowestLevel = spListLevel ? spListLevel[0] : 0;
 			spCast.list.level = [
-				spCast.typeList === 4 ? iLowestLevel : Math.max(iLowestLevel, 1),
+				spCast.typeList === 4 || spCast.preparedCantrips ? iLowestLevel : Math.max(iLowestLevel, 1),
 				spCast.factor && spCast.factor[1] == "warlock" ? 9 : spListLevel ? spListLevel[1] : 9
 			];
 
@@ -3531,7 +3564,19 @@ function GenerateSpellSheet(GoOn) {
 			} else {
 				delete spCast.list.level;
 			}
-		};
+		} else if (spCast.preparedCantrips && spCast.typeList !== 3) {
+			var spListLevel = spCast.list.level; //put the level of the list here for safe keeping
+
+			spCast.list.level = [0, 0];
+			var fullClassCantripList = CreateSpellList(spCast.list, false, false, false, CurrentCasters.incl[i], spCast.typeSp);
+			fullSpellList = fullSpellList.concat(fullClassCantripList);
+
+			if (spListLevel) { //put that level list back in the right variable
+				spCast.list.level = spListLevel;
+			} else {
+				delete spCast.list.level;
+			}
+		}
 
 		//now see if we have any spells to add to the spell sheet for this class. If not, skip this class
 		var testArray = removeEmptyValues(fullSpellList);
@@ -3641,7 +3686,11 @@ function GenerateSpellSheet(GoOn) {
 				} else if (notDupl && otherObject[aSpell]) {
 					toCheck = "##" + otherObject[aSpell];
 				} else if (SpellsList[aSpell] && SpellsList[aSpell].firstCol === undefined && (isPsionics || spCast.typeList === 4 || (spCast.known && spCast.known.prepared && spCast.typeList !== 3))) {
-					toCheck = spCast.typeList === 4 ? (knownSpells.indexOf(aSpell) !== -1 ? "##checkedbox" : "##checkbox") : SpellsList[aSpell].level === 0 ? "##atwill" : "##checkbox";
+					if (spCast.typeList === 4 || (SpellsList[aSpell].level === 0 && spCast.preparedCantrips)) {
+						toCheck = knownSpells.indexOf(aSpell) !== -1 ? "##checkedbox" : "##checkbox";
+					} else {
+						toCheck = SpellsList[aSpell].level === 0 ? "##atwill" : "##checkbox";
+					}
 				}
 				Value(prefixCurrent + "spells.remember." + lineCurrent, aSpell + toCheck + "##" + CurrentCasters.incl[i] + (notDupl ? "" : "##stop"));
 				lineCurrent += 1;
@@ -5493,27 +5542,6 @@ function amendPsionicsToSpellsList() {
 	};
 };
 
-//a way to test is an array of spells is correct
-function testSpellArray(spArr) {
-	var wrongArr = [];
-	var sourceArr = [];
-	spArr.forEach(function (sp) {
-		if (!SpellsList[sp] || !SpellsList[sp].source) {
-			wrongArr.push(sp);
-			return;
-		};
-		var sSrc = stringSource(SpellsList[sp], "").replace(/\d+| /g, "").split(",");
-		if (!sSrc || !sSrc[0]) {
-			sourceArr.push("Source excluded: " + sp + " (" + SpellsList[sp].source + ")");
-		} else {
-			for (var i = 0; i < sSrc.length; i++) {
-				if (sSrc[i] && sourceArr.indexOf(sSrc[i]) === -1) sourceArr.push(sSrc[i]);
-			};
-		};
-	})
-	return wrongArr.length ? "Not good, error with:\n\u2022" + wrongArr.join("\n\u2022") : "All Good, using sources:\n\u2022" + sourceArr.join("\n\u2022");
-};
-
 //a way to add dependencies of spells to an array of spells at the right spot
 function addSpellDependencies(spArr) {
 	if (CurrentCasters.useDependencies === false) return spArr;
@@ -6088,4 +6116,140 @@ function getSpellShortDescription(spellKey, spellObj) {
 		useSpellDescr = useSpellDescr.replace(arrTxtReplace[i][0], arrTxtReplace[i][1]);
 	};
 	return useSpellDescr;
+}
+
+
+/// >> TESTING ADD-ON SCRIPTS <<
+
+// A way to test if an array of spells is correct
+function testSpellArray(spArr) {
+	var wrongArr = [];
+	var sourceArr = [];
+	spArr.forEach(function (sp) {
+		if (!SpellsList[sp] || !SpellsList[sp].source) {
+			wrongArr.push(sp);
+			return;
+		};
+		var sSrc = stringSource(SpellsList[sp], "").replace(/\d+| /g, "").split(",");
+		if (!sSrc || !sSrc[0]) {
+			sourceArr.push("Source excluded: " + sp + " (" + SpellsList[sp].source + ")");
+		} else {
+			for (var i = 0; i < sSrc.length; i++) {
+				if (sSrc[i] && sourceArr.indexOf(sSrc[i]) === -1) sourceArr.push(sSrc[i]);
+			};
+		};
+	})
+	return wrongArr.length ? "Not good, error with:\n\u2022" + wrongArr.join("\n\u2022") : "All Good, using sources:\n\u2022" + sourceArr.join("\n\u2022");
+};
+
+// A Way to test what effects a calcChanges.spellAdd function has
+function testSpellAdd(spellAddArray, useClass) {
+	if (What("Template.extras.SSfront") !== "" || What("Template.extras.SSmore") !== "") {
+		// First delete all the spell sheets if they are visible
+		calcStop();
+		RemoveSpellSheets();
+		calcCont(true);
+	}
+	if (!CurrentSpells[useClass]) {
+		app.alert({
+			nIcon: 0,
+			cTitle: useClass + " is not a valid CurrentSpells key",
+			cMsg: 'The provided "' + useClass + '" is not a valid object name of a spellcaster. The easiest way to remedy this is to add a spellcasting class and then provide the object name. For example, this is "wizard" (all lowercase) for a character with the Wizard class.',
+		});
+		return;
+	}
+	var testFunc = spellAddArray[0];
+	var explanation = spellAddArray[1];
+	// Store some variables that we are going to overwrite
+	var safekeeping = {
+		spellAdd: CurrentEvals.spellAdd,
+		spellStr: CurrentEvals.spellStr,
+		spellAddOrder: CurrentEvals.spellAddOrder,
+		allowSpellAdd: CurrentCasters.allowSpellAdd,
+		unitSystem: What("Unit System"),
+		decimalSeparator: What("Decimal Separator"),
+	};
+	// Define some functions
+	var setUnits = function(type) {
+		var isMetric = type === "metric";
+		Value("Unit System", isMetric ? "metric" : "imperial");
+		Value("Decimal Separator", isMetric ? "comma" : "dot");
+	}
+	var nextI = function(force) {
+		if (!force) {
+			var spellFld = prefix+"spells.description."+i;
+			var spellDescr = What(spellFld);
+			if (uniqueSpellDescriptions.indexOf(spellDescr) !== -1) {
+				Value(prefix+"spells.remember."+i, "");
+				return;
+			}
+			uniqueSpellDescriptions.push(spellDescr);
+		}
+		i++;
+		if (i > totI) {
+			prefix = DoTemplate("SSmore", "Add");
+			Value(prefix+"spells.remember."+0, "setcaptions");
+			i = 1;
+			totI = FieldNumbers.spells[1];
+		};
+	}
+	var addSpell = function(aSp, bSetMetric) {
+		setUnits(bSetMetric ? "metric" : "imperial");
+		var oSpell = SpellsList[aSp];
+		// Do not change stat or level-dependent stuff
+		CurrentCasters.amendSpDescr = false;
+		// default description, no function
+		CurrentCasters.allowSpellAdd = false;
+		Value(prefix+"spells.remember."+i, aSp);
+		if (bSetMetric) Value(prefix+"spells.name."+i, "  [metric]");
+		nextI();
+		// edited description, run function
+		CurrentCasters.allowSpellAdd = true;
+		Value(prefix+"spells.remember."+i, aSp + addStr);
+		Value(prefix+"spells.name."+i, bSetMetric ? "  [metric-test]" : "  [test]");
+		nextI();
+		// descriptionCantripDie, if present
+		if (oSpell.descriptionCantripDie) {
+			// Now do allow level-dependent stuff so we can test the `descriptionCantripDie`
+			CurrentCasters.amendSpDescr = true;
+			// cantrip description, no function
+			CurrentCasters.allowSpellAdd = false;
+			Value(prefix+"spells.remember."+i, aSp + addStr);
+			Value(prefix+"spells.name."+i, bSetMetric ? "  [cantrip-metric]" : "  [cantrip]");
+			nextI();
+			// cantrip edited description, run function
+        	CurrentCasters.allowSpellAdd = true;
+            Value(prefix+"spells.remember."+i, aSp + addStr);
+            Value(prefix+"spells.name."+i, bSetMetric ? "  [cantrip-metric-test]" : "  [cantrip-test]");
+            nextI();
+		}
+	}
+	// Set some global variables to only process the function to test
+	CurrentEvals.spellAdd = { test: testFunc };
+	if (explanation) CurrentEvals.spellStr = { test: "\n \u2022 " + explanation };
+	CurrentEvals.spellAddOrder = [[1, "test"]];
+	var addStr = useClass ? "####" + useClass : "";
+	var uniqueSpellDescriptions = [];
+	// Start the process
+	calcStop();
+	// Create first spell sheet and create returning variables
+	var prefix = DoTemplate("SSfront", "Add");
+	var i = 1, totI = FieldNumbers.spells[0];
+	Value(prefix+"spells.remember."+0, "setcaptions");
+	// Loop over all the spells
+	for (var aSp in SpellsList) {
+		var theSp = newObj(SpellsList[aSp]);
+		if (testFunc(aSp, theSp, useClass)) {
+			addSpell(aSp, false); // imperial units
+			addSpell(aSp, true); // metric units
+			nextI(true); // one empty line between spells for easier reading
+		}
+	}
+	// Restore variables that we had overwritten
+	CurrentEvals.spellAdd = safekeeping.spellAdd;
+	CurrentEvals.spellStr = safekeeping.spellStr;
+	CurrentEvals.spellAddOrder = safekeeping.spellAddOrder;
+	CurrentCasters.allowSpellAdd = safekeeping.allowSpellAdd;
+	Value("Unit System", safekeeping.unitSystem);
+	Value("Decimal Separator", safekeeping.decimalSeparator);
 }

@@ -32,24 +32,12 @@ var Base_BackgroundList = {
 			"I've spent so much time in the confines of the temple that I have few functional skills interacting with individuals in the rest of the world."
 		],
 		ideal: [
-			["Tradition",
-				"Tradition: The age-old institutions of devotion and forfeiture must be sustained and maintained. (Lawful)"
-			],
-			["Charity",
-				"Charity: I always attempt to assist those in need, regardless of the personal cost. (Good)"
-			],
-			["Change",
-				"Change: We must help induce the developments the gods are continually cultivating in the world. (Chaotic)"
-			],
-			["Power",
-				"Power: I aspire to someday ascend to the elite of my faith's highest echelon. (Lawful)"
-			],
-			["Faith",
-				"Faith: I believe that my deity will direct my work. I have confidence that if I work diligently, my work will be rewarded. (Lawful)"
-			],
-			["Aspiration",
-				"Aspiration: I aim to demonstrate myself worth my deity's favor by paralleling my actions against their instruction. (Any)"
-			]
+			"**Tradition**. The age-old institutions of devotion and forfeiture must be sustained and maintained. (Lawful)",
+			"**Charity**. I always attempt to assist those in need, regardless of the personal cost. (Good)",
+			"**Change**. We must help induce the developments the gods are continually cultivating in the world. (Chaotic)",
+			"**Power**. I aspire to someday ascend to the elite of my faith's highest echelon. (Lawful)",
+			"**Faith**. I believe that my deity will direct my work. I have confidence that if I work diligently, my work will be rewarded. (Lawful)",
+			"**Aspiration**. I aim to demonstrate myself worth my deity's favor by paralleling my actions against their instruction. (Any)"
 		],
 		bond: [
 			"I would sacrifice anything to recover a long lost ancient relic of my temple (or faith).",
@@ -103,24 +91,12 @@ var Base_BackgroundList = {
 			"I blow up at the slightest insult."
 		],
 		ideal: [
-			["Honor",
-				"Honor: I don't steal from others in the trade. (Lawful)"
-			],
-			["Freedom",
-				"Freedom: Chains are meant to be broken, as are those who would forge them. (Chaotic)"
-			],
-			["Charity",
-				"Charity: I steal from the wealthy so that I can help people in need. (Good)"
-			],
-			["Greed",
-				"Greed: I will do whatever it takes to become wealthy. (Evil)"
-			],
-			["People",
-				"People: I'm loyal to my friends, not to any ideals, and everyone else can take a trip down the Styx for all I care. (Neutral)"
-			],
-			["Redemption",
-				"Redemption: There's a spark of good in everyone. (Good)"
-			]
+			"**Honor**. I don't steal from others in the trade. (Lawful)",
+			"**Freedom**. Chains are meant to be broken, as are those who would forge them. (Chaotic)",
+			"**Charity**. I steal from the wealthy so that I can help people in need. (Good)",
+			"**Greed**. I will do whatever it takes to become wealthy. (Evil)",
+			"**People**. I'm loyal to my friends, not to any ideals, and everyone else can take a trip down the Styx for all I care. (Neutral)",
+			"**Redemption**. There's a spark of good in everyone. (Good)"
 		],
 		bond: [
 			"I'm trying to pay off an old debt I owe to a generous benefactor.",
@@ -186,24 +162,12 @@ var Base_BackgroundList = {
 			"I'm convinced that people are always trying to steal my secrets."
 		],
 		ideal: [
-			["Knowledge",
-				"Knowledge: The path to power and self-improvement is through knowledge. (Neutral)"
-			],
-			["Beauty",
-				"Beauty: What is beautiful points us beyond itself toward what is true. (Good)"
-			],
-			["Logic",
-				"Logic: Emotions must not cloud our logical thinking. (Lawful)"
-			],
-			["No Limits",
-				"No Limits: Nothing should fetter the infinite possibility inherent in all existence. (Chaotic)"
-			],
-			["Power",
-				"Power: Knowledge is the path to power and domination. (Evil)"
-			],
-			["Self-Improvement",
-				"Self-Improvement: The goal of a life of study is the betterment of oneself. (Any)"
-			]
+			"**Knowledge**. The path to power and self-improvement is through knowledge. (Neutral)",
+			"**Beauty**. What is beautiful points us beyond itself toward what is true. (Good)",
+			"**Logic**. Emotions must not cloud our logical thinking. (Lawful)",
+			"**No Limits**. Nothing should fetter the infinite possibility inherent in all existence. (Chaotic)",
+			"**Power**. Knowledge is the path to power and domination. (Evil)",
+			"**Self-Improvement**. The goal of a life of study is the betterment of oneself. (Any)"
 		],
 		bond: [
 			"It is my duty to protect my students.",
@@ -271,24 +235,12 @@ var Base_BackgroundList = {
 			"I approach problems head-on. A simple, direct course is the best path to a solution."
 		],
 		ideal: [
-			["Greater Good",
-				"Greater Good: Our fate is to give our lives in the defense of others. (Good)"
-			],
-			["Responsibility",
-				"Responsibility: I do what I have to and follow just authority. (Lawful)"
-			],
-			["Independence",
-				"Independence: When people obey orders blindly, they affirm a kind of tyranny. (Chaotic)"
-			],
-			["Might",
-				"Might: In life as in war, the mightier force prevails. (Evil)"
-			],
-			["Live and Let Live",
-				"Live and Let Live: Ideals aren't worth killing over or going to war for. (Neutral)"
-			],
-			["Nation",
-				"Nation: My city, state, or people are the only things that matter. (Any)"
-			]
+			"**Greater Good**. Our fate is to give our lives in the defense of others. (Good)",
+			"**Responsibility**. I do what I have to and follow just authority. (Lawful)",
+			"**Independence**. When people obey orders blindly, they affirm a kind of tyranny. (Chaotic)",
+			"**Might**. In life as in war, the mightier force prevails. (Evil)",
+			"**Live and Let Live**. Ideals aren't worth killing over or going to war for. (Neutral)",
+			"**Nation**. My city, state, or people are the only things that matter. (Any)"
 		],
 		bond: [
 			"I would still give my life for the people I have served with.",

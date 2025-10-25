@@ -1,67 +1,30 @@
 var Base_CompanionList = {
-	"familiar" : {
-		name : "Find Familiar",
-		nameTooltip : "the Find Familiar spell",
-		nameOrigin : "1st-level conjuration [ritual] spell",
-		nameMenu : "Familiar (Find Familiar spell)", // required
-		source : [["SRD", 143], ["P", 240]], // required
-		action : [
+	"familiar": {
+		name: "Find Familiar",
+		nameTooltip: "the Find Familiar spell",
+		nameMenu: "Familiar (Find Familiar spell)", // required
+		source: [["SRD24", 130], ["P24", 272]], // required
+		includeCheck : function(sCrea, objCrea, iCreaCR, bIsAL) {
+			return objCrea.type.toLowerCase() === "beast" && iCreaCR === 0;
+		},
+		action: [
 			["action", "Familiar (dismiss/reappear)"],
-			["action", "Use familiar's senses"]
+			["bonus action", "Use familiar's senses"],
 		],
-		notes : [{
-			name : "Summon a spirit that serves as a familiar",
-			description : [
-				"appearing in an unoccupied space within 10 ft",
-				"It assumes a chosen form (can change at every casting): bat, cat, crab, frog (toad), hawk,",
-				"lizard, octopus, owl, poisonous snake, fish (quipper), rat, raven, sea horse, spider, or weasel.",
-				"It has the chosen form's statistics, but its type changes from beast to celestial, fey, or fiend",
-				"When the familiar drops to 0 hit points, it disappears, leaving behind no physical form",
-				"It reappears when I cast this spell again (in a new form if so desired)"
-			].join("\n   "),
-			joinString : ", "
-		}, {
-			name : "The familiar acts independently of me",
-			description : [
-				"but it always obeys my commands",
-				"In combat, it rolls its own initiative and acts on its own turn, but it can't attack"
-			].join("\n   "),
-			joinString : ", "
-		}, {
-			name : "While it is within 100 ft of me",
-			description : "I can communicate with it telepathically",
-			joinString : ", "
-		}, {
-			name : "As an action, I see/hear what it does",
-			description : " (but not with my senses) until the start of my next turn",
-			joinString : ""
-		}, {
-			name : "As an action, I can temporarily dismiss it",
-			description : "having it disappear into a pocket dimension",
-			joinString : ", "
-		}, {
-			name : "As an action, while it is temporarily dismissed",
-			description : "I can cause it to reappear within 30 ft",
-			joinString : ", "
-		}, {
-			name : "I can't have more than one familiar bonded at a time",
-			description : "As an action, I can dismiss it forever",
-			joinString : "; "
-		}, {
-			name : "When I cast a spell with a range of touch",
-			description : [
-				"my familiar can deliver the spell",
-				"It must be within 100 ft of me and it must use its reaction to deliver the spell when I cast it",
-				"It acts as if it cast the spell, but it can use my modifiers for any attack rolls the spell requires"
-			].join("\n   "),
-			joinString : ", "
-		}],
-		attributesAdd : {
-			header : "Familiar",
-			features : [{
-				name : "Find Familiar",
-				description : "If dropped to 0 HP, the familiar disappears, leaving behind no physical form. The familiar must obey all commands of its master."
-			}]
+		attributesAdd: {
+			header: "Familiar",
+			features: [{
+				name: "Find Familiar",
+				description: "If dropped to 0 HP, the familiar disappears, leaving behind no physical form. The familiar must obey all commands of its master.",
+			}],
+			actions: [{
+				name: "Deliver Touch Spells",
+				description: "When the familiar's master casts a spell with a range of touch, the familiar can deliver the touch as a Reaction if it is within 100 ft of its master.",
+			}],
+			notes: [{
+				name: "Find Familiar spell description",
+				useSpellDescription: "find familiar",
+			}],
 		},
 		attributesChange : function(sCrea, objCrea) {
 			// can't do any attacks
@@ -72,6 +35,7 @@ var Base_CompanionList = {
 			}
 		},
 	},
+/*
 	"pact_of_the_chain" : {
 		name : "Pact of the Chain",
 		nameTooltip : "Warlock (Pact of the Chain)",
@@ -340,7 +304,9 @@ var Base_CompanionList = {
 			setAltHp : true
 		}
 	}
+*/
 };
+/*
 Base_CompanionList.pact_of_the_chain.notes = function() {
 	var a = newObj(Base_CompanionList.familiar.notes);
 	a[0].description = a[0].description.replace("or weasel.", "weasel,\n   or one of the special forms: imp, pseudodragon, quasit, or sprite.");
@@ -352,3 +318,4 @@ Base_CompanionList.pact_of_the_chain.notes = function() {
 	});
 	return a;
 }();
+*/

@@ -896,7 +896,7 @@ var Base_WeaponsList = {
 		damage: ["", "", ""],
 		range: "",
 		description: "",
-		abilitytodamage: false
+		abilitytodamage: false,
 	},
 	"acid splash": {
 		regExpSearch: /^(?=.*acid)(?=.*splash).*$/i,
@@ -909,7 +909,7 @@ var Base_WeaponsList = {
 		range: "60 ft",
 		description: "All creatures in a 5-ft radius sphere; Dex save to avoid",
 		abilitytodamage: false,
-		dc: true
+		dc: true,
 	},
 	"chill touch": {
 		regExpSearch: /^(?=.*chill)(?=.*touch).*$/i,
@@ -921,7 +921,7 @@ var Base_WeaponsList = {
 		damage: ["C", 10, "necrotic"],
 		range: "Melee",
 		description: "Target can't regain HP until my next turn ends",
-		abilitytodamage: false
+		abilitytodamage: false,
 	},
 	"eldritch blast": {
 		regExpSearch: /(agonizing|eldritch|repelling).(spear|blast)/i,
@@ -933,7 +933,7 @@ var Base_WeaponsList = {
 		damage: ["C\xD7" + 1, 10, "force"],
 		range: "120 ft",
 		description: "Each d10 is a separate beam with its own attack roll",
-		abilitytodamage: false
+		abilitytodamage: false,
 	},
 	"fire bolt": {
 		regExpSearch: /^(?=.*fire)(?=.*bolt).*$/i,
@@ -945,7 +945,7 @@ var Base_WeaponsList = {
 		damage: ["C", 10, "fire"],
 		range: "120 ft",
 		description: "Unattended flammable object starts Burning",
-		abilitytodamage: false
+		abilitytodamage: false,
 	},
 	"poison spray": {
 		regExpSearch: /^(?=.*poison)(?=.*spray).*$/i,
@@ -957,7 +957,7 @@ var Base_WeaponsList = {
 		damage: ["C", 12, "poison"],
 		range: "30 ft",
 		description: "",
-		abilitytodamage: false
+		abilitytodamage: false,
 	},
 	"produce flame": {
 		regExpSearch: /^(?=.*produce)(?=.*flame).*$/i,
@@ -969,7 +969,7 @@ var Base_WeaponsList = {
 		damage: ["C", 8, "fire"],
 		range: "60 ft",
 		description: "20-ft radius bright light and 20-ft radius dim light until thrown",
-		abilitytodamage: false
+		abilitytodamage: false,
 	},
 	"ray of frost": {
 		regExpSearch: /^(?=.*ray)(?=.*frost).*$/i,
@@ -981,7 +981,7 @@ var Base_WeaponsList = {
 		damage: ["C", 8, "cold"],
 		range: "60 ft",
 		description: "Target -10 ft speed until start of my next turn",
-		abilitytodamage: false
+		abilitytodamage: false,
 	},
 	"sacred flame": {
 		regExpSearch: /^(?=.*sacred)(?=.*flame).*$/i,
@@ -994,7 +994,7 @@ var Base_WeaponsList = {
 		range: "60 ft",
 		description: "Dex save to avoid, no save bonus for cover",
 		abilitytodamage: false,
-		dc: true
+		dc: true,
 	},
 	"shillelagh-club": {
 		baseWeapon: "club",
@@ -1004,7 +1004,7 @@ var Base_WeaponsList = {
 		list: "spell",
 		ability: 5,
 		damage: [1, 8, "force"],
-		description: "Light; Imbued club or quarterstaff"
+		description: "Light; Imbued club or quarterstaff",
 	},
 	"shillelagh-quarterstaff": {
 		baseWeapon: "quarterstaff",
@@ -1014,7 +1014,7 @@ var Base_WeaponsList = {
 		list: "spell",
 		ability: 5,
 		damage: [1, 8, "force"],
-		description: "Imbued club or quarterstaff"
+		description: "Imbued club or quarterstaff",
 	},
 	"shocking grasp": {
 		regExpSearch: /^(?=.*shocking)(?=.*grasp).*$/i,
@@ -1026,7 +1026,7 @@ var Base_WeaponsList = {
 		damage: ["C", 8, "lightning"],
 		range: "Melee",
 		description: "Target cannot take reactions until its next turn starts",
-		abilitytodamage: false
+		abilitytodamage: false,
 	},
 	"true strike": {
 		regExpSearch: /^true.strike$/i, // only an exact match to not clash with the default eval
@@ -1039,7 +1039,7 @@ var Base_WeaponsList = {
 		range: "As weapon",
 		description: "Add to weapon damage, which can also be made Radiant",
 		abilitytodamage: false,
-		tooltip: 'Tip: add "True Strike", "[TS]", or "TS" to the name of another weapon to get the True Strike bonuses integrated.'
+		tooltip: 'Tip: add "True Strike", "[TS]", or "TS" to the name of another weapon to get the True Strike bonuses integrated.',
 	},
 	"vicious mockery": {
 		regExpSearch: /^(?=.*vicious)(?=.*mockery).*$/i,
@@ -1052,7 +1052,7 @@ var Base_WeaponsList = {
 		range: "60 ft",
 		description: "Wis save to avoid; Target has disadv. on its next attack roll before its next turn ends",
 		abilitytodamage: false,
-		dc: true
+		dc: true,
 	}
 };
 
@@ -1893,7 +1893,7 @@ var Base_GearList = {
 		type: "saddle"
 	},
 /* removed in PHB'24
-	"pack": {
+	"saddle, pack": {
 		infoname: "Pack [5 gp]",
 		name: "Pack saddle",
 		amount: "",

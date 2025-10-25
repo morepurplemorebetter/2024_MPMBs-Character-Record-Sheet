@@ -123,7 +123,7 @@ var Base_ClassList = {
 			pack: "explorer",
 			equipright: [
 				["Greataxe", "", 7],
-				["Handaxes", 4, 2]
+				["Handaxes", 4, 2],
 			],
 			equip1stPage: {
 				weapons: ["Greataxe", "Handaxe"],
@@ -330,7 +330,7 @@ var Base_ClassList = {
 			},
 		}
 	},
-
+/*
 	"bard": {
 		regExpSearch: /(bard|minstrel|troubadour|jongleur)/i,
 		name: "Bard",
@@ -360,7 +360,7 @@ var Base_ClassList = {
 			gold: 19,
 			pack: "entertainer",
 			equipright: [
-				["Leather Armor", "", 10],
+				["Leather armor", "", 10],
 				["Dagger", 2, 1],
 				["Musical Instrument of my choice", "", ""],
 			],
@@ -399,7 +399,7 @@ var Base_ClassList = {
 				name: "Spellcasting",
 				source: [["SRD24", 31], ["P24", 59]],
 				minlevel: 1,
-				description: "\nI can cast Bard cantrips/spells I know, using Cha as my spellcasting ability, and use Musical Instruments as Spellcasting Focus for them. I can swap 1 cantrip \x26 spell when I gain a level.",
+				description: "\nI can cast Bard cantrips/spells I know, using Cha as my spellcasting ability. I can use Musical Instruments as Spellcasting Focus for them. I can swap 1 cantrip \x26 spell when I gain a level.",
 				additional: levels.map(function (n, idx) {
 					var cantrips = [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4][idx];
 					var spells = [4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22][idx];
@@ -507,7 +507,7 @@ var Base_ClassList = {
 		die: 8,
 		saves: ["Wis", "Cha"],
 		skillstxt: {
-			primary: "Choose 2: History, Insight, Medicine, Persuasion, or Religion."
+			primary: "Choose 2: History, Insight, Medicine, Persuasion, or Religion.",
 		},
 		armorProfs: {
 			primary:   [true, true, false, true],
@@ -520,7 +520,7 @@ var Base_ClassList = {
 			gold: 7,
 			pack: "priest",
 			equipright: [
-				["Chain Shirt", "", 20],
+				["Chain shirt", "", 20],
 				["Shield", "", 6],
 				["Mace", "", 4],
 				["Holy Symbol of my choice", "", ""],
@@ -538,27 +538,19 @@ var Base_ClassList = {
 		spellcastingKnown: {
 			cantrips: [3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
 			spells: "list",
-			prepared: true,
+			prepared: [4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22],
 		},
 		features: {
 			"spellcasting": {
 				name: "Spellcasting",
 				source: [["SRD24", 36], ["P24", 69]],
 				minlevel: 1,
-				description : desc([
-					"I can cast prepared cleric cantrips/spells, using Wisdom as my spellcasting ability",
-					"I can use a holy symbol as a spellcasting focus for my cleric spells",
-					"I can cast my prepared cleric spells as rituals if they have the ritual tag"
-				]),
-				additional : levels.map(function (n, idx) {
-					return [3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5][idx] + " cantrips known";
-				})
-			},
-			"subclassfeature1" : {
-				name : "Divine Domain",
-				source : [["SRD", 16], ["P", 58]],
-				minlevel : 1,
-				description : desc('Choose a Domain related to your deity and put it in the "Class" field ')
+				description: "\nI can cast known/prepared Cleric cantrips/spells, using Wisdom as my spellcasting ability. I can use a Holy Symbol as a Spellcasting Focus for them. I can swap out 1 cantrip whenever I gain a Cleric level and change all my prepared Cleric spells whenever I finish a Long Rest.",
+				additional: levels.map(function (n, idx) {
+					var cantrips = [3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5][idx];
+					var spells = [4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22][idx];
+					return cantrips + " cantrips known \x26 " + spells + " spells to prepare";
+				}),
 			},
 			"channel divinity" : {
 				name : "Channel Divinity",
@@ -579,6 +571,12 @@ var Base_ClassList = {
 					"Turned: may Dodge instead of Dash when nowhere to move and unable to escape bonds"
 				]),
 				action : [["action", ""]]
+			},
+			"subclassfeature3": {
+				name: "Cleric Subclass",
+				source: [["SRD24", 37], ["P24", 71]],
+				minlevel: 3,
+				description: '\nChoose a Cleric Subclass using the "Class" button/bookmark or type its name into the "Class" field.',
 			},
 			"destroy undead" : {
 				name : "Destroy Undead",
@@ -603,67 +601,74 @@ var Base_ClassList = {
 		}
 	},
 
-	"druid" : {
-		regExpSearch : /(druid|shaman)/i,
-		name : "Druid",
-		source: [["SRD24", 40], ["P24", 79]],
-		primaryAbility : "Wisdom",
-		abilitySave : 5,
-		prereqs : "Wisdom 13",
-		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-		die : 8,
-		saves : ["Wis", "Int"],
-		skillstxt : {
-			primary : "Choose two from Arcana, Animal Handling, Insight, Medicine, Nature, Perception, Religion, and Survival"
+	"druid": {
+		regExpSearch: /druid|shaman/i,
+		name: "Druid",
+		source: [["SRD24", 41], ["P24", 79]],
+		primaryAbility: "Wisdom",
+		abilitySave: 5,
+		prereqs: "Wisdom 13",
+		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
+		die: 8,
+		saves: ["Int", "Wis"],
+		skillstxt: {
+			primary: "Choose 2: Arcana, Animal Handling, Insight, Medicine, Nature, Perception, Religion, or Survival.",
 		},
-		toolProfs : {
-			primary : ["Herbalism kit"]
+		toolProfs: {
+			primary: ["Herbalism kit"],
 		},
-		armorProfs : {
-			primary : [true, true, false, true],
-			secondary : [true, true, false, true]
+		armorProfs: {
+			primary:   [true, false, false, true],
+			secondary: [true, false, false, true],
 		},
-		weaponProfs : {
-			primary : [false, false, ["club", "dagger", "dart", "javelin", "mace", "quarterstaff", "scimitar", "sickle", "sling", "spear"]]
+		weaponProfs: {
+			primary: [true, false],
 		},
-		equipment : "Druid starting equipment:" +
-			"\n \u2022 A wooden shield -or- any simple weapon;" +
-			"\n \u2022 A scimitar -or- any simple melee weapon;" +
-			"\n \u2022 Leather armor, an explorer's pack, and a druidic focus." +
-			"\n\nAlternatively, choose 2d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
-		subclasses : ["Druid Circle", ["druid-circle of the land"]],
-		spellcastingFactor : 1,
-		spellcastingKnown : {
-			cantrips : [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-			spells : "list",
-			prepared : true
+		startingEquipment: [{
+			gold: 9,
+			pack: "explorer",
+			equipleft: [
+				["Herbalism kit", "", 3],
+			],
+			equipright: [
+				["Leather armor", "", 10],
+				["Shield", "", 6],
+				["Sickle", "", 2],
+				["Wooden staff druidic focus", "", 4],
+			],
+			equip1stPage: {
+				armor: "Leather",
+				shield: "Shield",
+				weapons: ["Sickle", "Quarterstaff"],
+			},
+		}, {
+			gold: 50,
+		}],
+		subclasses: ["Druid Subclass", ["druid-land"]],
+		spellcastingFactor: 1,
+		spellcastingKnown: {
+			cantrips: [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+			spells: "list",
+			prepared: [4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22],
 		},
-		features : {
-			"druidic" : {
-				name : "Druidic",
-				source : [["SRD", 19], ["P", 66]],
-				minlevel : 1,
+		features: {
+			"spellcasting": {
+				name: "Spellcasting",
+				source: [["SRD24", 41], ["P24", 79]],
+				minlevel: 1,
+				description: "\nI can cast known/prepared Druid cantrips/spells, using Wisdom as my spellcasting ability. I can use a Druidic Focus as a Spellcasting Focus for them. I can swap out 1 cantrip whenever I gain a Druid level and change all my prepared Druid spells whenever I finish a Long Rest.",
+				additional: levels.map(function (n, idx) {
+					var cantrips = [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4][idx];
+					var spells = [4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22][idx];
+					return cantrips + " cantrips known \x26 " + spells + " spells to prepare";
+				}),
+			},
+			"druidic": { // nog niet klaar
+				name: "Druidic",
+				source: [["SRD24", 42], ["P24", 80]],
+				minlevel: 1,
 				description : desc("I know Druidic; Hidden messages with it are only understood by those who know Druidic"),
-				languageProfs : ["Druidic"]
-			},
-			"spellcasting" : {
-				name : "Spellcasting",
-				source : [["SRD", 19], ["P", 66]],
-				minlevel : 1,
-				description : desc([
-					"I can cast prepared druid cantrips/spells, using Wisdom as my spellcasting ability",
-					"I can use a druidic focus as a spellcasting focus for my druid spells",
-					"I can cast my prepared druid spells as rituals if they have the ritual tag"
-				]),
-				additional : levels.map(function (n, idx) {
-					return [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4][idx] + " cantrips known";
-				})
-			},
-			"subclassfeature2" : {
-				name : "Druid Circle",
-				source : [["SRD", 21], ["P", 67]],
-				minlevel : 2,
-				description : desc('Choose a Circle you can identify with and put it in the "Class" field ')
+				languageProfs: ["Druidic"]
 			},
 			"subclassfeature2.wild shape" : {
 				name : "Wild Shape",
@@ -689,6 +694,12 @@ var Base_ClassList = {
 					return "CR " + cr + restr + "; " + hr + (restr.length ? " h" : " hours");
 				}),
 				action : [["action", " (start)"], ["bonus action", " (end)"]]
+			},
+			"subclassfeature3": {
+				name: "Druid Subclass",
+				source: [["SRD24", 43], ["P24", 81]],
+				minlevel: 3,
+				description: '\nChoose a Druid Subclass using the "Class" button/bookmark or type its name into the "Class" field.',
 			},
 			"timeless body" : {
 				name : "Timeless Body",
@@ -725,7 +736,7 @@ var Base_ClassList = {
 			}
 		}
 	},
-
+*/
 	"fighter": {
 		regExpSearch: /^(?!.*(feral|tribal|dark|green|fey|horned|totem|spiritual|exalted|sacred|holy|divine|nature|odin|thor|nature|natural|green|beast|animal))(?=.*(fighter|warrior|militant|warlord|phalanx|gladiator|trooper)).*$/i,
 		name: "Fighter",
@@ -750,21 +761,21 @@ var Base_ClassList = {
 			gold: 4,
 			pack: "dungeoneer",
 			equipright: [
-				["Chain Mail", "", 55],
+				["Chain mail", "", 55],
 				["Greatsword", "", 6],
 				["Flail", "", 2],
 				["Javelins", 8, 2],
 			],
 			equip1stPage: {
 				armor: "Chain Mail",
-				weapons: ["Greatsword", "Flail"],
+				weapons: ["Greatsword", "Flail", "Javelin"],
 				ammo: [["Javelins", 8]],
 			},
 		}, {
 			gold: 11,
 			pack: "dungeoneer",
 			equipright: [
-				["Studded Leather Armor", "", 13],
+				["Studded leather armor", "", 13],
 				["Scimitar", "", 3],
 				["Shortsword", "", 2],
 				["Longbow", "", 2],
@@ -827,7 +838,7 @@ var Base_ClassList = {
 				name: "Tactical Mind",
 				source: [["SRD24", 48], ["P24", 91]],
 				minlevel: 2,
-				description: "\nWhen I fail an ability check, I expend a Second Wind to add 1d10. If still fail, not expended.",
+				description: "\nIf I fail an ability check, I can expend a Second Wind to add 1d10. If still fail, not expended.",
 			},
 			"subclassfeature3" : {
 				name: "Fighter Subclass",
@@ -857,51 +868,68 @@ var Base_ClassList = {
 			},
 		},
 	},
-
+/*
 	"monk": {
 		regExpSearch: /^((?=.*(monk|monastic))|(((?=.*martial)(?=.*(artist|arts)))|((?=.*spiritual)(?=.*warrior)))).*$/i,
 		name: "Monk",
 		source: [["SRD24", 49], ["P24", 101]],
-		primaryAbility : "Dexterity and Wisdom",
-		abilitySave : 5,
-		prereqs : "Dexterity 13 and Wisdom 13",
-		die : 8,
-		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-		saves : ["Str", "Dex"],
-		toolProfs : {
-			primary : [["Artisan's tool or Musical instrument", 1]]
+		primaryAbility: "Dexterity and Wisdom",
+		abilitySave: 5,
+		prereqs: "Dexterity 13 and Wisdom 13",
+		die: 8,
+		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
+		saves: ["Str", "Dex"],
+		toolProfs: {
+			primary: [["Artisan's tool or Musical instrument", 1]],
 		},
-		skillstxt : {
-			primary : "Choose two from Acrobatics, Athletics, History, Insight, Religion, and Stealth"
+		skillstxt: {
+			primary: "Choose 2: Acrobatics, Athletics, History, Insight, Religion, or Stealth.",
 		},
-		armorProfs : {
-			primary : [false, false, false, false]
+		weaponProfs: {
+			primary: [true, false, ["Light Martial Weapons"]],
 		},
-		weaponProfs : {
-			primary : [true, false, ["shortsword"]],
-			secondary : [true, false, ["shortsword"]]
-		},
-		equipment : "Monk starting equipment:" +
-			"\n \u2022 A shortsword -or- any simple weapon;" +
-			"\n \u2022 A dungeoneer's pack -or- an explorer's pack;" +
-			"\n \u2022 10 darts." +
-			"\n\nAlternatively, choose 5d4 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
-		subclasses : ["Monastic Tradition", ["monk-way of the open hand"]],
+		startingEquipment: [{
+			gold: 11,
+			pack: "explorer",
+			equipright: [
+				["Spear", "", 3],
+				["Daggers", 5, 1],
+				["Choice of Artisan's Tools or Musical Instrument I'm proficient with", "", ""],
+			],
+			equip1stPage: {
+				weapons: ["Spear", "Dagger"],
+				ammo: [["Daggers", 5]],
+			},
+		}, {
+			gold: 50,
+		}],
+		subclasses : ["Monastic Tradition", ["monk-open hand"]],
 		attacks: [1, 1, 1, 1, 2],
-		features : {
-			"unarmored defense" : {
-				name : "Unarmored Defense",
-				source : [["SRD24", 50], ["P24", 101]],
-				minlevel : 1,
+		features: {
+			"unarmored defense": {
+				name: "Unarmored Defense",
+				source: [["SRD24", 50], ["P24", 101]],
+				minlevel: 1,
 				description: "\nWithout armor and no shield, my AC is 10 + Dexterity modifier + Wisdom modifier",
 				armorOptions : [{
-					regExpSearch : /justToAddToDropDownAndEffectWildShape/,
-					name : "Unarmored Defense (Wis)",
-					source : [["SRD24", 50], ["P24", 101]],
-					ac : "10+Wis",
-					affectsWildShape : true,
-					selectNow : true
-				}]
+					regExpSearch: /justToAddToDropDownAndEffectWildShape/,
+					name: "Unarmored Defense (Wis)",
+					source: [["SRD24", 50], ["P24", 101]],
+					ac: "10+Wis",
+					affectsWildShape: true,
+					selectNow: true,
+				}],
+				calcChanges: {
+					atkAdd: [ // Mark light martial weapons as proficient if Monk is the primary class
+						function (fields, v) {
+							if (classes.primary === "monk" && !fields.Proficiency && /martial/i.test(v.theWea.type) && /\blight\b/i.test(fields.Description)) {
+								fields.Proficiency = true;
+							};
+						},
+						"",
+						10,
+					],
+				},
 			},
 			"martial arts" : {
 				name : "Martial Arts",
@@ -927,7 +955,10 @@ var Base_ClassList = {
 					atkAdd : [
 						function (fields, v) {
 							if (!classes.known.monk || !classes.known.monk.level || v.theWea.monkweapon === false) return;
-							if (v.theWea.monkweapon || ( v.isMeleeWeapon && /simple/i.test(v.theWea.type) ) || ( v.isMeleeWeapon && /martial/i.test(v.theWea.type) && /\blight\b/i.test(fields.Description) )) {
+							if (  v.theWea.monkweapon ||
+								( v.isMeleeWeapon && /simple/i.test(v.theWea.type) ) ||
+								( v.isMeleeWeapon && /martial/i.test(v.theWea.type) && /\blight\b/i.test(fields.Description) )
+							) {
 								v.theWea.monkweapon = true;
 								var aMonkDie = function (n) { return n < 5 ? 6 : n < 11 ? 8 : n < 17 ? 10 : 12; }(classes.known.monk.level);
 								try {
@@ -1137,37 +1168,61 @@ var Base_ClassList = {
 		regExpSearch: /^((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		name: "Paladin",
 		source: [["SRD24", 53], ["P24", 109]],
-		primaryAbility : "Strength and Charisma",
-		abilitySave : 6,
-		prereqs : "Strength 13 and Charisma 13",
-		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-		die : 10,
-		saves : ["Wis", "Cha"],
-		skillstxt : {
-			primary : "Choose two from Athletics, Insight, Intimidation, Medicine, Persuasion, and Religion"
+		primaryAbility: "Strength and Charisma",
+		abilitySave: 6,
+		prereqs: "Strength 13 and Charisma 13",
+		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
+		die: 10,
+		saves: ["Wis", "Cha"],
+		skillstxt: {
+			primary: "Choose 2: Athletics, Insight, Intimidation, Medicine, Persuasion, or Religion.",
 		},
-		armorProfs : {
-			primary : [true, true, true, true],
-			secondary : [true, true, false, true]
+		armorProfs: {
+			primary:   [true, true,  true, true],
+			secondary: [true, true, false, true],
 		},
-		weaponProfs : {
-			primary : [true, true],
-			secondary : [true, true]
+		weaponProfs: {
+			primary:   [true,  true],
+			secondary: [false, true],
 		},
-		equipment : "Paladin starting equipment:" +
-			"\n \u2022 A martial weapon and a shield -or- two martial weapons;" +
-			"\n \u2022 Five javelins -or- any simple melee weapon;" +
-			"\n \u2022 A priest's pack -or- an explorer's pack;" +
-			"\n \u2022 Chain mail and a holy symbol." +
-			"\n\nAlternatively, choose 5d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
-		subclasses : ["Sacred Oath", ["paladin-oath of devotion"]],
+		startingEquipment: [{
+			gold: 9,
+			pack: "priest",
+			equipright: [
+				["Chain Mail", "", 55],
+				["Shield", "", 6],
+				["Longsword", "", 3],
+				["Javelins", 6, 2],
+				["Holy Symbol of my choice", "", ""],
+			],
+			equip1stPage: {
+				armor: "Chain Mail",
+				shield: "Shield",
+				weapons: ["Longsword", "Javelin"],
+				ammo: [["Javelins", 6]],
+			},
+		}, {
+			gold: 150,
+		}],
+		subclasses : ["Paladin Subclass", ["paladin-devotion"]],
 		attacks: [1, 1, 1, 1, 2],
-		spellcastingFactor : 2,
-		spellcastingKnown : {
-			spells : "list",
-			prepared : true
+		spellcastingFactor: 2,
+		spellcastingKnown: {
+			spells: "list",
+			prepared: [2, 3, 4, 5, 6, 6, 7, 7, 9, 9, 10, 10, 11, 11, 12, 12, 14, 14, 15, 15],
 		},
-		features : {
+		spellcastingFactorRoundupMulti: true,
+		features: {
+			"spellcasting": {
+				name: "Spellcasting",
+				source: [["SRD24", 54], ["P24", 109]],
+				minlevel: 1,
+				description: "\nI can cast prepared Paladin spells, using Cha as spellcasting ability. I can use a Holy Symbol as Spellcasting Focus for them. I can change 1 prepared spell whenever I finish a Long Rest.",
+				additional: levels.map(function (n, idx) {
+					var spells = [2, 3, 4, 5, 6, 6, 7, 7, 9, 9, 10, 10, 11, 11, 12, 12, 14, 14, 15, 15][idx];
+					return spells + " spells to prepare";
+				}),
+			},
 			"divine sense" : {
 				name : "Divine Sense",
 				source : [["SRD", 30], ["P", 84]],
@@ -1203,15 +1258,6 @@ var Base_ClassList = {
 				"dueling" : FightingStyles.dueling,
 				"great weapon fighting" : FightingStyles.great_weapon,
 				"protection" : FightingStyles.protection
-			},
-			"spellcasting" : {
-				name : "Spellcasting",
-				source : [["SRD", 31], ["P", 84]],
-				minlevel : 2,
-				description : desc([
-					"I can cast prepared paladin spells, using Charisma as my spellcasting ability",
-					"I can use a holy symbol as a spellcasting focus for my paladin spells"
-				])
 			},
 			"divine smite" : {
 				name : "Divine Smite",
@@ -1290,37 +1336,63 @@ var Base_ClassList = {
 		regExpSearch: /^((?=.*(ranger|strider))|((?=.*(nature|natural))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		name: "Ranger",
 		source: [["SRD24", 57], ["P24", 119]],
-		primaryAbility : "Dexterity and Wisdom",
-		abilitySave : 5,
-		prereqs : "Dexterity 13 and Wisdom 13",
-		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-		die : 10,
-		saves : ["Str", "Dex"],
-		skillstxt : {
-			primary : "Choose three from Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth, and Survival",
-			secondary : "Choose one from Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth, or Survival"
+		primaryAbility: "Dexterity and Wisdom",
+		abilitySave: 5,
+		prereqs: "Dexterity 13 and Wisdom 13",
+		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
+		die: 10,
+		saves: ["Str", "Dex"],
+		skillstxt: {
+			primary: "Choose 3: Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth, or Survival.",
+			secondary: "Choose 1: Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth, or Survival.",
 		},
-		armorProfs : {
-			primary : [true, true, false, true],
-			secondary : [true, true, false, true]
+		armorProfs: {
+			primary:   [true, true, false, true],
+			secondary: [true, true, false, true],
 		},
-		weaponProfs : {
-			primary : [true, true],
-			secondary : [true, true]
+		weaponProfs: {
+			primary:   [true,  true],
+			secondary: [false, true],
 		},
-		equipment : "Ranger starting equipment:" +
-			"\n \u2022 Scale mail -or- leather armor;" +
-			"\n \u2022 Two shortswords -or- two simple melee weapons;" +
-			"\n \u2022 A dungeoneer's pack -or- an explorer's pack;" +
-			"\n \u2022 A longbow and a quiver of 20 arrows." +
-			"\n\nAlternatively, choose 5d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
-		subclasses : ["Ranger Archetype", ["ranger-hunter"]],
+		startingEquipment: [{
+			gold: 7,
+			pack: "explorer",
+			equipright: [
+				["Studded leather armor", "", 13],
+				["Shortsword", "", 2],
+				["Scimitar", "", 3],
+				["Longbow", "", 2],
+				["Quiver, with:", "", 2],
+				["Arrows", 20, 0.05],
+				["Sprig of mistletoe druidic focus", "", ""],
+			],
+			equip1stPage: {
+				armor: "Studded Leather",
+				weapons: ["Longbow", "Shortsword", "Scimitar (off-hand)"],
+				ammo: [["Arrows", 20]],
+			},
+		}, {
+			gold: 150,
+		}],
+		subclasses: ["Ranger Subclass", ["ranger-hunter"]],
 		attacks: [1, 1, 1, 1, 2],
-		spellcastingFactor : 2,
-		spellcastingKnown : {
-			spells : [0, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11]
+		spellcastingFactor: 2,
+		spellcastingKnown: {
+			spells: "list",
+			prepared: [2, 3, 4, 5, 6, 6, 7, 7, 9, 9, 10, 10, 11, 11, 12, 12, 14, 14, 15, 15],
 		},
-		features : {
+		spellcastingFactorRoundupMulti: true,
+		features: {
+			"spellcasting": {
+				name: "Spellcasting",
+				source: [["SRD", 36], ["P", 91]],
+				minlevel: 1,
+				description: "\nI can cast prepared Ranger spells, using Wis as spellcasting ability. I can use a Druidic Focus as Spellcasting Focus for them. I can change 1 prepared spell whenever I finish a Long Rest.",
+				additional: levels.map(function (n, idx) {
+					var spells = [2, 3, 4, 5, 6, 6, 7, 7, 9, 9, 10, 10, 11, 11, 12, 12, 14, 14, 15, 15][idx];
+					return spells + " spells to prepare";
+				}),
+			},
 			"favored enemy" : {
 				name : "Favored Enemy",
 				source : [["SRD", 35], ["P", 91]],
@@ -1500,15 +1572,6 @@ var Base_ClassList = {
 				"dueling" : FightingStyles.dueling,
 				"two-weapon fighting" : FightingStyles.two_weapon
 			},
-			"spellcasting" : {
-				name : "Spellcasting",
-				source : [["SRD", 36], ["P", 91]],
-				minlevel : 2,
-				description : desc("I can cast ranger spells that I know, using Wisdom as my spellcasting ability"),
-				additional : levels.map(function (n, idx) {
-					return n < 2 ? "" : [0, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11][idx] + " spells known";
-				})
-			},
 			"subclassfeature3" : {
 				name : "Ranger Archetype",
 				source : [["SRD", 37], ["P", 92]],
@@ -1575,34 +1638,50 @@ var Base_ClassList = {
 		regExpSearch: /rogue|miscreant/i,
 		name: "Rogue",
 		source: [["SRD24", 61], ["P24", 129]],
-		primaryAbility : "Rogue: Dexterity",
-		prereqs : "Dexterity 13",
-		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6],
-		die : 8,
-		saves : ["Int", "Dex"],
-		skillstxt :{
-			primary : "Choose four from Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Performance, Persuasion, Sleight of Hand, and Stealth",
-			secondary : "Choose one from Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Performance, Persuasion, Sleight of Hand, or Stealth"
+		primaryAbility: "Dexterity",
+		prereqs: "Dexterity 13",
+		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6],
+		die: 8,
+		saves: ["Int", "Dex"],
+		skillstxt: {
+			primary:   "Choose 4: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Persuasion, Sleight of Hand, or Stealth.",
+			secondary: "Choose 1: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Persuasion, Sleight of Hand, or Stealth."
 		},
-		toolProfs : {
-			primary : [["Thieves' tools", "Dex"]],
-			secondary : [["Thieves' tools", "Dex"]]
+		toolProfs: {
+			primary:   [["Thieves' tools", "Dex"]],
+			secondary: [["Thieves' tools", "Dex"]],
 		},
-		armorProfs : {
-			primary : [true, false, false, false],
-			secondary : [true, false, false, false]
+		armorProfs: {
+			primary:   [true, false, false, false],
+			secondary: [true, false, false, false],
 		},
-		weaponProfs : {
-			primary : [true, false, ["hand crossbow", "longsword", "rapier", "shortsword"]]
+		weaponProfs: {
+			primary: [true, false, ["Finesse/Light Martial Weapons"]],
 		},
-		equipment : "Rogue starting equipment:" +
-			"\n \u2022 A rapier -or- a shortsword;" +
-			"\n \u2022 A shortbow and a quiver of 20 arrows -or- a shortsword;" +
-			"\n \u2022 A burglar's pack -or- dungeoneer's pack -or- an explorer's pack;" +
-			"\n \u2022 Leather armor, two daggers, and thieves' tools." +
-			"\n\nAlternatively, choose 4d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
-		subclasses : ["Roguish Archetype", ["rogue-thief"]],
-		features : {
+		startingEquipment: [{
+			gold: 8,
+			pack: "burglar",
+			equipleft: [
+				["Thieves' tools", "", 1],
+			],
+			equipright: [
+				["Leather armor", "", 10],
+				["Shortsword", "", 2],
+				["Dagger", 2, 1],
+				["Shortbow", "", 2],
+				["Quiver, with:", "", 2],
+				["Arrows", 20, 0.05],
+			],
+			equip1stPage: {
+				armor: "Leather",
+				weapons: ["Shortbow", "Shortsword", "Dagger (off-hand)"],
+				ammo: [["Daggers", 2]],
+			},
+		}, {
+			gold: 100,
+		}],
+		subclasses: ["Rogue Subclass", ["rogue-thief"]],
+		features: {
 			"expertise" : function() {
 				var a = {
 					name : "Expertise",
@@ -1682,7 +1761,18 @@ var Base_ClassList = {
 				source : [["SRD", 39], ["P", 96]],
 				minlevel : 1,
 				description : desc("I know the secret rogue language that I can use to convey messages inconspicuously"),
-				languageProfs : ["Thieves' Cant"]
+				languageProfs : ["Thieves' Cant"],
+				calcChanges: {
+					atkAdd: [ // Mark light and finesse martial weapons as proficient if Rogue is the primary class
+						function (fields, v) {
+							if (classes.primary === "rogue" && !fields.Proficiency && /martial/i.test(v.theWea.type) && /\b(finesse|light)\b/i.test(fields.Description)) {
+								fields.Proficiency = true;
+							};
+						},
+						"",
+						10,
+					],
+				},
 			},
 			"cunning action" : {
 				name : "Cunning Action",
@@ -1759,17 +1849,25 @@ var Base_ClassList = {
 		die: 6,
 		saves: ["Con", "Cha"],
 		skillstxt: {
-			primary: "Choose 2: Arcana, Deception, Insight, Intimidation, Persuasion, or Religion."
+			primary: "Choose 2: Arcana, Deception, Insight, Intimidation, Persuasion, or Religion.",
 		},
 		weaponProfs: {
-			primary: [true, false]
+			primary: [true, false],
 		},
-		equipment : "Sorcerer starting equipment:" +
-			"\n \u2022 A light crossbow and 20 bolts -or- any simple weapon;" +
-			"\n \u2022 A component pouch -or- an arcane focus;" +
-			"\n \u2022 A dungeoneer's pack -or- an explorer's pack;" +
-			"\n \u2022 Two daggers." +
-			"\n\nAlternatively, choose 3d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
+		startingEquipment: [{
+			gold: 28,
+			pack: "dungeoneer",
+			equipright: [
+				["Spear", "", 3],
+				["Daggers", 2, 1],
+				["Crystal arcane focus", "", 1],
+			],
+			equip1stPage: {
+				weapons: ["Spear", "Dagger"],
+			},
+		}, {
+			gold: 50,
+		}],
 		subclasses: ["Sorcerer Subclass", ["sorcerer-draconic bloodline"]],
 		spellcastingFactor: 1,
 		spellcastingKnown: {
@@ -1781,7 +1879,7 @@ var Base_ClassList = {
 				name: "Spellcasting",
 				source: [["SRD24", 64], ["P24", 139]],
 				minlevel: 1,
-				description: "\nI can cast Sorcerer cantrips/spells I know, using Cha as my casting ability, and use Arcane Focus as Spellcasting Focus for them. I can swap 1 cantrip and 1 spell when I gain a level.",
+				description: "\nI can cast Sorcerer cantrips/spells I know, using Cha as spellcasting ability. I can use Arcane Focus as Spellcasting Focus for them. I can swap 1 cantrip and 1 spell when I gain a level.",
 				additional: levels.map(function (n, idx) {
 					var cantrips = [4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6][idx];
 					var spells = [2, 4, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22][idx];
@@ -1888,52 +1986,64 @@ var Base_ClassList = {
 		regExpSearch: /warlock/i,
 		name: "Warlock",
 		source: [["SRD24", 70], ["P24", 153]],
-		primaryAbility : "Charisma",
-		abilitySave : 6,
-		prereqs : "Charisma 13",
-		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-		die : 8,
-		saves : ["Wis", "Cha"],
-		skillstxt : {
-			primary : "Choose two from Arcana, Deception, History, Intimidation, Investigation, Nature, and Religion"
+		primaryAbility: "Charisma",
+		abilitySave: 6,
+		prereqs: "Charisma 13",
+		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
+		die: 8,
+		saves: ["Wis", "Cha"],
+		skillstxt: {
+			primary: "Choose 2: Arcana, Deception, History, Intimidation, Investigation, Nature, or Religion.",
 		},
-		armorProfs : {
-			primary : [true, false, false, false],
-			secondary : [true, false, false, false]
+		armorProfs: {
+			primary:   [true, false, false, false],
+			secondary: [true, false, false, false],
 		},
-		weaponProfs : {
-			primary : [true, false],
-			secondary : [true, false]
+		weaponProfs: {
+			primary: [true, false],
 		},
-		equipment : "Warlock starting equipment:" +
-			"\n \u2022 A light crossbow and 20 bolts -or- any simple weapon;" +
-			"\n \u2022 A component pouch -or- an arcane focus;" +
-			"\n \u2022 A scholar's pack -or- a dungeoneer's pack;" +
-			"\n \u2022 Leather armor, any simple weapon, and two daggers." +
-			"\n\nAlternatively, choose 4d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
-		subclasses : ["Otherworldly Patron", ["warlock-the fiend"]],
-		spellcastingFactor : "warlock1",
-		spellcastingKnown : {
-			cantrips : [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-			spells : [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15]
+		startingEquipment: [{
+			gold: 15,
+			pack: "scholar",
+			equipleft: [
+				["Book (occult lore)", "", 5],
+			],
+			equipright: [
+				["Leather armor", "", 10],
+				["Sickle", "", 2],
+				["Dagger", 2, 1],
+				["Orb arcane focus", "", 3],
+			],
+			equip1stPage: {
+				armor: "Leather",
+				weapons: ["Dagger", "Sickle"],
+			},
+		}, {
+			gold: 100,
+		}],
+		subclasses: ["Warlock Subclass", ["warlock-fiend"]],
+		spellcastingFactor: "warlock1",
+		spellcastingKnown: {
+			cantrips: [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+			spells: [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15],
 		},
 		spellcastingList : {
 			"class" : "warlock",
 			level : [0, 5] //lower and higher limit
 		},
-		features : {
-			"pact magic" : {
-				name : "Pact Magic",
-				source : [["SRD", 46], ["P", 107]],
-				minlevel : 1,
-				description: "\nI can cast Warlock cantrips/spells I know, using Cha as my casting ability, and use Arcane Focus as Spellcasting Focus for them. I can swap 1 cantrip and 1 spell when I gain a level.",
-				additional : levels.map(function (n, idx) {
+		features: {
+			"pact magic": {
+				name: "Pact Magic",
+				source: [["SRD24", 71], ["P24", 153]],
+				minlevel: 1,
+				description: "\nI can cast Warlock cantrips/spells I know, using Cha as spellcasting ability. I can use Arcane Focus as Spellcasting Focus for them. I can swap 1 cantrip and 1 spell when I gain a level.",
+				additional: levels.map(function (n, idx) {
 					var cantr = [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4][idx];
 					var splls = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15][idx];
 					var slots = n < 2 ? 1 : n < 11 ? 2 : n < 17 ? 3 : 4;
 					var sllvl = n < 3 ? 1 : n < 5 ? 2 : n < 7 ? 3 : n < 9 ? 4 : 5;
 					return cantr + " cantrips \x26 " + splls + " spells known; " + slots + "\xD7 " + Base_spellLevelList[sllvl] + " spell slot";
-				})
+				}),
 			},
 			"subclassfeature1" : {
 				name : "Otherworldly Patron",
@@ -2092,8 +2202,8 @@ var Base_ClassList = {
 							function (spellKey, spellObj, spName) {
 								if (spName == "book of ancient secrets") {
 									spellObj.firstCol = '\xAE';
-									if (!(/.*(\d+ ?h\b|special|see b).*/i).test(spellObj.time)) {
-										var numMinutes = Number(spellObj.time.replace(/(\d+) ?min.*/, "$1"));
+									if (!/\d+ ?h\b|special|see b/i).test(spellObj.time)) {
+										var numMinutes = Number(spellObj.time.replace(/(\d+) ?min.*$/, "$1"));
 										if (isNaN(numMinutes)) numMinutes = 0;
 										spellObj.time = (numMinutes + 10) + " min";
 									}
@@ -2580,90 +2690,230 @@ var Base_ClassList = {
 			}
 		}
 	},
-
+*/
 	"wizard": {
 		regExpSearch: /^(?=.*(wizard|mage|magus))(?!.*wild mage).*$/i,
 		name: "Wizard",
 		source: [["SRD24", 77], ["P24", 165]],
-		primaryAbility : "Intelligence",
-		abilitySave : 4,
-		prereqs : "Intelligence 13",
-		improvements : [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
-		die : 6,
-		saves : ["Int", "Wis"],
-		skillstxt : {
-			primary : "Choose two from Arcana, History, Insight, Investigation, Medicine, and Religion"
+		primaryAbility: "Intelligence",
+		abilitySave: 4,
+		prereqs: "Intelligence 13",
+		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
+		die: 6,
+		saves: ["Int", "Wis"],
+		skillstxt: {
+			primary: "Choose 2: Arcana, History, Insight, Investigation, Medicine, or Religion.",
 		},
-		weaponProfs : {
-			primary : [false, false, ["dagger", "dart", "light crossbow", "quarterstaff", "sling"]]
+		weaponProfs: {
+			primary: [true, false],
 		},
-		equipment : "Wizard starting equipment:" +
-			"\n \u2022 A quarterstaff -or- a dagger;" +
-			"\n \u2022 A component pouch -or- an arcane focus;" +
-			"\n \u2022 A scholar's pack -or- an explorer's pack;" +
-			"\n \u2022 A spellbook." +
-			"\n\nAlternatively, choose 4d4 \xD7 10 gp worth of starting equipment instead of both the class' and the background's starting equipment.",
-		subclasses : ["Arcane Tradition", ["wizard-evocation"]],
-		spellcastingFactor : 1,
-		spellcastingKnown : {
-			cantrips : [3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
-			spells : "book",
-			prepared : true
-		},
-		features : {
-			"spellcasting" : {
-				name : "Spellcasting",
-				source : [["SRD", 52], ["P", 114]],
-				minlevel : 1,
-				description : desc([
-					"I can cast prepared wizard cantrips/spells, using Intelligence as my spellcasting ability",
-					"I can use an arcane focus as a spellcasting focus for my wizard spells",
-					"I can cast all wizard spells in my spellbook as rituals if they have the ritual tag"
-				]),
-				additional : levels.map(function (n, idx) {
-					return [3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5][idx] + " cantrips known";
-				})
+		startingEquipment: [{
+			gold: 5,
+			pack: "scholar",
+			equipright: [
+				["Robe", "", 4],
+				["Staff arcane focus", "", 4],
+				["Daggers", 2, 1],
+				["Spellbook", "", 3],
+			],
+			equip1stPage: {
+				weapons: ["Quarterstaff", "Dagger"],
 			},
-			"arcane recovery" : {
-				name : "Arcane Recovery",
-				source : [["SRD", 53], ["P", 115]],
-				minlevel : 1,
-				description : desc("Once per day after a short rest, I can recover a number of 5th-level or lower spell slots"),
-				additional : levels.map(function (n) {
+		}, {
+			gold: 55,
+		}],
+		subclasses: ["Wizard Subclass", ["wizard-evoker"]],
+		spellcastingFactor: 1,
+		spellcastingKnown: {
+			cantrips: [3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+			spells: "book",
+			prepared: [4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 18, 19, 21, 22, 23, 24, 25],
+			cantripsPrepare: true,
+		},
+		features: {
+			"spellcasting": {
+				name: "Spellcasting",
+				source: [["SRD24", 77], ["P24", 165]],
+				minlevel: 1,
+				description: "\nI can cast Wizard cantrips/spells, using Intelligence as my spellcasting ability. I can use an Arcane Focus as a Spellcasting Focus for them. Whenever I finish a Long Rest, I can change 1 cantrip to another Wizard cantrip and all my prepared spells to spells in my spellbook. Whenever I gain a Wizard level, I add two spells for which I have spell slots to my spellbook.",
+				additional: levels.map(function (n, idx) {
+					var cantrips = [3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5][idx];
+					var spells = [4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 18, 19, 21, 22, 23, 24, 25][idx];
+					return cantrips + " cantrips known \x26 " + spells + " spells to prepare";
+				}),
+				toNotesPage: [{
+					name: "Expanding and Replacing a Spellbook",
+					source: [["SRD24", 78], ["P24", 167]],
+					note: [
+						"The spells I add to my spellbook as I gain levels reflect my ongoing magical research, but I might find other spells during my adventures that I can add to the book. I could discover a Wizard spell on a Spell Scroll for example, and then copy it into my spellbook.",
+						"##Copying a Spell into the Book##. When I find a level 1+ Wizard spell, I can copy it into my spellbook if it's of a level I can prepare and if I have time to copy it. For each level of the spell, the transcription takes 2 hours and costs 50 gp. Afterward I can prepare the spell like the other spells in my spellbook.",
+						"##Copying the Book##. I can copy a spell from my spellbook into another book. This is like copying a new spell into my spellbook but faster, since I already know how to cast the spell. I need spend only 1 hour and 10 GP for each level of the copied spell.",
+						"If I lose my spellbook, I can use the same procedure to transcribe the Wizard spells that I have prepared into a new spellbook. Filling out the remainder of the new book requires me to find new spells to do so. For this reason, many wizards keep a backup spellbook.",
+					],
+				}],
+			},
+			"ritual adept": {
+				name: "Ritual Adept",
+				source: [["SRD24", 78], ["P24", 166]],
+				minlevel: 1,
+				description: "\nI can cast any Ritual spell as a Ritual directly from my spellbook without having " + (typePF ? "them" : "it") + " prepared.",
+			},
+			"arcane recovery": {
+				name: "Arcane Recovery",
+				source: [["SRD24", 78], ["P24", 166]],
+				minlevel: 1,
+				description: "\nWhen I finish a short rest, I can recover half my level in spell slot levels (max level 5 slots).",
+				additional: levels.map(function (n) {
 					var lvls = Math.ceil(n / 2);
 					return lvls + " level" + (lvls > 1 ? "s" : "") + " of spell slots";
 				}),
-				usages : 1,
-				recovery : "long rest"
+				usages: 1,
+				recovery: "long rest",
 			},
-			"subclassfeature2" : {
-				name : "Arcane Tradition",
-				source : [["SRD", 53], ["P", 115]],
-				minlevel : 2,
-				description : desc('Choose the Arcane Tradition you studied and put it in the "Class" field ')
+			"scholar": function () {
+				var a = {
+					name: "Scholar",
+					source: [["SRD24", 78], ["P24", 166]],
+					minlevel: 2,
+					description: '\nI gain Expertise in one of these skills in which I have proficiency: Arcana, History, Investigation, Medicine, Nature, or Religion. Use the "Choose Feature" button to select it.',
+					skillstxt: "I gain Expertise in one skill: Arcana, History, Investigation, Medicine, Nature, or Religion.",
+					choices: ["Arcana Expertise", "History Expertise", "Investigation Expertise", "Medicine Expertise", "Nature Expertise", "Religion Expertise"],
+				};
+				for (var i = 0; i < a.choices.length; i++) {
+					var attr = a.choices[i].toLowerCase();
+					var skill = a.choices[i].replace(" Expertise", "");
+					a[attr] = {
+						name: "Scholar: " + skill,
+						description: " [Expertise in " + skill + "]",
+						skills: [[skill, "only"]],
+						prereqeval: function (v) {
+							var skill = v.choice.replace(/ expertise/i, "");
+							return v.skillProfsLC.indexOf(skill) === -1 ? false : v.skillExpertiseLC.indexOf(skill) === -1 ? true : "markButDisable";
+						},
+					};
+				}
+				return a;
+			}(),
+			"subclassfeature3": {
+				name: "Wizard Subclass",
+				source: [["SRD24", 78], ["P24", 167]],
+				minlevel: 3,
+				description: '\nChoose a Wizard Subclass using the "Class" button/bookmark or type its name into the "Class" field.',
 			},
-			"spell mastery" : {
-				name : "Spell Mastery",
-				source : [["SRD", 53], ["P", 115]],
-				minlevel : 18,
-				description : desc([
-					"By spending 8 hours in study, I can pick a 1st and 2nd-level spell in my spellbook",
-					"While prepared, I can cast them at their lowest levels without expending spell slots"
-				])
+			"memorize spell": {
+				name: "Memorize Spell",
+				source: [["SRD24", 79], ["P24", 167]],
+				minlevel: 5,
+				description: "\nWhen I finish a Short Rest, I can change one prepared Wizard spell to another in my book.",
 			},
-			"signature spell" : {
-				name : "Signature Spell",
-				source : [["SRD", 54], ["P", 115]],
+			"spell mastery": {
+				name: "Spell Mastery",
+				source: [["SRD24", 79], ["P24", 167]],
+				minlevel: 18,
+				description: "\nI pick a level 1 and a level 2 spell in my spellbook with a casting time of an action. I always have them prepared and can cast them at their lowest level without using a spell slot. Whenever I finish a Long Rest, I can replace 1 pick with another eligible spell.",
+				spellcastingBonus: [{
+					name: "Spell Mastery level 1",
+					"class": "wizard",
+					level: [1, 1],
+					firstCol: "atwill",
+					spellMasteryLevel1: true,
+				}, {
+					name: "Spell Mastery level 2",
+					"class": "wizard",
+					level: [2, 2],
+					firstCol: "atwill",
+					spellMasteryLevel2: true,
+				}],
+				calcChanges: {
+					spellList: [
+						function(spList, spName, spType) {
+							// Limit the selectable spells to those in the spellbook
+							// This has the downside that newly added spells to the spellbook are only selectable the next time the dialog is opened
+							if (spList.spellMasteryLevel1 || spList.spellMasteryLevel2) {
+								var spellbook = CurrentSpells.wizard.selectSp.concat(CurrentSpells.wizard.selectBo);
+								var spellByLvl = CreateSpellList({spells: spellbook}, false, false, true);
+								var level = spList.spellMasteryLevel1 ? 1 : 2;
+								var oneActionSpells = spellByLvl[level].filter(function (spell) {
+									return SpellsList[spell] && /\b(Act|1 ?a)/i.test(SpellsList[spell].time);
+								});
+								if (oneActionSpells.length) {
+									spList.class = undefined;
+									spList.spells = oneActionSpells;
+								}
+							}
+						},
+						"The selectable spells for Spell Mastery are generated from the level 1 and 2 spells in the spellbook that have a casting time of one action. This means that when you add new level 1 or level 2 spells, they will only be selectable for Spell Mastery after closing and re-opening the Wizard's spell selection dialog.",
+					],
+					spellAdd: [
+						function (spellKey, spellObj, spName, isDuplicate) {
+							if (spName !== "wizard" || isDuplicate || spellObj.level < 1 || spellObj.level > 2 || !CurrentSpells.wizard) return;
+							var masterySpells = CurrentSpells.wizard.bonus["spell mastery"].map(function (n) {
+								return n.selection[0];
+							});
+							if (masterySpells.indexOf(spellKey) !== -1) {
+								removeSpellUpcasting(spellObj);
+								spellObj.changesObj["Changes by Wizard: Spell Mastery"] = "\n \u2022 I can cast the spells picked for my Spell Mastery only at their lowest level when cast without expending a spell slot.";
+								return true;
+							}
+						},
+						""
+					],
+				},
+			},
+			"signature spells" : {
+				name : "Signature Spells",
+				source: [["SRD24", 79], ["P24", 167]],
 				minlevel : 20,
-				description : desc([
-					"Two 3rd-level spells of my choice in my spellbook will always count as prepared",
-					"I can cast both at third level once per short rest without expending spell slots"
-				]),
-				recovery : "short rest",
-				usages : 2
-			}
-		}
-	}
+				description : "\nI pick two 3rd-level spells from my spellbook. I always have these spells prepared and I can cast each once per Short Rest without expending a spell slot.",
+				extraLimitedFeatures: [{
+					name: "Signature Spell (1st pick)",
+					recovery: "short rest",
+					usages: 1,
+				}, {
+					name: "Signature Spell (2nd pick)",
+					recovery: "short rest",
+					usages: 1,
+				}],
+				spellcastingBonus: [{
+					name: "Signature Spells",
+					"class": "wizard",
+					level: [3, 3],
+					firstCol: "oncesr",
+					times: 2,
+					signatureSpell: true,
+				}],
+				calcChanges: {
+					spellList: [
+						function(spList, spName, spType) {
+							// Limit the selectable spells to those in the spellbook
+							// This has the downside that newly added spells to the spellbook are only selectable the next time the dialog is opened
+							if (spList.signatureSpell) {
+								var spellbook = CurrentSpells.wizard.selectSp.concat(CurrentSpells.wizard.selectBo);
+								var spellByLvl = CreateSpellList({spells: spellbook}, false, false, true);
+								if (spellByLvl[3].length) {
+									spList.class = undefined;
+									spList.spells = spellByLvl[3];
+								}
+							}
+						},
+						"The selectable spells for Signature Spells are generated from the level 3 spells in the spellbook. This means that when you add a new level 3 spell, it will only be selectable as a Signature Spell after closing and re-opening the Wizard's spell selection dialog.",
+					],
+					spellAdd: [
+						function (spellKey, spellObj, spName, isDuplicate) {
+							if (spName !== "wizard" || isDuplicate || spellObj.level !== 3 || !CurrentSpells.wizard) return;
+							var signatureSpells = CurrentSpells.wizard.bonus["signature spells"][0].selection;
+							if (signatureSpells.indexOf(spellKey) !== -1) {
+								removeSpellUpcasting(spellObj);
+								spellObj.changesObj["Changes by Wizard: Signature Spells"] = "\n \u2022 I can cast the spells picked as my Signature Spells only at their lowest level when cast without expending a spell slot.";
+								return true;
+							}
+						},
+						""
+					],
+				},
+			},
+		},
+	},
 };
 
 var Base_ClassSubList = {
@@ -2678,7 +2928,7 @@ var Base_ClassSubList = {
 				name: "Frenzy",
 				source: [["SRD24", 30], ["P24", 54]],
 				minlevel: 3,
-				description: "\nIf I use Reckless Attack " + (typePF ? "while Raging" : "in Rage") + ", my " + (typePF ? "first" : "1st") + " Strength attack hit on my turn deals extra damage.",
+				description: "\nIf I use Reckless Attack " + (typePF ? "while Raging" : "in Rage") + ", my 1st Strength attack hit on my turn deals extra damage.",
 				additional: levels.map(function (n) {
 					return "+" + (n < 9 ? 2 : n < 16 ? 3 : 4) + "d6 damage";
 				}),
@@ -2691,7 +2941,7 @@ var Base_ClassSubList = {
 								fields.Description += (fields.Description ? '; ' : '') + '1/turn +' + multiplier + 'd6 damage';
 							}
 						},
-						"Add the text \"Frenzy\" to the name of a weapon that uses Strength to have the Frenzy bonus damage added to its description."
+						'Add the text "Frenzy" to the name of a weapon that uses Strength to have the Frenzy bonus damage added to its description.'
 					],
 				},
 			},
@@ -2721,11 +2971,12 @@ var Base_ClassSubList = {
 			},
 		},
 	},
+/*
 	"bard-lore" : {
 		regExpSearch : /^(?=.*(college|bard|minstrel|troubadour|jongleur))(?=.*lore).*$/i,
 		subname : "College of Lore",
 		source : [["SRD", 13], ["P", 54]],
-		features : {
+		features: {
 			"subclassfeature3" : {
 				name : "Bonus Proficiencies",
 				source : [["SRD", 13], ["P", 54]],
@@ -2767,7 +3018,7 @@ var Base_ClassSubList = {
 		subname : "Life Domain",
 		source : [["SRD", 17], ["P", 60]],
 		spellcastingExtra : ["bless", "cure wounds", "lesser restoration", "spiritual weapon", "beacon of hope", "revivify", "death ward", "guardian of faith", "mass cure wounds", "raise dead"],
-		features : {
+		features: {
 			"subclassfeature1" : {
 				name : "Bonus Proficiency",
 				source : [["SRD", 17], ["P", 60]],
@@ -2909,11 +3160,11 @@ var Base_ClassSubList = {
 			}
 		}
 	},
-	"druid-circle of the land" : {
+	"druid-land" : {
 		regExpSearch : /^(?=.*(druid|shaman))(?=.*\b(land|arctic|coast|deserts?|forests?|grasslands?|savannah|steppes?|mountains?|swamps?|underdark)\b).*$/i,
 		subname : "Circle of the Land",
 		source : [["SRD", 21], ["P", 68]],
-		features : {
+		features: {
 			"subclassfeature2" : {
 				name : "Bonus Cantrip",
 				source : [["SRD", 21], ["P", 68]],
@@ -3033,6 +3284,7 @@ var Base_ClassSubList = {
 			}
 		}
 	},
+*/
 	"fighter-champion" : {
 		regExpSearch: /champion/i,
 		subname: "Champion",
@@ -3112,11 +3364,12 @@ var Base_ClassSubList = {
 			}
 		}
 	},
-	"monk-way of the open hand" : {
+/*
+	"monk-open hand" : {
 		regExpSearch : /^(?=.*\bopen\b)(?=.*\bhand\b)((?=.*(monk|monastic))|(((?=.*martial)(?=.*(artist|arts)))|((?=.*spiritual)(?=.*warrior)))).*$/i,
 		subname : "Way of the Open Hand",
 		source : [["SRD", 28], ["P", 79]],
-		features : {
+		features: {
 			"subclassfeature3" : {
 				name : "Hand Technique",
 				source : [["SRD", 28], ["P", 79]],
@@ -3160,11 +3413,11 @@ var Base_ClassSubList = {
 			}
 		}
 	},
-	"paladin-oath of devotion" : {
+	"paladin-devotion" : {
 		regExpSearch : /^(?=.*(devotion|obedience))((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		subname : "Oath of Devotion",
 		source : [["SRD", 32], ["P", 86]],
-		features : {
+		features: {
 			"subclassfeature3" : {
 				name : "Channel Divinity: Sacred Weapon",
 				source : [["SRD", 33], ["P", 86]],
@@ -3232,7 +3485,7 @@ var Base_ClassSubList = {
 		subname : "Hunter",
 		fullname : "Hunter",
 		source : [["SRD", 37], ["P", 93]],
-		features : {
+		features: {
 			"subclassfeature3" : {
 				name : "Hunter's Prey",
 				source : [["SRD", 37], ["P", 93]],
@@ -3322,7 +3575,7 @@ var Base_ClassSubList = {
 		subname : "Thief",
 		fullname : "Thief",
 		source : [["SRD", 41], ["P", 97]],
-		features : {
+		features: {
 			"subclassfeature3" : {
 				name : "Fast Hands",
 				source : [["SRD", 40], ["P", 97]],
@@ -3369,7 +3622,7 @@ var Base_ClassSubList = {
 		regExpSearch : /^(?=.*(sorcerer|witch))(?=.*(draconic|dragon)).*$/i,
 		subname : "Draconic Bloodline",
 		source : [["SRD", 44], ["P", 102]],
-		features : {
+		features: {
 			"subclassfeature1" : {
 				name : "Dragon Ancestor",
 				source : [["SRD", 44], ["P", 102]],
@@ -3643,12 +3896,12 @@ var Base_ClassSubList = {
 			}
 		}
 	},
-	"warlock-the fiend" : {
+	"warlock-fiend" : {
 		regExpSearch : /^(?=.*(fiend|devil|demon|daemon|hell|abyss))(?=.*warlock).*$/i,
 		subname : "the Fiend",
 		source : [["SRD", 50], ["P", 109]],
 		spellcastingExtra : ["burning hands", "command", "blindness/deafness", "scorching ray", "fireball", "stinking cloud", "fire shield", "wall of fire", "flame strike", "hallow"],
-		features : {
+		features: {
 			"subclassfeature1" : {
 				name : "Dark One's Blessing",
 				source : [["SRD", 50], ["P", 109]],
@@ -3685,66 +3938,99 @@ var Base_ClassSubList = {
 			}
 		}
 	},
-	"wizard-evocation" : {
-		regExpSearch : /(evocation|evocer|evoker)/i,
-		subname : "School of Evocation",
-		fullname : "Evoker",
-		source : [["SRD", 54], ["P", 117]],
-		features : {
-			"subclassfeature2" : {
-				name : "Evocation Savant",
-				source : [["SRD", 54], ["P", 117]],
-				minlevel : 2,
-				description : desc("I halve the gp and time needed to copy evocation spells into my spellbook")
+*/
+	"wizard-evoker": {
+		regExpSearch: /(evocation|evocer|evoker)/i,
+		subname: "Evoker",
+		fullname: "Evoker",
+		source: [["SRD24", 82], ["P24", 174]],
+		features: {
+			"subclassfeature3": {
+				name: "Evocation Savant",
+				source: [["SRD24", 82], ["P24", 174]],
+				minlevel: 3,
+				description: "\nI add two Wizard Evocation spells, up to level 2, to my spellbook. Whenever I gain access to a new level of spell slots in this class, I can add one Wizard Evocation spell to my spellbook."
 			},
-			"subclassfeature2.1" : {
-				name : "Sculpt Spells",
-				source : [["SRD", 54], ["P", 117]],
-				minlevel : 2,
-				description : desc([
-					"If I cast an evocation spell affecting others I can see, I can protect 1 + the spell's level",
-					"The chosen automatically succeed on their saving throws vs. the spell",
-					"They also take no damage if the spell would normally deal half damage on a save"
-				])
-			},
-			"subclassfeature6" : {
-				name : "Potent Cantrip",
-				source : [["SRD", 54], ["P", 117]],
-				minlevel : 6,
-				description : desc("Any cantrips I cast still deal half damage on a successful save"),
-				calcChanges : {
-					atkAdd : [
+			"subclassfeature3.1": {
+				name: "Potent Cantrip",
+				source: [["SRD24", 82], ["P24", 174]],
+				minlevel: 3,
+				description: "\nMy damaging cantrips still deal half damage when I miss or the target successfully saves.",
+				calcChanges: {
+					atkAdd: [
 						function (fields, v) {
-							if (v.isSpell && v.isDC && v.thisWeapon[3] && SpellsList[v.thisWeapon[3]].save) {
-								fields.Description = fields.Description.replace(/ success - no( damage|thing)/ , "success - half damage");
+							if (v.isSpell && v.thisWeapon[3]) {
+								if (v.isDC && SpellsList[v.thisWeapon[3]].save) {
+									fields.Description = fields.Description.replace(/save to avoid/ , "save for half damage").replace(/ success - no( damage|thing)/ , "success - half damage");
+								} else if (!v.isWeapon) {
+									fields.Description += (fields.Description ? "; " : "") + "Half damage on miss";
+								}
 							};
 						},
-						"My cantrips still do half damage on a successful saving throw, but none of their other effects."
+						"My cantrips still do half damage on a miss or a successful saving throw, but none of their other effects.",
 					],
-					spellAdd : [
+					spellAdd: [
 						function (spellKey, spellObj, spName) {
-							if (spellObj.psionic || spellObj.level || !spellObj.save || !(/\d+d\d+/).test(spellObj.description)) return;
-							var startDescr = spellObj.description;
-							spellObj.description = spellObj.description.replace("at CL 5, 11, and 17", "CL 5, 11, 17").replace(/damage/ig, "dmg").replace(/creatures?/ig, "crea").replace("save or ", "").replace("at casting or entering", "at cast/enter").replace(/(; \+\d+d\d+.*$|$)/, "; save: half dmg only$1");
+							if (spellObj.psionic || spellObj.level || /self/i.test(spellObj.range) || !/[^-]\d+d\d+.*dmg/.test(spellObj.description)) return;
+							var useSpellDescr = spellObj.genericSpellDmgEdit ? spellObj.description : getSpellShortDescription(spellKey, spellObj);
+							var remSpellDescr = useSpellDescr;
+							useSpellDescr = useSpellDescr.replace(/(at )?CL ?5(, |\/)11(, and |, \x26 |, |\/)17/i, "CL 5,11,17").replace(/\+1(d\d+) CL/i, "+$1 CL");
+							if (spellObj.save) {
+								useSpellDescr = useSpellDescr.replace("save or ", "").replace(/(; \+d\d+ CL.*$|$)/, "; save half$1");
+							} else if (/atk|attack/i.test(spellObj.description)) {
+								useSpellDescr = useSpellDescr.replace(/attacks?/ig, "atk").replace(/(; \+d\d+ CL.*$|$)/, "; miss half$1");
+							} else {
+								return; // neither save nor an attack cantrip
+							}
 							switch (spellKey) {
-								case "lightning lure" :
-									spellObj.description = spellObj.description.replace(/(Lightn|pull)(ing|ed)/gi, "$1");
+								// Legacy content
+								case "lightning lure":
+									useSpellDescr = useSpellDescr.replace("Lightning", "Lightn.").replace("pulled", "pull");
+								// Extra effect, so make it "save/miss half only" and make space for addition
+								case "starry wisp":
+									useSpellDescr = useSpellDescr.replace("Rngd spell atk", "Spell atk").replace("EoT emits", "EoT").replace(/-(ft|m) dim light/i, "$1 dim");
+									if (spellKey === "starry wisp" && useSpellDescr.indexOf("CL 5,11,17") !== -1) {
+										useSpellDescr = useSpellDescr.replace("atk for", "atk");
+									}
+								case "chill touch":
+									useSpellDescr = useSpellDescr.replace("regain HP", "heal HP");
+								case "ray of frost":
+									useSpellDescr = useSpellDescr.replace("speed", "spd");
+								case "thorn whip":
+									if (spellKey === "thorn whip" && /d6 CL 5/.test(useSpellDescr)) {
+										useSpellDescr = useSpellDescr.replace("up to ", "\u2264");
+									}
+								case "shocking grasp":
+									useSpellDescr = useSpellDescr.replace("it no opportunity", "no oppor. ");
+								case "vicious mockery":
+								case "mind sliver":
+									useSpellDescr = useSpellDescr.replace(/(save|miss) half/, "$1 half only");
 									break;
-								case "create bonfire" :
-									spellObj.description = spellObj.description.replace("half dmg only", "half dmg");
+								// Too long string
+								case "sorcerous burst":
+									useSpellDescr = useSpellDescr.replace("Acid/Cold/Fire/Lightn./Pois./Psych/Thndr", "elemental/Poison/Psychic").replace("CL 5,11,17", "CL*");
 									break;
 							}
-							return startDescr !== spellObj.description;
+							if (remSpellDescr !== useSpellDescr) {
+								spellObj.description = useSpellDescr;
+								return true;
+							}
 						},
-						"My cantrips still do half damage on a successful saving throw, but none of their other effects."
-					]
-				}
+						"My cantrips still do half damage on a miss or a successful saving throw, but none of their other effects.",
+					],
+				},
 			},
-			"subclassfeature10" : {
-				name : "Empowered Evocation",
-				source : [["SRD", 54], ["P", 117]],
-				minlevel : 10,
-				description : desc("I can add my Int modifier to a single damage roll of any wizard evocation spell I cast"),
+			"subclassfeature6": {
+				name: "Sculpt Spells",
+				source: [["SRD24", 82], ["P24", 174]],
+				minlevel: 6,
+				description: "\nIf I cast an evocation spell affecting others that I can see, I can choose a number of them to protect equal to 1 + the spell's level. They automatically succeed on their saves vs. the spell and take no damage if the spell would normally deal half damage on a successful save.",
+			},
+			"subclassfeature10": {
+				name: "Empowered Evocation",
+				source: [["SRD24", 82], ["P24", 174]],
+				minlevel: 10,
+				description: "\nI can add my Intelligence modifier to one damage roll of any Wizard Evocation spell I cast.",
 				calcChanges : {
 					atkCalc : [
 						function (fields, v, output) {
@@ -3752,32 +4038,28 @@ var Base_ClassSubList = {
 								output.extraDmg += What('Int Mod');
 							};
 						},
-						"I add my Intelligence modifier to a single damage roll of any wizard evocation spell I cast."
+						"I add my Intelligence modifier to a single damage roll of any wizard evocation spell I cast.",
 					],
 					spellAdd : [
 						function (spellKey, spellObj, spName) {
 							if (spName.indexOf("wizard") !== -1 && !spellObj.psionic && spellObj.school === "Evoc") return genericSpellDmgEdit(spellKey, spellObj, "\\w+\\.?", "Int", true);
 						},
-						"I add my Intelligence modifier to a single damage roll of any wizard evocation spell I cast."
-					]
-				}
+						"I add my Intelligence modifier to a single damage roll of any wizard evocation spell I cast.",
+					],
+				},
 			},
-			"subclassfeature14" : {
-				name : "Overchannel",
-				source : [["SRD", 54], ["P", 118]],
-				minlevel : 14,
-				description : desc([
-					"When I cast a 5th-level or lower wizard spell that damages, it can deal max damage",
-					"Except the first time I do this after a long rest, I suffer 2d12 necrotic dmg per spell lvl",
-					"Every time I do it after that, before a long rest, I take another 1d12 necrotic damage",
-					"This necrotic damage surpasses my resistances/immunities; I can't overchannel cantrips"
-				]),
-				extraLimitedFeatures : [{
-					name : "Overchannel",
-					recovery : "long rest",
-					usages : "1 + \u221E"
-				}]
-			}
-		}
-	}
+			"subclassfeature14": {
+				name: "Overchannel",
+				source: [["SRD24", 82], ["P24", 174]],
+				minlevel: 14,
+				description: "\nWhen I cast a Wizard spell using a level 1-5 spell slot, I can have it deal maximum damage on the turn that I cast it. From the second time onwards that I do this after a Long Rest, I suffer 1d12 per attempt per spell slot level in Necrotic damage (e.g. 3rd attempt = 3d12 per spell slot level). This damage ignores Resistance and Immunity.",
+				extraLimitedFeatures: [{
+					name: "Overchannel",
+					recovery: "long rest",
+					usages: 1,
+					usagescalc: "var FieldNmbr = parseFloat(event.target.name.slice(-2)); var usages = Number(What('Limited Feature Used ' + FieldNmbr)); event.value = !usages ? '' : (usages+1) + 'd12';",
+				}],
+			},
+		},
+	},
 };

@@ -1238,21 +1238,26 @@ allowUpCasting: true,
 	TYPE:	boolean
 	USE:	do not limit spells to only be cast at their lowest level
 	ADDED:	v13.0.6
+	CHANGE: v24.0.0 (changed default behaviour for feats and races)
 
-	Normally, the sheet will limit spells gained from a feat, magic item, or race to be cast only at
+	Normally, the sheet will limit spells gained from a magic item to be cast only at
 	its lowest level, removing any upcasting options from the short spell description.
 
-	By setting this attribute to true, you force the sheet to leave the upcasting description alone.
-	Do this for feats, magic items, and racial traits.
+	By setting this attribute to `true`, you force the sheet to leave the upcasting description alone.
+	Do this for magic items.
 
-	By setting this attribute to false, you force the sheet to remove the upcasting description.
-	Do this for class features (see note below).
+	By setting this attribute to `false`, you force the sheet to remove the upcasting description.
+	Do this for feats, racial traits, and class features (see note below).
 
 	This setting can be overwritten for a parent by a later feature. Only the most recent is used.
 
 	NOTE FOR CLASS FEATURES
-	Be aware that this setting will apply to all spells gained from the parent (i.e. class), not just
-	those gained by the direct parent.
+	Be aware that this setting will apply to all spells gained from the parent (i.e. class),
+	not just those gained by the direct parent.
+
+	V24.0.0 CHANGE
+	Prior to v24, the upcasting was also automatically removed for feats and races,
+	but that is no longer the case in the 2024 rules.
 */
 
 magicItemComponents: true,
@@ -2034,8 +2039,8 @@ calcChanges: {
 			"race"	spellcasting source is a race and only gains spells from the spellcastingBonus feature
 			"item"	spellcasting source is a magic item and only gains spells from the spellcastingBonus feature
 
-			It can also have de suffix "-bonus" added to one of the above if generating the list for
-			something gained through the spellcastingBonus attribute.
+			It can also have the suffix "-bonus" added to one of the above if generating
+			the list for something gained through the spellcastingBonus attribute.
 
 		// 2nd array entry // OPTIONAL //
 		This has to be a string and will be shown in the "Changes" dialog when this feature is added/removed.
@@ -2107,7 +2112,7 @@ calcChanges: {
 		or healing displayed in the short description on the spell sheet.
 
 		genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, onlyRolls, maximizeRolls)
-		  This function requires 7 parameters (the first 4 are required), which are as follows:
+		  This function takes 7 parameters (the first 4 are required), which are as follows:
 		1)	spellKey, a string, same as the one above
 
 		2)	spellObj, the object of the spell entry, same as the one above
@@ -2574,24 +2579,97 @@ toNotesPage: [{
 		so that it will read, in this example:
 			Wild Magic Surge Table from "Wild Mage"
 	*/
-	note: "\n   Various strange things can happen whenever I cast a spell.",
+	note: "\nVarious strange things can happen whenever I cast a spell.",
 	note: [
-		"d10  Effect",
-		"01-02 Roll on this table at the start of each of your turns for the next minute, ignoring this result on subsequent rolls.",
-		"03-04 For the next minute, you can see any invisible creature if you have line of sight to it.",
-		"05-06 A modron chosen and controlled by the DM appears in an unoccupied space within 5 ft of you, then disappears 1 minute later.",
-		"07-08 You cast fireball as a 3rd-level spell centered on yourself.",
-		"09-10 You cast magic missile as a 5th-level spell."
+		"Introduction text of the note. This will be preceded by a line break, but not three spaces as this is the first paragraph.",
+		"Second paragraph, which will be preceded by a line break and three spaces.",
+		" \u2022 Bullet point entry. This will be preceded by a line break, but not with three spaces, as this entry starts with a space.",
+		" \u2022 Another bullet point entry.",
+		[ // This will render as a table (i.e. a tab between each column)
+			["Column 1 header", "Column 2 header", "Column 3 header"], // The first row, which will be made bold
+			["Column 1 entry", "Column 2 entry", "Column 3 entry"], // The rest of the rows won't be changed
+			["Column 1 entry II", "Column 2 entry II", "Column 3 entry II"], // Table row 2
+		],
+		"***Header Paragraph***. This paragraph will be preceded by a line break and three spaces. The text 'Header Paragraph' will be made bold and italic because of the three asterisks around it.",
 	],
 	/*	note // REQUIRED //
 		TYPE:	string or array
 		USE:	the text of the feature to add to the notes section
+		CHANGE: v14.0.0 (arrays now formatted using `formatDescriptionFull`)
 
+		STRING
 		The string will be put on the notes section exactly as presented here, after the 'name' attribute.
-		If you are writing this as a string, it is recommended to start with a line break (\r or \n).
+		If you are writing this as a string, it is recommended to start with a line break (`\r` or `\n`).
 
-		If this attribute is an array, it will be joined using the desc() function, meaning that
-		each entry in the array will be on its own line, preceded by three spaces.
+		ARRAY
+		If this attribute is an array, it will be formatted using `formatDescriptionFull`.
+		This means that each entry in the array will be put on a new line.
+		Each entry can be one of the following:
+			1. String
+			   If the entry is a string that doesn't start with a space character and
+			   it is not the first entry, it will be added on a new line proceeded by
+			   three spaces (i.e. `\n   `).
+			   If the entry is a string that starts with a space character,
+			   it will be added on a new line without any preceding spaces.
+			   For example, to make a bullet point list, you would use ` \u2022 list entry`
+			   (N.B. `\u2022` is unicode for a bullet point).
+			2. Array of arrays, which contain only strings
+			   If the entry is in itself an array, it is treated as a table.
+			   Each entry in that array is a row in the table, with the first row being 
+			   considered headers that will be made bold.
+			   Making it bold is done using the `**` formatting character, see below.
+			   Each subarray is rendered with a tab between each column (i.e. `Array.join("\t")`).
+			   If instead of a subarray there is a string, it will be added as is.
+			   The table will be preceded by two line breaks and followed by one line break.
+
+		FORMATTING CHARACTERS (since v14.0.0)
+		Regardless if you use a string or an array, the note can be formatted using the
+		Rich Text formatting characters. Text between the formatting characters will be
+		displayed differently. The formatting characters are as follows:
+			*text*   = italic
+			**text** = bold
+			_text_   = underlined
+			~text~   = strikethrough
+			#text#   = Header 1:
+			           - bold and theme color (Colourful)
+			           - bold and 15% size increase (Printer Friendly)
+			##text## = Header 2:
+			           - italic, bold, and theme color (Colourful)
+			           - italic and bold (Printer Friendly)
+
+		You can combine these to apply multiple formatting options to one string, but there
+		are some limitations to consider.
+			1. Formatting characters don't work across line breaks (`\r` and `\n`).
+				This won't work:
+					"**text before and" + "\n" + "text after line break**""
+				Instead do this:
+					"**text before and**" + "\n" + "**text after line break**"
+			2. Combining formatting characters requires them to be in the same or reversed order.
+				This won't work:
+					"_**~underlined, strikethrough, and bold**_~"
+				Instead do this:
+					"_**~underlined, strikethrough, and bold~**_"
+				or this:
+					"_**~underlined, strikethrough, and bold_**~"
+			3. Tabs (`\t`) and multiple spaces will break the formatting if the field is edited manually.
+				This should be avoided:
+					"**text before and" + "\t" + "text after tab**""
+				Instead do this:
+					"**text before and**" + "\t" + "**text after tab**
+
+		Be aware that the default font on the Colourful sheets is already italic,
+		so making something only italic won't be visible on the Colourful sheets.
+	*/
+	useFullDescription: true,
+	/*	useFullDescription // OPTIONAL //
+		TYPE:	boolean or function
+		USE:	whether to use the parent feature's `fullDescription` as the note
+		ADDED:	v14.0.0
+
+		If this is set to true for a feature that has the `fullDescription` attribute, 
+		the `note` attribute will be ignored and the `fullDescription` will be used instead.
+
+		Setting this to 0 or false is the same as not including this attribute.
 	*/
 	page3notes: true,
 	/*	page3notes // OPTIONAL //
@@ -2689,7 +2767,7 @@ featsAdd: [
 	"Grappler",
 	{ key: "lucky" },
 	{ key: "magic initiate", choice: "wizard" },
-	{ type: "origin" }
+	{ type: "origin" },
 ],
 /*	featsAdd // OPTIONAL //
 	TYPE:	array (variable length) of strings or objects

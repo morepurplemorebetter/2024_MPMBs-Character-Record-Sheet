@@ -507,6 +507,7 @@ function DirectImport(consoleTrigger) {
 		var fromBefore13 = FromVersion < semVersToNmbr("13.0.0-beta14");
 		var fromBefore13_1_5 = FromVersion < semVersToNmbr("13.1.5");
 		var fromBefore13_2 = FromVersion < semVersToNmbr("13.2.0");
+		var fromBefore14 = FromVersion < semVersToNmbr(14);
 		if (FromVersion > ToVersion || (FromVersion >= semVersToNmbr("13.0.0-beta1") && fromBefore13)) {
 			// If importing from a newer version or from a v13.0.0-beta1-beta13
 			var versTypeTxt = FromVersion > ToVersion ? ["this sheet is", "newer", "than the one you are importing"] : ["the other sheet is an", "unsupported beta", "that can't be imported to any other MPMB's Character Record Sheet"];
@@ -1206,7 +1207,6 @@ function DirectImport(consoleTrigger) {
 
 		//do the adventure gear sections
 		ImportField("Platinum Pieces"); ImportField("Gold Pieces"); ImportField("Electrum Pieces"); ImportField("Silver Pieces"); ImportField("Copper Pieces");
-		ImportField("Valuables1"); ImportField("Valuables2"); ImportField("Valuables3"); ImportField("Valuables4");
 		ImportField("Carrying Capacity Multiplier", {notTooltip: true});
 
 		nmbrFlds = global.docFrom.FieldNumbers && global.docFrom.FieldNumbers.gear ? global.docFrom.FieldNumbers.gear : FieldNumbers.gear;
@@ -1224,6 +1224,17 @@ function DirectImport(consoleTrigger) {
 		if (fromBefore13) importMagicItems();
 
 		ImportField("Extra.Other Holdings");
+		// Add to it the old ValuablesX fields from Colourful sheets from before v14
+		if (fromBefore14 && !fromSheetTypePF) {
+			var extraHoldingsFld = global.docTo.getField("Extra.Other Holdings");
+			for (var i = 1; i <= 4; i++) {
+				var valuablesFld = global.docFrom.getField("Valuables" + i);
+				if (valuablesFld.value) {
+					extraHoldingsFld.value += (extraHoldingsFld.value ? "; " : "") + valuablesFld.value.replace(/[\n\r]+/g, "; ").replace(/^; |; $/g, "");
+				}
+			}
+		}
+
 
 		//extra equipment
 		nmbrFlds = global.docFrom.FieldNumbers && global.docFrom.FieldNumbers.extragear ? global.docFrom.FieldNumbers.extragear : FieldNumbers.extragear;

@@ -66,7 +66,7 @@ var Base_DefaultEvalsList = {
 		atkAdd: [
 			function (fields, v) {
 				if (v.masteryAdded || !v.theWea.mastery || !WeaponMasteriesList[v.theWea.mastery]) return;
-				var addMastery = /mastery|[\(\[]WM[\]\)]/i.test(v.WeaponTextName);
+				var addMastery = /mastery|[\(\[]M[\]\)]/i.test(v.WeaponTextName);
 				if (!addMastery && v.baseWeaponName && CurrentFeatureChoices.classes) {
 					// test if weapon eligible through Weapon Mastery class feature
 					for (var sClass in CurrentFeatureChoices.classes) {
@@ -93,13 +93,13 @@ var Base_DefaultEvalsList = {
 					if (fields.Description) fields.Description += fields.Description.indexOf(';') !== -1 ? '; ' : ', ';
 					fields.Description += oMastery.name;
 					if (fields.Description_Tooltip) fields.Description_Tooltip += '\n\n';
-					fields.Description_Tooltip += toUni(oMastery.name + ' Weapon Mastery');
+					fields.Description_Tooltip += toUni(oMastery.name + ' Weapon Mastery', "bold");
 					fields.Description_Tooltip += stringSource(oMastery, "first,abbr", " (", ")");
-					fields.Description_Tooltip += '\n' + oMastery.descriptionFull;
+					fields.Description_Tooltip += '\n' + formatDescriptionFull(oMastery.descriptionFull);
 					v.masteryAdded = true;
 				}
 			},
-			'Add the text "Mastery", "[WM]", or "(WM)" to the name of a weapon that has a mastery property to have this mastery listed in the description and its explanation added to tooltip of the description field.\n   This is done automatically for weapons selected with the "Choose Feature" button for class features that grant weapon masteries, regardless of the aforementioned text being present.',
+			'Add the text "Mastery", "[M]", or "(M)" to the name of a weapon that has a mastery property to have this mastery listed in the description and its explanation added to tooltip of the description field.\n   This is done automatically for weapons selected with the "Choose Feature" button for class features that grant weapon masteries, regardless of the aforementioned text being present.',
 			1,
 		],
 	},

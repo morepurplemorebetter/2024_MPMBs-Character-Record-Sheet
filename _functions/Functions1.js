@@ -196,7 +196,7 @@ function OpeningStatement() {
 		tDoc.pane = "bookmarks"; //open the bookmarks so that on the first opening people can see its existence
 		var sheetTitle = "MorePurpleMoreBetter's D&D 2024 " + (tDoc.info.SpellsOnly ? "Complete " + tDoc.info.SpellsOnly.capitalize() + " Spell Sheet" : (tDoc.info.AdvLogOnly ? "Adventure Logsheet" : "Character Record Sheet")) + " (" + tDoc.info.SheetType + ") v" + semVers;
 		var Text = "[Can't see the 'OK' button at the bottom? Use ENTER to close this dialog]\n\n";
-		Text += "Welcome to " + toUni(sheetTitle);
+		Text += "Welcome to " + toUni(sheetTitle, "bold");
 		Text += ".\n>> get the latest version using the bookmark.";
 		Text += patreonVersion ? "" : "\n\n" + toUni("SRD only") + '. The System Reference Document content is the only Wizards of the Coast publication this sheet is allowed to contain. The rest is protected by WotC\'s copyright. Use the "Get More Content" bookmark to get add-on scripts to increase the available options.';
 		Text += "\n\n" + toUni("2024 version") + ". The 2024 edition (5.5e) of Dungeons & Dragons is what this sheet is made for. Visit MPMB's website to get a sheet for 5e (2014) D&D.";
@@ -2021,20 +2021,20 @@ function FindClasses(NotAtStartup, isFieldVal) {
 		//see if this class is a spellcaster and what we need to do with that
 		if (Temps.spellcastingFactor) {
 			var casterType = !isNaN(Temps.spellcastingFactor) ? "default" : Temps.spellcastingFactor.replace(/\d/g, "");
-			var casterFactor = !isNaN(Temps.spellcastingFactor) ? Number(Temps.spellcastingFactor) : (/\d/g).test(Temps.spellcastingFactor) ? Number(Temps.spellcastingFactor.match(/\d/g).join("")) : 1;
+			var casterFactor = !isNaN(Temps.spellcastingFactor) ? Number(Temps.spellcastingFactor) : /\d/g.test(Temps.spellcastingFactor) ? Number(Temps.spellcastingFactor.match(/\d/g).join("")) : 1;
 			// now only continue if the class level is the factor or higher
-			var isCasterAtLvl = function(lvl) {
-				var theRe = Math.max(casterFactor, 1) <= lvl;
+			var isCasterAtLvl = function(lvl, factor, table, roundUp) {
+				var theRe = 0 < Math[roundUp ? "ceil" : "floor"](lvl / factor);
 				// or if the class has its own spell slot progression, check against that
-				if (!theRe && Temps.spellcastingTable && Temps.spellcastingTable[lvl]) {
-					theRe = 0 < Temps.spellcastingTable[lvl].reduce(function (total, num) {
+				if (!theRe && table && table[lvl]) {
+					theRe = 0 < table[lvl].reduce(function (total, num) {
 						return total + num;
 					});
 				}
 				return theRe;
 			}
-			var casterAtCurLvl = isCasterAtLvl(classes.known[aClass].level);
-			var casterAtOldLvl = classes.old[aClass] ? isCasterAtLvl(classes.old[aClass].classlevel) : 0;
+			var casterAtCurLvl = isCasterAtLvl(classes.known[aClass].level, casterFactor, Temps.spellcastingTable, Temps.spellcastingFactorRoundupMulti);
+			var casterAtOldLvl = classes.old[aClass] && isCasterAtLvl(classes.old[aClass].classlevel, casterFactor, Temps.spellcastingTable, Temps.spellcastingFactorRoundupMulti);
 			if (casterAtCurLvl) {
 				// add one to the casterType for seeing if this casterType is multiclassing later on
 				if (multiCaster[casterType]) {
@@ -2051,7 +2051,7 @@ function FindClasses(NotAtStartup, isFieldVal) {
 						cSpells.known = Temps.spellcastingKnown ? Temps.spellcastingKnown : "";
 						cSpells.typeSp = !cSpells.known || !cSpells.known.spells || isArray(cSpells.known.spells) || !isNaN(cSpells.known.spells) ? "known" : cSpells.known.spells;
 						cSpells.factor = [casterFactor, casterType];
-						cSpells.spellsTable = Temps.spellcastingTable ? Temps.spellcastingTable : false;
+						cSpells.spellsTable = isArray(Temps.spellcastingTable) ? Temps.spellcastingTable : false;
 						if (Temps.spellcastingExtra && deletedCurrentSpells.indexOf(aClass) !== -1) {
 							// Set the extra (and extraSpecial) attributes if we had to recreate this CurrentSpells object
 							processSpellcastingExtra(true, aClass, 0, "", Temps.spellcastingExtra, Temps.spellcastingExtraApplyNonconform);
@@ -2076,27 +2076,34 @@ function FindClasses(NotAtStartup, isFieldVal) {
 	classes.attacks = Math.max.apply(Math, temp);
 
 	//reset the global variable for spellcasting levels
-	classes.spellcastlvl = {default : 0, warlock : 0, spellpoints : 0};
+	classes.spellcastlvl = {default: 0, warlock: 0, spellpoints: 0};
 	//loop through the classes to find the new spellcasting level totals (can't be done in previous loop, because we need to know the total amount of casters of each type, which is set in previous loop)
 	for (var aClass in classes.known) {
 		var Temps = CurrentClasses[aClass];
 		var cSpells = CurrentSpells[aClass];
-		// don't go on if this is not a spellcaster or its factor is lower than its level (thus, no spell slots at this level)
-		if (!cSpells || !cSpells.factor || (!Temps.spellcastingTable && cSpells.factor[0] > cSpells.level)) continue;
+		// don't go on if this is not a spellcasting class with spell slot progression
+		if (!cSpells || !cSpells.factor) continue;
+		// don't go on if this spellcasting class is not at a level with access to spells
+		var casterLevel = cSpells.level; 
 		var casterFactor = cSpells.factor[0];
 		var casterType = cSpells.factor[1];
+		var customSlotTable = cSpells.spellsTable;
+		var multiRoundUp = Temps.spellcastingFactorRoundupMulti;
+		var isCasterAtCurrentLvl = isCasterAtLvl(casterLevel, casterFactor, customSlotTable, multiRoundUp);
+		if (!isCasterAtCurrentLvl) continue;
 		// Now calculate the effective caster level and add it to the casterType
-		if (Temps.spellcastingTable && multiCaster[casterType] === 1) {
-			var casterLvl = Math.min(Temps.spellcastingTable.length - 1, classes.known[aClass].level);
+		if (customSlotTable && multiCaster[casterType] === 1) {
+			var slotLevel = Math.min(customSlotTable.length - 1, casterLevel);
 			// Sum the values in the row at the current caster level and add it to the otherTables
-			classes.spellcastlvl.otherTables = !classes.spellcastlvl.otherTables ? Temps.spellcastingTable[casterLvl] : classes.spellcastlvl.otherTables.map(function (num, idx) {
-				return num + Temps.spellcastingTable[casterLvl][idx];
+			classes.spellcastlvl.otherTables = !classes.spellcastlvl.otherTables ? customSlotTable[slotLevel] : classes.spellcastlvl.otherTables.map(function (num, idx) {
+				return num + customSlotTable[slotLevel][idx];
 			});
 		} else {
 			if (classes.spellcastlvl[casterType] == undefined) classes.spellcastlvl[casterType] = 0;
-			classes.spellcastlvl[casterType] += Math[multiCaster[casterType] > 1 && !Temps.spellcastingFactorRoundupMulti ? "floor" : "ceil"](cSpells.level / casterFactor);
+			classes.spellcastlvl[casterType] += Math[multiCaster[casterType] > 1 && !multiRoundUp ? "floor" : "ceil"](casterLevel / casterFactor);
 		}
-		if (casterType === "default") classes.spellcastlvl.spellpoints += Math[!Temps.spellcastingFactorRoundupMulti ? "floor" : "ceil"](cSpells.level / casterFactor);
+		// Count for spell points optional rule if this is a default caster type
+		if (casterType === "default") classes.spellcastlvl.spellpoints += Math[multiRoundUp ? "ceil" : "floor" ](casterLevel / casterFactor);
 	}
 
 	if (!NotAtStartup) { // add the current classes.known into classes.old on startup of the sheet
@@ -2720,7 +2727,7 @@ function AmendOldToNewRace(oInstr, bSkipDialogAndForce) {
 			nIcon : 2, // Question
 			nType : 2, // Yes (return = 4), No (return = 3)
 			cTitle : "Use traits from " + sOldRaceName + " for " + CurrentRace.name,
-			cMsg : "The " + CurrentRace.name + " species has the option to use some specific traits from another species. As you had previously selected " + sOldRaceName + " as the species, would you want to use its features?\n\n" + toUni("Press 'Yes' to use traits from " + sOldRaceName + " or\npress 'No' to use the default traits for " + CurrentRace.name + ".") + (oInstr.message ? "\n\n" + oInstr.message : "")
+			cMsg : "The " + CurrentRace.name + " species has the option to use some specific traits from another species. As you had previously selected " + sOldRaceName + " as the species, would you want to use its features?\n\n" + toUni("Press 'Yes' to use traits from " + sOldRaceName + " or\npress 'No' to use the default traits for " + CurrentRace.name + ".", "bold") + (oInstr.message ? "\n\n" + oInstr.message : "")
 		});
 		CurrentVars.oldRaceAmendRemember = iAskUser === 4;
 		SetStringifieds("vars");
@@ -4549,18 +4556,18 @@ function MakeBackgroundMenu_BackgroundOptions(MenuSelection) {
 			var traitName = traitTypes[type];
 			if (type === "trait") traitName += " (select 2)";
 			var temp = {
-				cName : traitName,
-				oSubMenu : [],
-				bMarked : false
+				cName: traitName,
+				oSubMenu: [],
+				bMarked: false
 			};
 			var areAnyMarked = false;
 			for (i = 0; i < array.length; i++) {
 				var toUse = isArray(array[i]) ? array[i][1] : array[i];
 				var isMarked = !currentVals[type] ? false : currentVals[type].indexOf(toUse.toLowerCase()) !== -1;
 				temp.oSubMenu.push({
-					cName : toUse,
-					cReturn : "backgroundtraits#" + listType + "#" + key + "#" + type + "#" + i,
-					bMarked : isMarked
+					cName: removeFormatChars(toUse),
+					cReturn: "backgroundtraits#" + listType + "#" + key + "#" + type + "#" + i,
+					bMarked: isMarked
 				})
 				if (isMarked) areAnyMarked = true;
 			}
@@ -4570,10 +4577,10 @@ function MakeBackgroundMenu_BackgroundOptions(MenuSelection) {
 		};
 
 		var traitTypes = {
-			trait : "Personality Trait",
-			ideal : "Ideal",
-			bond : "Bond",
-			flaw : "Flaw"
+			trait: "Personality Trait",
+			ideal: "Ideal",
+			bond: "Bond",
+			flaw: "Flaw"
 		};
 		var backMenu = [];
 		var currentVals = {};
@@ -4590,10 +4597,10 @@ function MakeBackgroundMenu_BackgroundOptions(MenuSelection) {
 			var sSrc = oBack.traitsSourceString ? "\t   [" + oBack.traitsSourceString + "]" : oBack.source ? stringSource(oBack, "first,abbr", "\t   [", "]") : "";
 			var sName = oBack.traitsOriginName ? oBack.traitsOriginName : oBack.name;
 			var entry = {
-				cName : sName + sSrc,
-				sSortname : (sName + sSrc).toLowerCase(),
-				oSubMenu : [],
-				bMarked : false
+				cName: sName + sSrc,
+				sSortname: (sName + sSrc).toLowerCase(),
+				oSubMenu: [],
+				bMarked: false
 			};
 			for (var sType in traitTypes) {
 				if (!oBack[sType]) return;
@@ -4616,12 +4623,12 @@ function MakeBackgroundMenu_BackgroundOptions(MenuSelection) {
 
 		// Create the final menu entry
 		Menus.background = [{
-			cName : "[Taken from 2014 rules]",
-			cReturn : "",
-			bEnabled : false
+			cName: "[Taken from 2014 rules]",
+			cReturn: "",
+			bEnabled: false
 		}, {
-			cName : "Reset the four fields",
-			cReturn : "backgroundtraits#reset"
+			cName: "Reset the four fields",
+			cReturn: "backgroundtraits#reset"
 		}, {
 			cName: "-"
 		}].concat(backMenu);
@@ -4644,6 +4651,10 @@ function MakeBackgroundMenu_BackgroundOptions(MenuSelection) {
 		if (oList[key] && oList[key][traitType] && oList[key][traitType][index]) {
 			// get the string
 			var traitString = oList[key][traitType][index];
+			if (isArray(traitString)) {
+				// get the second entry if an array (backwards compatibility for ideals)
+				traitString = traitString[1];
+			}
 			// add it to the sheet
 			if (traitType === "trait") {
 				// Personality Trait can have multiple, so do that differently
@@ -4804,14 +4815,17 @@ function AddString(field, inputstring, newline) {
 	}
 };
 
-function RemoveString(field, toremove, newline) {
+function RemoveString(field, toremove, newline, alreadyRegExp) {
 	if (!toremove && toremove !== 0) return;
 	var thestring = toremove.replace(/\n/g, "\r");
-	var regExString = thestring.RegEscape();
+	var regExString = alreadyRegExp ? thestring : thestring.RegEscape();
 	var thefield = tDoc.getField(field);
 	if (!thefield || !thefield.value) return;
 	var stringsArray, regExStringsArray;
-	if (newline === false || typeof newline === "string") {
+	if (newline === false ) {
+		stringsArray = [thestring];
+		regExStringsArray = [regExString];
+	} else if (typeof newline === "string") {
 		stringsArray = [newline + thestring, thestring];
 		regExStringsArray = [(newline + thestring).RegEscape(), regExString];
 	} else {
@@ -4840,7 +4854,7 @@ function RemoveString(field, toremove, newline) {
 	}
 	for (var i = 0; i < stringsArray.length; i++) {
 		var regex = RegExp(regExStringsArray[i], "i");
-		if ((regex).test(thefield.value)) {
+		if (regex.test(thefield.value)) {
 			thefield.value = thefield.value.replace(regex, "");
 			break;
 		} else if (thefield.value.indexOf(stringsArray[i]) !== -1) {
@@ -4855,9 +4869,10 @@ function ReplaceString(field, inputstring, newline, theoldstring, alreadyRegExp)
 	if (!thefield) return;
 	var thestring = theoldstring.replace(/\n/g, "\r");
 	var regExString = alreadyRegExp ? thestring : thestring.RegEscape();
+	var regEx = RegExp(regExString, "i");
 	var multilines = newline !== undefined ? newline : thefield.multiline;
-	if ((RegExp(regExString, "i")).test(thefield.value) && theoldstring) {
-		thefield.value = thefield.value.replace(RegExp(regExString, "i"), inputstring);
+	if (regEx.test(thefield.value) && theoldstring) {
+		thefield.value = thefield.value.replace(regEx, inputstring);
 	} else if (thefield.value.indexOf(thestring) !== -1 && theoldstring) {
 		thefield.value = thefield.value.replace(thestring, inputstring);
 	} else {
@@ -5001,7 +5016,9 @@ function CalcAllSkills(isCompPage) {
 		// proficiency bonus
 		// Do not add Remarkable Athlete or Jack of All Trades if "Prof" is added as a bonus, because of the literal wording of those features
 		if (isInit) {
-			if (!pr && !modFldHasProf) setVals[setFld] += remAth ? Math.ceil(profB / 2) : jackOf ? Math.floor(profB / 2) : 0;
+			// v24: Jack of All Trades no longer provides a bonus to all ability checks, just skill checks
+			// if (!pr && !modFldHasProf) setVals[setFld] += remAth ? Math.ceil(profB / 2) : jackOf ? Math.floor(profB / 2) : 0;
+			if (!pr && !modFldHasProf) setVals[setFld] += remAth ? Math.ceil(profB / 2) : 0;
 		} else if ((doPass || !profDie) && !pr) {
 			if (tDoc.getField(setFld + " Prof").isBoxChecked(0)) {
 				addProf = profB;
@@ -5461,7 +5478,7 @@ function ApplyFeat(input, FldNmbr) {
 				var features = CurrentClasses[sClass].features;
 				for (var sFea in features) {
 					var oFea = features[sFea];
-					if (oFea.minlevel < lvl) continue;
+					if (oFea.minlevel > lvl) continue;
 					if (oFea.choicesFightingStyles || /fighting style/i.test(sFea + oFea.name)) {
 						return true;
 					}
@@ -5548,7 +5565,7 @@ function ApplyFeat(input, FldNmbr) {
 		}
 
 		// Create the tooltip
-		var tooltipStr = toUni(theFeat.name);
+		var tooltipStr = toUni(theFeat.name, "bold");
 		if (theFeat.type) tooltipStr += "\n \u2022 Type: " + theFeat.type[0].toUpperCase() +  theFeat.type.substr(1) + (/gift/i.test(theFeat.type) ? "" :" feat");
 		if (theFeat.prerequisite) tooltipStr += "\n \u2022 Prerequisite: " + theFeat.prerequisite;
 		tooltipStr += stringSource(theFeat, "full,page", "\n \u2022 Source: ", ".");
@@ -6167,7 +6184,7 @@ function processAddFeats(bAddRemove, featsAdd, srcType, srcName, srcNameUnique) 
 				var sChoice = oFeat.choices.filter(function (n) { return n.toLowerCase() === featsAdd[i].choice; });
 				var oChoice = oFeat[featsAdd[i].choice];
 				if (typeof oChoice === "object" && sChoice.length) {
-					sFeatsName = oChoice.name ? oChoice.name : sFeatName + " [" + sChoice.toString() + "]";
+					sFeatName = oChoice.name ? oChoice.name : sFeatName + " [" + sChoice.toString() + "]";
 				}
 			}
 		} else if (featsAdd[i].type) {
@@ -6360,16 +6377,15 @@ function ParseClassFeature(theClass, theFeature, FeaLvl, ForceOld, SubChoice, Fe
 
 	var FeaPost = "";
 	if (Fea["Add" + old] && FeaUse) {
-		FeaPost = " [" + Fea["Add" + old] + ", " + FeaUse + "]";
+		FeaPost = " #[" + Fea["Add" + old] + ", " + FeaUse + "]#";
 	} else if (Fea["Add" + old]) {
-		FeaPost = " [" + Fea["Add" + old] + "]";
+		FeaPost = " #[" + Fea["Add" + old] + "]#";
 	} else if (FeaUse) {
-		FeaPost = " [" + FeaUse + "]";
+		FeaPost = " #[" + FeaUse + "]#";
 	}
-	FeaPost += "#";
 
 	var FeaName = SubChoice && FeaKey[SubChoice] ? FeaKey[SubChoice].name : FeaKey.name;
-	var FeaFirstLine = "#\u25C6 " + FeaName + FeaRef;
+	var FeaFirstLine = "#\u25C6 " + FeaName + "#" + FeaRef;
 	var FeaDescr = Fea["Descr" + old];
 	if (isArray(FeaDescr)) FeaDescr = desc(FeaDescr);
 	if (What("Unit System") == "metric") {
@@ -6398,15 +6414,14 @@ function ParseClassFeatureExtra(theClass, theFeature, extraChoice, Fea, ForceOld
 
 	var FeaPost = "";
 	if (Fea["Add" + old] && FeaUse) {
-		FeaPost = " [" + Fea["Add" + old] + ", " + FeaUse + "]";
+		FeaPost = " #[" + Fea["Add" + old] + ", " + FeaUse + "]#";
 	} else if (Fea["Add" + old]) {
-		FeaPost = " [" + Fea["Add" + old] + "]";
+		FeaPost = " #[" + Fea["Add" + old] + "]#";
 	} else if (FeaUse) {
-		FeaPost = " [" + FeaUse + "]";
+		FeaPost = " #[" + FeaUse + "]#";
 	};
-	FeaPost += "#";
 
-	var FeaFirstLine = "#\u25C6 " + FeaKey.name + FeaRef;
+	var FeaFirstLine = "#\u25C6 " + FeaKey.name + "#" + FeaRef;
 	var FeaDescr = Fea["Descr" + old];
 	if (isArray(FeaDescr)) FeaDescr = desc(FeaDescr);
 	if (What("Unit System") == "metric") {
@@ -6440,7 +6455,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 	thermoM(1/8); //increment the progress dialog's progress
 
 	// apply creature level-dependent features on companion pages (don't compare level, because the total level can stay the same while class levels change)
-	if ((/companion|creature|all|notclass/i).test(Typeswitch) && isTemplVis('AScomp')) {
+	if (/companion|creature|all|notclass/i.test(Typeswitch) && isTemplVis('AScomp')) {
 		var AScompA = What('Template.extras.AScomp').split(',');
 		for (var a = 1; a < AScompA.length; a++) {
 			var prefix = AScompA[a];
@@ -6515,7 +6530,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 	// apply feat level changes
 	var oldFeatLvl = CurrentFeats.level;
 	var newFeatLvl = curLvl;
-	if (!CurrentVars.manual.race && (/feat|all|notclass/i).test(Typeswitch) && oldFeatLvl != newFeatLvl) {
+	if (!CurrentVars.manual.race && /feat|all|notclass/i.test(Typeswitch) && oldFeatLvl != newFeatLvl) {
 		for (var f = 0; f < CurrentFeats.known.length; f++) {
 			var aFeat = CurrentFeats.known[f];
 			var aFeatVar = CurrentFeats.choices[f];
@@ -6546,7 +6561,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 	// apply magic item level changes
 	var oldItemLvl = CurrentMagicItems.level;
 	var newItemLvl = curLvl;
-	if (!CurrentVars.manual.items && (/item|all|notclass/i).test(Typeswitch) && oldItemLvl != newItemLvl) {
+	if (!CurrentVars.manual.items && /item|all|notclass/i.test(Typeswitch) && oldItemLvl != newItemLvl) {
 		for (var f = 0; f < CurrentMagicItems.known.length; f++) {
 			var anItem = CurrentMagicItems.known[f];
 			var anItemVar = CurrentMagicItems.choices[f];
@@ -6579,7 +6594,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 	}
 
 	// apply class level changes
-	if (!CurrentVars.manual.classes && (/^(?!=notclass)(all|class).*$/i).test(Typeswitch)) {
+	if (!CurrentVars.manual.classes && /^(?!=notclass)(all|class).*$/i.test(Typeswitch)) {
 
 		// first see if any wild shapes are in use
 		var WSinUse = false;
@@ -6622,17 +6637,16 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 			thermoM(1/5);
 
 			// process the class heading
+			var newHeaderString = "**" + cl.fullname + ", level " + newClassLvl[aClass] + ":**";
 			if (newClassLvl[aClass] == 0) { // remove the heading
-				var oldHeaderString = "**" + cl.fullname + ", level " + oldClassLvl[aClass] + ":**";
-				if (What("Class Features").indexOf("\r\r" + oldHeaderString) !== -1) oldHeaderString = "\r\r" + oldHeaderString;
-				RemoveString("Class Features", oldHeaderString, false);
+				var oldHeaderString = ".*[*_~#]+" + cl.fullname.RegEscape() + ".*, level \\d+.*";
+				if (RegExp("\\r\\r" + oldHeaderString, "i").test(What("Class Features"))) oldHeaderString = "\\r\\r" + oldHeaderString;
+				RemoveString("Class Features", oldHeaderString, false, true);
 			} else if (oldClassLvl[aClass] == 0) { // add the heading
-				var newHeaderString = "**" + cl.fullname + ", level " + newClassLvl[aClass] + ":**";
 				if (What("Class Features")) newHeaderString = "\r\r" + newHeaderString;
 				AddString("Class Features", newHeaderString, false);
 			} else { // update the heading
-				var newHeaderString = "**" + cl.fullname + ", level " + newClassLvl[aClass] + ":**";
-				var oldHeaderString = !classes.old[aClass] ? "" : classes.old[aClass].fullname.RegEscape() + ".*, level \\d+:";
+				var oldHeaderString = !classes.old[aClass] ? "" : ".*[*_~#]+" + classes.old[aClass].fullname.RegEscape() + ".*, level \\d+.*";
 				ReplaceString("Class Features", newHeaderString, false, oldHeaderString, true);
 			}
 
@@ -6678,7 +6692,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 						var doTextAction = applyClassFeatureText(textAction, ["Class Features"], FeaOldString, FeaNewString, LastProp);
 						if (doTextAction === false && textAction !== "remove") {
 							// This failed, so just add it to the end of the field
-							AddString("Class Features", FeaNewString[1].replace(/^[\r\n]*/, ''), false);
+							AddString("Class Features", FeaNewString[1].replace(/^[\r\n]*/, ''), true);
 						}
 					}
 
@@ -9565,6 +9579,32 @@ function ConvertToImperial(inputString, rounded, exact, toshorthand) {
 		}
 	}
 	return inputString;
+}
+
+// Change an English string form second to first person
+function ConvertToFirstPerson(inputString, convertFunction, origin) {
+	// First all capitalized words, then the same but lowercase
+	var firstPerson = inputString.replace(/Yours/g, "Mine").replace(/yours/ig, "mine")
+	                  .replace(/Your/g, "My").replace(/your/ig, "my")
+	                  .replace(/you aren['\u2019]t/ig, "I am not")
+	                  .replace(/you are/ig, "I am").replace(/you['\u2019]re/ig, "I'm")
+	                  .replace(/you/ig, "I")
+	                  .replace(/(\d+.?(square |cubic )?)f(oo|ee)t\b/ig, "$1ft");
+	// Now correct prepositions where "I" should be "me"
+	firstPerson = firstPerson.replace(/\b(at|to|of|for|on|in|with|by|under|over|above|below|into|towards|through|around|past|as|about) I\b/ig, "$1 me");
+	// If provided with a convertFunction, run it
+	if (/function|=>/.test(convertFunction)) {
+		try {
+			var converted = convertFunction(firstPerson);
+			inputString = converted;
+		} catch (error) {
+			var eText = 'The `useFullDescription` attribute from "' + origin + '" produced an error! Please contact its author to correct this issue and please include this error message:\n ' + error;
+			for (var e in error) eText += "\n " + e + ": " + error[e];
+			console.println(eText);
+			console.show();
+		}
+	}
+	return firstPerson;
 }
 
 //update all the decimals in a string or number to reflect the new decimal chosen.

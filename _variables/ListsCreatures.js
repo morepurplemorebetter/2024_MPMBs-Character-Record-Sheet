@@ -1939,39 +1939,31 @@ var Base_CreatureList = {
 			description : "The badger has advantage on Wisdom (Perception) checks that rely on smell."
 		}]
 	},
-	"bat" : {
-		name : "Bat",
-		source : [["SRD", 367], ["M", 318]],
-		size : 5, //Tiny
-		type : "Beast",
-		companion : "familiar",
-		alignment : "Unaligned",
-		ac : 12,
-		hp : 1,
-		hd : [1, 4],
-		speed : "5 ft, fly 30 ft",
-		scores : [2, 15, 8, 2, 12, 4],
-		senses : "Blindsight 60 ft; Adv. on Wis (Perception) checks using hearing",
-		passivePerception : 11,
-		challengeRating : "0",
-		proficiencyBonus : 2,
-		attacksAction : 1,
-		attacks : [{
-			name : "Bite",
-			ability : 2,
-			damage : [1, "", "piercing"],
-			range : "Melee (5 ft)",
-			description : "",
-			modifiers : ["Str", ""],
-			abilitytodamage : false
+	"bat": {
+		name: "Bat",
+		source: [["SRD24", 345], ["M25", 349]],
+		size: 5, //Tiny
+		type: "Beast",
+		companion: ["familiar"],
+		alignment: "Unaligned",
+		ac: 12,
+		hp: 1,
+		hd: [1, 4],
+		speed: "5 ft, fly 30 ft",
+		scores: [2, 15, 8, 2, 12, 4],
+		senses: "Blindsight 60 ft",
+		passivePerception: 11,
+		challengeRating: "0",
+		proficiencyBonus: 2,
+		attacksAction: 1,
+		attacks: [{
+			name: "Bite",
+			ability: 2,
+			damage: [1, "", "piercing"],
+			range: "Melee (5 ft)",
+			description: "",
+			abilitytodamage: false,
 		}],
-		traits : [{
-			name : "Echolocation",
-			description : "The bat can't use its Blindsight while deafened."
-		}, {
-			name : "Keen Hearing",
-			description : "The bat has advantage on Wisdom (Perception) checks that rely on hearing."
-		}]
 	},
 	"black bear" : {
 		name : "Black Bear",
@@ -2186,40 +2178,40 @@ var Base_CreatureList = {
 			abilitytodamage : false
 		}]
 	},
-	"cat" : {
-		name : "Cat",
-		source : [["SRD", 369], ["M", 320]],
-		size : 5, //Tiny
-		type : "Beast",
-		companion : "familiar",
-		alignment : "Unaligned",
-		ac : 12,
-		hp : 2,
-		hd : [1, 4],
-		speed : "40 ft, climb 30 ft",
-		scores : [3, 15, 10, 3, 12, 7],
-		skills : {
-			"perception" : 3,
-			"stealth" : 4
+	"cat": {
+		name: "Cat",
+		source: [["SRD24", 346], ["M25", 351]],
+		size: 5, //Tiny
+		type: "Beast",
+		companion: "familiar",
+		alignment: "Unaligned",
+		ac: 12,
+		hp: 2,
+		hd: [1, 4],
+		speed: "40 ft, climb 40 ft",
+		scores: [3, 15, 10, 3, 12, 7],
+		saves: ["", 4, "", "", "", ""],
+		skills: {
+			"perception": 3,
+			"stealth": 4,
 		},
-		senses : "Adv. on Wis (Perception) checks using smell",
-		passivePerception : 13,
-		challengeRating : "0",
-		proficiencyBonus : 2,
-		attacksAction : 1,
-		attacks : [{
-			name : "Claws",
-			ability : 2,
-			damage : [1, "", "slashing"],
-			range : "Melee (5 ft)",
-			description : "",
-			modifiers : ["Str", ""],
-			abilitytodamage : false
+		senses: "Darkvision 60 ft",
+		passivePerception: 13,
+		challengeRating: "0",
+		proficiencyBonus: 2,
+		attacksAction: 1,
+		attacks: [{
+			name: "Scratch",
+			ability: 2,
+			damage: [1, "", "slashing"],
+			range: "Melee (5 ft)",
+			description: "",
+			abilitytodamage: false,
 		}],
 		traits : [{
-			name : "Keen Smell",
-			description : "The cat has advantage on Wisdom (Perception) checks that rely on smell."
-		}]
+			name: "Jumper",
+			description: "The [THIS]'s jump distance is determined using its Dexterity rather than its Strength.",
+		}],
 	},
 	"cave bear" : {
 		name : "Cave Bear",
