@@ -281,7 +281,7 @@ var Base_BackgroundFeatureList = {
 		featsAdd: [{ key: "magic initiate", choice: "cleric" }]
 	},
 	"criminal": {
-		description: "I eked out a living in dark alleyways, cutting purses or burgling shops. Perhaps I were part of a small gang of like-minded wrongdoers who looked out for each other. Or maybe I were a lone wolf, fending for myself against the local thieves' guild and more fearsome lawbreakers.",
+		description: "I eked out a living in dark alleyways, cutting purses or burgling shops. Perhaps I was part of a small gang of like-minded wrongdoers who looked out for each other. Or maybe I was a lone wolf, fending for myself against the local thieves' guild and more fearsome lawbreakers.",
 		source: [["SRD24", 83], ["P24", 179]],
 		featsAdd: ["Alert"]
 	},

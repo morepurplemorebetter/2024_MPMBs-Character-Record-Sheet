@@ -9588,6 +9588,10 @@ function ConvertToFirstPerson(inputString, convertFunction, origin) {
 	                  .replace(/Your/g, "My").replace(/your/ig, "my")
 	                  .replace(/you aren['\u2019]t/ig, "I am not")
 	                  .replace(/you are/ig, "I am").replace(/you['\u2019]re/ig, "I'm")
+	                  .replace(/(a)re you\b/ig, "$1m I")
+					  .replace(/(a)ren['\u2019]t you\b/ig, "$1m I not")
+	                  .replace(/you were/ig, "I was")
+					  .replace(/(w)ere(n['\u2019]t)? you\b/ig, "$1as$2 I")
 	                  .replace(/you/ig, "I")
 	                  .replace(/(\d+.?(square |cubic )?)f(oo|ee)t\b/ig, "$1ft");
 	// Now correct prepositions where "I" should be "me"

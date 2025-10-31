@@ -10,7 +10,7 @@ var Base_FeatsList = {
 			type: "skill", field: "Init", mod: "prof",
 			text: "I can add my Proficiency Bonus to Initiative rolls."
 		}],
-		description: "I can add my Proficiency Bonus to my Initiative rolls. Immediately after you I roll Initiative, I can swap Initiative with one willing ally as long as neither of us has the Incapacitated condition.",
+		description: "I can add my Proficiency Bonus to my Initiative rolls. Immediately after I roll Initiative, I can swap Initiative with one willing ally as long as neither of us has the Incapacitated condition.",
 		descriptionFull: [
 			"You gain the following benefits.",
 		 	"***Initiative Proficiency***. When you roll Initiative, you can add your Proficiency Bonus to the roll.",

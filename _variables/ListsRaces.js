@@ -29,7 +29,7 @@ var Base_RaceList = {
 					abilitytodamage: false,
 					dc: true,
 					dbBreathWeapon: true,
-					selectNow: true
+					selectNow: true,
 				}],
 				calcChanges: {
 					atkAdd: [
@@ -38,7 +38,7 @@ var Base_RaceList = {
 								fields.Damage_Type = CurrentRace.dmgres[0];
 							}
 						}, '', 1
-					]
+					],
 				},
 			},
 			"draconic flight": {
@@ -47,8 +47,8 @@ var Base_RaceList = {
 				minlevel: 5,
 				usages: 1,
 				recovery: "long rest",
-				action: [["bonus action", ""]]
-			}
+				action: [["bonus action", ""]],
+			},
 		},
 		variants: ["black", "blue", "brass", "bronze", "copper", "gold", "green", "red", "silver", "white"],
 		// form PHB'14:
@@ -56,7 +56,7 @@ var Base_RaceList = {
 		height: " stand well over 6 ft tall (5'6\" + 2d8\")",
 		weight: " weigh around 240 lb (175 + 2d8 \xD7 2d6 lb)",
 		heightMetric: " stand well over 180 cm tall (170 + 5d8 cm)",
-		weightMetric: " weigh around 110 kg (80 + 5d8 \xD7 4d6 / 10 kg)"
+		weightMetric: " weigh around 110 kg (80 + 5d8 \xD7 4d6 / 10 kg)",
 	},
 	"dwarf": {
 		regExpSearch: /dwarf|dwarv(ish|en)|neidar|klar|hylar|daewar/i,
@@ -73,7 +73,7 @@ var Base_RaceList = {
 			"\n##\u25C6 Dwarven Toughness##. My Hit Point maximum increases by 1 for every level I have."+
 			"\n##\u25C6 Stonecunning##. As a Bonus Action, I can gain 60 ft Tremorsense for 10 min when on or touching natural or worked stone. I can use this Proficiency Bonus times per Long Rest.",
 		calcChanges: {
-			hp: function (totalHD) { return [totalHD, "Dwarven Toughness"]; }
+			hp: function (totalHD) { return [totalHD, "Dwarven Toughness"]; },
 		},
 		features: {
 		  "stonecunning": {
@@ -82,7 +82,7 @@ var Base_RaceList = {
 			usages: "Proficiency bonus per ",
 			usagescalc: "event.value = How('Proficiency Bonus');",
 			recovery: "long rest",
-			action: [["bonus action", " (Tremorsense)"]]
+			action: [["bonus action", " (Tremorsense)"]],
 		  },
 		},
 		// from PHB'14:
@@ -90,7 +90,7 @@ var Base_RaceList = {
 		height: " are about 4-5 ft tall (3'8\" + 2d4\")",
 		weight: " weigh around 150 lb (115 + 2d4 \xD7 2d6 lb)",
 		heightMetric: " are about 120-150 cm tall (110 + 5d4 cm)",
-		weightMetric: " weigh around 70 kg (55 + 5d4 \xD7 4d6 / 10 kg)"
+		weightMetric: " weigh around 70 kg (55 + 5d4 \xD7 4d6 / 10 kg)",
 	},
 	"elf": {
 		regExpSearch: /elf\b|elves\b|elv(ish|en)\b/i,
@@ -111,7 +111,7 @@ var Base_RaceList = {
 		height: " are about 5-6 ft tall (4'6\" + 2d10\")",
 		weight: " weigh around 115 lb (90 + 2d10 \xD7 1d4 lb)",
 		heightMetric: " are about 150-180 cm tall (140 + 5d10 cm)",
-		weightMetric: " weigh around 55 kg (40 + 5d10 \xD7 2d4 / 10 kg)"
+		weightMetric: " weigh around 55 kg (40 + 5d10 \xD7 2d4 / 10 kg)",
 	},
 	"gnome": {
 		regExpSearch: /gnome/i,
@@ -128,7 +128,7 @@ var Base_RaceList = {
 		height: " are about 3-4 ft tall (2'11\" + 2d4\")",
 		weight: " weigh around 40 lb (35 + 2d4 lb)",
 		heightMetric: " are about 90-120 cm tall (2'11\" + 5d4)",
-		weightMetric: " weigh around 18 kg (16 + 5d4 / 10 kg)"
+		weightMetric: " weigh around 18 kg (16 + 5d4 / 10 kg)",
 	},
 	"goliath": {
 		regExpSearch: /goliath/i,
@@ -146,8 +146,8 @@ var Base_RaceList = {
 				minlevel: 5,
 				usages: 1,
 				recovery: "long rest",
-				action: [["bonus action", ""]]
-			}
+				action: [["bonus action", ""]],
+			},
 		},
 		trait: "\n##\u25C6 Powerful Build##. I have Adv. on checks to end being Grappled and I count as one size larger when determining my carrying capacity."+
 			"\n##\u25C6 Large Form## (level 5). As a Bonus Action once per Long Rest, I can become Large, if I fit, for 10 min or until I end it (no action). I have Adv. on Str checks and +10 ft Speed during.",
@@ -157,7 +157,7 @@ var Base_RaceList = {
 		height: " are about 7-8 ft tall (6'2\" + 2d10\")",
 		weight: " weigh between 280 and 340 lb (200 + 2d10 \xD7 2d6 lb)",
 		heightMetric: " are about 200-240 cm tall (190 + 5d10 cm)",
-		weightMetric: " weigh between 100 and 155 kg (90 + 5d10 \xD7 4d6 / 10 kg)"
+		weightMetric: " weigh between 100 and 155 kg (90 + 5d10 \xD7 4d6 / 10 kg)",
 	},
 	"halfling": {
 		regExpSearch: /half.?ling|hobbit/i,
@@ -176,7 +176,7 @@ var Base_RaceList = {
 		height: " are about 2-3 ft tall (2'7\" + 2d4\")",
 		weight: " weigh around 40 lb (35 + 2d4 lb)",
 		heightMetric: " are about 60-90 cm tall (80 + 5d4)",
-		weightMetric: " weigh around 18 kg (16 + 5d4 / 10 kg)"
+		weightMetric: " weigh around 18 kg (16 + 5d4 / 10 kg)",
 	},
 	"human": {
 		regExpSearch: /human/i,
@@ -215,15 +215,15 @@ var Base_RaceList = {
 				usagescalc: "event.value = How('Proficiency Bonus');",
 				recovery: "short rest",
 				additional: ProficiencyBonusList.map(function(n) { return "+" + n + " temp HP"; }),
-				action: [["bonus action", ""]]
+				action: [["bonus action", ""]],
 			},
 			"relentless endurance" : {
 				name: "Relentless Endurance",
 				source: [["SRD24", 86], ["P24", 195]],
 				minlevel: 1,
 				usages: 1,
-				recovery: "long rest"
-			}
+				recovery: "long rest",
+			},
 		},
 		trait: "**Orc**"+
 			"\n##\u25C6 Adrenaline Rush##. As a Bonus Action, I can take the Dash action and gain a number of Temporary Hit Points equal to my Proficiency Bonus. I can do this a number of times equal to my Proficiency Bonus times per Short Rest."+
@@ -248,9 +248,9 @@ var Base_RaceList = {
 			name: "Otherworldly Presence",
 			spells: ["thaumaturgy"],
 			selection: ["thaumaturgy"],
-			firstCol: 'atwill'
+			firstCol: 'atwill',
 		}],
-		variants: ['abyssal', 'chtonic', 'infernal'],
+		variants: ['abyssal', 'chthonic', 'infernal'],
 		// from PHB'14:
 		age: " reach adulthood in their late teens and live around 100 years",
 		height: " are about 3-4 ft (small) or 4-7 ft (medium) tall (4'9\" + 2d8\")",
@@ -371,8 +371,8 @@ var Base_RaceSubList = {
 					name: "Drow level 1",
 					spells: ["dancing lights"],
 					selection: ["dancing lights"],
-					firstCol: "atwill"
-				}]
+					firstCol: "atwill",
+				}],
 			},
 			"drow lineage 3": {
 				name: "Faerie Fire (Drow Lineage)",
@@ -385,8 +385,8 @@ var Base_RaceSubList = {
 					name: "Drow level 3",
 					spells: ["faerie fire"],
 					selection: ["faerie fire"],
-					firstCol: "checkbox"
-				}]
+					firstCol: "checkbox",
+				}],
 			},
 			"drow lineage 5": {
 				name: "Darkness (Drow Lineage)",
@@ -399,10 +399,10 @@ var Base_RaceSubList = {
 					name: "Drow level 5",
 					spells: ["darkness"],
 					selection: ["darkness"],
-					firstCol: "checkbox"
-				}]
-			}
-		}
+					firstCol: "checkbox",
+				}],
+			},
+		},
 	},
 	"elf-high": {
 		regExpSearch: /^((?=.*(silvanesti|qualinesti))|(?=.*(elfs?|elv(es|ish|en))\b)(?=.*\b(high|sun|moon|grey|gray|valleys?|silvers?)\b)).*$/i,
@@ -423,8 +423,8 @@ var Base_RaceSubList = {
 					"class": ["wizard"],
 					level: [0, 0],
 					selection: ["prestidigitation"],
-					firstCol: "atwill"
-				}]
+					firstCol: "atwill",
+				}],
 			},
 			"high elf lineage 3": {
 				name: "Detect Magic (High Elf Lineage)",
@@ -437,8 +437,8 @@ var Base_RaceSubList = {
 					name: "High Elf level 3",
 					spells: ["detect magic"],
 					selection: ["detect magic"],
-					firstCol: "checkbox"
-				}]
+					firstCol: "checkbox",
+				}],
 			},
 			"high elf lineage 5": {
 				name: "Misty Step (High Elf Lineage)",
@@ -451,10 +451,10 @@ var Base_RaceSubList = {
 					name: "High Elf level 5",
 					spells: ["misty step"],
 					selection: ["misty step"],
-					firstCol: "checkbox"
-				}]
-			}
-		}
+					firstCol: "checkbox",
+				}],
+			},
+		},
 	},
 	"elf-wood": {
 		regExpSearch: /^((?=.*(grugach|kagonesti|silhana))|(?=.*(elfs?|elv(es|ish|en))\b)(?=.*\b(woodlands?|woods?|forests?|wilds?|green)\b)).*$/i,
@@ -475,8 +475,8 @@ var Base_RaceSubList = {
 					name: "Wood Elf level 1",
 					spells: ["druidcraft"],
 					selection: ["druidcraft"],
-					firstCol: "atwill"
-				}]
+					firstCol: "atwill",
+				}],
 			},
 			"wood elf lineage 3": {
 				name: "Longstrider (Wood Elf Lineage)",
@@ -489,8 +489,8 @@ var Base_RaceSubList = {
 					name: "Wood Elf level 3",
 					spells: ["longstrider"],
 					selection: ["longstrider"],
-					firstCol: "checkbox"
-				}]
+					firstCol: "checkbox",
+				}],
 			},
 			"wood elf lineage 5": {
 				name: "Pass without Trace (Wood Elf Lineage)",
@@ -503,10 +503,10 @@ var Base_RaceSubList = {
 					name: "Wood Elf level 5",
 					spells: ["pass without trace"],
 					selection: ["pass without trace"],
-					firstCol: "checkbox"
-				}]
-			}
-		}
+					firstCol: "checkbox",
+				}],
+			},
+		},
 	},
 	'gnome-forest': {
 		regExpSearch: /^(?=.*gnome)(?=.*(wood|forest|wild|green)).*$/i,
@@ -526,18 +526,18 @@ var Base_RaceSubList = {
 					name: "At will",
 					spells: ["minor illusion"],
 					selection: ["minor illusion"],
-					firstCol: "atwill"
+					firstCol: "atwill",
 				}, {
 					name: "Prof. Bonus per LR",
 					spells: ["speak with animals"],
 					selection: ["speak with animals"],
-					firstCol: "PB"
-				}]
-			}
+					firstCol: "PB",
+				}],
+			},
 		},
 		trait: "**Forest Gnome**"+
 			"\n##\u25C6 Gnomish Cunning##. I have Advantage on Intelligence, Wisdom, and Charisma saving throws."+
-			"\n##\u25C6 Forest Gnome Lineage##. I know the Minor Illusion cantrip. I always have Speak with Animals prepared and I can cast it without a spell slot my Proficiency Bonus times per Long Rest. I can also use any spell slots I have to cast the spell as normal. Int, Wis, or Cha is my spellcasting ability for these (choose when selecting the lineage)."
+			"\n##\u25C6 Forest Gnome Lineage##. I know the Minor Illusion cantrip. I always have Speak with Animals prepared and I can cast it without a spell slot my Proficiency Bonus times per Long Rest. I can also use any spell slots I have to cast the spell as normal. Int, Wis, or Cha is my spellcasting ability for these (choose when selecting the lineage).",
 	},
 	'gnome-rock': {
 		regExpSearch: /^(?=.*gnome)(?=.*(rock|tinker)).*$/i,
@@ -556,11 +556,11 @@ var Base_RaceSubList = {
 					firstCol: "atwill"
 				}],
 				action: [["bonus action", "Activate Clockwork Device"]],
-			}
+			},
 		},
 		trait: "**Rock Gnome**"+
 			"\n##\u25C6 Gnomish Cunning##. I have Adv" + (typePF ? "antage" : ".") + " on Intelligence, Wisdom, and Charisma saving throws."+
-			"\n##\u25C6 Rock Gnome Lineage##. I know the Mending and Prestidigitation cantrips. I can create a Tiny clockwork device (AC 5, 1 HP) if I spend 10 min casting Prestidigitation; I choose (one option of) one of its effects, which the device produces when a creature uses a Bonus Action to activate it via touch. I can have three such devices in existence at a time, and each falls apart after 8 hours or when I dismantle it via touch as a Utilize action."
+			"\n##\u25C6 Rock Gnome Lineage##. I know the Mending and Prestidigitation cantrips. I can create a Tiny clockwork device (AC 5, 1 HP) if I spend 10 min casting Prestidigitation; I choose (one option of) one of its effects, which the device produces when a creature uses a Bonus Action to activate it via touch. I can have three such devices in existence at a time, and each falls apart after 8 hours or when I dismantle it via touch as a Utilize action.",
 	},
 	"goliath-cloud": {
 		regExpSearch: /^(?=.*cloud)(?=.*goliath).*$/i,
@@ -687,8 +687,8 @@ var Base_RaceSubList = {
 					name: "Abyssal level 1",
 					spells: ["poison spray"],
 					selection: ["poison spray"],
-					firstCol: 'atwill'
-				}]
+					firstCol: 'atwill',
+				}],
 			},
 			"abyssal legacy 3": {
 				name: "Ray of Sickness (Abyssal Legacy)",
@@ -701,8 +701,8 @@ var Base_RaceSubList = {
 					name: "Abyssal level 3",
 					spells: ["ray of sickness"],
 					selection: ["ray of sickness"],
-					firstCol: "checkbox"
-				}]
+					firstCol: "checkbox",
+				}],
 			},
 			"abyssal legacy 5": {
 				name: "Hold Person (Abyssal Legacy)",
@@ -715,63 +715,63 @@ var Base_RaceSubList = {
 					name: "Abyssal level 5",
 					spells: ["hold person"],
 					selection: ["hold person"],
-					firstCol: "checkbox"
-				}]
+					firstCol: "checkbox",
+				}],
 			}
 		},
 		trait: "**Abyssal Tiefling**"+
 			"\n##\u25C6 Fiendish Legacy##. I known the Poison Spray cantrip. I learn Ray of Sickness at level 3 and Hold Person at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy)."+
-			"\n##\u25C6 Otherworldly Presence##. I know the Thaumaterty cantrip and use the same spellcasting ability for it."
+			"\n##\u25C6 Otherworldly Presence##. I know the Thaumaturgy cantrip and use the same spellcasting ability for it.",
 	},
-	"tiefling-chtonic": {
-		regExpSearch: /^(?=.*(tiefling|planetouched))(?=.*(chtonic|yugoloth)).*$/i,
-		name: "Chtonic Tiefling",
+	"tiefling-chthonic": {
+		regExpSearch: /^(?=.*(tiefling|planetouched))(?=.*(chthonic|yugoloth)).*$/i,
+		name: "Chthonic Tiefling",
 		source: [["SRD24", 86], ["P24", 197]],
 		dmgres: ["Necrotic"],
 		features: {
-			"chtonic legacy 1": {
-				name: "Chill Touch (Chtonic Legacy)",
+			"chthonic legacy 1": {
+				name: "Chill Touch (Chthonic Legacy)",
 				source: [["SRD24", 86], ["P24", 197]],
 				minlevel: 1,
 				spellcastingBonus: [{
-					name: "Chtonic level 1",
+					name: "Chthonic level 1",
 					spells: ["chill touch"],
 					selection: ["chill touch"],
-					firstCol: 'atwill'
-				}]
+					firstCol: 'atwill',
+				}],
 			},
-			"chtonic legacy 3": {
-				name: "False Life (Chtonic Legacy)",
+			"chthonic legacy 3": {
+				name: "False Life (Chthonic Legacy)",
 				source: [["SRD24", 86], ["P24", 197]],
 				minlevel: 3,
 				usages: 1,
 				recovery: "long rest",
 				spellFirstColTitle: "LR", // check off when the spell has been used that long rest
 				spellcastingBonus: [{
-					name: "Chtonic level 3",
+					name: "Chthonic level 3",
 					spells: ["false life"],
 					selection: ["false life"],
-					firstCol: "checkbox"
-				}]
+					firstCol: "checkbox",
+				}],
 			},
-			"chtonic legacy 5": {
-				name: "Ray of Enfeeblement (Chtonic Legacy)",
+			"chthonic legacy 5": {
+				name: "Ray of Enfeeblement (Chthonic Legacy)",
 				source: [["SRD24", 86], ["P24", 197]],
 				minlevel: 5,
 				usages: 1,
 				recovery: "long rest",
 				spellFirstColTitle: "LR",
 				spellcastingBonus: [{
-					name: "Chtonic level 5",
+					name: "Chthonic level 5",
 					spells: ["ray of enfeeblement"],
 					selection: ["ray of enfeeblement"],
-					firstCol: "checkbox"
-				}]
-			}
+					firstCol: "checkbox",
+				}],
+			},
 		},
-		trait: "**Chtonic Tiefling**"+
+		trait: "**Chthonic Tiefling**"+
 			"\n##\u25C6 Fiendish Legacy##. I known the Chill Touch cantrip. I learn False Life at level 3 and Ray of Enfeeblement at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy)."+
-			"\n##\u25C6 Otherworldly Presence##. I know the Thaumaterty cantrip and use the same spellcasting ability for it."
+			"\n##\u25C6 Otherworldly Presence##. I know the Thaumaturgy cantrip and use the same spellcasting ability for it."
 	},
 	"tiefling-infernal": {
 		regExpSearch: /^(?=.*(tiefling|planetouched))(?=.*(infernal|devil)).*$/i,
@@ -787,8 +787,8 @@ var Base_RaceSubList = {
 					name: "Infernal level 1",
 					spells: ["fire bolt"],
 					selection: ["fire bolt"],
-					firstCol: 'atwill'
-				}]
+					firstCol: 'atwill',
+				}],
 			},
 			"infernal legacy 3": {
 				name: "Hellish Rebuke (Infernal Legacy)",
@@ -801,8 +801,8 @@ var Base_RaceSubList = {
 					name: "Infernal level 3",
 					spells: ["hellish rebuke"],
 					selection: ["hellish rebuke"],
-					firstCol: "checkbox"
-				}]
+					firstCol: "checkbox",
+				}],
 			},
 			"infernal legacy 5": {
 				name: "Darkness (Infernal Legacy)",
@@ -815,12 +815,12 @@ var Base_RaceSubList = {
 					name: "Infernal level 5",
 					spells: ["darkness"],
 					selection: ["darkness"],
-					firstCol: "checkbox"
-				}]
-			}
+					firstCol: "checkbox",
+				}],
+			},
 		},
 		trait: "**Infernal Tiefling**"+
 			"\n##\u25C6 Fiendish Legacy##. I known the Fire Bolt cantrip. I learn Hellish Rebuke at level 3 and Darkness at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy)."+
-			"\n##\u25C6 Otherworldly Presence##. I know the Thaumaterty cantrip and use the same spellcasting ability for it."
+			"\n##\u25C6 Otherworldly Presence##. I know the Thaumaturgy cantrip and use the same spellcasting ability for it.",
 	},
 };

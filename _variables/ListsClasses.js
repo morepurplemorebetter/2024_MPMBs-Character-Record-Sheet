@@ -829,7 +829,7 @@ var Base_ClassList = {
 				source: [["SRD24", 48], ["P24", 91]],
 				minlevel: 2,
 				description: levels.map(function (n) {
-					return "\nOn my turn I can take an additional action, except the Magic action." + (n < 17 ? '' : "Only once per turn.");
+					return "\nOn my turn I can take an additional action, except the Magic action." + (n < 17 ? '' : " Only once per turn.");
 				}),
 				usages: levels.map(function (n) { return n < 2 ? 0 : n < 17 ? 1 : 2; }),
 				recovery: "short rest",

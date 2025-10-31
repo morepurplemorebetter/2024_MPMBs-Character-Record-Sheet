@@ -5,7 +5,7 @@ var Base_ArmourList = {
 		source: [["SRD24", 177], ["P24", 361]],
 		ac: 10,
 		addMod: true,
-		list: "firstlist"
+		list: "firstlist",
 	},
 	"mage armor": {
 		regExpSearch: /^(?=.*(mage|magic))(?=.*armou?r).*$/i,
@@ -13,7 +13,7 @@ var Base_ArmourList = {
 		source: [["SRD24", 145], ["P24", 293]],
 		ac: 13,
 		list: "magic",
-		affectsWildShape: true
+		affectsWildShape: true,
 	},
 	"padded": {
 		regExpSearch: /^(?!.*(plate|hide))(?=.*(padding|padded)).*$/i,
@@ -24,7 +24,7 @@ var Base_ArmourList = {
 		type: "light",
 		ac: 11,
 		stealthdis: true,
-		weight: 8
+		weight: 8,
 	},
 	"leather": {
 		regExpSearch: /^(?!.*(padding|padded|studded|studs))(?=.*leather).*$/i,
@@ -34,7 +34,7 @@ var Base_ArmourList = {
 		source: [["SRD24", 92], ["P24", 219]],
 		type: "light",
 		ac: 11,
-		weight: 10
+		weight: 10,
 	},
 	"studded leather": {
 		regExpSearch: /^(?=.*(studded|studs))(?=.*leather).*$/i,
@@ -44,7 +44,7 @@ var Base_ArmourList = {
 		source: [["SRD24", 92], ["P24", 219]],
 		type: "light",
 		ac: 12,
-		weight: 13
+		weight: 13,
 	},
 	"hide": {
 		regExpSearch: /^(?!.*(dragon|draconic|molten bronze))(?=.*(hide|skin)).*$/i,
@@ -54,7 +54,7 @@ var Base_ArmourList = {
 		source: [["SRD24", 92], ["P24", 219]],
 		type: "medium",
 		ac: 12,
-		weight: 12
+		weight: 12,
 	},
 	"chain shirt": {
 		regExpSearch: /^(?=.*chain)(?=.*shirt).*$/i,
@@ -63,7 +63,7 @@ var Base_ArmourList = {
 		source: [["SRD24", 92], ["P24", 219]],
 		type: "medium",
 		ac: 13,
-		weight: 20
+		weight: 20,
 	},
 	"scale mail": {
 		regExpSearch: /^(?=.*scale)(?=.*mail).*$/i,
@@ -73,7 +73,7 @@ var Base_ArmourList = {
 		type: "medium",
 		ac: 14,
 		stealthdis: true,
-		weight: 45
+		weight: 45,
 	},
 	"breastplate": {
 		regExpSearch: /^(?=.*breast)(?=.*plate).*$/i,
@@ -82,7 +82,7 @@ var Base_ArmourList = {
 		source: [["SRD24", 92], ["P24", 219]],
 		type: "medium",
 		ac: 14,
-		weight: 20
+		weight: 20,
 	},
 	"half plate": {
 		regExpSearch: /^(?=.*half)(?=.*plate).*$/i,
@@ -93,7 +93,7 @@ var Base_ArmourList = {
 		type: "medium",
 		ac: 15,
 		stealthdis: true,
-		weight: 40
+		weight: 40,
 	},
 	"ring mail": {
 		regExpSearch: /^(?=.*ring)(?=.*mail).*$/i,
@@ -103,7 +103,7 @@ var Base_ArmourList = {
 		type: "heavy",
 		ac: 14,
 		stealthdis: true,
-		weight: 40
+		weight: 40,
 	},
 	"chain mail": {
 		regExpSearch: /^(?!.*(scale|plate|ring|shirt))(?=.*chain)(?=.*mail).*$/i,
@@ -114,7 +114,7 @@ var Base_ArmourList = {
 		ac: 16,
 		stealthdis: true,
 		weight: 55,
-		strReq: 13
+		strReq: 13,
 	},
 	"splint": {
 		regExpSearch: /splint/i,
@@ -126,7 +126,7 @@ var Base_ArmourList = {
 		ac: 17,
 		stealthdis: true,
 		weight: 60,
-		strReq: 15
+		strReq: 15,
 	},
 	"plate": {
 		regExpSearch: /^(?!.*(half|breast))(?=.*plate).*$/i,
@@ -138,7 +138,7 @@ var Base_ArmourList = {
 		ac: 18,
 		stealthdis: true,
 		weight: 65,
-		strReq: 15
+		strReq: 15,
 	}
 };
 
@@ -593,7 +593,8 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 3,
 		description: "Finesse, Light",
-		abilitytodamage: true
+		abilitytodamage: true,
+		mastery: "vex",
 	},
 	"shortsword": {
 		regExpSearch: /^(?=.*short)(?=.*sword).*$|shuangdao/i,
@@ -609,7 +610,7 @@ var Base_WeaponsList = {
 		weight: 2,
 		description: "Finesse, Light",
 		abilitytodamage: true,
-		mastery: "vex",
+		mastery: "nick",
 	},
 	"trident": {
 		regExpSearch: /trident|\bchas?\b|magariyari/i,
@@ -783,7 +784,7 @@ var Base_WeaponsList = {
 		damage: [1, 4, "bludgeoning"],
 		range: "Melee, 20/60 ft",
 		description: "Damage die, type, range, etc. are at the DM's discretion",
-		abilitytodamage: true
+		abilitytodamage: true,
 	},
 	"vials of acid": { // PHB'24 changed
 		regExpSearch: /^(?=.*vial)(?=.*acid).*$/i,
@@ -800,7 +801,7 @@ var Base_WeaponsList = {
 		ammo: "vials of acid",
 		dc: true,
 		isAlwaysProf: true,
-		isNotWeapon: true
+		isNotWeapon: true,
 	},
 	"alchemist fire": { // PHB'24 changed
 		regExpSearch: /^(?=.*alchemist)(?=.*fire).*$/i,
@@ -817,7 +818,7 @@ var Base_WeaponsList = {
 		ammo: "alchemist fire",
 		dc: true,
 		isAlwaysProf: true,
-		isNotWeapon: true
+		isNotWeapon: true,
 	},
 	"holy water": {
 		regExpSearch: /^(?=.*holy)(?=.*water).*$/i,
@@ -834,7 +835,7 @@ var Base_WeaponsList = {
 		ammo: "holy water",
 		dc: true,
 		isAlwaysProf: true,
-		isNotWeapon: true
+		isNotWeapon: true,
 	},
 	"net": { // PHB'24 changed
 		regExpSearch: /\bnet(ting)?s?\b/i,
@@ -853,7 +854,7 @@ var Base_WeaponsList = {
 		abilitytodamage: false,
 		dc: true,
 		isAlwaysProf: true,
-		isNotWeapon: true
+		isNotWeapon: true,
 	},
 	"oil": { // PHB'24 new
 		regExpSearch: /oil/i,
@@ -870,7 +871,7 @@ var Base_WeaponsList = {
 		ammo: "oil",
 		dc: true,
 		isAlwaysProf: true,
-		isNotWeapon: true
+		isNotWeapon: true,
 	},
 	"burning torch": {
 		regExpSearch: /^(?=.*torch)(?=.*burning).*$/i,
@@ -883,7 +884,7 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 1,
 		description: "Only damages if burning",
-		abilitytodamage: false
+		abilitytodamage: false,
 	},
 	// Cantrips
 	"spell attack": {
@@ -1224,6 +1225,7 @@ var Base_PacksList = {
 		source: [["SRD24", 97], ["P24", 225]],
 		items: [
 			["Backpack, with:", "", 5],
+			["Rope", "", 5],
 			["Caltrops, bags of", "", 2],
 			["Crowbar", "", 5],
 			["Oil, flasks of", 2, 1],
@@ -1298,26 +1300,26 @@ var Base_GearList = {
 		infoname: "Abacus [2 gp]",
 		name: "Abacus",
 		amount: "",
-		weight: 2
+		weight: 2,
 	},
 */
 	"acid": {
 		infoname: "Acid (vial) [25 gp]",
 		name: "Acid, vials of",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"alchemist's fire": {
 		infoname: "Alchemist's fire (flask) [50 gp]",
 		name: "Alchemist's fire, flasks of",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"animal feed (1 day)": {
 		infoname: "Animal feed (1 day) [5 cp]",
 		name: "Animal feed, days of",
 		amount: 1,
-		weight: 10
+		weight: 10,
 	},
 	"arrows": {
 		infoname: "Arrows (20) [1 gp]",
@@ -1399,31 +1401,31 @@ var Base_GearList = {
 		infoname: "Backpack [2 gp]",
 		name: "Backpack",
 		amount: "",
-		weight: 5
+		weight: 5,
 	},
 	"ball bearings": {
 		infoname: "Ball bearings (pouch) [1 gp]",
 		name: "Ball bearings, pouches of",
 		amount: "",
-		weight: 2
+		weight: 2,
 	},
 	"barrel": {
 		infoname: "Barrel [2 gp]",
 		name: "Barrel",
 		amount: "",
-		weight: 70
+		weight: 70,
 	},
 	"basket": {
 		infoname: "Basket [4 sp]",
 		name: "Basket",
 		amount: "",
-		weight: 2
+		weight: 2,
 	},
 	"bedroll": {
 		infoname: "Bedroll [1 gp]",
 		name: "Bedroll",
 		amount: "",
-		weight: 7
+		weight: 7,
 	},
 	"bell": {
 		infoname: "Bell [1 gp]",
@@ -1436,44 +1438,44 @@ var Base_GearList = {
 		infoname: "Bit and bridle [2 gp]",
 		name: "Bit and bridle",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 */
 	"blanket": {
 		infoname: "Blanket [5 sp]",
 		name: "Blanket",
 		amount: "",
-		weight: 3
+		weight: 3,
 	},
 	"block and tackle": {
 		infoname: "Block and tackle [1 gp]",
 		name: "Block and tackle",
 		amount: "",
-		weight: 5
+		weight: 5,
 	},
 	"book": {
 		infoname: "Book [25 gp]",
 		name: "Book",
 		amount: "",
-		weight: 5
+		weight: 5,
 	},
 	"bottle, glass": {
 		infoname: "Bottle, glass [2 gp]",
 		name: "Glass bottle",
 		amount: "",
-		weight: 2
+		weight: 2,
 	},
 	"bucket": {
 		infoname: "Bucket [5 cp]",
 		name: "Bucket",
 		amount: "",
-		weight: 2
+		weight: 2,
 	},
 	"caltrops": {
 		infoname: "Caltrops (bag) [1 gp]",
 		name: "Caltrops, bags of",
 		amount: "",
-		weight: 2
+		weight: 2,
 	},
 	"candle": {
 		infoname: "Candle [1 cp]",
@@ -1485,19 +1487,19 @@ var Base_GearList = {
 		infoname: "Case, crossbow bolt [1 gp]",
 		name: "Crossbow bolt case",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"case, map or scroll": {
 		infoname: "Case, map or scroll [1 gp]",
 		name: "Map or scroll case",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"chain": {
 		infoname: "Chain [5 gp]",
 		name: "Chain",
 		amount: "",
-		weight: 10
+		weight: 10,
 	},
 /* removed in PHB'24
 	"chalk (1 piece)": {
@@ -1511,13 +1513,13 @@ var Base_GearList = {
 		infoname: "Chest [5 gp]",
 		name: "Chest",
 		amount: "",
-		weight: 25
+		weight: 25,
 	},
 	"climber's kit": {
 		infoname: "Climber's kit [25 gp]",
 		name: "Climber's kit",
 		amount: "",
-		weight: 12
+		weight: 12,
 	},
 /* removed in PHB'24
 	"common": {
@@ -1553,13 +1555,13 @@ var Base_GearList = {
 		infoname: "Component pouch [25 gp]",
 		name: "Component pouch",
 		amount: "",
-		weight: 2
+		weight: 2,
 	},
 	"crowbar": {
 		infoname: "Crowbar [2 gp]",
 		name: "Crowbar",
 		amount: "",
-		weight: 5
+		weight: 5,
 	},
 	"sprig of mistletoe": {
 		infoname: "Sprig of mistletoe [1 gp]",
@@ -1596,40 +1598,40 @@ var Base_GearList = {
 		infoname: "Fishing tackle [1 gp]",
 		name: "Fishing tackle",
 		amount: "",
-		weight: 4
+		weight: 4,
 	},
 */
 	"flask": {
 		infoname: "Flask [2 cp]",
 		name: "Flask",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"grappling hook": {
 		infoname: "Grappling hook [2 gp]",
 		name: "Grappling hook",
 		amount: "",
-		weight: 4
+		weight: 4,
 	},
 /* removed in PHB'24
 	"hammer": {
 		infoname: "Hammer [1 gp]",
 		name: "Hammer",
 		amount: "",
-		weight: 3
+		weight: 3,
 	},
 	"hammer, sledge": {
 		infoname: "Hammer, sledge [2 gp]",
 		name: "Sledge hammer",
 		amount: "",
-		weight: 10
+		weight: 10,
 	},
 */
 	"healer's kit": {
 		infoname: "Healer's kit [5 gp]",
 		name: "Healer's kit",
 		amount: "",
-		weight: 3
+		weight: 3,
 	},
 	"amulet": {
 		infoname: "Amulet [5 gp]",
@@ -1656,21 +1658,21 @@ var Base_GearList = {
 		infoname: "Holy water (flask) [25 gp]",
 		name: "Holy water, flasks of",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 /* removed in PHB'24
 	"hourglass": {
 		infoname: "Hourglass [25 gp]",
 		name: "Hourglass",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 */
 	"hunting trap": {
 		infoname: "Hunting trap [5 gp]",
 		name: "Hunting trap",
 		amount: "",
-		weight: 25
+		weight: 25,
 	},
 	"ink": {
 		infoname: "Ink (1 ounce bottle) [10 gp]",
@@ -1688,7 +1690,7 @@ var Base_GearList = {
 		infoname: "Jug [2 cp]",
 		name: "Jug",
 		amount: "",
-		weight: 4
+		weight: 4,
 	},
 /* removed in PHB'24
 	"small knife": {
@@ -1702,31 +1704,31 @@ var Base_GearList = {
 		infoname: "Ladder (10 ft) [1 sp]",
 		name: "10-ft ladder",
 		amount: "",
-		weight: 25
+		weight: 25,
 	},
 	"lamp": {
 		infoname: "Lamp [5 sp]",
 		name: "Lamp",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"lantern, bullseye": {
 		infoname: "Lantern, bullseye [10 gp]",
 		name: "Bullseye lantern",
 		amount: "",
-		weight: 2
+		weight: 2,
 	},
 	"lantern, hooded": {
 		infoname: "Lantern, hooded [5 gp]",
 		name: "Hooded lantern",
 		amount: "",
-		weight: 2
+		weight: 2,
 	},
 	"lock": {
 		infoname: "Lock [10 gp]",
 		name: "Lock",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"magnifying glass": {
 		infoname: "Magnifying glass [100 gp]",
@@ -1738,7 +1740,7 @@ var Base_GearList = {
 		infoname: "Manacles [2 gp]",
 		name: "Manacles",
 		amount: "",
-		weight: 6
+		weight: 6,
 	},
 	"map": {
 		infoname: "Map [1 gp]",
@@ -1751,7 +1753,7 @@ var Base_GearList = {
 		infoname: "Mess kit [2 sp]",
 		name: "Mess kit",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 */
 	"mirror": {
@@ -1764,7 +1766,7 @@ var Base_GearList = {
 		infoname: "Oil (flask) [1 sp]",
 		name: "Oil, flasks of",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"paper": {
 		infoname: "Paper (one sheet) [2 sp]",
@@ -1789,7 +1791,7 @@ var Base_GearList = {
 		infoname: "Pick, miner's [2 gp]",
 		name: "Miner's pick",
 		amount: "",
-		weight: 10
+		weight: 10,
 	},
 	"piton": {
 		infoname: "Piton [5 cp]",
@@ -1808,13 +1810,13 @@ var Base_GearList = {
 		infoname: "Pole (10 ft) [5 cp]",
 		name: "10-ft pole",
 		amount: "",
-		weight: 7
+		weight: 7,
 	},
 	"pot, iron": {
 		infoname: "Pot, iron [2 gp]",
 		name: "Iron pot",
 		amount: "",
-		weight: 10
+		weight: 10,
 	},
 	"potion of healing": {
 		infoname: "Potion of healing [50 gp]",
@@ -1826,31 +1828,31 @@ var Base_GearList = {
 		infoname: "Pouch [5 sp]",
 		name: "Pou\uFEFFch",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"quiver": {
 		infoname: "Quiver [1 gp]",
 		name: "Quiver",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"ram, portable": {
 		infoname: "Ram, portable [4 gp]",
 		name: "Portable ram",
 		amount: "",
-		weight: 35
+		weight: 35,
 	},
 	"rations": {
 		infoname: "Rations (1 day) [5 sp]",
 		name: "Rations, days of",
 		amount: 1,
-		weight: 2
+		weight: 2,
 	},
 	"robe": {
 		infoname: "Robe [1 gp]",
 		name: "Robe",
 		amount: "",
-		weight: 4
+		weight: 4,
 	},
 /* removed in PHB'24, now just "Rope"
 	"rope, hempen (50 feet)": {
@@ -1870,7 +1872,7 @@ var Base_GearList = {
 		infoname: "Rope [1 gp]",
 		name: "Rope",
 		amount: "",
-		weight: 5
+		weight: 5,
 	},
 	"sack": {
 		infoname: "Sack [1 cp]",
@@ -1913,13 +1915,13 @@ var Base_GearList = {
 		infoname: "Saddlebags [4 gp]",
 		name: "Saddlebags",
 		amount: "",
-		weight: 8
+		weight: 8,
 	},
 	"scale, merchant's": {
 		infoname: "Scale, merchant's [5 gp]",
 		name: "Merchant's scale",
 		amount: "",
-		weight: 3
+		weight: 3,
 	},
 	"sealing wax": {
 		infoname: "Sealing wax [5 cp]",
@@ -1932,7 +1934,7 @@ var Base_GearList = {
 		infoname: "Shovel [2 gp]",
 		name: "Shovel",
 		amount: "",
-		weight: 5
+		weight: 5,
 	},
 	"signal whistle": {
 		infoname: "Signal whistle [5 cp]",
@@ -1958,7 +1960,7 @@ var Base_GearList = {
 		infoname: "Spellbook [50 gp]", // No price mentioned in PHB'24
 		name: "Spellbook",
 		amount: "",
-		weight: 3
+		weight: 3,
 	},
 	"spell scroll (cantrip)": { // PHB'24 new
 		infoname: "Spell Scroll (Cantrip) [30 gp]",
@@ -1982,25 +1984,25 @@ var Base_GearList = {
 		infoname: "Spyglass [1000 gp]",
 		name: "Spyglass",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"tent": {
 		infoname: "Tent, two-person [2 gp]",
 		name: "Two-person tent",
 		amount: "",
-		weight: 20
+		weight: 20,
 	},
 	"tinderbox": {
 		infoname: "Tinderbox [5 sp]",
 		name: "Tinderbox",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"torch": {
 		infoname: "Torch [1 cp]",
 		name: "Torch",
 		amount: "",
-		weight: 1
+		weight: 1,
 	},
 	"vial": {
 		infoname: "Vial [1 gp]",
@@ -2012,14 +2014,14 @@ var Base_GearList = {
 		infoname: "Waterskin [2 sp]",
 		name: "Waterskin",
 		amount: "",
-		weight: 5
+		weight: 5,
 	},
 /* removed in PHB'24
 	"whetstone": {
 		infoname: "Whetstone [1 cp]",
 		name: "Whetstone",
 		amount: "",
-		weight: 1
+		weight: 1,
 	}
 */
 };
@@ -2148,13 +2150,13 @@ var Base_ToolsList = {
 		infoname: "Disguise kit [25 gp]",
 		name: "Disguise kit",
 		amount: "",
-		weight: 3
+		weight: 3,
 	},
 	"forgery kit": {
 		infoname: "Forgery kit [15 gp]",
 		name: "Forgery kit",
 		amount: "",
-		weight: 5
+		weight: 5,
 	},
 	"dice": {
 		infoname: "Dice [1 sp]",
@@ -2188,7 +2190,7 @@ var Base_ToolsList = {
 		infoname: "Herbalism kit [5 gp]",
 		name: "Herbalism kit",
 		amount: "",
-		weight: 3
+		weight: 3,
 	},
 	"bagpipes": {
 		infoname: "Bagpipes [30 gp]",
@@ -2264,19 +2266,19 @@ var Base_ToolsList = {
 		infoname: "Navigator's tools [25 gp]",
 		name: "Navigator's tools",
 		amount: "",
-		weight: 2
+		weight: 2,
 	},
 	"poisoner's kit": {
 		infoname: "Poisoner's kit [50 gp]",
 		name: "Poisoner's kit",
 		amount: "",
-		weight: 2
+		weight: 2,
 	},
 	"thieves' tools": {
 		infoname: "Thieves' tools [25 gp]",
 		name: "Thieves' tools",
 		amount: "",
-		weight: 1
+		weight: 1,
 	}
 };
 
