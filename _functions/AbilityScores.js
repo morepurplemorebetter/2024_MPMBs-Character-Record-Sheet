@@ -8,7 +8,7 @@ function processStats(AddRemove, inType, NameEntity, inScoresA, dialogTxt, isSpe
 	if (isSpecial && !CurrentStats[isSpecial]) return; // the special type doesn't exist
 	inType = GetFeatureType(inType);
 	var type = isSpecial ? isSpecial.replace(/s$/, '') : inType;
-	var dialogTxt = dialogTxt ? dialogTxt.replace(/^( |\n)*.*: |;$/g, '') : "";
+	var dialogTxt = dialogTxt ? dialogTxt.replace(/^\s*|^.{1,20}: |;$/g, '') : "";
 	var curStat = false;
 	// Get the column object
 	for (var i = 1; i < CurrentStats.cols.length; i++) {
@@ -104,7 +104,7 @@ function processStats(AddRemove, inType, NameEntity, inScoresA, dialogTxt, isSpe
 		}
 	} else {
 		delete CurrentStats.txts[inType][NameEntity];
-		if (type === "background" && !ObjLength(CurrentStats.txts.background) && Number(curStat.scores.join("")) === 0) {
+		if (type === "race" && !ObjLength(CurrentStats.txts.race) && Number(curStat.scores.join("")) === 0) {
 			CurrentStats.cols.splice(i, 1);
 		}
 	}

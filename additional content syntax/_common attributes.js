@@ -49,7 +49,7 @@
 				Magic Item main attributes
 				Magic Item choices
 
-	Sheet:		v24.0.0 and newer (PHB'24)
+	Sheet:		v24.0.1 and newer (PHB'24)
 */
 "example feature name" = { // you can ignore this, it is just here to make this file valid JavaScript
 
@@ -59,7 +59,7 @@
 
 action: [
 	["reaction", " (start)"],
-	["bonus action", "Shove"]
+	["bonus action", "Shove"],
 ],
 /*	action // OPTIONAL //
 	TYPE:	array (variable length)
@@ -1096,17 +1096,20 @@ spellcastingBonus: [{
 	/*	name // OPTIONAL //
 		TYPE:	string
 		USE:	set the first column of the spell line on the spell sheet
+		CHANGE:	v14.0.1 (onceXr+markedbox options)
 
 		This can be a string of one or two characters, or one character enclosed in brackets.
 		Anything more than that will be cut off, as it won't fit in the field.
 
 		Alternatively, you can set the first column to be something special:
-		"checkbox"		// an empty checkbox
-		"checkedbox"	// a checked checkbox
-		"markedbox"		// a checked checkbox indicating that this spell is always prepared
-		"atwill"		// the 'At will' graphic
-		"oncesr"		// the 'One time per short rest' graphic (1× SR)
-		"oncelr"		// the 'One time per long rest' graphic (1× LR)
+		"checkbox"			// an empty checkbox
+		"checkedbox"		// a checked checkbox
+		"markedbox"			// a checkbox with a star inside, indicating that this spell is always prepared
+		"atwill"			// the 'At will' graphic
+		"oncesr"			// a checkbox with 'SR' inside (once per short rest usage)
+		"oncelr"			// a checkbox with 'LR' inside (once per short long usage)
+		"oncesr+markedbox"	// two checkboxes, one with 'SR' inside and one with a star inside
+		"oncelr+markedbox"	// two checkboxes, one with 'LR' inside and one with a star inside
 
 		If you don't set anything for the first column the sheet will determine what is most logical.
 	*/
@@ -1363,22 +1366,34 @@ spellFirstColTitle: "Ki",
 /*	spellFirstColTitle // OPTIONAL //
 	TYPE:	string
 	USE:	set the title of the first column of the header on the spell sheet page(s)
+	CHANGE:	v14.0.1 (support for special image options)
 
 	When generating a spell sheet for this attribute's parent object, it will have a header for each column.
 	Setting the 'spellFirstColTitle' will cause the first title of the column titles to be exactly what you enter here.
+
+	Since v14.0.1 this can alternatively be one of the special image options, see
+	`spellcastingBonus.firstCol` above for the options.
 
 	Note that there is only space for 2 characters in the header's first column.
 	One character enclosed in brackets will also fit, for example: "(R)".
 
 	This attribute will do nothing if the parent object does not grant spellcasting in one way or another.
+
+	If you don't include this attribute, the sheet will determine the first column
+	of the title line automatically: "PR" for everything except when
+	creating a "full list" for "spellbook" caster like the wizard ("SB" if so), or
+	nothing if the option to only display prepared spells is selected.
+
+	Setting this value to an empty string is useful, as it will remove the first column
+	of the header.
 */
 
 spellChanges: {
-	"spare the dying" : {
+	"spare the dying": {
 		time: "1 bns",
 		range: "30 ft",
-		changes: "I can cast spare the dying as a bonus action instead of an action, and it has a range of 30 ft instead of touch." // REQUIRED // string
-	}
+		changes: "I can cast spare the dying as a bonus action instead of an action, and it has a range of 30 ft instead of touch.", // REQUIRED // string
+	},
 },
 /*	spellChanges // OPTIONAL //
 	TYPE:	object with objects
@@ -1509,6 +1524,30 @@ spellcastingBonusElsewhere: {
 		Setting this attribute to false is the same as not including this attribute.
 	*/
 },
+
+spellcastingPreparedCantrips: { "class": ["cleric", "druid"] },
+/*	spellcastingPreparedCantrips // OPTIONAL //
+	TYPE:	object (common spell list object)
+	USE:	show all cantrips on the spell sheet, with checkboxes in the first column
+	ADDED:	v14.0.1
+
+	Setting this attribute causes the spell sheet to show all cantrips that correspond to
+	the given filters (e.g. the example above shows all cleric and druid cantrips).
+	These cantrips then get a checkbox in the first column, and that first column's header
+	is "PR" (for 'prepared'), unless set otherwise with `spellFirstColTitle`.
+	This way, the cantrips can be toggled to be prepared or not, just like spells.
+
+	This object is a "common spell list object". See "_common spell list object.js" for
+	the attributes it supports and how it works.
+
+	This object is used to filter the list of available spells, but is limited to only
+	cantrips. Thus, setting the `level` attribute is useless, as it is effectively
+	always `level: [0, 0]`.
+
+	IMPORTANT: ONLY USE WITH `spellcastingBonus`
+	This attribute is not intended for use with a spellcasting class, as they have their
+	own method of making cantrips display like spells that can be prepared.
+*/
 
 // >>>>>>>>>>>>>>>>>>>>>>>>> //
 // >>> Companion Options >>> //

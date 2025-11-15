@@ -3776,7 +3776,7 @@ function MakeInventoryMenu() {
 			}
 			if ((hasEquip || hasGold) && has1stPage) {
 				menu.push({
-					cName: "Both of the above, all " + oPrimaryClass.name + optionString + "gear",
+					cName: "Both of the above: all " + oPrimaryClass.name + optionString + "gear",
 					cReturn: "primaryclass#equipment_1stpage" + cReturnIndex,
 				});
 			}
@@ -3812,7 +3812,7 @@ function MakeInventoryMenu() {
 		}
 		if (hasBackgrEquip && hasBackgr1st) {
 			backgrMenuAdd.push({
-				cName: "Both of the above, all " + sBackgrName + "'s gear",
+				cName: "Both of the above: all " + sBackgrName + "'s gear",
 				cReturn: "background#equipment_1stpage",
 			});
 		}
@@ -3831,13 +3831,13 @@ function MakeInventoryMenu() {
 	InvMenu = InvMenu.concat([{
 		cName: "-"
 	}, {
-		cName : "Armor && Shield (from 1st page) [only adds new]",
+		cName : "Armor && Shield from 1st page [only adds new]",
 		cReturn : "armour"
 	}, {
-		cName : "Weapons && Ammunition (from 1st page) [only updates/adds new]",
+		cName : "Weapons && Ammunition from 1st page [only updates/adds new]",
 		cReturn : "weapon"
 	}, {
-		cName : "Both the above, all armor && weapons",
+		cName : "Both of the above from 1st page: armor, shield, weapons, ammo",
 		cReturn : "armour#weapon"
 	}, {
 		cName: "-"
@@ -5244,11 +5244,11 @@ function ParseFeat(input) {
 	var isMatch, isMatchSub, tempDate, tempDateSub, tempNameLen;
 	var varArr;
 
-	// Scan string for all magic items
+	// Scan string for all feats
 	for (var key in FeatsList) {
 		var kObj = FeatsList[key];
 
-		// test if the magic item or its source isn't excluded
+		// test if the feat or its source isn't excluded
 		if (testSource(key, kObj, "featsExcl")) continue;
 
 		isMatch = input.indexOf(kObj.name.toLowerCase()) !== -1;
@@ -6153,9 +6153,10 @@ function processAddFeats(bAddRemove, featsAdd, srcType, srcName, srcNameUnique) 
 		var aFeats = [];
 		var rxFeatType = RegExp(sFeatType, "i");
 		for (var key in FeatsList) {
-			var sType = FeatsList[key].type ? FeatsList[key].type : "general";
-			if (rxFeatType.test(sType) && !testSource(key, FeatsList, "featsExcl") && CurrentFeats.known.indexOf(key) === -1) {
-				aFeats.push(FeatsList[key].name);
+			var oFeat = FeatsList[key];
+			var sType = oFeat.type ? oFeat.type : "general";
+			if (rxFeatType.test(sType) && !testSource(key, FeatsList, "featsExcl") && (CurrentFeats.known.indexOf(key) === -1 || oFeat.allowDuplicates)) {
+				aFeats.push(oFeat.name);
 			}
 		}
 		if (aFeats.length) {
