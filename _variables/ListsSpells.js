@@ -4111,7 +4111,7 @@ var Base_SpellsList = {
 		range: "30 ft",
 		components: "V,S",
 		duration: "1 min",
-		description: "Spectral hand does simple task in 30 ft; carries \u226410 lb; Action to control again; ends if \u226530 ft/recast",
+		description: "Spectral hand does simple task, carry \u226410lb; Act to control again \x26 move 30ft; ends if recast/out range",
 		descriptionFull: [
 			"A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.",
 			"When you cast the spell, you can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial.",

@@ -1,0 +1,143 @@
+// Functions to create player-selectable content and that are used by add-on scripts
+
+/** Add the ability score choices for a feat
+ * @param {object} oFeat a FeatsList object that should be edited
+ * @param {array} [abilities] array of abilities to add. Does all 6 if `!abilities`
+ * @param {number} [iScoresMaximum] add a scoresMaximum for each ability with the given number
+ * @param {boolean} [bAddNameAbbreviations] set to true if only the 3-letter abbreviation of the ability should be added to the choices' name
+ * @param {boolean} [bAddNameAbbreviations] set to true if only the 3-letter abbreviation of the ability should be added to the choices' description
+ */
+function addAbilityScoreChoicesToFeat(oFeat, abilities, iScoresMaximum, bAddNameAbbreviations, bAddDescriptionAbbreviations) {
+	if (!abilities) abilities = ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"];
+	for (var i = 0; i < abilities.length; i++) {
+		var abi = abilities[i];
+		// Make sure what we got is usable
+		if (!isNaN(abi)) {
+			if (abi > 5) continue;
+			abi = AbilityScores.names[abi];
+		} else if (abi.length === 3) {
+			var abiAbrIdx = AbilityScores.abbreviations.indexOf(abi.capitalize());
+			if (abiAbrIdx === -1) continue;
+			abi = AbilityScores.names[abiAbrIdx];
+		} else {
+			abi = abi.capitalize();
+			if (!AbilityScores.names.indexOf(abi) === -1) continue;
+		}
+		var abiLC = abi.toLowerCase();
+		var abiAbbr = abi.substring(0, 3);
+		var abiIdx = AbilityScores[abiLC].index;
+		if (!oFeat.choices) oFeat.choices = [];
+		// Add it to the choices array if it doesn't exist
+		if (oFeat.choices.indexOf(abi) === -1) oFeat.choices.push(abi);
+		// Create an object for it if it doesn't exist
+		if (!oFeat[abiLC]) {
+			oFeat[abiLC] = {
+				description: oFeat.description + " [+1 " + (bAddDescriptionAbbreviations ? abiAbbr : abi) + "]",
+				scores: [0, 0, 0, 0, 0, 0],
+			}
+			oFeat[abiLC].scores[abiIdx] = 1;
+			if (iScoresMaximum) {
+				oFeat[abiLC].scoresMaximum = [0, 0, 0, 0, 0, 0];
+				oFeat[abiLC].scoresMaximum[abiIdx] = iScoresMaximum;
+			}
+			if (bAddNameAbbreviations) oFeat[abiLC].name = oFeat.name + " [" + abiAbbr + "]";
+			if (oFeat.calculate) oFeat[abiLC].calculate = oFeat.calculate;
+		}
+	}
+};
+
+/** Create a range object to use with getHighestTotal, given a certain base range
+ * This object can than be supplemented with other entries before calculated
+ * using getHighestTotal.
+ * @param {string} range a string with a number and unit (e.g. "20 ft" or "6 m")
+ * @param {function} [stopFunction] a function to stop the addition when returned true
+ * 
+ * @returns {object} {number} range in feet, prefix and suffix of that range
+ * @returns {undefined} if the input wasn't usable
+ */
+function rangeStringToPartsObject(range, stopFunction) {
+	// First test if this is an actual range that we can use
+	var rangeParts = range.match(/(\d*[,.]?\d+).?(ft|feet|foot|m\b|metre|meter)/i);
+	if (!rangeParts) return;
+	var rangeFT = Number(rangeParts[1].replace(",", "."));
+	if (rangeParts[2].toLowerCase()[0] === 'm') {
+		// If the range is in metres, convert it to feet
+		rangeFT = RoundTo(rangeFT / UnitsList.metric.length, 0.5);
+	}
+	var rangeSplit = range.split(rangeParts[0]);
+	// Create and return the object
+	var returnObject = {
+		forHighestTotal: { base: rangeFT },
+		prefix: rangeSplit[0],
+		suffix: rangeSplit[1],
+	};
+	// If a stopFunction is provided, stop the creation if it returns true
+	if (stopFunction && typeof stopFunction === "function") {
+		if (stopFunction(range, rangeFT)) return;
+	}
+	return returnObject;
+}
+
+/** Amends an object created by `rangeStringToPartsObject` with an addition
+ *  and processes it using getHighestTotal.
+ * 
+ * @param {string|object} range `rangeStringToPartsObject` function output (created if this input is a string)
+ * @param {string} srcName name of the addition (or thing to overwrite)
+ * @param {string} addition number modifier (e.g. "+60", "*2", "fixed10")
+ * @param {function} [stopFunction] a function to stop the addition when returned true
+ * 
+ * @returns {object|undefined} new `rangeObject` with the attributes `result` and
+ * `resultFT` the output from getHighestTotal, or undefined if the input wasn't usable.
+ */
+function amendRangeObject(range, srcName, addition, stopFunction) {
+	var rangeObject = range;
+	// If the input `range` is a string, create the object from it
+	if (typeof range === "string") {
+		rangeObject = rangeStringToPartsObject(range, stopFunction);
+		if (!rangeObject) return; // invalid input, or stopFunction returned true
+	} else if (stopFunction && typeof stopFunction === "function") {
+		// If there is a stopFunction and it wasn't already used in `rangeStringToPartsObject`, do it now
+		if (!rangeObject.result) {
+			// If no result is set, create it now before the addition
+			var preProcess = getHighestTotal(rangeObject.forHighestTotal, false, false, false, false, true);
+			rangeObject.result = rangeObject.prefix + preProcess[0] + rangeObject.suffix;
+			rangeObject.resultFT = preProcess[1];
+		}
+		if (stopFunction(rangeObject.result, rangeObject.resultFT)) return rangeObject;
+	}
+	// Add the addition
+	rangeObject.forHighestTotal[srcName] = addition;
+	var process = getHighestTotal(rangeObject.forHighestTotal, false, false, false, false, true);
+	rangeObject.result = rangeObject.prefix + process[0] + rangeObject.suffix;
+	rangeObject.resultFT = process[1];
+	return rangeObject;
+}
+
+/** Create features that are dependent on other content.
+ * This function is invoked after the lists are created and the user scripts ran.
+ */
+function dynamicFeatureCreation() {
+	// Warlock invocations that change cantrips, add one for each eligible cantrip
+	// Agonizing Blast: cantrips that deal damage
+	// Eldritch Spear:  cantrips that deal damage with 10+ ft range
+	// Repelling Blast: cantrips that deal damage via an attack roll
+	var dmgSpellRx = /takes? \d+d\d+ \w* ?damage/i;
+	for (var key in SpellsList) {
+		var oSpell = SpellsList[key];
+		if (oSpell.psionic || !oSpell.classes || oSpell.level !== 0 || !dmgSpellRx.test(oSpell.descriptionFull)) continue;
+		var isWarlockSpell = oSpell.classes.indexOf("warlock") !== -1;
+	}
+}
+
+function getActiveInvocationCantrips(invocation, cantrip) {
+	var activeInvocations = GetFeatureChoice('classes', 'warlock', 'eldritch invocations', true);
+	var invocationFeature = ClassList.warlock.features['eldritch invocations'];
+	var matchingInvocations = activeInvocations.filter(function (n) {
+		return n.indexOf(cantrip) !== -1 && n.indexOf(invocation) !== -1;
+	});
+	return matchingInvocations.length ? matchingInvocations : false;
+}
+
+/** For warlock invocations to check which others of the type exist, if any
+ * the last invocation of its type is removed
+ */

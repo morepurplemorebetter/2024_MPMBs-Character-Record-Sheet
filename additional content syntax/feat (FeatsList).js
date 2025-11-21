@@ -136,7 +136,8 @@ FeatsList["purple power"] = {
 /*	type // OPTIONAL, but RECOMMENDED //
 	TYPE:	string
 	USE:	define which type of feat this is
-	ADDED:	v24.0.0
+	ADDED:	v14.0.1
+	CHANGE: v24.0.0 (type: "fighting style" used for class features)
 
 	This attribute is used to sort the feats in the drop-down, to populate the feat's tooltip,
 	and it is used by the `featsAdd` common attribute (see "_common attributes.js").

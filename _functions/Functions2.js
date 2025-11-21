@@ -6371,7 +6371,7 @@ function FunctionIsNotAvailable() {
  * @param {number} [wildshapeNo] [optional, requires `prefix`] index of the monster on wild shape page, starting with 1
  * @param {boolean|string} [returnScore] [optional] can be `true`, `false`, or `"tiebreak"`
  * 
- * @return {number} depends on returnScore: if `=== true` returns the modifier, if `== false` returns the score, if `=== "tiebreak"` returns the modifier with the score as decimals
+ * @returns {number} depends on returnScore: if `=== true` returns the modifier, if `== false` returns the score, if `=== "tiebreak"` returns the modifier with the score as decimals
  */
 function getAbiModValue(ability, prefix, wildshapeNo, returnScore) {
 	var mod = 0, score = 0, abi;
@@ -6406,7 +6406,7 @@ function getAbiModValue(ability, prefix, wildshapeNo, returnScore) {
  * @param {number} [wildshapeNo] [optional, requires `prefix`] index of the monster on wild shape page, starting with 1
  * @param {boolean} [returnAbbr] [optional] set to `true` if this should return
  * 
- * @return {number} depends on returnAbbr: if `== true` returns abbreviation ("Str", "Dex", etc.), otherwise (default) returns index number (1=Str, 2=Dex, 3=Con, 4=Int, 5=Wis, 6=Cha)
+ * @returns {number} depends on returnAbbr: if `== true` returns abbreviation ("Str", "Dex", etc.), otherwise (default) returns index number (1=Str, 2=Dex, 3=Con, 4=Int, 5=Wis, 6=Cha)
 */
 function getHighestAbility(abilities, prefix, wildshapeNo, returnAbbr) {
 	var defaultAbilities = AbilityScores.abbreviations.concat('HoS');
@@ -6949,7 +6949,7 @@ function processSkills(AddRemove, srcNm, itemArr, descrTxt) {
 	var getSkillAbbr = function(inSkill) {
 		return SkillsList.abbreviations.indexOf(inSkill) !== -1 ? inSkill : false;
 	}
-	if (!isArray(itemArr) || (itemArr.length === 2 && !isArray(itemArr[0]) && !isArray(itemArr[1]) && (/full|increment|only/i).test(itemArr[1]))) itemArr = [itemArr];
+	if (!isArray(itemArr) || (itemArr.length === 2 && !isArray(itemArr[0]) && !isArray(itemArr[1]) && /full|increment|only/i.test(itemArr[1]))) itemArr = [itemArr];
 	for (var i = 0; i < itemArr.length; i++) {
 		var isArr = isArray(itemArr[i]);
 		var aSkill = isArr ? itemArr[i][0] : itemArr[i];
@@ -6962,12 +6962,12 @@ function processSkills(AddRemove, srcNm, itemArr, descrTxt) {
 		SetProf("skill", AddRemove, aSkill, srcNm, sExp);
 		if (setDescr) {
 			var tSkill = SkillsList.names[SkillsList.abbreviations.indexOf(aSkill)];
-			var eSkill = !sExp && !(/full|increment|only/i).test(sExp) ? "" : (/full/i).test(sExp) ? " expertise" : (/increment/i).test(sExp) ? " (expertise if already proficient)" : " expertise (only if already proficient)";
+			var eSkill = !sExp && !/full|increment|only/i.test(sExp) ? "" : /full/i.test(sExp) ? " expertise" : /increment/i.test(sExp) ? " (expertise if already proficient)" : " expertise (only if already proficient)";
 			descrTxt.push(tSkill + eSkill);
 		}
 	}
 	// if we generated a new descriptive text and none was provided, add it now
-	if (setDescr && descrTxt.length) CurrentProfs.skill.descrTxt[srcNm] = formatLineList(false, descrTxt);
+	if (setDescr && descrTxt.length) CurrentProfs.skill.descrTxt[srcNm] = formatLineList(false, descrTxt) + ".";
 	// then update the skill tooltips
 	setSkillTooltips();
 };
@@ -7154,7 +7154,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 	case "skill" : { // Extra is if the skill should also have expertise ('full'), or only expertise if already proficient from another source, else just proficient ('increment'), or only expertise if already proficient from another source ('only'), else nothing
 		if (AddRemove) { // add
 			// set the proficiency, but not if only adding expertise
-			if (!Extra || !(/only/i).test(Extra)) {
+			if (!Extra || !/only/i.test(Extra)) {
 				if (!set[ProfObj]) set[ProfObj] = [];
 				if (set[ProfObj].indexOf(ProfSrc) == -1) set[ProfObj].push(ProfSrc);
 			}
@@ -7183,7 +7183,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 		if (set[ProfObj+"_Exp"]) {
 			for (var expSrc in set[ProfObj+"_Exp"]) {
 				var aExp = set[ProfObj+"_Exp"][expSrc];
-				var isExp = (/full/i).test(aExp) ? true : isProf && (/only/i).test(aExp) ? true : isProf && (/increment/i).test(aExp) && (set[ProfObj].length > 1 || set[ProfObj][0] !== expSrc);
+				var isExp = /full/i.test(aExp) ? true : isProf && /only/i.test(aExp) ? true : isProf && /increment/i.test(aExp) && (set[ProfObj].length > 1 || set[ProfObj][0] !== expSrc);
 				if (isExp) break;
 			}
 		} else {
@@ -7714,23 +7714,24 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 			return fullString == "both" ? total : fullString ? total[0] : total[1];
 		};
 		// A function to get the totals at the current state
-		var getTotals = function(oDeltaSpds) {
-			if (!oDeltaSpds) oDeltaSpds = {};
+		var getTotals = function(oDeltaSpds, bSetNumberValue) {
+			var fullString = bSetNumberValue ? false : true;
+			var idx = bSetNumberValue ? 1 : 0;
 			var oBaseWalk = { 
-				spd : parseSpeed("walk", set.walk.spd, "both", 0, oDeltaSpds.walkSpd),
-				enc : parseSpeed("walk", set.walk.enc, "both", 0, oDeltaSpds.walkEnc)
+				spd: parseSpeed("walk", set.walk.spd, "both", 0, oDeltaSpds.walkSpd),
+				enc: parseSpeed("walk", set.walk.enc, "both", 0, oDeltaSpds.walkEnc)
 			};
-			var oTotals = { walkSpd : oBaseWalk.spd[0], walkEnc : oBaseWalk.enc[0] };
+			var oTotals = { walkSpd: oBaseWalk.spd[idx], walkEnc: oBaseWalk.enc[idx] };
 			for (var i = 0; i < spdTypes.length; i++) {
 				var sT = spdTypes[i];
 				if (sT === "walk") continue;
-				oTotals[sT + "Spd"] = parseSpeed(sT, set[sT].spd, true, oBaseWalk.spd[2], oDeltaSpds[sT + "Spd"]);
-				oTotals[sT + "Enc"] = parseSpeed(sT, set[sT].enc, true, oBaseWalk.enc[2], oDeltaSpds[sT + "Enc"]);
+				oTotals[sT + "Spd"] = parseSpeed(sT, set[sT].spd, fullString, oBaseWalk.spd[2], oDeltaSpds[sT + "Spd"]);
+				oTotals[sT + "Enc"] = parseSpeed(sT, set[sT].enc, fullString, oBaseWalk.enc[2], oDeltaSpds[sT + "Enc"]);
 			};
 			return oTotals;
 		}
 		// Get the current expected totals before we change anything
-		var oldTotals = getTotals();
+		var oldTotals = getTotals({}, true);
 		// Get the manual changed by comparing the values of the field and the oldTotals
 		var oDeltaSpds = {};
 		var splitSpdString = function(type, str) {
