@@ -262,7 +262,7 @@ WeaponsList["purple sword"] = {
 	For melee range, just use "Melee".
 */
 	description: "Finesse, light",
-/*	description // REQUIRED //
+/*	description // OPTIONAL //
 	TYPE:	string
 	USE:	the text as it will be put in the Description field for the attack
 

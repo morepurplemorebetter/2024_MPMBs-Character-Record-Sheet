@@ -492,11 +492,28 @@ SpellsList["sindering purple"] = {
 		           - italic, bold, and theme color (Colourful)
 		           - italic and bold (Printer Friendly)
 
-	The `descriptionFull` of spells is only used to populate the tooltip and pop-up dialogs,
-	which don't support formatting except through unicode.
+	By default, the `descriptionFull` of spells is only used to populate the tooltip and pop-up
+	dialogs, which don't support formatting except through unicode.
 	This means that only the bold and italic formatting will have any effect.
 	Other formatting characters will be ignored (e.g. no underlining or strikethrough).
-	If unicode is disabled, the sheet will instead capitalize everything between formatting characters.
+	If unicode is disabled, the sheet will instead capitalize everything between any
+	formatting characters (including the `_` and `~` characters).
+
+	The full range of formatting options will only be applicable if the `descriptionFull`
+	is used in a field on the sheet.
+	This can happen if a CreatureList or CompanionList uses the `toNotesPage` attribute with
+	`useDescriptionFull: true`, for example.
+*/
+	reqLoS: true,
+/*	reqLoS // OPTIONAL //
+	TYPE:	boolean
+	USE:	whether this spell requires line of sight to the target or not
+	ADDED:	v24.0.0
+
+	Spells with the ritual tag will gain a "◉" (fisheye symbol)
+	after their name on the spell sheet.
+
+	Setting this attribute to false is the same as not including this attribute.
 */
 	ritual: true,
 /*	ritual // OPTIONAL //

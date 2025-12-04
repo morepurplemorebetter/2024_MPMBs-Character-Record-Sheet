@@ -685,7 +685,7 @@ function SetSpellSheetElement(target, type, suffix, caster, hidePrepared, forceT
 		if (caster && CurrentSpells[caster]) {
 			var spCast = CurrentSpells[caster];
 			var isPsionics = spCast.factor && /psionic/i.test(spCast.factor[1]);
-			var casterName = forceTxt ? forceTxt : spCast.name.replace(/book of /i, "").replace(/ (\(|\[).+?(\)|\])/g, "");
+			var casterName = forceTxt ? forceTxt : spCast.name.replace(/ (\(|\[).+?(\)|\])/g, "");
 			if (!forceTxt) casterName = casterName + (casterName.length >= testLength || /\b(spells|powers|psionics)\b/i.test(casterName) ? "" : isPsionics ? " Psionics" : " Spells");
 			//set the variable to true to later hide the prepared fields if not concerning a list or book
 			if (!spCast.level || spCast.typeSp === "known" || !spCast.known || !spCast.known.prepared || spCast.typeList === 3) {
@@ -1076,8 +1076,9 @@ function CreateSpellList(inputObject, toDisplay, extraArray, returnOrdered, objN
 
 	//now go through all the spells in the list and see if they agree with the criteria
 	for (var key in SpellsList) {
-		var isExtraSpell = inputObject.extraspells.indexOf(key) !== -1;
 		var aSpell = SpellsList[key];
+		if (!aSpell.classes) continue;
+		var isExtraSpell = inputObject.extraspells.indexOf(key) !== -1;
 		//first test if the spell's source is on the list of sources to use
 		var addSp = !testSource(key, aSpell, "spellsExcl");
 		//now test if the spell meets all the criteria set in the inputObject
@@ -1088,9 +1089,7 @@ function CreateSpellList(inputObject, toDisplay, extraArray, returnOrdered, objN
 			addSp = inputObject.notspells.indexOf(key) === -1;
 		}
 		if (addSp && inputObject.class && !isExtraSpell) {
-			if (!aSpell.classes) {
-				continue;
-			} else if (isArray(inputObject.class)) {
+			if (isArray(inputObject.class)) {
 				addSp = inputObject.class.some(function (v) {
 					return v === "any" || v === "all" || aSpell.classes.indexOf(v) !== -1;
 				});
@@ -1106,10 +1105,11 @@ function CreateSpellList(inputObject, toDisplay, extraArray, returnOrdered, objN
 			addSp = inputObject.school.indexOf(aSpell.school) !== -1;
 		}
 		if (addSp && inputObject.attackOnly !== undefined) {
-			var isAttackSpell = /^(booming blade|green-flame blade)$/.test(key) || /spell attack/i.test(aSpell.description + aSpell.descriptionFull);
+			var isAttackSpell = /booming blade|green-flame blade|true strike/.test(key) || /spell at(tac?)k/i.test(aSpell.description + aSpell.descriptionFull);
 			addSp = isAttackSpell == inputObject.attackOnly;
 		}
-		if (addSp && inputObject.ritual !== undefined) {
+		// only filter rituals if the spell is not a cantrip
+		if (addSp && inputObject.ritual !== undefined && aSpell.level) {
 			addSp = aSpell.ritual ? aSpell.ritual == inputObject.ritual : !inputObject.ritual;
 		}
 		if (addSp && inputObject.psionic !== "all") {
@@ -3336,7 +3336,7 @@ function AskUserSpellSheet() {
 				} else { // spell list
 					var spListLevel = spCast.list.level; //put the level of the list here for safe keeping
 					spCast.list.level = [1, maxSpell]; //set the list level to 1 to max level able to cast
-					var listPrepRef = CreateSpellList(spCast.list, true, spCast.extra && spCast.extraSpecial ? spCast.extra : false, false, aCast, spCast.typeSp,  true); //create an array of all the spells that can be prepared at this level
+					var listPrepRef = CreateSpellList(spCast.list, true, spCast.extra && spCast.extraSpecial ? spCast.extra : false, false, aCast, spCast.typeSp, true); //create an array of all the spells that can be prepared at this level
 					if (spListLevel) { //put that list level back in the right variable
 						spCast.list.level = spListLevel;
 					} else {
@@ -3566,9 +3566,8 @@ function GenerateSpellSheet(GoOn) {
 				delete spCast.list.level;
 			}
 		} else if (spCast.preparedCantrips && spCast.typeList !== 3 && (spCast.list || spCast.preparedCantripsList)) { // Add all the cantrips
-		// TO-DO: preparedCantripsList NOG WERKEND MAKEN!!!
-			var listObject = spCast.list ? newObj(spCast.list) : spCast.preparedCantripsList;
-
+			var listObject = spCast.preparedCantripsList ? spCast.preparedCantripsList : newObj(spCast.list);
+			// Force it being only cantrips
 			listObject.level = [0, 0];
 			var fullClassCantripList = CreateSpellList(listObject, false, false, false, CurrentCasters.incl[i], spCast.typeSp);
 			fullSpellList = fullSpellList.concat(fullClassCantripList);
@@ -6004,7 +6003,7 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 	var arrRegex = [tRx];
 	var tRxMatch = useSpellDescr.match(tRx);
 	// Stop now if no match or a match but not for any dice while onlyRolls == true
-	var bRollMatch = tRxMatch && /\d*d\d+/i.test(tRxMatch[2]);
+	var bRollMatch = tRxMatch && /\d*d\d+/i.test(tRxMatch[0]);
 	if (!tRxMatch || (onlyRolls && !bRollMatch) || (maximizeRolls && !bRollMatch && !ability)) return;
 
 	// Spells that have a secondary (or more) damage group of the same damage type that doesn't follow the syntax
@@ -6105,14 +6104,16 @@ function getSpellShortDescription(spellKey, spellObj) {
 		[/(r)ounds?/ig, '$1nd'],
 		[/(save hal)ves?/ig, '$1f'],
 		[/(see) book/ig, '$1 B'],
-		[/(adv)antage|(dis)advantage/ig, '$1.']
+		[/(adv)antage|(dis)advantage/ig, '$1.'],
+		[/(a)ttacks?/ig, '$1tk'],
+		[/(r)anged/ig, '$1ngd'],
+		[/(wea)pons?/ig, '$1'],
 	];
 	for (var i = 0; i < arrTxtReplace.length; i++) {
 		useSpellDescr = useSpellDescr.replace(arrTxtReplace[i][0], arrTxtReplace[i][1]);
 	};
 	return useSpellDescr;
 }
-
 
 /// >> TESTING ADD-ON SCRIPTS <<
 

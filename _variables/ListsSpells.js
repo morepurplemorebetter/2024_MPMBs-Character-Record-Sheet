@@ -16,7 +16,7 @@ var Base_spellSchoolList = {
 	"Illus" : "illusion",
 	"Necro" : "necromancy",
 	"Trans" : "transmutation",
-}
+};
 
 var Base_SpellsList = {
 	"acid splash": {
@@ -464,8 +464,7 @@ var Base_SpellsList = {
 			" \u2022 The target has Disadvantage on attack rolls against you.",
 			" \u2022 In combat, the target must succeed on a Wisdom saving throw at the start of each of its turns or be forced to take the Dodge action on that turn.",
 			" \u2022 If you deal damage to the target with an attack roll or a spell, the target takes an extra 1d8 Necrotic damage.",
-			UsingHigherLvl +
-				"If you cast this spell using a level 4 spell slot, you can maintain Concentration on it for up to 10 minutes. If you use a level 5+ spell slot, the spell doesn't require Concentration, and the duration becomes 8 hours (level 5-6 slot) or 24 hours (level 7-8 slot). If you use a level 9 spell slot, the spell lasts until dispelled.",
+			UsingHigherLvl + "If you cast this spell using a level 4 spell slot, you can maintain Concentration on it for up to 10 minutes. If you use a level 5+ spell slot, the spell doesn't require Concentration, and the duration becomes 8 hours (level 5-6 slot) or 24 hours (level 7-8 slot). If you use a level 9 spell slot, the spell lasts until dispelled.",
 		],
 	},
 	"bigby's hand": {
@@ -807,7 +806,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Instantaneous",
 		description: "Melee spell atk for 1d10 Necrotic dmg, can't regain HP until my next EoT; +1d10 at CL 5, 11, and 17",
-		descriptionCantripDie: "Melee spell attack for `CD`d10 Necrotic dmg, can't regain HP until my next next turn ends",
+		descriptionCantripDie: "Melee spell attack for `CD`d10 Necrotic dmg, can't regain HP until my next EoT",
 		descriptionShorter: "Melee spell atk for 1d10 Necrotic dmg, can't regain HP till my next EoT; +1d10 at CL 5/11/17",
 		descriptionFull: [
 			"Channeling the chill of the grave, make a melee spell attack against a target within reach. On a hit, the target takes 1d10 Necrotic damage, and it can't regain Hit Points until the end of your next turn.",
@@ -835,9 +834,9 @@ var Base_SpellsList = {
 		dynamicDamageBonus: {
 			multipleDmgTypes: {
 				dmgTypes: ["acid", "cold", "fire", "lightning", "poison", "thunder"],
-				inDescriptionAs: "elemental"
+				inDescriptionAs: "elemental",
 			},
-			multipleDmgMoments: true
+			multipleDmgMoments: true,
 		},
 	},
 	"circle of death": {
@@ -1155,9 +1154,9 @@ var Base_SpellsList = {
 			dynamicDamageBonus : {
 				multipleDmgTypes : {
 					dmgTypes: ["radiant"],
-					inDescriptionAs: "Rad\\."
-				}
-			}
+					inDescriptionAs: "Rad\\.",
+				},
+			},
 		},
 	},
 	"conjure celestial-1-healing light": {
@@ -1227,7 +1226,7 @@ var Base_SpellsList = {
 			extraDmgGroupsSameType: /((?:\+?\d+d?\d*)+)(; \+d8\/SL)/i,
 			multipleDmgTypes: {
 				dmgTypes: ["cold", "fire", "lightning", "thunder"],
-				inDescriptionAs: "elem."
+				inDescriptionAs: "elem.",
 			},
 		},
 	},
@@ -1271,7 +1270,7 @@ var Base_SpellsList = {
 		dynamicDamageBonus: {
 			multipleDmgTypes: {
 				dmgTypes: ["acid", "cold", "fire", "lightning"],
-				inDescriptionAs: "Acid/Cold/Fire/Lightn."
+				inDescriptionAs: "Acid/Cold/Fire/Lightn.",
 			},
 		},
 	},
@@ -1396,7 +1395,7 @@ var Base_SpellsList = {
 		withoutDependencies: {
 			save: "Str",
 			description: "Affect water in 100-ft cube: Flood, Part Water, Redirect Flow, or Whirlpool; Action to change; see book",
-		}
+		},
 	},
 	"control water-1-flood": {
 		name: "Control Water: Flood",
@@ -1581,8 +1580,7 @@ var Base_SpellsList = {
 			"You can cast this spell only at night. Choose up to three corpses of Medium or Small Humanoids within range. Each one becomes a Ghoul under your control (see the Monster Manual for its stat block).",
 			"As a Bonus Action on each of your turns, you can mentally command any creature you animated with this spell if the creature is within 120 feet of you (if you control multiple creatures, you can command any of them at the same time, issuing the same command to them). You decide what action the creature will take and where it will move on its next turn, or you can issue a general command, such as to guard a particular place. If you issue no commands, the creature takes the Dodge action and moves only to avoid harm. Once given an order, the creature continues to follow the order until its task is complete.",
 			"The creature is under your control for 24 hours, after which it stops obeying any command you've given it. To maintain control of the creature for another 24 hours, you must cast this spell on the creature before the current 24-hour period ends. This use of the spell reasserts your control over up to three creatures you have animated with this spell rather than animating new ones.",
-			UsingHigherLvl +
-				"If you use a level 7 spell slot, you can animate or reassert control over four Ghouls. If you use a level 8 spell slot, you can animate or reassert control over five Ghouls or two Ghasts or Wights. If you use a level 9 spell slot, you can animate or reassert control over six Ghouls, three Ghasts or Wights, or two Mummies. See the Monster Manual for these stat blocks.",
+			UsingHigherLvl + "If you use a level 7 spell slot, you can animate or reassert control over four Ghouls. If you use a level 8 spell slot, you can animate or reassert control over five Ghouls or two Ghasts or Wights. If you use a level 9 spell slot, you can animate or reassert control over six Ghouls, three Ghasts or Wights, or two Mummies. See the Monster Manual for these stat blocks.",
 		],
 	},
 	"creation": {
@@ -1732,7 +1730,7 @@ var Base_SpellsList = {
 			UsingHigherLvl + "The base damage increases by 1d6 for each spell slot level above 7.",
 		],
 		dynamicDamageBonus: {
-			multipleDmgMoments: false
+			multipleDmgMoments: false,
 		},
 	},
 	"demiplane": {
@@ -2339,7 +2337,7 @@ var Base_SpellsList = {
 			"***Beckon Water***. You create a spray of cool mist that lightly dampens creatures and objects in a 5-foot Cube. Alternatively, you create 1 cup of clean water either in an open container or on a surface, and the water evaporates in 1 minute.",
 			"***Sculpt Element***. You cause dirt, sand, fire, smoke, mist, or water that can fit in a 1-foot Cube to assume a crude shape (such as that of a creature) for 1 hour.",
 		],
-		dependencies: ["elementalism-1-air-earth", "elementalism-2-fire-water"]
+		dependencies: ["elementalism-1-air-earth", "elementalism-2-fire-water"],
 	},
 	"elementalism-1-air-earth" : {
 		name: "Elementalism: Air/Earth",
@@ -2647,7 +2645,10 @@ var Base_SpellsList = {
 		compMaterial: "A drop of alcohol",
 		duration: "Instantaneous",
 		description: "I gain 2d4+4+5/SL Temporary Hit Points",
-		descriptionFull: ["You gain 2d4 + 4 Temporary Hit Points.", UsingHigherLvl + "You gain 5 additional Temporary Hit Points for each spell slot level above 1."],
+		descriptionFull: [
+			"You gain 2d4 + 4 Temporary Hit Points.",
+			UsingHigherLvl + "You gain 5 additional Temporary Hit Points for each spell slot level above 1.",
+		],
 	},
 	"fear": {
 		name: "Fear",
@@ -2993,8 +2994,8 @@ var Base_SpellsList = {
 		dynamicDamageBonus: {
 			multipleDmgTypes: {
 				dmgTypes: ["radiant", "necrotic"],
-				inDescriptionAs: "Radiant/Necrotic|Radiant/Necro."
-			}
+				inDescriptionAs: "Radiant/Necrotic|Radiant/Necro.",
+			},
 		},
 	},
 	"forcecage": {
@@ -3111,8 +3112,7 @@ var Base_SpellsList = {
 			"While Charmed, the creature takes 5d10 Psychic damage if it acts in a manner directly counter to your command. It takes this damage no more than once each day.",
 			"You can issue any command you choose, short of an activity that would result in certain death. Should you issue a suicidal command, the spell ends.",
 			"A Remove Curse, Greater Restoration, or Wish spell ends this spell.",
-			UsingHigherLvl +
-				"If you use a level 7 or 8 spell slot, the duration is 365 days. If you use a level 9 spell slot, the spell lasts until it is ended by one of the spells mentioned above.",
+			UsingHigherLvl + "If you use a level 7 or 8 spell slot, the duration is 365 days. If you use a level 9 spell slot, the spell lasts until it is ended by one of the spells mentioned above.",
 		],
 	},
 	"gentle repose": {
@@ -4563,8 +4563,7 @@ var Base_SpellsList = {
 			"You must speak to the target to describe how its memories are affected, and it must be able to understand your language for the modified memories to take root. Its mind fills in any gaps in the details of your description. If the spell ends before you finish describing the modified memories, the creature's memory isn't altered. Otherwise, the modified memories take hold when the spell ends.",
 			"A modified memory doesn't necessarily affect how a creature behaves, particularly if the memory contradicts the creature's natural inclinations, alignment, or beliefs. An illogical modified memory, such as a false memory of how much the creature enjoyed swimming in acid, is dismissed as a bad dream. The DM might deem a modified memory too nonsensical to affect a creature.",
 			"A Remove Curse or Greater Restoration spell cast on the target restores the creature's true memory.",
-			UsingHigherLvl +
-				"You can alter the target's memories of an event that took place up to 7 days ago (level 6 spell slot), 30 days ago (level 7 spell slot), 365 days ago (level 8 spell slot), or any time in the creature's past (level 9 spell slot).",
+			UsingHigherLvl + "You can alter the target's memories of an event that took place up to 7 days ago (level 6 spell slot), 30 days ago (level 7 spell slot), 365 days ago (level 8 spell slot), or any time in the creature's past (level 9 spell slot).",
 		],
 	},
 	"moonbeam": {
@@ -4591,9 +4590,9 @@ var Base_SpellsList = {
 		dynamicDamageBonus : {
 			multipleDmgTypes : {
 				dmgTypes: ["radiant"],
-				inDescriptionAs: "Rad\\."
-			}
-		}
+				inDescriptionAs: "Rad\\.",
+			},
+		},
 	},
 	"mordenkainen's faithful hound": {
 		name: "Mordenkainen's Faithful Hound",
@@ -5130,13 +5129,13 @@ var Base_SpellsList = {
 				dmgTypes: ["acid", "cold", "fire", "lightning", "poison"],
 				inDescriptionAs: "|\(1:Fire, 2:Acid, 3:Lightning, 4:Poison, 5:Cold\)",
 				multipleDmgMoments: true,
-			}
+			},
 		},
 		dependencies: ["prismatic spray-1-6", "prismatic spray-2-7-8"],
 		withoutDependencies: {
 			nameShort: false,
 			description: "All creatures random effect each: 12d6 damage, Restrained, or Blinded; save halves/negates; see book",
-		}
+		},
 	},
 	"prismatic spray-1-6" : {
 		name: "Prismatic Spray (6)",
@@ -6017,7 +6016,7 @@ var Base_SpellsList = {
 		dynamicDamageBonus: {
 			multipleDmgTypes: {
 				dmgTypes: ["acid", "cold", "fire", "lightning", "poison", "psychic", "thunder"],
-				inDescriptionAs: "elemental/Poison/Psych(ic|\.)?|Acid/Cold/Fire/Lightn\./Pois\./Psych/Thndr"
+				inDescriptionAs: "elemental/Poison/Psych(ic|\.)?|Acid/Cold/Fire/Lightn\./Pois\./Psych/Thndr",
 			},
 		},
 	},
@@ -6147,8 +6146,8 @@ var Base_SpellsList = {
 		dynamicDamageBonus: {
 			multipleDmgTypes: {
 				dmgTypes: ["radiant", "necrotic"],
-				inDescriptionAs: "Radiant/Necrotic"
-			}
+				inDescriptionAs: "Radiant/Necrotic",
+			},
 		},
 	},
 	"spiritual weapon": {
@@ -6181,7 +6180,7 @@ var Base_SpellsList = {
 		duration: "Instantaneous",
 		description: "Rngd spell atk for 1d8 Radiant dmg, till my next EoT 10-ft dim light \x26 no Invisible; +1d8 CL 5/11/17",
 		descriptionShorter: "Spell atk for 1d8 Radiant dmg, till my next EoT 10-ft dim light \x26 no Invisible; +1d8 CL 5/11/17",
-		descriptionCantripDie: "Rngd spell atk for `CD`d8 Radiant dmg, and till my next EoT emits 10-ft rad dim light \x26 not Invisible",
+		descriptionCantripDie: "Rngd spell atk for `CD`d8 Radiant dmg, till my next EoT emits 10-ft rad dim light \x26 not Invisible",
 		descriptionFull: [
 			"You launch a mote of light at one creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d8 Radiant damage, and until the end of your next turn, it emits Dim Light in a 10-foot radius and can't benefit from the Invisible condition.",
 			CantripUpgrade + "The damage increases by 1d8 when you reach levels 5 (2d8), 11 (3d8), and 17 (4d8).",
@@ -6707,7 +6706,7 @@ var Base_SpellsList = {
 		duration: "Instantaneous",
 		description: "1 atk with prof. wea using spell ability; deal wea or Radiant dmg; +1d6 Radiant dmg at CL 5, 11, \x26 17",
 		descriptionShorter: "1 atk with prof. wea using spell abi; deal wea or Radiant dmg; +1d6 Radiant dmg at CL 5, 11, 17",
-		descriptionCantripDie: "1 atk with proficient weapon using spell ability; deal weapon or Radiant dmg; +`CD-1`d6 Radiant dmg",
+		descriptionCantripDie: "1 atk with proficient weapon using spell ability; deal weapon or Radiant dmg, +`CD-1`d6 Radiant dmg",
 		descriptionFull: [
 			"Guided by a flash of magical insight, you make one attack with the weapon used in the spell's casting. The attack uses your spellcasting ability for the attack and damage rolls instead of using Strength or Dexterity. If the attack deals damage, it can be Radiant damage or the weapon's normal damage type (your choice).",
 			CantripUpgrade + "Whether you deal Radiant damage or the weapon's normal damage type, the attack deals extra Radiant damage when you reach levels 5 (1d6), 11 (2d6), and 17 (3d6).",

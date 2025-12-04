@@ -72,29 +72,151 @@ var FightingStyles = {
 		}
 	}
 };
-// No longer used, but kept for legacy sources that use it
+
 var GenericClassFeatures = {
-	"potent spellcasting" : {
-		name : "Potent Spellcasting",
-		description : desc("I add my Wisdom modifier to the damage I deal with my cleric cantrips"),
-		calcChanges : {
-			atkCalc : [
+	// Potent Spellcasting is no longer used, but kept for legacy sources that use it
+	"potent spellcasting": {
+		name: "Potent Spellcasting",
+		description: desc("I add my Wisdom modifier to the damage I deal with my cleric cantrips"),
+		calcChanges: {
+			atkCalc: [
 				function (fields, v, output) {
 					if (v.thisWeapon[3] && /\bcleric\b/.test(v.thisWeapon[4]) && SpellsList[v.thisWeapon[3]].level === 0 && /\d/.test(fields.Damage_Die)) {
-						output.extraDmg += What('Wis Mod');
+						output.extraDmg += Number(What('Wis Mod'));
 					};
 				},
-				"My cleric cantrips get my Wisdom modifier added to their damage."
+				"My cleric cantrips get my Wisdom modifier added to their damage.",
 			],
-			spellAdd : [
+			spellAdd: [
 				function (spellKey, spellObj, spName) {
-					if (spellObj.psionic || spellObj.level !== 0 || spName.indexOf("cleric") == -1 || !What("Wis Mod") || Number(What("Wis Mod")) <= 0) return;
-					return genericSpellDmgEdit(spellKey, spellObj, "\\w+\\.?", "Wis");
+					var wisMod = Number(What("Wis Mod"));
+					if (spellObj.psionic || spellObj.level !== 0 || spName.indexOf("cleric") == -1 || wisMod <= 0) return;
+					return genericSpellDmgEdit(spellKey, spellObj, "\\w+\\.?", wisMod);
 				},
-				"My cleric cantrips get my Wisdom modifier added to their damage."
-			]
-		}
-	}
+				"My cleric cantrips get my Wisdom modifier added to their damage.",
+			],
+		},
+	},
+	// Warlock: Eldritch Invocations that alter how cantrips function
+	"agonizing blast": {
+		name: "Agonizing Blast",
+		source: [["SRD24", 72], ["P24", 155]],
+		calcChanges: {
+			atkAdd: [
+				function (fields, v) {
+					// Stop if not a recognized spell, Charisma modifier is 0 or less, or no matching agonizing blast selected for this cantrip
+					var spellKey = v.thisWeapon[3];
+					var chaMod = Number(What("Cha Mod"));
+					if (!spellKey || chaMod <= 0 || !getActiveCantripInvocations('agonizing blast', { cantrip: spellKey })) return;
+
+					output.extraDmg += chaMod;
+				},
+				"When I hit a creature with a warlock cantrips for which I have selected the Agonizing Blast Eldritch Invocation, I can add my Charisma modifier to the spell's damage rolls.",
+			],
+			spellAdd: [
+				function (spellKey, spellObj, spName) {
+					// Stop if Charisma modifier is 0 or less or no matching agonizing blast selected for this cantrip
+					var chaMod = Number(What("Cha Mod"));
+					if (chaMod <= 0 || !getActiveCantripInvocations('agonizing blast', { cantrip: spellKey })) return;
+
+					genericSpellDmgEdit(spellKey, spellObj, "\\w+\\.?", chaMod, false, true);
+				},
+				"When I hit a creature with a warlock cantrips for which I have selected the Agonizing Blast Eldritch Invocation, I can add my Charisma modifier to the spell's damage rolls.",
+			],
+		},
+	},
+	"eldritch spear": {
+		name: "Eldritch Spear",
+		source: [["SRD24", 73], ["P24", 155]],
+		calcChanges: {
+			atkAdd: [
+				function (fields, v) {
+					// Stop if not a recognized spell, no warlock levels present, or no matching eldritch spear selected for this cantrip
+					var spellKey = v.thisWeapon[3];
+					if (!spellKey || !classes.known.warlock || !getActiveCantripInvocations('eldritch spear', { cantrip: spellKey })) return;
+
+					var name = "eldritch spear";
+					var addition = "+" + (classes.known.warlock.level * 30);
+					var useRange = v.rangeObject ? v.rangeObject : fields.Range;
+					var stopFunction = function (sRange, nRangeFT) { return nRangeFT < 10; };
+					v.rangeObject = amendRangeObject(useRange, name, addition, stopFunction);
+					// Only apply if something changed
+					if (v.rangeObject && v.rangeObject.result !== fields.Range) {
+						fields.Range = v.rangeObject.result;
+					}
+				},
+				"My warlock cantrips for which I have selected the Eldritch Spear Eldritch Invocation gain +30 ft range per Warlock level.",
+				700,
+			],
+			spellAdd: [
+				function (spellKey, spellObj, spName) {
+					// Stop if no warlock levels present or no matching eldritch spear selected for this cantrip
+					if (!classes.known.warlock || !getActiveCantripInvocations('eldritch spear', { cantrip: spellKey })) return;
+
+					var name = "eldritch spear";
+					var addition = "+" + (classes.known.warlock.level * 30);
+					var useRange = spellObj.rangeObject ? spellObj.rangeObject : spellObj.range;
+					var stopFunction = function (sRange, nRangeFT) { return nRangeFT < 10; };
+					spellObj.rangeObject = amendRangeObject(useRange, name, addition, stopFunction);
+					// Only apply if something changed
+					if (spellObj.rangeObject && spellObj.rangeObject.result !== spellObj.range) {
+						spellObj.range = spellObj.rangeObject.result;
+						return true;
+					}
+				},
+				"My warlock cantrips for which I have selected the Eldritch Spear Eldritch Invocation gain +30 ft range per Warlock level.",
+				700,
+			],
+		},
+	},
+	"repelling blast": {
+		name: "Repelling Blast",
+		source: [["SRD24", 74], ["P24", 157]],
+		calcChanges: {
+			atkAdd: [
+				function (fields, v) {
+					// Stop if not a recognized spell, requires a save, or no matching repelling blast selected for this cantrip
+					var spellKey = v.thisWeapon[3];
+					if (!spellKey || v.isDC || !getActiveCantripInvocations('repelling blast', { cantrip: spellKey })) return;
+
+					fields.Description += (fields.Description ? '; ' : '') + '\u2264Large push 10 ft';
+				},
+				"When I hit a Large or smaller creature with a warlock cantrips for which I have selected the Repelling Blast Eldritch Invocation, I can push it 10 ft straight away from me.",
+			],
+			spellAdd: [
+				function (spellKey, spellObj, spName) {
+					// Stop if no matching repelling blast selected for this cantrip
+					if (!getActiveCantripInvocations('repelling blast', { cantrip: spellKey })) return;
+
+					// Only amend the spell short description if using the special cantrip die description, otherwise it'll never fit
+					if (CurrentCasters.amendSpDescr && spellObj.descriptionCantripDie && spName) {
+						// Do the default short description replacements to save space
+						var newDescr = spellObj.genericSpellDmgEdit ? spellObj.description : getSpellShortDescription(spellObj.description, spellObj);
+						if (/pull\D+(10 ?ft|3 ?m)\b/i.test(newDescr)) {
+							// Thorn Whip
+							newDescr = newDescr.replace(/(pull)/i, "$1/push").replace(" closer", "");
+						} else {
+							var distance = What("Unit System") === "metric" ? ConvertToMetric("10ft", 0.5) : "10ft";
+							newDescr = newDescr.replace(/(\d)[ -](ft|m)/g, "$1$2")
+								.replace(", but can be", ", can be") // Eldritch Blast
+								.replace("Act end with", "Act end: ") // Produce Flame
+								.replace("\x26 not Invisible", ", no Invis.") // Starry Wisp
+								.replace(/(p)roficient/g, "$1rof.") // True Strike
+								.replace("dmg \x26", "dmg \x26 push " + distance + " \x26");
+							if (newDescr.indexOf("dmg \x26 push " + distance) === -1) {
+								newDescr = newDescr.replace("dmg", "dmg, push " + distance);
+							}
+						}
+						if (spellObj.description != newDescr) {
+							spellObj.description = newDescr;
+							return true;
+						}
+					}
+				},
+				"When I hit a Large or smaller creature with a warlock cantrips for which I have selected the Repelling Blast Eldritch Invocation, I can push it 10 ft straight away from me.",
+			],
+		},
+	},
 };
 
 var Base_ClassList = {
@@ -153,7 +275,7 @@ var Base_ClassList = {
 				usages: levels.map(function (n) {
 					return n < 3 ? 2 : n < 6 ? 3 : n < 12 ? 4 : n < 17 ? 5 : 6;
 				}),
-				recovery: "long rest",
+				recovery: "Long Rest",
 				action: [["bonus action", " (start/extend)"]],
 				dmgres: [
 					["Bludgeoning", "Bludgeon. (in rage)"],
@@ -302,7 +424,7 @@ var Base_ClassList = {
 					return (n * 2) + " HP";
 				}),
 				usages: "DC 10 +5/try per ",
-				recovery: "short rest",
+				recovery: "Short Rest",
 				usagescalc: "var FieldNmbr = parseFloat(event.target.name.slice(-2)); var usages = Number(What('Limited Feature Used ' + FieldNmbr)); var DCval = Number(usages * 5 + 10); event.value = isNaN(usages) || isNaN(DCval) ? 'DC\u2003\u2003' : 'DC ' + DCval;",
 			},
 			"persistent rage": {
@@ -312,7 +434,7 @@ var Base_ClassList = {
 				description: "\nOnce per long rest when I roll initiative, I can regain all my expended uses of Rage.\nMy Rage now only ends early if I choose to end it, fall Unconscious, or don Heavy armor.",
 				additional: "regain Rage uses",
 				usages: 1,
-				recovery: "long rest",
+				recovery: "Long Rest",
 			},
 			"indomitable might": {
 				name: "Indomitable Might",
@@ -558,7 +680,7 @@ var Base_ClassList = {
 				minlevel : 2,
 				description : desc("I can channel divine energy to cause an effect; the save for this is my cleric spell DC"),
 				usages : [0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3],
-				recovery : "short rest"
+				recovery : "Short Rest"
 			},
 			"turn undead" : {
 				name : "Channel Divinity: Turn Undead",
@@ -591,7 +713,7 @@ var Base_ClassList = {
 				minlevel : 10,
 				additional : ["", "", "", "", "", "", "", "", "", "10% chance", "11% chance", "12% chance", "13% chance", "14% chance", "15% chance", "16% chance", "17% chance", "18% chance", "19% chance", "100% chance"],
 				usages : 1,
-				recovery : "long rest",
+				recovery : "Long Rest",
 				description : desc([
 					"As an action, I can implore my deity for help; the DM determines the form of help",
 					"Without intervention, I can retry after a long rest; otherwise, I have to wait a week"
@@ -685,7 +807,7 @@ var Base_ClassList = {
 					" \u2022 I revert if out of time or unconscious; if KOd by damage, excess damage carries over"
 				]),
 				usages : [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, "\u221E\xD7 per "],
-				recovery : "short rest",
+				recovery : "Short Rest",
 				additional : levels.map(function (n) {
 					if (n < 2) return "";
 					var cr = n < 4 ? "1/4" : n < 8 ? "1/2" : 1;
@@ -809,7 +931,7 @@ var Base_ClassList = {
 				description: "\nAs a bonus action, I regain 1d10 + my Fighter level HP.",
 				additional: levels.map(function (n) { return "1d10+" + n + ", regain 1/SR"; }),
 				usages: levels.map(function (n) { return n < 4 ? 2 : n < 10 ? 3 : 4; }),
-				recovery: "long rest",
+				recovery: "Long Rest",
 				action: [["bonus action", ""]],
 			},
 			"weapon mastery": {
@@ -832,7 +954,7 @@ var Base_ClassList = {
 					return "\nOn my turn I can take an additional action, except the Magic action." + (n < 17 ? '' : " Only once per turn.");
 				}),
 				usages: levels.map(function (n) { return n < 2 ? 0 : n < 17 ? 1 : 2; }),
-				recovery: "short rest",
+				recovery: "Short Rest",
 			},
 			"tactical mind": {
 				name: "Tactical Mind",
@@ -858,7 +980,7 @@ var Base_ClassList = {
 				minlevel: 9,
 				description: "\nI can reroll a failed saving throw and add my Fighter level, but must keep the new result.",
 				usages: levels.map(function (n) { return n < 9 ? 0 : n < 13 ? 1 : n < 17 ? 2 : 3; }),
-				recovery: "long rest",
+				recovery: "Long Rest",
 			},
 			"studied attacks": {
 				name: "Studied Attacks",
@@ -989,7 +1111,7 @@ var Base_ClassList = {
 				]),
 				limfeaname : "Ki Points",
 				usages : levels.map(function (n) { return n < 2 ? "" : n }),
-				recovery : "short rest",
+				recovery : "Short Rest",
 				"flurry of blows" : {
 					name : "Flurry of Blows",
 					extraname : "Ki Feature",
@@ -1233,7 +1355,7 @@ var Base_ClassList = {
 				]),
 				usages : "1 + Charisma modifier per ",
 				usagescalc : "event.value = 1 + What('Cha Mod');",
-				recovery : "long rest",
+				recovery : "Long Rest",
 				action : [["action", ""]]
 			},
 			"lay on hands" : {
@@ -1245,7 +1367,7 @@ var Base_ClassList = {
 					"I can neutralize poisons/diseases instead at a cost of 5 points per affliction"
 				]),
 				usages : [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100],
-				recovery : "long rest",
+				recovery : "Long Rest",
 				action : [["action", ""]]
 			},
 			"fighting style" : {
@@ -1274,7 +1396,7 @@ var Base_ClassList = {
 				minlevel : 3,
 				description : "",
 				usages : 1,
-				recovery : "short rest"
+				recovery : "Short Rest"
 			},
 			"subclassfeature3" : {
 				name : "Sacred Oath",
@@ -1326,7 +1448,7 @@ var Base_ClassList = {
 				description : desc("As an action, I can end one spell on me or another willing creature by touch"),
 				usages : "Charisma modifier per ",
 				usagescalc : "event.value = Math.max(1, What('Cha Mod'));",
-				recovery : "long rest",
+				recovery : "Long Rest",
 				action : [["action", ""]]
 			}
 		}
@@ -1832,14 +1954,14 @@ var Base_ClassList = {
 				source : [["SRD", 40], ["P", 97]],
 				minlevel : 20,
 				description : desc("I can turn a missed attack into a hit or a failed ability check into a natural 20"),
-				recovery : "short rest",
+				recovery : "Short Rest",
 				usages : 1
 			}
 		}
 	},
 
 	"sorcerer" : {
-		regExpSearch: /sorcerer|witch/i,
+		regExpSearch: /sorcerer/i,
 		name: "Sorcerer",
 		source: [["SRD24", 64], ["P24", 139]],
 		primaryAbility: "Charisma",
@@ -1904,7 +2026,7 @@ var Base_ClassList = {
 					"Level 4 for 6 sorcery points;   level 5 for 7 sorcery points"
 				]),
 				usages : [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-				recovery : "long rest",
+				recovery : "Long Rest",
 				action : [["bonus action", "Font of Magic"]],
 				additional : "Sorcery Points",
 				limfeaname : "Sorcery Points"
@@ -1981,7 +2103,7 @@ var Base_ClassList = {
 			}
 		}
 	},
-
+*/
 	"warlock": {
 		regExpSearch: /warlock/i,
 		name: "Warlock",
@@ -2027,11 +2149,490 @@ var Base_ClassList = {
 			cantrips: [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
 			spells: [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15],
 		},
-		spellcastingList : {
-			"class" : "warlock",
-			level : [0, 5] //lower and higher limit
+		spellcastingList: {
+			"class": "warlock",
+			level: [0, 5],
 		},
 		features: {
+			"eldritch invocations": {
+				name: "Eldritch Invocations",
+				source: [["SRD24", 70], ["P24", 153]],
+				minlevel: 1,
+				description: "\nSelect invocations using the \"Choose Feature\" button above. Whenever I gain a Warlock level, I can replace one invocation with another, if it isn't a prerequisite for any invocations I have.",
+				additional: levels.map(function (n) {
+					var nmbr = n < 2 ? 1 : n < 5 ? 3 : n < 7 ? 5 : n < 9 ? 6 : n < 12 ? 7 : n < 15 ? 8 : n < 18 ? 9 : 10;
+					return nmbr + " invocation" + (nmbr > 1 ? "s" : "") + " known";
+				}),
+				extraname: "Eldritch Invocation",
+				extrachoices: [
+					// no prerequisites
+					"Armor of Shadows", "Eldritch Mind", 
+					// level 2+
+					"Devil's Sight", "Fiendish Vigor", "Mask of Many Faces", "Misty Visions", "Otherworldly Leap", 
+					// level 5+
+					"Ascendant Step", "Gaze of Two Minds", "Gift of the Depths", "Master of Myriad Forms", "One with Shadows", 
+					// level 7+
+					"Whispers of the Grave",
+					// level 9+
+					"Visions of Distant Realms",
+					// level 15+
+					"Witch Sight",
+					// Pact of the Blade tree
+					"Pact of the Blade", "Devouring Blade (req: lvl 12+, Thirsting Blade)", "Eldritch Smite (req: lvl 5+, Pact of the Blade)", "Lifedrinker (req: lvl 12+, Pact of the Blade)", "Thirsting Blade (req: lvl 5+, Pact of the Blade)",
+					// Pact of the Chain tree
+					"Pact of the Chain", "Investment of the Chain Master (req: lvl 5+, Pact of the Chain)",
+					// Pact of the Tome tree
+					"Pact of the Tome", "Gift of the Protectors (req: lvl 9+, Pact of the Tome)",
+				],
+				extraTimes: levels.map(function (n) {
+					return n < 2 ? 1 : n < 5 ? 3 : n < 7 ? 5 : n < 9 ? 6 : n < 12 ? 7 : n < 15 ? 8 : n < 18 ? 9 : 10;
+				}),
+				// no prerequisites
+				"armor of shadows": {
+					name: "Armor of Shadows",
+					source: [["SRD24", 72], ["P24", 155]],
+					description: "\nI can cast Mage Armor on myself without expending a spell slot.",
+					spellcastingBonus: [{
+						name: "Armor of Shadows",
+						spells: ["mage armor"],
+						selection: ["mage armor"],
+						firstCol: "atwill",
+					}],
+					spellChanges: {
+						"mage armor": {
+							range: "Self",
+							description: "If I'm not wearing armor, I gain AC 13 + Dex modifier for the duration; spell ends if I don armor",
+							changes: "With the Armor of Shadows invocation I can cast Mage Armor without expending a spell slot, but only on myself.",
+						},
+					},
+				},
+				"eldritch mind" : {
+					name: "Eldritch Mind",
+					source: [["SRD24", 72], ["P24", 155]],
+					description: "\nI have Advantage on Constitution saving throws to maintain Concentration.",
+				},
+				// level 2+
+				"devil's sight": {
+					name: "Devil's Sight",
+					source: [["SRD24", 72], ["P24", 155]],
+					minlevel: 2,
+					submenu: "[Warlock level  2+]",
+					description: "\nI can see normally in Dim Light and Darkness, both magical and nonmagical, out to 120 ft.",
+					vision: [["Devil's Sight", 120]],
+				},
+				"fiendish vigor" : {
+					name: "Fiendish Vigor",
+					source: [["SRD24", 73], ["P24", 155]],
+					minlevel: 2,
+					submenu: "[Warlock level  2+]",
+					description: "\nI can cast False Life on myself without expending a spell slot to gain its max (12) Temp HP.",
+					spellcastingBonus: [{
+						name: "Fiendish Vigor",
+						spells: ["false life"],
+						selection: ["false life"],
+						firstCol: "atwill",
+					}],
+					spellChanges: {
+						"false life": {
+							description: "I gain 12 Temporary Hit Points",
+							changes: "With the Fiendish Vigor invocation I can cast False Life without expending a spell slot and I don't roll the dice for the Temporary Hit Points; I automatically get the highest number.",
+						},
+					},
+				},
+				"mask of many faces" : {
+					name: "Mask of Many Faces",
+					source: [["SRD24", 73], ["P24", 156]],
+					minlevel: 2,
+					submenu: "[Warlock level  2+]",
+					description: "\nI can cast Disguise Self without expending a spell slot.",
+					spellcastingBonus: [{
+						name: "Mask of Many Faces",
+						spells: ["disguise self"],
+						selection: ["disguise self"],
+						firstCol: "atwill",
+					}],
+				},
+				"misty visions" : {
+					name: "Misty Visions",
+					source: [["SRD24", 74], ["P24", 156]],
+					minlevel: 2,
+					submenu: "[Warlock level  2+]",
+					description: "\nI can cast Silent Image without expending a spell slot.",
+					spellcastingBonus: [{
+						name: "Misty Visions",
+						spells: ["silent image"],
+						selection: ["silent image"],
+						firstCol: "atwill",
+					}],
+				},
+				"otherworldly leap" : {
+					name: "Otherworldly Leap",
+					source: [["SRD24", 74], ["P24", 156]],
+					minlevel: 2,
+					submenu: "[Warlock level  2+]",
+					description: "\nI can cast Jump on myself without expending a spell slot.",
+					spellcastingBonus: [{
+						name: "Otherworldly Leap",
+						spells: ["jump"],
+						selection: ["jump"],
+						firstCol: "atwill",
+					}],
+					spellChanges: {
+						"jump" : {
+							range: "Self",
+							description: "Once per turn, I can spend 10 ft movement to jump 30 ft",
+							changes: "With the Otherworldly Leap invocation I can cast Jump without expending a spell slot, but only on myself.",
+						},
+					},
+				},
+				// level 5+
+				"ascendant step": {
+					name: "Ascendant Step",
+					source: [["SRD24", 72], ["P24", 155]],
+					minlevel: 5,
+					submenu: "[Warlock level  5+]",
+					description: "\nI can cast Levitate on myself without expending a spell slot.",
+					spellcastingBonus: [{
+						name: "Ascendant Step",
+						spells: ["levitate"],
+						selection: ["levitate"],
+						firstCol: "atwill",
+					}],
+					spellChanges: {
+						"levitate" : {
+							range: "Self",
+							description: "I rise vertically, up to 20 ft; as part of my move, I can move up/down up to 20 ft; spell end: float down",
+							changes: "With the Ascendant Step invocation I can cast Levitate without expending a spell slot, but only on myself.",
+						},
+					},
+				},
+				"gaze of two minds": {
+					name: "Gaze of Two Minds",
+					source: [["SRD24", 73], ["P24", 156]],
+					minlevel: 5,
+					submenu: "[Warlock level  5+]",
+					description: desc([
+						"As a Bonus Action, I can touch a willing creature and perceive through its senses until the end of my next turn. I can use a Bonus Action on subsequent turns to extend the duration.",
+						"While perceiving through the other creature's senses, I benefit from any special senses it has, and I can cast spells as if I were in its space if we are within 60 ft of each other.",
+					], "\n"),
+					action: [["bonus action", ""]],
+				},
+				"gift of the depths": {
+					name: "Gift of the Depths",
+					source: [["SRD24", 73], ["P24", 156]],
+					minlevel: 5,
+					submenu: "[Warlock level  5+]",
+					description: "\nI can breathe underwater and I have a Swim Speed equal to my Speed. Once per Long Rest, I can cast Water Breathing without expending a spell slot.",
+					speed: { swim: { spd: "walk", enc: "walk" } },
+					spellcastingBonus: [{
+						name: "Gift of the Depths",
+						spells: ["water breathing"],
+						selection: ["water breathing"],
+						firstCol: 'oncelr',
+					}],
+				},
+				"master of myriad forms" : {
+					name: "Master of Myriad Forms",
+					source: [["SRD24", 73], ["P24", 156]],
+					minlevel: 5,
+					submenu: "[Warlock level  5+]",
+					description: "\nI can cast Alter Self without expending a spell slot.",
+					submenu: "[Warlock level 15+]",
+					spellcastingBonus: [{
+						name: "Mask of Myriad Forms",
+						spells: ["alter self"],
+						selection: ["alter self"],
+						firstCol: "atwill",
+					}],
+				},
+				"one with shadows" : {
+					name: "One with Shadows",
+					source: [["SRD24", 74], ["P24", 156]],
+					minlevel: 5,
+					submenu: "[Warlock level  5+]",
+					description: "\nWhile I'm in Dim Light or Darkness, I can cast Invisibility on myself without using a spell slot.",
+					spellcastingBonus: [{
+						name: "One with Shadows",
+						spells: ["invisibility"],
+						selection: ["invisibility"],
+						firstCol: "atwill",
+					}],
+					spellChanges: {
+						"invisibility" : {
+							range: "Self",
+							description: "Can cast if in dim light or darkness; I become Invisible; attacking, casting, or dealing damage ends it",
+							changes: "With the One with Shadows invocation I can cast Invisibility without expending a spell slot, but only on myself while I'm in an area of Dim Light or Darkness.",
+						},
+					},
+				},
+				// level 7+
+				"whispers of the grave" : {
+					name: "Whispers of the Grave",
+					source: [["SRD24", 74], ["P24", 157]],
+					minlevel: 7,
+					submenu: "[Warlock level  7+]",
+					description: "\nI can cast Speak with Dead without expending a spell slot.",
+					spellcastingBonus: [{
+						name: "Whispers of the Grave",
+						spells: ["speak with dead"],
+						selection: ["speak with dead"],
+						firstCol: "atwill"
+					}],
+				},
+				// level 9+
+				"visions of distant realms" : {
+					name: "Visions of Distant Realms",
+					source: [["SRD24", 74], ["P24", 157]],
+					minlevel: 9,
+					submenu: "[Warlock level  9+]",
+					description: "\nI can cast Arcane Eye without expending a spell slot.",
+					spellcastingBonus: [{
+						name: "Visions of Distant Realms",
+						spells: ["arcane eye"],
+						selection: ["arcane eye"],
+						firstCol: "atwill",
+					}],
+				},
+				// level 15+
+				"witch sight" : {
+					name: "Witch Sight",
+					source: [["SRD24", 74], ["P24", 157]],
+					minlevel: 15,
+					submenu: "[Warlock level 15+]",
+					description: " [Truesight 30 ft]",
+					vision: [["Truesight", 30]],
+				},
+				// Pact of the Blade tree
+				"pact of the blade": {
+					name : "Pact of the Blade",
+					source: [["SRD24", 74], ["P24", 156]],
+					description: desc([
+						"As a Bonus Action, I can bond with a magical weapon I touch, or conjure a pact weapon, a Melee weapon of my choice. I have proficiency with it and can use it as a Spellcasting Focus.",
+						"Whenever I attack with it, I can use Charisma instead of Strength or Dexterity with it, and I can cause it to deal Necrotic, Psychic or Radiant damage instead of its normal damage type.",
+						"The bond ends (conjured weapon vanishes) if I die or it's " + (typePF ? "over " : ">") + "5 ft away from me for 1 min.",
+					], "\n"),
+					action: [["bonus action", "Conjure/Bond Pact Weapon"]],
+					calcChanges: {
+						atkCalc: [
+							function (fields, v, output) {
+								if (v.theWea.pactWeapon || ((v.isMeleeWeapon || v.theWea.isMagicWeapon || v.thisWeapon[1]) && /\bpact\b/i.test(v.WeaponTextName))) {
+									v.pactWeapon = true;
+								}
+							}, "",
+							90,
+						],
+						atkAdd: [
+							function (fields, v) {
+								if (v.pactWeapon || v.theWea.pactWeapon || ((v.isMeleeWeapon || v.theWea.isMagicWeapon || v.thisWeapon[1]) && /\bpact\b/i.test(v.WeaponTextName))) {
+									v.pactWeapon = true;
+									fields.Proficiency = true;
+									if ((fields.Mod === 1 || fields.Mod === 2) && What('Cha Mod') > What(AbilityScores.abbreviations[fields.Mod - 1] + ' Mod')) fields.Mod = 6;
+								};
+							},
+							"If I include the word 'Pact' in a melee or magic weapon's name, it gets treated as my Pact Weapon. If the attack uses Strength or Dexterity but my Charisma modifier is higher, it will use Charisma instead.",
+							90,
+						],
+					},
+				},
+				"devouring blade (req: lvl 12+, thirsting blade)": {
+					name: "Devouring Blade",
+					source: [["SRD24", 72], ["P24", 155]],
+					minlevel: 12,
+					submenu: ["[Warlock level 12+]", "[improves Pact of the Blade]"],
+					prereqeval: function(v) {
+						return v.choiceActive.indexOf("thirsting blade (req: lvl 5+, pact of the blade)") !== -1;
+					},
+					description: "\nWhen I take the Attack action on my turn, I can attack three times with my pact weapon.",
+					action: [["action", "Pact Weapon (3 attacks per Action)", "Pact Weapon (2 attacks per Action)"]],
+				},
+				"eldritch smite (req: lvl 5+, pact of the blade)": {
+					name: "Eldritch Smite",
+					source: [["SRD24", 72], ["P24", 155]],
+					minlevel: 5,
+					submenu: ["[Warlock level  5+]", "[improves Pact of the Blade]"],
+					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the blade') !== -1; },
+					description: "\nOnce per turn when I hit a creature with my pact weapon, I can expend a Pact Magic spell slot to deal it 1d8+1d8/slot level Force damage and knock it Prone if it is Huge or smaller.",
+					additional: levels.map(function (n) {
+						// No. of d8s = Pact Magic spell slot level + 1
+						var nmbr = n < 3 ? 2 : n < 5 ? 3 : n < 7 ? 4 : n < 9 ? 5 : 6;
+						return "+" + nmbr + "d8 Force damage";
+					}),
+				},
+				"lifedrinker (req: lvl 12+, pact of the blade)" : {
+					name: "Lifedrinker",
+					source: [["SRD24", 73], ["P24", 156]],
+					minlevel: 12,
+					submenu: ["[Warlock level 12+]", "[improves Pact of the Blade]"],
+					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the blade') !== -1; },
+					description: "\nOnce per turn when I hit a creature with my pact weapon, I can deal +1d6 Necrotic, Psychic, or Radiant damage, and I can use one HD to heal myself for its roll plus my Constitution mod.",
+					calcChanges: {
+						atkAdd: [
+							function (fields, v) {
+								if (v.pactWeapon) fields.Description += (fields.Description ? '; ' : '') + 'Lifedrinker';
+							},
+							"My pact weapons have the Lifedrinker feature: Once per turn when I hit a creature with my pact weapon, I can deal +1d6 Necrotic, Psychic, or Radiant damage, and I can expend and roll one Hit Point Dice to heal myself for the amount rolled plus my Constitution modifier.",
+						],
+					},
+				},
+				"thirsting blade (req: lvl 5+, pact of the blade)": {
+					name: "Thirsting Blade",
+					source: [["SRD24", 75], ["P24", 157]],
+					minlevel: 5,
+					submenu: ["[Warlock level  5+]", "[improves Pact of the Blade]"],
+					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the blade') !== -1; },
+					description: "\nWhen I take the Attack action on my turn, I can attack twice with my pact weapon.",
+					action: [["action", "Pact Weapon (2 attacks per Action)"]],
+				},
+				// Pact of the Chain tree
+				"pact of the chain": {
+					name: "Pact of the Chain",
+					source: [["SRD24", 74], ["P24", 157]],
+					description: desc([
+						"As a Magic action, I can cast Find Familiar without expending a spell slot. When I do so, I can have the familiar take on a special form (see Companion page).",
+						"Additionally, when I take the Attack action, I can forgo one of my attacks to allow my familiar to use its Reaction to make one attack of its own."
+					], "\n"),
+					spellcastingBonus: [{
+						name: "Pact of the Chain",
+						spells: ["find familiar"],
+						selection: ["find familiar"],
+						firstCol: 'atwill',
+					}],
+					spellChanges: {
+						"find familiar": {
+							time: "Act",
+							ritual: false,
+							changes: "With the Pact of the Chain invocation I can cast Find Familiar as an Action without expending a spell slot.",
+						},
+					},
+				},
+				"investment of the chain master (req: lvl 5+, pact of the chain)": {
+					name: "Investment of the Chain Master",
+					source: [["SRD24", 73], ["P24", 156]],
+					minlevel: 5,
+					submenu: ["[Warlock level  5+]", "[improves Pact of the Chain]"],
+					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the chain') !== -1; },
+					description: desc([
+						"When I cast Find Familiar, the summoned create has additional benefits:",
+						" \u2022 **Aerial or Aquatic**. It gains a Fly or Swim speed of 40 ft (my choice at casting).",
+						" \u2022 **Quick Attack**. As a Bonus Action, I can command it to take the Attack action.",
+						" \u2022 **Damage**. I can have it deal Necrotic or Radiant damage instead of Bludg., Pierc., or Slash.",
+						" \u2022 **My Save DC**. If it forces a creature to make a saving throw, it uses my spell save DC.",
+						" \u2022 **Resistance**. As a Reaction when it takes damage, I can grant it resistance vs. that damage."
+					], "\n"),
+					action: [
+						["bonus action", "Chain Master: Quick Attack"],
+						["reaction", "Chain Master: Resistance"],
+					],
+					calcChanges: {
+						companionCallback: [
+							function(prefix, oCrea, bAdd, sCompType) {
+								if (sCompType !== "pact_of_the_chain") return;
+								// Amend the Traits
+								var isMetric = What("Unit System") === "metric";
+								var spd = isMetric ? ConvertToMetric("40 ft", 0.5) : "40 ft";
+								var feaFld = prefix + "Comp.Use.Features";
+								if (bAdd) {
+									var strFea = "##\u25C6 Investment of the Chain Master##. The " + oCrea.nameThis + " gains a Fly or Swim speed of " + spd + " (master's choice), uses its master's spell save DC instead of its own DCs, and can deal Necrotic or Radiant damage instead of Bludgeoning, Piercing, or Slashing.";
+									AddString(feaFld, strFea, true);
+								} else {
+									var strRx = '[\\n\\r]?.*Investment of the Chain Master.*';
+									RemoveString(feaFld, strRx, false, true);
+								}
+								// Amend the speed
+								var spdFld = prefix + "Comp.Use.Speed";
+								var hasFlySpeed = oCrea.speed.match(/fly.?(\d+).?(ft|m)/i);
+								var hasSwimSpeed = oCrea.speed.match(/swim.?(\d+).?(ft|m)/i);
+								if (hasFlySpeed && hasSwimSpeed) {
+									// If it has both speeds, but one 40+ ft, upgrade the other
+									var baseFlySpeed = Number(hasFlySpeed[1]);
+									var baseSwimSpeed = Number(hasSwimSpeed[1]);
+									if (baseFlySpeed < 40 && baseSwimSpeed >= 40) {
+										var replaceThis = 'fly.?\d+.?(ft|m)'
+										var replaceWith = bAdd ? "fly " + spd : isMetric ? ConvertToMetric(hasFlySpeed[0], 0.5) : hasFlySpeed[0];
+										ReplaceString(spdFld, replaceWith, undefined, replaceThis, true);
+									} else if (baseFlySpeed >= 40 && baseSwimSpeed < 40) {
+										var replaceThis = 'swim.?\d+.?(ft|m)'
+										var replaceWith = bAdd ? "swim " + spd : isMetric ? ConvertToMetric(hasSwimSpeed[0], 0.5) : hasSwimSpeed[0];
+										ReplaceString(spdFld, replaceWith, undefined, replaceThis, true);
+									}
+									// If it has both speeds, but either both already 40 ft or neither 40 ft, then let player decide which to upgrade manually (i.e. do nothing)
+								} else {
+									// Doesn't have both speeds, so add the missing
+									var strSpd = bAdd ? "fly or swim " + spd : ",?\s?fly or swim \d+ ?(m|ft)";
+									if (!hasFlySpeed && hasSwimSpeed) {
+										strSpd = bAdd ? "fly " + spd : ",?\s?fly \d+ ?(m|ft)";
+									} else if (hasFlySpeed && !hasSwimSpeed) {
+										strSpd = bAdd ? "swim " + spd : ",?\s?swim \d+ ?(m|ft)";
+									}
+									if (bAdd) {
+										AddString(spdFld, strSpd, typePF ? ",\n" : ", ");
+									} else {
+										RemoveString(spdFld, strSpd, false, true);
+									}
+								}
+								// Amend the attacks
+								for (var i = 0; i < 3; i++) {
+									if (oCrea.attacks && oCrea.attacks[i] && oCrea.attacks[i].dc) {
+										oCrea.attacks[i].useSpellMod = "warlock";
+									}
+									var baseFld = prefix + "Comp.Use.Attack." + (i+1);
+									if (!What(baseFld + ".Weapon Selection")) continue;
+									var weaDmgTypeFld = baseFld + ".Damage Type";
+									var weaDmgTypeFldVal = What(weaDmgTypeFld);
+									var weaDescrFld = baseFld + ".Description";
+									var weaDescrFldVal = What(weaDescrFld);
+									var dmgTypesRx = bAdd ? /((bludg(eon)?|pierc|slash)(ing|\.)?)/i : /((bludg(eon)?|pierc|slash)(ing|\.)?)\*/i;
+									if (dmgTypesRx.test(weaDmgTypeFld.value)) {
+										Value(weaDmgTypeFld, weaDmgTypeFldVal.replace(dmgTypesRx, "$1" + (bAdd ? "*" : "")));
+										if (bAdd) AddString(weaDescrFld, "*or Necrotic or Radiant", "; ");
+									}
+									if (!bAdd) {
+										Value(weaDescrFld, weaDescrFldVal.replace(/[,; ]*\* Necrotic or Radiant/i, ''));
+									}
+								}
+							},
+							"My Pact of the Chain familiars gain an extra feature listing the extra bonuses they gain.",
+						],
+					},
+				},
+				// Pact of the Tome tree
+				"pact of the tome": {
+					name: "Pact of the Tome",
+					source: [["SRD24", 74], ["P24", 157]],
+					description: "\nI have a Book of Shadows with three cantrips and two 1st-level Ritual spells. While the book is on my person, I have them prepared as Warlock spells. I can use the book as a Spellcasting Focus. I can conjure a replacement, and pick new spells, at the end of a Short or Long Rest.",
+					eval: function() {
+						// Create a separate spell list entry for this, so its not confusing which cantrips/spells can be selected for it.
+						CurrentSpells['warlock-book of shadows'] = {
+							name: 'Book of Shadows',
+							ability: 'warlock',
+							list: { level: [0, 1], ritual: true, },
+							known: { cantrips: 3, spells: "list", prepared: [2] },
+							refType: "feat",
+							level: 1, // needed to show the prepared section
+							typeList: 4, // enable the last radio button by default
+						};
+						SetStringifieds('spells'); CurrentUpdates.types.push('spells');
+					},
+					removeeval: function() {
+						delete CurrentSpells['warlock-book of shadows'];
+						SetStringifieds('spells'); CurrentUpdates.types.push('spells');
+					},
+				},
+				"gift of the protectors (req: lvl 9+, pact of the tome)": {
+					name: "Gift of the Protectors",
+					source: [["SRD24", 73], ["P24", 156]],
+					minlevel: 9,
+					submenu: ["[Warlock level  9+]", "[improves Pact of the Tome]"],
+					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the tome') !== -1; },
+					description: desc([
+						"My Book of Shadows has a new page. As an Action, a creature can write their name on it if I permit them. The page can contain my Charisma modifier of names (minimum 1).",
+						"Once per Long Rest when someone listed on the page is reduced to 0 HP but not killed, they drop to 1 HP instead. As a Magic action, I can erase a name by touching it.",
+					], "\n"),
+					usages: 1,
+					recovery: "Long Rest",
+					action: [["action", " (write/erase)"]]
+				},
+			},
 			"pact magic": {
 				name: "Pact Magic",
 				source: [["SRD24", 71], ["P24", 153]],
@@ -2045,654 +2646,97 @@ var Base_ClassList = {
 					return cantr + " cantrips \x26 " + splls + " spells known; " + slots + "\xD7 " + Base_spellLevelList[sllvl] + " spell slot";
 				}),
 			},
-			"subclassfeature1" : {
-				name : "Otherworldly Patron",
-				source : [["SRD", 46], ["P", 107]],
-				minlevel : 1,
-				description : desc('Choose the Otherworldly Patron you have a bargain with and put it in the "Class" field ')
-			},
-			"eldritch invocations" : {
-				name : "Eldritch Invocations",
-				source : [["SRD", 47], ["P", 107]],
-				minlevel : 2,
-				description : desc([
-					'Use the "Choose Feature" button above to add Eldritch Invocations to the third page',
-					"Whenever I gain a warlock level, I can replace an invocation I know with another"
-				]),
-				additional : levels.map(function (n) {
-					return n < 2 ? "" : (n < 5 ? 2 : n < 7 ? 3 : n < 9 ? 4 : n < 12 ? 5 : n < 15 ? 6 : n < 18 ? 7 : 8) + " invocations known";
+			"magical cunning": {
+				name: "Magical Cunning",
+				source: [["SRD24", 72], ["P24", 154]],
+				minlevel: 2,
+				description: levels.map(function (n) {
+					var amount = n < 20 ? "half my max number of" : "all my expended"
+					return "\nI can perform a 1 min esoteric rite to regain " + amount + " Pact Magic spells slots."
 				}),
-				extraname : "Eldritch Invocation",
-				extrachoices : ["Agonizing Blast (prereq: Eldritch Blast cantrip)", "Armor of Shadows", "Ascendant Step (prereq: level 9 warlock)", "Beast Speech", "Beguiling Influence", "Bewitching Whispers (prereq: level 7 warlock)", "Book of Ancient Secrets (prereq: Pact of the Tome)", "Chains of Carceri (prereq: level 15 warlock, Pact of the Chain)", "Devil's Sight", "Dreadful Word (prereq: level 7 warlock)", "Eldritch Sight", "Eldritch Spear (prereq: Eldritch Blast cantrip)", "Eyes of the Rune Keeper", "Fiendish Vigor", "Gaze of Two Minds", "Lifedrinker (prereq: level 12 warlock, Pact of the Blade)", "Mask of Many Faces", "Master of Myriad Forms (prereq: level 15 warlock)", "Minions of Chaos (prereq: level 9 warlock)", "Mire the Mind (prereq: level 5 warlock)", "Misty Visions", "One with Shadows (prereq: level 5 warlock)", "Otherworldly Leap (prereq: level 9 warlock)", "Repelling Blast (prereq: Eldritch Blast cantrip)", "Sculptor of Flesh (prereq: level 7 warlock)", "Sign of Ill Omen (prereq: level 5 warlock)", "Thief of Five Fates", "Thirsting Blade (prereq: level 5 warlock, Pact of the Blade)", "Visions of Distant Realms (prereq: level 15 warlock)", "Voice of the Chain Master (prereq: Pact of the Chain)", "Whispers of the Grave (prereq: level 9 warlock)", "Witch Sight (prereq: level 15 warlock)"],
-				extraTimes : levels.map(function (n) {
-					return n < 2 ? 0 : n < 5 ? 2 : n < 7 ? 3 : n < 9 ? 4 : n < 12 ? 5 : n < 15 ? 6 : n < 18 ? 7 : 8;
+				recovery: "Long Rest",
+				usages: 1,
+				additional: levels.map(function (n) {
+					if (n < 2) return "";
+					var nmbr = n < 11 ? 1 : n < 20 ? 2 : 4;
+					return nmbr + " spell slot" + (nmbr > 1 ? "s" : "");
 				}),
-				"agonizing blast (prereq: eldritch blast cantrip)" : {
-					name : "Agonizing Blast",
-					description : desc("I can add my Charisma modifier to every hit with my Eldritch Blast cantrip"),
-					source : [["SRD", 48], ["P", 110]],
-					submenu : "[improves Eldritch Blast]",
-					prereqeval : function(v) { return v.hasEldritchBlast; },
-					calcChanges : {
-						atkCalc : [
-							function (fields, v, output) {
-								if (v.baseWeaponName == 'eldritch blast') output.extraDmg += What('Cha Mod');
-							},
-							"I add my Charisma modifier to the damage of every beam of my Eldritch Blast cantrip."
-						],
-						spellAdd : [
-							function (spellKey, spellObj, spName) {
-								if (spellKey == "eldritch blast") {
-									spellObj.description = spellObj.description.replace("1d10 Force damage", "1d10+" + What("Cha Mod") + " Force dmg");
-									return true;
-								};
-							},
-							"I add my Charisma modifier to the damage of every beam of my Eldritch Blast cantrip."
-						]
-					}
-				},
-				"armor of shadows" : {
-					name : "Armor of Shadows",
-					description : desc("I can cast Mage Armor on myself at will, without using a spell slot or material components"),
-					source : [["SRD", 48], ["P", 110]],
-					spellcastingBonus : [{
-						name : "Armor of Shadows",
-						spells : ["mage armor"],
-						selection : ["mage armor"],
-						firstCol : "atwill"
-					}],
-					spellChanges : {
-						"mage armor" : {
-							range : "Self",
-							components : "V,S",
-							compMaterial : "",
-							description : "If I'm not wearing armor, I gain AC 13 + Dex modifier for the duration; spell ends if I don armor",
-							changes : "With the Armor of Shadows invocation I can cast Mage Armor without a material component, but only on myself."
-						}
-					}
-				},
-				"ascendant step (prereq: level 9 warlock)" : {
-					name : "Ascendant Step",
-					description : desc("I can cast Levitate on myself at will, without using a spell slot or material components"),
-					source : [["SRD", 48], ["P", 110]],
-					submenu : "[warlock level  9+]",
-					spellcastingBonus : [{
-						name : "Ascendant Step",
-						spells : ["levitate"],
-						selection : ["levitate"],
-						firstCol : "atwill"
-					}],
-					prereqeval : function(v) { return classes.known.warlock.level >= 9; },
-					spellChanges : {
-						"levitate" : {
-							range : "Self",
-							components : "V,S",
-							compMaterial : "",
-							description : "I rise vertically, up to 20 ft; during my move, I can move up/down up to 20 ft",
-							changes : "With the Ascendant Step invocation I can cast Levitate without a material component, but only on myself."
-						}
-					}
-				},
-				"beast speech" : {
-					name : "Beast Speech",
-					description : desc("I can cast Speak with Animals at will, without using a spell slots"),
-					source : [["SRD", 48], ["P", 110]],
-					spellcastingBonus : [{
-						name : "Beast Speech",
-						spells : ["speak with animals"],
-						selection : ["speak with animals"],
-						firstCol : "atwill"
-					}]
-				},
-				"beguiling influence" : {
-					name : "Beguiling Influence",
-					description : desc("I gain proficiencies with the Deception and Persuasion skills"),
-					source : [["SRD", 48], ["P", 110]],
-					skills : ["Deception", "Persuasion"]
-				},
-				"bewitching whispers (prereq: level 7 warlock)" : {
-					name : "Bewitching Whispers",
-					description : desc("Once per long rest, I can cast Compulsion using a warlock spell slot"),
-					source : [["SRD", 48], ["P", 110]],
-					submenu : "[warlock level  7+]",
-					usages : 1,
-					recovery : "long rest",
-					spellcastingBonus : [{
-						name : "Bewitching Whispers",
-						spells : ["compulsion"],
-						selection : ["compulsion"],
-						firstCol : "oncelr"
-					}],
-					prereqeval : function(v) { return classes.known.warlock.level >= 7; }
-				},
-				"book of ancient secrets (prereq: pact of the tome)" : {
-					name : "Book of Ancient Secrets",
-					description : desc([
-						"I can add any two 1st-level spells that have the ritual tag to my Book of Shadows",
-						"If I come across spells with the ritual tag, I can transcribe them into my book, as well",
-						"I can cast any of these spells in my Book of Shadows as rituals, but not as normal spells",
-						"I can cast my known warlock spells as rituals if they have the ritual tag"
-					]),
-					source : [["SRD", 48], ["P", 110]],
-					submenu : "[improves Pact of the Tome]",
-					eval : function() {
-						CurrentSpells['warlock-book of ancient secrets'] = {
-							name : 'Book of Ancient Secrets',
-							ability : 'warlock',
-							list : {class : 'any', ritual : true},
-							known : {spells : 'book'},
-							refType : "feat"
-						};
-						if (CurrentSpells['book of ancient secrets'] && CurrentSpells['book of ancient secrets'].selectSp) {
-							// v12.999 style is present, so transfer chosen spells over and remove it
-							CurrentSpells['warlock-book of ancient secrets'].offsetBo = CurrentSpells['book of ancient secrets'].offsetBo;
-							CurrentSpells['warlock-book of ancient secrets'].selectBo = CurrentSpells['book of ancient secrets'].selectBo;
-							CurrentSpells['warlock-book of ancient secrets'].selectSp = CurrentSpells['book of ancient secrets'].selectSp;
-							delete CurrentSpells['book of ancient secrets'];
-						}
-						SetStringifieds('spells'); CurrentUpdates.types.push('spells');
-					},
-					removeeval : function() {
-						delete CurrentSpells['warlock-book of ancient secrets'];
-						SetStringifieds('spells'); CurrentUpdates.types.push('spells');
-					},
-					prereqeval : function(v) { return classes.known.warlock.level >= 3 && GetFeatureChoice('class', 'warlock', 'pact boon') == 'pact of the tome'; },
-					calcChanges : {
-						spellAdd : [
-							function (spellKey, spellObj, spName) {
-								if (spName == "book of ancient secrets") {
-									spellObj.firstCol = '\xAE';
-									if (!/\d+ ?h\b|special|see b/i).test(spellObj.time)) {
-										var numMinutes = Number(spellObj.time.replace(/(\d+) ?min.*$/, "$1"));
-										if (isNaN(numMinutes)) numMinutes = 0;
-										spellObj.time = (numMinutes + 10) + " min";
-									}
-									return true;
-								};
-							},
-							"By the Book of Ancient Secrets invocation, I can cast ritual spells from my Book of Shadows. Ritual spell always have a casting time of 10 minutes or more."
-						]
-					}
-				},
-				"chains of carceri (prereq: level 15 warlock, pact of the chain)" : {
-					name : "Chains of Carceri",
-					description : desc([
-						"I can cast Hold Monster at will if the target is a celestial, fiend, or elemental",
-						"This uses no spell slots/material comp.; I can only target an individual once per long rest"
-					]),
-					source : [["SRD", 49], ["P", 110]],
-					submenu : "[improves Pact of the Chain]",
-					spellcastingBonus : [{
-						name : "Chains of Carceri",
-						spells : ["hold monster"],
-						selection : ["hold monster"],
-						firstCol : "atwill"
-					}],
-					prereqeval : function(v) { return classes.known.warlock.level >= 15 && GetFeatureChoice('class', 'warlock', 'pact boon') == 'pact of the chain'; },
-					spellChanges : {
-						"speak with animals" : {
-							components : "V,S",
-							compMaterial : "",
-							description : "1 celestial, fiend, or elemental, save or paralyzed; extra save at end of each turn",
-							changes : "With the Chains of Carceri invocation I can cast Hold Monster without a material component, but only on a celestial, fiend, or elemental."
-						}
-					}
-				},
-				"devil's sight" : {
-					name : "Devil's Sight",
-					description : desc("I can see in magical and nonmagical darkness out to 120 ft"),
-					source : [["SRD", 49], ["P", 110]],
-					vision : [["Devil's sight", 120]]
-				},
-				"dreadful word (prereq: level 7 warlock)" : {
-					name : "Dreadful Word",
-					description : desc("Once per long rest, I can cast Confusion using a warlock spell slot"),
-					source : [["SRD", 49], ["P", 110]],
-					submenu : "[warlock level  7+]",
-					usages : 1,
-					recovery : "long rest",
-					spellcastingBonus : [{
-						name : "Dreadful Word",
-						spells : ["confusion"],
-						selection : ["confusion"],
-						firstCol : "oncelr"
-					}],
-					prereqeval : function(v) { return classes.known.warlock.level >= 7; }
-				},
-				"eldritch sight" : {
-					name : "Eldritch Sight",
-					description : desc("I can cast Detect Magic at will, without using a spell slot"),
-					source : [["SRD", 49], ["P", 110]],
-					spellcastingBonus : [{
-						name : "Eldritch Sight",
-						spells : ["detect magic"],
-						selection : ["detect magic"],
-						firstCol : "atwill"
-					}]
-				},
-				"eldritch spear (prereq: eldritch blast cantrip)" : {
-					name : "Eldritch Spear",
-					description : desc("My Eldritch Blast cantrip has a range of 300 ft"),
-					source : [["SRD", 49], ["P", 111]],
-					submenu : "[improves Eldritch Blast]",
-					prereqeval : function(v) { return v.hasEldritchBlast; },
-					calcChanges : {
-						atkAdd : [
-							function (fields, v) {
-								if (v.baseWeaponName == 'eldritch blast') fields.Range = 300 * (v.rangeM ? v.rangeM : 1) + ' ft';
-							},
-							"My Eldritch Blast cantrip has a range of 300 ft.",
-							50
-						],
-						spellAdd : [
-							function (spellKey, spellObj, spName) {
-								if (spellKey == 'eldritch blast') {
-									spellObj.range = '300 ft';
-									if (What("Unit System") === "metric") spellObj.range = ConvertToMetric(spellObj.range, 0.5);
-								}
-							},
-							"My Eldritch Blast cantrip has a range of 300 ft.",
-							50
-						]
-					}
-				},
-				"eyes of the rune keeper" : {
-					name : "Eyes of the Rune Keeper",
-					description : desc("I can read all writing"),
-					source : [["SRD", 49], ["P", 111]]
-				},
-				"fiendish vigor" : {
-					name : "Fiendish Vigor",
-					description : desc("I can cast False Life on myself at will, without using a spell slot or material components"),
-					source : [["SRD", 49], ["P", 111]],
-					spellcastingBonus : [{
-						name : "Fiendish Vigor",
-						spells : ["false life"],
-						selection : ["false life"],
-						firstCol : "atwill"
-					}],
-					spellChanges : {
-						"false life" : {
-							components : "V,S",
-							compMaterial : "",
-							description : "I gain 1d4+4 temporary hit points for the duration",
-							changes : "With the Fiendish Vigor invocation I can cast False Life without a material component."
-						}
-					}
-				},
-				"gaze of two minds" : {
-					name : "Gaze of Two Minds",
-					description : desc([
-						"As an action, I can touch a willing creature and perceive through its senses (not my own)",
-						"This lasts until the end of my next turn, but I can use an action to extend the duration"
-					]),
-					source : [["SRD", 49], ["P", 111]]
-				},
-				"lifedrinker (prereq: level 12 warlock, pact of the blade)" : {
-					name : "Lifedrinker",
-					description : desc("My pact weapon does extra necrotic damage equal to my Charisma modifier"),
-					source : [["SRD", 49], ["P", 111]],
-					submenu : "[improves Pact of the Blade]",
-					calcChanges : {
-						atkAdd : [
-							function (fields, v) {
-								if (v.pactWeapon) fields.Description += (fields.Description ? '; ' : '') + '+Cha mod necrotic damage (included above)';
-							},
-							"My Charisma modifier will be added to the damage of my Pact Weapons. However, it won't say in the damage box that this added damage is of the necrotic type, as it can only display a single damage type."
-						],
-						atkCalc : [
-							function (fields, v, output) {
-								if (v.pactWeapon) output.extraDmg += What('Cha Mod');
-							}, ""
-						]
-					},
-					prereqeval : function(v) { return classes.known.warlock.level >= 12 && GetFeatureChoice('class', 'warlock', 'pact boon') == 'pact of the blade'; }
-				},
-				"mask of many faces" : {
-					name : "Mask of Many Faces",
-					description : desc("I can cast Disguise Self on myself at will, without using a spell slot"),
-					source : [["SRD", 49], ["P", 111]],
-					spellcastingBonus : [{
-						name : "Mask of Many Faces",
-						spells : ["disguise self"],
-						selection : ["disguise self"],
-						firstCol : "atwill"
-					}]
-				},
-				"master of myriad forms (prereq: level 15 warlock)" : {
-					name : "Master of Myriad Forms",
-					description : desc("I can cast Alter Self at will, without using a spell slot"),
-					source : [["SRD", 49], ["P", 111]],
-					submenu : "[warlock level 15+]",
-					spellcastingBonus : [{
-						name : "Mask of Myriad Forms",
-						spells : ["alter self"],
-						selection : ["alter self"],
-						firstCol : "atwill"
-					}],
-					prereqeval : function(v) { return classes.known.warlock.level >= 15; }
-				},
-				"minions of chaos (prereq: level 9 warlock)" : {
-					name : "Minions of Chaos",
-					description : desc("Once per long rest, I can cast Conjure Elemental using a warlock spell slot"),
-					source : [["SRD", 49], ["P", 111]],
-					submenu : "[warlock level  9+]",
-					usages : 1,
-					recovery : "long rest",
-					spellcastingBonus : [{
-						name : "Minions of Chaos",
-						spells : ["conjure elemental"],
-						selection : ["conjure elemental"],
-						firstCol : "oncelr"
-					}],
-					prereqeval : function(v) { return classes.known.warlock.level >= 9; }
-				},
-				"mire the mind (prereq: level 5 warlock)" : {
-					name : "Mire the Mind",
-					description : desc("Once per long rest, I can cast Slow using a warlock spell slot"),
-					source : [["SRD", 49], ["P", 111]],
-					submenu : "[warlock level  5+]",
-					usages : 1,
-					recovery : "long rest",
-					spellcastingBonus : [{
-						name : "Mire the Mind",
-						spells : ["slow"],
-						selection : ["slow"],
-						firstCol : "oncelr"
-					}],
-					prereqeval : function(v) { return classes.known.warlock.level >= 5; }
-				},
-				"misty visions" : {
-					name : "Misty Visions",
-					description : desc("I can cast Silent Image at will, without using a spell slot or material components"),
-					source : [["SRD", 49], ["P", 111]],
-					spellcastingBonus : [{
-						name : "Misty Visions",
-						spells : ["silent image"],
-						selection : ["silent image"],
-						firstCol : "atwill"
-					}],
-					spellChanges : {
-						"silent image" : {
-							components : "V,S",
-							compMaterial : "",
-							changes : "With the Misty Visions invocation I can cast Silent Image without a material component."
-						}
-					}
-				},
-				"one with shadows (prereq: level 5 warlock)" : {
-					name : "One with Shadows",
-					description : desc([
-						"As an action, when I'm in an area of dim light or darkness, I can become invisible",
-						"I become visible again when I move or take an action or reaction"
-					]),
-					source : [["SRD", 49], ["P", 111]],
-					submenu : "[warlock level  5+]",
-					action : [["action", ""]],
-					prereqeval : function(v) { return classes.known.warlock.level >= 5; }
-				},
-				"otherworldly leap (prereq: level 9 warlock)" : {
-					name : "Otherworldly Leap",
-					description : desc("I can cast Jump on myself at will, without using a spell slot or material components"),
-					source : [["SRD", 49], ["P", 111]],
-					submenu : "[warlock level  9+]",
-					spellcastingBonus : [{
-						name : "Otherworldly Leap",
-						spells : ["jump"],
-						selection : ["jump"],
-						firstCol : "atwill"
-					}],
-					prereqeval : function(v) { return classes.known.warlock.level >= 9; },
-					spellChanges : {
-						"jump" : {
-							range : "Self",
-							components : "V,S",
-							compMaterial : "",
-							description : "My jump distance is tripled for the duration",
-							changes : "With the Otherworldly Leap invocation I can cast Jump without a material component, but only on myself."
-						}
-					}
-				},
-				"repelling blast (prereq: eldritch blast cantrip)" : {
-					name : "Repelling Blast",
-					description : desc("I can have creatures hit by my Eldritch Blast cantrip be pushed 10 ft away from me"),
-					source : [["SRD", 49], ["P", 111]],
-					submenu : "[improves Eldritch Blast]",
-					prereqeval : function(v) { return v.hasEldritchBlast; },
-					calcChanges : {
-						atkAdd : [
-							function (fields, v) {
-								if (v.baseWeaponName == 'eldritch blast') fields.Description += '; Target pushed back 10 ft';
-							},
-							"When I hit a creature with my Eldritch Blast cantrip, it is pushed 10 ft away from me.",
-							51
-						],
-						spellAdd : [
-							function (spellKey, spellObj, spName) {
-								if (spellKey == 'eldritch blast') {
-									spellObj.description = "Spell attack beam 1d10 Force damage \x26 push 10 ft; beams can be combined; +1 beam at CL5,11,17";
-									spellObj.descriptionShorter = "Spell atk beam 1d10 Force damage \x26 push 10 ft; can combine beams; +1 beam at CL5,11,17";
-									spellObj.descriptionCantripDie = "Spell atk for `CD` beam(s), each 1d10 Force damage \x26 push 10 ft; can combine/split beams";
-								}
-							},
-							"When I hit a creature with my Eldritch Blast cantrip, it is pushed 10 ft away from me.",
-							51
-						]
-					}
-				},
-				"sculptor of flesh (prereq: level 7 warlock)" : {
-					name : "Sculptor of Flesh",
-					description : desc("Once per long rest, I can cast Polymorph using a warlock spell slot"),
-					source : [["SRD", 50], ["P", 111]],
-					submenu : "[warlock level  7+]",
-					usages : 1,
-					recovery : "long rest",
-					spellcastingBonus : [{
-						name : "Sculptor of Flesh",
-						spells : ["polymorph"],
-						selection : ["polymorph"],
-						firstCol : "oncelr"
-					}],
-					prereqeval : function(v) { return classes.known.warlock.level >= 7; }
-				},
-				"sign of ill omen (prereq: level 5 warlock)" : {
-					name : "Sign of Ill Omen",
-					description : desc("Once per long rest, I can cast Bestow Curse using a warlock spell slot"),
-					source : [["SRD", 50], ["P", 111]],
-					submenu : "[warlock level  5+]",
-					usages : 1,
-					recovery : "long rest",
-					spellcastingBonus : [{
-						name : "Sign of Ill Omen",
-						spells : ["bestow curse"],
-						selection : ["bestow curse"],
-						firstCol : "oncelr"
-					}],
-					prereqeval : function(v) { return classes.known.warlock.level >= 5; }
-				},
-				"thief of five fates" : {
-					name : "Thief of Five Fates",
-					description : desc("Once per long rest, I can cast Bane using a warlock spell slot"),
-					source : [["SRD", 50], ["P", 111]],
-					usages : 1,
-					recovery : "long rest",
-					spellcastingBonus : [{
-						name : "Thief of Five Fates",
-						spells : ["bane"],
-						selection : ["bane"],
-						firstCol : "oncelr"
-					}]
-				},
-				"thirsting blade (prereq: level 5 warlock, pact of the blade)" : {
-					name : "Thirsting Blade",
-					description : desc("When taking the attack action, I can attack twice with my pact weapon"),
-					source : [["SRD", 50], ["P", 111]],
-					submenu : "[improves Pact of the Blade]",
-					action : ['action', 'Pact Weapon (2 attacks per action)'],
-					prereqeval : function(v) { return classes.known.warlock.level >= 5 && GetFeatureChoice('class', 'warlock', 'pact boon') == 'pact of the blade'; }
-				},
-				"visions of distant realms (prereq: level 15 warlock)" : {
-					name : "Visions of Distant Realms",
-					description : desc("I can cast Arcane Eye at will, without using a spell slot"),
-					source : [["SRD", 50], ["P", 111]],
-					submenu : "[warlock level 15+]",
-					spellcastingBonus : [{
-						name : "Visions of Distant Realms",
-						spells : ["arcane eye"],
-						selection : ["arcane eye"],
-						firstCol : "atwill"
-					}],
-					prereqeval : function(v) { return classes.known.warlock.level >= 15; }
-				},
-				"voice of the chain master (prereq: pact of the chain)" : {
-					name : "Voice of the Chain Master",
-					description : desc([
-						"While on the same plane as my familiar, I can communicate telepathically with it",
-						"Also, I can perceive through its senses and have it speak with my voice while doing so"
-					]),
-					source : [["SRD", 50], ["P", 111]],
-					submenu : "[improves Pact of the Chain]",
-					prereqeval : function(v) { return classes.known.warlock.level >= 3 && GetFeatureChoice('class', 'warlock', 'pact boon') == 'pact of the chain'; }
-				},
-				"whispers of the grave (prereq: level 9 warlock)" : {
-					name : "Whispers of the Grave",
-					description : desc("I can cast Speak with Dead at will, without using a spell slot"),
-					source : [["SRD", 50], ["P", 111]],
-					submenu : "[warlock level  9+]",
-					spellcastingBonus : [{
-						name : "Whispers of the Grave",
-						spells : ["speak with dead"],
-						selection : ["speak with dead"],
-						firstCol : "atwill"
-					}],
-					prereqeval : function(v) { return classes.known.warlock.level >= 9; }
-				},
-				"witch sight (prereq: level 15 warlock)" : {
-					name : "Witch Sight",
-					description : desc("I can see the true form of creatures (shapechangers/illusions/transmutations) within 30 ft"),
-					source : [["SRD", 50], ["P", 111]],
-					submenu : "[warlock level 15+]",
-					vision : [["Witch sight", 30]],
-					prereqeval : function(v) { return classes.known.warlock.level >= 15; }
-				}
 			},
-			"pact boon" : {
-				name : "Pact Boon",
-				source : [["SRD", 47], ["P", 107]],
-				minlevel : 3,
-				description : desc('Choose a Pact Boon (Blade, Chain, or Tome) using the "Choose Feature" button above'),
-				choices : ["Pact of the Blade", "Pact of the Chain", "Pact of the Tome"],
-				"pact of the blade" : {
-					name : "Pact of the Blade",
-					description : desc([
-						"As an action, I can create a pact weapon in my empty hand; I'm proficient in its use",
-						"I can choose the type of melee weapon every time I create it, and it has those statistics",
-						"The weapon disappears if it is more than 5 ft away from me for 1 minute",
-						"The weapon counts as magical; I can transform a magic weapon into my pact weapon",
-						"This occurs over an hour-long ritual that I can perform during a short rest",
-						"I can use an action to re-summon it in any form and can dismiss it as no action"
-					]),
-					action : [["action", ""]],
-					calcChanges : {
-						atkCalc : [
-							function (fields, v, output) {
-								if (v.theWea.pactWeapon || ((v.isMeleeWeapon || v.theWea.isMagicWeapon || v.thisWeapon[1]) && (/\bpact\b/i).test(v.WeaponTextName))) {
-									v.pactWeapon = true;
+			"subclassfeature3": {
+				name: "Warlock Subclass",
+				source: [["SRD24", 72], ["P24", 154]],
+				minlevel: 3,
+				description: '\nChoose a Warlock Subclass using the "Class" button/bookmark or type its name into the "Class" field.',
+			},
+			"contact patron": {
+				name: "Contact Patron",
+				source: [["SRD24", 72], ["P24", 155]],
+				minlevel: 9,
+				description: '\nI always have Contact Other Plane prepared. Once per Long Rest, I can cast it without expending a spell slot and then automatically succeed on its saving throw.',
+				spellcastingBonus: [{
+					name: "Contact Patron",
+					spells: ["contact other plane"],
+					selection: ["contact other plane"],
+					firstCol: "oncelr+markedbox",
+				}],
+			},
+			"mystic arcanum": {
+				name: "Mystic Arcanum",
+				source: [["SRD24", 72], ["P24", 155]],
+				minlevel: 11,
+				description: "\nI can choose one Warlock spell for each level above. I can cast each of these once per Long Rest without expending a spell slot. Whenever I gain a Warlock level, I can change one pick.",
+				additional: ["", "", "", "", "", "", "", "", "", "", "6th level", "6th level", "6th and 7th level", "6th and 7th level", "6th, 7th, and 8th level", "6th, 7th, and 8th level", "6th, 7th, 8th, and 9th level", "6th, 7th, 8th, and 9th level", "6th, 7th, 8th, and 9th level", "6th, 7th, 8th, and 9th level"],
+				spellcastingBonus: [{
+					name: "Mystic Arcanum (6th-level)",
+					"class": "warlock",
+					level: [6, 6],
+					firstCol: "oncelr",
+				}, {
+					name: "Mystic Arcanum (7th-level)",
+					"class": "warlock",
+					level: [7, 7],
+					firstCol: "oncelr",
+					times: levels.map(function (n) { return n < 13 ? 0 : 1; }),
+				}, {
+					name: "Mystic Arcanum (8th-level)",
+					"class": "warlock",
+					level: [8, 8],
+					firstCol: "oncelr",
+					times : levels.map(function (n) { return n < 15 ? 0 : 1; }),
+				}, {
+					name: "Mystic Arcanum (9th-level)",
+					"class": "warlock",
+					level: [9, 9],
+					firstCol: "oncelr",
+					times: levels.map(function (n) { return n < 17 ? 0 : 1; }),
+				}],
+				calcChanges: {
+					spellAdd: [
+						function (spellKey, spellObj, spName, isDuplicate) {
+							// Can't upcast Mystic Arcanum spells
+							if (spName === "warlock" && spellObj.level > 5 && !isDuplicate) {
+								// Get all the Mystic Arcanum selections
+								var mysticArcanumSelections = CurrentSpells.warlock.bonus['mystic arcanum'].map(function (n) { return n.selection[0]; });
+								if (mysticArcanumSelections.indexOf(spellKey) !== -1) {
+									spellObj.allowUpCasting = true;
 								}
-							}, "",
-							90
-						],
-						atkAdd : [
-							function (fields, v) {
-								if (v.pactWeapon || v.theWea.pactWeapon || ((v.isMeleeWeapon || v.theWea.isMagicWeapon || v.thisWeapon[1]) && (/\bpact\b/i).test(v.WeaponTextName))) {
-									v.pactWeapon = true;
-									fields.Proficiency = true;
-									if (!v.theWea.isMagicWeapon && !v.thisWeapon[1] && !(/counts as( a)? magical/i).test(fields.Description)) fields.Description += (fields.Description ? '; ' : '') + 'Counts as magical';
-								};
-							},
-							"If I include the word 'Pact' in a melee or magic weapon's name, it gets treated as my Pact Weapon.",
-							290
-						]
-					}
+							}
+						},
+						"Mystic Arcanum spells can't be upcast.",
+					],
 				},
-				"pact of the chain" : {
-					name : "Pact of the Chain",
-					description : desc([
-						"I can cast Find Familiar as a ritual and it can be a Pseudodragon, Imp, Quasit, or Sprite",
-						"When taking the attack action, I can forgo 1 attack to have my familiar attack instead",
-						"It makes this 1 attack by using its reaction"
-					]),
-					spellcastingBonus : [{
-						name : "Pact of the Chain",
-						spells : ["find familiar"],
-						selection : ["find familiar"],
-						firstCol : '\xAE'
-					}]
-				},
-				"pact of the tome" : {
-					name : "Pact of the Tome",
-					source : [["SRD", 48], ["P", 108]],
-					description : desc([
-						"I have a Book of Shadows with any three cantrips of my choosing",
-						"I can cast these cantrips as long as I have the book on my person",
-						"Regardless of the lists they come from, these count as warlock cantrips to me",
-						"I can get a replacement book with a 1-hour ceremony during a short or long rest"
-					]),
-					spellcastingBonus : [{
-						name : "Pact of the Tome",
-						"class" : "any",
-						level : [0, 0],
-						times : 3
-					}]
-				}
 			},
-			"mystic arcanum" : {
-				name : "Mystic Arcanum",
-				source : [["SRD", 48], ["P", 108]],
-				minlevel : 11,
-				description : desc([
-					"I can choose one spell from the warlock spell list of each level mentioned above",
-					"I can cast these spells each once per long rest without needing to use a spell slot"
-				]),
-				additional : ["", "", "", "", "", "", "", "", "", "", "6th level", "6th level", "6th and 7th level", "6th and 7th level", "6th, 7th, and 8th level", "6th, 7th, and 8th level", "6th, 7th, 8th, and 9th level", "6th, 7th, 8th, and 9th level", "6th, 7th, 8th, and 9th level", "6th, 7th, 8th, and 9th level"],
-				spellcastingBonus : [{
-					name : "Mystic Arcanum (6th-level)",
-					"class" : "warlock",
-					level : [6, 6],
-					firstCol : "oncelr"
-				}, {
-					name : "Mystic Arcanum (7th-level)",
-					"class" : "warlock",
-					level : [7, 7],
-					firstCol : "oncelr",
-					times : levels.map(function (n) { return n < 13 ? 0 : 1; })
-				}, {
-					name : "Mystic Arcanum (8th-level)",
-					"class" : "warlock",
-					level : [8, 8],
-					firstCol : "oncelr",
-					times : levels.map(function (n) { return n < 15 ? 0 : 1; })
-				}, {
-					name : "Mystic Arcanum (9th-level)",
-					"class" : "warlock",
-					level : [9, 9],
-					firstCol : "oncelr",
-					times : levels.map(function (n) { return n < 17 ? 0 : 1; })
-				}]
+			"eldritch master": {
+				name: "Eldritch Master",
+				source: [["SRD24", 72], ["P24", 155]],
+				minlevel: 20,
+				description: " [regain all slots with Magical Cunning]",
 			},
-			"eldritch master" : {
-				name : "Eldritch Master",
-				source : [["SRD", 48], ["P", 108]],
-				minlevel : 20,
-				description : desc("I can regain all used pact magic spells slots by spending 1 minute entreating my patron"),
-				recovery : "long rest",
-				usages : 1
-			}
 		}
 	},
-*/
+
 	"wizard": {
-		regExpSearch: /^(?=.*(wizard|mage|magus))(?!.*wild mage).*$/i,
+		regExpSearch: /wizard/i,
 		name: "Wizard",
 		source: [["SRD24", 77], ["P24", 165]],
 		primaryAbility: "Intelligence",
@@ -2702,7 +2746,7 @@ var Base_ClassList = {
 		die: 6,
 		saves: ["Int", "Wis"],
 		skillstxt: {
-			primary: "Choose 2: Arcana, History, Insight, Investigation, Medicine, or Religion.",
+			primary: "Choose 2: Arcana, History, Insight, Investigation, Medicine, Nature, or Religion.",
 		},
 		weaponProfs: {
 			primary: [true, false],
@@ -2768,7 +2812,7 @@ var Base_ClassList = {
 					return lvls + " level" + (lvls > 1 ? "s" : "") + " of spell slots";
 				}),
 				usages: 1,
-				recovery: "long rest",
+				recovery: "Long Rest",
 			},
 			"scholar": function () {
 				var a = {
@@ -2867,11 +2911,11 @@ var Base_ClassList = {
 				description : "\nI pick two 3rd-level spells from my spellbook. I always have these spells prepared and I can cast each once per Short Rest without expending a spell slot.",
 				extraLimitedFeatures: [{
 					name: "Signature Spell (1st pick)",
-					recovery: "short rest",
+					recovery: "Short Rest",
 					usages: 1,
 				}, {
 					name: "Signature Spell (2nd pick)",
-					recovery: "short rest",
+					recovery: "Short Rest",
 					usages: 1,
 				}],
 				spellcastingBonus: [{
@@ -2966,7 +3010,7 @@ var Base_ClassSubList = {
 				description: "\nAs a Bonus Action, I can have any creature of my choice within 30 ft make a Wisdom save or be Frightened of me for 1 minute (DC 8 + Str mod + Prof B.). They can repeat this save at each of their turn's end. I can do this once per Long Rest or by expending a Rage use.",
 				action : [["bonus action", ""]],
 				usages: 1,
-				recovery: "long rest",
+				recovery: "Long Rest",
 				altResource: "Rage",
 			},
 		},
@@ -3183,7 +3227,7 @@ var Base_ClassSubList = {
 				description : desc("After a short rest, I can recover a number of 5th-level or lower spell slots"),
 				additional : ["1 level spell slots", "1 level spell slots", "2 levels spell slots", "2 levels spell slots", "3 levels spell slots", "3 levels spell slots", "4 levels spell slots", "4 levels spell slots", "5 levels spell slots", "5 levels spell slots", "6 levels spell slots", "6 levels spell slots", "7 levels spell slots", "7 levels spell slots", "8 levels spell slots", "8 levels spell slots", "9 levels spell slots", "9 levels spell slots", "10 levels spell slots", "10 levels spell slots"],
 				usages : 1,
-				recovery : "long rest"
+				recovery : "Long Rest"
 			},
 			"subclassfeature3" : {
 				name : "Circle Spells",
@@ -3388,7 +3432,7 @@ var Base_ClassSubList = {
 				description : desc("As an action, I regain hit points equal to three times my monk level"),
 				additional : levels.map(function (n) { return n < 6 ? "" : (n*3) + " hit points" }),
 				usages : 1,
-				recovery : "long rest",
+				recovery : "Long Rest",
 				action : [["action", ""]]
 			},
 			"subclassfeature11" : {
@@ -3474,7 +3518,7 @@ var Base_ClassSubList = {
 					"If an enemy starts its turn in the bright light, it takes 10 radiant damage",
 					"For the duration, I have advantage on saves vs. spells cast by fiends and undead"
 				]),
-				recovery : "long rest",
+				recovery : "Long Rest",
 				usages : 1,
 				action : [["action", ""]]
 			}
@@ -3896,49 +3940,50 @@ var Base_ClassSubList = {
 			}
 		}
 	},
-	"warlock-fiend" : {
-		regExpSearch : /^(?=.*(fiend|devil|demon|daemon|hell|abyss))(?=.*warlock).*$/i,
-		subname : "the Fiend",
-		source : [["SRD", 50], ["P", 109]],
-		spellcastingExtra : ["burning hands", "command", "blindness/deafness", "scorching ray", "fireball", "stinking cloud", "fire shield", "wall of fire", "flame strike", "hallow"],
+*/
+	"warlock-fiend": {
+		regExpSearch: /^(?=.*(fiend|devil|demon|daemon|hell|abyss))(?=.*warlock).*$/i,
+		subname: "Fiend Patron",
+		source: [["SRD24", 76], ["P24", 161]],
 		features: {
-			"subclassfeature1" : {
-				name : "Dark One's Blessing",
-				source : [["SRD", 50], ["P", 109]],
-				minlevel : 1,
-				description : desc("When I reduce a hostile to 0 HP, I gain Cha mod + warlock level temporary HP (min 1)")
+			"subclassfeature3": {
+				name: "Dark One's Blessing",
+				source: [["SRD24", 76], ["P24", 161]],
+				minlevel: 3,
+				description: "\nWhen I reduce an enemy to 0 Hit Points or another reduces an enemy within 10 ft of me" + (typePF ? "\n" : " ") + "to 0 HP, I gain Temporary Hit Points equal to my Charisma modifier plus my Warlock level.",
+				additional: levels.map(function (n) {
+					return n + " + Cha mod Temp HP";
+				}),
+				spellcastingExtra: ["burning hands", "command", "scorching ray", "suggestion", "fireball", "stinking cloud", "fire shield", "wall of fire", "geas", "insect plague"],
+				spellcastingExtraApplyNonconform: true,
 			},
 			"subclassfeature6" : {
 				name : "Dark One's Own Luck",
-				source : [["SRD", 50], ["P", 109]],
-				minlevel : 6,
-				description : desc("When I make an ability check or saving throw, I can add 1d10 after rolling the d20"),
-				recovery : "short rest",
-				usages : 1
+				source: [["SRD24", 76], ["P24", 162]],
+				minlevel: 6,
+				description: "\nWhen I make an ability check or save, I can add +1d10 after the d20 roll, before its effects.",
+				recovery: "Long Rest",
+				usages: "Charisma modifier per ",
+				usagescalc: "event.value = Math.max(1, What('Cha Mod'));",
 			},
-			"subclassfeature10" : {
-				name : "Fiendish Resilience",
-				source : [["SRD", 51], ["P", 109]],
-				minlevel : 10,
-				description : desc([
-					"After a short or long rest, I can choose one damage type to become resistant to",
-					"This lasts until I choose another type; Magical and silver weapons ignore this resistance"
-				])
+			"subclassfeature10": {
+				name: "Fiendish Resilience",
+				source: [["SRD24", 76], ["P24", 162]],
+				minlevel: 10,
+				description: "\nAfter a Rest, I can gain Resistance to a chosen damage type (not Force) until I do this again.",
+				additional: "After a Short or Long Rest",
 			},
-			"subclassfeature14" : {
-				name : "Hurl Through Hell",
-				source : [["SRD", 51], ["P", 109]],
-				minlevel : 14,
-				description : desc([
-					"When I hit a creature with an attack, I can instantly transport it through lower planes",
-					"It returns at the end of my next turn and takes 10d10 psychic damage if not a fiend"
-				]),
-				recovery : "long rest",
-				usages : 1
-			}
-		}
+			"subclassfeature14": {
+				name: "Hurl Through Hell",
+				source: [["SRD24", 76], ["P24", 162]],
+				minlevel: 14,
+				description: "\nOnce per turn when I hit a creature with an attack roll, I can try to move it to the Lower Planes. It must make a Charisma save or disappear, take 8d10 Psychic damage if it isn't a Fiend, and be Incapacitated until my next turn ends, when it returns in the same or closest empty spot. I can do this once per Long Rest or by expending a Pact Magic spells slot (PSS).",
+				recovery: "Long Rest",
+				usages: 1,
+				altResource: "PSS",
+			},
+		},
 	},
-*/
 	"wizard-evoker": {
 		regExpSearch: /(evocation|evocer|evoker)/i,
 		subname: "Evoker",
@@ -4055,7 +4100,7 @@ var Base_ClassSubList = {
 				description: "\nWhen I cast a Wizard spell using a level 1-5 spell slot, I can have it deal maximum damage on the turn that I cast it. From the second time onwards that I do this after a Long Rest, I suffer 1d12 per attempt per spell slot level in Necrotic damage (e.g. 3rd attempt = 3d12 per spell slot level). This damage ignores Resistance and Immunity.",
 				extraLimitedFeatures: [{
 					name: "Overchannel",
-					recovery: "long rest",
+					recovery: "Long Rest",
 					usages: 1,
 					usagescalc: "var FieldNmbr = parseFloat(event.target.name.slice(-2)); var usages = Number(What('Limited Feature Used ' + FieldNmbr)); event.value = !usages ? '' : (usages+1) + 'd12';",
 				}],

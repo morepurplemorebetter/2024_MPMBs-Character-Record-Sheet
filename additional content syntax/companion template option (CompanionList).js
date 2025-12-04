@@ -38,7 +38,7 @@
 	Remarks:	You will also need the syntax for adding a creature if you want to change certain
 				attributes of a creature, as they are only described there.
 	        	You will also need the syntax for common attributes for certain attributes,
-				as they are identical as described there and refer to that file.
+	        	as they are identical as described there and refer to that file.
 
 	Sheet:		v24.0.0 and newer
 

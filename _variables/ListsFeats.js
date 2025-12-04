@@ -8,13 +8,13 @@ var Base_FeatsList = {
 		source: [["SRD24", 87], ["P24", 200]],
 		addMod: [{
 			type: "skill", field: "Init", mod: "prof",
-			text: "I can add my Proficiency Bonus to Initiative rolls."
+			text: "I can add my Proficiency Bonus to Initiative rolls.",
 		}],
 		description: "I can add my Proficiency Bonus to my Initiative rolls. Immediately after I roll Initiative, I can swap Initiative with one willing ally as long as neither of us has the Incapacitated condition.",
 		descriptionFull: [
 			"You gain the following benefits.",
 		 	"***Initiative Proficiency***. When you roll Initiative, you can add your Proficiency Bonus to the roll.",
-		 	"***Initiative Swap***. Immediately after you roll Initiative, you can swap your Initiative with the Initiative of one willing ally in the same combat. You can't make this swap if you or the ally has the Incapacitated condition."
+		 	"***Initiative Swap***. Immediately after you roll Initiative, you can swap your Initiative with the Initiative of one willing ally in the same combat. You can't make this swap if you or the ally has the Incapacitated condition.",
 		],
 	},
 	"magic initiate": {
@@ -27,7 +27,7 @@ var Base_FeatsList = {
 			"***Two Cantrips***. You learn two cantrips of your choice from the Cleric, Druid, or Wizard spell list. Intelligence, Wisdom, or Charisma is your spellcasting ability for this feat's spells (choose when you select this feat).",
 			"***Level 1 Spell***. Choose a level 1 spell from the same list you selected for this feat's cantrips. You always have that spell prepared. You can cast it once without a spell slot, and you regain the ability to cast it in that way when you finish a Long Rest. You can also cast the spell using any spell slots you have.",
 			"***Spell Change***. Whenever you gain a new level, you can replace one of the spells you chose for this feat with a different spell of the same level from the chosen spell list.",
-			"***Repeatable***. You can take this feat more than once, but you must choose a different spell list each time."
+			"***Repeatable***. You can take this feat more than once, but you must choose a different spell list each time.",
 		],
 		allowDuplicates: true,
 		choices: ['Cleric', 'Druid', 'Wizard'],
@@ -98,7 +98,7 @@ var Base_FeatsList = {
 		description: "I gain proficiency in any combination of three skills or tools of my choice.",
 		descriptionFull: [
 			"You gain proficiency in any combination of three skills or tools of your choice.",
-			"***Repeatable***. You can take this feat more than once."
+			"***Repeatable***. You can take this feat more than once.",
 		],
 		allowDuplicates : true,
 	},
@@ -124,12 +124,13 @@ var Base_FeatsList = {
 				function(fields, v) {
 					if (v.baseWeaponName == "unarmed strike" ) {
 						fields.Description += (fields.Description ? '; ' : '') + '1/turn also Grapple; Adv. vs. Grappled';
-					}
+					};
 				},
-				'I have Advantage on attack rolls against a creature Grappled by me. Once per turn I can use both the Damage and Grapple option when I make an Unarmed Strike as part of the Attack action on my turn.'
-			]
+				'I have Advantage on attack rolls against a creature Grappled by me. Once per turn I can use both the Damage and Grapple option when I make an Unarmed Strike as part of the Attack action on my turn.',
+			],
 		},
 		choices: ["Strength", "Dexterity"],
+		choicesNotInMenu: true,
 		"strength": {
 			description: "Once per turn when I make an Unarmed Strike as part of the Attack action on my turn, I can do both the Damage and Grapple option. I have advantage on attacks against targets I'm Grappling. I can move my normal speed with a Grappled target as long as they are my size or smaller. [+1 Strength]",
 			scores: [1, 0, 0, 0, 0, 0],
@@ -186,9 +187,9 @@ var Base_FeatsList = {
 				function (fields, v) {
 					if (v.isMeleeWeapon && /\bversatile\b|((^|[^+-]\b)2|\btwo).?hand(ed)?s?\b/i.test(fields.Description)) {
 						fields.Description += (fields.Description ? '; ' : '') + '1 or 2 on damage die are 3' + (/versatile/i.test(fields.Description) ? ' when two-handed' : '');
-					}
+					};
 				},
-				"While wielding a two-handed or versatile melee weapon in two hands, I can treat any roll of 1 or 2 on damage dice as a 3."
+				"While wielding a two-handed or versatile melee weapon in two hands, I can treat any roll of 1 or 2 on damage dice as a 3.",
 			],
 		},
 	},
@@ -206,7 +207,7 @@ var Base_FeatsList = {
 				function (fields, v, output) {
 					if (v.isOffHand) output.modToDmg = true;
 				},
-				'When I make an off-hand attack as a result of using a weapon that has the Light property, I can add my ability modifier to the damage of that attack. If a melee weapon includes "off-hand" or "secondary" in its name or description, it is considered an off-hand attack.'
+				'When I make an off-hand attack as a result of using a weapon that has the Light property, I can add my ability modifier to the damage of that attack. If a melee weapon includes "off-hand" or "secondary" in its name or description, it is considered an off-hand attack.',
 			],
 		},
 	},
@@ -224,6 +225,7 @@ var Base_FeatsList = {
 			"***Peerless Aim***. When you miss with an attack roll, you can hit instead. Once you use this benefit, you can't use it again until the start of your next turn.",
 		],
 		choices: ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"],
+		choicesNotInMenu: true,
 		"strength": {
 			name: "Boon of Combat Prowess [Str]",
 			description: "When I miss with an attack roll, I can hit instead. Once I use this benefit, I can't use it again until the start of my next turn. [+1 Strength]",
@@ -274,6 +276,7 @@ var Base_FeatsList = {
 			"***Blink Steps***. Immediately after you take the Attack action or the Magic action, you can teleport up to 30 feet to an unoccupied space you can see.",
 		],
 		choices: ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"],
+		choicesNotInMenu: true,
 		"strength": {
 			name: "Boon of Dimensional Travel [Str]",
 			description: "Immediately after I take the Attack action or the Magic action, I can teleport up to 30 ft to an unoccupied space I can see. [+1 Strength]",
@@ -326,6 +329,7 @@ var Base_FeatsList = {
 		usages: 1,
 		recovery: "Combat",
 		choices: ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"],
+		choicesNotInMenu: true,
 		"strength": {
 			description: "When I or another creature within 60 ft of me succeeds or fails a D20 Test, I can roll 2d4 and apply the total rolled as a bonus or penalty to the d20 roll. Once I do this, I can't do so again until I roll Initiative or finish a Short or Long Rest. [+1 Strength]",
 			scores: [1, 0, 0, 0, 0, 0],
@@ -371,6 +375,7 @@ var Base_FeatsList = {
 			"***Overwhelming Strike***. When you roll a 20 on the d20 for an attack roll, you can deal extra damage to the target equal to the ability score increased by this feat. The extra damage's type is the same as the attack's type.",
 		],
 		choices: ["Strength", "Dexterity"],
+		choicesNotInMenu: true,
 		"strength": {
 			name: "Boon of Irresistible Offense [Str]",
 			description: "Bludgeoning, Piercing, and Slashing damage I deal ignores Resistance. When I roll a 20 on the d20 for an attack roll, I can deal extra damage to the target equal to my Strength score. This damage is of the same type as the attack's type. [+1 Strength]",
@@ -399,6 +404,7 @@ var Base_FeatsList = {
 			"***Free Casting***. Whenever you cast a spell with a level 1-4 spell slot, roll 1d4. If the number you roll is the same as the slot's level, the slot isn't expended.",
 		],
 		choices: ["Intelligence", "Wisdom", "Charisma"],
+		choicesNotInMenu: true,
 		"intelligence": {
 			name: "Boon of Spell Recall [Int]",
 			description: "Whenever I cast a spell with a level 1-4 spell slot, I roll a 1d4. If the number I roll is the same as the slot's level, the slot isn't expended. [+1 Intelligence]",
@@ -431,8 +437,9 @@ var Base_FeatsList = {
 			"***Merge with Shadows***. While within Dim Light or Darkness, you can give yourself the Invisible condition as a Bonus Action. The condition ends on you immediately after you take an action, a Bonus Action, or a Reaction.",
 			"***Shadowy Form***. While within Dim Light or Darkness, you have Resistance to all damage except Psychic and Radiant.",
 		],
-		choices: ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"],
 		action: [["bonus action", "Merge with Shadows"]],
+		choices: ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"],
+		choicesNotInMenu: true,
 		"strength": {
 			name: "Boon of the Night Spirit [Str]",
 			description: "##Shadowy Form##. While in Dim Light or Darkness, I get Resistance to all damage except Psychic and Radiant. As a Bonus Action while in Dim Light or Darkness, I can ##Merge with Shadows## to give myself the Invisible condition. This condition ends on me immediately after I take an Action, Bonus Action, or Reaction." + (typePF ? "" : " [+1 Strength]"),
@@ -484,6 +491,7 @@ var Base_FeatsList = {
 		],
 		vision: [["Truesight", 60]],
 		choices: ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"],
+		choicesNotInMenu: true,
 		"strength": {
 			description: "I have Truesight with a range of 60 ft. [+1 Strength]",
 			scores: [1, 0, 0, 0, 0, 0],

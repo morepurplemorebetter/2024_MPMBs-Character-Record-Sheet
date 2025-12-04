@@ -3054,7 +3054,16 @@ function AddWarlockInvocation(invocName, invocObj) { // Add a warlock invocation
 	AddFeatureChoice(ClassList.warlock.features["eldritch invocations"], true, invocName, invocObj);
 };
 function AddWarlockPactBoon(boonName, boonObj) { // Add a warlock pact boon
-	AddFeatureChoice(ClassList.warlock.features["pact boon"], false, boonName, boonObj);
+	if (!tDoc.noDeprecatedWarnings && (!tDoc.doneDeprecatedWarnings || tDoc.doneDeprecatedWarnings.indexOf("AddWarlockPactBoon") === -1)) {
+		console.println([
+			'\n[DEPRECATED] Since v24.0.0 `AddWarlockPactBoon()` is no longer used, as Pact Boon is no longer a separate class feature in the 2024 rules.',
+			'Instead, add an Eldritch Invocation using the `AddWarlockInvocation` function (i.e. replace `AddWarlockPactBoon` with `AddWarlockInvocation` in your add-on script).',
+		].join('\n'));
+		console.show();
+		if (!tDoc.doneDeprecatedWarnings) tDoc.doneDeprecatedWarnings = [];
+		tDoc.doneDeprecatedWarnings.push("AddWarlockPactBoon");
+	}
+	AddWarlockInvocation(boonName, boonObj);
 };
 
 // a way to add fighting styles to multiple classes; fsName is how it will appear in the menu
@@ -3063,7 +3072,7 @@ function AddFightingStyle(classArr, fsName, fsObj) {
 		console.println([
 			'\n[DEPRECATED] Since v24.0.0 `AddFightingStyle()` is no longer used for classes using the 2024 rules.',
 			'Instead, add a fighting style feat (i.e. FeatsList entry with `type: "fighting style"`).',
-			'Class features with `choicesFightingStyles: true` will get all fighting style feats added as choices. The built-in 2024 Fighter, Paladin, and Ranger classes have this attribute set for their Fighting Style features.'
+			'Class features with `choicesFightingStyles: true` will get all fighting style feats added as choices. The built-in 2024 Fighter, Paladin, and Ranger classes have this attribute set for their Fighting Style features.',
 		].join('\n'));
 		console.show();
 		if (!tDoc.doneDeprecatedWarnings) tDoc.doneDeprecatedWarnings = [];

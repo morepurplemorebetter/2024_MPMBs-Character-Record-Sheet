@@ -131,7 +131,7 @@ function setCurrentCompRace(prefix, type, found) {
 					// things that should be replaced instead of amended to
 					CurrentCompRace[prefix][prop] = tProp;
 				} else if (isArray(CurrentCompRace[prefix][prop])) {
-					CurrentCompRace[prefix][prop] = CurrentCompRace[prefix][prop].concat(tProp);
+					CurrentCompRace[prefix][prop] = CurrentCompRace[prefix][prop].concat(newObj(tProp));
 				} else if (typeof CurrentCompRace[prefix][prop] === "string" && typeof tProp === "string") {
 					var sCoupler = CurrentCompRace[prefix][prop].indexOf(";") !== -1 ? "; " : ", ";
 					CurrentCompRace[prefix][prop] = CurrentCompRace[prefix][prop].replace(/\.$/, "") + sCoupler + tProp;
@@ -153,6 +153,11 @@ function setCurrentCompRace(prefix, type, found) {
 				console.show();
 			}
 		}
+	}
+	// set the nameThis
+	var inputCreaTxt = What(prefix + "Comp.Race").toLowerCase();
+	if (!CurrentCompRace[prefix].nameThis || inputCreaTxt.indexOf(CurrentCompRace[prefix].nameThis.toLowerCase()) === -1) {
+		CurrentCompRace[prefix].nameThis = clean(inputCreaTxt.replace(/,? ?(giant|dire)/ig, '').replace(/ +/g, ' '));
 	}
 }
 
@@ -503,9 +508,9 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		var sCreaSubtype = aCrea.subtype ? " (" + (isArray(aCrea.subtype) ? AskUserOptions(aCreaTypeDialogTxt[0].replace("type", "subtype"), aCreaTypeDialogTxt[1].replace(/type/ig, "subtype"), aCrea.subtype, "radio", true) : aCrea.subtype) + ")" : "";
 		Value(prefix + "Comp.Desc.MonsterType", sCreaType + sCreaSubtype);
 
-		//set senses
-		var theSenses = What("Unit System") === "imperial" ? aCrea.senses : ConvertToMetric(aCrea.senses, 0.5);
-		Value(prefix + "Comp.Use.Senses", theSenses);
+		if (aCrea.senses) {//set senses
+			Value(prefix + "Comp.Use.Senses", What("Unit System") === "metric" ? ConvertToMetric(aCrea.senses, 0.5) : aCrea.senses);
+		}
 
 		Value(prefix + "Comp.Desc.Alignment", aCrea.alignment); //set alignment
 		Value(prefix + "Comp.Use.Proficiency Bonus", aCrea.proficiencyBonus); //set proficiency bonus
@@ -962,7 +967,7 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 	if (!objCrea) objCrea = CurrentCompRace[prefix];
 	if (objCrea.typeFound !== "creature") return; // only do this for CreatureList entries
 	var isMetric = What("Unit System") === "metric", arrToEval = [];
-	if (!useName) useName = What(prefix + "Comp.Race").toLowerCase();
+	if (!useName) useName = What(prefix + "Comp.Race");
 	var sCompType = CurrentCompRace[prefix].typeCompanion;
 	var objComp = sCompType ? CompanionList[sCompType] : false;
 	if (!objComp && sCompType) delete CurrentCompRace[prefix].typeCompanion;
@@ -1012,10 +1017,11 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 		["features", prefix + "Comp.Use.Features"],
 		["actions",  prefix + "Comp.Use.Traits"],
 		["traits",   prefix + "Comp.Use.Traits"],
-		["notes",    prefix + "Cnote.Left"]
+		["notes",    prefix + "Cnote.Left"],
 	];
 	var arrCompAltStrLocs = [prefix + "Cnote.Left"];
 	if (!typePF) arrCompAltStrLocs.push(prefix + "Cnote.Right");
+	var rxThisAdd = /\[THIS\]/g, rxThisRemove = /\[THIS\][\s\S]*/g;
 	// Now loop through all the features/actions/traits
 	for (var n = 1; n <= 2; n++) {
 		// First do the creature and then the companion direct attribute (probably only `notes`; i.e. not those under `attributesAdd`)
@@ -1034,26 +1040,23 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 			var lastProp = a === 0 || fldNm !== arrProps[a-1][1] ? What(fldNm) : lastProp;
 			for (var f = 0; f < feaA.length; f++) {
 				var prop = feaA[f];
-				var doPropTxt = prop.description !== undefined;
 				var propMinLvl = prop.minlevel ? prop.minlevel : 1;
+				var doPropTxt = prop.description !== undefined;
 				var addIt = newLvl >= propMinLvl;
+				var propName = !prop.name ? "" : isMetric ? ConvertToMetric(prop.name, 0.5) : prop.name;
+				var propDescription = !doPropTxt ? "" : isMetric ? ConvertToMetric(prop.description, 0.5) : prop.description;
 				if (doPropTxt) {
-					// Create the strings for the property
-					var propFirstLine = "##\u25C6 " + (isMetric ? ConvertToMetric(prop.name, 0.5) : prop.name) + "##";
-					var propDescription = isMetric ? ConvertToMetric(prop.description, 0.5) : prop.description;
-					var sNameDescrCoupler = prop.joinString !== undefined ? prop.joinString : ". ";
-					var propFullLine = propFirstLine + sNameDescrCoupler + propDescription;
-					// Apply the name of the creature if [THIS] is present in the strings
-					if (/\[THIS\]/.test(propFullLine)) {
-						if (addIt) {
-							propFirstLine = propFirstLine.replace(/\[THIS\]/g, useName);
-							propFullLine = propFullLine.replace(/\[THIS\]/g, useName);
-						} else {
-							propFirstLine = propFirstLine.replace(/\[THIS\][\s\S]*/, "");
-							propFullLine = propFullLine.replace(/\[THIS\][\s\S]*/, "");
-						}
+					// Amend the joinString to the front of propDescription
+					propDescription = (prop.joinString !== undefined ? prop.joinString : ". ") + propDescription;
+					// Replace [THIS] with the species of the creature
+					var replaceThis = addIt ? rxThisAdd : rxThisRemove;
+					var replaceWith = addIt ? objCrea.nameThis : "";
+					if (rxThisAdd.test(propDescription)) {
+						propDescription = propDescription.replace(replaceThis, replaceWith);
 					}
-				} else if (prop.useSpellDescription && SpellsList[prop.useSpellDescription] && SpellsList[prop.useSpellDescription].descriptionFull) {
+				}
+
+				if (prop.useSpellDescription && SpellsList[prop.useSpellDescription] && SpellsList[prop.useSpellDescription].descriptionFull) {
 					var oSpell = SpellsList[prop.useSpellDescription];
 					// Get the type of spell string
 					var strSchool = spellSchoolList[oSpell.school] ? spellSchoolList[oSpell.school] : oSpell.school;
@@ -1067,15 +1070,24 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 						var strSpellType = oSpell.level != 0 ? strLevel + " " + strSchool + " spell" : strSchool ? strSchool.capitalize() + " " + strLevel.toLowerCase() : strLevel;
 					}
 					// Get the source string
-					var strSource = stringSource(oSpell, "first,abbr", ", ");
+					var strSource = stringSource(prop.source ? prop : oSpell, "first,abbr", ", ");
 					// Create the full property string
-					var propFirstLine = "##\u25C6 " + oSpell.name + "##";
+					var propFirstLine = "##\u25C6 " + (propName ? propName : oSpell.name) + "##";
 					var propRef = " (" + strSpellType + strSource + ")";
 					var spellDescription = ConvertToFirstPerson(formatDescriptionFull(oSpell.descriptionFull, true), prop.formatSpellDescription, objUse.name);
 					if (isMetric) spellDescription = ConvertToMetric(spellDescription, 0.5);
-					var propFullLine = propFirstLine + propRef + "\n" + spellDescription;
+					var propFullLine = propFirstLine + propRef + propDescription + "\n" + spellDescription;
 					doPropTxt = true;
+				} else if (doPropTxt) {
+					// Create the strings for the property
+					var propFirstLine = "##\u25C6 " + propName + "##";
+					// Replace [THIS] with the species of the creature
+					if (rxThisAdd.test(propFirstLine)) {
+						propFirstLine = propFirstLine.replace(replaceThis, replaceWith);
+					}
+					var propFullLine = propFirstLine + propDescription;
 				}
+
 				// See if we need to do this prop
 				if (minLvl < propMinLvl && maxLvl >= propMinLvl) {
 					// Add/remove the text
@@ -1776,9 +1788,9 @@ function ApplyWildshape() {
 		strTraits = [theCrea.wildshapeString];
 	} else {
 		//set senses
-		var sensesToAdd = theCrea.senses.replace(/(\; )?Adv\..+(hearing|sight|smell)/i, ""); //avoid duplicating the information with regards to the keen hearing/sight/smell traits
-		if (sensesToAdd) {
-			strTraits.push("##\u25C6 Senses##. " + sensesToAdd); 
+		if (theCrea.senses) {
+			// avoid duplicating the information with regards to the keen hearing/sight/smell traits
+			strTraits.push("##\u25C6 Senses##. " + theCrea.senses.replace(/(\; )?Adv\..+(hearing|sight|smell)/i, "") + ".");
 		}
 		//add resistances & immunities
 		if (theCrea.damage_vulnerabilities) {
@@ -1825,7 +1837,10 @@ function ApplyWildshape() {
 	// add the string to the field
 	if (strTraits) {
 		if (What("Unit System") === "metric") strTraits = ConvertToMetric(strTraits, 0.5);
-		strTraits = strTraits.replace(/\[THIS\]/g, clean(newForm));
+		if (/\[THIS\]/.test(strTraits)) {
+			var nameThis = theCrea.nameThis && newForm.toLowerCase().indexOf(theCrea.nameThis) !== -1 ? theCrea.nameThis: clean(newForm.replace(/,? ?(giant|dire)/ig, '').replace(/ +/g, ' '));
+			strTraits = strTraits.replace(/\[THIS\]/g, nameThis);
+		}
 		AddString(prefix + "Wildshape." + Fld + ".Traits", strTraits, true);
 	}
 
@@ -5733,6 +5748,7 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 	var ArrayNmbr = Number(fldNmbr) - 1;
 	var fldBase = prefix + Q + "Attack." + fldNmbr + ".";
 	var fldBaseBT = prefix + "BlueText." + Q + "Attack." + fldNmbr + ".";
+	var isMetric = What("Unit System") === "metric";
 
 	//set the input as the submitName for reference and set the non-automated field with the same value as well
 	AddTooltip(fldBase + "Weapon Selection", undefined, inputText);
@@ -5933,7 +5949,7 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 			};
 			switch (weaKey) {
 			 case "Description_Tooltip" :
-				if (!fields.Description) AddTooltip(fldBase + "Description", fields[weaKey]);
+				if (!fields.Description) AddTooltip(fldBase + "Description", !isMetric ? fields[weaKey] : ConvertToMetric(fields[weaKey], 0.5));
 				break;
 			 case "Proficiency" :
 				Checkbox(keyFld, fields[weaKey]);
@@ -5945,12 +5961,13 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 				AddDmgType(keyFld, fields[weaKey]);
 				break;
 			 case "Weight" :
-				var massMod = What("Unit System") === "imperial" ? 1 : UnitsList.metric.mass;
+				var massMod = !isMetric ? 1 : UnitsList.metric.mass;
 				Value(keyFld, RoundTo(fields[weaKey] * massMod, 0.001, true));
 				break;
 			 case "Description" :
 			 case "Range" :
-				Value(keyFld, What("Unit System") === "imperial" ? fields[weaKey] : ConvertToMetric(fields[weaKey], 0.5), weaKey !== "Description" ? "" : What("Unit System") === "imperial" ? fields.Description_Tooltip : ConvertToMetric(fields.Description_Tooltip, 0.5));
+				var tooltip = weaKey !== "Description" ? undefined : !isMetric ? fields.Description_Tooltip : ConvertToMetric(fields.Description_Tooltip, 0.5);
+				Value(keyFld, !isMetric ? fields[weaKey] : ConvertToMetric(fields[weaKey], 0.5), tooltip);
 				break;
 			 case "Ammo" :
 				if (fields[weaKey]) AddAmmo(fields[weaKey]);

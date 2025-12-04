@@ -3898,8 +3898,6 @@ function gatherPrereqevalVars() {
 		languageProfs : [moreProfs],
 		skillProfs : [],
 		skillExpertise : [],
-		// specifics
-		hasEldritchBlast : (/,eldritch blast,/i).test(CurrentWeapons.known) || isSpellUsed("eldritch blast", true)
 	};
 
 	// fill the arrays for tool, language, and skill proficiencies

@@ -139,7 +139,7 @@ var Base_ArmourList = {
 		stealthdis: true,
 		weight: 65,
 		strReq: 15,
-	}
+	},
 };
 
 var Base_WeaponsList = {
@@ -155,7 +155,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		description: "Instead of damage, can Shove or Grapple (with DC)",
 		monkweapon: true,
-		abilitytodamage: true
 	},
 	"unarmed strike dc": {
 		regExpSearch: /^(?=.*\b(fists?|arms?|legs?|foot|feet|claws?|talons?)\b)(?=.*dc).*$|^(?=.*unarmed)(?=.*strike)(?=.*dc).*$|^(?=.*martial)(?=.*arts)(?=.*dc).*$|^(?=.*tavern)(?=.*brawler)(?=.*dc).*$/i,
@@ -169,7 +168,7 @@ var Base_WeaponsList = {
 		description: "Up to 1 size larger; Push 5 ft or prone or grappled condition; Can damage instead (with attack roll)",
 		monkweapon: true,
 		abilitytodamage: false,
-		dc: true
+		dc: true,
 	},
 	// Simple melee weapons
 	"club": {
@@ -184,7 +183,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 2,
 		description: "Light",
-		abilitytodamage: true,
 		mastery: "slow",
 	},
 	"dagger": {
@@ -199,7 +197,6 @@ var Base_WeaponsList = {
 		range: "Melee, 20/60 ft",
 		weight: 1,
 		description: "Finesse, Light, Thrown",
-		abilitytodamage: true,
 		mastery: "nick",
 	},
 	"greatclub": {
@@ -215,7 +212,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 10,
 		description: "Two-Handed",
-		abilitytodamage: true,
 		mastery: "push",
 	},
 	"handaxe": {
@@ -231,7 +227,6 @@ var Base_WeaponsList = {
 		range: "Melee, 20/60 ft",
 		weight: 2,
 		description: "Light, Thrown",
-		abilitytodamage: true,
 		mastery: "vex",
 	},
 	"javelin": {
@@ -246,7 +241,6 @@ var Base_WeaponsList = {
 		range: "Melee, 30/120 ft",
 		weight: 2,
 		description: "Thrown",
-		abilitytodamage: true,
 		mastery: "slow",
 	},
 	"light hammer": {
@@ -262,7 +256,6 @@ var Base_WeaponsList = {
 		range: "Melee, 20/60 ft",
 		weight: 2,
 		description: "Light, Thrown",
-		abilitytodamage: true,
 		mastery: "nick",
 	},
 	"mace": {
@@ -276,8 +269,6 @@ var Base_WeaponsList = {
 		damage: [1, 6, "bludgeoning"],
 		range: "Melee",
 		weight: 4,
-		description: "",
-		abilitytodamage: true,
 		mastery: "sap",
 	},
 	"quarterstaff": {
@@ -293,7 +284,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 4,
 		description: "Versatile (1d8)",
-		abilitytodamage: true,
 		mastery: "topple",
 	},
 	"sickle": {
@@ -309,7 +299,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 2,
 		description: "Light",
-		abilitytodamage: true,
 		mastery: "nick",
 	},
 	"spear": {
@@ -324,7 +313,6 @@ var Base_WeaponsList = {
 		range: "Melee, 20/60 ft",
 		weight: 3,
 		description: "Thrown, Versatile (1d8)",
-		abilitytodamage: true,
 		mastery: "sap",
 	},
 	// Simple ranged weapons
@@ -341,7 +329,6 @@ var Base_WeaponsList = {
 		range: "20/60 ft",
 		weight: 0.25,
 		description: "Finesse, Thrown",
-		abilitytodamage: true,
 		mastery: "vex",
 	},
 	"light crossbow": {
@@ -357,7 +344,6 @@ var Base_WeaponsList = {
 		range: "80/320 ft",
 		weight: 5,
 		description: "Ammunition, Loading, Two-Handed",
-		abilitytodamage: true,
 		ammo: "bolt",
 		mastery: "slow",
 	},
@@ -374,7 +360,6 @@ var Base_WeaponsList = {
 		range: "80/320 ft",
 		weight: 2,
 		description: "Ammunition, Two-Handed",
-		abilitytodamage: true,
 		ammo: "arrow",
 		mastery: "vex",
 	},
@@ -390,7 +375,6 @@ var Base_WeaponsList = {
 		range: "30/120 ft",
 		weight: 0.001,
 		description: "Ammunition",
-		abilitytodamage: true,
 		ammo: "sling bullet",
 		mastery: "slow",
 	},
@@ -408,7 +392,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 4,
 		description: "Versatile (1d10)",
-		abilitytodamage: true,
 		mastery: "topple",
 	},
 	"flail": {
@@ -422,8 +405,6 @@ var Base_WeaponsList = {
 		damage: [1, 8, "bludgeoning"],
 		range: "Melee",
 		weight: 2,
-		description: "",
-		abilitytodamage: true,
 		mastery: "sap",
 	},
 	"glaive": {
@@ -438,7 +419,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 6,
 		description: "Heavy, Reach, Two-Handed",
-		abilitytodamage: true,
 		mastery: "graze",
 	},
 	"greataxe": {
@@ -454,7 +434,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 7,
 		description: "Heavy, Two-Handed",
-		abilitytodamage: true,
 		mastery: "cleave",
 	},
 	"greatsword": {
@@ -470,7 +449,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 6,
 		description: "Heavy, Two-Handed",
-		abilitytodamage: true,
 		mastery: "graze",
 	},
 	"halberd": {
@@ -485,7 +463,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 6,
 		description: "Heavy, Reach, Two-Handed",
-		abilitytodamage: true,
 		mastery: "cleave",
 	},
 	"lance": {
@@ -500,7 +477,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 6,
 		description: "Heavy, Reach, Two-Handed (unless mounted)",
-		abilitytodamage: true,
 		mastery: "topple",
 	},
 	"longsword": {
@@ -516,7 +492,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 3,
 		description: "Versatile (1d10)",
-		abilitytodamage: true,
 		mastery: "sap",
 	},
 	"maul": {
@@ -532,7 +507,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 10,
 		description: "Heavy, Two-Handed",
-		abilitytodamage: true,
 		mastery: "topple",
 	},
 	"morningstar": {
@@ -546,8 +520,6 @@ var Base_WeaponsList = {
 		damage: [1, 8, "piercing"],
 		range: "Melee",
 		weight: 4,
-		description: "",
-		abilitytodamage: true,
 		mastery: "sap",
 	},
 	"pike": {
@@ -562,7 +534,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 18,
 		description: "Heavy, Reach, Two-Handed",
-		abilitytodamage: true,
 		mastery: "push",
 	},
 	"rapier": {
@@ -577,7 +548,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 2,
 		description: "Finesse",
-		abilitytodamage: true,
 		mastery: "vex",
 	},
 	"scimitar": {
@@ -593,7 +563,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 3,
 		description: "Finesse, Light",
-		abilitytodamage: true,
 		mastery: "vex",
 	},
 	"shortsword": {
@@ -609,7 +578,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 2,
 		description: "Finesse, Light",
-		abilitytodamage: true,
 		mastery: "nick",
 	},
 	"trident": {
@@ -624,7 +592,6 @@ var Base_WeaponsList = {
 		range: "Melee, 20/60 ft",
 		weight: 4,
 		description: "Thrown, Versatile (1d10)", // PHB'24 changed
-		abilitytodamage: true,
 		mastery: "topple",
 	},
 	"warhammer": {
@@ -640,7 +607,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 5, // PHB'24 changed
 		description: "Versatile (1d10)",
-		abilitytodamage: true,
 		mastery: "push",
 	},
 	"war pick": {
@@ -655,7 +621,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 2,
 		description: "Versatile (1d10)", // PHB'24 changed
-		abilitytodamage: true,
 		mastery: "sap",
 	},
 	"whip": {
@@ -670,7 +635,6 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 3,
 		description: "Finesse, Reach",
-		abilitytodamage: true,
 		mastery: "slow",
 	},
 	// Martial ranged weapons
@@ -686,7 +650,6 @@ var Base_WeaponsList = {
 		range: "25/100 ft",
 		weight: 1,
 		description: "Ammunition, Loading",
-		abilitytodamage: true,
 		ammo: "needle",
 		mastery: "vex",
 	},
@@ -703,7 +666,6 @@ var Base_WeaponsList = {
 		range: "30/120 ft",
 		weight: 3,
 		description: "Ammunition, Light, Loading",
-		abilitytodamage: true,
 		ammo: "bolt",
 		mastery: "vex",
 	},
@@ -720,7 +682,6 @@ var Base_WeaponsList = {
 		range: "100/400 ft",
 		weight: 18,
 		description: "Ammunition, Heavy, Loading, Two-Handed",
-		abilitytodamage: true,
 		ammo: "bolt",
 		mastery: "push",
 	},
@@ -737,7 +698,6 @@ var Base_WeaponsList = {
 		range: "150/600 ft",
 		weight: 2,
 		description: "Ammunition, Heavy, Two-Handed",
-		abilitytodamage: true,
 		ammo: "arrow",
 		mastery: "slow",
 	},
@@ -753,7 +713,6 @@ var Base_WeaponsList = {
 		range: "40/120 ft",
 		weight: 10,
 		description: "Ammunition, Loading, Two-Handed",
-		abilitytodamage: true,
 		ammo: "firearm bullet",
 		mastery: "slow",
 	},
@@ -769,7 +728,6 @@ var Base_WeaponsList = {
 		range: "30/90 ft",
 		weight: 3,
 		description: "Ammunition, Loading",
-		abilitytodamage: true,
 		ammo: "firearm bullet",
 		mastery: "vex",
 	},
@@ -784,7 +742,6 @@ var Base_WeaponsList = {
 		damage: [1, 4, "bludgeoning"],
 		range: "Melee, 20/60 ft",
 		description: "Damage die, type, range, etc. are at the DM's discretion",
-		abilitytodamage: true,
 	},
 	"vials of acid": { // PHB'24 changed
 		regExpSearch: /^(?=.*vial)(?=.*acid).*$/i,
@@ -849,8 +806,10 @@ var Base_WeaponsList = {
 		range: "15 ft",
 		weight: 3,
 		description: "Up to Large target; DC 10 Athletics to escape as an Action",
-		tooltip: "When you take the Attack action, you can replace one of your attacks with throwing a Net. Target a creature you can see within 15 feet of yourself. The target must succeed on a Dexterity saving throw (DC 8 plus your Dexterity modifier and Proficiency Bonus) or have the Restrained condition until it escapes. The target succeeds automatically if it is Huge or larger."+
-		"\nTo escape, the target or a creature within 5 feet of it must take an action to make a DC 10 Strength (Athletics) check, freeing the Restrained creature on a success. Destroying the Net (AC 10; 5 HP; Immunity to Bludgeoning, Poison, and Psychic damage) also frees the target, ending the effect.",
+		tooltip: [
+			"When you take the Attack action, you can replace one of your attacks with throwing a Net. Target a creature you can see within 15 feet of yourself. The target must succeed on a Dexterity saving throw (DC 8 plus your Dexterity modifier and Proficiency Bonus) or have the Restrained condition until it escapes. The target succeeds automatically if it is Huge or larger.",
+			"To escape, the target or a creature within 5 feet of it must take an action to make a DC 10 Strength (Athletics) check, freeing the Restrained creature on a success. Destroying the Net (AC 10; 5 HP; Immunity to Bludgeoning, Poison, and Psychic damage) also frees the target, ending the effect.",
+		].join("\n"),
 		abilitytodamage: false,
 		dc: true,
 		isAlwaysProf: true,
@@ -896,7 +855,6 @@ var Base_WeaponsList = {
 		type: "Spell",
 		damage: ["", "", ""],
 		range: "",
-		description: "",
 		abilitytodamage: false,
 	},
 	"acid splash": {
@@ -957,7 +915,6 @@ var Base_WeaponsList = {
 		type: "Cantrip",
 		damage: ["C", 12, "poison"],
 		range: "30 ft",
-		description: "",
 		abilitytodamage: false,
 	},
 	"produce flame": {
@@ -1054,7 +1011,7 @@ var Base_WeaponsList = {
 		description: "Wis save to avoid; Target has disadv. on its next attack roll before its next turn ends",
 		abilitytodamage: false,
 		dc: true,
-	}
+	},
 };
 
 //A list of all types of 'ammo' for the ammunition section on the first page
@@ -1326,76 +1283,76 @@ var Base_GearList = {
 		name: "Arrows",
 		amount: 20,
 		weight: 0.05,
-		type: "ammunition"
+		type: "ammunition",
 	},
 	"needles": {
 		infoname: "Blowgun needles (50) [1 gp]",
 		name: "Blowgun needles", // incorrect, but clearer than the PHB'24 "needles"
 		amount: 50,
 		weight: 0.02,
-		type: "ammunition"
+		type: "ammunition",
 	},
 	"bolts": {
 		infoname: "Crossbow bolts (20) [1 gp]",
 		name: "Crossbow bolts", // incorrect, but clearer than the PHB'24 "bolts"
 		amount: 20,
 		weight: 0.075,
-		type: "ammunition"
+		type: "ammunition",
 	},
 	"bullets, sling": {
 		infoname: "Bullets, sling (20) [4 cp]",
 		name: "Sling bullets",
 		amount: 20,
 		weight: 0.075,
-		type: "ammunition"
+		type: "ammunition",
 	},
 	"bullets, firearm": {
 		infoname: "Bullets, firearm (10) [3 gp]",
 		name: "Firearm bullets",
 		amount: 10,
 		weight: 0.2,
-		type: "ammunition"
+		type: "ammunition",
 	},
 	"antitoxin": {
 		infoname: "Antitoxin (vial) [50 gp]",
 		name: "Antitoxin, vials of",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 	"crystal": {
 		infoname: "Crystal [10 gp]",
 		name: "Crystal arcane focus",
 		amount: "",
 		weight: 1,
-		type: "arcane focus"
+		type: "arcane focus",
 	},
 	"orb": {
 		infoname: "Orb [20 gp]",
 		name: "Orb arcane focus",
 		amount: "",
 		weight: 3,
-		type: "arcane focus"
+		type: "arcane focus",
 	},
 	"rod": {
 		infoname: "Rod [10 gp]",
 		name: "Rod arcane focus",
 		amount: "",
 		weight: 2,
-		type: "arcane focus"
+		type: "arcane focus",
 	},
 	"staff": {
 		infoname: "Staff [5 gp]",
 		name: "Staff arcane focus",
 		amount: "",
 		weight: 4,
-		type: "arcane focus"
+		type: "arcane focus",
 	},
 	"wand": {
 		infoname: "Wand [10 gp]",
 		name: "Wand arcane focus",
 		amount: "",
 		weight: 1,
-		type: "arcane focus"
+		type: "arcane focus",
 	},
 	"backpack": {
 		infoname: "Backpack [2 gp]",
@@ -1431,7 +1388,7 @@ var Base_GearList = {
 		infoname: "Bell [1 gp]",
 		name: "Bell",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 /* removed in PHB'24, now included with a saddle
 	"bit and bridle": {
@@ -1481,7 +1438,7 @@ var Base_GearList = {
 		infoname: "Candle [1 cp]",
 		name: "Candle",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 	"case, crossbow bolt": {
 		infoname: "Case, crossbow bolt [1 gp]",
@@ -1506,7 +1463,7 @@ var Base_GearList = {
 		infoname: "Chalk (1 piece) [1 cp]",
 		name: "Chalk, pieces of",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 */
 	"chest": {
@@ -1527,7 +1484,7 @@ var Base_GearList = {
 		name: "Common clothes",
 		amount: "",
 		weight: 3,
-		type: "clothes"
+		type: "clothes",
 	},
 */
 	"costume": {
@@ -1535,21 +1492,21 @@ var Base_GearList = {
 		name: "Costume clothes",
 		amount: "",
 		weight: 4,
-		type: "clothes"
+		type: "clothes",
 	},
 	"clothes, fine": {
 		infoname: "Fine [15 gp]",
 		name: "Fine clothes",
 		amount: "",
 		weight: 6,
-		type: "clothes"
+		type: "clothes",
 	},
 	"clothes, traveler's": {
 		infoname: "Traveler's [2 gp]",
 		name: "Traveler's clothes",
 		amount: "",
 		weight: 4,
-		type: "clothes"
+		type: "clothes",
 	},
 	"component pouch": {
 		infoname: "Component pouch [25 gp]",
@@ -1568,7 +1525,7 @@ var Base_GearList = {
 		name: "Sprig of mistletoe druidic focus",
 		amount: "",
 		weight: "",
-		type: "druidic focus"
+		type: "druidic focus",
 	},
 /* removed in PHB'24
 	"totem": {
@@ -1576,7 +1533,7 @@ var Base_GearList = {
 		name: "Totem druidic focus",
 		amount: "",
 		weight: "",
-		type: "druidic focus"
+		type: "druidic focus",
 	},
 */
 	"wooden staff": {
@@ -1584,14 +1541,14 @@ var Base_GearList = {
 		name: "Wooden staff druidic focus",
 		amount: "",
 		weight: 4,
-		type: "druidic focus"
+		type: "druidic focus",
 	},
 	"yew wand": {
 		infoname: "Yew wand  [10 gp]",
 		name: "Yew wand druidic focus",
 		amount: "",
 		weight: 1,
-		type: "druidic focus"
+		type: "druidic focus",
 	},
 /* removed in PHB'24
 	"fishing tackle": {
@@ -1638,21 +1595,21 @@ var Base_GearList = {
 		name: "Amulet holy symbol",
 		amount: "",
 		weight: 1,
-		type: "holy symbol"
+		type: "holy symbol",
 	},
 	"emblem": {
 		infoname: "Emblem [5 gp]",
 		name: "Emblem holy symbol",
 		amount: "",
 		weight: "",
-		type: "holy symbol"
+		type: "holy symbol",
 	},
 	"reliquary": {
 		infoname: "Reliquary [5 gp]",
 		name: "Reliquary holy symbol",
 		amount: "",
 		weight: 2,
-		type: "holy symbol"
+		type: "holy symbol",
 	},
 	"holy water": {
 		infoname: "Holy water (flask) [25 gp]",
@@ -1678,13 +1635,13 @@ var Base_GearList = {
 		infoname: "Ink (1 ounce bottle) [10 gp]",
 		name: "Ink, 1 ounce bottles of",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 	"ink pen": {
 		infoname: "Ink pen [2 cp]",
 		name: "Ink pen",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 	"jug": {
 		infoname: "Jug [2 cp]",
@@ -1697,7 +1654,7 @@ var Base_GearList = {
 		infoname: "Small Knife [1 sp]",
 		name: "Small Knife",
 		amount: "",
-		weight: 0.25
+		weight: 0.25,
 	},
 */
 	"ladder": {
@@ -1734,7 +1691,7 @@ var Base_GearList = {
 		infoname: "Magnifying glass [100 gp]",
 		name: "Magnifying glass",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 	"manacles": {
 		infoname: "Manacles [2 gp]",
@@ -1746,7 +1703,7 @@ var Base_GearList = {
 		infoname: "Map [1 gp]",
 		name: "Map",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 /* removed in PHB'24
 	"mess kit": {
@@ -1760,7 +1717,7 @@ var Base_GearList = {
 		infoname: "Mirror [5 gp]",
 		name: "Mirror",
 		amount: "",
-		weight: 0.5
+		weight: 0.5,
 	},
 	"oil": {
 		infoname: "Oil (flask) [1 sp]",
@@ -1772,19 +1729,19 @@ var Base_GearList = {
 		infoname: "Paper (one sheet) [2 sp]",
 		name: "Paper, sheets of",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 	"parchment": {
 		infoname: "Parchment (one sheet) [1 sp]",
 		name: "Parchment, sheets of",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 	"perfume": {
 		infoname: "Perfume (vial) [5 gp]",
 		name: "Perfume, vials of",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 /* removed in PHB'24
 	"pick, miner's": {
@@ -1797,14 +1754,14 @@ var Base_GearList = {
 		infoname: "Piton [5 cp]",
 		name: "Piton",
 		amount: "",
-		weight: 0.25
+		weight: 0.25,
 	},
 */
 	"poison, basic": {
 		infoname: "Poison, basic (vial) [100 gp]",
 		name: "Basic poison, vials of",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 	"pole": {
 		infoname: "Pole (10 ft) [5 cp]",
@@ -1822,7 +1779,7 @@ var Base_GearList = {
 		infoname: "Potion of healing [50 gp]",
 		name: "Potion of healing",
 		amount: "",
-		weight: 0.5
+		weight: 0.5,
 	},
 	"pouch": {
 		infoname: "Pouch [5 sp]",
@@ -1859,13 +1816,13 @@ var Base_GearList = {
 		infoname: "Rope, hempen (50 feet) [1 gp]",
 		name: "Hempen rope, feet of",
 		amount: 50,
-		weight: 0.2
+		weight: 0.2,
 	},
 	"rope, silk (50 feet)": {
 		infoname: "Rope, silk (50 feet) [10 gp]",
 		name: "Silk rope, feet of",
 		amount: 50,
-		weight: 0.1
+		weight: 0.1,
 	},
 */
 	"rope": {
@@ -1878,21 +1835,21 @@ var Base_GearList = {
 		infoname: "Sack [1 cp]",
 		name: "Sack",
 		amount: "",
-		weight: 0.5
+		weight: 0.5,
 	},
 	"saddle, exotic": {
 		infoname: "Exotic [60 gp]",
 		name: "Exotic saddle",
 		amount: "",
 		weight: 40,
-		type: "saddle"
+		type: "saddle",
 	},
 	"saddle, military": {
 		infoname: "Military [20 gp]",
 		name: "Military saddle",
 		amount: "",
 		weight: 30,
-		type: "saddle"
+		type: "saddle",
 	},
 /* removed in PHB'24
 	"saddle, pack": {
@@ -1900,7 +1857,7 @@ var Base_GearList = {
 		name: "Pack saddle",
 		amount: "",
 		weight: 15,
-		type: "saddle"
+		type: "saddle",
 	},
 */
 	"saddle, riding": {
@@ -1908,7 +1865,7 @@ var Base_GearList = {
 		name: "Riding saddle",
 		amount: "",
 		weight: 25,
-		type: "saddle"
+		type: "saddle",
 	},
 /* removed in PHB'24
 	"saddlebags": {
@@ -1927,7 +1884,7 @@ var Base_GearList = {
 		infoname: "Sealing wax [5 cp]",
 		name: "Sealing wax",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 */
 	"shovel": {
@@ -1940,20 +1897,20 @@ var Base_GearList = {
 		infoname: "Signal whistle [5 cp]",
 		name: "Signal whistle",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 /* removed in PHB'24
 	"signet ring": {
 		infoname: "Signet ring [5 gp]",
 		name: "Signet ring",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 	"soap": {
 		infoname: "Soap [2 cp]",
 		name: "Soap",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 */
 	"spellbook": {
@@ -1978,7 +1935,7 @@ var Base_GearList = {
 		infoname: "Spikes, iron (10) [1 gp]",
 		name: "Iron spikes",
 		amount: 10,
-		weight: 0.5
+		weight: 0.5,
 	},
 	"spyglass": {
 		infoname: "Spyglass [1000 gp]",
@@ -2008,7 +1965,7 @@ var Base_GearList = {
 		infoname: "Vial [1 gp]",
 		name: "Vial",
 		amount: "",
-		weight: ""
+		weight: "",
 	},
 	"waterskin": {
 		infoname: "Waterskin [2 sp]",
@@ -2022,7 +1979,7 @@ var Base_GearList = {
 		name: "Whetstone",
 		amount: "",
 		weight: 1,
-	}
+	},
 */
 };
 
@@ -2032,119 +1989,119 @@ var Base_ToolsList = {
 		name: "Alchemist's supplies",
 		amount: "",
 		weight: 8,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"brewer's supplies": {
 		infoname: "Brewer's supplies [20 gp]",
 		name: "Brewer's supplies",
 		amount: "",
 		weight: 9,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"calligrapher's supplies": {
 		infoname: "Calligrapher's supplies [10 gp]",
 		name: "Calligrapher's supplies",
 		amount: "",
 		weight: 5,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"carpenter's tools": {
 		infoname: "Carpenter's tools [8 gp]",
 		name: "Carpenter's tools",
 		amount: "",
 		weight: 6,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"cartographer's tools": {
 		infoname: "Cartographer's tools [15 gp]",
 		name: "Cartographer's tools",
 		amount: "",
 		weight: 6,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"cobbler's tools": {
 		infoname: "Cobbler's tools [5 gp]",
 		name: "Cobbler's tools",
 		amount: "",
 		weight: 5,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"cook's utensils": {
 		infoname: "Cook's utensils [1 gp]",
 		name: "Cook's utensils",
 		amount: "",
 		weight: 8,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"glassblower's tools": {
 		infoname: "Glassblower's tools [30 gp]",
 		name: "Glassblower's tools",
 		amount: "",
 		weight: 5,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"jeweler's tools": {
 		infoname: "Jeweler's tools [25 gp]",
 		name: "Jeweler's tools",
 		amount: "",
 		weight: 2,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"leatherworker's tools": {
 		infoname: "Leatherworker's tools [5 gp]",
 		name: "Leatherworker's tools",
 		amount: "",
 		weight: 5,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"mason's tools": {
 		infoname: "Mason's tools [10 gp]",
 		name: "Mason's tools",
 		amount: "",
 		weight: 8,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"painter's supplies": {
 		infoname: "Painter's supplies [10 gp]",
 		name: "Painter's supplies",
 		amount: "",
 		weight: 5,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"potter's tools": {
 		infoname: "Potter's tools [10 gp]",
 		name: "Potter's tools",
 		amount: "",
 		weight: 3,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"smith's tools": {
 		infoname: "Smith's tools [20 gp]",
 		name: "Smith's tools",
 		amount: "",
 		weight: 8,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"tinker's tools": {
 		infoname: "Tinker's tools [50 gp]",
 		name: "Tinker's tools",
 		amount: "",
 		weight: 10,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"weaver's tools": {
 		infoname: "Weaver's tools [1 gp]",
 		name: "Weaver's tools",
 		amount: "",
 		weight: 5,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"woodcarver's tools": {
 		infoname: "Woodcarver's tools [1 gp]",
 		name: "Woodcarver's tools",
 		amount: "",
 		weight: 5,
-		type: "artisan's tools"
+		type: "artisan's tools",
 	},
 	"disguise kit": {
 		infoname: "Disguise kit [25 gp]",
@@ -2163,28 +2120,28 @@ var Base_ToolsList = {
 		name: "Dice",
 		amount: "",
 		weight: "",
-		type: "gaming set"
+		type: "gaming set",
 	},
 	"dragonchess": {
 		infoname: "Dragonchess set [1 gp]",
 		name: "Dragonchess set",
 		amount: "",
 		weight: 0.5,
-		type: "gaming set"
+		type: "gaming set",
 	},
 	"playing cards": {
 		infoname: "Playing cards [5 sp]",
 		name: "Playing cards",
 		amount: "",
 		weight: "",
-		type: "gaming set"
+		type: "gaming set",
 	},
 	"three-dragon ante": {
 		infoname: "Three-Dragon Ante set [1 gp]",
 		name: "Three-Dragon Ante set",
 		amount: "",
 		weight: "",
-		type: "gaming set"
+		type: "gaming set",
 	},
 	"herbalism kit": {
 		infoname: "Herbalism kit [5 gp]",
@@ -2197,70 +2154,70 @@ var Base_ToolsList = {
 		name: "Bagpipes",
 		amount: "",
 		weight: 6,
-		type: "musical instrument"
+		type: "musical instrument",
 	},
 	"drum": {
 		infoname: "Drum [6 gp]",
 		name: "Drum",
 		amount: "",
 		weight: 3,
-		type: "musical instrument"
+		type: "musical instrument",
 	},
 	"dulcimer": {
 		infoname: "Dulcimer [25 gp]",
 		name: "Dulcimer",
 		amount: "",
 		weight: 10,
-		type: "musical instrument"
+		type: "musical instrument",
 	},
 	"flute": {
 		infoname: "Flute [2 gp]",
 		name: "Flute",
 		amount: "",
 		weight: 1,
-		type: "musical instrument"
+		type: "musical instrument",
 	},
 	"horn": {
 		infoname: "Horn [3 gp]",
 		name: "Horn",
 		amount: "",
 		weight: 2,
-		type: "musical instrument"
+		type: "musical instrument",
 	},
 	"lute": {
 		infoname: "Lute [35 gp]",
 		name: "Lute",
 		amount: "",
 		weight: 2,
-		type: "musical instrument"
+		type: "musical instrument",
 	},
 	"lyre": {
 		infoname: "Lyre [30 gp]",
 		name: "Lyre",
 		amount: "",
 		weight: 2,
-		type: "musical instrument"
+		type: "musical instrument",
 	},
 	"pan flute": {
 		infoname: "Pan flute [12 gp]",
 		name: "Pan flute",
 		amount: "",
 		weight: 2,
-		type: "musical instrument"
+		type: "musical instrument",
 	},
 	"shawm": {
 		infoname: "Shawm [2 gp]",
 		name: "Shawm",
 		amount: "",
 		weight: 1,
-		type: "musical instrument"
+		type: "musical instrument",
 	},
 	"viol": {
 		infoname: "Viol [30 gp]",
 		name: "Viol",
 		amount: "",
 		weight: 1,
-		type: "musical instrument"
+		type: "musical instrument",
 	},
 	"navigator's tools": {
 		infoname: "Navigator's tools [25 gp]",
@@ -2279,7 +2236,7 @@ var Base_ToolsList = {
 		name: "Thieves' tools",
 		amount: "",
 		weight: 1,
-	}
+	},
 };
 
 var Base_WeaponMasteriesList = {

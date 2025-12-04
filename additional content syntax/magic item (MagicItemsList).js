@@ -301,7 +301,6 @@ MagicItemsList["staff of purple"] = {
 		skillProfsLC,   	// array; same as skillProfs, but all lowercase
 		skillExpertise,    	// array; the skills the character has expertise with, one skill name per array entry
 		skillExpertiseLC,  	// array; same as skillExpertise, but all lowercase
-		hasEldritchBlast,	// boolean; true if the character has the Eldritch Blast cantrips
 		choice,      		// string; the sub-choice of this magic item (empty string if no choice)
 	}
 	N.B. The first entry of both the toolProfs and languageProfs arrays is the contents of the 'More Proficiency' field
@@ -457,7 +456,7 @@ MagicItemsList["staff of purple"] = {
 	The full range of formatting options will only be applicable if the `descriptionFull`
 	is used in a field on the sheet.
 	This can happen if the magic item has the `toNotesPage` attribute with
-	`useFullDescription: true`, for example.
+	`useDescriptionFull: true`, for example.
 */
 	calculate : "event.value = 'I can spend 10 minutes inspiring up to 6 friendly creatures within 30 feet who can see or hear and can understand me. Each gains lvl (' + What('Character Level') + ') + Cha mod (' + What('Cha Mod') + \") temporary hit points. One can't gain temporary hit points from this item again until after a short rest.\";",
 /*	calculate // OPTIONAL //

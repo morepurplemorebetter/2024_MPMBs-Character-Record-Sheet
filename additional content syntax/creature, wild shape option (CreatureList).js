@@ -113,6 +113,29 @@ CreatureList["purple crawler"] = {
 	Find Steed, Find Greater Steed, a ranger's companion or something similar,
 	then these alternative names will also be shown in the menu options.
 */
+	nameThis: "crawler",
+/*	nameThis // OPTIONAL //
+	TYPE:	string
+	USE:	name to use for "[THIS]"
+	ADDED:	v14.0.1
+
+	This attribute is only useful if the following two things are true:
+		1) You only want a part of the `name` to show up in the Features, Traits, and
+		   Notes sections.
+		2) Any `description` attribute of an object in the `features`, `actions`,
+		   `traits`, or `notes` arrays contain the string "[THIS]".
+
+	If the provided string in this attribute is present in the name entered in the race
+	drop-down box, the `nameThis` will be used to replace "[THIS]" instead of the name
+	entered.
+	Normally, the sheet will use the text written in the race drop-down box, but removes
+	the text "Giant" and "Dire".
+
+	Use `nameThis` if the name is too long.
+	For example, the "Constrictor Snake" has `nameThis: "snake"`.
+
+	Setting this to an empty string is the same as not including it.
+*/
 	source: ["SRD", 204],
 	source: [["E", 7], ["S", 115]],
 /*	source // REQUIRED //
@@ -381,7 +404,7 @@ CreatureList["purple crawler"] = {
 	a comma followed by a line break.
 */
 	proficiencyBonus: 2,
-/*	speed // REQUIRED //
+/*	proficiencyBonus // REQUIRED //
 	TYPE:	number
 	USE:	set the proficiency bonus
 
@@ -465,22 +488,22 @@ CreatureList["purple crawler"] = {
 	Setting this attribute to false is the same as not including this attribute.
 */
 	senses: "Darkvision 60 ft",
-/*	senses	// REQUIRED //
+/*	senses	// OPTIONAL //
 	TYPE:	string
 	USE:	add text to the Senses section on the Companion page
+	CHANGE:	v24.0.1 (made optional)
 
 	Even though most creature stat blocks list Passive Perception under senses, do not include
-	it in this attribute. Passive Perception will be calculated automatically from the Perception bonus.
-	If Passive Perception is different than 10 + Perception bonus, you can use the `addMod` attribute
-	to add the bonus to the modifier field.
+	it in this attribute. Passive Perception will be calculated automatically from the
+	Perception bonus.
+	If Passive Perception is different than 10 + Perception bonus, you can use the `addMod`
+	attribute to add the bonus to the modifier field.
 
-	If the creature doesn't have any special senses, set an empty string for this attribute, like so:
-		senses: "",
-
-	This text are also displayed on the wild shape page, but in the singular Traits & Features section,
-	together with all other descriptive string, traits, features, and action attributes.
-	As the wild shape pages offer limited space, it is recommended to test if all of these and
-	the other attributes together will fit.
+	This text are also displayed on the wild shape page, but in the singular Traits &
+	Features section, together with all other descriptive `traits`, `features`, and
+	`action` attributes.
+	As the wild shape pages offer limited space, it is recommended to test if all of these
+	and the other attributes together will fit.
 	If they don't fit (well), consider using the `wildshapeString` attribute, see below.
 */
 	attacksAction: 2,
@@ -542,7 +565,7 @@ CreatureList["purple crawler"] = {
 	the Proficiency Bonus of +2.
 */
 	damage_vulnerabilities: "cold",
-	vulnerabilities: "cold",
+	vulnerabilities: "Cold",
 	damage_resistances: "lightning; thunder; bludgeoning, piercing, and slashing from nonmagical weapons",
 	resistances: "Cold, Fire, Lightning",
 	damage_immunities: "poison",
@@ -623,31 +646,57 @@ CreatureList["purple crawler"] = {
 			"Once per long rest, it can cast Hypnotic Pattern without requiring components"
 		]),
 		joinString: ""
+	}, {
+		useSpellDescription: "find familiar",
+		formatSpellDescription: function(str) {
+			return str.replace(
+				"an animal form I choose: Bat, Cat, Frog, Hawk, Lizard, Octopus, Owl, Rat, Raven, Spider, Weasel, or another Beast that has a Challenge Rating of 0.",
+				"the form of a CR 0 Beast of my choice."
+			);
+		},
 	}],
 /*	features // OPTIONAL //
 	actions  // OPTIONAL //
 	traits   // OPTIONAL //
-	notes   // OPTIONAL // since v13.1.11
+	notes    // OPTIONAL // since v13.1.11
 	TYPE:	array (variable length) with objects
 	USE:	add text to the Traits and Features sections on the Companion page
 	CHANGE:	v13.1.0 (added `joinString` attribute)
 	CHANGE:	v13.1.11 (added `notes`)
 	CHANGE: v14.0.0 (formatting characters)
+	CHANGE: v24.0.0 (added `useSpellDescription`)
 
-	Each of these three attributes work in the same way.
-	Each is an array with objects that have at least two attributes, `name` and `description`, that each contain a string.
+	Each of these four attributes work in the same way.
+	Each is an array with objects that have either:
+		Option 1:
+			At least two attributes, `name` and `description`, each containing a string.
+	- or -
+		Option 2:
+		  - At least the `useSpellDescription` attribute, a string containing a 
+			SpellsList key.
+		  - The description is taken from the referenced SpellsList object's
+			`descriptionFull` attribute, transformed to first person, and added after the
+			provided `description` with a line break in between.
+		  - If no `name` is provided, the name of the SpellsList object will be used.
+			With this option, both the `name` and `description` attributes are optional.
+		  - The sheet's automated transformation to the first person is not perfect.
+			To remedy this, you can set the optional `formatSpellDescription` attribute,
+			see below.
 
-	Each object can also have the following optional attributes:
-		ATTRIBUTE   EXPLANATION
-		minlevel    determines at which level the feature is added 
-		addMod      add custom modifiers to calculated values
-		eval        run a function when added (useful combined with minlevel)
-		removeeval  run a function when removed (useful combined with minlevel)
-	For a more detailed explanation of these attributes, see below in the
-	Companion Page Only section.
+	Each object can also have several optional attributes.
+	See below in the Companion Page Only section what else you can set.
 
-	Each name is preceded by a bullet point, made into a "header 2" and, by default, followed
-	by a period and the description, for example:
+	The string "[THIS]" in the `description` attribute wil be replaced with the text
+	entered into the Race dropdown box.
+	This way, alternative names granted by the `nameAlt` attribute are reflected correctly
+	in the Traits, Features, and Notes sections.
+	If the `nameThis` attribute is present and part of the string entered in the
+	dropdown, then it will be used instead of the name.
+	Use `nameThis` if the name is too long.
+	For example, the "Constrictor Snake" has `nameThis: "snake"`.
+
+	Each name is preceded by a bullet point, made into a "header 2" and, by default,
+	followed by a period and the description, for example:
 		{
 			name: "Invisibility",
 			description: "As an action, the purple crawler magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell)."
@@ -678,17 +727,18 @@ CreatureList["purple crawler"] = {
 	 notes  		 Notes (left)
 
 	> `features`
-	Be aware that languages, resistances, vulnerabilities, and immunities are also added to the
-	Features section on the companion page and before the features attribute described here.
+	Be aware that languages, resistances, vulnerabilities, and immunities are also added
+	to the Features section on the companion page and before the features attribute
+	described here.
 
 	> `actions` & `traits`
 	The actions are added before traits to the Traits section.
 
 	> `notes`
-	Starting with v13.1.11, the array in `notes` is added to the notes section before any notes from a
-	CompanionList selection are added.
-	Be aware that if you add anything in the `notes` of a CreatureList object, some CompanionList options
-	will run out of space for all their notes.
+	Starting with v13.1.11, the array in `notes` is added to the notes section before any
+	notes from a CompanionList selection are added.
+	Be aware that if you add anything in the `notes` of a CreatureList object, some
+	CompanionList options will run out of space for all their notes.
 	Notes are not displayed on the wild shape page.
 
 	The array is processed in the order it is in the code, no sorting will take place.
@@ -723,7 +773,7 @@ CreatureList["purple crawler"] = {
 	The below attributes won't affect anything when the creature is select as a wild shape,
 	but they will work on a Companion page.
 */
-
+	minlevel: 5,
 /*	minlevel // OPTIONAL //
 	(Part of `features`, `traits`, `actions`, or `notes` object, see above)
 	TYPE:	number
@@ -932,6 +982,26 @@ CreatureList["purple crawler"] = {
 	This attribute is processed last, after all other attributes have been processed.
 	It is processed both when the creature is first added to the companion page and
 	when the main character's level changes, but not when the creature is removed.
+*/
+
+	formatSpellDescription: function(str) { return str.replace("if I was I", "if I were you"); },
+/*	formatSpellDescription // OPTIONAL //
+	TYPE:	function
+	USE:	amend the 
+	ADDED:	v24.0.0
+
+	This attribute is only useful if the `useSpellDescription` attribute is set, see above.
+
+	Use this attribute if the sheet's automated transformation of the SpellList's
+	`descriptionFull` attribute from the second to the first person has issues.
+
+	The function of this attribute is passed a single parameter: the string after being
+	transformed from the second to the first person.
+	The string returned by this function is then used instead.
+
+	You can also use this to add/remove/change wording of the `descriptionFull` of the spell.
+
+	Setting this to 0 or false is the same as not including this attribute.
 */
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>> //

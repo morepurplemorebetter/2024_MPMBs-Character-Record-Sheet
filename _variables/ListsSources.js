@@ -1,7 +1,7 @@
 var Base_SourceList = {
 	// Basic sources
 	"SRD24" : {
-		name: "System Reference Document 5.2.1",
+		name: "System Reference Document v5.2.1",
 		abbreviation: "SRD'24",
 		abbreviationSpellsheet: "SR",
 		group: "Primary Sources",
@@ -14,5 +14,5 @@ var Base_SourceList = {
 		abbreviation: "Homebrew",
 		abbreviationSpellsheet: "HB",
 		group: "default",
-	}
+	},
 };
