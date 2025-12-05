@@ -5869,10 +5869,10 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 			// define some variables that we can check against later or with the CurrentEvals
 			var WeaponText = inputText + " " + fields.Description;
 			var isSpell = thisWeapon[3] || (theWea && /cantrip|spell/i.test(theWea.type)) || (!theWea && /\b(cantrip|spell)\b/i.test(WeaponText)) ? true : false;
-			var isWeapon = theWea && theWea.isNotWeapon ? false : !isSpell || (isSpell && theWea && !/cantrip|spell/i.test(theWea.type));
+			var isWeapon = theWea && theWea.isNotWeapon ? false : theWea ? /simple|martial/i.test(theWea.type) : !isSpell;
 			var isMeleeWeapon = isWeapon && /melee/i.test(fields.Range);
 			var isRangedWeapon = isWeapon && /^(?!.*melee).*\d+.*$/i.test(fields.Range);
-			var isNaturalWeapon = isWeapon && theWea && /natural/i.test(theWea.type);
+			var isNaturalWeapon = theWea && /natural/i.test(theWea.type);
 			var isThrownWeapon = isWeapon && /\bthrown\b/i.test(fields.Description) && /\d ?(ft|m)\.?($|[^)])/i.test(fields.Range);
 
 			var gatherVars = {

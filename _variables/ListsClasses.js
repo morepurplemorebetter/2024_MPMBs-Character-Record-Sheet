@@ -617,7 +617,7 @@ var Base_ClassList = {
 			}
 		}
 	},
-
+*/
 	"cleric": {
 		regExpSearch: /cleric|priest|clergy|acolyte/i,
 		name: "Cleric",
@@ -674,25 +674,68 @@ var Base_ClassList = {
 					return cantrips + " cantrips known \x26 " + spells + " spells to prepare";
 				}),
 			},
-			"channel divinity" : {
-				name : "Channel Divinity",
-				source : [["SRD", 16], ["P", 58]],
-				minlevel : 2,
-				description : desc("I can channel divine energy to cause an effect; the save for this is my cleric spell DC"),
-				usages : [0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3],
-				recovery : "Short Rest"
+			"divine order": {
+				name: "Divine Order",
+				source: [["SRD24", 37], ["P24", 70]],
+				minlevel: 1,
+				description: '\nSelect a Divine Order using the "Choose Feature" button above.',
+				choices: ["Protector", "Thaumaturge"],
+				"protector": {
+					name: "Protector Divine Order",
+					description: '\nI gain proficiency with Martial weapons and training with Heavy armor.',
+					armorProfs: [false, false, true, false],
+					weaponProfs: [false, true],
+				},
+				"thaumaturge": {
+					name: "Thaumaturge Divine Order",
+					description: '\nI add my Wis mod to my Int (Arcana or Religion) checks and know one extra Cleric cantrip.',
+					addMod: [
+						{type: "skill", field: "Arcana", mod: "max(Wis|1)", text: "I add my Wisdom modifier (minimum +1) to my Intelligence (Arcana) checks."},
+						{type: "skill", field: "Religion", mod: "max(Wis|1)", text: "I add my Wisdom modifier (minimum +1) to my Intelligence (Religion) checks."},
+					],
+					spellcastingBonus: [{
+						name: "Thaumaturge Divine Order",
+						"class": ["cleric"],
+						level: [0, 0],
+					}],
+				},
 			},
-			"turn undead" : {
-				name : "Channel Divinity: Turn Undead",
-				source : [["SRD", 16], ["P", 59]],
-				minlevel : 2,
-				description : desc([
-					"As an action, all undead within 30 ft that can see/hear me must make a Wisdom save",
-					"If an undead fails this save, it is turned for 1 minute or until it takes any damage",
-					"Turned: move away, never within 30 ft of me, no reactions or actions other than Dash",
-					"Turned: may Dodge instead of Dash when nowhere to move and unable to escape bonds"
-				]),
-				action : [["action", ""]]
+			"channel divinity": {
+				name: "Channel Divinity",
+				source: [["SRD24", 37], ["P24", 70]],
+				minlevel: 2,
+				description: "\nI regain one use on a Short Rest. Effects use my Cleric spell save DC. See options below.",
+				usages: [0, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4],
+				recovery: "Long Rest",
+				additional: "regain 1/SR",
+			},
+			"divine spark": {
+				name: "Divine Spark",
+				source: [["SRD24", 37], ["P24", 70]],
+				minlevel: 2,
+				description: levels.map(function (n) {
+					var dice = n < 7 ? 1 : n < 13 ? 2 : n < 18 ? 3 : 4;
+					return "\nAs a Magic action, I can expend a use of Channel Divinity to focus divine energy on another I can see within 30 ft. I either restore " + dice + "d8 + my Wisdom modifier of its HP or deal that in Necrotic or Radiant damage (my choice). It can make a Constitution save for half damage.";
+				}),
+				action: [["action", "Divine Spark (Channel Divinity)"]],
+				additional: levels.map(function (n) {
+					return n < 2 ? "" : (n < 7 ? 1 : n < 13 ? 2 : n < 18 ? 3 : 4) + "d8 + Wisdom modifier";
+				}),
+			},
+			"turn undead": {
+				name: "Turn Undead",
+				source: [["SRD24", 37], ["P24", 70]],
+				minlevel: 2,
+				description: levels.map(function (n) {
+					var txt = "\nAs a Magic action, I can expend a use of Channel Divinity to have all chosen undead within 30 ft make a Wisdom save or be Frightened, Incapacitated, and move as far from me as it can on its turns. This lasts for 1 minute or until it takes damage, I'm Incapacitated, or I die.";
+					if (n >= 5) txt += "\nIf it fails its save, it also takes my Wisdom modifier (min 1) number of d8s Radiant damage.";
+					return txt;
+				}),
+				action: [["action", "Turn Undead (Channel Divinity)"]],
+				additional: levels.map(function (n) {
+					// from Sear Undead
+					return n < 5 ? "" : "Wis mod d8s Radiant " + (typePF ? "dmg" : "damage");
+				}),
 			},
 			"subclassfeature3": {
 				name: "Cleric Subclass",
@@ -700,29 +743,103 @@ var Base_ClassList = {
 				minlevel: 3,
 				description: '\nChoose a Cleric Subclass using the "Class" button/bookmark or type its name into the "Class" field.',
 			},
-			"destroy undead" : {
-				name : "Destroy Undead",
-				source : [["SRD", 17], ["P", 59]],
-				minlevel : 5,
-				additional : ["", "", "", "", "CR \u00BD or lower", "CR \u00BD or lower", "CR \u00BD or lower", "CR 1 or lower", "CR 1 or lower", "CR 1 or lower", "CR 2 or lower", "CR 2 or lower", "CR 2 or lower", "CR 3 or lower", "CR 3 or lower", "CR 3 or lower", "CR 4 or lower", "CR 4 or lower", "CR 4 or lower", "CR 4 or lower"],
-				description : desc("An undead up to the CR above that fails its save when I use Turn Undead is destroyed")
+			"sear undead": {
+				name: "Sear Undead",
+				source: [["SRD24", 37], ["P24", 71]],
+				minlevel: 5,
+				description: " [Turn Undead deals damage]",
 			},
-			"divine intervention" : {
-				name : "Divine Intervention",
-				source : [["SRD", 17], ["P", 59]],
-				minlevel : 10,
-				additional : ["", "", "", "", "", "", "", "", "", "10% chance", "11% chance", "12% chance", "13% chance", "14% chance", "15% chance", "16% chance", "17% chance", "18% chance", "19% chance", "100% chance"],
-				usages : 1,
-				recovery : "Long Rest",
-				description : desc([
-					"As an action, I can implore my deity for help; the DM determines the form of help",
-					"Without intervention, I can retry after a long rest; otherwise, I have to wait a week"
-				]),
-				action : [["action", ""]]
-			}
-		}
+			"blessed strikes": {
+				name: "Blessed Strikes",
+				source: [["SRD24", 38], ["P24", 71]],
+				minlevel: 7,
+				description: '\nSelect a Blessed Strikes option using the "Choose Feature" button above.',
+				choices: ["Divine Strike", "Potent Spellcasting"],
+				"divine strike": {
+					name: "Divine Strike",
+					description: levels.map(function (n) {
+						var dice = n < 14 ? 1 : 2;
+						return n < 7 ? "" : "\nOnce per turn I can deal +" + dice + "d8 Radiant/Necrotic damage to a creature I hit with a weapon.";
+					}),
+					additional: levels.map(function (n) {
+						return n < 7 ? "" : "+" + (n < 14 ? 1 : 2) + "d8 Radiant or Necrotic damage";
+					}),
+					calcChanges : {
+						atkAdd : [
+							function (fields, v) {
+								if (classes.known.cleric && v.isWeapon && !v.isDC) {
+									fields.Description += (fields.Description ? '; ' : '') + '1/turn +' + (classes.known.cleric.level < 14 ? 1 : 2) + 'd8 Radiant/Necrotic damage';
+								}
+							},
+							"Once per turn when I hit a creature with an attack roll using a weapon, I can deal the target extra Necrotic or Radiant damage (my choice).",
+						],
+					},
+				},
+				"potent spellcasting": {
+					name: "Potent Spellcasting",
+					description: levels.map(function (n) {
+						return n < 14 ? "\nI add my Wisdom modifier to the damage I deal with my Cleric cantrips." : "\nMy Cleric cantrips get my Wisdom modifier added to their damage. When I deal damage with one, I can grant myself or a creature within 60 ft twice my Wisdom mod in Temp " + (typePF ? "Hit Points." : "HP.");
+					}),
+					calcChanges: {
+						atkCalc: [
+							function (fields, v, output) {
+								if (v.thisWeapon[3] && /\bcleric\b/.test(v.thisWeapon[4]) && SpellsList[v.thisWeapon[3]].level === 0 && /\d/.test(fields.Damage_Die)) {
+									output.extraDmg += Number(What('Wis Mod'));
+								};
+							},
+							"My Cleric cantrips get my Wisdom modifier added to their damage.",
+						],
+						spellAdd: [
+							function (spellKey, spellObj, spName) {
+								var wisMod = Number(What("Wis Mod"));
+								if (spellObj.psionic || spellObj.level !== 0 || spName.indexOf("cleric") == -1 || wisMod <= 0) return;
+								return genericSpellDmgEdit(spellKey, spellObj, "\\w+\\.?", wisMod);
+							},
+							"My cleric cantrips get my Wisdom modifier added to their damage.",
+						],
+					},
+				},
+				choiceDependencies: [{
+					feature: "improved blessed strikes",
+				}],
+			},
+			"divine intervention": {
+				name: "Divine Intervention",
+				source: [["SRD24", 38], ["P24", 71]],
+				minlevel: 10,
+				description: "\nAs a Magic action, I can cast one Cleric spell of level 5 or lower of my choice that doesn't require a Reaction to cast. I cast it without requiring a spell slot or Material components.",
+				action: [["action", ""]],
+				usages: 1,
+				recovery: "Long Rest",
+			},
+			"improved blessed strikes": {
+				name: "Improved Blessed Strikes",
+				source: [["SRD24", 38], ["P24", 71]],
+				minlevel: 14,
+				description: '\nSelect a Blessed Strikes option using the "Choose Feature" button above.',
+				choices: ["divine strike", "potent spellcasting"],
+				choicesNotInMenu: true,
+				"divine strike": {
+					name: "Improved Divine Strike",
+					description: " [damage increases to 2d8]",
+				},
+				"potent spellcasting": {
+					name: "Improved Potent Spellcasting",
+					description: " [grants Temporary Hit Points]",
+				},
+			},
+			"greater divine intervention": {
+				name: "Greater Divine Intervention",
+				source: [["SRD24", 38], ["P24", 71]],
+				minlevel: 20,
+				description: desc([
+					"When I use Divine Intervention, I can choose Wish when I select a spell.",
+					"If I do so, I can't use Divine Intervention again until I finish 2d4 Long Rests.",
+				], "\n"),
+			},
+		},
 	},
-
+/*
 	"druid": {
 		regExpSearch: /druid|shaman/i,
 		name: "Druid",
@@ -2642,8 +2759,9 @@ var Base_ClassList = {
 					var cantr = [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4][idx];
 					var splls = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15][idx];
 					var slots = n < 2 ? 1 : n < 11 ? 2 : n < 17 ? 3 : 4;
-					var sllvl = n < 3 ? 1 : n < 5 ? 2 : n < 7 ? 3 : n < 9 ? 4 : 5;
-					return cantr + " cantrips \x26 " + splls + " spells known; " + slots + "\xD7 " + Base_spellLevelList[sllvl] + " spell slot";
+					var slLvl = n < 3 ? 1 : n < 5 ? 2 : n < 7 ? 3 : n < 9 ? 4 : 5;
+					var sltxt = typePF ? "level " + slLvl : Base_spellLevelList[slLvl];
+					return cantr + " cantrips \x26 " + splls + " spells; " + slots + "\xD7 " + sltxt + " spell slot";
 				}),
 			},
 			"magical cunning": {
@@ -2658,7 +2776,7 @@ var Base_ClassList = {
 				usages: 1,
 				additional: levels.map(function (n) {
 					if (n < 2) return "";
-					var nmbr = n < 11 ? 1 : n < 20 ? 2 : 4;
+					var nmbr = n < 11 ? 1 : n < 20 ? 2 : "all";
 					return nmbr + " spell slot" + (nmbr > 1 ? "s" : "");
 				}),
 			},
@@ -3057,153 +3175,120 @@ var Base_ClassSubList = {
 			}
 		}
 	},
+*/
 	"cleric-life" : {
 		regExpSearch : /^(?=.*(cleric|priest|clergy|acolyte))(?=.*\b(life|living|healing)\b).*$/i,
-		subname : "Life Domain",
-		source : [["SRD", 17], ["P", 60]],
-		spellcastingExtra : ["bless", "cure wounds", "lesser restoration", "spiritual weapon", "beacon of hope", "revivify", "death ward", "guardian of faith", "mass cure wounds", "raise dead"],
+		subname: "Life Domain",
+		source: [["SRD24", 40], ["P24", 73]],
 		features: {
-			"subclassfeature1" : {
-				name : "Bonus Proficiency",
-				source : [["SRD", 17], ["P", 60]],
-				minlevel : 1,
-				description : desc("I gain proficiency with heavy armor"),
-				armorProfs : [false, false, true, false]
-			},
-			"subclassfeature1.1" : {
-				name : "Disciple of Life",
-				source : [["SRD", 17], ["P", 60]],
-				minlevel : 1,
-				description : desc([
-					"Whenever a 1st-level or higher spell I cast restores HP to a creature, it heals more",
-					"The creature regains an additional 2 + spell level (SL) worth of hit points",
-					'Note that "X/SL" on the spell page means per spell slot level above the spell\'s normal level'
-				]),
-				calcChanges : {
-					spellAdd : [
-						// Includes Revivify and Raise Dead as they restore HP from 0 to 1, but omits Aid and Heroes' Feast as they increase max HP, not restore
+			"subclassfeature3": {
+				name: "Disciple of Life",
+				source: [["SRD24", 40], ["P24", 73]],
+				minlevel: 3,
+				description: "\nWhen a spell I cast with a spell slot restores HP, it restores extra 2 + slot level HP that turn.",
+				spellcastingExtra: ["bless", "cure wounds", "aid", "lesser restoration", "mass healing word", "revivify", "aura of life", "death ward", "greater restoration", "mass cure wounds"],
+				calcChanges: {
+					spellAdd: [
+						/**
+						 * Omitted because they only increase max HP, but don't restore any:
+						 * 		Aid, Heroes' Feast
+						 * Omitted because they don't restore HP on the turn they're cast:
+						 * 		Alustriel's Mooncloak, Aura of Life, Goodberry, Simbul's Synostodweomer
+						 * Included because they restore HP from 0 to 1:
+						 * 		Revivify, Raise Dead
+						*/
 						function (spellKey, spellObj, spName) {
-							if (spellObj.psionic || !spellObj.level) return;
+							if (spellObj.psionic || !spellObj.level || spellObj.firstCol === "atwill") return;
+							var disallowUpCasting = CurrentSpells[spName].allowUpcasting === false || spellObj.allowUpCasting === false;
+							var extraHP = (spellObj.level + 2) + (disallowUpCasting ? "": "+1/SL");
+							var exemption = false;
 							switch (spellKey) {
-								case "arcane vigor" :
-									spellObj.description = spellObj.descriptionShorter.replace(/in HP/i, "+ " + (spellObj.level + 2) + "+1/SL HP");
+								// Legacy - from XGtE
+								case "enervation":
+									spellObj.description = getSpellShortDescription(spellKey, spellObj).replace("heal half; see B", "heal half (at cast +" + extraHP + ")");
 									return true;
-								case "enervation" :
-								case "life transference" :
-								case "vampiric touch" :
-									var useSpellDescr = getSpellShortDescription(spellKey, spellObj);
-									var strAdd = " +" + (spellObj.level + 2) + "+1/SL";
-									spellObj.description = useSpellDescr.replace(/(heals? (half|twice)( the damage dealt| that)?)( in HP)?/, "$1" + strAdd);
+								case "life transference":
+									spellObj.description = getSpellShortDescription(spellKey, spellObj).replace("heals twice that in HP", "heals twice that +" + extraHP + " HP");
 									return true;
-								case "mass heal" :
-									spellObj.description = spellObj.descriptionShorter.replace(/crea(tures)? in range.*cure[sd]/i, "crea in range, each then +11 HP, cured");
+								// Only at cast
+								case "vampiric touch":
+									spellObj.description = spellObj.description.replace("half the", "half").replace("Act to", "Act");
+								case "conjure celestial-1-healing light":
+								case "aura of vitality":
+									spellObj.description = getSpellShortDescription(spellKey, spellObj).replace(/\bHP\b|dmg dealt/i, "$& (at cast +" + extraHP + ")");
 									return true;
-								default :
-									if (!genericSpellDmgEdit(spellKey, spellObj, "heal", (2 + spellObj.level))) return;
-									if (spellObj.level < 9) genericSpellDmgEdit(spellKey, spellObj, "heal", "1/SL");
-									spellObj.discipleOfLife = true; // for Blessed Healer and Supreme Healing
+								// Not generic, needs special attention
+								case "arcane vigor":
+									spellObj.description = spellObj.description.replace(/in HP/i, "+ " + extraHP + " HP");
+									return true;
+								case "mass heal":
+									spellObj.description = spellObj.description.replace(/crea(tures)? in range; each.*?cure[sd]/i, "crea in range; each then +11 HP \x26 cured").replace(", and", ",");
+									return true;
+								// Exemptions, not instantaneous but work well with `genericSpellDmgEdit`
+								case "regenerate":
+									exemption = true;
+								// Instantaneous heal spells (and exemptions) processed automatically
+								default:
+									if ((!exemption && !/instant/i.test(spellObj.duration)) || !genericSpellDmgEdit(spellKey, spellObj, "heal", 2 + spellObj.level, true)) return;
+									if (spellObj.level < 9 && spellObj.allowUpCasting !== false) genericSpellDmgEdit(spellKey, spellObj, "heal", "1/SL", true);
+									spellObj.discipleOfLife = true; // for Supreme Healing
 									return true;
 							}
 						},
-						"When I use a spell that restores hit points, it restores an additional 2 + the level of the spell slot (or spell slot equivalent) used to cast the spell."
-					]
-				}
+						"When a spell I cast with a spell slot restores Hit Points to a creature, that creature regains 2 plus the spell slot's level additional Hit Points on the turn I cast the spell.",
+					],
+				},
 			},
-			"subclassfeature2" : {
-				name : "Channel Divinity: Preserve Life",
-				source : [["SRD", 17], ["P", 60]],
-				minlevel : 2,
-				description : desc([
-					"As an action, I can heal any creature within 30 ft of me up to half their maximum HP",
-					"I divide the number of hit points among the creatures as I see fit"
-				]),
-				additional : ["", "10 hit points", "15 hit points", "20 hit points", "25 hit points", "30 hit points", "35 hit points", "40 hit points", "45 hit points", "50 hit points", "55 hit points", "60 hit points", "65 hit points", "70 hit points", "75 hit points", "80 hit points", "85 hit points", "90 hit points", "95 hit points", "100 hit points"],
-				action : [["action", ""]]
-			},
-			"subclassfeature6" : {
-				name : "Blessed Healer",
-				source : [["SRD", 17], ["P", 60]],
-				minlevel : 6,
-				description : desc("When I restore HP to another with a spell, I regain 2 + the spell (slot) level in HP"),
-				calcChanges : {
-					spellAdd : [
-						// note that several healing spells are skipped because they don't restore hp at casting (only later)
-						function (spellKey, spellObj, spName) {
-							var otherHealSpells = ["mass heal", "life transference", "power word heal", "resurrection", "true resurrection"];
-							var noHealAtCast = ["aura of life", "goodberry", "healing elixir-uass", "healing spirit"];
-							if (noHealAtCast.indexOf(spellKey) !== -1) return;
-							if (spellObj.discipleOfLife || otherHealSpells.indexOf(spellKey) !== -1) {
-								var useSpellDescr = getSpellShortDescription(spellKey, spellObj).replace(/spell(casting)? (ability )?mod(ifier)?/i, "spell mod");
-								var strPart = "";
-								switch (spellKey) {
-									case "aura of vitality":
-										useSpellDescr = useSpellDescr.replace("at the start of each of my turns", "at my turn's start");
-										strPart = "; if other at cast, I heal ";
-										break;
-									case "heal" :
-									case "life transference" :
-									case "mass heal" :
-										useSpellDescr = useSpellDescr.replace(" in range", "").replace(" I can see", "").replace("blindness, deafness", "blind, deaf");
-										break;
-									case "regenerate" :
-										useSpellDescr = useSpellDescr.replace(" for the duration; restores lost body", "; regrow");
-										break;
-									case "resurrection" :
-									case "true resurrection" :
-										useSpellDescr = useSpellDescr.replace(" with", ", ").replace("century", "100y").replace("1000gp", "1k gp");
-									case "raise dead" :
-									case "revivify" :
-										useSpellDescr = useSpellDescr.replace(/(Resurrects?|Restores?) (a )?crea(ture)?('s)? (body )?that (has )?died in( the)?/i, "Restore crea that died in");
-										break;
-								};
-								var alwaysOthers = ["life transference", "raise dead", "revivify", "resurrection", "true resurrection"];
-								if (!strPart) strPart = alwaysOthers.indexOf(spellKey) === -1 ? "; if other, I heal " : "; I heal ";
-								var strAdd = spellObj.level < 9 ? strPart + (spellObj.level + 2) + (spellObj.noSpellUpcasting ? "" : "+1/SL") + " HP" : strPart + "11 HP";
-								spellObj.description = useSpellDescr + strAdd;
-								return true;
-							}
-						},
-						"When I cast a spell that restores hit points to another creature than myself at the moment of casting, I also heal 2 + the level of the spell slot (or spell slot equivalent) hit points."
-					]
-				}
-			},
-			"subclassfeature8" : {
-				name : "Divine Strike",
-				source : [["SRD", 17], ["P", 60]],
-				minlevel : 8,
-				description : desc("Once per turn, when I hit a creature with a weapon attack, I can do extra damage"),
-				additional : levels.map(function (n) {
-					if (n < 8) return "";
-					return "+" + (n < 14 ? 1 : 2) + "d8 radiant damage";
+			"subclassfeature3.1": {
+				name: "Channel Divinity: Preserve Life",
+				source: [["SRD24", 40], ["P24", 73]],
+				minlevel: 3,
+				description: "\nAs a Magic action, I can expend a use of Channel Divinity to heal Bloodied creatures within 30 ft (me included) up to half their HP maximum. I divide the HP among them as I see fit.",
+				additional: levels.map(function (n) {
+					return n < 3 ? "" : "divide " + (n * 5) + " Hit Points";
 				}),
-				calcChanges : {
-					atkAdd : [
-						function (fields, v) {
-							if (classes.known.cleric && v.isWeapon) {
-								fields.Description += (fields.Description ? '; ' : '') + 'Once per turn +' + (classes.known.cleric.level < 14 ? 1 : 2) + 'd8 radiant damage';
-							}
-						},
-						"Once per turn, I can have one of my weapon attacks that hit do extra radiant damage."
-					]
-				}
+				action: [["action", "Preserve Life (Channel Divinity)"]]
 			},
-			"subclassfeature17" : {
-				name : "Supreme Healing",
-				source : [["SRD", 17], ["P", 60]],
-				minlevel : 17,
-				description : desc("When I restore HP with a spell, I heal the maximum amount instead of rolling the dice"),
-				calcChanges : {
-					spellAdd : [
+			"subclassfeature6": {
+				name: "Blessed Healer",
+				source: [["SRD24", 40], ["P24", 74]],
+				minlevel: 6,
+				description: "\nAfter I cast a spell with a spell slot that restores HP to another, I regain 2 + slot level HP.",
+			},
+			"subclassfeature17": {
+				name: "Supreme Healing",
+				source: [["SRD24", 40], ["P24", 74]],
+				minlevel: 17,
+				description: "\nWhen I restore HP with a spell or Channel Divinity, I don't roll dice but use their maximum.",
+				calcChanges: {
+					spellAdd: [
 						function (spellKey, spellObj, spName) {
-							if (!spellObj.discipleOfLife) return;
-							return genericSpellDmgEdit(spellKey, spellObj, "heal", false, false, true, true);
+							var exemption = false;
+							switch (spellKey) {
+								// Not generic, needs special attention
+								case "arcane vigor":
+									spellObj.description = spellObj.description.replace(" and roll", "").replace(/(Heal) (roll)/i, "$1 max dice $2");
+									return true;
+								// Exemptions
+								case "conjure celestial":
+									exemption = !CurrentCasters.useDependencies;
+									break;
+								case "conjure celestial-1-healing light":
+									exemption = true;
+									break;
+							}
+							// Maximize dice for those set by Disciple of Life and exemptions
+							if (exemption || spellObj.discipleOfLife) {
+								return genericSpellDmgEdit(spellKey, spellObj, "heal", false, false, true, true);
+							}
 						},
 						"When I use a spell that restores hit points by rolling one or more dice to restore hit points with a spell, I instead use the highest number possible for each die."
 					]
-				}
-			}
-		}
+				},
+			},
+		},
 	},
+/*
 	"druid-land" : {
 		regExpSearch : /^(?=.*(druid|shaman))(?=.*\b(land|arctic|coast|deserts?|forests?|grasslands?|savannah|steppes?|mountains?|swamps?|underdark)\b).*$/i,
 		subname : "Circle of the Land",
@@ -3963,7 +4048,7 @@ var Base_ClassSubList = {
 				minlevel: 6,
 				description: "\nWhen I make an ability check or save, I can add +1d10 after the d20 roll, before its effects.",
 				recovery: "Long Rest",
-				usages: "Charisma modifier per ",
+				usages: typePF ? "Charisma mod per " : "Charisma modifier per ",
 				usagescalc: "event.value = Math.max(1, What('Cha Mod'));",
 			},
 			"subclassfeature10": {

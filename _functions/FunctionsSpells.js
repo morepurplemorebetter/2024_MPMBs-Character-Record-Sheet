@@ -131,12 +131,6 @@ function GetSpellObject(theSpl, theCast, firstCol, noOverrides, tipShortDescr) {
 		})
 		aSpell.changesObj["Magic Item"] = "\n \u2022 Spells cast by magic items don't require any components except the magic item itself, unless otherwise specified in the magic item's description.";
 	}
-	// If this spell is gained from an item remove scaling effects (2024 change: race & feat spells can now be upcast by default)
-	if (aCast && !aCast.allowUpCasting && (aCast.allowUpCasting === false || aCast.typeSp == "item" || aCast.refType == "item")) {
-		if (removeSpellUpcasting(aSpell)) {
-			aSpell.changesObj["Innate Spellcasting"] = "\n \u2022 Spell cast by magic items can only be cast at the spell's lowest possible level, not with higher level spell slots.";
-		}
-	}
 	// Apply spell overrides for this CurrentSpells entry
 	if (!noOverrides && aCast && aCast.spellAttrOverride && aCast.spellAttrOverride[theSpl]) {
 		var theOver = aCast.spellAttrOverride[theSpl];
@@ -149,8 +143,12 @@ function GetSpellObject(theSpl, theCast, firstCol, noOverrides, tipShortDescr) {
 			aSpell[key] = theOver[key];
 		}
 	}
-	// If this set the spell to not allow upcasting, apply this now
-	if (aSpell.allowUpCasting === false) removeSpellUpcasting(aSpell);
+	// If this spell is gained from an item remove scaling effects (2024 change: race & feat spells can now be upcast by default)
+	if (aCast && !aCast.allowUpCasting && !aSpell.allowUpCasting && (aCast.allowUpCasting === false || aSpell.allowUpCasting === false || aCast.typeSp == "item" || aCast.refType == "item")) {
+		if (removeSpellUpcasting(aSpell) && aSpell.allowUpCasting === undefined) {
+			aSpell.changesObj["Innate Spellcasting"] = "\n \u2022 Spell cast by magic items can only be cast at the spell's lowest possible level, not with higher level spell slots.";
+		}
+	}
 
 	// Change some things into metric if set to do so
 	if (isMetric) {
@@ -299,7 +297,7 @@ function removeSpellUpcasting(oSpell) {
 			.replace(/, within (30 ft|10 m) of each other,?|, each max (30 ft|10 m) apart,?|; \+\d+d\d+ at CL.*?17/ig, '');
 		bReturn = true;
 	})
-	oSpell.noSpellUpcasting = true;
+	oSpell.allowUpCasting = false;
 	return bReturn;
 }
 
@@ -312,7 +310,7 @@ function applySpellcastingAbility(oSpell, oCast) {
 	if (theAbi) {
 		var theAbiMod = Number(What(theAbi + " Mod"));
 		var newSpellDescr = oSpell.description;
-		var spellAbiModRx = /(\+ ?)?(my )?spell(casting)? (ability )?mod(ifier)?/i;
+		var spellAbiModRx = /(\+ ?)?(?:my )?(spell)(?:cast)?(?:ing)? (?:abi(?:lity)? )?(mod)(?:ifier)?/i;
 		if (spellAbiModRx.test(newSpellDescr)) { // modifier
 			newSpellDescr = newSpellDescr.replace(spellAbiModRx, (theAbiMod >= 0 ? "+" + theAbiMod : theAbiMod) + " (" + theAbi + ")");
 		}
@@ -5818,7 +5816,7 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 	var abiIfUpcasting = abiIsStr && /\/(\d*SL|PP|extra \w+)/i.test(abiMod);
 
 	// Stop now if there is nothing (positive) to add or nothing to maximize
-	if (!maximizeRolls && ((isNaN(ability) && abiMod < 1) || abiMod === 0 || (abiIfUpcasting && spellObj.noSpellUpcasting))) return;
+	if (!maximizeRolls && ((isNaN(ability) && abiMod < 1) || abiMod === 0 || (abiIfUpcasting && spellObj.allowUpCasting === false))) return;
 
 	// Get the spell description to use, the 'shorter' spell description, if defined
 	var useSpellDescr = spellObj.genericSpellDmgEdit ? spellObj.description : getSpellShortDescription(spellKey, spellObj);
@@ -5970,7 +5968,7 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 	} else if (/\bany\b/i.test(dmgType)) {
 		dmgType = "\\w+\\.?";
 	}
-	var sRegex = (isHealing ? "(heals? |to life with )" : "") + "((?:\\+?\\d+d?\\d*)+)((?:\\+(?:\\((?:\\+?\\d+d?\\d*)+\\)|\\d+d?\\d*)\\/(?:\\d*SL|PP|extra \\w+))*(?:\\+ ?(?:my )?spell(?:casting)? (?:ability )?mod(?:ifier)?|(?:\\+|-)\\d+ \\(.{3}\\))? (?:" + (isHealing ? "" : dmgType) + ") ?(?:" + (isHealing ? "hp|hit points?" : "dmg|damage") + ")(?: per \\w+| each|/rnd|/turn)?)";
+	var sRegex = (isHealing ? "(heals? |to life with )" : "") + "((?:\\+?\\d+d?\\d*)+)((?:\\+(?:\\((?:\\+?\\d+d?\\d*)+\\)|\\d+d?\\d*)\\/(?:\\d*SL|PP|extra \\w+))*(?:\\+ ?spell mod|(?:\\+|-)\\d+ \\(.{3}\\))? (?:" + (isHealing ? "" : dmgType) + ") ?(?:" + (isHealing ? "hp|hit points?" : "dmg|damage") + ")(?: per \\w+| each|/rnd|/turn)?)";
 
 	// If the spell has multiple damage types, we need to check if any or all of them match the dmgType we are looking for
 	var onlySomeDmgTypes = false;
@@ -6108,6 +6106,7 @@ function getSpellShortDescription(spellKey, spellObj) {
 		[/(a)ttacks?/ig, '$1tk'],
 		[/(r)anged/ig, '$1ngd'],
 		[/(wea)pons?/ig, '$1'],
+		[/(?:my )?(spell)(?:cast)?(?:ing)? (?:abi(?:lity)? )?(mod)(?:ifier)?/ig, '$1 $2'],
 	];
 	for (var i = 0; i < arrTxtReplace.length; i++) {
 		useSpellDescr = useSpellDescr.replace(arrTxtReplace[i][0], arrTxtReplace[i][1]);
@@ -6189,7 +6188,7 @@ function testSpellAdd(spellAddArray, useClass, spellKeysArray, bAlsoDuplicateAsO
 			totI = FieldNumbers.spells[1];
 		};
 	}
-	var addSpell = function(aSp, bSetMetric) {
+	var addSpell = function(aSp, bSetMetric, bWithoutDependencies) {
 		setUnits(bSetMetric ? "metric" : "imperial");
 		var oSpell = SpellsList[aSp];
 		// Do not change stat or level-dependent stuff
@@ -6197,6 +6196,7 @@ function testSpellAdd(spellAddArray, useClass, spellKeysArray, bAlsoDuplicateAsO
 		// default description, no function
 		CurrentCasters.allowSpellAdd = false;
 		Value(prefix+"spells.remember."+i, aSp);
+		if (!bSetMetric && bWithoutDependencies) Value(prefix+"spells.name."+i, "[noDep] " + What(prefix+"spells.name."+i));
 		if (bSetMetric) Value(prefix+"spells.name."+i, "  [metric]");
 		nextI();
 		// edited description, run function
@@ -6246,6 +6246,19 @@ function testSpellAdd(spellAddArray, useClass, spellKeysArray, bAlsoDuplicateAsO
 	var spellToTest = spellKeysArray ? spellKeysArray : Object.keys(SpellsList);
 	spellToTest.forEach(function (aSp) {
 		var theSp = newObj(SpellsList[aSp]);
+		if (theSp.withoutDependencies) {
+			CurrentCasters.useDependencies = false;
+			var theSpShort = newObj(theSp);
+			for (var key in theSpShort.withoutDependencies) {
+				theSpShort[key] = theSpShort.withoutDependencies[key];
+			}
+			if (testFunc(aSp, theSpShort, useClass)) {
+				addSpell(aSp, false, true); // imperial units
+				addSpell(aSp, true, true); // metric units
+				nextI(true); // one empty line between spells for easier reading
+			}
+		}
+		CurrentCasters.useDependencies = true;
 		if (testFunc(aSp, theSp, useClass)) {
 			addSpell(aSp, false); // imperial units
 			addSpell(aSp, true); // metric units
@@ -6274,7 +6287,7 @@ function testSpells(spellKeysArray, useClass) {
 				return true;
 			};
 		},
-		''
+		'',
 	];
 	// use the testSpellAdd function to test the spells with this custom function
 	testSpellAdd(spellAddArray, useClass, spellKeysArray, true);
