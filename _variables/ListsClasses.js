@@ -452,7 +452,7 @@ var Base_ClassList = {
 			},
 		}
 	},
-/*
+
 	"bard": {
 		regExpSearch: /(bard|minstrel|troubadour|jongleur)/i,
 		name: "Bard",
@@ -500,22 +500,23 @@ var Base_ClassList = {
 			spells: [4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22],
 		},
 		features: {
-			"bardic inspiration" : {
-				name : "Bardic Inspiration",
+			"bardic inspiration": {
+				name: "Bardic Inspiration",
 				source: [["SRD24", 31], ["P24", 59]],
-				minlevel : 1,
-				description : desc([
-					"As a bonus action, I give a creature in 60 ft that can hear me an inspiration die (max 1)",
-					"For 10 min, the recipient can add it to one ability check, attack roll, or saving throw",
-					"This addition can be done after seeing the d20 roll, but before knowing the outcome"
-				]),
-				additional : ["d6", "d6", "d6", "d6", "d8", "d8", "d8", "d8", "d8", "d10", "d10", "d10", "d10", "d10", "d12", "d12", "d12", "d12", "d12", "d12"],
-				usages : "Charisma modifier per ",
-				usagescalc : "event.value = Math.max(1, What('Cha Mod'));",
-				recovery : levels.map(function (n) {
-					return n < 5 ? "long rest" : "short rest";
+				minlevel: 1,
+				description: "\nAs a Bonus Action, I can give a Bardic Inspiration Die (BID) to another creature within 60 ft that can see or hear me. It can only ever have one. Once within the next hour when it fails a D20 Test, the creature can add its BID to the result, potentially turning it into a success.",
+				additional: levels.map(function (n) {
+					return "d" + (n < 5 ? 6 : n < 10 ? 8 : n < 15 ? 10 : 12);
 				}),
-				action : [["bonus action", ""]]
+				usages: "Charisma modifier per ",
+				usagescalc: "event.value = Math.max(1, What('Cha Mod'));",
+				recovery: levels.map(function (n) {
+					return n < 5 ? "Long Rest" : "Short Rest"; // Font of Inspiration
+				}),
+				altResource: levels.map(function (n) {
+					return n < 5 ? "" : "SS 1+"; // Font of Inspiration
+				}),
+				action: [["bonus action", ""]],
 			},
 			"spellcasting": {
 				name: "Spellcasting",
@@ -534,7 +535,7 @@ var Base_ClassList = {
 					source: [["SRD24", 32], ["P24", 60]],
 					minlevel: 2,
 					description: "\nI gain Expertise with two skills I am proficient with, and two more at 9th level.",
-					skillstxt: "Expertise with any two skill proficiencies, and two more at 9th level",
+					skillstxt: "Expertise with any two skill proficiencies, and two more at 9th level.",
 					additional: levels.map(function (n) {
 						return n < 2 ? "" : "with " + (n < 9 ? 2 : 4) + " skills";
 					}),
@@ -553,13 +554,13 @@ var Base_ClassList = {
 				}
 				return a;
 			}(),
-			"jack of all trades" : {
-				name : "Jack of All Trades",
+			"jack of all trades": {
+				name: "Jack of All Trades",
 				source: [["SRD24", 32], ["P24", 60]],
-				minlevel : 2,
-				description : desc("I can add half my Proficiency Bonus to any ability check that doesn't already include it"),
-				eval : function() { Checkbox('Jack of All Trades', true); },
-				removeeval : function() { Checkbox('Jack of All Trades', false); }
+				minlevel: 2,
+				description: "\nI can add half my Proficiency Bonus to any skill check that doesn't otherwise use it.",
+				eval: function() { Checkbox('Jack of All Trades', true); },
+				removeeval: function() { Checkbox('Jack of All Trades', false); },
 			},
 			"subclassfeature3": {
 				name: "Bard Subclass",
@@ -571,18 +572,16 @@ var Base_ClassList = {
 				name: "Font of Inspiration",
 				source: [["SRD24", 32], ["P24", 61]],
 				minlevel: 5,
-				description : desc("I can now also recover my expended Bardic Inspiration uses after a short rest")
+				description: "\nI can expend a spell slot to regain one Bardic Inspiration use " + (typePF ? "and I" : "\x26") + " regain all after a Short Rest.",
 			},
-			"countercharm" : {
-				name : "Countercharm",
+			"countercharm": {
+				name: "Countercharm",
 				source : [["SRD", 13], ["P", 54]],
-				minlevel : 6,
-				description : desc([
-					"As an action, I can do a performance that lasts until the end of my next turn",
-					"While it lasts, any friend in earshot \x26 30 ft has adv. on saves vs. frightened/charmed"
-				]),
-				action : [["action", ""]]
+				minlevel: 7,
+				description: "\nAs a Reaction when I or a creature within 30 ft fails a save against an effect that applies the Charmed or Frightened condition, I can cause the save to be rerolled with Advantage.",
+				action: [["reaction", ""]],
 			},
+			// Done until here
 			"magical secrets" : {
 				name : "Magical Secrets",
 				source : [["SRD", 13], ["P", 54]],
@@ -607,7 +606,7 @@ var Base_ClassList = {
 			}
 		}
 	},
-*/
+
 	"cleric": {
 		regExpSearch: /cleric|priest|clergy|acolyte/i,
 		name: "Cleric",
@@ -2005,7 +2004,7 @@ var Base_ClassList = {
 				minlevel: 1,
 				description: '\nI gain mastery with a 2 Simple or Martial weapons. Whenever I finish a Long Rest, I can change these choices. Use the "Choose Feature" button above to select them.',
 				additional: "2 Weapon Masteries",
-				extraTimes: 2,
+				extraTimes: [2],
 				extraname: "Weapon Mastery",
 				choicesWeaponMasteries: true,
 			},

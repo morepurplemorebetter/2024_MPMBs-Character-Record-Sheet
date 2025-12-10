@@ -6980,7 +6980,7 @@ function MakeClassMenu() {
 				toTest = GetFeatureChoice("classes", aClass, prop, true);
 				toTestNr = nrFoundInExtraChoices(toTest, propFea.extrachoices);
 				propFea.extrachoices.sort();
-				toChooseNr = propFea.extraTimes ? propFea.extraTimes[Math.min(propFea.extraTimes.length, clLvl) - 1] : 0;
+				toChooseNr = !propFea.extraTimes ? 0 : !isArray(propFea.extraTimes) ? propFea.extraTimes : propFea.extraTimes[Math.min(propFea.extraTimes.length, clLvl) - 1];
 				toChooseNr += getBonusClassExtraChoiceNr(aClass, prop); // Add extra allowed for 'bonus' entries
 				toChooseStr = " (" + "selected " + toTestNr + (toChooseNr ? " of " + toChooseNr : "") + ")";
 				menuLVL3(tempItem, propFea.extraname + toChooseStr, propFea.extrachoices, aClass, prop, "extra", propFea, toTest);
@@ -7121,7 +7121,7 @@ function ClassFeatureOptions(Input, AddRemove, ForceExtraname) {
 		thermoM(3/5); //increment the progress dialog's progress
 
 		// do something with the text of the feature, if any description is set
-		if (propFea.description) {
+		if (propFeaCs.description !== undefined) {
 			var feaString = ParseClassFeatureExtra(
 				unknownClass ? propFea : aClass,
 				prop, choice, Fea, !addIt, ForceExtraname);
