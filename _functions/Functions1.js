@@ -6767,26 +6767,28 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 					);
 
 					// add/remove/update the feature text on the second page
-					var FeaOldString = ParseClassFeature(aClass, prop, oldClassLvl[aClass], forceProp, Fea.ChoiceOld, forceProp ? false : Fea);
-					Fea.extFirst = true; // signal that we need the full first line for FeaNewString
-					var FeaNewString = ParseClassFeature(aClass, prop, newClassLvl[aClass], false, Fea.Choice, Fea);
-					// see what type of change we have to do
-					var textAction = Fea.CheckLVL && !Fea.AddFea ? "remove" : // level dropped below minlevel
-						Fea.CheckLVL && Fea.AddFea && (!forceProp || (forceProp && !isClassProp)) ? "insert" : // level rose above minlevel and there is nothing to replace
-						forceProp || (Fea.AddFea && Fea.changed && Fea.Descr !== Fea.DescrOld) ? "replace" : // forcing the new version or update the whole text after a description change
-						Fea.AddFea && Fea.changed && Fea.Descr === Fea.DescrOld ? "first" : // update just header after a usages/recovery/additional change
-						false;
-					// do the text change, if any
-					if (textAction) {
-						var doTextAction = applyClassFeatureText(textAction, ["Class Features"], FeaOldString, FeaNewString, LastProp);
-						if (doTextAction === false && textAction !== "remove") {
-							// This failed, so just add it to the end of the field
-							AddString("Class Features", FeaNewString[1].replace(/^[\r\n]*/, ''), true);
+					if (propFea.description !== undefined) {
+						var FeaOldString = ParseClassFeature(aClass, prop, oldClassLvl[aClass], forceProp, Fea.ChoiceOld, forceProp ? false : Fea);
+						Fea.extFirst = true; // signal that we need the full first line for FeaNewString
+						var FeaNewString = ParseClassFeature(aClass, prop, newClassLvl[aClass], false, Fea.Choice, Fea);
+						// see what type of change we have to do
+						var textAction = Fea.CheckLVL && !Fea.AddFea ? "remove" : // level dropped below minlevel
+							Fea.CheckLVL && Fea.AddFea && (!forceProp || (forceProp && !isClassProp)) ? "insert" : // level rose above minlevel and there is nothing to replace
+							forceProp || (Fea.AddFea && Fea.changed && Fea.Descr !== Fea.DescrOld) ? "replace" : // forcing the new version or update the whole text after a description change
+							Fea.AddFea && Fea.changed && Fea.Descr === Fea.DescrOld ? "first" : // update just header after a usages/recovery/additional change
+							false;
+						// do the text change, if any
+						if (textAction) {
+							var doTextAction = applyClassFeatureText(textAction, ["Class Features"], FeaOldString, FeaNewString, LastProp);
+							if (doTextAction === false && textAction !== "remove") {
+								// This failed, so just add it to the end of the field
+								AddString("Class Features", FeaNewString[1].replace(/^[\r\n]*/, ''), true);
+							}
 						}
-					}
 
-					// keep track of the last property's header text (don't use FeaNewString, as it might include an additional or recovery)
-					LastProp = propFea.minlevel <= ClassLevelUp[aClass][2] ? FeaNewString[2] : LastProp;
+						// keep track of the last property's header text (don't use FeaNewString, as it might include an additional or recovery)
+						LastProp = propFea.minlevel <= ClassLevelUp[aClass][2] ? FeaNewString[2] : LastProp;
+					}
 				} catch (error) {
 					var eText = 'The "' + propFea.name + '" feature from the "' + cl.fullname + '" class produced an error! Please contact the author of the feature to correct this issue:\n ' + error;
 					for (var e in error) eText += "\n " + e + ": " + error[e];
@@ -6815,19 +6817,22 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 							Fea.AddFea ? ["", xtrProp, "only"] : [xtrProp, "", "only"], // choiceA [old-choice, new-choice, "only"|"change"]
 							false // forceNonCurrent
 						);
+
 						// add/remove/update the feature text on the third/second page
-						var xtrFeaOldString = ParseClassFeatureExtra(aClass, prop, xtrProp, xtrFea, true);
-						var xtrFeaNewString = ParseClassFeatureExtra(aClass, prop, xtrProp, xtrFea, false);
-						// see what type of change we have to do
-						var xtrTextAction = Fea.CheckLVL && !Fea.AddFea ? "remove" : // level dropped below minlevel
-							xtrFea.AddFea && xtrFea.changed && xtrFea.Descr !== xtrFea.DescrOld ? "replace" : // update the whole text after a description change
-							xtrFea.AddFea && xtrFea.changed && xtrFea.Descr === xtrFea.DescrOld ? "first" : // update just header after a usages/recovery/additional change
-							false;
-						// do the text change, if any
-						if (IsNotImport && xtrTextAction) {
-							applyClassFeatureText(xtrTextAction, ["Extra.Notes", "Class Features"], xtrFeaOldString, xtrFeaNewString, false);
-						} else if (propFea.extrachoices && !IsNotImport) {
-							AddString("Extra.Notes", xtrFeaNewString[1].replace(/^[\r\n]*/, ''), true);
+						if (propFea[xtrProp].description !== undefined) {
+							var xtrFeaOldString = ParseClassFeatureExtra(aClass, prop, xtrProp, xtrFea, true);
+							var xtrFeaNewString = ParseClassFeatureExtra(aClass, prop, xtrProp, xtrFea, false);
+							// see what type of change we have to do
+							var xtrTextAction = Fea.CheckLVL && !Fea.AddFea ? "remove" : // level dropped below minlevel
+								xtrFea.AddFea && xtrFea.changed && xtrFea.Descr !== xtrFea.DescrOld ? "replace" : // update the whole text after a description change
+								xtrFea.AddFea && xtrFea.changed && xtrFea.Descr === xtrFea.DescrOld ? "first" : // update just header after a usages/recovery/additional change
+								false;
+							// do the text change, if any
+							if (IsNotImport && xtrTextAction) {
+								applyClassFeatureText(xtrTextAction, ["Extra.Notes", "Class Features"], xtrFeaOldString, xtrFeaNewString, false);
+							} else if (propFea.extrachoices && !IsNotImport) {
+								AddString("Extra.Notes", xtrFeaNewString[1].replace(/^[\r\n]*/, ''), true);
+							}
 						}
 					}
 				}
@@ -7115,24 +7120,26 @@ function ClassFeatureOptions(Input, AddRemove, ForceExtraname) {
 
 		thermoM(3/5); //increment the progress dialog's progress
 
-		// do something with the text of the feature
-		var feaString = ParseClassFeatureExtra(
-			unknownClass ? propFea : aClass,
-			prop, choice, Fea, !addIt, ForceExtraname);
+		// do something with the text of the feature, if any description is set
+		if (propFea.description) {
+			var feaString = ParseClassFeatureExtra(
+				unknownClass ? propFea : aClass,
+				prop, choice, Fea, !addIt, ForceExtraname);
 
-		if (addIt) { // add the string to the third page
-			AddString("Extra.Notes", feaString[1].replace(/^[\r\n]*/, ''), true);
-			show3rdPageNotes(); // for a Colourful sheet, show the notes section on the third page
-			var extraNm = propFeaCs.extraname ? propFeaCs.extraname : ForceExtraname ? ForceExtraname : propFea.extraname ? propFea.extraname : propFea.name;
-			var changeMsg = "The " + extraNm + ' "' + propFeaCs.name + '" has been added to the Notes section on the third page' + (!typePF ? ", while the Rules section on the third page has been hidden" : "") + ". They wouldn't fit in the Class Features section if the class is taken to level 20.";
-			CurrentUpdates.types.push("notes");
-			if (!CurrentUpdates.notesChanges) {
-				CurrentUpdates.notesChanges = [changeMsg];
-			} else {
-				CurrentUpdates.notesChanges.push(changeMsg);
+			if (addIt) { // add the string to the third page
+				AddString("Extra.Notes", feaString[1].replace(/^[\r\n]*/, ''), true);
+				show3rdPageNotes(); // for a Colourful sheet, show the notes section on the third page
+				var extraNm = propFeaCs.extraname ? propFeaCs.extraname : ForceExtraname ? ForceExtraname : propFea.extraname ? propFea.extraname : propFea.name;
+				var changeMsg = "The " + extraNm + ' "' + propFeaCs.name + '" has been added to the Notes section on the third page' + (!typePF ? ", while the Rules section on the third page has been hidden" : "") + ". They wouldn't fit in the Class Features section if the class is taken to level 20.";
+				CurrentUpdates.types.push("notes");
+				if (!CurrentUpdates.notesChanges) {
+					CurrentUpdates.notesChanges = [changeMsg];
+				} else {
+					CurrentUpdates.notesChanges.push(changeMsg);
+				}
+			} else { // remove the string from the third (or second) page
+				applyClassFeatureText("remove", ["Extra.Notes", "Class Features"], feaString, "", false);
 			}
-		} else { // remove the string from the third (or second) page
-			applyClassFeatureText("remove", ["Extra.Notes", "Class Features"], feaString, "", false);
 		}
 	} else if (addIt) { // a choice to replace the feature on the second page
 		var choiceOld = GetFeatureChoice("classes", aClass, prop, false);
@@ -7145,10 +7152,12 @@ function ClassFeatureOptions(Input, AddRemove, ForceExtraname) {
 			false // forceNonCurrent
 		);
 		thermoM(3/5); //increment the progress dialog's progress
-		// do something with the text of the feature
-		var feaString = ParseClassFeature(aClass, prop, clLvl, false, choice, Fea);
-		var feaStringOld = ParseClassFeature(aClass, prop, clLvlOld, false, choiceOld, Fea, true);
-		applyClassFeatureText("replace", ["Class Features"], feaStringOld, feaString, false);
+		// do something with the text of the feature, if any description is set
+		if (propFea.description) {
+			var feaString = ParseClassFeature(aClass, prop, clLvl, false, choice, Fea);
+			var feaStringOld = ParseClassFeature(aClass, prop, clLvlOld, false, choiceOld, Fea, true);
+			applyClassFeatureText("replace", ["Class Features"], feaStringOld, feaString, false);
+		}
 	}
 
 	cleanTempClassesKnown();

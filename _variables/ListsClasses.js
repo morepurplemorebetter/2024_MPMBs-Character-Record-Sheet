@@ -502,7 +502,7 @@ var Base_ClassList = {
 		features: {
 			"bardic inspiration" : {
 				name : "Bardic Inspiration",
-				source : [["SRD", 12], ["P", 53]],
+				source: [["SRD24", 31], ["P24", 59]],
 				minlevel : 1,
 				description : desc([
 					"As a bonus action, I give a creature in 60 ft that can hear me an inspiration die (max 1)",
@@ -528,59 +528,49 @@ var Base_ClassList = {
 					return cantrips + " cantrips \x26 " + spells + " spells known";
 				}),
 			},
+			"expertise": function() {
+				var a = {
+					name: "Expertise",
+					source: [["SRD24", 32], ["P24", 60]],
+					minlevel: 2,
+					description: "\nI gain Expertise with two skills I am proficient with, and two more at 9th level.",
+					skillstxt: "Expertise with any two skill proficiencies, and two more at 9th level",
+					additional: levels.map(function (n) {
+						return n < 2 ? "" : "with " + (n < 9 ? 2 : 4) + " skills";
+					}),
+					extraTimes: levels.map(function (n) { return n < 2 ? 0 : n < 9 ? 2 : 4; }),
+					extraname: "Expertise",
+					extrachoices: ["Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"],
+				}
+				for (var i = 0; i < a.extrachoices.length; i++) {
+					a[a.extrachoices[i].toLowerCase()] = {
+						name: a.extrachoices[i],
+						skills: [[a.extrachoices[i], "only"]],
+						prereqeval: function(v) {
+							return v.skillProfsLC.indexOf(v.choice) === -1 ? false : v.skillExpertiseLC.indexOf(v.choice) === -1 ? true : "markButDisable";
+						},
+					}
+				}
+				return a;
+			}(),
 			"jack of all trades" : {
 				name : "Jack of All Trades",
-				source : [["SRD", 12], ["P", 54]],
+				source: [["SRD24", 32], ["P24", 60]],
 				minlevel : 2,
 				description : desc("I can add half my Proficiency Bonus to any ability check that doesn't already include it"),
 				eval : function() { Checkbox('Jack of All Trades', true); },
 				removeeval : function() { Checkbox('Jack of All Trades', false); }
 			},
-			"song of rest" : {
-				name : "Song of Rest",
-				source : [["SRD", 12], ["P", 54]],
-				minlevel : 2,
-				description : desc("Those that use HD and can hear my performance during a short rest get extra healing"),
-				additional : ["", "d6", "d6", "d6", "d6", "d6", "d6", "d6", "d8", "d8", "d8", "d8", "d10", "d10", "d10", "d10", "d12", "d12", "d12", "d12"]
+			"subclassfeature3": {
+				name: "Bard Subclass",
+				source: [["SRD24", 32], ["P24", 60]],
+				minlevel: 3,
+				description: '\nChoose a Bard Subclass using the "Class" button/bookmark or type its name into the "Class" field.',
 			},
-			"subclassfeature3" : {
-				name : "Bard College",
-				source : [["SRD", 12], ["P", 54]],
-				minlevel : 3,
-				description : desc('Choose a College that reflects your personality and put it in the "Class" field ')
-			},
-			"expertise" : function() {
-				var a = {
-					name : "Expertise",
-					source : [["SRD", 13], ["P", 54]],
-					minlevel : 3,
-					description : desc("I gain expertise with two skills I am proficient with; two more at 10th level"),
-					skillstxt : "Expertise with any two skill proficiencies, and two more at 10th level",
-					additional : levels.map(function (n) {
-						return n < 3 ? "" : "with " + (n < 10 ? 2 : 4) + " skills";
-					}),
-					extraname : "Bard Expertise",
-					extrachoices : ["Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"],
-					extraTimes : levels.map(function (n) { return n < 3 ? 0 : n < 10 ? 2 : 4; })
-				}
-				for (var i = 0; i < a.extrachoices.length; i++) {
-					var attr = a.extrachoices[i].toLowerCase();
-					a[attr] = {
-						name : a.extrachoices[i] + " Expertise",
-						description : "",
-						source : a.source,
-						skills : [[a.extrachoices[i], "only"]],
-						prereqeval : function(v) {
-							return v.skillProfsLC.indexOf(v.choice) === -1 ? false : v.skillExpertiseLC.indexOf(v.choice) === -1 ? true : "markButDisable";
-						}
-					}
-				}
-				return a;
-			}(),
-			"font of inspiration" : {
-				name : "Font of Inspiration",
-				source : [["SRD", 13], ["P", 54]],
-				minlevel : 5,
+			"font of inspiration": {
+				name: "Font of Inspiration",
+				source: [["SRD24", 32], ["P24", 61]],
+				minlevel: 5,
 				description : desc("I can now also recover my expended Bardic Inspiration uses after a short rest")
 			},
 			"countercharm" : {
@@ -977,7 +967,7 @@ var Base_ClassList = {
 	},
 */
 	"fighter": {
-		regExpSearch: /^(?!.*(feral|tribal|dark|green|fey|horned|totem|spiritual|exalted|sacred|holy|divine|nature|odin|thor|nature|natural|green|beast|animal))(?=.*(fighter|warrior|militant|warlord|phalanx|gladiator|trooper)).*$/i,
+		regExpSearch: /fighter/i,
 		name: "Fighter",
 		source: [["SRD24", 47], ["P24", 91]],
 		primaryAbility: "Strength or Dexterity",
@@ -1107,7 +1097,7 @@ var Base_ClassList = {
 			},
 		},
 	},
-/*
+
 	"monk": {
 		regExpSearch: /^((?=.*(monk|monastic))|(((?=.*martial)(?=.*(artist|arts)))|((?=.*spiritual)(?=.*warrior)))).*$/i,
 		name: "Monk",
@@ -1142,15 +1132,64 @@ var Base_ClassList = {
 		}, {
 			gold: 50,
 		}],
-		subclasses : ["Monastic Tradition", ["monk-open hand"]],
+		subclasses : ["Monastic Tradition", []], //["monk-open hand"]],
 		attacks: [1, 1, 1, 1, 2],
 		features: {
+			"martial arts": {
+				name: "Martial Arts",
+				source: [["SRD24", 50], ["P24", 101]],
+				minlevel: 1,
+				description: desc([
+					"Monk weapons: Unarmed Strike, Simple Melee weapons, and Light Martial Melee weapons.",
+					"When wielding only Monk weapons and no armor or shield, I can use Dex instead of Str, use my Martial Arts die instead of the weapon's, and do an Unarmed Strike as a Bonus Action.",
+				], "\n"),
+				additional: levels.map(function (n) {
+					var die = n < 5 ? 6 : n < 11 ? 8 : n < 17 ? 10 : 12;
+					return "1d" + die;
+				}),
+				action : [["bonus action", "Unarmed Strike"]],
+				calcChanges: {
+					atkAdd: [
+						function (fields, v) {
+							// Stop if no Monk levels are present
+							if (!classes.known.monk || !classes.known.monk.level) return;
+							// Mark light martial weapons as proficient if Monk is the primary class
+							var isLightMartial = /martial/i.test(v.theWea.type) && /\blight\b/i.test(fields.Description);
+							if ( classes.primary === "monk" && !fields.Proficiency && isLightMartial ) {
+								fields.Proficiency = true;
+							};
+							// The rest is for Monk weapons, so stop if explicitly set to false
+							if ( v.theWea.monkweapon === false ) return;
+							// Change damage die and used ability if a Monk weapon
+							if ( v.theWea.monkweapon || ( v.isMeleeWeapon && ( isLightMartial || /simple/i.test(v.theWea.type) ) ) ) {
+								v.theWea.monkweapon = true;
+								// Improve the damage die if there is one and the Martial Arts die is better
+								var aMonkDie = function (n) { return n < 5 ? 6 : n < 11 ? 8 : n < 17 ? 10 : 12; }(classes.known.monk.level);
+								var rxDice = /(\d+)d?(\d*)/i;
+								if (rxDice.test(fields.Damage_Die)) {
+									var curDie = fields.Damage_Die.match(rxDice);
+									var curDieSize = Math.max(Number(curDie[1]), 1) * Math.max(Number(curDie[2]), 1);
+									if (curDieSize < aMonkDie) {
+										fields.Damage_Die = fields.Damage_Die.replace(curDie[0], '1d' + aMonkDie);
+									}
+								}
+								// Set the ability to the highest of Str and Dex, if currently one of those
+								if (fields.Mod === 1 || fields.Mod === 2 || What(AbilityScores.abbreviations[fields.Mod - 1] + " Mod") < What(AbilityScores.abbreviations[v.StrDex - 1] + " Mod")) {
+									fields.Mod = v.StrDex;
+								}
+							};
+						},
+						"I can use either Strength or Dexterity and my Martial Arts damage die in place of the normal damage die for any 'Monk Weapons', which include Unarmed Strike, Simple melee weapons, and Martial melee weapons with the Light property.",
+						5
+					],
+				},
+			},
 			"unarmored defense": {
 				name: "Unarmored Defense",
 				source: [["SRD24", 50], ["P24", 101]],
 				minlevel: 1,
-				description: "\nWithout armor and no shield, my AC is 10 + Dexterity modifier + Wisdom modifier",
-				armorOptions : [{
+				description: "\nWithout armor and no shield, my AC is 10 + Dexterity modifier + Wisdom modifier.",
+				armorOptions: [{
 					regExpSearch: /justToAddToDropDownAndEffectWildShape/,
 					name: "Unarmored Defense (Wis)",
 					source: [["SRD24", 50], ["P24", 101]],
@@ -1158,251 +1197,228 @@ var Base_ClassList = {
 					affectsWildShape: true,
 					selectNow: true,
 				}],
+			},
+			"monk's focus": {
+				name: "Monk's Focus",
+				source: [["SRD24", 50], ["P24", 101]],
+				minlevel: 2,
+				description: "",
+				limfeaname: "Focus Points",
+				usages: levels.map(function (n) { return n < 2 ? "" : n }),
+				recovery: "Short Rest",
+				extraname: "Focus Feature",
+				action: [["bonus action", "Dash / Disengage"]],
+				"flurry of blows": {
+					name: "Flurry of Blows",
+					source: [["SRD24", 50], ["P24", 102]],
+					description: levels.map(function (n) {
+						return "\nAs a Bonus Action, I can make " + (n < 10 ? "two" : "three") + " Unarmed Strikes."
+					}),
+					additional: "1 Focus Point",
+					action: [["bonus action", " (1 FP)"]],
+				},
+				"patient defense": {
+					name: "Patient Defense",
+					source: [["SRD24", 50], ["P24", 102]],
+					description: levels.map(function (n) {
+						return n < 10 ? "\nAs a Bonus Action, I can take the Disengage action. As a Bonus Action, I can expend 1 Focus Point to take both the Disengage and the Dodge actions." : "\nAs a Bonus Action, I can take the Disengage action or, if I expend 1 Focus Point, take both the Disengage and Dodge actions and gain Temp HP equal to 2 rolls of my Martial Arts die.";
+					}),
+					additional: "0 or 1 Focus Point",
+					additional: levels.map(function (n) {
+						return n < 10 ? "0 or 1 Focus Point" : "0 or 1 Focus Point; 2d" + (n < 11 ? 8 : n < 17 ? 10 : 12) + " Temp HP";
+					}),
+					action: [["bonus action", " (Disengage \x26 Dodge; 1 FP)"]],
+				},
+				"step of the wind": {
+					name: "Step of the Wind",
+					source: [["SRD24", 51], ["P24", 102]],
+					description : desc("As a bonus action, I can either Dash or Disengage; My jump distance doubles when I do so"),
+					description: levels.map(function (n) {
+						return n < 10 ? "\nAs a Bonus Action, I can take the Dash action. As a Bonus Action, I can " + (typePF ? "expend" : "use") + " 1 Focus Point to take both the Disengage and the Dash actions and double my jump distance for the turn." : "\nAs a Bonus Action, I can take the Dash action. As a Bonus Action, I can expend 1 Focus Point to take both the Disengage and Dash actions, double my jump distance for the turn, and choose a willing Large or smaller creature within 5 ft to move with me until the end of my turn. The creature's movement doesn't provoke Opportunity Attacks.";
+					}),
+					additional: "0 or 1 Focus Point",
+					action: [["bonus action", " (Disengage \x26 Dash; 1 FP)"]],
+				},
+				autoSelectExtrachoices: [{
+					extrachoice: "flurry of blows",
+				}, {
+					extrachoice: "patient defense",
+				}, {
+					extrachoice: "step of the wind",
+				}],
+			},
+			"unarmored movement": {
+				name: "Unarmored Movement",
+				source: [["SRD24", 51], ["P24", 102]],
+				minlevel: 2,
+				description: "\nMy speed increases while I'm not wearing armor or wielding a shield.",
+				additional: levels.map(function (n) {
+					var spd = n < 2 ? 0 : n < 6 ? 10 : n < 10 ? 15 : n < 14 ? 20 : n < 18 ? 25 : 30;
+					return !spd ? "" : "+" + spd + " ft" + (n < 9 ? "" : "; Vertical surfaces and liquids");
+				}),
+				changeeval: function (lvl) {
+					var n = lvl[1];
+					var spd = n < 2 ? 0 : n < 6 ? 10 : n < 10 ? 15 : n < 14 ? 20 : n < 18 ? 25 : 30;
+					SetProf('speed', !!spd, {allModes: "+" + spd}, "Monk: Unarmored Movement");
+				},
+			},
+			"uncanny metabolism": {
+				name: "Uncanny Metabolism",
+				source: [["SRD24", 51], ["P24", 102]],
+				minlevel: 2,
+				description: "\nWhen I roll initiative, I can regain all Focus Points and heal 1 Martial Arts die + Monk level.",
+				usages: 1,
+				recovery: "Long Rest",
+				additional: levels.map(function (n) {
+					if (n < 2) return "";
+					var die = n < 5 ? 6 : n < 11 ? 8 : n < 17 ? 10 : 12;
+					return "1d" + die + "+" + n;
+				}),
+			},
+			"deflect attacks": {
+				name: "Deflect Attacks",
+				source: [["SRD24", 51], ["P24", 102]],
+				minlevel: 3,
+				description: levels.map(function (n) {
+					var dmgType = n < 13 ? "Bludgeoning, Piercing, or Slashing " : "";
+					var atkOrigin = n < 13 ? "" : "a melee attack or a creature I can see ";
+					return "As a Reaction when I take " + dmgType + "damage from an attack roll, I can reduce it by 1d10 + Monk level + my Dex mod. If it's reduced to 0 and it originated from " + atkOrigin + "within 60 ft, I can expend 1 Focus Point to have a creature I can see within 5 ft make a Dex save or take 2\xD7 Martial Arts die + my Dex mod damage of the same type.";
+				}),
+				action: [["reaction", "Deflect Attack (1 FP to redirect)"]],
+				additional: levels.map(function (n) {
+					if (n < 3) return "";
+					var die = n < 5 ? 6 : n < 11 ? 8 : n < 17 ? 10 : 12;
+					var part1 = typePF ? "" : " mod";
+					var part2 = typePF ? "" : n < 10 ? " md" : " m";
+					return "1d10+" + n + "+Dex" + part1 + "; 1 FP: redirect 2d" + die + "+Dex" + part2;
+				}),
+			},
+			"subclassfeature3": {
+				name: "Monk Subclass",
+				source: [["SRD24", 51], ["P24", 103]],
+				minlevel: 3,
+				description: '\nChoose a Monk Subclass using the "Class" button/bookmark or type its name into the "Class" field.',
+			},
+			"slow fall": {
+				name: "Slow Fall",
+				source: [["SRD24", 51], ["P24", 103]],
+				minlevel: 4,
+				description: "\nAs a Reaction when I fall, I can reduce the damage I take from it by " + (typePF ? "five times" : "5\xD7") + " my Monk level.",
+				additional : levels.map(function (n) {
+					return n < 4 ? "" : (n * 5) + " less falling damage";
+				}),
+				action : [["reaction", ""]],
+			},
+			"stunning strike": {
+				name: "Stunning Strike",
+				minlevel: 5,
+				source: [["SRD24", 51], ["P24", 103]],
+				extraname: "Focus Feature",
+				"stunning strike": {
+					name: "Stunning Strike",
+					extraname: "Monk 5",
+					source: [["SRD24", 51], ["P24", 103]],
+					description: "\nOnce per turn when I hit a creature with a Monk weapon, I can expend 1 Focus Point to have it make a Constitution save. *Failure:* it is Stunned. *Success:* its Speed is halved and the next attack against it has Advantage. These effects last until the start of my next turn.",
+					additional: "1 Focus Point",
+				},
+				autoSelectExtrachoices: [{ extrachoice: "stunning strike" }],
+			},
+			"empowered strikes": {
+				name: "Empowered Strikes",
+				source: [["SRD24", 51], ["P24", 103]],
+				minlevel: 6,
+				description: "\nI can deal Force damage with my Unarmed Strike instead of its normal damage type.",
 				calcChanges: {
-					atkAdd: [ // Mark light martial weapons as proficient if Monk is the primary class
+					atkAdd: [
 						function (fields, v) {
-							if (classes.primary === "monk" && !fields.Proficiency && /martial/i.test(v.theWea.type) && /\blight\b/i.test(fields.Description)) {
-								fields.Proficiency = true;
+							if (v.baseWeaponName === "unarmed strike" && DamageTypes[fields.Damage_Type.toLowerCase()] && !/force/i.test(fields.Damage_Type)) {
+								var shortOldType = fields.Damage_Type.replace(/(tic|(eon)?ing)$/i, ".").capitalize();
+								fields.Damage_Type = shortOldType + '/Force';
 							};
 						},
-						"",
-						10,
+						"I can deal Force damage with my Unarmed Strike instead of its normal damage type.",
 					],
 				},
 			},
-			"martial arts" : {
-				name : "Martial Arts",
-				source : [["SRD", 26], ["P", 78]],
-				minlevel : 1,
-				description : desc([
-					"Monk weapons: unarmed strike, simple melee, martial light melee",
-					"With monk weapons, I can use Dex instead of Str and use the Martial Arts damage die",
-					"When taking an Attack action with these, I get one unarmed strike as a bonus action"
-				]),
-				additional : levels.map(function (n) {
-					return "1d" + (n < 5 ? 6 : n < 11 ? 8 : n < 17 ? 10 : 12);
-				}),
-				action : [["bonus action", "Unarmed Strike"]],
-				eval : function() {
-					AddString('Extra.Notes', 'Monk features:\n\u25C6 If I wear armor/shield, I lose Unarmored Defense, Martial Arts, and Unarmored Movement');
-					show3rdPageNotes();
+			"evasion": {
+				name: "Evasion",
+				source: [["SRD24", 51], ["P24", 103]],
+				minlevel: 7,
+				description: " [if not Incapacitated]\nWhen I make a Dex save to halve damage, I instead take none if I succeed and half if I fail.",
+				savetxt: { text: ["**Dex Save for Half**. *Failure:* half dmg, *Success:* no dmg"] },
+			},
+			"acrobatic movement": {
+				name: "Acrobatic Movement",
+				source: [["SRD24", 51], ["P24", 103]],
+				minlevel: 9,
+				description: "\nIf without armor or shield, I can move on vertical surfaces or across liquids during my turn.",
+			},
+			"heightened focus": {
+				name: "Heightened Focus",
+				source: [["SRD24", 51], ["P24", 103]],
+				minlevel: 10,
+				description: " [improves Focus Features]",
+			},
+			"self-restoration": {
+				name: "Self-Restoration",
+				source: [["SRD24", 52], ["P24", 103]],
+				minlevel: 10,
+				description: "\nAt the end of each of my turns, I can remove the Charmed, Frightened, or Poisoned condition from myself. Forgoing food and drink doesn't give me levels of Exhaustion.",
+			},
+			"deflect energy": {
+				name: "Deflect Energy",
+				source: [["SRD24", 52], ["P24", 103]],
+				minlevel: 13,
+				description: " [improves Deflect Attacks: any damage type]",
+			},
+			"disciplined survivor": {
+				name: "Disciplined Survivor",
+				source: [["SRD24", 52], ["P24", 103]],
+				minlevel: 14,
+				saves: ["Str", "Dex", "Con", "Int", "Wis", "Cha"],
+				savetxt: { text: ["**Failed Save**. 1 FP to reroll"] },
+				extraname: "Focus Feature",
+				"disciplined survivor": {
+					name: "Disciplined Survivor",
+					extraname: "Monk 14",
+					source: [["SRD24", 51], ["P24", 103]],
+					description: "\nWhen I fail a save, I can expend 1 Focus Point to reroll it once. I'm proficient in all saves.",
+					additional: "1 Focus Point",
 				},
-				removeeval : function() {
-					RemoveString('Extra.Notes', 'Monk features:\n\u25C6 If I wear armor/shield, I lose Unarmored Defense, Martial Arts, and Unarmored Movement');
+				autoSelectExtrachoices: [{ extrachoice: "disciplined survivor" }],
+			},
+			"perfect focus": {
+				name: "Perfect Focus",
+				source: [["SRD24", 52], ["P24", 103]],
+				minlevel: 15,
+				description: "\nWhen I roll Initiative and I have less than 4 Focus Points, I regain them until I have 4.",
+			},
+			"superior defense": {
+				name: "Superior Defense",
+				source: [["SRD24", 52], ["P24", 103]],
+				minlevel: 18,
+				dmgres: ["3FP: all -Force"],
+				extraname: "Focus Feature",
+				"superior defense": {
+					name: "Superior Defense",
+					extraname: "Monk 18",
+					source: [["SRD24", 52], ["P24", 103]],
+					description: "\nAt the start of my turn, I can expend 3 Focus Points to gain Resistance to all types of damage except Force damage for 1 minute, or until I'm Incapacitated.",
+					additional: "3 Focus Points",
 				},
-				calcChanges : {
-					atkAdd : [
-						function (fields, v) {
-							if (!classes.known.monk || !classes.known.monk.level || v.theWea.monkweapon === false) return;
-							if (  v.theWea.monkweapon ||
-								( v.isMeleeWeapon && /simple/i.test(v.theWea.type) ) ||
-								( v.isMeleeWeapon && /martial/i.test(v.theWea.type) && /\blight\b/i.test(fields.Description) )
-							) {
-								v.theWea.monkweapon = true;
-								var aMonkDie = function (n) { return n < 5 ? 6 : n < 11 ? 8 : n < 17 ? 10 : 12; }(classes.known.monk.level);
-								try {
-									var curDie = eval_ish(fields.Damage_Die.replace('d', '*'));
-								} catch (e) {
-									var curDie = 'x';
-								};
-								if ( !v.isDC && (isNaN(curDie) || curDie < aMonkDie) ) {
-									fields.Damage_Die = '1d' + aMonkDie;
-								};
-								if (fields.Mod === 1 || fields.Mod === 2 || What(AbilityScores.abbreviations[fields.Mod - 1] + " Mod") < What(AbilityScores.abbreviations[v.StrDex - 1] + " Mod")) {
-									fields.Mod = v.StrDex;
-								}
-							};
-						},
-						"I can use either Strength or Dexterity and my Martial Arts damage die in place of the normal damage die for any 'Monk Weapons', which include unarmed strike, shortsword, and any simple melee weapon that is not two-handed or heavy.",
-						5
-					]
-				}
+				autoSelectExtrachoices: [{ extrachoice: "superior defense" }],
 			},
-			"ki" : {
-				name : "Ki",
-				source : [["SRD", 27], ["P", 78]],
-				minlevel : 2,
-				description : desc([
-					"I can spend ki points to fuel special actions (see third page)",
-					"I need to meditate for at least 30 min of a short rest for that short rest to restore ki"
-				]),
-				limfeaname : "Ki Points",
-				usages : levels.map(function (n) { return n < 2 ? "" : n }),
-				recovery : "Short Rest",
-				"flurry of blows" : {
-					name : "Flurry of Blows",
-					extraname : "Ki Feature",
-					source : [["SRD", 27], ["P", 78]],
-					description : " [1 ki point]" + desc("After taking the Attack action, I can make 2 unarmed attacks as a bonus action"),
-					action : [["bonus action", " (after Attack action)"]]
-				},
-				"patient defense" : {
-					name : "Patient Defense",
-					extraname : "Ki Feature",
-					source : [["SRD", 27], ["P", 78]],
-					description : " [1 ki point]" + desc("As a bonus action, I can take the Dodge action"),
-					action : [["bonus action", ""]]
-				},
-				"step of the wind" : {
-					name : "Step of the Wind",
-					extraname : "Ki Feature",
-					source : [["SRD", 27], ["P", 78]],
-					description : " [1 ki point]" + desc("As a bonus action, I can either Dash or Disengage; My jump distance doubles when I do so"),
-					action : [["bonus action", ""]]
-				},
-				autoSelectExtrachoices : [{
-					extrachoice : "flurry of blows"
-				}, {
-					extrachoice : "patient defense"
-				}, {
-					extrachoice : "step of the wind"
-				}]
+			"body and mind": {
+				name: "Body and Mind",
+				source: [["SRD24", 52], ["P24", 103]],
+				minlevel: 20,
+				description: " [+4 Dexterity and +4 Wisdom, up to max 25]",
+				scores:        [0,  4, 0, 0,  4, 0],
+				scoresMaximum: [0, 25, 0, 0, 25, 0],
 			},
-			"unarmored movement" : {
-				name : "Unarmored Movement",
-				source : [["SRD", 27], ["P", 78]],
-				minlevel : 2,
-				description : desc("Speed increases and eventually lets me traverse some surfaces without falling as I move"),
-				additional : levels.map(function (n) {
-					if (n < 2) return "";
-					var spd = "+" + (n < 6 ? 10 : n < 10 ? 15 : n < 14 ? 20 : n < 18 ? 25 : 30) + " ft";
-					var xtr = n < 9 ? "" : "; Vertical surfaces and liquids";
-					return spd + xtr;
-				}),
-				changeeval : function (v) {
-					var monkSpd = '+' + (v[1] < 2 ? 0 : v[1] < 6 ? 10 : v[1] < 10 ? 15 : v[1] < 14 ? 20 : v[1] < 18 ? 25 : 30);
-					SetProf('speed', monkSpd !== '+0', {allModes : monkSpd}, "Monk: Unarmored Movement");
-				}
-			},
-			"subclassfeature3" : {
-				name : "Monastic Tradition",
-				source : [["SRD", 27], ["P", 78]],
-				minlevel : 3,
-				description : desc('Choose a Monastic Tradition to commit to and put it in the "Class" field ')
-			},
-			"deflect missiles" : {
-				name : "Deflect Missiles",
-				source : [["SRD", 27], ["P", 78]],
-				minlevel : 3,
-				description : desc([
-					"As a reaction, I can reduce ranged weapon attack damage done to me",
-					"If the damage is negated, I catch and may throw it back (20/60 ft) as a monk weapon"
-				]),
-				action : [["reaction", ""]],
-				additional : levels.map(function (n) {
-					return n < 3 ? "" : "1d10 + " + n + " + Dexterity modifier; 1 ki to throw";
-				})
-			},
-			"slow fall" : {
-				name : "Slow Fall",
-				source : [["SRD", 27], ["P", 78]],
-				minlevel : 4,
-				description : desc("As a reaction, I can reduce any falling damage I take by five times my monk level"),
-				additional : levels.map(function (n) { return n < 4 ? "" : (n*5) + " less falling damage" }),
-				action : [["reaction", ""]],
-				"stunning strike" : {
-					name : "Stunning Strike",
-					extraname : "Monk 5",
-					source : [["SRD", 27], ["P", 79]],
-					description : " [1 ki point]" + desc([
-						"After I hit a creature with a melee weapon attack, I can spend a ki point to try to stun it",
-						"It has to succeed on a Constitution save or be stunned until the end of my next turn"
-					])
-				},
-				autoSelectExtrachoices : [{
-					extrachoice : "stunning strike",
-					minlevel : 5
-				}]
-			},
-			"ki-empowered strikes" : {
-				name : "Ki-Empowered Strikes",
-				source : [["SRD", 28], ["P", 79]],
-				minlevel : 6,
-				description : desc("My unarmed strikes count as magical for overcoming resistances and immunities"),
-				calcChanges : {
-					atkAdd : [
-						function (fields, v) {
-							if (v.baseWeaponName == "unarmed strike" && !v.thisWeapon[1] && !v.theWea.isMagicWeapon && !(/counts as( a)? magical/i).test(fields.Description)) {
-								fields.Description += (fields.Description ? '; ' : '') + 'Counts as magical';
-							};
-						},
-						"My unarmed strikes count as magical for overcoming resistances and immunities."
-					]
-				}
-			},
-			"evasion" : {
-				name : "Evasion",
-				source : [["SRD", 28], ["P", 79]],
-				minlevel : 7,
-				description : desc("My Dexterity saves vs. areas of effect negate damage on success and halve it on failure"),
-				savetxt : { text : ["Dex save vs. area effects: fail \u2015 half dmg, success \u2015 no dmg"] }
-			},
-			"stillness of mind" : {
-				name : "Stillness of Mind",
-				source : [["SRD", 28], ["P", 79]],
-				minlevel : 7,
-				description : desc("As an action, I can end one effect on me that causes me to be charmed or frightened"),
-				action : [["action", ""]]
-			},
-			"purity of body" : {
-				name : "Purity of Body",
-				source : [["SRD", 28], ["P", 79]],
-				minlevel : 10,
-				description : typeA4 ? desc("My mastery of the ki flowing through me makes me immune to poison and disease") : " [" + "I am immune to poison and disease" + "]",
-				savetxt : { immune : ["poison", "disease"] } //both immune to poison damage and the poisoned condition (see sage advice)
-			},
-			"tongue of the sun and moon" : {
-				name : "Tongue of the Sun and Moon",
-				source : [["SRD", 28], ["P", 79]],
-				minlevel : 13,
-				description : desc("I can understand all spoken languages and all creatures with a language understand me")
-			},
-			"diamond soul" : {
-				name : "Diamond Soul",
-				source : [["SRD", 28], ["P", 79]],
-				minlevel : 14,
-				description : desc("I am proficient with all saves; I can reroll a failed save once by spending 1 ki point"),
-				additional : "1 ki point to reroll failed saving throw",
-				saves : ["Str", "Dex", "Con", "Int", "Wis", "Cha"]
-			},
-			"timeless body" : {
-				name : "Timeless Body",
-				source : [["SRD", 28], ["P", 79]],
-				minlevel : 15,
-				description : desc("I don't require food or water; I don't suffer age penalties and can't be aged magically")
-			},
-			"empty body" : {
-				name : "Empty Body",
-				source : [["SRD", 28], ["P", 79]],
-				minlevel : 18,
-				description : desc("Be invisible and resist non-force damage for 1 min or cast Astral Projection on self"),
-				additional : "Invisible: 4 ki points; Astral Projection: 8 ki points",
-				action : [["action", ""]],
-				spellcastingBonus : [{
-					name : "Empty Body",
-					spells : ["astral projection"],
-					selection : ["astral projection"],
-					firstCol : 8
-				}],
-				spellFirstColTitle : "Ki",
-				spellChanges : {
-					"astral projection" : {
-						components : "V,S",
-						compMaterial : "",
-						description : "I project myself to the Astral Plane with identical statistics, see book",
-						changes : "I can spend 8 ki points to cast Astral Projection without requiring material components, although I can't bring other creatures with me."
-					}
-				}
-			},
-			"perfect self" : {
-				name : "Perfect Self",
-				source : [["SRD", 28], ["P", 79]],
-				minlevel : 20,
-				description : desc("I regain 4 ki points if I have no more remaining when I roll initiative")
-			}
-		}
+		},
 	},
-
+/*
 	"paladin": {
 		regExpSearch: /^((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		name: "Paladin",
@@ -1872,7 +1888,7 @@ var Base_ClassList = {
 			}
 		}
 	},
-
+*/
 	"rogue": {
 		regExpSearch: /rogue|miscreant/i,
 		name: "Rogue",
@@ -1919,88 +1935,58 @@ var Base_ClassList = {
 		}, {
 			gold: 100,
 		}],
-		subclasses: ["Rogue Subclass", ["rogue-thief"]],
+		subclasses: ["Rogue Subclass", []], // ["rogue-thief"]],
 		features: {
-			"expertise" : function() {
+			"expertise": function() {
 				var a = {
-					name : "Expertise",
-					source : [["SRD", 39], ["P", 96]],
-					minlevel : 1,
-					description : desc("I gain expertise with two skills/thieves' tools I am proficient with; two more at 6th level"),
-					skillstxt : "Expertise with any two skill proficiencies and/or thieves' tools, and two more at 6th level",
-					additional : levels.map(function (n) {
+					name: "Expertise",
+					source: [["SRD24", 61], ["P24", 129]],
+					minlevel: 1,
+					description: "\nI gain Expertise with two skills I am proficient with, and two more at 6th level.",
+					skillstxt: "Expertise with any two skill proficiencies, and two more at 6th level.",
+					additional: levels.map(function (n) {
 						return "with " + (n < 6 ? 2 : 4) + " skills";
 					}),
-					extraname : "Expertise",
-					extrachoices : ["Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival", "Thieves' Tools"],
-					extraTimes : levels.map(function (n) { return n < 6 ? 2 : 4; }),
-					"thieves' tools" : {
-						name : "Thieves' Tools Expertise", description : "",
-						source : [["SRD", 39], ["P", 96]],
-						prereqeval : function(v) {
-							if ((/thieve.?s.*tools/i).test(What('Too Text')) && tDoc.getField("Too Prof").isBoxChecked(0)) {
-								return tDoc.getField("Too Exp").isBoxChecked(0) ? "markButDisable" : true;
-							} else {
-								return CurrentProfs.tool["thieves' tools"] || (/thieve.?s.{1,3}tools/i).test(v.toolProfs.toString());
-							}
-						},
-						eval : function () {
-							if ((/thieve.?s.*tools/i).test(What('Too Text'))) {
-								Checkbox('Too Exp', true);
-							};
-						},
-						removeeval : function () {
-							if ((/thieve.?s.*tools/i).test(What('Too Text'))) {
-								Checkbox('Too Exp', false);
-							};
-						}
-					}
+					extraTimes: levels.map(function (n) { return n < 6 ? 2 : 4; }),
+					extraname: "Expertise",
+					extrachoices: ["Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"],
 				}
 				for (var i = 0; i < a.extrachoices.length; i++) {
-					var attr = a.extrachoices[i].toLowerCase();
-					if (a[attr]) continue;
-					a[attr] = {
-						name : a.extrachoices[i] + " Expertise",
-						description : "",
-						source : a.source,
-						skills : [[a.extrachoices[i], "only"]],
-						prereqeval : function(v) {
+					a[a.extrachoices[i].toLowerCase()] = {
+						name: a.extrachoices[i],
+						skills: [[a.extrachoices[i], "only"]],
+						prereqeval: function(v) {
 							return v.skillProfsLC.indexOf(v.choice) === -1 ? false : v.skillExpertiseLC.indexOf(v.choice) === -1 ? true : "markButDisable";
-						}
+						},
 					}
 				}
 				return a;
 			}(),
-			"sneak attack" : {
-				name : "Sneak Attack",
-				source : [["SRD", 39], ["P", 96]],
-				minlevel : 1,
-				description : desc([
-					"Once per turn, I can add damage to a finesse/ranged weapon attack if I have advantage",
-					"I don't need adv. if the target has a conscious enemy within 5 ft and I don't have disadv."
-				]),
-				additional : levels.map(function (n) {
-					return Math.ceil(n / 2) + "d6";
-				}),
-				calcChanges : {
-					atkAdd : [
+			"sneak attack": {
+				name: "Sneak Attack",
+				source: [["SRD24", 61], ["P24", 129]],
+				minlevel: 1,
+				description: "\nOnce per turn, I can deal extra damage with a Finesse or Ranged weapon attack if I have Adv" + (typePF ? "antage" : ".") + " or if a non-Incapacitated ally is within 5 ft of the target and I don't have Disadv.",
+				additional: levels.map(function (n) { return Math.ceil(n / 2) + "d6"; }),
+				calcChanges: {
+					atkAdd: [
 						function (fields, v) {
-							if (classes.known.rogue && classes.known.rogue.level && !v.isSpell && !v.isDC && (v.isRangedWeapon || (/\bfinesse\b/i).test(fields.Description))) {
+							if (classes.known.rogue && classes.known.rogue.level && !v.isSpell && !v.isDC && (v.isRangedWeapon || /\bfinesse\b/i.test(fields.Description))) {
 								v.sneakAtk = Math.ceil(classes.known.rogue.level / 2);
-								fields.Description += (fields.Description ? '; ' : '') + 'Sneak attack ' + v.sneakAtk + 'd6';
+								fields.Description += (fields.Description ? '; ' : '') + 'Sneak Attack ' + v.sneakAtk + 'd6';
 							};
 						},
-						"Once per turn, when I attack with a ranged or finesse weapon while I have advantage or an conscious ally is within 5 ft of the target, I can add my sneak attack damage to the attack.",
-						700
-					]
-				}
+						"Once per turn, when I attack with a Ranged or Finesse weapon while I have Advantage or an ally that is not Incapacitated is within 5 ft of the target, I can add my Sneak Attack damage to the attack.",
+						700,
+					],
+				},
 			},
-			"thieves cant" : {
-				name : "Thieves' Cant",
-				source : [["SRD", 39], ["P", 96]],
-				minlevel : 1,
-				description : desc("I know the secret rogue language that I can use to convey messages inconspicuously"),
-				languageProfs : ["Thieves' Cant"],
+			"thieves cant": {
+				name: "Thieves' Cant",
+				source: [["SRD24", 62], ["P24", 129]],
+				minlevel: 1,
+				description: "\nI know Thieves' Cant so I can convey messages inconspicuously, and one other language.",
+				languageProfs : ["Thieves' Cant", 1],
 				calcChanges: {
 					atkAdd: [ // Mark light and finesse martial weapons as proficient if Rogue is the primary class
 						function (fields, v) {
@@ -2013,32 +1999,50 @@ var Base_ClassList = {
 					],
 				},
 			},
-			"cunning action" : {
-				name : "Cunning Action",
-				source : [["SRD", 40], ["P", 96]],
-				minlevel : 2,
-				description : desc("I can use a bonus action to take the Dash, Disengage, or Hide action"),
-				action : [["bonus action", ""]]
+			"weapon mastery": {
+				name: "Weapon Mastery",
+				source: [["SRD24", 62], ["P24", 130]],
+				minlevel: 1,
+				description: '\nI gain mastery with a 2 Simple or Martial weapons. Whenever I finish a Long Rest, I can change these choices. Use the "Choose Feature" button above to select them.',
+				additional: "2 Weapon Masteries",
+				extraTimes: 2,
+				extraname: "Weapon Mastery",
+				choicesWeaponMasteries: true,
 			},
-			"subclassfeature3" : {
-				name : "Roguish Archetype",
-				source : [["SRD", 40], ["P", 96]],
-				minlevel : 3,
-				description : desc('Choose a Roguish Archetype you strive to emulate and put it in the "Class" field ')
+			"cunning action": {
+				name: "Cunning Action",
+				source: [["SRD24", 62], ["P24", 130]],
+				minlevel: 2,
+				description: "\nAs a Bonus Action on my turn, I can take the Dash, Disengage, or Hide action.",
+				action : [["bonus action", "Dash / Disengage / Hide"]],
 			},
-			"uncanny dodge" : {
-				name : "Uncanny Dodge",
-				source : [["SRD", 40], ["P", 96]],
-				minlevel : 5,
-				description : desc("As a reaction, I can halve the damage of an attack from an attacker that I can see"),
-				action : [["reaction", ""]]
+			"steady aim": {
+				name: "Steady Aim",
+				source: [["SRD24", 62], ["P24", 130]],
+				minlevel: 3,
+				description: "\nAs a Bonus Action, ", // NOG DOEN
+				action : [["bonus action", ""]],
 			},
-			"evasion" : {
-				name : "Evasion",
-				source : [["SRD", 40], ["P", 96]],
-				minlevel : 7,
-				description : desc("My Dexterity saves vs. areas of effect negate damage on success and halve it on failure"),
-				savetxt : { text : ["Dex save vs. area effects: fail \u2015 half dmg, success \u2015 no dmg"] }
+			"subclassfeature3": {
+				name: "Rogue Subclass",
+				source: [["SRD24", 62], ["P24", 130]],
+				minlevel: 3,
+				description: '\nChoose a Rogue Subclass using the "Class" button/bookmark or type its name into the "Class" field.',
+			},
+			// NOG VERDER AFMAKEN (Cunning Strike mist nog bijv.)
+			"uncanny dodge": { // klaar
+				name: "Uncanny Dodge",
+				source: [["SRD24", 63], ["P24", 131]],
+				minlevel: 5,
+				description: "\nAs a Reaction, I can halve the damage of an attack from an attacker that I can see.",
+				action: [["reaction", ""]],
+			},
+			"evasion": { // klaar
+				name: "Evasion",
+				source: [["SRD24", 63], ["P24", 131]],
+				minlevel: 7,
+				description: " [if not Incapacitated]\nWhen I make a Dex save to halve damage, I instead take none if I succeed and half if I fail.",
+				savetxt: { text: ["**Dex Save for Half**. *Failure:* half dmg, *Success:* no dmg"] },
 			},
 			"reliable talent" : {
 				name : "Reliable Talent",
@@ -2076,7 +2080,7 @@ var Base_ClassList = {
 			}
 		}
 	},
-
+/*
 	"sorcerer" : {
 		regExpSearch: /sorcerer/i,
 		name: "Sorcerer",

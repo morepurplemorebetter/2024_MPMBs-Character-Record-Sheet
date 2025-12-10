@@ -66,7 +66,7 @@ var Base_RaceList = {
 		size: 3,
 		speed: { walk: { spd: 30, enc: 20 } },
 		vision: [["Darkvision", 120], ["Tremorsense (on stone)", 60]],
-		savetxt: { adv_vs : ["Poisoned"] },
+		savetxt: { adv_vs: ["Poisoned"] },
 		dmgres: ["Poison"],
 		trait: [
 			"**Dwarf**",
@@ -103,7 +103,7 @@ var Base_RaceList = {
 		speed: { walk: { spd: 30, enc: 20 } },
 		vision: [["Darkvision", 60]],
 		savetxt: {
-			text: ["Magic can't put me to sleep"],
+			immune: ["Sleep magic"],
 			adv_vs: ["Charmed"],
 		},
 		skillstxt: "Choose 1: Insight, Perception, or Survival",

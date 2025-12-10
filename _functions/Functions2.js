@@ -5770,16 +5770,16 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 
 	//a variable with all different fields of the one weapon
 	var fields = {
-		Proficiency : false,
-		Mod : "",
-		Range : "",
-		Damage_Type : "",
-		Description : "",
-		Description_Tooltip : "Description and notes",
-		To_Hit_Bonus : 0,
-		Damage_Bonus : 0,
-		Damage_Die : "",
-		Weight : ""
+		Proficiency: false,
+		Mod: "",
+		Range: "",
+		Damage_Type: "",
+		Description: "",
+		Description_Tooltip: "Description and notes",
+		To_Hit_Bonus: 0,
+		Damage_Bonus: 0,
+		Damage_Die: "",
+		Weight: "",
 	};
 	var BTflds = ["To_Hit_Bonus", "Damage_Bonus", "Damage_Die", "Weight"];
 
@@ -5876,20 +5876,20 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 			var isThrownWeapon = isWeapon && /\bthrown\b/i.test(fields.Description) && /\d ?(ft|m)\.?($|[^)])/i.test(fields.Range);
 
 			var gatherVars = {
-				WeaponText : WeaponText,
-				WeaponTextName : inputText,
-				isDC : isDC,
-				isSpell : isSpell,
-				isWeapon : isWeapon,
-				isMeleeWeapon : isMeleeWeapon,
-				isRangedWeapon : isRangedWeapon,
-				isNaturalWeapon : isNaturalWeapon,
-				isThrownWeapon : isThrownWeapon,
-				theWea : theWea,
-				StrDex : StrDex,
-				WeaponName : WeaponName,
-				baseWeaponName : theWea.baseWeapon ? theWea.baseWeapon : WeaponName,
-				thisWeapon : thisWeapon
+				WeaponText: WeaponText,
+				WeaponTextName: inputText,
+				isDC: isDC,
+				isSpell: isSpell,
+				isWeapon: isWeapon,
+				isMeleeWeapon: isMeleeWeapon,
+				isRangedWeapon: isRangedWeapon,
+				isNaturalWeapon: isNaturalWeapon,
+				isThrownWeapon: isThrownWeapon,
+				theWea: theWea,
+				StrDex: StrDex,
+				WeaponName: WeaponName,
+				baseWeaponName: theWea.baseWeapon ? theWea.baseWeapon : WeaponName,
+				thisWeapon: thisWeapon,
 			}
 
 			for (var i = 0; i < CurrentEvals.atkAddOrder.length; i++) {
@@ -5948,31 +5948,31 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 				continue;
 			};
 			switch (weaKey) {
-			 case "Description_Tooltip" :
+			 case "Description_Tooltip":
 				if (!fields.Description) AddTooltip(fldBase + "Description", !isMetric ? fields[weaKey] : ConvertToMetric(fields[weaKey], 0.5));
 				break;
-			 case "Proficiency" :
+			 case "Proficiency":
 				Checkbox(keyFld, fields[weaKey]);
 				break;
-			 case "Mod" :
+			 case "Mod":
 				PickDropdown(keyFld, fields[weaKey]);
 				break;
-			 case "Damage_Type" :
+			 case "Damage_Type":
 				AddDmgType(keyFld, fields[weaKey]);
 				break;
-			 case "Weight" :
+			 case "Weight":
 				var massMod = !isMetric ? 1 : UnitsList.metric.mass;
 				Value(keyFld, RoundTo(fields[weaKey] * massMod, 0.001, true));
 				break;
-			 case "Description" :
-			 case "Range" :
+			 case "Description":
+			 case "Range":
 				var tooltip = weaKey !== "Description" ? undefined : !isMetric ? fields.Description_Tooltip : ConvertToMetric(fields.Description_Tooltip, 0.5);
 				Value(keyFld, !isMetric ? fields[weaKey] : ConvertToMetric(fields[weaKey], 0.5), tooltip);
 				break;
-			 case "Ammo" :
+			 case "Ammo":
 				if (fields[weaKey]) AddAmmo(fields[weaKey]);
 				break;
-			 default :
+			 default:
 				Value(keyFld, fields[weaKey]);
 			};
 		};
@@ -6429,7 +6429,7 @@ function getHighestAbility(abilities, prefix, wildshapeNo, returnAbbr) {
 	var defaultAbilities = AbilityScores.abbreviations.concat('HoS');
 	var oResult = abilities.reduce(function (acc, abi) {
 		var score = getAbiModValue(abi, prefix, wildshapeNo, true);
-		if (score > acc.score) {
+		if (!acc.score || score > acc.score) {
 			return { score: score, abi: abi };
 		}
 		return acc;
@@ -7508,11 +7508,11 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 		var rxCond = /.*?(\s?\((.*?)\)).*/i;
 		//create the set object if it doesn't exist already
 		if ( !ObjLength(set) ) {
-			CurrentProfs.savetxt = { text : {}, immune : {}, adv_vs : {} };
+			CurrentProfs.savetxt = { text: {}, immune: {}, adv_vs: {} };
 			set = CurrentProfs.savetxt;
 		};
 		//put the input into a form we can use
-		if (typeof ProfObj == "string") ProfObj = { text : [ProfObj] };
+		if (typeof ProfObj == "string") ProfObj = { text: [ProfObj] };
 		for (var st in ProfObj) {
 			if (typeof ProfObj[st] == "string") ProfObj[st] = [ProfObj[st]];
 			for (var i = 0; i < ProfObj[st].length; i++) {
@@ -7521,7 +7521,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 			};
 		};
 		//a functino to parse the 'immune' and 'adv_vs' parts into a usable string
-		var preTxt = {adv_vs : "Adv. on saves vs.", immune : "Immune to"};
+		var preTxt = {adv_vs: "**Adv. vs.**", immune: "**Immunities**. "};
 		var parseSvTxt = function() {
 			var sUseName = metric ? "nameMetric" : "name";
 			var oTypes = { adv_vs : [], immune : [] };
@@ -7535,10 +7535,10 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 				oTypes[sType].sort();
 			}
 			return {
-				adv_vs : formatLineList(preTxt.adv_vs, oTypes.adv_vs),
-				adv_vsA : oTypes.adv_vs,
-				immune : formatLineList(preTxt.immune, oTypes.immune),
-				immuneA : oTypes.immune
+				adv_vs: formatLineList(preTxt.adv_vs, oTypes.adv_vs),
+				adv_vsA: oTypes.adv_vs,
+				immune: formatLineList(preTxt.immune, oTypes.immune),
+				immuneA: oTypes.immune,
 			};
 		};
 		//create an object of the current state
@@ -7555,9 +7555,9 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 				if (AddRemove) { // add
 					if (!setT[iAddLC]) {
 						setT[iAddLC] = {
-							name : iAdd,
-							nameMetric : iAddM,
-							src : [ProfSrc]
+							name: iAdd,
+							nameMetric: iAddM,
+							src: [ProfSrc]
 						};
 						var aMatchCond = iAddLC.match(rxCond);
 						if (aMatchCond) {
