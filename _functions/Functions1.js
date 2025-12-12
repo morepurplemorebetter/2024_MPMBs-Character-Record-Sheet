@@ -7080,8 +7080,8 @@ function ClassFeatureOptions(Input, AddRemove, ForceExtraname) {
 		propFea = CurrentClasses[aClass].features[prop];
 		var unknownClass = false;
 	}
-	var propFeaCs = propFea ? propFea[choice] : false;
-	if (!propFea || !propFeaCs) return cleanTempClassesKnown(); // no objects to process, so go back
+	if (!propFea || !propFea[choice]) return cleanTempClassesKnown(); // no objects to process, so go back
+	var propFeaCs = propFea[choice];
 
 	var propMinLvl = propFea.minlevel ? propFea.minlevel : 1;
 	var clLvl = unknownClass ? propMinLvl : classes.known[aClass].level;
@@ -7129,7 +7129,7 @@ function ClassFeatureOptions(Input, AddRemove, ForceExtraname) {
 			if (addIt) { // add the string to the third page
 				AddString("Extra.Notes", feaString[1].replace(/^[\r\n]*/, ''), true);
 				show3rdPageNotes(); // for a Colourful sheet, show the notes section on the third page
-				var extraNm = propFeaCs.extraname ? propFeaCs.extraname : ForceExtraname ? ForceExtraname : propFea.extraname ? propFea.extraname : propFea.name;
+				var extraNm = propFeaCs.extraname ? propFeaCs.extraname : ForceExtraname ? ForceExtraname : propFea.extraname ? propFea.extraname : propFea.name; // NOG NAAR KIJKEN: fallback naar class + level i.p.v. parent feature name
 				var changeMsg = "The " + extraNm + ' "' + propFeaCs.name + '" has been added to the Notes section on the third page' + (!typePF ? ", while the Rules section on the third page has been hidden" : "") + ". They wouldn't fit in the Class Features section if the class is taken to level 20.";
 				CurrentUpdates.types.push("notes");
 				if (!CurrentUpdates.notesChanges) {
@@ -7153,7 +7153,7 @@ function ClassFeatureOptions(Input, AddRemove, ForceExtraname) {
 		);
 		thermoM(3/5); //increment the progress dialog's progress
 		// do something with the text of the feature, if any description is set
-		if (propFea.description) {
+		if (propFeaCs.description !== undefined) {
 			var feaString = ParseClassFeature(aClass, prop, clLvl, false, choice, Fea);
 			var feaStringOld = ParseClassFeature(aClass, prop, clLvlOld, false, choiceOld, Fea, true);
 			applyClassFeatureText("replace", ["Class Features"], feaStringOld, feaString, false);

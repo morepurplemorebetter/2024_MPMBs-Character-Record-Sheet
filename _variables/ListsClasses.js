@@ -493,7 +493,7 @@ var Base_ClassList = {
 		}, {
 			gold: 90,
 		}],
-		subclasses: ["Bard Subclass", ["bard-lore"]],
+		subclasses: ["Bard Subclass", []], // ["bard-lore"]],
 		spellcastingFactor: 1,
 		spellcastingKnown: {
 			cantrips: [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -508,7 +508,7 @@ var Base_ClassList = {
 				additional: levels.map(function (n) {
 					return "d" + (n < 5 ? 6 : n < 10 ? 8 : n < 15 ? 10 : 12);
 				}),
-				usages: "Charisma modifier per ",
+				usages: "Charisma modifier per ", // too long for typePF!!! // NOG NAAR KIJKEN
 				usagescalc: "event.value = Math.max(1, What('Cha Mod'));",
 				recovery: levels.map(function (n) {
 					return n < 5 ? "Long Rest" : "Short Rest"; // Font of Inspiration
@@ -603,8 +603,8 @@ var Base_ClassList = {
 				source : [["SRD", 13], ["P", 54]],
 				minlevel : 20,
 				description : desc("I regain one use of Bardic Inspiration if I have no more remaining when I roll initiative")
-			}
-		}
+			},
+		},
 	},
 
 	"cleric": {
