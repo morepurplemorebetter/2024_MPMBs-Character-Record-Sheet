@@ -121,6 +121,7 @@ function dynamicFeatureCreation() {
 	// Warlock invocations that change cantrips: add one for each eligible cantrip
 	var invocationFeature = ClassList.warlock.features['eldritch invocations'];
 	var dmgSpellRx = /(takes?|or) \d+d\d+ \w* ?(damage|dmg)/i;
+	// Debatable if this should include True Strike, or only from level 5 onwards, but this automation has it as an option so the DM can decide to allow it or not.
 	var dmgSpellEx = ['true strike', 'green-flame blade', 'booming blade'];
 	var atkSpellRx = /spell at(tac)?k/i;
 	var atkSpellEx = dmgSpellEx;

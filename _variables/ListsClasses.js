@@ -102,12 +102,12 @@ var GenericClassFeatures = {
 		name: "Agonizing Blast",
 		source: [["SRD24", 72], ["P24", 155]],
 		calcChanges: {
-			atkAdd: [
-				function (fields, v) {
+			atkCalc: [
+				function (fields, v, output) {
 					// Stop if not a recognized spell, Charisma modifier is 0 or less, or no matching agonizing blast selected for this cantrip
 					var spellKey = v.thisWeapon[3];
 					var chaMod = Number(What("Cha Mod"));
-					if (!spellKey || chaMod <= 0 || !getActiveCantripInvocations('agonizing blast', { cantrip: spellKey })) return;
+					if (!spellKey || chaMod <= 0 || !getActiveInvocations('agonizing blast', { cantrip: spellKey })) return;
 
 					output.extraDmg += chaMod;
 				},
@@ -117,7 +117,7 @@ var GenericClassFeatures = {
 				function (spellKey, spellObj, spName) {
 					// Stop if Charisma modifier is 0 or less or no matching agonizing blast selected for this cantrip
 					var chaMod = Number(What("Cha Mod"));
-					if (chaMod <= 0 || !getActiveCantripInvocations('agonizing blast', { cantrip: spellKey })) return;
+					if (chaMod <= 0 || !getActiveInvocations('agonizing blast', { cantrip: spellKey })) return;
 
 					genericSpellDmgEdit(spellKey, spellObj, "\\w+\\.?", chaMod, false, true);
 				},
@@ -133,7 +133,7 @@ var GenericClassFeatures = {
 				function (fields, v) {
 					// Stop if not a recognized spell, no warlock levels present, or no matching eldritch spear selected for this cantrip
 					var spellKey = v.thisWeapon[3];
-					if (!spellKey || !classes.known.warlock || !getActiveCantripInvocations('eldritch spear', { cantrip: spellKey })) return;
+					if (!spellKey || !classes.known.warlock || !getActiveInvocations('eldritch spear', { cantrip: spellKey })) return;
 
 					var name = "eldritch spear";
 					var addition = "+" + (classes.known.warlock.level * 30);
@@ -151,7 +151,7 @@ var GenericClassFeatures = {
 			spellAdd: [
 				function (spellKey, spellObj, spName) {
 					// Stop if no warlock levels present or no matching eldritch spear selected for this cantrip
-					if (!classes.known.warlock || !getActiveCantripInvocations('eldritch spear', { cantrip: spellKey })) return;
+					if (!classes.known.warlock || !getActiveInvocations('eldritch spear', { cantrip: spellKey })) return;
 
 					var name = "eldritch spear";
 					var addition = "+" + (classes.known.warlock.level * 30);
@@ -177,7 +177,7 @@ var GenericClassFeatures = {
 				function (fields, v) {
 					// Stop if not a recognized spell, requires a save, or no matching repelling blast selected for this cantrip
 					var spellKey = v.thisWeapon[3];
-					if (!spellKey || v.isDC || !getActiveCantripInvocations('repelling blast', { cantrip: spellKey })) return;
+					if (!spellKey || v.isDC || !getActiveInvocations('repelling blast', { cantrip: spellKey })) return;
 
 					fields.Description += (fields.Description ? '; ' : '') + '\u2264Large push 10 ft';
 				},
@@ -186,7 +186,7 @@ var GenericClassFeatures = {
 			spellAdd: [
 				function (spellKey, spellObj, spName) {
 					// Stop if no matching repelling blast selected for this cantrip
-					if (!getActiveCantripInvocations('repelling blast', { cantrip: spellKey })) return;
+					if (!getActiveInvocations('repelling blast', { cantrip: spellKey })) return;
 
 					// Only amend the spell short description if using the special cantrip die description, otherwise it'll never fit
 					if (CurrentCasters.amendSpDescr && spellObj.descriptionCantripDie && spName) {
@@ -254,7 +254,7 @@ var Base_ClassList = {
 		}, {
 			gold: 75,
 		}],
-		subclasses : ["Barbarian Subclass", ["barbarian-berserker"]],
+		subclasses: ["Barbarian Subclass", ["barbarian-berserker"]],
 		attacks: [1, 1, 1, 1, 2],
 		features: {
 			"rage": {
@@ -378,7 +378,7 @@ var Base_ClassList = {
 					skills: ["Survival"],
 				},
 			},
-			"fast movement" : {
+			"fast movement": {
 				name: "Fast Movement",
 				source: [["SRD24", 29], ["P24", 53]],
 				minlevel: 5,
@@ -415,7 +415,7 @@ var Base_ClassList = {
 					return n < 17 ? '+1d10 damage, 1 effect' : '+2d10 damage, 2 effects';
 				}),
 			},
-			"relentless rage" : {
+			"relentless rage": {
 				name : "Relentless Rage",
 				source: [["SRD24", 30], ["P24", 53]],
 				minlevel : 11,
@@ -493,7 +493,7 @@ var Base_ClassList = {
 		}, {
 			gold: 90,
 		}],
-		subclasses: ["Bard Subclass", []], // ["bard-lore"]],
+		subclasses: ["Bard Subclass", ["bard-lore"]],
 		spellcastingFactor: 1,
 		spellcastingKnown: {
 			cantrips: [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -504,17 +504,17 @@ var Base_ClassList = {
 				name: "Bardic Inspiration",
 				source: [["SRD24", 31], ["P24", 59]],
 				minlevel: 1,
-				description: "\nAs a Bonus Action, I can give a Bardic Inspiration Die (BID) to another creature within 60 ft that can see or hear me. It can only ever have one. Once within the next hour when it fails a D20 Test, the creature can add its BID to the result, potentially turning it into a success.",
+				description: "\nAs a Bonus Action, I can give a Bardic Inspiration Die (BID) to another creature within 60 ft that can see or hear me. It can't have more than one. Once within the next hour when it fails a D20 Test, the creature can add its BID to the result, potentially causing it to succeed.",
 				additional: levels.map(function (n) {
 					return "d" + (n < 5 ? 6 : n < 10 ? 8 : n < 15 ? 10 : 12);
 				}),
-				usages: "Charisma modifier per ", // too long for typePF!!! // NOG NAAR KIJKEN
+				usages: "Charisma mod" + (typePF ? " per " : "ifier per "),
 				usagescalc: "event.value = Math.max(1, What('Cha Mod'));",
 				recovery: levels.map(function (n) {
 					return n < 5 ? "Long Rest" : "Short Rest"; // Font of Inspiration
 				}),
 				altResource: levels.map(function (n) {
-					return n < 5 ? "" : "SS 1+"; // Font of Inspiration
+					return n < 5 ? "" : "SS"; // Font of Inspiration
 				}),
 				action: [["bonus action", ""]],
 			},
@@ -534,10 +534,10 @@ var Base_ClassList = {
 					name: "Expertise",
 					source: [["SRD24", 32], ["P24", 60]],
 					minlevel: 2,
-					description: "\nI gain Expertise with two skills I am proficient with, and two more at 9th level.",
+					description: "",
 					skillstxt: "Expertise with any two skill proficiencies, and two more at 9th level.",
 					additional: levels.map(function (n) {
-						return n < 2 ? "" : "with " + (n < 9 ? 2 : 4) + " skills";
+						return n < 2 ? "" : "with " + (n < 9 ? 2 : 4) + " skills I'm proficient with";
 					}),
 					extraTimes: levels.map(function (n) { return n < 2 ? 0 : n < 9 ? 2 : 4; }),
 					extraname: "Expertise",
@@ -572,37 +572,64 @@ var Base_ClassList = {
 				name: "Font of Inspiration",
 				source: [["SRD24", 32], ["P24", 61]],
 				minlevel: 5,
-				description: "\nI can expend a spell slot to regain one Bardic Inspiration use " + (typePF ? "and I" : "\x26") + " regain all after a Short Rest.",
+				description: "\nI can expend a spell slot (SS) to regain a Bardic Inspiration use " + (typePF ? "and I" : "\x26") + " regain all on a Short Rest.",
 			},
 			"countercharm": {
 				name: "Countercharm",
-				source : [["SRD", 13], ["P", 54]],
+				source: [["SRD24", 33], ["P24", 61]],
 				minlevel: 7,
 				description: "\nAs a Reaction when I or a creature within 30 ft fails a save against an effect that applies the Charmed or Frightened condition, I can cause the save to be rerolled with Advantage.",
 				action: [["reaction", ""]],
 			},
-			// Done until here
-			"magical secrets" : {
-				name : "Magical Secrets",
-				source : [["SRD", 13], ["P", 54]],
-				minlevel : 10,
-				description : desc("I can add two spells/cantrips from any class to my spells known; +2 at level 14 \x26 18"),
-				additional : levels.map(function (n) {
-					return n < 10 ? "" : (n < 14 ? 2 : n < 18 ? 4 : 6) + " spells/cantrips";
-				}),
-				spellcastingBonus : [{
-					name : "Magical Secret",
-					"class" : "any",
-					times : levels.map(function (n) {
-						return n < 10 ? 0 : n < 14 ? 2 : n < 18 ? 4 : 6;
-					})
-				}]
+			"magical secrets": {
+				name: "Magical Secrets",
+				source: [["SRD24", 33], ["P24", 61]],
+				minlevel: 10,
+				description: "\nWhenever I choose prepared spells for my Bard spellcasting feature, I can pick from the Bard, Cleric, Druid, and Wizard spell lists, and they count as Bard spells for me.",
+				calcChanges: {
+					spellList: [
+						function(spList, spName, spType) {
+							if (spName === "bard" && spType.indexOf("bonus") === -1) return;
+								var MagicalSecrets = CreateSpellList({
+									"class": ["cleric", "druid", "wizard"],
+									level: [1, 9],
+								});
+							spList.extraspells = spList.extraspells.concat(MagicalSecrets);
+						},
+						'From 10th level Bard onwards, I can pick 1st-level and higher spells from the Bard, Cleric, Druid, and Wizard spell lists whenever I choose new prepared spells or swap out a previously prepared spell.',
+					],
+				},
 			},
-			"superior inspiration" : {
-				name : "Superior Inspiration",
-				source : [["SRD", 13], ["P", 54]],
-				minlevel : 20,
-				description : desc("I regain one use of Bardic Inspiration if I have no more remaining when I roll initiative")
+			"superior inspiration": {
+				name: "Superior Inspiration",
+				source: [["SRD24", 33], ["P24", 61]],
+				minlevel: 18,
+				description: "\nWhen I roll Initiative and have less than 2 Bardic Inspiration uses, I regain uses until I got 2.",
+			},
+			"words of creation": {
+				name: "Words of Creation",
+				source: [["SRD24", 33], ["P24", 61]],
+				minlevel: 20,
+				description: desc([
+					"I always have Power Word Heal and Power Word Kill prepared.",
+					"I can target a second creature with these if that creature is within 10 ft of the first target.",
+				], "\n"),
+				spellcastingBonus: [{
+					name: "Words of Creation",
+					spells: ["power word heal", "power word kill"],
+					prepared: ["power word heal", "power word kill"],
+					times: 2,
+				}],
+				spellChanges: {
+					"power word heal": {
+						description: "2 crea in 10-ft rad heal all HP, not Charmed, Frightened, Paralyzed, Poisoned, Stunned; React to stand",
+						changes: "With my Words of Creation feature, I can target a second creature with this spell if that creature is within 10 ft of the first target.",
+					},
+					"power word kill": {
+						description: "2 crea in 10-ft rad die if they have 100 or less current HP, else they take 12d12 Psychic damage",
+						changes: "With my Words of Creation feature, I can target a second creature with this spell if that creature is within 10 ft of the first target.",
+					},
+				},
 			},
 		},
 	},
@@ -1068,7 +1095,7 @@ var Base_ClassList = {
 				minlevel: 2,
 				description: "\nIf I fail an ability check, I can expend a Second Wind to add 1d10. If still fail, not expended.",
 			},
-			"subclassfeature3" : {
+			"subclassfeature3": {
 				name: "Fighter Subclass",
 				source: [["SRD24", 48], ["P24", 92]],
 				minlevel: 3,
@@ -1131,7 +1158,7 @@ var Base_ClassList = {
 		}, {
 			gold: 50,
 		}],
-		subclasses : ["Monastic Tradition", []], //["monk-open hand"]],
+		subclasses: ["Monastic Tradition", ["monk-open hand"]],
 		attacks: [1, 1, 1, 1, 2],
 		features: {
 			"martial arts": {
@@ -1253,7 +1280,7 @@ var Base_ClassList = {
 				description: "\nMy speed increases while I'm not wearing armor or wielding a shield.",
 				additional: levels.map(function (n) {
 					var spd = n < 2 ? 0 : n < 6 ? 10 : n < 10 ? 15 : n < 14 ? 20 : n < 18 ? 25 : 30;
-					return !spd ? "" : "+" + spd + " ft" + (n < 9 ? "" : "; Vertical surfaces and liquids");
+					return !spd ? "" : "+" + spd + " ft";
 				}),
 				changeeval: function (lvl) {
 					var n = lvl[1];
@@ -1281,7 +1308,7 @@ var Base_ClassList = {
 				description: levels.map(function (n) {
 					var dmgType = n < 13 ? "Bludgeoning, Piercing, or Slashing " : "";
 					var atkOrigin = n < 13 ? "" : "a melee attack or a creature I can see ";
-					return "As a Reaction when I take " + dmgType + "damage from an attack roll, I can reduce it by 1d10 + Monk level + my Dex mod. If it's reduced to 0 and it originated from " + atkOrigin + "within 60 ft, I can expend 1 Focus Point to have a creature I can see within 5 ft make a Dex save or take 2\xD7 Martial Arts die + my Dex mod damage of the same type.";
+					return "\nAs a Reaction when I take " + dmgType + "damage from an attack roll, I can reduce it by 1d10 + Monk level + my Dex mod. If it's reduced to 0 and it originated from " + atkOrigin + "within 60 ft, I can expend 1 Focus Point to have a creature I can see within 5 ft make a Dex save or take 2\xD7 Martial Arts die + my Dex mod damage of the same type.";
 				}),
 				action: [["reaction", "Deflect Attack (1 FP to redirect)"]],
 				additional: levels.map(function (n) {
@@ -1458,7 +1485,7 @@ var Base_ClassList = {
 		}, {
 			gold: 150,
 		}],
-		subclasses : ["Paladin Subclass", ["paladin-devotion"]],
+		subclasses: ["Paladin Subclass", ["paladin-devotion"]],
 		attacks: [1, 1, 1, 1, 2],
 		spellcastingFactor: 2,
 		spellcastingKnown: {
@@ -1893,6 +1920,7 @@ var Base_ClassList = {
 		name: "Rogue",
 		source: [["SRD24", 61], ["P24", 129]],
 		primaryAbility: "Dexterity",
+		abilitySave: 2,
 		prereqs: "Dexterity 13",
 		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6],
 		die: 8,
@@ -1934,17 +1962,17 @@ var Base_ClassList = {
 		}, {
 			gold: 100,
 		}],
-		subclasses: ["Rogue Subclass", []], // ["rogue-thief"]],
+		subclasses: ["Rogue Subclass", ["rogue-thief"]],
 		features: {
 			"expertise": function() {
 				var a = {
 					name: "Expertise",
 					source: [["SRD24", 61], ["P24", 129]],
 					minlevel: 1,
-					description: "\nI gain Expertise with two skills I am proficient with, and two more at 6th level.",
+					description: "",
 					skillstxt: "Expertise with any two skill proficiencies, and two more at 6th level.",
 					additional: levels.map(function (n) {
-						return "with " + (n < 6 ? 2 : 4) + " skills";
+						return "with " + (n < 6 ? 2 : 4) + " skills I'm proficient with";
 					}),
 					extraTimes: levels.map(function (n) { return n < 6 ? 2 : 4; }),
 					extraname: "Expertise",
@@ -2013,14 +2041,14 @@ var Base_ClassList = {
 				source: [["SRD24", 62], ["P24", 130]],
 				minlevel: 2,
 				description: "\nAs a Bonus Action on my turn, I can take the Dash, Disengage, or Hide action.",
-				action : [["bonus action", "Dash / Disengage / Hide"]],
+				action: [["bonus action", "Dash / Disengage / Hide"]],
 			},
 			"steady aim": {
 				name: "Steady Aim",
 				source: [["SRD24", 62], ["P24", 130]],
 				minlevel: 3,
-				description: "\nAs a Bonus Action, ", // NOG DOEN
-				action : [["bonus action", ""]],
+				description: "\nAs a Bonus Action if I don't move during my turn, I can give myself Advantage on my next attack roll this turn. After I use this, my Speed becomes 0 until the end of the current turn.",
+				action: [["bonus action", ""]],
 			},
 			"subclassfeature3": {
 				name: "Rogue Subclass",
@@ -2028,56 +2056,121 @@ var Base_ClassList = {
 				minlevel: 3,
 				description: '\nChoose a Rogue Subclass using the "Class" button/bookmark or type its name into the "Class" field.',
 			},
-			// NOG VERDER AFMAKEN (Cunning Strike mist nog bijv.)
-			"uncanny dodge": { // klaar
+			"cunning strike": {
+				name: "Cunning Strike",
+				source: [["SRD24", 63], ["P24", 130]],
+				minlevel: 5,
+				description: "\nWhen I deal Sneak Attack damage, I can add a Cunning Strike effect by forgoing a number of Sneak Attack damage dice. The effect occurs immediately after the damage is dealt.",
+				additional: levels.map(function (n) { // includes Improved Cunning Strike
+					return n < 5 ? "" : "max " + (n < 11 ? 1 : 2) + " effect" + (n < 11 ? "" : "s") + " per Sneak Attack";
+				}),
+				extraname: "Cunning Strike",
+				"poison": {
+					name: "Poison",
+					source: [["SRD24", 63], ["P24", 130]],
+					description: "\nIf I have a Poisoner's Kit on my person, I can add a toxin to my strike. The target must make a Con save or be Poisoned for 1 min. It can repeat the save at the end of each of its turns.",
+					additional: "1d6 cost; Poisoner's Kit required",
+				},
+				"trip": {
+					name: "Trip",
+					source: [["SRD24", 63], ["P24", 130]],
+					description: "\nIf the target is Large or smaller, it must make a Dexterity save or fall Prone.",
+					additional: "1d6 cost",
+				},
+				"withdraw": {
+					name: "Withdraw",
+					source: [["SRD24", 63], ["P24", 131]],
+					description: "\nI move up to half my Speed without provoking Opportunity Attacks.",
+					additional: "1d6 cost",
+				},
+				autoSelectExtrachoices: [{
+					extrachoice: "poison",
+				}, {
+					extrachoice: "trip",
+				}, {
+					extrachoice: "withdraw",
+				}],
+			},
+			"uncanny dodge": {
 				name: "Uncanny Dodge",
 				source: [["SRD24", 63], ["P24", 131]],
 				minlevel: 5,
-				description: "\nAs a Reaction, I can halve the damage of an attack from an attacker that I can see.",
+				description: "\nAs a Reaction, I can halve the damage of an attack roll from an attacker that I can see.",
 				action: [["reaction", ""]],
 			},
-			"evasion": { // klaar
+			"evasion": {
 				name: "Evasion",
 				source: [["SRD24", 63], ["P24", 131]],
 				minlevel: 7,
 				description: " [if not Incapacitated]\nWhen I make a Dex save to halve damage, I instead take none if I succeed and half if I fail.",
 				savetxt: { text: ["**Dex Save for Half**. *Failure:* half dmg, *Success:* no dmg"] },
 			},
-			"reliable talent" : {
-				name : "Reliable Talent",
-				source : [["SRD", 40], ["P", 96]],
-				minlevel : 11,
-				description : desc("If I make an ability check where I add my Proficiency Bonus, rolls of 9 or lower are 10")
+			"reliable talent": {
+				name: "Reliable Talent",
+				source: [["SRD24", 63], ["P24", 131]],
+				minlevel: 7,
+				description: "\nI treat a roll of 9 or lower as a 10 for ability checks I make using a skill or tool proficiency.",
 			},
-			"blindsense" : {
-				name : "Blindsense",
-				source : [["SRD", 40], ["P", 96]],
-				minlevel : 14,
-				description : desc("With my hearing, I can locate hidden or invisible creatures that are within 10 ft of me"),
-				vision : [["Blindsense", 10]]
+			// "improved cunning strike": {
+			// 	name: "Improved Cunning Strike",
+			// 	source: [["SRD24", 63], ["P24", 131]],
+			// 	minlevel: 11,
+			// 	description: "\n",
+			// },
+			"devious strikes": {
+				name: "Devious Strikes",
+				source: [["SRD24", 63], ["P24", 131]],
+				minlevel: 14,
+				description: " [more Cunning Strike options]",
+				extraname: "Cunning Strike",
+				"daze": {
+					name: "Daze",
+					source: [["SRD24", 63], ["P24", 131]],
+					description: "\nThe target must make a Constitution save or on its next turn it can do only one of the following: move, take an action, or take a Bonus Action.",
+					additional: "2d6 cost",
+				},
+				"knock out": {
+					name: "Knock Out",
+					source: [["SRD24", 63], ["P24", 131]],
+					description: "\nThe target must make a Constitution save or be knocked Unconscious for 1 minute or until it takes any damage. It can repeat the save at the end of each of its turns to end the effect.",
+					additional: "6d6 cost",
+				},
+				"obscure": {
+					name: "Obscure",
+					source: [["SRD24", 63], ["P24", 131]],
+					description: "\nThe target must make a Dexterity save or be Blinded until the end of its next turn.",
+					additional: "3d6 cost",
+				},
+				autoSelectExtrachoices: [{
+					extrachoice: "daze",
+				}, {
+					extrachoice: "knock out",
+				}, {
+					extrachoice: "obscure",
+				}],
 			},
-			"slippery mind" : {
-				name : "Slippery Mind",
-				source : [["SRD", 40], ["P", 96]],
-				minlevel : 15,
-				description : desc("I am proficient with Wisdom saving throws"),
-				saves : ["Wis"]
+			"slippery mind": {
+				name: "Slippery Mind",
+				source: [["SRD24", 63], ["P24", 131]],
+				minlevel: 15,
+				description: " [Wisdom and Charisma save proficiency]",
+				saves: ["Wis", "Cha"],
 			},
-			"elusive" : {
-				name : "Elusive",
-				source : [["SRD", 40], ["P", 96]],
-				minlevel : 18,
-				description : desc("Attackers do not gain advantage on attacks vs. me, unless I am incapacitated")
+			"elusive": {
+				name: "Elusive",
+				source: [["SRD24", 63], ["P24", 131]],
+				minlevel: 18,
+				description: "\nNo attack roll can have Advantage against me unless I'm Incapacitated.",
 			},
-			"stroke of luck" : {
-				name : "Stroke of Luck",
-				source : [["SRD", 40], ["P", 97]],
-				minlevel : 20,
-				description : desc("I can turn a missed attack into a hit or a failed ability check into a natural 20"),
-				recovery : "Short Rest",
-				usages : 1
-			}
-		}
+			"stroke of luck": {
+				name: "Stroke of Luck",
+				source: [["SRD24", 63], ["P24", 131]],
+				minlevel: 20,
+				description: "\nIf I fail a D20 Test, I can turn the roll into a 20.",
+				recovery: "Short Rest",
+				usages: 1,
+			},
+		},
 	},
 /*
 	"sorcerer" : {
@@ -2326,7 +2419,7 @@ var Base_ClassList = {
 						},
 					},
 				},
-				"eldritch mind" : {
+				"eldritch mind": {
 					name: "Eldritch Mind",
 					source: [["SRD24", 72], ["P24", 155]],
 					description: "\nI have Advantage on Constitution saving throws to maintain Concentration.",
@@ -2340,7 +2433,7 @@ var Base_ClassList = {
 					description: "\nI can see normally in Dim Light and Darkness, both magical and nonmagical, out to 120 ft.",
 					vision: [["Devil's Sight", 120]],
 				},
-				"fiendish vigor" : {
+				"fiendish vigor": {
 					name: "Fiendish Vigor",
 					source: [["SRD24", 73], ["P24", 155]],
 					minlevel: 2,
@@ -2359,7 +2452,7 @@ var Base_ClassList = {
 						},
 					},
 				},
-				"mask of many faces" : {
+				"mask of many faces": {
 					name: "Mask of Many Faces",
 					source: [["SRD24", 73], ["P24", 156]],
 					minlevel: 2,
@@ -2372,7 +2465,7 @@ var Base_ClassList = {
 						firstCol: "atwill",
 					}],
 				},
-				"misty visions" : {
+				"misty visions": {
 					name: "Misty Visions",
 					source: [["SRD24", 74], ["P24", 156]],
 					minlevel: 2,
@@ -2385,7 +2478,7 @@ var Base_ClassList = {
 						firstCol: "atwill",
 					}],
 				},
-				"otherworldly leap" : {
+				"otherworldly leap": {
 					name: "Otherworldly Leap",
 					source: [["SRD24", 74], ["P24", 156]],
 					minlevel: 2,
@@ -2398,7 +2491,7 @@ var Base_ClassList = {
 						firstCol: "atwill",
 					}],
 					spellChanges: {
-						"jump" : {
+						"jump": {
 							range: "Self",
 							description: "Once per turn, I can spend 10 ft movement to jump 30 ft",
 							changes: "With the Otherworldly Leap invocation I can cast Jump without expending a spell slot, but only on myself.",
@@ -2419,7 +2512,7 @@ var Base_ClassList = {
 						firstCol: "atwill",
 					}],
 					spellChanges: {
-						"levitate" : {
+						"levitate": {
 							range: "Self",
 							description: "I rise vertically, up to 20 ft; as part of my move, I can move up/down up to 20 ft; spell end: float down",
 							changes: "With the Ascendant Step invocation I can cast Levitate without expending a spell slot, but only on myself.",
@@ -2451,7 +2544,7 @@ var Base_ClassList = {
 						firstCol: 'oncelr',
 					}],
 				},
-				"master of myriad forms" : {
+				"master of myriad forms": {
 					name: "Master of Myriad Forms",
 					source: [["SRD24", 73], ["P24", 156]],
 					minlevel: 5,
@@ -2465,7 +2558,7 @@ var Base_ClassList = {
 						firstCol: "atwill",
 					}],
 				},
-				"one with shadows" : {
+				"one with shadows": {
 					name: "One with Shadows",
 					source: [["SRD24", 74], ["P24", 156]],
 					minlevel: 5,
@@ -2478,7 +2571,7 @@ var Base_ClassList = {
 						firstCol: "atwill",
 					}],
 					spellChanges: {
-						"invisibility" : {
+						"invisibility": {
 							range: "Self",
 							description: "Can cast if in dim light or darkness; I become Invisible; attacking, casting, or dealing damage ends it",
 							changes: "With the One with Shadows invocation I can cast Invisibility without expending a spell slot, but only on myself while I'm in an area of Dim Light or Darkness.",
@@ -2486,7 +2579,7 @@ var Base_ClassList = {
 					},
 				},
 				// level 7+
-				"whispers of the grave" : {
+				"whispers of the grave": {
 					name: "Whispers of the Grave",
 					source: [["SRD24", 74], ["P24", 157]],
 					minlevel: 7,
@@ -2500,7 +2593,7 @@ var Base_ClassList = {
 					}],
 				},
 				// level 9+
-				"visions of distant realms" : {
+				"visions of distant realms": {
 					name: "Visions of Distant Realms",
 					source: [["SRD24", 74], ["P24", 157]],
 					minlevel: 9,
@@ -2514,7 +2607,7 @@ var Base_ClassList = {
 					}],
 				},
 				// level 15+
-				"witch sight" : {
+				"witch sight": {
 					name: "Witch Sight",
 					source: [["SRD24", 74], ["P24", 157]],
 					minlevel: 15,
@@ -2578,7 +2671,7 @@ var Base_ClassList = {
 						return "+" + nmbr + "d8 Force damage";
 					}),
 				},
-				"lifedrinker (req: lvl 12+, pact of the blade)" : {
+				"lifedrinker (req: lvl 12+, pact of the blade)": {
 					name: "Lifedrinker",
 					source: [["SRD24", 73], ["P24", 156]],
 					minlevel: 12,
@@ -2780,7 +2873,7 @@ var Base_ClassList = {
 				additional: levels.map(function (n) {
 					if (n < 2) return "";
 					var nmbr = n < 11 ? 1 : n < 20 ? 2 : "all";
-					return nmbr + " spell slot" + (nmbr > 1 ? "s" : "");
+					return nmbr + " spell slot" + (nmbr === 1 ? "" : "s");
 				}),
 			},
 			"subclassfeature3": {
@@ -3025,7 +3118,7 @@ var Base_ClassList = {
 					],
 				},
 			},
-			"signature spells" : {
+			"signature spells": {
 				name : "Signature Spells",
 				source: [["SRD24", 79], ["P24", 167]],
 				minlevel : 20,
@@ -3085,6 +3178,7 @@ var Base_ClassSubList = {
 	"barbarian-berserker": {
 		regExpSearch: /^((?=.*\b(berserker|berserk|berserkr|ulfheoinn|ulfheonar)s?\b)|((?=.*(warrior|fighter))(?=.*(odin|thor)))).*$/i,
 		subname: "Path of the Berserker",
+		subnameShort: "Berserker",
 		fullname: "Berserker",
 		source: [["SRD24", 30], ["P24", 54]],
 		abilitySave: 1,
@@ -3124,7 +3218,7 @@ var Base_ClassSubList = {
 				description: "\nAs a Reaction when a creature within 5 ft damages me, I can make a melee attack vs. it.",
 				action: [["reaction", " (after taking damage)"]],
 			},
-			"subclassfeature14" : {
+			"subclassfeature14": {
 				name: "Intimidating Presence",
 				source: [["SRD24", 30], ["P24", 54]],
 				minlevel: 14,
@@ -3136,50 +3230,47 @@ var Base_ClassSubList = {
 			},
 		},
 	},
-/*
-	"bard-lore" : {
-		regExpSearch : /^(?=.*(college|bard|minstrel|troubadour|jongleur))(?=.*lore).*$/i,
-		subname : "College of Lore",
-		source : [["SRD", 13], ["P", 54]],
+
+	"bard-lore": {
+		regExpSearch: /^(?=.*(college|bard|minstrel|troubadour|jongleur))(?=.*lore).*$/i,
+		subname: "College of Lore",
+		source: [["SRD24", 35], ["P24", 66]],
 		features: {
-			"subclassfeature3" : {
-				name : "Bonus Proficiencies",
-				source : [["SRD", 13], ["P", 54]],
-				minlevel : 3,
-				description : desc("I gain proficiency with three skills of my choice"),
-				skillstxt : "Choose any three skills"
+			"subclassfeature3": {
+				name: "Bonus Proficiencies",
+				source: [["SRD24", 35], ["P24", 66]],
+				minlevel: 3,
+				description: "\nI gain proficiency with three skills of my choice.",
+				skillstxt: "Choose any three skills.",
 			},
-			"subclassfeature3.1" : {
-				name : "Cutting Words",
-				source : [["SRD", 13], ["P", 54]],
-				minlevel : 3,
-				description : desc([
-					"As a reaction, when a foe within earshot \x26 60 ft rolls ability check, attack or damage,",
-					"I can subtract a Bardic Inspiration die from the result unless the foe can't be charmed"
-				]),
-				action : [["reaction", ""]]
+			"subclassfeature3.1": {
+				name: "Cutting Words",
+				source: [["SRD24", 35], ["P24", 66]],
+				minlevel: 3,
+				description: "\nAs a Reaction when a creature I can see within 60 ft makes a damage roll or succeeds on an ability check or attack roll, I can expend and roll a Bardic Inspiration Die to subtract it from the result to reduce the damage or potentially causing it to fail or miss.",
+				action: [["reaction", ""]],
 			},
-			"subclassfeature6" : {
-				name : "Additional Magical Secrets",
-				source : [["SRD", 13], ["P", 55]],
-				minlevel : 6,
-				description : desc("I can add two spells/cantrips from any class to my Spells Known"),
-				spellcastingBonus : [{
-					name : "Additional Magical Secret",
-					"class" : "any",
-					times : 2
-				}]
+			"subclassfeature6": {
+				name: "Magical Discoveries",
+				source: [["SRD24", 35], ["P24", 66]],
+				minlevel: 6,
+				description: "\nI learn two cantrips or spells from the Cleric, Druid, or Wizard spell list. These must be of a level for which I have spell slots. I can swap one for another whenever I gain a Bard level.",
+				spellcastingBonus: [{
+					name: "Magical Discovery",
+					"class": ["cleric", "druid", "wizard"],
+					times: 2,
+				}],
 			},
-			"subclassfeature14" : {
-				name : "Peerless Skill",
-				source : [["SRD", 14], ["P", 55]],
-				minlevel : 14,
-				description : desc("When making an ability check, I can expend a use of Bardic Inspiration to add the die")
-			}
-		}
+			"subclassfeature14": {
+				name: "Peerless Skill",
+				source: [["SRD24", 35], ["P24", 67]],
+				minlevel: 14,
+				description: "\nWhen I fail an ability check or attack roll, I can expend and roll one Bardic Inspiration Die to add it to the result, potentially causing it to succeed. On a failure, the BID isn't expended.",
+			},
+		},
 	},
-*/
-	"cleric-life" : {
+
+	"cleric-life": {
 		regExpSearch : /^(?=.*(cleric|priest|clergy|acolyte))(?=.*\b(life|living|healing)\b).*$/i,
 		subname: "Life Domain",
 		source: [["SRD24", 40], ["P24", 73]],
@@ -3417,7 +3508,7 @@ var Base_ClassSubList = {
 		}
 	},
 */
-	"fighter-champion" : {
+	"fighter-champion": {
 		regExpSearch: /champion/i,
 		subname: "Champion",
 		fullname: "Champion",
@@ -3496,55 +3587,68 @@ var Base_ClassSubList = {
 			}
 		}
 	},
-/*
-	"monk-open hand" : {
-		regExpSearch : /^(?=.*\bopen\b)(?=.*\bhand\b)((?=.*(monk|monastic))|(((?=.*martial)(?=.*(artist|arts)))|((?=.*spiritual)(?=.*warrior)))).*$/i,
-		subname : "Way of the Open Hand",
-		source : [["SRD", 28], ["P", 79]],
+
+	"monk-open hand": {
+		regExpSearch: /^(?=.*\bopen\b)(?=.*\bhand\b)((?=.*(monk|monastic))|(((?=.*martial)(?=.*(artist|arts)))|((?=.*spiritual)(?=.*warrior)))).*$/i,
+		subname: "Warrior of the Open Hand",
+		subnameShort: "Open Hand",
+		source: [["SRD24", 52], ["P24", 107]],
 		features: {
-			"subclassfeature3" : {
-				name : "Hand Technique",
-				source : [["SRD", 28], ["P", 79]],
-				minlevel : 3,
-				description : desc([
-					"Whenever I hit a creature with a Flurry of Blows attack I can do one of the following:",
-					"\u2022 Have it make a Dexterity save or be knocked prone",
-					"\u2022 Have it make a Strength save or be pushed up to 15 ft away from me",
-					"\u2022 Stop it from taking reactions until the end of my next turn"
-				])
+			"subclassfeature3": {
+				name: "Open Hand Technique",
+				source: [["SRD24", 52], ["P24", 107]],
+				minlevel: 3,
+				description: desc([
+					"Whenever I hit a Flurry of Blows attack, I can impose one of the following effects:",
+					" \u2022 **Addle**. The target can't make Opportunity Attacks until the start of its next turn.",
+					" \u2022 **Push**. The target must make a Strength save or be pushed up to 15 ft away from me.",
+					" \u2022 **Topple**. The target must make a Dexterity save or have the Prone condition.",
+				], "\n"),
 			},
-			"subclassfeature6" : {
-				name : "Wholeness of Body",
-				source : [["SRD", 28], ["P", 79]],
-				minlevel : 6,
-				description : desc("As an action, I regain hit points equal to three times my monk level"),
-				additional : levels.map(function (n) { return n < 6 ? "" : (n*3) + " hit points" }),
-				usages : 1,
-				recovery : "Long Rest",
-				action : [["action", ""]]
+			"subclassfeature6": {
+				name: "Wholeness of Body",
+				source: [["SRD24", 52], ["P24", 107]],
+				minlevel: 6,
+				description: "\nAs a Bonus Action, I can regain Hit Points equal to my martial die + my Wisdom modifier.",
+				additional: levels.map(function (n) {
+					var die = n < 5 ? 6 : n < 11 ? 8 : n < 17 ? 10 : 12;
+					return "1d" + die + "+Wis mod";
+				}),
+				usages: "Wis mod per ",
+				usagescalc: "event.value = Math.max(1, What('Wis Mod'));",
+				recovery: "LR",
+				action: [["bonus action", ""]],
 			},
-			"subclassfeature11" : {
-				name : "Tranquility",
-				source : [["SRD", 29], ["P", 80]],
-				minlevel : 11,
-				description : desc("After a long rest, I gain the effect of a Sanctuary spell until a next long rest"),
-				"quivering palm" : {
-					name : "Quivering Palm",
-					extraname : "Way of the Open Hand 17",
-					source : [["SRD", 29], ["P", 80]],
-					description : " [3 ki points]" + desc([
-						"When I hit a creature with an unarmed strike, I can start imperceptible vibrations",
-						"Within my monk level in days, I can use an action to have the creature make a Con save",
-						"If it fails, it is reduced to 0 hit points; If it succeeds, it takes 10d10 necrotic damage"
-					])
+			"subclassfeature11": {
+				name: "Fleet Step",
+				source: [["SRD24", 52], ["P24", 107]],
+				minlevel: 11,
+				description: "\nWhen I take a Bonus Action that's not Step of the Wind, I can also Step of the Wind after.",
+			},
+			"subclassfeature17": {
+				name: "Quivering Palm",
+				source: [["SRD24", 52], ["P24", 107]],
+				minlevel: 17,
+				extraname: "Focus Feature",
+				"quivering palm": {
+					name: "Quivering Palm",
+					extraname: "Open Hand 17",
+					source: [["SRD24", 52], ["P24", 107]],
+					description: desc([
+						"When I hit a creature with an Unarmed Strike, I can expend 4 Focus Points to start lethal vibrations. These last for my Monk level in days, until I end them (no action), or do this again.",
+						"I can end these if on the same plane, as an action or by forgoing one attack from my Attack action, to deal 10d12 Force damage to the target, who can make a Con save for half damage.",
+					], "\n"),
+					additional: levels.map(function (n) {
+						return n < 17 ? "" : "4 Focus Points; lasts " + n + " days";
+					}),
 				},
 				autoSelectExtrachoices : [{
-					extrachoice : "quivering palm",
-					minlevel : 17
-				}]
-			}
-		}
+					extrachoice : "quivering palm"
+				}],
+			},
+		},
 	},
+/*
 	"paladin-devotion" : {
 		regExpSearch : /^(?=.*(devotion|obedience))((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		subname : "Oath of Devotion",
@@ -3702,54 +3806,62 @@ var Base_ClassSubList = {
 			}
 		}
 	},
-	"rogue-thief" : {
-		regExpSearch : /^(?!.*(barbarian|bard|cleric|druid|fighter|monk|paladin|ranger|sorcerer|warlock|wizard))(?=.*(thief|burglar)).*$/i,
-		subname : "Thief",
-		fullname : "Thief",
-		source : [["SRD", 41], ["P", 97]],
+*/
+	"rogue-thief": {
+		regExpSearch: /^(?!.*(barbarian|bard|cleric|druid|fighter|monk|paladin|ranger|sorcerer|warlock|wizard))(?=.*(thief|burglar)).*$/i,
+		subname: "Thief",
+		fullname: "Thief",
+		source: [["SRD24", 64], ["P24", 137]],
 		features: {
-			"subclassfeature3" : {
-				name : "Fast Hands",
-				source : [["SRD", 40], ["P", 97]],
-				minlevel : 3,
-				description : desc([
-					"As a bonus action, I can do one of the following:",
-					" \u2022 Make a Dexterity (Sleight of Hand) check",
-					" \u2022 Use my thieves' tools to disarm a trap or open a lock",
-					" \u2022 Take the Use an Object action"
-				]),
-				action : [["bonus action", ""]]
+			"subclassfeature3": {
+				name: "Fast Hands",
+				source: [["SRD24", 64], ["P24", 137]],
+				minlevel: 3,
+				description: "\nAs a Bonus Action, I can **Use an Object**: take the Utilize action, or take the Magic action to activate a magic item requiring that action. As a Bonus Action, I can make a Dexterity (**Sleight of Hand**) check to pick a lock or disarm a trap with Thieves' Tools, or pick a pocket.",
+				action: [["bonus action", ""]],
 			},
-			"subclassfeature3.1" : {
-				name : "Second-Story Work",
-				source : [["SRD", 41], ["P", 97]],
-				minlevel : 3,
-				description : desc("I climb at my normal speed; I add my Dex modifier to the distance of a running jump"),
-				speed : { climb : { spd : "walk", enc : "walk" } }
+			"subclassfeature3.1": {
+				name: "Second-Story Work",
+				source: [["SRD24", 64], ["P24", 137]],
+				minlevel: 3,
+				description: "\nI gain a Climb Speed equal to my Speed. I can determine my jump distance using Dexterity.",
+				speed: { climb: { spd: "walk", enc: "walk" } },
 			},
-			"subclassfeature9" : {
-				name : "Supreme Sneak",
-				source : [["SRD", 41], ["P", 97]],
-				minlevel : 9,
-				description : desc("I have advantage on Dexterity (Stealth) checks when moving no more than half speed")
+			"subclassfeature9": {
+				name: "Supreme Sneak",
+				source: [["SRD24", 64], ["P24", 137]],
+				minlevel: 9,
+				description: " [extra Cunning Strike option]",
+				extraname: "Cunning Strike",
+				"stealth attack": {
+					name: "Stealth Attack",
+					source: [["SRD24", 63], ["P24", 131]],
+					description: "\nIf I have the Hide action's Invisible condition, this attack doesn't end it if I end the turn behind Three-Quarters Cover or Total Cover.",
+					additional: "1d6 cost",
+				},
+				autoSelectExtrachoices: [{
+					extrachoice: "stealth attack",
+				}],
 			},
-			"subclassfeature13" : {
-				name : "Use Magic Device",
-				source : [["SRD", 41], ["P", 97]],
-				minlevel : 13,
-				description : desc("I can use magic items even if I don't meet the class, race, and/or level requirements")
+			"subclassfeature13": {
+				name: "Use Magic Device",
+				source: [["SRD24", 64], ["P24", 137]],
+				minlevel: 13,
+				description: desc([
+					"I can have **Attunement** with up to four magic items at once.",
+					"When I use a magic item property with **Charges**, on a roll of 6 on 1d6 none are expended.",
+					"I can use **Spell Scrolls** with Intelligence as my spellcasting ability. If the spell is 2nd-level or higher, I need to make an Int (Arcana) check (DC 10 + spell level) or the scroll disintegrates.",
+				], "\n"),
 			},
-			"subclassfeature17" : {
-				name : "Thief's Reflexes",
-				source : [["SRD", 41], ["P", 97]],
-				minlevel : 17,
-				description : desc([
-					"Unless surprised, I can take two turns on the first round of any combat",
-					"The first turn is at my regular initiative, and the second is at my initiative - 10"
-				])
-			}
-		}
+			"subclassfeature17": {
+				name: "Thief's Reflexes",
+				source: [["SRD24", 64], ["P24", 137]],
+				minlevel: 17,
+				description: "\nI can take a second turn during the first round of any combat, at my Initiative minus 10.",
+			},
+		},
 	},
+/*
 	"sorcerer-draconic bloodline" : {
 		regExpSearch : /^(?=.*(sorcerer|witch))(?=.*(draconic|dragon)).*$/i,
 		subname : "Draconic Bloodline",
@@ -4045,7 +4157,7 @@ var Base_ClassSubList = {
 				spellcastingExtra: ["burning hands", "command", "scorching ray", "suggestion", "fireball", "stinking cloud", "fire shield", "wall of fire", "geas", "insect plague"],
 				spellcastingExtraApplyNonconform: true,
 			},
-			"subclassfeature6" : {
+			"subclassfeature6": {
 				name : "Dark One's Own Luck",
 				source: [["SRD24", 76], ["P24", 162]],
 				minlevel: 6,
@@ -4072,6 +4184,7 @@ var Base_ClassSubList = {
 			},
 		},
 	},
+
 	"wizard-evoker": {
 		regExpSearch: /(evocation|evocer|evoker)/i,
 		subname: "Evoker",

@@ -28,6 +28,8 @@ var Base_DefaultEvalsList = {
 		atkAdd: [
 			function (fields, v) {
 				if (v.isWeapon && v.baseWeaponName !== 'true strike' && /true.strike|[\(\[]TS[\]\)]/i.test(v.WeaponTextName)) {
+					// Save that this is related to the True Strike cantrip
+					if (!v.thisWeapon[3]) v.thisWeapon[3] = 'true strike';
 					// Radiant damage type optional
 					if (!/radiant|[,; /\-]/i.test(fields.Damage_Type)) {
 						fields.Damage_Type = fields.Damage_Type.capitalize().replace("eoning", ".") + "/Radiant";
@@ -39,6 +41,7 @@ var Base_DefaultEvalsList = {
 					// Use highest spellcasting ability
 					if (!v.theWea.useSpellMod) {
 						var aCasters = isSpellUsed('true strike');
+						if (aCasters.length && !v.thisWeapon[4].length) v.thisWeapon[4] = aCasters;
 						if (!aCasters.length) aCasters = Object.keys(CurrentSpells);
 						if (aCasters.length) v.theWea.useSpellMod = aCasters;
 					};
@@ -50,9 +53,12 @@ var Base_DefaultEvalsList = {
 		atkCalc: [
 			function (fields, v, output) {
 				if (v.isWeapon && v.baseWeaponName !== 'true strike' && /true strike|[\(\[]TS[\]\)]/i.test(v.WeaponTextName)) {
+					// Save that this is related to the True Strike cantrip
+					if (!v.thisWeapon[3]) v.thisWeapon[3] = 'true strike';
 					// Use highest spellcasting ability
 					if (!v.theWea.useSpellMod) {
 						var aCasters = isSpellUsed('true strike');
+						if (aCasters.length && !v.thisWeapon[4].length) v.thisWeapon[4] = aCasters;
 						if (!aCasters.length) aCasters = Object.keys(CurrentSpells);
 						if (aCasters.length) v.theWea.useSpellMod = aCasters;
 					};

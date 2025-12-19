@@ -6447,20 +6447,21 @@ function CalcEncumbrance() {
 
 function ParseClassFeature(theClass, theFeature, FeaLvl, ForceOld, SubChoice, Fea, ForceFeaOld) {
 	// First make sure we know where the feature comes from (if it exists in both class and subclass, use subclass, unless ForceOld is true)
-	var aSubClass = classes.known[theClass].subclass;
-	var FeaList = ClassList[theClass].features[theFeature] && (ForceOld || !aSubClass || !ClassSubList[aSubClass].features[theFeature]) ? 'ClassList' : ClassSubList[aSubClass].features[theFeature] ? 'ClassSubList' : false;
-	if (!FeaList) return ["", "", ""];
+	var sSubclass = classes.known[theClass] && classes.known[theClass].subclass ? classes.known[theClass].subclass : false;
+	var isSubclassFeature = !ForceOld && sSubclass && ClassSubList[sSubclass].features[theFeature] && (!ClassList[theClass].features[theFeature] || /^subclassfeature\d+\.?\d*$/.test(theFeature));
+	var oClFea = isSubclassFeature ? ClassSubList[sSubclass].features[theFeature] : ClassList[theClass].features[theFeature];
+	if (!oClFea) return ["", "", ""];
 
-	var FeaKey = FeaList == 'ClassList' ? ClassList[theClass].features[theFeature] : ClassSubList[aSubClass].features[theFeature];
 	var old = (ForceOld || ForceFeaOld) && Fea ? "Old" : "";
 	if (old) Fea.source = Fea.sourceOld;
-	var FeaClass = FeaList == 'ClassSubList' && CurrentClasses[theClass].subname ? CurrentClasses[theClass].subname : CurrentClasses[theClass].name;
-	if (!Fea) Fea = GetLevelFeatures(FeaKey, FeaLvl, SubChoice, "", "");
 
+	if (!Fea) Fea = GetLevelFeatures(oClFea, FeaLvl, SubChoice, "", "");
 	if (!Fea.UseName) return ["", "", ""]; // return empty strings if there is no name
 
-	var FeaSource = stringSource(Fea, "first,abbr", ", ");
-	var FeaRef = " (" + FeaClass + " " + FeaKey.minlevel + FeaSource + ")";
+	var className = isSubclassFeature ?
+		(ClassSubList[sSubclass].subnameShort ? ClassSubList[sSubclass].subnameShort : ClassSubList[sSubclass].subname) :
+		(ClassList[theClass].nameShort ? ClassList[theClass].nameShort : ClassList[theClass].name);
+	var FeaRef = " (" + className + " " + oClFea.minlevel + stringSource(Fea, "first,abbr", ", ") + ")";
 	var FeaUse = Fea["Use" + old] + (Fea["Use" + old] && !isNaN(Fea["Use" + old]) ? "\xD7 per " : "") + Fea["Recov" + old];
 	if (FeaUse && Fea["AltRecov" + old]) FeaUse += " or " + Fea["AltRecov" + old];
 
@@ -6473,7 +6474,7 @@ function ParseClassFeature(theClass, theFeature, FeaLvl, ForceOld, SubChoice, Fe
 		FeaPost = " #[" + FeaUse + "]#";
 	}
 
-	var FeaName = SubChoice && FeaKey[SubChoice] ? FeaKey[SubChoice].name : FeaKey.name;
+	var FeaName = SubChoice && oClFea[SubChoice] ? (oClFea[SubChoice].name ? oClFea[SubChoice].name : SubChoice) : oClFea.name;
 	var FeaFirstLine = "#\u25C6 " + FeaName + "#" + FeaRef;
 	var FeaDescr = Fea["Descr" + old];
 	if (isArray(FeaDescr)) FeaDescr = desc(FeaDescr);
@@ -6490,13 +6491,22 @@ function ParseClassFeature(theClass, theFeature, FeaLvl, ForceOld, SubChoice, Fe
 };
 
 function ParseClassFeatureExtra(theClass, theFeature, extraChoice, Fea, ForceOld, ForceExtraname) {
-	var clObj = typeof theClass == "string" ? CurrentClasses[theClass].features[theFeature] : theClass;
-	var FeaKey = clObj && clObj[extraChoice.toLowerCase()] ? clObj[extraChoice.toLowerCase()] : false;
-	if (!FeaKey || !FeaKey.name) return ["", ""];
+	var sSubclass = classes.known[theClass] && classes.known[theClass].subclass ? classes.known[theClass].subclass : false;
+	var isSubclassFeature = sSubclass && ClassSubList[sSubclass].features[theFeature] && (!ClassList[theClass].features[theFeature] || /^subclassfeature\d+\.?\d*$/.test(theFeature));
+	var oClFea = isSubclassFeature ? ClassSubList[sSubclass].features[theFeature] : ClassList[theClass].features[theFeature];
+	var oClFeaCh = oClFea ? oClFea[extraChoice.toLowerCase()] : false;
+	if (!oClFeaCh) return ["", ""];
 	var old = ForceOld ? "Old" : "";
 	if (old) Fea.source = Fea.sourceOld;
 
-	var extraNm = FeaKey.extraname ? FeaKey.extraname : ForceExtraname ? ForceExtraname : clObj.extraname ? clObj.extraname : clObj.name;
+	var extraNm = oClFeaCh.extraname !== undefined ? oClFeaCh.extraname : ForceExtraname ? ForceExtraname : oClFea.extraname ? oClFea.extraname : false;
+	if (!extraNm) {
+		var className = isSubclassFeature ?
+			(ClassSubList[sSubclass].subnameShort ? ClassSubList[sSubclass].subnameShort : ClassSubList[sSubclass].subname) :
+			(ClassList[theClass].nameShort ? ClassList[theClass].nameShort : ClassList[theClass].name);
+		var feaMinlevel = oClFeaCh.minlevel ? oClFeaCh.minlevel : oClFea.minlevel;
+		extraNm = className + " " + feaMinlevel;
+	}
 	var FeaRef = " (" + extraNm + stringSource(Fea, "first,abbr", ", ") + ")";
 	var FeaUse = Fea["Use" + old] + (Fea["Use" + old] && !isNaN(Fea["Use" + old]) ? "\xD7 per " : "") + Fea["Recov" + old];
 	if (FeaUse && Fea["AltRecov" + old]) FeaUse += " or " + Fea["AltRecov" + old];
@@ -6510,7 +6520,8 @@ function ParseClassFeatureExtra(theClass, theFeature, extraChoice, Fea, ForceOld
 		FeaPost = " #[" + FeaUse + "]#";
 	};
 
-	var FeaFirstLine = "#\u25C6 " + FeaKey.name + "#" + FeaRef;
+	var FeaName = oClFeaCh.name ? oClFeaCh.name : extraChoice;
+	var FeaFirstLine = "#\u25C6 " + FeaName + "#" + FeaRef;
 	var FeaDescr = Fea["Descr" + old];
 	if (isArray(FeaDescr)) FeaDescr = desc(FeaDescr);
 	if (What("Unit System") == "metric") {
@@ -7122,14 +7133,12 @@ function ClassFeatureOptions(Input, AddRemove, ForceExtraname) {
 
 		// do something with the text of the feature, if any description is set
 		if (propFeaCs.description !== undefined) {
-			var feaString = ParseClassFeatureExtra(
-				unknownClass ? propFea : aClass,
-				prop, choice, Fea, !addIt, ForceExtraname);
+			var feaString = ParseClassFeatureExtra(aClass, prop, choice, Fea, !addIt, ForceExtraname);
 
 			if (addIt) { // add the string to the third page
 				AddString("Extra.Notes", feaString[1].replace(/^[\r\n]*/, ''), true);
 				show3rdPageNotes(); // for a Colourful sheet, show the notes section on the third page
-				var extraNm = propFeaCs.extraname ? propFeaCs.extraname : ForceExtraname ? ForceExtraname : propFea.extraname ? propFea.extraname : propFea.name; // NOG NAAR KIJKEN: fallback naar class + level i.p.v. parent feature name
+				var extraNm = propFeaCs.extraname ? propFeaCs.extraname : ForceExtraname ? ForceExtraname : propFea.extraname ? propFea.extraname : propFea.name;
 				var changeMsg = "The " + extraNm + ' "' + propFeaCs.name + '" has been added to the Notes section on the third page' + (!typePF ? ", while the Rules section on the third page has been hidden" : "") + ". They wouldn't fit in the Class Features section if the class is taken to level 20.";
 				CurrentUpdates.types.push("notes");
 				if (!CurrentUpdates.notesChanges) {
