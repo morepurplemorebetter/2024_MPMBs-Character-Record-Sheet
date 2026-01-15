@@ -78,6 +78,8 @@ function desc(arr, joinStr) {
 	return joinStr + arr.join(joinStr);
 };
 
+function descN(arr) { return desc(arr, "\n"); };
+
 // Call all the prototypes within their own function so we can call it again when importing, forcing the latest version
 function setPrototypes() {
 	// Adding a way of capitalizing every first letter of every word in a string
@@ -1694,4 +1696,23 @@ function redoFieldFormatIfColored() {
 		var Ffield = this.getField(Fname);
 		if (Ffield.mpmbRtColor) Ffield.password = false;
 	}
+}
+
+function displayError(oError, sIntroText, sOutroText, bClearConsole) {
+	var eText = sIntroText ? sIntroText : "The error below occurred. Please share this error with the author of whatever caused it, which is almost certainly the last thing you changed on the sheet.";
+	if (oError) {
+		eText += '\n\n"' + oError;
+		if (typeof oError === "object") {
+			for (var e in oError) eText += "\n " + e + ": " + oError[e];
+		}
+		eText += '"';
+	}
+	if (sOutroText) eText += "\n\n" + sOutroText;
+	if (!eText) return;
+	eText += '\n'; // Make sure future errors don't end up on the same line
+	var rxWinCommand = /Ctrl\+Enter/ig;
+	if (!isWindows && rxWinCommand.test(eText)) eText = eText.replace(rxWinCommand, 'Command+Enter');
+	if (bClearConsole) console.clear();
+	console.println(eText);
+	console.show();
 }

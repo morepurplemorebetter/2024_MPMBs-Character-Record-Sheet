@@ -2416,7 +2416,7 @@ function ParseRace(input) {
 			// only go on with this entry if:
 			// we are using the search length (default) and this entry has a longer name or this entry has an equal length name but has a newer source
 			// or if we are not using the search length, just look at the newest source date
-			// console.println("\n"+i+". RaceList["+key+ "] mainFoundLen: "+mainFoundLen+"; kObj.name.length:"+kObj.name.length)
+			// displayError(false, "\n"+i+". RaceList["+key+ "] mainFoundLen: "+mainFoundLen+"; kObj.name.length:"+kObj.name.length);
 			var tempDate = sourceDate(kObj.source);
 			if (i == 1 && ((!ignoreSearchLength && kObj.name.length < mainFoundLen) || (!ignoreSearchLength && kObj.name.length == mainFoundLen && tempDate < mainFoundDat) || (ignoreSearchLength && tempDate <= mainFoundDat))) continue;
 
@@ -2438,8 +2438,7 @@ function ParseRace(input) {
 					var subKey = key + "-" + sVar;
 					var sObj = RaceSubList[subKey];
 					if (!sObj) {
-						console.println("The racial variant '" + sVar + "' for the '" + kObj.name + "' species missing from the RaceSubList object. Please contact its author to have this issue corrected. The variant will be ignored for now.");
-						console.show();
+						displayError(false, 'The racial variant "' + sVar + '" for the "' + kObj.name + '" species is missing from the RaceSubList object. The variant will be ignored for now, but please contact its author to have this issue corrected.');
 						// Remove this array entry, but make sure we don't skip an entry
 						kObj.variants.splice(v, 1);
 						v--;
@@ -2902,10 +2901,7 @@ function AmendOldToNewRace(oInstr, bSkipDialogAndForce) {
 			} catch (error) {
 				var raceObject = CurrentRace.variant && RaceSubList[CurrentRace.known + '-' + CurrentRace.variant].useFromPreviousRace ? 'RaceSubList["' + CurrentRace.known + '-' + CurrentRace.variant + '"]' : 'RaceList["' + CurrentRace.known + '"]';
 				var baseRaceObject = oOldVariant ? 'RaceSubList["' + CurrentRace.knownOld + '-' + CurrentRace.variantOld + '"]' : 'RaceList["' + CurrentRace.knownOld + '"]';
-				var eText = 'The function call to `' + raceObject + '.useFromPreviousRace.evalAfterMerge` when creating the merged "' + CurrentRace.name + '" from `' + baseRaceObject + '` produced an error!\nPlease contact the author of `' + raceObject + '` to correct this issue:\n ' + error;
-				for (var e in error) eText += "\n " + e + ": " + error[e];
-				console.println(eText);
-				console.show();
+				displayError(error, 'The function call to `' + raceObject + '.useFromPreviousRace.evalAfterMerge` when creating the merged "' + CurrentRace.name + '" from `' + baseRaceObject + '` produced the error below. Please share this error message with its author so they can correct this issue.');
 			}
 		}
 	} else if (oInstr.defaultTraits) { // Use the defaultTraits
@@ -4404,8 +4400,7 @@ function ParseBackground(input) {
 			for (var i = 0; i < kObj.variant.length; i++) { // scan string for all variants of the background
 				var bVars = BackgroundSubList[kObj.variant[i]];
 				if (!bVars) {
-					console.println("The variant '" + kObj.variant[i] + "' for the background '" + kObj.name + "' is missing from the BackgroundSubList object. Please contact its author to have this issue corrected. The variant will be ignored for now.");
-					console.show();
+					displayError(false, 'The variant "' + kObj.variant[i] + '" for the background "' + kObj.name + '" is missing from the BackgroundSubList object. The variant will be ignored for now, but please contact its author to have this issue corrected');
 					// Remove this array entry, but make sure we don't skip an entry
 					kObj.variant.splice(i, 1);
 					i--;
@@ -5265,8 +5260,7 @@ function ParseFeat(input) {
 				var keySub = kObj.choices[i].toLowerCase();
 				var sObj = kObj[keySub];
 				if (!sObj) {
-					console.println("The subchoice '" + kObj.choices[i] + "' for the feat '" + kObj.name + "' doesn't have a corresponding object entry. Please contact its author to have this issue corrected. The choice will be ignored for now.");
-					console.show();
+					displayError(false, 'The subchoice "' + kObj.choices[i] + '" for the feat "' + kObj.name + "\" doesn't have a corresponding object entry. Please contact its author to have this issue corrected. The choice will be ignored for now.");
 					// Remove this array entry, but make sure we don't skip an entry
 					kObj.choices.splice(i, 1);
 					i--;
@@ -5364,10 +5358,7 @@ function ApplyFeat(input, FldNmbr) {
 				try {
 					selectFeatVar = aFeat.selfChoosing();
 				} catch (error) {
-					var eText = "The function in the 'selfChoosing' attribute of '" + newFeat + "' produced an error! Please contact the author of the feat code to correct this issue:\n " + error;
-					for (var e in error) eText += "\n " + e + ": " + error[e];
-					console.println(eText);
-					console.show();
+					displayError(error, 'The "selfChoosing" attribute for the feat "' + aFeat.name + '" produces the error below and is subsequently ignored.\nIf this is one of the built-in feats, please share this error message with MorePurpleMoreBetter using one of the contact bookmarks, so he can fix this bug. Please attach this error message and list the version number of the sheet, name and version of the software you are using, and the name of the buggy feat.\nIf this is not a built-in feat, please share this error message with its author.');
 				}
 				selectFeatVar = selectFeatVar && typeof selectFeatVar == "string" && aFeat[selectFeatVar.toLowerCase()] ? selectFeatVar : false;
 			}
@@ -5395,8 +5386,7 @@ function ApplyFeat(input, FldNmbr) {
 	if (failedChoice) {
 		Value(Fflds[2], 'ERROR, please reapply "' + aFeat.name + '" above.');
 		if (!IsNotImport) {
-			console.println("The feat '" + aFeat.name + "' requires you to make a selection of a sub-choice. However, because this feat was added during importing from another MPMB's Character Record Sheet, no pop-up dialog could be displayed to allow you to make a selection. Please reapply this feat to show the pop-up dialog and make a selection for its sub-choice.");
-			console.show();
+			displayError(false, 'The feat "' + aFeat.name + "\" requires you to make a selection of a sub-choice. However, because this feat was added during importing from another MPMB's Character Record Sheet, no pop-up dialog could be displayed to allow you to make a selection. Please reapply this feat to show the pop-up dialog and make a selection for its sub-choice.");
 		}
 		if (thermoTxt) thermoM(thermoTxt, true); // Stop progress bar
 		event.target.setVal = "ERROR, please reapply: " + (aFeat.name.substr(0,2) + "\u200A" + aFeat.name.substr(2)).split(" ").join("\u200A ");
@@ -5501,10 +5491,7 @@ function ApplyFeat(input, FldNmbr) {
 				var meetsPrereq = theFeat.prereqeval(gatherVars);
 			}
 		} catch (error) {
-			var eText = "The 'prereqeval' attribute for the feat '" + theFeat.name + "' produces an error and is subsequently ignored. If this is one of the built-in feats, please contact morepurplemorebetter using one of the contact bookmarks to let him know about this bug. Please do not forget to list the version number of the sheet, name and version of the software you are using, and the name of the feat.\nThe sheet reports the error as\n " + error;
-			for (var e in error) eText += "\n " + e + ": " + error[e];
-			console.println(eText);
-			console.show();
+			displayError(error, 'The "prereqeval" attribute for the feat "' + theFeat.name + '" produces the error below and is subsequently ignored.\nIf this is one of the built-in feats, please share this error message with MorePurpleMoreBetter using one of the contact bookmarks, so he can fix this bug. Please attach this error message and list the version number of the sheet, name and version of the software you are using, and the name of the buggy feat.\nIf this is not a built-in feat, please share this error message with its author.');
 			var meetsPrereq = true;
 		};
 		if (!meetsPrereq) {
@@ -6303,8 +6290,7 @@ function processAddFeats(bAddRemove, featsAdd, srcType, srcName, srcNameUnique) 
 
 //this is now an empty function so that legacy code doesn't produce an error
 function ChangeSpeed(input) {
-	console.println("ChangeSpeed(" + input + ") was called, but this function is no longer supported since v12.998 of the sheet. Instead, a new, more comprehensive syntax for setting speed is available from v12.998 onwards.");
-	console.show();
+	displayError(false, "ChangeSpeed(" + input + ") was called, but this function is no longer supported since v12.998 of the sheet. Instead, a new, more comprehensive syntax for setting speed is available from v12.998 onwards.");
 };
 
 // Reset the limited feature uses, buttons on the 1st page
@@ -6615,10 +6601,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 						false // forceNonCurrent
 					);
 				} catch (error) {
-					var eText = 'The "' + propFea.name + '" feature from the "' + CurrentRace.name + '" species produced an error! Please contact the author of the feature to correct this issue:\n ' + error;
-					for (var e in error) eText += "\n " + e + ": " + error[e];
-					console.println(eText);
-					console.show();
+					displayError(error, 'The "' + propFea.name + '" feature from the "' + CurrentRace.name + '" species produced the error below. Please share this error message with its author so they can correct this issue.');
 				}
 			}
 		}
@@ -6649,10 +6632,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 					false // forceNonCurrent
 				);
 			} catch (error) {
-				var eText = 'The feat "' + theFeat.name + '" produced an error! Please contact the author of the feature to correct this issue:\n ' + error;
-				for (var e in error) eText += "\n " + e + ": " + error[e];
-				console.println(eText);
-				console.show();
+				displayError(error, 'The feat "' + theFeat.name + '" produced the error below. Please share this error message with its author so they can correct this issue.');
 			}
 		}
 		CurrentFeats.level = newFeatLvl;
@@ -6684,10 +6664,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 					false // forceNonCurrent
 				);
 			} catch (error) {
-				var eText = 'The magic item "' + theItem.name + '" produced an error! Please contact the author of the feature to correct this issue:\n ' + error;
-				for (var e in error) eText += "\n " + e + ": " + error[e];
-				console.println(eText);
-				console.show();
+				displayError(error, 'The magic item "' + theItem.name + '" produced the error below. Please share this error message with its author so they can correct this issue.');
 			}
 		}
 		CurrentMagicItems.level = newItemLvl;
@@ -6801,10 +6778,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 						LastProp = propFea.minlevel <= ClassLevelUp[aClass][2] ? FeaNewString[2] : LastProp;
 					}
 				} catch (error) {
-					var eText = 'The "' + propFea.name + '" feature from the "' + cl.fullname + '" class produced an error! Please contact the author of the feature to correct this issue:\n ' + error;
-					for (var e in error) eText += "\n " + e + ": " + error[e];
-					console.println(eText);
-					console.show();
+					displayError(error, 'The "' + propFea.name + '" feature from the "' + cl.fullname + '" class produced the error below. Please share this error message with its author so they can correct this issue.');
 				}
 
 				// see if this is a wild shape feature
@@ -6874,10 +6848,7 @@ function MakeClassMenu() {
 				theRe = toEval(gatherVars);
 			}
 		} catch (error) {
-			var eText = "The prerequisite check code (prereqeval) for '" + objNm + "' of the '" + feaNm + "' feature produced an error! Please contact the author of the feature to correct this issue:\n " + error;
-			for (var e in error) eText += "\n " + e + ": " + error[e];
-			console.println(eText);
-			console.show();
+			displayError(error, 'The "prereqeval" function from "' + objNm + '" of the "' + feaNm + '" feature produced the error below. Please share this error message with its author so they can correct this issue.');
 		}
 		return theRe;
 	}
@@ -6900,8 +6871,7 @@ function MakeClassMenu() {
 			var feaObjNm = array[i].toLowerCase();
 			var feaObjA = feaObj[feaObjNm];
 			if (!feaObjA) { // object doesn't exist, so warn user
-				console.println("The object corresponding to '" + array[i] + "' doesn't exist in the '" + featureNm + "' feature. This is a discrepancy between the '" + extrareturn + "choices' array and the names of the objects. Note that the object name needs to be exactly '" + array[i].toLowerCase() + "' (identical, but fully lower case).");
-				console.show();
+				displayError(false, 'The object corresponding to "' + array[i] + '" doesn\'t exist in the "' + featureNm + '" feature. This is a discrepancy between the `' + extrareturn + 'choices` array and the names of the objects. Note that the object name needs to be exactly "' + array[i].toLowerCase() + '" (identical, but completely lower case).');
 				continue;
 			};
 			// is this feature selected? Than mark it!
@@ -7459,11 +7429,8 @@ function CalcAC() {
 					if (acVals[aMod.type] !== undefined) acVals[aMod.type] -= removeVal;
 				}
 			} catch (error) {
-				var eText = "The check if the AC bonus from '" + aMod.name + "' should be added or not produced an error! This check will be removed from the sheet for now, but please contact the author of the feature to have this issue corrected:\n " + error;
-				for (var e in error) eText += "\n " + e + ": " + error[e];
-				console.println(eText);
-				console.show();
 				delete aMod.stopeval;
+				displayError(error, 'The "stopeval" function from "' + aMod.name + '" produced the error below. It will be removed for now, but please share this error message with its author so they can correct this issue.');
 			}
 		}
 	}
@@ -9711,10 +9678,7 @@ function ConvertToFirstPerson(inputString, convertFunction, origin) {
 			var converted = convertFunction(firstPerson);
 			firstPerson = converted;
 		} catch (error) {
-			var eText = 'The `useDescriptionFull` or `formatSpellDescription` attribute from "' + origin + '" produced an error! Please contact its author to correct this issue and please include this error message:\n ' + error;
-			for (var e in error) eText += "\n " + e + ": " + error[e];
-			console.println(eText);
-			console.show();
+			displayError(error, 'The "useDescriptionFull" or "formatSpellDescription" attribute from "' + origin + '" produced the error below. It will be ignored for now, but please share this error message with its author so they can correct this issue.');
 		}
 	}
 	return firstPerson;

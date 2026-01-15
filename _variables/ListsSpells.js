@@ -825,7 +825,7 @@ var Base_SpellsList = {
 		compMaterial: "A diamond worth 50+ GP",
 		duration: "Instantaneous",
 		description: "Spell atk 3d8+1d8/SL elemental dmg; if 2 die roll same: atk other in 30 ft; leap max 1+1/SL (50gp)",
-		descriptionShorter: "Spell atk 3d8+1d8/SL elemental dmg; if 2 roll same: atk other in 30 ft; leaps 1+1/SL (50gp)",
+		descriptionShorter: "Spell atk 3d8+1d8/SL elem. dmg; if 2 roll same: atk other in 30 ft; leaps 1+1/SL (50gp)",
 		descriptionFull: [
 			"You hurl an orb of energy at a target within range. Choose Acid, Cold, Fire, Lightning, Poison, or Thunder for the type of orb you create, and then make a ranged spell attack against the target. On a hit, the target takes 3d8 damage of the chosen type.",
 			"If you roll the same number on two or more of the d8s, the orb leaps to a different target of your choice within 30 feet of the target. Make an attack roll against the new target, and make a new damage roll. The orb can't leap again unless you cast the spell with a level 2+ spell slot.",
@@ -834,7 +834,7 @@ var Base_SpellsList = {
 		dynamicDamageBonus: {
 			multipleDmgTypes: {
 				dmgTypes: ["acid", "cold", "fire", "lightning", "poison", "thunder"],
-				inDescriptionAs: "elemental",
+				inDescriptionAs: "elemental|elem\.",
 			},
 			multipleDmgMoments: true,
 		},
@@ -1216,7 +1216,7 @@ var Base_SpellsList = {
 		save: "Dex",
 		description: "10-ft cu; if no Rstrn, enter or SoT in 5 ft save or 8d8 elem. dmg \x26 Restrained: SoT save or 4d8; +d8/SL",
 		descriptionMetric: "3m cu; if no Rstrn, enter or SoT in 1,5m save or 8d8 elem. dmg \x26 Restrained: SoT save or 4d8; +d8/SL",
-		descriptionShorter: "10ft cu; if no R, enter/SoT 5ft save or 8d8 elem. dmg \x26 Restrain; SoT save or 4d8; +d8/SL",
+		descriptionShorter: "10ft cu; if no R, enter/SoT 5ft save or 8d8 elem. dmg, Restrain: SoT save or 4d8; +d8/SL",
 		descriptionFull: [
 			"You conjure a Large, intangible spirit from the Elemental Planes that appears in an unoccupied space within range. Choose the spirit's element, which determines its damage type: air (Lightning), earth (Thunder), fire (Fire), or water (Cold). The spirit lasts for the duration.",
 			"Whenever a creature you can see enters the spirit's space or starts its turn within 5 feet of the spirit, you can force that creature to make a Dexterity saving throw if the spirit has no creature Restrained. On failed save, the target takes 8d8 damage of the spirit's type, and the target has the Restrained condition until the spell ends. At the start of each of its turns, the Restrained target repeats the save. On a failed save, the target takes 4d8 damage of the spirit's type. On a successful save, the target isn't Restrained by the spirit.",
@@ -6006,7 +6006,8 @@ var Base_SpellsList = {
 		range: "120 ft",
 		components: "V,S",
 		duration: "Instantaneous",
-		description: "Spell atk 1d8 elemental/Poison/Psych dmg; +1d8 per 8, max +spell mod d8s; +1d8 CL 5/11/17",
+		description: "Spell atk 1d8 elemental/Poison/Psychic dmg; +1d8 per 8, max +spell mod d8s; +1d8 CL 5/11/17",
+		descriptionShorter: "Spell atk 1d8 elemental/Poison/Psych. dmg; +1d8 per 8, max +spell mod d8s; +1d8 CL 5,11,17",
 		descriptionCantripDie: "Spell atk `CD`d8 Acid/Cold/Fire/Lightn./Pois./Psych/Thndr dmg; +1d8 per 8, max +spell mod d8s",
 		descriptionFull: [
 			"You cast sorcerous energy at one creature or object within range. Make a ranged attack roll against the target. On a hit, the target takes 1d8 damage of a type you choose: Acid, Cold, Fire, Lightning, Poison, Psychic, or Thunder.",

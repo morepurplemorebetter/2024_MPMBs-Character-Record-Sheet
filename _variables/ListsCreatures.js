@@ -2926,6 +2926,7 @@ var Base_CreatureList = {
 	},
 	"rhinoceros": {
 		name: "Rhinoceros",
+		nameAlt: ["Ceratok"], // from Guildmasters' Guide to Ravnica
 		source: [["SRD24", 360], ["M24", 368]],
 		size: 2,
 		type: "Beast",

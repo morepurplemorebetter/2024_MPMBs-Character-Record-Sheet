@@ -563,7 +563,7 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 3,
 		description: "Finesse, Light",
-		mastery: "vex",
+		mastery: "nick",
 	},
 	"shortsword": {
 		regExpSearch: /^(?=.*short)(?=.*sword).*$|shuangdao/i,
@@ -578,7 +578,7 @@ var Base_WeaponsList = {
 		range: "Melee",
 		weight: 2,
 		description: "Finesse, Light",
-		mastery: "nick",
+		mastery: "vex",
 	},
 	"trident": {
 		regExpSearch: /trident|\bchas?\b|magariyari/i,

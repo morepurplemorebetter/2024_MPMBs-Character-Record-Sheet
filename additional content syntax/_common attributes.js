@@ -2704,7 +2704,7 @@ toNotesPage: [{
 	/*	useDescriptionFull // OPTIONAL //
 		TYPE:	boolean or function
 		USE:	whether to use the parent feature's `descriptionFull` as the note
-		ADDED:	v14.0.0
+		ADDED:	v14.0.5
 
 		If this is set to true for a feature that has the `descriptionFull` attribute, 
 		the `note` attribute will be ignored and the `descriptionFull` will be used instead.
@@ -2712,8 +2712,8 @@ toNotesPage: [{
 		person before adding it to a notes section.
 
 		The sheet's automated transformation to the first person is not perfect. To remedy
-		this, you can have this attribute be a function. If so, the function is passed a single
-		parameter: the string after being transformed from the second to the first person.
+		this, you can have this attribute be a function. If so, the function is passed 1
+		parameter: the string after it has been transformed to the first person.
 		The string returned by this function is then used instead.
 
 		You can also use this function to add/remove/change wording of the `descriptionFull`.
