@@ -73,12 +73,10 @@ function Checkbox(field, FldValue, tooltip, submitNm) {
 };
 
 function desc(arr, joinStr) {
-	joinStr = joinStr ? joinStr : "\n   ";
+	joinStr = joinStr ? joinStr : "\n";
 	if (!Array.isArray(arr)) return joinStr + arr;
 	return joinStr + arr.join(joinStr);
 };
-
-function descN(arr) { return desc(arr, "\n"); };
 
 // Call all the prototypes within their own function so we can call it again when importing, forcing the latest version
 function setPrototypes() {

@@ -12,7 +12,7 @@ var TreasureCheckpointsTable = {
 
 var AddMagicItemsMenu;
 
-var sentientItemConflictTxt = "\u25C6 Sentient Item Conflict (SRD 252, DMG 216)" + desc([
+var sentientItemConflictTxt = "#\u25C6 Sentient Item Conflict# (SRD 252, DMG 216)" + desc([
 	"A sentient item has a will of its own, shaped by its personality and alignment. If its wielder acts in a manner opposed to the item's alignment or purpose, conflict can arise. When such a conflict occurs, the item makes a Charisma check contested by the wielder's Charisma check. If the item wins the contest, it makes one or more of the following demands:",
 	" \u2022 It insists on being carried or worn at all times.",
 	" \u2022 It demands that its wielder dispose of anything it finds repugnant.",
@@ -6602,7 +6602,7 @@ var Base_MagicItemsList = {
 			toUni("91-95") + ". A burst of colorful shimmering light extends from you in a 30-foot radius. You and each creature in the area that can see must succeed on a DC 15 Constitution saving throw or become blinded for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success.",
 			toUni("96-97") + ". The target's skin turns bright blue for 1d10 days. If you chose a point in space, the creature nearest to that point is affected.",
 			toUni("98-00") + ". If you targeted a creature, it must make a DC 15 Constitution saving throw. If you didn't target a creature, you become the target and must make the saving throw. If the saving throw fails by 5 or more, the target is instantly petrified. On any other failed save, the target is restrained and begins to turn to stone. While restrained in this way, the target must repeat the saving throw at the end of its next turn, becoming petrified on a failure or ending the effect on a success. The petrification lasts until the target is freed by the Greater Restoration spell or similar magic."
-		]),
+		], "\n   "),
 		attunement : true,
 		weight : 1,
 		prerequisite : "Requires attunement by a spellcaster",
