@@ -258,7 +258,6 @@ var Base_RaceList = {
 			name: "Otherworldly Presence",
 			spells: ["thaumaturgy"],
 			selection: ["thaumaturgy"],
-			firstCol: 'atwill',
 		}],
 		variants: ['abyssal', 'chthonic', 'infernal'],
 		// from PHB'14:
@@ -403,7 +402,6 @@ var Base_RaceSubList = {
 					name: "Drow level 1",
 					spells: ["dancing lights"],
 					selection: ["dancing lights"],
-					firstCol: "atwill",
 				}],
 			},
 			"drow lineage 3": {
@@ -503,7 +501,6 @@ var Base_RaceSubList = {
 					name: "Wood Elf level 1",
 					spells: ["druidcraft"],
 					selection: ["druidcraft"],
-					firstCol: "atwill",
 				}],
 			},
 			"wood elf lineage 3": {
@@ -546,10 +543,9 @@ var Base_RaceSubList = {
 				usagescalc: "event.value = How('Proficiency Bonus');",
 				recovery: "long rest",
 				spellcastingBonus: [{
-					name: "At will",
+					name: "Cantrip",
 					spells: ["minor illusion"],
 					selection: ["minor illusion"],
-					firstCol: "atwill",
 				}, {
 					name: "Prof. Bonus per LR",
 					spells: ["speak with animals"],
@@ -578,7 +574,6 @@ var Base_RaceSubList = {
 					spells: ["mending", "prestidigitation"],
 					selection: ["mending", "prestidigitation"],
 					times: 2,
-					firstCol: "atwill",
 				}],
 				action: [["bonus action", "Activate Clockwork Device"]],
 			},
@@ -732,7 +727,6 @@ var Base_RaceSubList = {
 					name: "Abyssal level 1",
 					spells: ["poison spray"],
 					selection: ["poison spray"],
-					firstCol: 'atwill',
 				}],
 			},
 			"abyssal legacy 3": {
@@ -779,7 +773,6 @@ var Base_RaceSubList = {
 					name: "Chthonic level 1",
 					spells: ["chill touch"],
 					selection: ["chill touch"],
-					firstCol: 'atwill',
 				}],
 			},
 			"chthonic legacy 3": {
@@ -826,7 +819,6 @@ var Base_RaceSubList = {
 					name: "Infernal level 1",
 					spells: ["fire bolt"],
 					selection: ["fire bolt"],
-					firstCol: 'atwill',
 				}],
 			},
 			"infernal legacy 3": {

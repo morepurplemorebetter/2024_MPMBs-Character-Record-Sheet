@@ -40,7 +40,6 @@ var Base_FeatsList = {
 				"class": "cleric",
 				level: [0, 0],
 				times: 2,
-				firstCol: "atwill",
 			}, {
 				name: "1st-Level",
 				"class": "cleric",
@@ -57,7 +56,6 @@ var Base_FeatsList = {
 				"class": "druid",
 				level: [0, 0],
 				times: 2,
-				firstCol: "atwill",
 			}, {
 				name: "1st-Level",
 				"class": "druid",
@@ -74,7 +72,6 @@ var Base_FeatsList = {
 				"class": "wizard",
 				level: [0, 0],
 				times: 2,
-				firstCol: "atwill",
 			}, {
 				name: "1st-Level",
 				"class": "wizard",
