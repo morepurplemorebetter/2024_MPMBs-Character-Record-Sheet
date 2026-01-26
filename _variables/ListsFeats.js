@@ -175,7 +175,7 @@ var Base_FeatsList = {
 		source: [["SRD24", 88], ["P24", 209]],
 		type: "fighting style",
 		description: "When I roll damage for an attack I make with a Melee weapon that I'm holding with two hands, I can treat any 1 or 2 on a damage die as a 3. The weapon must have the Two-Handed or Versatile property to gain this benefit.",
-		descriptionClassFeature: "\nI treat 1 or 2 on damage as 3 for Two-Handed/Versatile Melee weapons held with 2 hands.",
+		descriptionClassFeature: desc("I treat 1 or 2 on damage as 3 for Two-Handed/Versatile Melee weapons held with 2 hands."),
 		descriptionFull: [
 			"When you roll damage for an attack you make with a Melee weapon that you are holding with two hands, you can treat any 1 or 2 on a damage die as a 3. The weapon must have the Two-Handed or Versatile property to gain this benefit.",
 		],
@@ -195,7 +195,7 @@ var Base_FeatsList = {
 		source: [["SRD24", 88], ["P24", 210]],
 		type: "fighting style",
 		description: "When I make the off-hand extra attack as a result of using a weapon that has the Light property, I can add my ability modifier to the damage of that attack if I'm not already adding it to the damage.",
-		descriptionClassFeature: "\nI add my ability modifier to the damage of the off-hand attack after using a Light weapon.",
+		descriptionClassFeature: desc("I add my ability modifier to the damage of the off-hand attack after using a Light weapon."),
 		descriptionFull: [
 			"When you make an extra attack as a result of using a weapon that has the Light property, you can add your ability modifier to the damage of that attack if you aren't already adding it to the damage.",
 		],

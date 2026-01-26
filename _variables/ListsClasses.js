@@ -77,7 +77,7 @@ var GenericClassFeatures = {
 	// Potent Spellcasting is no longer used, but kept for legacy sources that use it
 	"potent spellcasting": {
 		name: "Potent Spellcasting",
-		description: desc("I add my Wisdom modifier to the damage I deal with my cleric cantrips"),
+		description: desc("I add my Wisdom modifier to the damage I deal with my Cleric cantrips."),
 		calcChanges: {
 			atkCalc: [
 				function (fields, v, output) {
@@ -215,6 +215,18 @@ var GenericClassFeatures = {
 				},
 				"When I hit a Large or smaller creature with a warlock cantrips for which I have selected the Repelling Blast Eldritch Invocation, I can push it 10 ft straight away from me.",
 			],
+		},
+	},
+	"paladin's oath": {
+		toNotesPage: { // Important, don't make this into an array!
+			name: "Breaking Your Oath",
+			source: [["SRD24", 54], ["P24", 111]],
+			origin: "",
+			note: [
+				"A Paladin tries to hold to the highest standards of conduct, but even the most dedicated are fallible. Sometimes a Paladin transgresses their oath.",
+				"A Paladin who has broken a vow typically seeks absolution, spending an all-night vigil as a sign of penitence or undertaking a fast. After a rite of forgiveness, the Paladin starts fresh.",
+			],
+			amendTo: "Tenets of the Oath",
 		},
 	},
 };
@@ -726,7 +738,7 @@ var Base_ClassList = {
 				name: "Channel Divinity",
 				source: [["SRD24", 37], ["P24", 70]],
 				minlevel: 2,
-				description: desc("I regain one use on a Short Rest. Effects use my Cleric spell save DC. See options below."),
+				description: desc("I regain one CD use on a Short Rest. Effects use my Cleric spell save DC. See options below."),
 				usages: [0, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4],
 				recovery: "Long Rest",
 				additional: "regain 1/SR",
@@ -737,11 +749,11 @@ var Base_ClassList = {
 				minlevel: 2,
 				description: levels.map(function (n) {
 					var dice = n < 7 ? 1 : n < 13 ? 2 : n < 18 ? 3 : 4;
-					return "\nAs a Magic action, I can expend a use of Channel Divinity to focus divine energy on another I can see within 30 ft. I either restore " + dice + "d8 + my Wisdom modifier of its HP or deal that in Necrotic or Radiant damage (my choice). It can make a Constitution save for half damage.";
+					return desc("As a Magic action, I can use 1 CD to heal " + dice + "d8 + my Wis mod HP or deal that in Necrotic or Radiant damage (my choice) to another I can see within 30 ft. Con save halves the damage.");
 				}),
-				action: [["action", "Divine Spark (Channel Divinity)"]],
+				action: [["action", " (Channel Divinity)"]],
 				additional: levels.map(function (n) {
-					return n < 2 ? "" : (n < 7 ? 1 : n < 13 ? 2 : n < 18 ? 3 : 4) + "d8 + Wisdom modifier";
+					return n < 2 ? "" : "1 Channel Divinity; " + (n < 7 ? 1 : n < 13 ? 2 : n < 18 ? 3 : 4) + "d8 + Wisdom modifier";
 				}),
 			},
 			"turn undead": {
@@ -749,14 +761,13 @@ var Base_ClassList = {
 				source: [["SRD24", 37], ["P24", 70]],
 				minlevel: 2,
 				description: levels.map(function (n) {
-					var txt = "\nAs a Magic action, I can expend a use of Channel Divinity to have all chosen undead within 30 ft make a Wisdom save or be Frightened, Incapacitated, and move as far from me as it can on its turns. This lasts for 1 minute or until it takes damage, I'm Incapacitated, or I die.";
-					if (n >= 5) txt += "\nIf it fails its save, it also takes my Wisdom modifier (min 1) number of d8s Radiant damage.";
-					return txt;
+					var arr = ["As a Magic action, I can use 1 CD and my Holy Symbol to have each Undead of my choice within 30 ft make a Wis save or be Frightened, Incapacitated, and move away as far as it can on its turn. This lasts for 1 min or until it takes damage, I'm Incapacitated, or I die."];
+					if (n >= 5) arr.push("On a failed save, they also take my Wisdom " + (typePF ? "modifier" : "mod") + " (min 1) number of d8s Radiant damage.");
+					return desc(arr);
 				}),
-				action: [["action", "Turn Undead (Channel Divinity)"]],
+				action: [["action", " (Channel Divinity)"]],
 				additional: levels.map(function (n) {
-					// from Sear Undead
-					return n < 5 ? "" : "Wis mod d8s Radiant " + (typePF ? "dmg" : "damage");
+					return n < 2 ? "" : n < 5 ? "1 Channel Divinity" : typePF ? "1 CD; Wis mod d8s Radiant dmg" : "1 Channel Divinity; Wis mod d8s Radiant damage";
 				}),
 			},
 			"subclassfeature3": {
@@ -769,7 +780,7 @@ var Base_ClassList = {
 				name: "Sear Undead",
 				source: [["SRD24", 37], ["P24", 71]],
 				minlevel: 5,
-				description: " [Turn Undead deals damage]",
+				description: " [improves Turn Undead to deal damage]",
 			},
 			"blessed strikes": {
 				name: "Blessed Strikes",
@@ -1451,7 +1462,7 @@ var Base_ClassList = {
 			},
 		},
 	},
-/*
+
 	"paladin": {
 		regExpSearch: /^((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		name: "Paladin",
@@ -1501,6 +1512,23 @@ var Base_ClassList = {
 		},
 		spellcastingFactorRoundupMulti: true,
 		features: {
+			"lay on hands": {
+				name: "Lay on Hands",
+				source: [["SRD24", 53], ["P24", 109]],
+				minlevel: 1,
+				description: levels.map(function (n) {
+					var arr = [
+						"As a Bonus Action, I can draw from my pool of healing to restore HP to a creature I touch.",
+						"I can also expend 5 HP from the pool to remove the Poisoned condition from the creature.",
+					];
+					if (n >= 14) arr[1] = "I can also use the pool to remove the Poisoned, Blinded, Charmed, Deafened, Frightened, Paralyzed, or Stunned condition from the creature. This expends 5 HP per condition ended.";
+					return desc(arr);
+				}),
+				usages: levels.map(function (n) { return (n * 5) + " HP pool, " + (typePF ? "renews" : "replenishes") + " after a "; }),
+				recovery: "Long Rest",
+				usagescalc: 'var lvl = classes.known.paladin ? classes.known.paladin.level : classes.totallevel; event.value = (lvl * 5) + " HP";',
+				action: [["bonus action", ""]],
+			},
 			"spellcasting": {
 				name: "Spellcasting",
 				source: [["SRD24", 54], ["P24", 109]],
@@ -1511,58 +1539,64 @@ var Base_ClassList = {
 					return spells + " spells to prepare";
 				}),
 			},
-			"divine sense" : {
-				name : "Divine Sense",
-				source : [["SRD", 30], ["P", 84]],
-				minlevel : 1,
-				description : desc([
-					"As an action, I sense celestials/fiends/undead/consecrated/desecrated within 60 ft",
-					"Until the end of my next turn, I sense the type/location if it is not behind total cover"
-				]),
-				usages : "1 + Charisma modifier per ",
-				usagescalc : "event.value = 1 + What('Cha Mod');",
-				recovery : "Long Rest",
-				action : [["action", ""]]
+			"weapon mastery": {
+				name: "Weapon Mastery",
+				source: [["SRD24", 54], ["P24", 110]],
+				minlevel: 1,
+				description: desc("I gain mastery with two weapons and can change them whenever I finish a Long Rest."),
+				additional: "2 Weapon Masteries",
+				extraTimes: 2,
+				extraname: "Weapon Mastery",
+				choicesWeaponMasteries: true,
 			},
-			"lay on hands" : {
-				name : "Lay on Hands",
-				source : [["SRD", 31], ["P", 84]],
-				minlevel : 1,
-				description : desc([
-					"As an action, I can use points in my pool to heal a touched, living creature's hit points",
-					"I can neutralize poisons/diseases instead at a cost of 5 points per affliction"
-				]),
-				usages : [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100],
-				recovery : "Long Rest",
-				action : [["action", ""]]
+			"fighting style": {
+				name: "Fighting Style",
+				source: [["SRD24", 54], ["P24", 110]],
+				minlevel: 2,
+				description: desc('Choose a Fighting Style Feat or Blessed Warrior using the "Choose Feature" button above.'),
+				choices: ["Blessed Warrior"],
+				"blessed warrior": {
+					name: "Fighting Style: Blessed Warrior",
+					source: [["SRD24", 54], ["P24", 110]],
+					description: desc('I learn two Cleric cantrips. I can swap one of these cantrips whenever I gain a Paladin level.'),
+					spellcastingBonus: [{
+						name: "Cleric cantrip",
+						"class": ["cleric"],
+						level: [0, 0],
+						selection: ["guidance", "sacred flame"],
+						times: 2,
+					}],
+				},
+				choicesFightingStyles: true,
 			},
-			"fighting style" : {
-				name : "Fighting Style",
-				source : [["SRD", 31], ["P", 84]],
-				minlevel : 2,
-				description : desc('Choose a Fighting Style for the paladin using the "Choose Feature" button above'),
-				choices : ["Defense", "Dueling", "Great Weapon Fighting", "Protection"],
-				"defense" : FightingStyles.defense,
-				"dueling" : FightingStyles.dueling,
-				"great weapon fighting" : FightingStyles.great_weapon,
-				"protection" : FightingStyles.protection
+			"paladin's smite": {
+				name: "Paladin's Smite",
+				source: [["SRD24", 54], ["P24", 110]],
+				minlevel: 2,
+				description: desc("I always have Divine Smite prepared. Once per Long Rest I can cast it without "+ (typePF ? "using" : "") + " a spell slot."),
+				spellcastingBonus: [{
+					name: "Paladin's Smite",
+					spells: ["divine smite"],
+					selection: ["divine smite"],
+					firstCol: "oncelr+markedbox",
+				}],
 			},
-			"divine smite" : {
-				name : "Divine Smite",
-				source : [["SRD", 31], ["P", 85]],
-				minlevel : 2,
-				description : desc([
-					"When I hit a melee weapon attack, I can expend a spell slot to do +2d8 radiant damage",
-					"This increases by +1d8 for each spell slot level above 1st and +1d8 against undead/fiends"
-				])
+			"channel divinity": {
+				name: "Channel Divinity",
+				source: [["SRD24", 54], ["P24", 110]],
+				minlevel: 3,
+				description: desc("I regain one CD use on a Short Rest. Effects use my Paladin spell save DC. See options below."),
+				usages: [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+				recovery: "Long Rest",
+				additional: "regain 1/SR",
 			},
-			"subclassfeature3.0-channel divinity" : {
-				name : "Channel Divinity",
-				source : [["SRD", 32], ["P", 85]],
-				minlevel : 3,
-				description : "",
-				usages : 1,
-				recovery : "Short Rest"
+			"divine sense": {
+				name: "Divine Sense",
+				source: [["SRD24", 55], ["P24", 111]],
+				minlevel: 3,
+				description: desc("As a Bonus Action, I can use 1 CD to detect, for 10 min or until Incapacitated, the location and type of Celestials, Fiends, Undead, and consecrated or desecrated places and objects."),
+				additional: "1 Channel Divinity",
+				action: [["bonus action", " (Channel Divinity)"]],
 			},
 			"subclassfeature3": {
 				name: "Paladin Subclass",
@@ -1570,56 +1604,90 @@ var Base_ClassList = {
 				minlevel: 3,
 				description: desc('Choose a Paladin Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
-			"divine health" : {
-				name : "Divine Health",
-				source : [["SRD", 32], ["P", 85]],
-				minlevel : 3,
-				description : desc("I am immune to disease, thanks to the power of my faith"),
-				savetxt : { immune : ["disease"] }
+			"faithful steed": {
+				name: "Faithful Steed",
+				source: [["SRD24", 55], ["P24", 111]],
+				minlevel: 5,
+				description: desc("I always have Find Steed prepared. Once per Long Rest I can cast it without " + (typePF ? "using " : "") + "a spell slot."),
+				spellcastingBonus: [{
+					name: "Faithful Steed",
+					spells: ["find steed"],
+					selection: ["find steed"],
+					firstCol: "oncelr+markedbox",
+				}],
 			},
-			"aura of protection" : {
-				name : "Aura of Protection",
-				source : [["SRD", 32], ["P", 85]],
-				minlevel : 6,
-				description : desc("While I'm conscious, allies within range and I can add my Cha mod (min 1) to saves"),
-				additional : ["", "", "", "", "", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "30-foot aura", "30-foot aura", "30-foot aura"],
-				addMod : { type : "save", field : "all", mod : "max(Cha|1)", text : "While I'm conscious I can add my Charisma modifier (min 1) to all my saving throws." }
+			"aura of protection": {
+				name: "Aura of Protection",
+				source: [["SRD24", 55], ["P24", 111]],
+				minlevel: 6,
+				description: desc("While within my aura, my allies and I add my Charisma mod to saving throws (min +1)."),
+				description: levels.map(function (n) {
+					// Combine with Aura of Courage at level 20 to make room for capstone subclass feature
+					var txt = n < 20 ? "While within my aura, my allies and I add my Charisma mod to saving throws (min +1)." :
+						"While in my aura, my allies and I add my Cha mod to saves and have Frightened Immunity.";
+					return desc(txt);
+				}),
+				additional: levels.map(function (n) {
+					return n < 6 ? "" : (n < 18 ? 10 : 30) + "-ft aura; inactivate " + (typePF ? "if" : "when") + " Incapacitated";
+				}),
+				addMod: [{ type: "save", field: "all", mod: "max(Cha|1)", text: "I can add my Charisma modifier (minimum 1) to all my saving throws unless I'm Incapacitated." }],
 			},
-			"aura of courage" : {
-				name : "Aura of Courage",
-				source : [["SRD", 32], ["P", 85]],
-				minlevel : 10,
-				description : desc("While I'm conscious, allies within range and I can't be frightened"),
-				additional : ["", "", "", "", "", "", "", "", "", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "30-foot aura", "30-foot aura", "30-foot aura"],
-				savetxt : { immune : ["frightened"] }
+			"abjure foes": {
+				name: "Abjure Foes",
+				source: [["SRD24", 55], ["P24", 111]],
+				minlevel: 9,
+				description: desc("As a Magic action, I can use 1 CD and my Holy Symbol or weapon to have my " + (typePF ? "Charisma" : "Cha") + " mod (min 1) creatures within 60 ft make a " + (typePF ? "Wisdom" : "Wis") + " save or be Frightened for 1 min or until it takes damage. While Frightened, it can do only one " + (typePF ? "thing " : "") + "on its turn: move, action, or Bonus Action."),
+				additional: "1 Channel Divinity",
+				action: [["action", " (Channel Divinity)"]],
 			},
-			"improved divine smite" : {
-				name : "Improved Divine Smite",
-				source : [["SRD", 32], ["P", 85]],
-				minlevel : 11,
-				description : desc("Whenever I hit a creature with a melee weapon, I do an extra 1d8 radiant damage"),
-				calcChanges : {
-					atkAdd : [
+			"aura of courage": {
+				name: "Aura of Courage",
+				source: [["SRD24", 55], ["P24", 111]],
+				minlevel: 10,
+				description: levels.map(function (n) {
+					// remove text at level 20 to make room for capstone subclass feature
+					return n < 20 ? desc("While within my Aura of Protection, my allies and I have Immunity to being Frightened.") : undefined;
+				}),
+				savetxt: { immune: ["Frightened"] },
+			},
+			"radiant strikes": {
+				name: "Radiant Strikes",
+				source: [["SRD24", 55], ["P24", 111]],
+				minlevel: 11,
+				description : desc("When I hit with a Melee weapon or Unarmed Strike attack, I deal +1d8 Radiant damage."),
+				calcChanges: {
+					atkAdd: [
 						function (fields, v) {
-							if (v.isMeleeWeapon) fields.Description += (fields.Description ? '; ' : '') + '+1d8 Radiant damage' + (v.isThrownWeapon ? ' in melee' : '');
+							if (!v.isDC && (v.isMeleeWeapon || v.baseWeaponName === "unarmed strike")) {
+								fields.Description += (fields.Description ? '; ' : '') + '+1d8 Radiant damage';
+								if (v.isThrownWeapon) fields.Description += ' in melee';
+							}
 						},
-						"With my melee weapon attacks I deal an extra 1d8 radiant damage."
-					]
-				}
+						"When I hit a target with an attack roll using a Melee weapon or an Unarmed Strike, the target takes an extra 1d8 Radiant damage.",
+					],
+				},
 			},
-			"cleansing touch" : {
-				name : "Cleansing Touch",
-				source : [["SRD", 32], ["P", 85]],
-				minlevel : 14,
-				description : desc("As an action, I can end one spell on me or another willing creature by touch"),
-				usages : "Charisma modifier per ",
-				usagescalc : "event.value = Math.max(1, What('Cha Mod'));",
-				recovery : "Long Rest",
-				action : [["action", ""]]
-			}
-		}
+			"restoring touch": {
+				name: "Restoring Touch",
+				source: [["SRD24", 55], ["P24", 111]],
+				minlevel: 14,
+				description: levels.map(function (n) {
+					// remove text at level 20 to make room for capstone subclass feature
+					return n < 20 ? " [improves Lay on Hands conditions to cure]" : undefined;
+				}),
+			},
+			"aura expansion": {
+				name: "Aura Expansion",
+				source: [["SRD24", 55], ["P24", 111]],
+				minlevel: 18,
+				description: levels.map(function (n) {
+					// remove text at level 20 to make room for capstone subclass feature
+					return n < 20 ? " [improves Aura of Protection to 30-ft]" : undefined;
+				}),
+			},
+		},
 	},
-
+/*
 	"ranger": {
 		regExpSearch: /^((?=.*(ranger|strider))|((?=.*(nature|natural))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		name: "Ranger",
@@ -1673,7 +1741,7 @@ var Base_ClassList = {
 		features: {
 			"spellcasting": {
 				name: "Spellcasting",
-				source: [["SRD", 36], ["P", 91]],
+				source: [["SRD24", 57], ["P24", 119]],
 				minlevel: 1,
 				description: desc("I can cast prepared Ranger spells, using Wis as spellcasting ability. I can use a Druidic Focus as Spellcasting Focus for them. I can change 1 prepared spell whenever I finish a Long Rest."),
 				additional: levels.map(function (n, idx) {
@@ -1683,7 +1751,7 @@ var Base_ClassList = {
 			},
 			"favored enemy" : {
 				name : "Favored Enemy",
-				source : [["SRD", 35], ["P", 91]],
+				source: [["SRD24", 58], ["P24", 119]],
 				minlevel : 1,
 				description : desc([
 					'Use the "Choose Feature" button above to add a favored enemy to the third page',
@@ -1693,172 +1761,48 @@ var Base_ClassList = {
 				additional : levels.map(function (n) {
 					return n < 6 ? "1 favored enemy" : (n < 14 ? 2 : 3) + " favored enemies";
 				}),
-				extraname : "Favored Enemy",
-				extrachoices : ["Aberrations", "Beasts", "Celestials", "Constructs", "Dragons", "Elementals", "Fey", "Fiends", "Giants", "Monstrosities", "Oozes", "Plants", "Undead", "Two Races of Humanoids"],
-				extraTimes : levels.map(function (n) { return n < 6 ? 1 : n < 14 ? 2 : 3; }),
-				"aberrations" : {
-					name : "Aberrations",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"beasts" : {
-					name : "Beasts",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"celestials" : {
-					name : "Celestials",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"constructs" : {
-					name : "Constructs",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"dragons" : {
-					name : "Dragons",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"elementals" : {
-					name : "Elementals",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"fey" : {
-					name : "Fey",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"fiends" : {
-					name : "Fiends",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"giants" : {
-					name : "Giants",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"monstrosities" : {
-					name : "Monstrosities",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"oozes" : {
-					name : "Oozes",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"plants" : {
-					name : "Plants",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"undead" : {
-					name : "Undead",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				},
-				"two races of humanoids" : {
-					name : "Two Races of Humanoids",
-					description : "",
-					source : [["SRD", 35], ["P", 91]],
-					languageProfs : [1]
-				}
 			},
-			"natural explorer" : {
-				name : "Natural Explorer",
-				source : [["SRD", 36], ["P", 91]],
-				minlevel : 1,
+			"weapon mastery": {
+				name: "Weapon Mastery",
+				source: [["SRD24", 58], ["P24", 120]],
+				minlevel: 1,
+				description: desc([
+					"I gain mastery with two kind of weapons I'm proficient with. Whenever I finish a Long Rest,",
+					'I can change these choices. Use the "Choose Feature" button above to select them.',
+				]),
+				additional: "2 Weapon Masteries",
+				extraTimes: 2,
+				extraname: "Weapon Mastery",
+				choicesWeaponMasteries: true,
+			},
+			"deft explorer" : {
+				name : "Deft Explorer",
+				source: [["SRD24", 59], ["P24", 120]],
+				minlevel : 2,
 				description : desc('Use the "Choose Feature" button above to add a favored terrain to the third page'),
-				additional :  levels.map(function (n) {
+				additional : levels.map(function (n) {
 					return n < 6 ? "1 favored terrain" : (n < 10 ? 2 : 3) + " favored terrains";
 				}),
-				extraname : "Favored Terrain",
-				extrachoices : ["Arctic", "Coast", "Desert", "Forest", "Grassland", "Mountain", "Swamp", "Underdark"],
-				extraTimes : levels.map(function (n) { return n < 6 ? 1 : n < 10 ? 2 : 3; }),
-				"arctic" : {
-					name : "Arctic",
-					source : [["SRD", 36], ["P", 91]],
-					description : ""
-				},
-				"coast" : {
-					name : "Coast",
-					source : [["SRD", 36], ["P", 91]],
-					description : ""
-				},
-				"desert" : {
-					name : "Desert",
-					source : [["SRD", 36], ["P", 91]],
-					description : ""
-				},
-				"forest" : {
-					name : "Forest",
-					source : [["SRD", 36], ["P", 91]],
-					description : ""
-				},
-				"grassland" : {
-					name : "Grassland",
-					source : [["SRD", 36], ["P", 91]],
-					description : ""
-				},
-				"mountain" : {
-					name : "Mountain",
-					source : [["SRD", 36], ["P", 91]],
-					description : ""
-				},
-				"swamp" : {
-					name : "Swamp",
-					source : [["SRD", 36], ["P", 91]],
-					description : ""
-				},
-				"underdark" : {
-					name : "Underdark",
-					source : [["SRD", 36], ["P", 91]],
-					description : ""
-				},
-				"travel benefits" : {
-					name : "Favored Terrain Travel Benefits",
-					source : [["SRD", 36], ["P", 91]],
-					extraname : "Ranger 1",
-					description : desc([
-						"I can double my Proficiency Bonus for Int/Wis checks concerning my favored terrains",
-						"While traveling for an hour or more in a favored terrain, I gain the following benefits:",
-						" \u2022 My allies and I are not slowed by difficult terrain and can't get lost except by magic",
-						" \u2022 I am alert to danger even when doing something else; I forage twice as much food",
-						" \u2022 If alone (or alone with beast companion), I can move stealthily at my normal pace",
-						" \u2022 When tracking, I also learn the exact number, size, and time since passing"
-					])
-				},
-				autoSelectExtrachoices : [{
-					extrachoice : "travel benefits"
-				}]
 			},
-			"fighting style" : {
-				name : "Fighting Style",
-				source : [["SRD", 36], ["P", 91]],
-				minlevel : 2,
-				description : desc('Choose a Fighting Style for the ranger using the "Choose Feature" button above'),
-				choices : ["Archery", "Defense", "Dueling", "Two-Weapon Fighting"],
-				"archery" : FightingStyles.archery,
-				"defense" : FightingStyles.defense,
-				"dueling" : FightingStyles.dueling,
-				"two-weapon fighting" : FightingStyles.two_weapon
+			"fighting style": {
+				name: "Fighting Style",
+				source: [["SRD24", 59], ["P24", 120]],
+				minlevel: 2,
+				description: desc('Choose a Fighting Style Feat or Druidic Warrior using the "Choose Feature" button above.'),
+				choices: ["Druidic Warrior"],
+				"druidic warrior": {
+					name: "Fighting Style: Druidic Warrior",
+					source: [["SRD24", 59], ["P24", 120]],
+					description: desc('I learn two Druid cantrips. I can swap one of these cantrips whenever I gain a Ranger level.'),
+					spellcastingBonus: [{
+						name: "Druid cantrip",
+						"class": ["druid"],
+						level: [0, 0],
+						selection: ["guidance", "starry wisp"],
+						times: 2,
+					}],
+				},
+				choicesFightingStyles: true,
 			},
 			"subclassfeature3": {
 				name: "Ranger Subclass",
@@ -1918,8 +1862,8 @@ var Base_ClassList = {
 				source : [["SRD", 37], ["P", 92]],
 				minlevel : 20,
 				description : desc("Once per turn, I can add my Wis mod to the attack or damage roll vs. a favored enemy")
-			}
-		}
+			},
+		},
 	},
 */
 	"rogue": {
@@ -3391,14 +3335,14 @@ var Base_ClassSubList = {
 				},
 			},
 			"subclassfeature3.1": {
-				name: "Channel Divinity: Preserve Life",
+				name: "Preserve Life",
 				source: [["SRD24", 40], ["P24", 73]],
 				minlevel: 3,
-				description: desc("As a Magic action, I can expend a use of Channel Divinity to heal Bloodied creatures within 30 ft (me included) up to half their HP maximum. I divide the HP among them as I see fit."),
+				description: desc("As a Magic action, I can expend a use 1 CD to heal Bloodied creatures within 30 ft (me included) up to half their HP maximum. I divide the HP among them as I see fit."),
 				additional: levels.map(function (n) {
-					return n < 3 ? "" : "divide " + (n * 5) + " Hit Points";
+					return n < 3 ? "" : "1 Channel Divinity; divide " + (n * 5) + " Hit Points";
 				}),
-				action: [["action", "Preserve Life (Channel Divinity)"]]
+				action: [["action", "Preserve Life (Channel Divinity)"]],
 			},
 			"subclassfeature6": {
 				name: "Blessed Healer",
@@ -3708,74 +3652,86 @@ var Base_ClassSubList = {
 			},
 		},
 	},
-/*
-	"paladin-devotion" : {
+
+	"paladin-devotion": {
 		regExpSearch : /^(?=.*(devotion|obedience))((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
-		subname : "Oath of Devotion",
-		source : [["SRD", 32], ["P", 86]],
+		subname: "Oath of Devotion",
+		subnameShort: "Devotion",
+		source: [["SRD24", 56], ["P24", 113]],
 		features: {
-			"subclassfeature3" : {
-				name : "Channel Divinity: Sacred Weapon",
-				source : [["SRD", 33], ["P", 86]],
-				minlevel : 3,
-				description : desc([
-					"As an action, for 1 minute, I add my Cha modifier to hit for one weapon I'm holding",
-					"It also counts as magical and emits bright light in a 20-ft radius and equal dim light"
-				]),
-				action : [["action", ""]],
-				calcChanges : {
-					atkCalc : [
+			"subclassfeature3": {
+				name: "Sacred Weapon",
+				source: [["SRD24", 56], ["P24", 113]],
+				minlevel: 3,
+				description: desc([
+					"When I take the Attack action, I can expend 1 CD to imbue a held Melee weapon.",
+					"I add my Charisma " + (typePF ? "modifier" : "mod") + " (min +1) to attacks with it, I can have it deal Radiant or its normal damage on each hit, and it emits Bright Light in a 20-ft radius and Dim Light 20 ft beyond that.",
+					"This lasts for 10 " + (typePF ? "minutes" : "min") + " or until I end it (no action), use this again, or drop the weapon.",
+				], typePF ? false : " ", "\n"),
+				additional: "1 Channel Divinity",
+				calcChanges: {
+					atkCalc: [
 						function (fields, v, output) {
-							if (classes.known.paladin && classes.known.paladin.level > 2 && !v.isSpell && (/^(?=.*sacred)(?=.*weapon).*$/i).test(v.WeaponTextName)) {
+							if (v.isMeleeWeapon && /^(?=.*sacred)(?=.*weapon).*$|\(SW\)|\[SW\]/i.test(v.WeaponTextName)) {
 								output.extraHit += What('Cha Mod');
 							};
 						},
-						"If I include the words 'Sacred Weapon' in the name of a weapon, it gets my Charisma modifier added to its To Hit."
-					]
+						'Add the text "Sacred Weapon", "(SW)", or "[SW]" to the name of a Melee weapon to have my Charisma modifier added to its To Hit.',
+					],
 				},
-				spellcastingExtra : ["protection from evil and good", "sanctuary", "lesser restoration", "zone of truth", "beacon of hope", "dispel magic", "freedom of movement", "guardian of faith", "commune", "flame strike"]
+				spellcastingExtra: ["protection from evil and good", "shield of faith", "aid", "zone of truth", "beacon of hope", "dispel magic", "freedom of movement", "guardian of faith", "commune", "flame strike"],
+				toNotesPage: [{
+					name: "Tenets of the Oath of Devotion", // needs to start with "Tenets of the Oath"
+					origin: "",
+					note: [
+						"This oath binds Paladins to the ideals of justice and order with the following tenets:",
+						" \u2022 Let your word be your promise.",
+						" \u2022 Protect the weak and never fear to act.",
+						" \u2022 Let your honorable deeds be an example.",
+					],
+				},
+				GenericClassFeatures["paladin's oath"].toNotesPage,
+			],
 			},
-			"subclassfeature3.1" : {
-				name : "Channel Divinity: Turn the Unholy",
-				source : [["SRD", 33], ["P", 86]],
-				minlevel : 3,
-				description : desc([
-					"As an action, all fiends/undead within 30 ft that can hear me must make a Wis save",
-					"If one of them fails this save, it is turned for 1 minute or until it takes damage",
-					"Turned: move away, never within 30 ft of me, no reactions or actions other than Dash",
-					"Turned: may Dodge instead of Dash when nowhere to move and unable to escape bonds"
+			"subclassfeature7": {
+				name: "Aura of Devotion",
+				source: [["SRD24", 56], ["P24", 114]],
+				minlevel: 7,
+				description: desc("While within my Aura of Protection, my allies and I have Immunity to being Charmed."),
+				savetxt: { immune: ["Charmed"] },
+			},
+			"subclassfeature15": {
+				name: "Smite of Protection",
+				source: [["SRD24", 57], ["P24", 114]],
+				minlevel: 15,
+				description: desc("After I cast Divine Smite, allies and I " + (typePF ? "within" : "in") + " my Aura have Half Cover until my next turn starts."),
+				spellChanges: {
+					"divine smite": {
+						description: "Cast on melee wea hit; +2d8+1d8/SL Radiant dmg; Fiends/Undead +1d8 dmg; aura \xBD Cover till SoT",
+						descriptionShorter: "On melee wea hit; +2d8+1d8/SL Radiant dmg; Fiends/Undead +1d8 dmg; aura \xBD Cover till SoT",
+						changes: "Whenever I cast Divine Smite, my Aura of Protection grants Half Cover to my allies and myself until the start of my next turn.",
+					},
+				},
+			},
+			"subclassfeature20": {
+				name: "Holy Nimbus",
+				source: [["SRD24", 57], ["P24", 114]],
+				minlevel: 20,
+				description: desc([
+					"As a Bonus Action, I can give my Aura of Protection these benefits for 10 minutes:",
+					" \u2022 **Holy Ward**. I have Advantage on saving throws I'm forced to make by a Fiend or Undead.",
+					" \u2022 **Radiant Damage** (Cha mod + Prof Bonus) is dealt to enemies starting " + (typePF ? "their" : "its") + " turn in the aura.",
+					" \u2022 **Sunlight**. The aura is filled with Bright Light that is sunlight.",
+					"I can end it for free. I can do this once per Long Rest or by using a level 5 spell slot (SS 5+).",
 				]),
-				action : [["action", ""]]
+				recovery: "Long Rest",
+				usages: 1,
+				altResource: "SS 5+",
+				action: [["bonus action", ""]],
 			},
-			"subclassfeature7" : {
-				name : "Aura of Devotion",
-				source : [["SRD", 33], ["P", 86]],
-				minlevel : 7,
-				description : desc("While I'm conscious, allies within range and I can't be charmed"),
-				additional : ["", "", "", "", "", "", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "10-foot aura", "30-foot aura", "30-foot aura", "30-foot aura"],
-				savetxt : { immune : ["charmed"] }
-			},
-			"subclassfeature15" : {
-				name : "Purity of Spirit",
-				source : [["SRD", 33], ["P", 86]],
-				minlevel : 15,
-				description : desc("I am always under the effect of a Protection from Evil and Good spell")
-			},
-			"subclassfeature20" : {
-				name : "Holy Nimbus",
-				source : [["SRD", 33], ["P", 86]],
-				minlevel : 20,
-				description : desc([
-					"As an action, I shine with a 30-ft radius bright light and equal dim light for 1 minute",
-					"If an enemy starts its turn in the bright light, it takes 10 radiant damage",
-					"For the duration, I have advantage on saves vs. spells cast by fiends and undead"
-				]),
-				recovery : "Long Rest",
-				usages : 1,
-				action : [["action", ""]]
-			}
-		}
+		},
 	},
+/*
 	"ranger-hunter" : {
 		regExpSearch : /^(?!.*(monster|barbarian|bard|cleric|druid|fighter|monk|paladin|rogue|sorcerer|warlock|wizard))(?=.*(hunter|huntress|hunts(wo)?m(e|a)n)).*$/i,
 		subname : "Hunter",
@@ -3848,7 +3804,7 @@ var Base_ClassSubList = {
 				"evasion" : {
 					name : "Evasion",
 					description : desc("My Dexterity saves vs. areas of effect negate damage on success and halve it on failure"),
-					savetxt : { text : ["Dex save vs. area effects: fail \u2015 half dmg, success \u2015 no dmg"] }
+					savetxt : { text : ["Dex save vs. area effects: fail \u2015 half dmg, success \u2015 no dmg"] },
 				},
 				"stand against the tide" : {
 					name : "Stand Against the Tide",
@@ -3856,15 +3812,15 @@ var Base_ClassSubList = {
 						"When a creature misses me with a melee attack, I can use my reaction on the attack",
 						"I force the attacker to repeat it vs. another (not attacker) of my choice within range"
 					]),
-					action : [["reaction", ""]]
+					action : [["reaction", ""]],
 				},
 				"uncanny dodge" : {
 					name : "Uncanny Dodge",
 					description : desc("As a reaction, I halve the damage of an attack from an attacker that I can see"),
-					action : [["reaction", ""]]
-				}
-			}
-		}
+					action : [["reaction", ""]],
+				},
+			},
+		},
 	},
 */
 	"rogue-thief": {
