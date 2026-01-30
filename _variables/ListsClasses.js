@@ -552,11 +552,10 @@ var Base_ClassList = {
 					name: "Expertise",
 					source: [["SRD24", 32], ["P24", 60]],
 					minlevel: 2,
-					description: "",
-					skillstxt: "Expertise with any two skill proficiencies, and two more at 9th level.",
-					additional: levels.map(function (n) {
-						return n < 2 ? "" : "with " + (n < 9 ? 2 : 4) + " skills I'm proficient with";
+					description: levels.map(function (n) {
+						return n < 2 ? "" : " [with " + (n < 9 ? 2 : 4) + " skills I'm proficient with]";
 					}),
+					skillstxt: "Expertise with any two skill proficiencies, and two more at 9th level.",
 					extraTimes: levels.map(function (n) { return n < 2 ? 0 : n < 9 ? 2 : 4; }),
 					extraname: "Expertise",
 					extrachoices: ["Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"],
@@ -1687,7 +1686,7 @@ var Base_ClassList = {
 			},
 		},
 	},
-/*
+
 	"ranger": {
 		regExpSearch: /^((?=.*(ranger|strider))|((?=.*(nature|natural))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		name: "Ranger",
@@ -1749,41 +1748,55 @@ var Base_ClassList = {
 					return spells + " spells to prepare";
 				}),
 			},
-			"favored enemy" : {
-				name : "Favored Enemy",
+			"favored enemy": {
+				name: "Favored Enemy",
 				source: [["SRD24", 58], ["P24", 119]],
-				minlevel : 1,
-				description : desc([
-					'Use the "Choose Feature" button above to add a favored enemy to the third page',
-					"When selecting a favored enemy, I also learn one of the languages it speaks",
-					"I have adv. on Wis (Survival) checks to track and Int checks to recall info about them"
-				]),
-				additional : levels.map(function (n) {
-					return n < 6 ? "1 favored enemy" : (n < 14 ? 2 : 3) + " favored enemies";
-				}),
+				minlevel: 1,
+				description: desc("I always have Hunter's Mark prepared. I can cast it without a spell slot several times per " + (typePF ? "Long Rest." : "LR.")),
+				usages: ProficiencyBonusList, // Not linked to Prof Bonus, but same progression
+				recovery: "Long Rest",
+				spellcastingBonus: [{
+					name: "Favored Enemy",
+					spells: ["hunter's mark"],
+					selection: ["hunter's mark"],
+					firstCol: "oncelr+markedbox",
+				}],
 			},
 			"weapon mastery": {
 				name: "Weapon Mastery",
 				source: [["SRD24", 58], ["P24", 120]],
 				minlevel: 1,
-				description: desc([
-					"I gain mastery with two kind of weapons I'm proficient with. Whenever I finish a Long Rest,",
-					'I can change these choices. Use the "Choose Feature" button above to select them.',
-				]),
+				description: desc("I gain mastery with two weapons and can change them whenever I finish a Long Rest."),
 				additional: "2 Weapon Masteries",
 				extraTimes: 2,
 				extraname: "Weapon Mastery",
 				choicesWeaponMasteries: true,
 			},
-			"deft explorer" : {
-				name : "Deft Explorer",
-				source: [["SRD24", 59], ["P24", 120]],
-				minlevel : 2,
-				description : desc('Use the "Choose Feature" button above to add a favored terrain to the third page'),
-				additional : levels.map(function (n) {
-					return n < 6 ? "1 favored terrain" : (n < 10 ? 2 : 3) + " favored terrains";
-				}),
-			},
+			"expertise": function() {
+				var a = {
+					name: "Deft Explorer",
+					source: [["SRD24", 59], ["P24", 120]],
+					minlevel: 2,
+					description: levels.map(function (n) {
+						return " [2 languages; Expertise with " + (n < 9 ? "1 skill]" : "3 skills]");
+					}),
+					skillstxt: "Expertise with any one skill proficiency, and two more at 9th level.",
+					languageProfs: [2],
+					extraTimes: levels.map(function (n) { return n < 9 ? 1 : 3; }),
+					extraname: "Expertise",
+					extrachoices: ["Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"],
+				}
+				for (var i = 0; i < a.extrachoices.length; i++) {
+					a[a.extrachoices[i].toLowerCase()] = {
+						name: a.extrachoices[i],
+						skills: [[a.extrachoices[i], "only"]],
+						prereqeval: function(v) {
+							return v.skillProfsLC.indexOf(v.choice) === -1 ? false : v.skillExpertiseLC.indexOf(v.choice) === -1 ? true : "markButDisable";
+						},
+					}
+				}
+				return a;
+			}(),
 			"fighting style": {
 				name: "Fighting Style",
 				source: [["SRD24", 59], ["P24", 120]],
@@ -1810,62 +1823,94 @@ var Base_ClassList = {
 				minlevel: 3,
 				description: desc('Choose a Ranger Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
-			"primeval awareness" : {
-				name : "Primeval Awareness",
-				source : [["SRD", 37], ["P", 92]],
-				minlevel : 3,
-				description : desc([
-					"As an action, I can use a spell slot to focus my awareness for 1 min per spell slot level",
-					"Out to 1 mile (6 in favored terrain), I sense if certain types of creatures are present"
-				]),
-				additional : "aber./celest./dragon/elem./fey/fiend/undead",
-				action : [["action", ""]]
+			"roving": {
+				name: "Roving",
+				source: [["SRD24", 59], ["P24", 121]],
+				minlevel: 6,
+				description: desc("I have a Climb \x26 Swim speed equal to my Speed. I gain +10 ft Speed if not in Heavy armor."),
+				speed: {
+					walk:  { spd: "+10",  enc: "" },
+					climb: { spd: "walk", enc: "walk" },
+					swim:  { spd: "walk", enc: "walk" },
+				},
 			},
-			"land's stride" : {
-				name : "Land's Stride",
-				source : [["SRD", 37], ["P", 92]],
-				minlevel : 8,
-				description : desc([
-					"I can travel through nonmagical, difficult terrain without penalty",
-					"I have advantage on saves vs. plants that impede movement by magical influence"
-				]),
-				savetxt : { adv_vs : ["magical plants that impede movement"] }
+			// Expertise level 9 feature is part of Deft Explorer
+			"tireless": {
+				name: "Tireless",
+				source: [["SRD24", 59], ["P24", 121]],
+				minlevel: 10,
+				description: levels.map(function (n) {
+					return desc(
+						n < 17 ?
+						"As a Magic action, I can gain Temporary " + (typePF ? "Hit Points" : "HP") + " equal to 1d8 + my Wisdom modifier, which I can do my " + (typePF ? "Wisdom" : "Wis") + " mod times per Long Rest. A Short Rest reduces my Exhaustion level by 1." :
+						"As a Magic action, I gain 1d8 + Wis mod Temp HP. Short Rests reduce my Exhaustion by 1."
+					);
+				}),
+				usages: "Wisdom modifier per ",
+				usagescalc: "event.value = Math.max(1, What('Wis Mod'));",
+				recovery: "Long Rest",
+				additional: "Temp HP",
 			},
-			"hide in plain sight" : {
-				name : "Hide in Plain Sight",
-				source : [["SRD", 37], ["P", 92]],
-				minlevel : 10,
-				description : desc([
-					"I can hide with +10 to Dex (Stealth) after spending 1 minute creating camouflage",
-					"Once I move or take an action or a reaction, the benefit is lost"
-				])
+			"relentless hunter": {
+				name: "Relentless Hunter",
+				source: [["SRD24", 59], ["P24", 121]],
+				minlevel: 13,
+				description: desc("Taking damage can't break my concentration on Hunter's Mark."),
 			},
-			"vanish" : {
-				name : "Vanish",
-				source : [["SRD", 37], ["P", 92]],
-				minlevel : 14,
-				description : desc("I can't be nonmagically tracked if I don't want to be and can Hide as a bonus action"),
-				action : [["bonus action", ""]]
+			"nature's veil": {
+				name: "Nature's Veil",
+				source: [["SRD24", 59], ["P24", 121]],
+				minlevel: 14,
+				description: desc("As a Bonus Action, I can make myself Invisible until the end of my next turn."),
+				action: [["bonus action", ""]],
+				usages: "Wisdom modifier per ",
+				usagescalc: "event.value = Math.max(1, What('Wis Mod'));",
+				recovery: "Long Rest",
 			},
-			"feral senses" : {
-				name : "Feral Senses",
-				source : [["SRD", 37], ["P", 92]],
-				minlevel : 18,
-				description : desc([
-					"When not blinded or deafened, I'm aware of invisible, non-hidden creatures in 30 ft",
-					"I don't have disadvantage when attacking creatures I am aware of but can't see"
-				]),
-				vision : [["Feral senses", 30]]
+			"precise hunter": {
+				name: "Precise Hunter",
+				source: [["SRD24", 59], ["P24", 121]],
+				minlevel: 17,
+				description: " [Hunter's Mark gives me Advantage on attacks]",
+				calcChanges: {
+					spellAdd: [
+						function (spellKey, spellObj, spName, isDuplicate) {
+							if (spName === "ranger" && spellKey === "hunter's mark") {
+								spellObj.description = spellObj.description.replace("Wis (Perc./Surv.)", "atk/Perc./Surv.");
+								spellObj.descriptionShorter = spellObj.descriptionShorter.replace("Wis (Perc./Surv.)", "atk/Perc./Surv.");
+							}
+						},
+						"Hunter's Mark also grants me advantage on my attack rolls against the creature marked by it.",
+					],
+				},
 			},
-			"foe slayer" : {
-				name : "Foe Slayer",
-				source : [["SRD", 37], ["P", 92]],
-				minlevel : 20,
-				description : desc("Once per turn, I can add my Wis mod to the attack or damage roll vs. a favored enemy")
+			"feral senses": {
+				name: "Feral Senses",
+				source: [["SRD24", 59], ["P24", 121]],
+				minlevel: 18,
+				description: " [I gain Blindsight 30 ft]",
+				vision: [["Blindsight", 30]],
+			},
+			"foe slayer": {
+				name: "Foe Slayer",
+				source: [["SRD24", 59], ["P24", 121]],
+				minlevel: 20,
+				description: " [Hunter's Mark damage die is now d10]",
+				calcChanges: {
+					spellAdd: [
+						function (spellKey, spellObj, spName, isDuplicate) {
+							if (spName === "ranger" && spellKey === "hunter's mark") {
+								spellObj.description = spellObj.description.replace("1d6", "1d10");
+								spellObj.descriptionShorter = spellObj.descriptionShorter.replace("1d6", "1d10");
+							}
+						},
+						"The damage die of my Hunter's Mark is a d10 rather than a d6.",
+					],
+				},
 			},
 		},
 	},
-*/
+
 	"rogue": {
 		regExpSearch: /rogue|miscreant/i,
 		name: "Rogue",
@@ -1920,11 +1965,10 @@ var Base_ClassList = {
 					name: "Expertise",
 					source: [["SRD24", 61], ["P24", 129]],
 					minlevel: 1,
-					description: "",
-					skillstxt: "Expertise with any two skill proficiencies, and two more at 6th level.",
-					additional: levels.map(function (n) {
-						return "with " + (n < 6 ? 2 : 4) + " skills I'm proficient with";
+					description: levels.map(function (n) {
+						return " [with " + (n < 6 ? 2 : 4) + " skills I'm proficient with]";
 					}),
+					skillstxt: "Expertise with any two skill proficiencies, and two more at 6th level.",
 					extraTimes: levels.map(function (n) { return n < 6 ? 2 : 4; }),
 					extraname: "Expertise",
 					extrachoices: ["Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"],
@@ -1981,7 +2025,7 @@ var Base_ClassList = {
 				name: "Weapon Mastery",
 				source: [["SRD24", 62], ["P24", 130]],
 				minlevel: 1,
-				description: desc('I gain mastery with a 2 Simple or Martial weapons. Whenever I finish a Long Rest, I can change these choices. Use the "Choose Feature" button above to select them.'),
+				description: desc("I gain mastery with two weapons and can change them whenever I finish a Long Rest."),
 				additional: "2 Weapon Masteries",
 				extraTimes: [2],
 				extraname: "Weapon Mastery",
@@ -3731,98 +3775,55 @@ var Base_ClassSubList = {
 			},
 		},
 	},
-/*
-	"ranger-hunter" : {
-		regExpSearch : /^(?!.*(monster|barbarian|bard|cleric|druid|fighter|monk|paladin|rogue|sorcerer|warlock|wizard))(?=.*(hunter|huntress|hunts(wo)?m(e|a)n)).*$/i,
-		subname : "Hunter",
-		fullname : "Hunter",
-		source : [["SRD", 37], ["P", 93]],
+
+	"ranger-hunter": {
+		regExpSearch: /^(?!.*(monster|barbarian|bard|cleric|druid|fighter|monk|paladin|rogue|sorcerer|warlock|wizard))(?=.*(hunter|huntress|hunts(wo)?m(e|a)n)).*$/i,
+		subname: "Hunter",
+		fullname: "Hunter",
+		source: [["SRD24", 61], ["P24", 127]],
 		features: {
-			"subclassfeature3" : {
-				name : "Hunter's Prey",
-				source : [["SRD", 37], ["P", 93]],
-				minlevel : 3,
-				description : desc('Choose Colossus Slayer, Giant Killer, or Horde Breaker with the "Choose Feature" button'),
-				choices : ["Colossus Slayer", "Giant killer", "Horde Breaker"],
-				"colossus slayer" : {
-					name : "Hunter's Prey: Colossus Slayer",
-					description : desc("Once per turn, when hitting someone that is below max HP, I do an extra 1d8 damage")
-				},
-				"giant killer" : {
-					name : "Hunter's Prey: Giant Killer",
-					description : desc("As a reaction, when a Large or larger enemy in 5 ft attacks me, I can attack it once"),
-					action : [["reaction", ""]]
-				},
-				"horde breaker" : {
-					name : "Hunter's Prey: Horde Breaker",
-					description : desc("Once per turn, when I hit a creature, I can make an attack vs. another within 5 ft of it")
-				}
+			"subclassfeature3": {
+				name: "Hunter's Lore",
+				source: [["SRD24", 61], ["P24", 127]],
+				minlevel: 3,
+				description: desc("I know the Immunities, Resistances, and Vulnerabilities of the target of my Hunter's Mark."),
 			},
-			"subclassfeature7" : {
-				name : "Defensive Tactics",
-				source : [["SRD", 38], ["P", 93]],
-				minlevel : 7,
-				description : desc('"Choose Feature" button to choose Escape the Horde, Multiattack Defense, or Steel Will'),
-				choices : ["Escape the Horde", "Multiattack Defense", "Steel Will"],
-				"escape the horde" : {
-					name : "Defensive Tactic: Escape the Horde",
-					description : desc("Creatures attacking me with opportunity attacks have disadvantage on the attack rolls")
-				},
-				"multiattack defense" : {
-					name : "Defensive Tactic: Multiattack Defense",
-					description : desc("When a creature hits me, I gain +4 AC against that creature for the rest of the turn")
-				},
-				"steel will" : {
-					name : "Defensive Tactic: Steel Will",
-					description : desc("I have advantage on saves against being frightened"),
-					savetxt : { adv_vs : ["frightened"] }
-				}
+			"subclassfeature3.1": {
+				name: "Hunter's Prey",
+				source: [["SRD24", 61], ["P24", 127]],
+				minlevel: 3,
+				description: desc([
+					"I gain one of the following features and can change my pick whenever I finish a Short Rest.",
+					" \u2610 **Colossus Slayer**. Once per turn when I hit a creature with a weapon, I can have the weapon deal it +1d8 damage if it's not at full HP.",
+					" \u2610 **Horde Breaker**. Once per turn when I attack with a weapon, I can make an extra attack with it against another within range and 5 ft of the first, that I didn't attack this turn.",
+				]),
 			},
-			"subclassfeature11" : {
-				name : "Multiattack",
-				source : [["SRD", 38], ["P", 93]],
-				minlevel : 11,
-				description : desc('Choose Volley or Whirlwind Attack using the "Choose Feature" button above'),
-				choices : ["Volley", "Whirlwind Attack"],
-				"volley" : {
-					name : "Multiattack: Volley",
-					description : desc("As an action, I can make ranged attacks vs. all within a 10-ft radius of a point in range"),
-					action : [["action", ""]]
-				},
-				"whirlwind attack" : {
-					name : "Multiattack: Whirlwind Attack",
-					description : desc("As an action, I can make melee attacks vs. all creatures within 5 ft of me"),
-					action : [["action", ""]]
-				}
+			"subclassfeature7": {
+				name: "Defensive Tactics",
+				source: [["SRD24", 61], ["P24", 127]],
+				minlevel: 7,
+				description: desc([
+					"I gain one of the following features and can change my pick whenever I finish a Short Rest.",
+					" \u2610 **Escape the Horde**. Opportunity Attacks have Disadvantage against me.",
+					" \u2610 **Multiattack Defense**. When a creature hits me with an attack, it has Disadvantage on further attacks against me this turn.",
+				]),
 			},
-			"subclassfeature15" : {
-				name : "Superior Hunter's Defense",
-				source : [["SRD", 38], ["P", 93]],
-				minlevel : 15,
-				description : desc('"Choose Feature" button to choose Evasion, Stand Against the Tide, or Uncanny Dodge'),
-				choices : ["Evasion", "Stand Against the Tide", "Uncanny Dodge"],
-				"evasion" : {
-					name : "Evasion",
-					description : desc("My Dexterity saves vs. areas of effect negate damage on success and halve it on failure"),
-					savetxt : { text : ["Dex save vs. area effects: fail \u2015 half dmg, success \u2015 no dmg"] },
-				},
-				"stand against the tide" : {
-					name : "Stand Against the Tide",
-					description : desc([
-						"When a creature misses me with a melee attack, I can use my reaction on the attack",
-						"I force the attacker to repeat it vs. another (not attacker) of my choice within range"
-					]),
-					action : [["reaction", ""]],
-				},
-				"uncanny dodge" : {
-					name : "Uncanny Dodge",
-					description : desc("As a reaction, I halve the damage of an attack from an attacker that I can see"),
-					action : [["reaction", ""]],
-				},
+			"subclassfeature11": {
+				name: "Superior Hunter's Prey",
+				source: [["SRD24", 61], ["P24", 127]],
+				minlevel: 11,
+				description: desc("Once per turn when I deal damage to a creature marked by my Hunter's Mark, I can also deal the spell's extra damage to a different creature that I can see within 30 ft of the first."),
+			},
+			"subclassfeature15": {
+				name: "Superior Hunter's Defense",
+				source: [["SRD24", 61], ["P24", 127]],
+				minlevel: 15,
+				description: desc("As a Reaction when I take damage, I can gain Resistance to that type until my turn ends."),
+				action: [["reaction", ""]],
 			},
 		},
 	},
-*/
+
 	"rogue-thief": {
 		regExpSearch: /^(?!.*(barbarian|bard|cleric|druid|fighter|monk|paladin|ranger|sorcerer|warlock|wizard))(?=.*(thief|burglar)).*$/i,
 		subname: "Thief",
