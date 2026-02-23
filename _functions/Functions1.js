@@ -5606,7 +5606,7 @@ function SetFeatsdropdown(forceTooltips) {
 		var sTypeLC = oFeat.type ? oFeat.type.toLowerCase() : "general";
 		if (!oFeatTypes[sTypeLC]) { // create type entry if not recognized
 			oFeatTypes[sTypeLC] = {
-				name: oFeat.type.capitalize() + (/gift/i.test(tObj.type) ? "s" : " Feats"),
+				name: oFeat.type.capitalize() + (/gift/i.test(oFeat.type) ? "s" : " Feats"),
 				entries: []
 			}
 		}
