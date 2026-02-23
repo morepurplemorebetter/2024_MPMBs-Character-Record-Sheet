@@ -3874,23 +3874,23 @@ function gatherPrereqevalVars() {
 	var moreProfs = What("MoreProficiencies");
 	var gObj = {
 		// general character abilities
-		isSpellcaster : isSpellcaster(),
-		isSpellcastingClass : isSpellcaster("class"),
-		characterLevel : Number(What("Character Level")),
+		isSpellcaster: isSpellcaster(),
+		isSpellcastingClass: isSpellcaster("class"),
+		characterLevel: Number(What("Character Level")),
 		// armour proficiencies
-		shieldProf : tDoc.getField("Proficiency Shields").isBoxChecked(0),
-		lightArmorProf : tDoc.getField("Proficiency Armor Light").isBoxChecked(0),
-		mediumArmorProf : tDoc.getField("Proficiency Armor Medium").isBoxChecked(0),
-		heavyArmorProf : tDoc.getField("Proficiency Armor Heavy").isBoxChecked(0),
+		shieldProf: tDoc.getField("Proficiency Shields").isBoxChecked(0),
+		lightArmorProf: tDoc.getField("Proficiency Armor Light").isBoxChecked(0),
+		mediumArmorProf: tDoc.getField("Proficiency Armor Medium").isBoxChecked(0),
+		heavyArmorProf: tDoc.getField("Proficiency Armor Heavy").isBoxChecked(0),
 		// weapon proficiencies
-		simpleWeaponsProf : tDoc.getField("Proficiency Weapon Simple").isBoxChecked(0),
-		martialWeaponsProf : tDoc.getField("Proficiency Weapon Martial").isBoxChecked(0),
-		otherWeaponsProf : CurrentProfs.weapon.otherWea ? CurrentProfs.weapon.otherWea.finalProfs : [],
+		simpleWeaponsProf: tDoc.getField("Proficiency Weapon Simple").isBoxChecked(0),
+		martialWeaponsProf: tDoc.getField("Proficiency Weapon Martial").isBoxChecked(0),
+		otherWeaponsProf: CurrentProfs.weapon.otherWea ? CurrentProfs.weapon.otherWea.finalProfs: [],
 		// other proficiencies
-		toolProfs : [moreProfs],
-		languageProfs : [moreProfs],
-		skillProfs : [],
-		skillExpertise : [],
+		toolProfs: [moreProfs],
+		languageProfs: [moreProfs],
+		skillProfs: [],
+		skillExpertise: [],
 	};
 
 	// fill the arrays for tool, language, and skill proficiencies

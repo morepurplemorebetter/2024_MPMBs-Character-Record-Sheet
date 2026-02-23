@@ -5607,7 +5607,7 @@ function SetFeatsdropdown(forceTooltips) {
 		if (!oFeatTypes[sTypeLC]) { // create type entry if not recognized
 			oFeatTypes[sTypeLC] = {
 				name: oFeat.type.capitalize() + (/gift/i.test(oFeat.type) ? "s" : " Feats"),
-				entries: []
+				entries: [],
 			}
 		}
 		oFeatTypes[sTypeLC].entries.push(sFeatName);

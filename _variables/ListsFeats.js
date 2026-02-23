@@ -392,7 +392,7 @@ var Base_FeatsList = {
 		type: "epic boon",
 		prerequisite: "Level 19+, Spellcasting Feature",
 		prereqeval: function (v) {
-			return v.characterLevel >= 19 && v.isSpellcasterClass;
+			return v.characterLevel >= 19 && v.isSpellcastingClass;
 		},
 		description: "Whenever I cast a spell with a level 1-4 spell slot, I roll a 1d4. If the number I roll is the same as the slot's level, the slot isn't expended. [+1 Intelligence, Wisdom, or Charisma]",
 		descriptionFull: [
