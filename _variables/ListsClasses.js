@@ -286,9 +286,9 @@ var Base_ClassList = {
 							"On my turn I can extend its duration for another round by attacking an enemy, forcing an enemy to save, or by using a Bonus Action. I can maintain a Rage for up to 10 minutes.",
 						]);
 					} else {
-						arr.push("Rage lasts for 10 minutes or until I end it, I don Heavy armor, or I fall Unconscious.")
+						arr.push("Rage lasts for 10 minutes or until I end it, I don Heavy armor, or I fall Unconscious.");
 					}
-					return desc();
+					return desc(arr);
 				}),
 				additional: levels.map(function (n) {
 					return "+" + (n < 9 ? 2 : n < 16 ? 3 : 4) + " damage, regain 1/SR";
