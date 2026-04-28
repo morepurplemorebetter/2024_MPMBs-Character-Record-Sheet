@@ -902,6 +902,7 @@ var Base_CreatureList = {
 		actions: [{
 			name: "Gore",
 			description: "If the target is a Medium or smaller creature and the [THIS] moved at least 20 ft straight toward it immediately before the hit, the target takes an extra 1d6 Piercing damage and has the Prone condition.",
+			wildshapeShow: false,
 		}],
 		attacks: [{
 			name: "Gore",
@@ -1247,6 +1248,7 @@ var Base_CreatureList = {
 		}, {
 			name: "Gore",
 			description: "If the target is a Huge or smaller creature and the [THIS] moved at least 20 ft straight toward it immediately before the hit, the target has the Prone condition.",
+			wildshapeShow: false,
 		}],
 		attacks: [{
 			name: "Gore",
@@ -1459,6 +1461,7 @@ var Base_CreatureList = {
 		actions: [{
 			name: "Gore",
 			description: "If the target is a Large or smaller creature and the [THIS] moved at least 20 ft straight toward it immediately before the hit, the target takes an extra 2d6 Piercing damage and has the Prone condition.",
+			wildshapeShow: false,
 		}],
 		attacks: [{
 			name: "Gore",
@@ -2517,6 +2520,7 @@ var Base_CreatureList = {
 		}, {
 			name: "Gore",
 			description: "If the target is a Huge or smaller creature and the [THIS] moved at least 20 ft straight toward it immediately before the hit, the target has the Prone condition.",
+			wildshapeShow: false,
 		}],
 		attacks: [{
 			name: "Gore",
@@ -2958,6 +2962,7 @@ var Base_CreatureList = {
 		actions: [{
 			name: "Gore",
 			description: "If the target is a Large or smaller creature and the [THIS] moved at least 20 ft straight toward it immediately before the hit, the target takes an extra 2d8 Piercing damage and has the Prone condition.",
+			wildshapeShow: false,
 		}],
 		attacks: [{
 			name: "Gore",
@@ -3177,6 +3182,7 @@ var Base_CreatureList = {
 		}, {
 			name: "Gore",
 			description: "If the target is Huge or smaller and the [THIS] moved at least 20 ft straight toward it immediately before the hit, the target takes an extra 2d8 Piercing damage and has the Prone condition.",
+			wildshapeShow: false,
 		}],
 		attacks: [{
 			name: "Gore",
