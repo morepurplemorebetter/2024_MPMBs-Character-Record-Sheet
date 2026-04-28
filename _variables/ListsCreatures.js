@@ -591,7 +591,7 @@ var Base_CreatureList = {
 		attacksAction: 1,
 		traits: [{
 			name: "Pack Tactics",
-			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of the [THIS]'s allies is within 5 ft of the creature and the ally doesn't have the Incapacitated condition.",
+			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of its allies is within 5 ft of the creature and the ally isn't Incapacitated.",
 		}],
 		attacks: [{
 			name: "Gouge",
@@ -755,7 +755,7 @@ var Base_CreatureList = {
 		attacksAction: 1,
 		traits: [{
 			name: "Pack Tactics",
-			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of the [THIS]'s allies is within 5 ft of the creature and the ally doesn't have the Incapacitated condition.",
+			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of its allies is within 5 ft of the creature and the ally isn't Incapacitated.",
 		}],
 		attacks: [{
 			name: "Bite",
@@ -870,7 +870,7 @@ var Base_CreatureList = {
 		attacksAction: 1,
 		traits: [{
 			name: "Pack Tactics",
-			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of the [THIS]'s allies is within 5 ft of the creature and the ally doesn't have the Incapacitated condition.",
+			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of its allies is within 5 ft of the creature and the ally isn't Incapacitated.",
 		}],
 		attacks: [{
 			name: "Beak",
@@ -934,7 +934,7 @@ var Base_CreatureList = {
 		attacksAction: 2,
 		actions: [{
 			name: "Multiattack",
-			description: "As an Attack action, the [THIS] can make one Bite attack and one Claw attack.",
+			description: "As an Attack action, the [THIS] can make one Bite and one Claw attack.",
 		}],
 		attacks: [{
 			name: "Bite",
@@ -1167,7 +1167,7 @@ var Base_CreatureList = {
 		attacksAction: 1,
 		traits: [{
 			name: "Pack Tactics",
-			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of the [THIS]'s allies is within 5 ft of the creature and the ally doesn't have the Incapacitated condition.",
+			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of its allies is within 5 ft of the creature and the ally isn't Incapacitated.",
 		}],
 		attacks: [{
 			name: "Bite",
@@ -1595,10 +1595,11 @@ var Base_CreatureList = {
 		}],
 		actions: [{
 			name: "Multiattack",
-			description: "As an Attack action, the [THIS] can make one Bite attack and one Tail attack.",
+			description: "As an Attack action, the [THIS] can make one Bite and one Tail attack.",
 		}, {
 			name: "Bite",
-			description: "If the target is a Large or smaller creature, it has the Grappled condition (escape DC 15; i.e. Bite To Hit + 8). While Grappled, the target has the Restrained condition and can't be targeted by the [THIS]'s Tail.",
+			description: "If the target is a Large or smaller creature, it has the Grappled condition (escape DC 15). While Grappled, the target has the Restrained condition and can't be targeted by the [THIS]'s Tail.",
+			wildshapeShow: false,
 		}],
 		attacks: [{
 			name: "Bite",
@@ -1611,7 +1612,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [3, 8, "bludgeoning"],
 			range: "Melee (10 ft)",
-			description: "Large or smaller creature is knocked Prone",
+			description: "Large or smaller creature is knocked Prone; Can't target grappled by Bite",
 		}],
 	},
 	"giant fire beetle": {
@@ -1691,17 +1692,19 @@ var Base_CreatureList = {
 		}, {
 			name: "Standing Leap",
 			description: "The [THIS]'s Long Jump is up to 20 ft and its High Jump is up to 10 ft with or without a running start.",
+			wildshapeShow: "Long Jump always 20 ft and High Jump always 10 ft with or without a running start.",
 		}],
 		actions: [{
 			name: "Swallow",
 			description: "As an Action, the [THIS] swallows a Small or smaller target it is grappling. While swallowed, the target isn't Grappled but has the Blinded and Restrained conditions, and it has Total Cover against attacks and other effects outside the [THIS]. While swallowing the target, the [THIS] can't use Bite, and if it dies, the swallowed target is no longer Restrained and can escape from the corpse using 5 ft of movement, exiting with the Prone condition.\nAt the end of the [THIS]'s next turn, the swallowed target takes 2d4 Acid damage. If that damage doesn't kill it, the [THIS] disgorges it, causing it to exit Prone.",
+			wildshapeShow: "As an Action, swallow grappled \u2264Small target. I then can't use Bite, but it's Blinded, Restrained, has Total Cover from outside, and takes 2d4 Acid damage at my next turn's end. If that doesn't kill it, I disgorge it Prone.",
 		}],
 		attacks: [{
 			name: "Bite",
 			ability: 1,
 			damage: [1, 6, "piercing"],
 			range: "Melee (5 ft)",
-			description: "If the target is a Medium or smaller creature, it has the Grappled condition (escape DC 11).",
+			description: "\u2264Medium target is Grappled (escape DC 11)",
 			modifiers: ["", 1],
 		}],
 	},
@@ -1822,13 +1825,16 @@ var Base_CreatureList = {
 		features: [{
 			name: "Water Breathing",
 			description: "The [THIS] can breathe only underwater. It can hold its breath for 1 hour outside water.",
+			wildshapeShow: "Can hold breath 1 hour outside water.",
 		}],
 		actions: [{
 			name: "Ink Cloud (1/Day)",
 			description: "As a Reaction when the [THIS] takes damage while underwater, it can release ink that fills a 10-ft Cube centered on itself, and it moves up to its Swim Speed. The Cube is Heavily Obscured for 1 minute or until a strong current or similar effect disperses the ink.",
+			wildshapeShow: "As a Reaction after taking damage underwater, can release a 10-ft Cube of ink on itself and move up to Swim Speed. The area is Heavily Obscured for 1 minute or until dispersed by a strong current.",
 		}, {
 			name: "Tentacles",
 			description: "If the target is a Medium or smaller creature, it has the Grappled condition (escape DC 13) from all eight tentacles. While Grappled, the target has the Restrained condition.",
+			wildshapeShow: false,
 		}],
 		attacks: [{
 			name: "Tentacles",
@@ -1861,7 +1867,7 @@ var Base_CreatureList = {
 		attacksAction: 1,
 		traits: [{
 			name: "Pack Tactics",
-			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of the [THIS]'s allies is within 5 ft of the creature and the ally doesn't have the Incapacitated condition.",
+			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of its allies is within 5 ft of the creature and the ally isn't Incapacitated.",
 		}],
 		attacks: [{
 			name: "Bite",
@@ -1889,7 +1895,7 @@ var Base_CreatureList = {
 		attacksAction: 3,
 		actions: [{
 			name: "Multiattack",
-			description: "As an Attack action, the [THIS] can make two Claw attacks and one Sting attack.",
+			description: "As an Attack action, the [THIS] can make two Claw and one Sting attack.",
 		}, {
 			name: "Claw",
 			description: "If the target is a Large or smaller creature, it has the Grappled condition (escape DC 13) from one of two claws.",
@@ -1929,10 +1935,11 @@ var Base_CreatureList = {
 		}],
 		actions: [{
 			name: "Bubble Dash",
-			description: "As a Bonus Action, while underwater, the [THIS] moves up to half its Swim Speed without provoking Opportunity Attacks.",
+			description: "As a Bonus Action while underwater, the [THIS] moves up to half its Swim Speed without provoking Opportunity Attacks.",
 		}, {
 			name: "Ram",
 			description: "If the [THIS] moved at least 20 ft straight toward the target immediately before the hit, the attack deals 2d8 damage instead of 2d6.",
+			wildshapeShow: false,
 		}],
 		attacks: [{
 			name: "Ram",
@@ -2006,12 +2013,15 @@ var Base_CreatureList = {
 		traits: [{
 			name: "Spider Climb",
 			description: "The [THIS] can climb difficult surfaces, including along ceilings, without needing to make an ability check.",
+			wildshapeShow: "Climb difficult or ceiling without a check.",
 		}, {
 			name: "Web Walker",
 			description: "The [THIS] ignores movement restrictions caused by webs, and it knows the location of any other creature in contact with the same web.",
+			wildshapeShow: "Ignore movement penalties from by webs and know location of other creatures in the same web.",
 		}, {
 			name: "Web (Recharge 5-6)",
 			description: "Dex save, one creature the [THIS] can see within 60 ft. *Failure:* The target has the Restrained condition until the web is destroyed (AC 10; HP 5; Vulnerability to Fire damage; Immunity to Poison and Psychic damage).",
+			wildshapeShow: "See attack. The web has AC 10, HP 5, Vulnerability to Fire, and Immunity to Poison and Psychic damage.",
 		}],
 		attacks: [{
 			name: "Bite",
@@ -2052,17 +2062,19 @@ var Base_CreatureList = {
 		}, {
 			name: "Standing Leap",
 			description: "The [THIS]'s Long Jump is up to 20 ft and its High Jump is up to 10 ft with or without a running start.",
+			wildshapeShow: "Long Jump always 20 ft and High Jump always 10 ft with or without a running start.",
 		}],
 		actions: [{
 			name: "Swallow",
 			description: "As an Action, the [THIS] swallows a Medium or smaller target it is grappling. While swallowed, the target isn't Grappled but has the Blinded and Restrained conditions, and it has Total Cover against attacks and other effects outside the [THIS]. In addition, the target takes 3d6 Acid damage at the end of each of the [THIS]'s turns. The [THIS] can have only one target swallowed at a time, and it can't use Bite while it has a swallowed target. If the [THIS] dies, a swallowed creature is no longer Restrained and can escape from the corpse using 5 ft of movement, exiting with the Prone condition.",
+			wildshapeShow: "As an Action, swallow grappled \u2264Med target. I then can't use Bite, but it's Blinded, Restrained, has Total Cover from outside, and takes 3d6 Acid damage at my next turn's end. If that doesn't kill it, I disgorge it Prone.",
 		}],
 		attacks: [{
 			name: "Bite",
 			ability: 1,
 			damage: [1, 6, "piercing"],
 			range: "Melee (5 ft)",
-			description: "+2d4 Poison damage If the target is a Medium or smaller creature, it has the Grappled condition (escape DC 12).",
+			description: "+2d4 Poison damage; \u2264Medium target is Grappled (escape DC 12)",
 		}],
 	},
 	"giant venomous snake": {
@@ -2334,7 +2346,7 @@ var Base_CreatureList = {
 		attacksAction: 1,
 		traits: [{
 			name: "Pack Tactics",
-			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of the [THIS]'s allies is within 5 ft of the creature and the ally doesn't have the Incapacitated condition.",
+			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of its allies is within 5 ft of the creature and the ally isn't Incapacitated.",
 		}],
 		attacks: [{
 			name: "Bite",
@@ -2425,7 +2437,7 @@ var Base_CreatureList = {
 		attacksAction: 3,
 		traits: [{
 			name: "Pack Tactics",
-			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of the [THIS]'s allies is within 5 ft of the creature and the ally doesn't have the Incapacitated condition.",
+			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of its allies is within 5 ft of the creature and the ally isn't Incapacitated.",
 		}, {
 			name: "Running Leap",
 			description: "With a 10-ft running start, the [THIS] can Long Jump up to 25 ft.",
@@ -2433,6 +2445,7 @@ var Base_CreatureList = {
 		actions: [{
 			name: "Multiattack",
 			description: "As an Attack action, the [THIS] can make two Rend attacks. It can replace one attack with a use of Roar.",
+			wildshapeShow: "2 Rend attacks. Can replace 1 with a Roar.",
 		}],
 		attacks: [{
 			name: "Rend",
@@ -2598,6 +2611,7 @@ var Base_CreatureList = {
 		features: [{
 			name: "Compression",
 			description: "The [THIS] can move through a space as narrow as 1 inch without expending extra movement to do so.",
+			wildshapeShow: 'Can move through 1" without hinder',
 		}, {
 			name: "Water Breathing",
 			description: "The [THIS] can breathe only underwater.",
@@ -2605,6 +2619,7 @@ var Base_CreatureList = {
 		actions: [{
 			name: "Ink Cloud (1/Day)",
 			description: "As a Reaction when a creature ends its turn within 5 ft of the [THIS] while underwater, the [THIS] can release ink that fills a 5-ft Cube centered on itself, and it moves up to its Swim Speed. The Cube is Heavily Obscured for 1 minute or until a strong current or similar effect disperses the ink.",
+			wildshapeShow: "As a Reaction after taking damage underwater, can release a 5-ft Cube of ink on itself and move up to Swim Speed. The area is Heavily Obscured for 1 minute or until dispersed by a strong current.",
 		}],
 		attacks: [{
 			name: "Tentacles",
@@ -2912,7 +2927,7 @@ var Base_CreatureList = {
 		attacksAction: 1,
 		traits: [{
 			name: "Pack Tactics",
-			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of the [THIS]'s allies is within 5 ft of the creature and the ally doesn't have the Incapacitated condition.",
+			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of its allies is within 5 ft of the creature and the ally isn't Incapacitated.",
 		}, {
 			name: "Water Breathing",
 			description: "The [THIS] can breathe only underwater.",
@@ -3174,7 +3189,7 @@ var Base_CreatureList = {
 	"tyrannosaurus rex": {
 		name: "Tyrannosaurus Rex",
 		nameAlt: ["T-Rex"],
-		nameThis: "T-Rex",
+		nameThis: "tyrannosaurus",
 		source: [["SRD24", 363], ["M24", 372]],
 		size: 1,
 		type: "Beast",
@@ -3199,7 +3214,7 @@ var Base_CreatureList = {
 		}],
 		actions: [{
 			name: "Multiattack",
-			description: "As an Attack action, the [THIS] can make one Bite attack and one Tail attack.",
+			description: "As an Attack action, the [THIS] can make one Bite and one Tail attack.",
 		}, {
 			name: "Bite",
 			description: "If the target is a Large or smaller creature, it has the Grappled condition (escape DC 17). While Grappled, the target has the Restrained condition and can't be targeted by the [THIS]'s Tail.",
@@ -3266,7 +3281,7 @@ var Base_CreatureList = {
 		attacksAction: 1,
 		traits: [{
 			name: "Pack Tactics",
-			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of the [THIS]'s allies is within 5 ft of the creature and the ally doesn't have the Incapacitated condition.",
+			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of its allies is within 5 ft of the creature and the ally isn't Incapacitated.",
 		}],
 		attacks: [{
 			name: "Beak",
@@ -3358,7 +3373,7 @@ var Base_CreatureList = {
 		attacksAction: 1,
 		traits: [{
 			name: "Pack Tactics",
-			description: "The [THIS] has Advantage on attack rolls against a creature if at least one of the [THIS]'s allies is within 5 ft of the creature and the ally doesn't have the Incapacitated condition.",
+			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of its allies is within 5 ft of the creature and the ally isn't Incapacitated.",
 		}],
 		attacks: [{
 			name: "Bite",

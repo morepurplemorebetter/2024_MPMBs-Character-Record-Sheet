@@ -1,5 +1,5 @@
 function MakeDocName() {
-	return "MorePurpleMoreBetter's D&D 2024 edition " + (tDoc.info.SpellsOnly ? "Complete " + tDoc.info.SpellsOnly.capitalize() + " Spell Sheet" : (tDoc.info.AdvLogOnly ? "Adventure Logsheet" : "Character Record Sheet")) + " v" + semVers + " (" + tDoc.info.SheetType + ")";
+	return "MorePurpleMoreBetter's D&D 5.5e (2024) " + (tDoc.info.SpellsOnly ? "Complete " + tDoc.info.SpellsOnly.capitalize() + " Spell Sheet" : (tDoc.info.AdvLogOnly ? "Adventure Logsheet" : "Character Record Sheet")) + " v" + semVers + " (" + tDoc.info.SheetType + ")";
 };
 
 function MakeButtons() {
@@ -181,7 +181,7 @@ function OpeningStatement() {
 		var oldVerAlert = app.alert({
 			nIcon : 0,
 			cTitle : "Please update your Adobe Acrobat",
-			cMsg : "This version of Adobe Acrobat is not supported for use with MPMB's D&D 2024 Character Tools. You need at least Adobe Acrobat DC (Reader, Pro, or Standard) to use this PDF's full automation. Please know that if you continue to use the sheet with this outdated version of Adobe Acrobat, some features will not work (correctly) and others might produce errors (e.g. the Source Selection and the Mystic class).\n\nDo you want to close this pdf and visit the Adobe website where you can download the latest version of Adobe Acrobat Reader for free (https://get.adobe.com/reader/)?\n\nPlease understand that if you choose 'No', there will be no support if anything doesn't work.\n\n" + (!reminders ? "As you aren't using Adobe Acrobat to view this PDF, you will not be redirected to the website to download Adobe Acrobat Reader for free. Please go there manually.\n\nhttps://get.adobe.com/reader/" : reminders == 1 ? "You will get this warning again the next two times that you open this sheet in an unsupported version of Adobe Acrobat." : reminders == 2 ? "You will get this warning again the next time you open this sheet in an unsupported version of Adobe Acrobat." : "This is the last time this pdf character sheet shows this warning."),
+			cMsg : "This version of Adobe Acrobat is not supported for use with MPMB's D&D 5.5e (2024) Character Tools. You need at least Adobe Acrobat DC (Reader, Pro, or Standard) to use this PDF's full automation. Please know that if you continue to use the sheet with this outdated version of Adobe Acrobat, some features will not work (correctly) and others might produce errors (e.g. the Source Selection and the Mystic class).\n\nDo you want to close this pdf and visit the Adobe website where you can download the latest version of Adobe Acrobat Reader for free (https://get.adobe.com/reader/)?\n\nPlease understand that if you choose 'No', there will be no support if anything doesn't work.\n\n" + (!reminders ? "As you aren't using Adobe Acrobat to view this PDF, you will not be redirected to the website to download Adobe Acrobat Reader for free. Please go there manually.\n\nhttps://get.adobe.com/reader/" : reminders == 1 ? "You will get this warning again the next two times that you open this sheet in an unsupported version of Adobe Acrobat." : reminders == 2 ? "You will get this warning again the next time you open this sheet in an unsupported version of Adobe Acrobat." : "This is the last time this pdf character sheet shows this warning."),
 			nType : 2
 		});
 		if (oldVerAlert === 4) {
@@ -194,12 +194,12 @@ function OpeningStatement() {
 	if (What("Opening Remember") === "No") {
 		tDoc.dirty = false;
 		tDoc.pane = "bookmarks"; //open the bookmarks so that on the first opening people can see its existence
-		var sheetTitle = "MorePurpleMoreBetter's D&D 2024 " + (tDoc.info.SpellsOnly ? "Complete " + tDoc.info.SpellsOnly.capitalize() + " Spell Sheet" : (tDoc.info.AdvLogOnly ? "Adventure Logsheet" : "Character Record Sheet")) + " (" + tDoc.info.SheetType + ") v" + semVers;
+		var sheetTitle = "MorePurpleMoreBetter's D&D 5.5e " + (tDoc.info.SpellsOnly ? "Complete " + tDoc.info.SpellsOnly.capitalize() + " Spell Sheet" : (tDoc.info.AdvLogOnly ? "Adventure Logsheet" : "Character Record Sheet")) + " (" + tDoc.info.SheetType + ") v" + semVers;
 		var Text = "[Can't see the 'OK' button at the bottom? Use ENTER to close this dialog]\n\n";
 		Text += "Welcome to " + toUni(sheetTitle, "bold");
 		Text += ".\n>> get the latest version using the bookmark.";
 		Text += patreonVersion ? "" : "\n\n" + toUni("SRD only") + '. The System Reference Document content is the only Wizards of the Coast publication this sheet is allowed to contain. The rest is protected by WotC\'s copyright. Use the "Get More Content" bookmark to get add-on scripts to increase the available options.';
-		Text += "\n\n" + toUni("2024 version") + ". The 2024 edition (5.5e) of Dungeons & Dragons is what this sheet is made for. Visit MPMB's website to get a sheet for 5e (2014) D&D.";
+		Text += "\n\n" + toUni("5.5e version") + ". The 5.5th edition (2024) of Dungeons & Dragons is what this sheet is made for. Visit MPMB's website to get a sheet for 5e (2014) D&D.";
 		Text += "\n\n" + toUni("Advanced features") + ". The buttons in the \'JavaScript Window\'-toolbar and the bookmarks by the same name allow for many customization options. Please try them out. They are reversible.";
 		Text += "\n\nHave fun with the sheet and the adventures you embark on with its help!\n - MorePurpleMoreBetter - ";
 		var oCk = {
@@ -640,10 +640,10 @@ function ToggleTextSize(size, linespacingSize, forceReset) {
 		for (var T = 0; T < wildTemps.length; T++) {
 			var prefix = wildTemps[T];
 			for (var W = 1; W <= 4; W++) {
-				LinesFld = LinesFld.concat([
-					prefix + "Wildshape." + W + ".HP Current",
-					prefix + "Wildshape." + W + ".Traits"
-				]);
+				var wsBase = prefix + "Wildshape." + W;
+				LinesFld.push(wsBase + ".Traits");
+				if (typePF) LinesFld.push(wsBase + ".Senses");
+				if (!typePF) LinesFld.push(wsBase+ ".HP Current"); // NOG NODIG totdat colourful Wild Shape page is aangepast
 			}
 		}
 	}
@@ -660,7 +660,7 @@ function ToggleTextSize(size, linespacingSize, forceReset) {
 	for (var i = 0; i < LinesFld.length; i++) {
 		var fieldName = LinesFld[i];
 		var lineFld = tDoc.getField(fieldName);
-		if (!fontChange && lineFld.value === "") continue;
+		if (!lineFld || (!fontChange && lineFld.value === "")) continue;
 		// Disable rich text before updating the textSize/linespacing so it actually gets applied
 		lineFld.richText = false;
 		if (fontChange) lineFld.textSize = fontSize;
@@ -6296,14 +6296,18 @@ function ChangeSpeed(input) {
 // Reset the limited feature uses, buttons on the 1st page
 function resetLimFeaUsed(rxType) {
 	var bResetSpellSlots = false, aFldsToReset = [];
+	var rxRecoverXperSR = false, oFldsRecoverX = [];
 	var sType = !rxType ? 'long rest' : rxType.toString().toLowerCase().replace(/^\/|\/[igm]$/g, "");
 	switch (sType) {
+		case 'lr':
 		case 'long rest':
-			rxType = /\b(long rest|lr)\b/i;
+			rxType = /\b(long rest|lr|short rest|sr)\b/i;
 			bResetSpellSlots = true;
 			break;
+		case 'sr':
 		case 'short rest':
 			rxType = /\b(short rest|sr)\b/i;
+			rxRecoverXperSR = /(?:regain|recharge|recover) (\d+)\/SR/i;
 			break;
 		case 'day':
 		case 'dawn':
@@ -6320,7 +6324,16 @@ function resetLimFeaUsed(rxType) {
 	}
 	for (var i = 1; i <= FieldNumbers.limfea; i++) {
 		var sFldVal = What("Limited Feature Recovery " + i).toString();
-		if (rxType.test(sFldVal)) aFldsToReset.push("Limited Feature Used " + i);
+		var sFldUsed = "Limited Feature Used " + i;
+		var used = Number(What(sFldUsed));
+		if (rxType.test(sFldVal)) {
+			aFldsToReset.push(sFldUsed);
+		} else if (rxRecoverXperSR && used > 0) {
+			var recover = What("Limited Feature " + i).match(rxRecoverXperSR);
+			if (recover && !isNaN(recover[1])) {
+				oFldsRecoverX.push({ fld: sFldUsed, new: used - Number(recover[1]) });
+			}
+		}
 	}
 	if (bResetSpellSlots) {
 		var SSfrontA = What("Template.extras.SSfront").split(",")[1];
@@ -6329,9 +6342,12 @@ function resetLimFeaUsed(rxType) {
 		if (!typePF && SSfrontA) aFldsToReset.push(SSfrontA + "SpellSlots2.Checkboxes");
 		
 	}
-	if (aFldsToReset.length > 0) {
+	if (aFldsToReset.length || oFldsRecoverX.length) {
 		calcStop();
-		tDoc.resetForm(aFldsToReset);
+		if (aFldsToReset.length) tDoc.resetForm(aFldsToReset);
+		for (var i = 0; i < oFldsRecoverX.length; i++) {
+			Value(oFldsRecoverX[i].fld, oFldsRecoverX[i].new);
+		}
 	}
 }
 
@@ -6756,7 +6772,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 					);
 
 					// add/remove/update the feature text on the second page
-					if (propFea.description !== undefined) {
+					if (Fea && propFea.description !== undefined) {
 						var FeaOldString = ParseClassFeature(aClass, prop, oldClassLvl[aClass], forceProp, Fea.ChoiceOld, forceProp ? false : Fea);
 						Fea.extFirst = true; // signal that we need the full first line for FeaNewString
 						var FeaNewString = ParseClassFeature(aClass, prop, newClassLvl[aClass], false, Fea.Choice, Fea);
@@ -6782,12 +6798,19 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 							LastProp = FeaNewString[2];
 						}
 					}
+
+					// See if this is a wild shape feature, overwriting previously set values if the later processed feature is higher level or if it's lower level but the higher level feature is to be removed
+					if (propFea.wildshapePageInfo && Fea && (typeof WSinUse !== "object" || WSinUse.minlevel < propFea.minlevel || (!WSinUse.addIt && Fea.AddFea))) {
+						WSinUse = {
+							addIt: Fea.AddFea,
+							minlevel: propFea.minlevel,
+							lvl: newClassLvl[aClass],
+							info: propFea.wildshapePageInfo,
+						};
+					}
 				} catch (error) {
 					displayError(error, 'The "' + propFea.name + '" feature from the "' + cl.fullname + '" class produced the error below. Please share this error message with its author so they can correct this issue.');
 				}
-
-				// see if this is a wild shape feature
-				if (prop.indexOf("wild shape") !== -1 && Fea.changed) WSinUse = [newClassLvl[aClass], Fea.Use, Fea.Recov, Fea.Add];
 
 				/* loop through the feature's selected extra options, but only:
 					- during import to set the feature for the first time (!IsNotImport && Fea.AddFea)
@@ -6814,6 +6837,8 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 							var xtrFeaNewString = ParseClassFeatureExtra(aClass, prop, xtrProp, xtrFea, false);
 							// see what type of change we have to do
 							var xtrTextAction = Fea.CheckLVL && !Fea.AddFea ? "remove" : // level dropped below minlevel
+								xtrFea.AddFea && !xtrFea.Display ? "remove" : // new description is undefined
+								xtrFea.AddFea && xtrFea.Display && !xtrFea.DisplayOld ? "insert" : // description at previous level was undefined, but now there is something to insert
 								xtrFea.AddFea && xtrFea.changed && xtrFea.Descr !== xtrFea.DescrOld ? "replace" : // update the whole text after a description change
 								xtrFea.AddFea && xtrFea.changed && xtrFea.Descr === xtrFea.DescrOld ? "first" : // update just header after a usages/recovery/additional change
 								false;
@@ -6830,7 +6855,7 @@ function UpdateLevelFeatures(Typeswitch, newLvlForce) {
 		}
 
 		// (re-)apply and re-calculate all the wild shapes as something might have changed after going level up
-		if (WSinUse) WildshapeUpdate(WSinUse != true ? WSinUse : false);
+		if (WSinUse) WildshapeUpdate(typeof WSinUse === "object" ? WSinUse : false);
 	}
 
 	thermoM(thermoTxt, true); // Stop progress bar
@@ -7151,15 +7176,17 @@ function ClassFeatureOptions(Input, AddRemove, ForceExtraname) {
 
 // Add a temporary addition to classes.known, if applicable
 function addTempClassesKnown(oBonus) {
-	if (!classes.known[oBonus.class]) {
+	var oKnownClass = classes.known[oBonus.class];
+	var sCurSubclass = oKnownClass && oKnownClass.subclass ? oKnownClass.subclass : false;
+	if (!oKnownClass) {
 		classes.known[oBonus.class] = {
 			name : oBonus.class,
 			level : 0,
 			subclass : oBonus.subclass ? oBonus.subclass : "",
 			isTempKnown : true
 		}
-	} else if (oBonus.subclass && oBonus.subclass !== classes.known[oBonus.class].subclass) {
-		classes.known[oBonus.class].subclassRem = classes.known[oBonus.class].subclass;
+	} else if (oBonus.subclass && oBonus.subclass !== sCurSubclass) {
+		classes.known[oBonus.class].subclassRem = sCurSubclass;
 		classes.known[oBonus.class].subclass = oBonus.subclass;
 	}
 }
@@ -7168,7 +7195,7 @@ function cleanTempClassesKnown() {
 	for (var sClass in classes.known) {
 		if (classes.known[sClass].isTempKnown === true) {
 			delete classes.known[sClass];
-		} else if (classes.known[sClass].subclassRem) {
+		} else if (classes.known[sClass].subclassRem !== undefined) {
 			classes.known[sClass].subclass = classes.known[sClass].subclassRem;
 			delete classes.known[sClass].subclassRem;
 		}
@@ -9798,6 +9825,7 @@ function SetUnitDecimals_Button() {
 					FldsGameMech.push(prefix + "Wildshape." + i + ".Attack.2.Range");
 					FldsGameMech.push(prefix + "Wildshape." + i + ".Attack.2.Description");
 					FldsGameMech.push(prefix + "Wildshape." + i + ".Speed");
+					FldsGameMech.push(prefix + "Wildshape." + i + ".Senses");
 					FldsGameMech.push(prefix + "Wildshape." + i + ".Traits");
 				}
 			}

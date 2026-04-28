@@ -5390,7 +5390,7 @@ function ChangeToCompleteSpellSheet(thisClass, FAQpath) {
 		'this.info.SheetType = "' + tDoc.info.SheetType + '";',
 		'this.info.Keywords = "' + (!typePF ? keyCF : (tDoc.info.SheetType === "Printer Friendly" ? keyPF : keyPFR)) + '";',
 		'this.info.ContactEmail = "' + tDoc.info.ContactEmail + '";',
-		'this.info.Subject = "D&D 2024; Character Sheet; Spell Sheet; Spell Sheet Generator";',
+		'this.info.Subject = "D&D 5.5e (2024); Character Sheet; Spell Sheet; Spell Sheet Generator";',
 		"setGlobalVars();",
 		"this.info.Title = MakeDocName();",
 		"CreateBkmrksCompleteSpellSheet();",

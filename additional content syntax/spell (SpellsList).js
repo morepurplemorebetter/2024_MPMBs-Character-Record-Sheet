@@ -256,7 +256,7 @@ SpellsList["sindering purple"] = {
 		min				minute(s)
 		h				hours(s)
 
-	>> 2024 changes
+	>> 5.5e (2024) changes
 	The above recommended abbreviations have been changed to be more in line with the 2024
 	rules as presented in the PHB'24. For backwards compatibility, the sheet automatically
 	changes the old abbreviations to the new format.

@@ -1,10 +1,10 @@
 // No longer used, but kept for legacy sources that use it
 var FightingStyles = {
-	archery : {
-		name : "Archery Fighting Style",
-		description : desc("+2 bonus to attack rolls I make with ranged weapons"),
-		calcChanges : {
-			atkCalc : [
+	archery: {
+		name: "Archery Fighting Style",
+		description: desc("+2 bonus to attack rolls I make with ranged weapons"),
+		calcChanges: {
+			atkCalc: [
 				function (fields, v, output) {
 					if (v.isRangedWeapon && !v.isNaturalWeapon && !v.isDC) output.extraHit += 2;
 				},
@@ -12,21 +12,21 @@ var FightingStyles = {
 			]
 		}
 	},
-	defense : {
-		name : "Defense Fighting Style",
-		description : desc("+1 bonus to AC when I'm wearing armor"),
-		extraAC : {
-			name : "Defense Fighting Style", // necessary for features referring to fighting style properties directly
-			mod : 1,
-			text : "I gain a +1 bonus to AC while wearing armor.",
-			stopeval : function (v) { return !v.wearingArmor; }
+	defense: {
+		name: "Defense Fighting Style",
+		description: desc("+1 bonus to AC when I'm wearing armor"),
+		extraAC: {
+			name: "Defense Fighting Style", // necessary for features referring to fighting style properties directly
+			mod: 1,
+			text: "I gain a +1 bonus to AC while wearing armor.",
+			stopeval: function (v) { return !v.wearingArmor; }
 		}
 	},
-	dueling : {
-		name : "Dueling Fighting Style",
-		description : desc("+2 to damage rolls when wielding a melee weapon in one hand and no other weapons"),
-		calcChanges : {
-			atkCalc : [
+	dueling: {
+		name: "Dueling Fighting Style",
+		description: desc("+2 to damage rolls when wielding a melee weapon in one hand and no other weapons"),
+		calcChanges: {
+			atkCalc: [
 				function (fields, v, output) {
 					for (var i = 1; i <= FieldNumbers.actions; i++) {
 						if (/off.hand.attack/i.test(What('Bonus Action ' + i))) return;
@@ -37,11 +37,11 @@ var FightingStyles = {
 			]
 		}
 	},
-	great_weapon : {
-		name : "Great Weapon Fighting Style",
-		description : desc("Reroll 1 or 2 on damage if wielding two-handed/versatile melee weapon in both hands"),
-		calcChanges : {
-			atkAdd : [
+	great_weapon: {
+		name: "Great Weapon Fighting Style",
+		description: desc("Reroll 1 or 2 on damage if wielding two-handed/versatile melee weapon in both hands"),
+		calcChanges: {
+			atkAdd: [
 				function (fields, v) {
 					if (v.isMeleeWeapon && /\bversatile\b|((^|[^+-]\b)2|\btwo).?hand(ed)?s?\b/i.test(fields.Description)) {
 						fields.Description += (fields.Description ? '; ' : '') + 'Re-roll 1 or 2 on damage die' + (/versatile/i.test(fields.Description) ? ' when two-handed' : '');
@@ -51,19 +51,19 @@ var FightingStyles = {
 			]
 		}
 	},
-	protection : {
-		name : "Protection Fighting Style",
-		description : desc([
+	protection: {
+		name: "Protection Fighting Style",
+		description: desc([
 			"As a reaction, I can give disadv. on an attack made vs. someone within 5 ft of me",
 			"I need to be wielding a shield and be able to see the attacker to do this"
 		]),
-		action : [["reaction", ""]]
+		action: [["reaction", ""]]
 	},
-	two_weapon : {
-		name : "Two-Weapon Fighting Style",
-		description : desc("I can add my ability modifier to the damage of my off-hand attacks"),
-		calcChanges : {
-			atkCalc : [
+	two_weapon: {
+		name: "Two-Weapon Fighting Style",
+		description: desc("I can add my ability modifier to the damage of my off-hand attacks"),
+		calcChanges: {
+			atkCalc: [
 				function (fields, v, output) {
 					if (v.isOffHand) output.modToDmg = true;
 				},
@@ -273,14 +273,23 @@ var Base_ClassList = {
 				name: "Rage",
 				source: [["SRD24", 28], ["P24", 51]],
 				minlevel: 1,
-				description: desc([
-					"As a Bonus Action, I can enter a Rage if I'm not wearing Heavy armor. While I'm in a Rage:",
- 					" \u2022 I have Resistance to Bludgeoning, Piercing, and Slashing damage.",
- 					" \u2022 I add bonus damage to my weapon and Unarmed Strike attacks that use Strength.",
- 					" \u2022 I have Advantage on Strength checks and saves, but can't maintain Concentration.",
-					"Rage lasts until the end of my next turn, I don Heavy armor, or I become Incapacitated.",
-					"On my turn I can extend its duration for another round by attacking an enemy, forcing an enemy to save, or by using a Bonus Action. I can maintain a Rage for up to 10 minutes."
-				]),
+				description: levels.map(function (n) {
+					var arr = [
+						"As a Bonus Action, I can enter a Rage if I'm not wearing Heavy armor. While I'm in a Rage:",
+						" \u2022 I have Resistance to Bludgeoning, Piercing, and Slashing damage.",
+						" \u2022 I add bonus damage to my weapon and Unarmed Strike attacks that use Strength.",
+						" \u2022 I have Advantage on Strength checks and saves, but can't maintain Concentration.",
+					];
+					if (n < 15) {
+						arr = arr.concat([
+							"Rage lasts until the end of my next turn, I don Heavy armor, or I become Incapacitated.",
+							"On my turn I can extend its duration for another round by attacking an enemy, forcing an enemy to save, or by using a Bonus Action. I can maintain a Rage for up to 10 minutes.",
+						]);
+					} else {
+						arr.push("Rage lasts for 10 minutes or until I end it, I don Heavy armor, or I fall Unconscious.")
+					}
+					return desc();
+				}),
 				additional: levels.map(function (n) {
 					return "+" + (n < 9 ? 2 : n < 16 ? 3 : 4) + " damage, regain 1/SR";
 				}),
@@ -340,7 +349,9 @@ var Base_ClassList = {
 				name: "Danger Sense",
 				source: [["SRD24", 29], ["P24", 52]],
 				minlevel: 2,
-				description: desc("I have Advantage on Dexterity saving throws unless I have the Incapacitated condition."),
+				description: levels.map(function (n) {
+					return n < 14 ? desc("I have Advantage on Dexterity saving throws unless I have the Incapacitated condition.") : " [Adv. on Dex saves if not Incapacitated]";
+				}),
 				savetxt: { text: ["Adv. on Dex saves"] },
 				advantages: [["Dexterity", true]],
 			},
@@ -364,7 +375,7 @@ var Base_ClassList = {
 				choices: ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
 				"animal handling": {
 					name: "Primal Knowledge: Animal Handling",
-					description: desc('\nWhile Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Animal Handling ' + (typePF ? 'proficiency.' : 'prof.')),
+					description: desc('While Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Animal Handling ' + (typePF ? 'proficiency.' : 'prof.')),
 					skills: ["Animal Handling"],
 				},
 				"athletics": {
@@ -397,14 +408,18 @@ var Base_ClassList = {
 				name: "Fast Movement",
 				source: [["SRD24", 29], ["P24", 53]],
 				minlevel: 5,
-				description: desc("My speed increases by 10 ft while I'm not wearing Heavy armor."),
+				description: levels.map(function (n) {
+					return n < 14 ? desc("My speed increases by 10 ft while I'm not wearing Heavy armor.") : " [+10 ft speed if not wearing Heavy Armor]";
+				}),
 				speed: { allModes: "+10" },
 			},
 			"feral instinct": {
 				name: "Feral Instinct",
 				source: [["SRD24", 29], ["P24", 53]],
 				minlevel: 7,
-				description: desc("I have Advantage on Initiative rolls because my instincts are so honed."),
+				description: levels.map(function (n) {
+					return n < 14 ? desc("I have Advantage on Initiative rolls because my instincts are so honed.") : " [Adv. on Initiative]";
+				}),
 				advantages: [["Initiative", true]],
 			},
 			"brutal strike": { // includes the level 13 and 17 Improved Brutal Strike features
@@ -412,28 +427,53 @@ var Base_ClassList = {
 				source: [["SRD24", 29], ["P24", 53]],
 				minlevel: 9,
 				description: levels.map(function (n) {
-					var multiplier = n < 17 ? 1 : 2;
-					var effects = multiplier + ' effect';
-					if (multiplier > 1) effects += 's';
-					var description = [
-						"\nIf I use Reckless Attack, I can forgo any Advantage on one Strength-based attack on my turn that doesn't have Disadvantage. On a hit, it does +" + multiplier + "d10 damage and " + effects + " below:",
-						" \u2022 **Forceful Blow**. The target is pushed 15 ft straight away from me. I can then move\n   half my Speed straight toward the target without provoking Opportunity Attacks.",
-						" \u2022 **Hamstring Blow**. The target has -15 ft Speed until the start of my next turn.\n   A target can only be affected by the most recent Hamstring Blow, they're not cumulative.",
-					];
-					if (n >= 13) {
-						description.push(" \u2022 **Staggering Blow**. The target has Disadvantage on their next saving throw,\n   and it can't make Opportunity Attacks until the start of my next turn.");
-						description.push(" \u2022 **Sundering Blow**. +5 on the next attack roll against the target made by another\n   creature before the start of my next turn. An attack can gain this bonus only once.");
-					}
-					return description.join("\n");
+					var dice = n < 17 ? 1 : 2;
+					var effects =  n < 17 ? '1 effect' : '2 effects';
+					return desc("If I use Reckless Attack, I can forgo any Adv. on one Strength-based attack on my turn that doesn't have Disadv. so that on a hit it does +" + dice + "d10 damage and " + effects + " (see 3rd page).");
 				}),
 				additional: levels.map(function (n) {
 					return n < 17 ? '+1d10 damage, 1 effect' : '+2d10 damage, 2 effects';
 				}),
+				"forceful blow": {
+					name: "Forceful Blow",
+					extraname: "Brutal Strike Effect, Barbarian 9",
+					source: [["SRD24", 29], ["P24", 53]],
+					description: "The target is pushed 15 ft straight away from me. I can then move half my Speed straight toward the target without provoking Opportunity Attacks.",
+				},
+				"hamstring blow": {
+					name: "Hamstring Blow",
+					extraname: "Brutal Strike Effect, Barbarian 9",
+					source: [["SRD24", 30], ["P24", 53]],
+					description: "The target has -15 ft Speed until the start of my next turn. A target can only be affected by the most recent Hamstring Blow, they're not cumulative.",
+				},
+				"staggering blow": {
+					name: "Staggering Blow",
+					extraname: "Brutal Strike Effect, Barbarian 13",
+					source: [["SRD24", 30], ["P24", 53]],
+					description: "The target has Disadvantage on their next saving throw, and it can't make Opportunity Attacks until the start of my next turn.",
+				},
+				"sundering blow": {
+					name: "Sundering Blow",
+					extraname: "Brutal Strike Effect, Barbarian 13",
+					source: [["SRD24", 30], ["P24", 53]],
+					description: "+5 bonus on the next attack roll made by another creature against the target before the start of my next turn. An attack can gain this bonus only once.",
+				},
+				autoSelectExtrachoices: [{
+					extrachoice: "forceful blow",
+				}, {
+					extrachoice: "hamstring blow",
+				}, {
+					extrachoice: "staggering blow",
+					minlevel: 13,
+				}, {
+					extrachoice: "sundering blow",
+					minlevel: 13,
+				}],
 			},
 			"relentless rage": {
-				name : "Relentless Rage",
+				name: "Relentless Rage",
 				source: [["SRD24", 30], ["P24", 53]],
-				minlevel : 11,
+				minlevel: 11,
 				description: desc("While Raging, if I drop to 0 HP and don't die, I can make a DC 10 Con save to instead have twice my Barbarian level HP. Each attempt adds +5 DC. DC resets to 10 after a Short Rest."),
 				additional: levels.map(function (n) {
 					return (n * 2) + " HP";
@@ -464,7 +504,7 @@ var Base_ClassList = {
 				name: "Primal Champion",
 				source: [["SRD24", 30], ["P24", 53]],
 				minlevel: 20,
-				description: desc("My Strength and Constitution scores increase by 4, to a maximum of 25."),
+				description: " [+4 Str and Con, up to 25]",
 				scores:        [ 4, 0,  4, 0, 0, 0],
 				scoresMaximum: [25, 0, 25, 0, 0, 0],
 			},
@@ -532,7 +572,7 @@ var Base_ClassList = {
 					return n < 5 ? "Long Rest" : "Short Rest"; // Font of Inspiration
 				}),
 				altResource: levels.map(function (n) {
-					return n < 5 ? "" : "SS"; // Font of Inspiration
+					return n < 5 ? "" : "SS 1+"; // Font of Inspiration
 				}),
 				action: [["bonus action", ""]],
 			},
@@ -781,7 +821,7 @@ var Base_ClassList = {
 				minlevel: 5,
 				description: " [improves Turn Undead to deal damage]",
 			},
-			"blessed strikes": {
+			"blessed strikes": { // includes the effects of Improved Blessed Strikes
 				name: "Blessed Strikes",
 				source: [["SRD24", 38], ["P24", 71]],
 				minlevel: 7,
@@ -791,13 +831,13 @@ var Base_ClassList = {
 					name: "Divine Strike",
 					description: levels.map(function (n) {
 						var dice = n < 14 ? 1 : 2;
-						return n < 7 ? "" : "\nOnce per turn I can deal +" + dice + "d8 Radiant/Necrotic damage to a creature I hit with a weapon.";
+						return n < 7 ? "" : desc("Once per turn I can deal +" + dice + "d8 Radiant/Necrotic damage to a creature I hit with a weapon.");
 					}),
 					additional: levels.map(function (n) {
 						return n < 7 ? "" : "+" + (n < 14 ? 1 : 2) + "d8 Radiant or Necrotic damage";
 					}),
-					calcChanges : {
-						atkAdd : [
+					calcChanges: {
+						atkAdd: [
 							function (fields, v) {
 								if (classes.known.cleric && v.isWeapon && !v.isDC) {
 									fields.Description += (fields.Description ? '; ' : '') + '1/turn +' + (classes.known.cleric.level < 14 ? 1 : 2) + 'd8 Radiant/Necrotic damage';
@@ -810,7 +850,7 @@ var Base_ClassList = {
 				"potent spellcasting": {
 					name: "Potent Spellcasting",
 					description: levels.map(function (n) {
-						return n < 14 ? "\nI add my Wisdom modifier to the damage I deal with my Cleric cantrips." : "\nMy Cleric cantrips get my Wisdom modifier added to their damage. When I deal damage with one, I can grant myself or a creature within 60 ft twice my Wisdom mod in Temp " + (typePF ? "Hit Points." : "HP.");
+						return desc(n < 14 ? "I add my Wisdom modifier to the damage I deal with my Cleric cantrips." : "My Cleric cantrips get my Wisdom modifier added to their damage. When I deal damage with one, I can grant myself or a creature within 60 ft twice my Wisdom mod in Temp " + (typePF ? "Hit Points." : "HP."));
 					}),
 					calcChanges: {
 						atkCalc: [
@@ -827,7 +867,7 @@ var Base_ClassList = {
 								if (spellObj.psionic || spellObj.level !== 0 || spName.indexOf("cleric") == -1 || wisMod <= 0) return;
 								return genericSpellDmgEdit(spellKey, spellObj, "\\w+\\.?", wisMod);
 							},
-							"My cleric cantrips get my Wisdom modifier added to their damage.",
+							"My Cleric cantrips get my Wisdom modifier added to their damage.",
 						],
 					},
 				},
@@ -871,9 +911,9 @@ var Base_ClassList = {
 			},
 		},
 	},
-/*
+
 	"druid": {
-		regExpSearch: /druid|shaman/i,
+		regExpSearch: /druid/i,
 		name: "Druid",
 		source: [["SRD24", 41], ["P24", 79]],
 		primaryAbility: "Wisdom",
@@ -934,37 +974,107 @@ var Base_ClassList = {
 					return cantrips + " cantrips known \x26 " + spells + " spells to prepare";
 				}),
 			},
-			"druidic": { // nog niet klaar
+			"druidic": {
 				name: "Druidic",
 				source: [["SRD24", 42], ["P24", 80]],
 				minlevel: 1,
-				description : desc("I know Druidic; Hidden messages with it are only understood by those who know Druidic"),
-				languageProfs: ["Druidic"]
+				description: desc("I always have Speak with Animals prepared. I know Druidic. I can leave hidden messages in it. Druidic speakers understand, but others need a DC 15 Investigation check just to spot " + (typePF ? "them." : "it.")),
+				languageProfs: ["Druidic"],
 			},
-			"subclassfeature2.wild shape" : {
-				name : "Wild Shape",
-				source : [["SRD", 20], ["P", 66]],
-				minlevel : 2,
-				description : desc([
-					"As an action, I assume the shape of a beast I have seen before with the following rules:",
-					" \u2022 I gain all its game statistics except Intelligence, Wisdom, or Charisma",
-					" \u2022 I get its skill/saving throw prof. while keeping my own, using whichever is higher",
-					" \u2022 I assume the beast's HP and HD; I get mine back when I revert back",
-					" \u2022 I can't cast spells in beast form, but transforming doesn't break concentration",
-					" \u2022 I retain features from class, race, etc., but I don't retain special senses",
-					" \u2022 I can choose whether equipment falls to the ground, merges, or stays worn",
-					" \u2022 I revert if out of time or unconscious; if KOd by damage, excess damage carries over"
-				]),
-				usages : [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, "\u221E\xD7 per "],
-				recovery : "Short Rest",
-				additional : levels.map(function (n) {
-					if (n < 2) return "";
-					var cr = n < 4 ? "1/4" : n < 8 ? "1/2" : 1;
-					var hr = Math.floor(n/2);
-					var restr = n < 4 ? ", no fly/swim" : n < 8 ? ", no fly" : "";
-					return "CR " + cr + restr + "; " + hr + (restr.length ? " h" : " hours");
+			"primal order": {
+				name: "Primal Order",
+				source: [["SRD24", 42], ["P24", 80]],
+				minlevel: 1,
+				description: desc('Select a Primal Order using the "Choose Feature" button above.'),
+				choices: ["Magician", "Warden"],
+				"magician": {
+					name: "Magician Primal Order",
+					description: desc('I add my Wis mod to my Int (Arcana or Nature) checks and know one extra Druid cantrip.'),
+					addMod: [
+						{type: "skill", field: "Arcana", mod: "max(Wis|1)", text: "I add my Wisdom modifier (minimum +1) to my Intelligence (Arcana) checks."},
+						{type: "skill", field: "Nature", mod: "max(Wis|1)", text: "I add my Wisdom modifier (minimum +1) to my Intelligence (Nature) checks."},
+					],
+					spellcastingBonus: [{
+						name: "Magician Primal Order",
+						"class": ["druid"],
+						level: [0, 0],
+					}],
+				},
+				"warden": {
+					name: "Warden Primal Order",
+					description: desc('I gain proficiency with Martial weapons and training with Medium armor.'),
+					armorProfs: [false, true, false, false],
+					weaponProfs: [false, true],
+				},
+			},
+			"wild shape": {
+				name: "Wild Shape",
+				source: [["SRD24", 42], ["P24", 80]],
+				minlevel: 2,
+				description: " (see 3rd page)",
+				usages: levels.map(function (n) {
+					return n < 2 ? "" : n < 6 ? 2 : n < 17 ? 3 : 4;
 				}),
-				action : [["action", " (start)"], ["bonus action", " (end)"]]
+				recovery: "Long Rest",
+				additional: "regain 1/SR",
+				action: [["bonus action", " (start/end)"]],
+				wildshapePageInfo: {
+					tempHP: levels,
+					duration: levels.map(function (n) {
+						return Math.floor(n/2) + " hour" + (n > 3 ? "s" : "");
+					}),
+					knownForms: levels.map(function (n) {
+						var knownForms = n < 4 ? 4 : n < 8 ? 6 : 8;
+						return knownForms + (typePF ? " Beast forms" : " Beast");
+					}),
+					limitations: levels.map(function (n) {
+						var CR = n < 4 ? "1/4" : "1/2";
+						return n < 8 ? "max CR " + CR + ", no Fly speed" : "CR 1 or lower";
+					}),
+				},
+				"wild shape rules": {
+					name: "Wild Shape Rules",
+					source: [["SRD24", 42], ["P24", 80]],
+					extraname: "Druid 2",
+					description: levels.map(function (n) {
+						if (n < 2) return "";
+						var duration = Math.floor(n/2) + " hour" + (n > 3 ? "s" : "");
+						var knownForms = n < 4 ? 4 : n < 8 ? 6 : 8;
+						var CR = n < 4 ? "1/4" : n < 8 ? "1/2" : 1;
+						var canFly = n < 8 ? "can't" : "can";
+						return desc([
+							"As a Bonus Action, I can expend a Wild Shape (WS) use to shape-shift into a known Beast form and gain **" + n + " Temp HP** (Druid level). I stay in that form for **" + duration + "** (half Druid level), until I use Wild Shape again, end it as a Bonus Action, become Incapacitated, or die.",
+							"I have **" + knownForms + " known forms** of **max CR " + CR + "** that **" + canFly + " have a Fly Speed**. " + (typePF ? "Whenever I finish" : "After") + " a Long Rest, I can change one known form for another eligible Beast form.",
+							"In Wild Shape, I use the Beast's stats, but retain my type, HP, HD, Int, Wis, Cha, feats, class features, and ability to speak. I retain my skill and save proficiencies with my Prof" + (typePF ? "iciency" : "") + " Bonus and gain the beast's, using its bonus if higher. I can't cast spells, but shape-shifting doesn't break concentration. I choose what equipment falls to the ground, merges, or stays worn.",
+							"Use the Wild Shape page to track known forms and their stats.",
+						]);
+					}),
+				},
+				autoSelectExtrachoices: [{
+					extrachoice: "wild shape rules",
+				}],
+			},
+			"wild companion": {
+				name: "Wild Companion",
+				source: [["SRD24", 43], ["P24", 81]],
+				minlevel: 2,
+				description: desc("As a Magic action, I can expend a spell slot or a Wild Shape use to cast Find Familiar without Material components. The familiar is Fey and disappears when I finish a Long Rest."),
+				spellcastingBonus: [{
+					name: "Wild Companion",
+					spells: ["find familiar"],
+					selection: ["find familiar"],
+					firstCol: "markedbox",
+				}],
+				spellChanges: {
+					"find familiar": {
+						time: "Act",
+						components: "V,S",
+						compMaterial: "",
+						duration: "Instant., till LR",
+						description: "Gain the services of a familiar until next LR; Bns see through its eyes; it can deliver touch spells; see B",
+						changes: "Using my Wild Companion feature, I can cast Find Familiar as an action without Material components. When cast this way, the familiar is Fey and disappears when I finish a Long Rest.",
+					},
+				},
 			},
 			"subclassfeature3": {
 				name: "Druid Subclass",
@@ -972,42 +1082,158 @@ var Base_ClassList = {
 				minlevel: 3,
 				description: desc('Choose a Druid Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
-			"timeless body" : {
-				name : "Timeless Body",
-				source : [["SRD", 21], ["P", 67]],
-				minlevel : 18,
-				description : desc("I age more slowly, only 1 year for every 10 years that pass")
+			"wild resurgence": {
+				name: "Wild Resurgence",
+				source: [["SRD24", 43], ["P24", 81]],
+				minlevel: 5,
+				description: desc("Once on each of my turns when I'm out of WS uses, I can expend a spell slot to regain one. Once per " + (typePF ? "Long Rest" : "LR") + ", I can expend a WS use to gain a 1st-level spell slot. Both require no action."),
+				usages: 1,
+				recovery: "Long Rest",
+				additional: "WS to lvl 1 SS",
 			},
-			"beast spells" : {
-				name : "Beast Spells",
-				source : [["SRD", 21], ["P", 67]],
-				minlevel : 18,
-				description : desc("I can perform the somatic and verbal components of druid spells while in a beast shape")
+			"elemental fury": { // includes the effects of Improved Elemental Fury
+				name: "Elemental Fury",
+				source: [["SRD24", 43], ["P24", 81]],
+				minlevel: 7,
+				description: desc('Select an Elemental Fury option using the "Choose Feature" button above.'),
+				choices: ["Potent Spellcasting", "Primal Strike"],
+				"potent spellcasting": {
+					name: "Potent Spellcasting",
+					description: levels.map(function (n) {
+						return desc(n < 15 ? "I add my Wisdom modifier to the damage I deal with my Druid cantrips." : "My Druid cantrips add my Wis mod to damage and have 300 ft range if it's 10 ft or more.");
+					}),
+					calcChanges: {
+						atkCalc: [
+							function (fields, v, output) {
+								if (v.thisWeapon[3] && /\bdruid\b/.test(v.thisWeapon[4]) && SpellsList[v.thisWeapon[3]].level === 0 && /\d/.test(fields.Damage_Die)) {
+									output.extraDmg += Number(What('Wis Mod'));
+								};
+							},
+							"My Druid cantrips get my Wisdom modifier added to their damage.",
+						],
+						spellAdd: [
+							function (spellKey, spellObj, spName) {
+								var wisMod = Number(What("Wis Mod"));
+								if (spellObj.psionic || spellObj.level !== 0 || spName.indexOf("druid") == -1 || wisMod <= 0) return;
+								return genericSpellDmgEdit(spellKey, spellObj, "\\w+\\.?", wisMod);
+							},
+							"My Druid cantrips get my Wisdom modifier added to their damage.",
+						],
+					},
+				},
+				"primal strike": {
+					name: "Primal Strike",
+					description: levels.map(function (n) {
+						var dice = n < 15 ? 1 : 2;
+						return n < 7 ? "" : desc("Once per turn, I can deal +" + dice + "d8 Cold, Fire, Lightning, or Thunder damage to a creature I hit with a weapon or a Beast form's attack in Wild Shape.");
+					}),
+					additional: levels.map(function (n) {
+						return n < 7 ? "" : "+" + (n < 15 ? 1 : 2) + "d8 damage";
+					}),
+					calcChanges: {
+						atkAdd: [
+							function (fields, v) {
+								if (classes.known.druid && v.isWeapon && !v.isDC) {
+									fields.Description += (fields.Description ? '; ' : '') + '1/turn +' + (classes.known.druid.level < 15 ? 1 : 2) + 'd8 Cold/Fire/Lightn./Thunder damage';
+								}
+							},
+							"Once per turn when I hit a creature with an attack roll using a weapon or a Beast form's attack in Wild Shape, I can deal the target extra Cold, Fire, Lightning, or Thunder damage (my choice).",
+						],
+						wildshapeCallback: [
+							function(prefix, fieldNo, oWildshape, sCrea) {
+								if (!classes.known.druid) return;
+								var lvl = classes.known.druid.level < 15 ? 7 : 15;
+								var dice = classes.known.druid.level < 15 ? 1 : 2;
+								oWildshape.wildshapeTraits.push({
+									name: "Primal Strike",
+									description: "(Druid " + lvl + "). Once per turn after a hit, deal +" + dice + "d8 Cold, Fire, Lightning, or Thunder damage.",
+									joinString: " ",
+								});
+							},
+							"Once per turn when I hit a creature with an attack roll using a weapon or a Beast form's attack in Wild Shape, I can deal the target extra Cold, Fire, Lightning, or Thunder damage (my choice).",
+						],
+					},
+				},
+				choiceDependencies: [{
+					feature: "improved elemental fury",
+				}],
 			},
-			"archdruid" : {
-				name : "Archdruid",
-				source : [["SRD", 21], ["P", 67]],
-				minlevel : 20,
-				description : desc([
-					"I can use Wild Shape an unlimited number of times",
-					"My druid spells don't require verbal, somatic, or free material components"
+			"improved elemental fury": {
+				name: "Improved Elemental Fury",
+				source: [["SRD24", 43], ["P24", 81]],
+				minlevel: 15,
+				description: desc('Select an Elemental Fury option using the "Choose Feature" button above.'),
+				choices: ["potent spellcasting", "primal strike"],
+				choicesNotInMenu: true,
+				"potent spellcasting": {
+					name: "Improved Potent Spellcasting",
+					description: " [cantrips have 300 ft range]",
+					calcChanges: {
+						atkAdd: [
+							function (fields, v, output) {
+								// only process selected cantrips for the druid class, and only if they have a number in the range attribute in their SpellsList entry to avoid false positives with Produce Flame and the like
+								if (v.thisWeapon[3] && /\bdruid\b/.test(v.thisWeapon[4]) && SpellsList[v.thisWeapon[3]].level === 0 && /\d/.test(SpellsList[v.thisWeapon[3]].range)) {
+									var name = "improved potent spellcasting";
+									var addition = "fixed 300";
+									var useRange = v.rangeObject ? v.rangeObject : fields.Range;
+									var stopFunction = function (sRange, nRangeFT) { return nRangeFT < 10; };
+									v.rangeObject = amendRangeObject(useRange, name, addition, stopFunction);
+									// Test if something changed
+									if (v.rangeObject && v.rangeObject.result !== fields.Range) {
+										fields.Range = v.rangeObject.result;
+									};
+								};
+							},
+							"My Druid cantrips with a range of 10 ft or greater have their range increased to 300 ft.",
+							10,
+						],
+						spellAdd: [
+							function (spellKey, spellObj, spName) {
+								if (!spellObj.psionic && spellObj.level === 0 && spName.indexOf("druid") !== -1) {
+									var name = "improved potent spellcasting";
+									var addition = "fixed 300";
+									var useRange = spellObj.rangeObject ? spellObj.rangeObject : spellObj.range;
+									var stopFunction = function (sRange, nRangeFT) { return nRangeFT < 10; };
+									spellObj.rangeObject = amendRangeObject(useRange, name, addition, stopFunction);
+									// Test if something changed
+									if (spellObj.rangeObject && spellObj.rangeObject.result !== spellObj.range) {
+										spellObj.range = spellObj.rangeObject.result;
+										return true;
+									};
+								}
+							},
+							"My Druid cantrips with a range of 10 ft or greater have their range increased to 300 ft.",
+							10,
+						],
+					},
+				},
+				"primal strike": {
+					name: "Improved Primal Strike",
+					description: " [damage increases to 2d8]",
+				},
+			},
+			"beast spells": {
+				name: "Beast Spells",
+				source: [["SRD24", 43], ["P24", 81]],
+				minlevel: 18,
+				description: desc("I can cast spells in Wild Shape, except spells with costly or consumed Material components."),
+			},
+			"archdruid": {
+				name: "Archdruid",
+				source: [["SRD24", 43], ["P24", 82]],
+				minlevel: 20,
+				description: desc([
+					"**Evergreen Wild Shape**. When I roll Initiative and have no Wild Shape uses, I regain one.",
+					"**Nature Magician**. Once per Long Rest, I can convert Wild Shape uses into a spell slot at a rate of 2 spell levels per expended Wild Shape use. This requires no action.",
+					"**Longevity**. For every ten years that pass, my body ages only one.",
 				]),
-				calcChanges : {
-					spellAdd : [
-						function (spellKey, spellObj, spName) {
-							if (spName == "druid") {
-								if (spellObj.compMaterial && !(/M[\u0192\u2020]/i).test(spellObj.components)) spellObj.compMaterial = "";
-								spellObj.components = spellObj.components.replace(/V,?|S,?|M$/ig, '');
-								return true;
-							};
-						},
-						"My druid spells don't require verbal, somatic, or material components."
-					]
-				}
-			}
-		}
+				usages: 1,
+				recovery: "Long Rest",
+				additional: "WS to SS, lvl 2/WS",
+			},
+		},
 	},
-*/
+
 	"fighter": {
 		regExpSearch: /fighter/i,
 		name: "Fighter",
@@ -1192,7 +1418,7 @@ var Base_ClassList = {
 					var die = n < 5 ? 6 : n < 11 ? 8 : n < 17 ? 10 : 12;
 					return "1d" + die;
 				}),
-				action : [["bonus action", "Unarmed Strike"]],
+				action: [["bonus action", "Unarmed Strike"]],
 				calcChanges: {
 					atkAdd: [
 						function (fields, v) {
@@ -1257,7 +1483,7 @@ var Base_ClassList = {
 					name: "Flurry of Blows",
 					source: [["SRD24", 50], ["P24", 102]],
 					description: levels.map(function (n) {
-						return "\nAs a Bonus Action, I can make " + (n < 10 ? "two" : "three") + " Unarmed Strikes."
+						return desc("As a Bonus Action, I can make " + (n < 10 ? "two" : "three") + " Unarmed Strikes.");
 					}),
 					additional: "1 Focus Point",
 					action: [["bonus action", " (1 FP)"]],
@@ -1266,7 +1492,10 @@ var Base_ClassList = {
 					name: "Patient Defense",
 					source: [["SRD24", 50], ["P24", 102]],
 					description: levels.map(function (n) {
-						return n < 10 ? "\nAs a Bonus Action, I can take the Disengage action. As a Bonus Action, I can expend 1 Focus Point to take both the Disengage and the Dodge actions." : "\nAs a Bonus Action, I can take the Disengage action or, if I expend 1 Focus Point, take both the Disengage and Dodge actions and gain Temp HP equal to 2 rolls of my Martial Arts die.";
+						return desc(n < 10 ?
+							"As a Bonus Action, I can take the Disengage action. As a Bonus Action, I can expend 1 Focus Point to take both the Disengage and the Dodge actions." :
+							"As a Bonus Action, I can take the Disengage action or, if I expend 1 Focus Point, take both the Disengage and Dodge actions and gain Temp HP equal to 2 rolls of my Martial Arts die."
+						);
 					}),
 					additional: levels.map(function (n) {
 						return n < 10 ? "0 or 1 Focus Point" : "0 or 1 Focus Point; 2d" + (n < 11 ? 8 : n < 17 ? 10 : 12) + " Temp HP";
@@ -1277,7 +1506,10 @@ var Base_ClassList = {
 					name: "Step of the Wind",
 					source: [["SRD24", 51], ["P24", 102]],
 					description: levels.map(function (n) {
-						return n < 10 ? "\nAs a Bonus Action, I can take the Dash action. As a Bonus Action, I can " + (typePF ? "expend" : "use") + " 1 Focus Point to take both the Disengage and the Dash actions and double my jump distance for the turn." : "\nAs a Bonus Action, I can take the Dash action. As a Bonus Action, I can expend 1 Focus Point to take both the Disengage and Dash actions, double my jump distance for the turn, and choose a willing Large or smaller creature within 5 ft to move with me until the end of my turn. The creature's movement doesn't provoke Opportunity Attacks.";
+						return desc(n < 10 ?
+							"As a Bonus Action, I can take the Dash action. As a Bonus Action, I can " + (typePF ? "expend" : "use") + " 1 Focus Point to take both the Disengage and the Dash actions and double my jump distance for the turn." :
+							"As a Bonus Action, I can take the Dash action. As a Bonus Action, I can expend 1 Focus Point to take both the Disengage and Dash actions, double my jump distance for the turn, and choose a willing Large or smaller creature within 5 ft to move with me until the end of my turn. The creature's movement doesn't provoke Opportunity Attacks."
+						);
 					}),
 					additional: "0 or 1 Focus Point",
 					action: [["bonus action", " (Disengage \x26 Dash; 1 FP)"]],
@@ -1324,8 +1556,8 @@ var Base_ClassList = {
 				minlevel: 3,
 				description: levels.map(function (n) {
 					var dmgType = n < 13 ? "Bludgeoning, Piercing, or Slashing " : "";
-					var atkOrigin = n < 13 ? "" : "a melee attack or a creature I can see ";
-					return "\nAs a Reaction when I take " + dmgType + "damage from an attack roll, I can reduce it by 1d10 + Monk level + my Dex mod. If it's reduced to 0 and it originated from " + atkOrigin + "within 60 ft, I can expend 1 Focus Point to have a creature I can see within 5 ft make a Dex save or take 2\xD7 Martial Arts die + my Dex mod damage of the same type.";
+					var fp = n < 13 && !typePF ? "FP" : "Focus Point";
+					return desc("As a Reaction when I take " + dmgType + "damage from an attack roll, I can reduce it by 1d10 + Monk level + my Dex mod. If reduced to 0, I can expend 1 " + fp + " to redirect it to a creature I can see within 5 ft (or 60 ft if it was a ranged attack), which must make a Dex save or take 2\xD7 Martial Arts die + my Dex mod damage of the same type.");
 				}),
 				action: [["reaction", "Deflect Attack (1 FP to redirect)"]],
 				additional: levels.map(function (n) {
@@ -1347,10 +1579,10 @@ var Base_ClassList = {
 				source: [["SRD24", 51], ["P24", 103]],
 				minlevel: 4,
 				description: desc("As a Reaction when I fall, I can reduce the damage I take from it by " + (typePF ? "five times" : "5\xD7") + " my Monk level."),
-				additional : levels.map(function (n) {
+				additional: levels.map(function (n) {
 					return n < 4 ? "" : (n * 5) + " less falling damage";
 				}),
-				action : [["reaction", ""]],
+				action: [["reaction", ""]],
 			},
 			"stunning strike": {
 				name: "Stunning Strike",
@@ -1622,9 +1854,10 @@ var Base_ClassList = {
 				description: desc("While within my aura, my allies and I add my Charisma mod to saving throws (min +1)."),
 				description: levels.map(function (n) {
 					// Combine with Aura of Courage at level 20 to make room for capstone subclass feature
-					var txt = n < 20 ? "While within my aura, my allies and I add my Charisma mod to saving throws (min +1)." :
-						"While in my aura, my allies and I add my Cha mod to saves and have Frightened Immunity.";
-					return desc(txt);
+					return desc(n < 20 ? 
+						"While within my aura, my allies and I add my Charisma mod to saving throws (min +1)." :
+						"While in my aura, my allies and I add my Cha mod to saves and have Frightened Immunity."
+					);
 				}),
 				additional: levels.map(function (n) {
 					return n < 6 ? "" : (n < 18 ? 10 : 30) + "-ft aura; inactivate " + (typePF ? "if" : "when") + " Incapacitated";
@@ -1653,7 +1886,7 @@ var Base_ClassList = {
 				name: "Radiant Strikes",
 				source: [["SRD24", 55], ["P24", 111]],
 				minlevel: 11,
-				description : desc("When I hit with a Melee weapon or Unarmed Strike attack, I deal +1d8 Radiant damage."),
+				description: desc("When I hit with a Melee weapon or Unarmed Strike attack, I deal +1d8 Radiant damage."),
 				calcChanges: {
 					atkAdd: [
 						function (fields, v) {
@@ -2008,7 +2241,7 @@ var Base_ClassList = {
 				source: [["SRD24", 62], ["P24", 129]],
 				minlevel: 1,
 				description: desc("I know Thieves' Cant so I can convey messages inconspicuously, and one other language."),
-				languageProfs : ["Thieves' Cant", 1],
+				languageProfs: ["Thieves' Cant", 1],
 				calcChanges: {
 					atkAdd: [ // Mark light and finesse martial weapons as proficient if Rogue is the primary class
 						function (fields, v) {
@@ -2237,14 +2470,14 @@ var Base_ClassList = {
 				source: [["SRD24", 66], ["P24", 140]],
 				minlevel: 2,
 				description: levels.map(function (n) {
-					var txt = "\nI have Sorcery Points (SP) which I can use to create magical effects. I can expend a spell slot to regain SP equal to the slot's level (no action). As a Bonus Action, I can spend SP to create a spell slot at the rate below. This new spell slot lasts until I finish a Long Rest.";
+					var txt = "I have Sorcery Points (SP) which I can use to create magical effects. I can expend a spell slot to regain SP equal to the slot's level (no action). As a Bonus Action, I can spend SP to create a spell slot at the rate below. This new spell slot lasts until I finish a Long Rest.";
 					var joiner = typePF ? "-level = " : "\u2012level = ";
 					var arr = ["1st" + joiner + "2 SP"];
 					if (n >= 3) arr.push("2nd" + joiner + "3 SP");
 					if (n >= 5) arr.push("3rd" + joiner + "5 SP");
 					if (n >= 7) arr.push("4th" + joiner + "6 SP");
 					if (n >= 9) arr.push("5th" + joiner + "7 SP");
-					return txt + "\n **" + arr.join(" | ") + "**";
+					return desc([txt, " **" + arr.join(" | ") + "**"]);
 				}),
 				usages: [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
 				recovery: "Long Rest",
@@ -2272,7 +2505,7 @@ var Base_ClassList = {
 					additional: "1 Sorcery Point",
 				},
 				"distant spell" : {
-					name : "Distant Spell",
+					name: "Distant Spell",
 					source: [["SRD24", 67], ["P24", 141]],
 					description: desc("When I cast a spell, I can spend 1 SP to double its range or change its Touch range to 30 ft."),
 					additional: "1 Sorcery Point",
@@ -2658,7 +2891,7 @@ var Base_ClassList = {
 				},
 				// Pact of the Blade tree
 				"pact of the blade": {
-					name : "Pact of the Blade",
+					name: "Pact of the Blade",
 					source: [["SRD24", 74], ["P24", 156]],
 					description: desc([
 						"As a Bonus Action, I can bond with a magical weapon I touch, or conjure a pact weapon, a Melee weapon of my choice. I have proficiency with it and can use it as a Spellcasting Focus.",
@@ -2907,7 +3140,7 @@ var Base_ClassList = {
 				minlevel: 2,
 				description: levels.map(function (n) {
 					var amount = n < 20 ? "half my max number of" : "all my expended"
-					return "\nI can perform a 1 min esoteric rite to regain " + amount + " Pact Magic spells slots."
+					return desc("I can perform a 1 min esoteric rite to regain " + amount + " Pact Magic spells slots.");
 				}),
 				recovery: "Long Rest",
 				usages: 1,
@@ -2957,7 +3190,7 @@ var Base_ClassList = {
 					"class": "warlock",
 					level: [8, 8],
 					firstCol: "oncelr",
-					times : levels.map(function (n) { return n < 15 ? 0 : 1; }),
+					times: levels.map(function (n) { return n < 15 ? 0 : 1; }),
 				}, {
 					name: "Mystic Arcanum (9th-level)",
 					"class": "warlock",
@@ -3162,10 +3395,10 @@ var Base_ClassList = {
 				},
 			},
 			"signature spells": {
-				name : "Signature Spells",
+				name: "Signature Spells",
 				source: [["SRD24", 79], ["P24", 167]],
-				minlevel : 20,
-				description : "\nI pick two 3rd-level spells from my spellbook. I always have these spells prepared and I can cast each once per Short Rest without expending a spell slot.",
+				minlevel: 20,
+				description: "\nI pick two 3rd-level spells from my spellbook. I always have these spells prepared and I can cast each once per Short Rest without expending a spell slot.",
 				extraLimitedFeatures: [{
 					name: "Signature Spell (1st pick)",
 					recovery: "Short Rest",
@@ -3268,7 +3501,7 @@ var Base_ClassSubList = {
 				source: [["SRD24", 30], ["P24", 54]],
 				minlevel: 14,
 				description: desc("As a Bonus Action, I can have any creature of my choice within 30 ft make a Wisdom save or be Frightened of me for 1 minute (DC 8 + Str mod + Prof B.). They can repeat this save at each of their turn's end. I can do this once per Long Rest or by expending a Rage use."),
-				action : [["bonus action", ""]],
+				action: [["bonus action", ""]],
 				usages: 1,
 				recovery: "Long Rest",
 				altResource: "Rage",
@@ -3316,7 +3549,7 @@ var Base_ClassSubList = {
 	},
 
 	"cleric-life": {
-		regExpSearch : /^(?=.*(cleric|priest|clergy|acolyte))(?=.*\b(life|living|healing)\b).*$/i,
+		regExpSearch: /^(?=.*(cleric|priest|clergy|acolyte))(?=.*\b(life|living|healing)\b).*$/i,
 		subname: "Life Domain",
 		source: [["SRD24", 40], ["P24", 73]],
 		features: {
@@ -3427,132 +3660,157 @@ var Base_ClassSubList = {
 			},
 		},
 	},
-/*
-	"druid-land" : {
-		regExpSearch : /^(?=.*(druid|shaman))(?=.*\b(land|arctic|coast|deserts?|forests?|grasslands?|savannah|steppes?|mountains?|swamps?|underdark)\b).*$/i,
-		subname : "Circle of the Land",
-		source : [["SRD", 21], ["P", 68]],
+
+	"druid-land": {
+		regExpSearch: /^(?=.*druid)(?=.*land).*$/i,
+		subname: "Circle of the Land",
+		subnameShort: "Land",
+		source: [["SRD24", 46], ["P24", 84]],
 		features: {
-			"subclassfeature2" : {
-				name : "Bonus Cantrip",
-				source : [["SRD", 21], ["P", 68]],
-				minlevel : 2,
-				description : desc("I know one additional druid cantrip of my choice"),
-				spellcastingBonus : [{
-					name : "Bonus Druid Cantrip",
-					"class" : "druid",
-					level : [0, 0]
-				}]
+			"subclassfeature3": {
+				name: "Circle of the Land Spells",
+				source: [["SRD24", 46], ["P24", 84]],
+				minlevel: 3,
+				description: desc('Whenever I finish a Long Rest, I can choose which type of land I gain automatically prepared spells from: arid, polar, temperate, or tropical. Use the "Choose Feature" button above to either show one of these sets of spells, or all of them.'),
+				choices: ["Arid", "Polar", "Temperate", "Tropical", "show all"],
+				"arid": {
+					name: "Arid Land Circle Spells",
+					description: desc("After I finish a Long Rest, I can choose which type of land grants me always prepared spells."),
+					spellcastingExtra: ["fire bolt", "burning hands", "blur", "fireball", "blight", "wall of stone"],
+				},
+				"polar": {
+					name: "Polar Land Circle Spells",
+					description: desc("After I finish a Long Rest, I can choose which type of land grants me always prepared spells."),
+					spellcastingExtra: ["ray of frost", "fog cloud", "hold person", "sleet storm", "ice storm", "cone of cold"],
+				},
+				"temperate": {
+					name: "Temperate Land Circle Spells",
+					description: desc("After I finish a Long Rest, I can choose which type of land grants me always prepared spells."),
+					spellcastingExtra: ["shocking grasp", "sleep", "misty step", "lightning bolt", "freedom of movement", "tree stride"],
+				},
+				"tropical": {
+					name: "Tropical Land Circle Spells",
+					description: desc("After I finish a Long Rest, I can choose which type of land grants me always prepared spells."),
+					spellcastingExtra: ["acid splash", "ray of sickness", "web", "stinking cloud", "polymorph", "insect plague"],
+				},
+				"show all": {
+					name: "Circle of the Land Spells",
+					description: desc("After a LR, I choose a land for always prepared spells: arid, polar, temperate, or tropical."),
+					spellcastingExtra: [
+						// arid
+						"fire bolt", "burning hands", "blur", "fireball", "blight", "wall of stone",
+						// polar
+						"ray of frost", "fog cloud", "hold person", "sleet storm", "ice storm", "cone of cold",
+						// temperate
+						"shocking grasp", "sleep", "misty step", "lightning bolt", "freedom of movement", "tree stride",
+						// tropical
+						"acid splash", "ray of sickness", "web", "stinking cloud", "polymorph", "insect plague",
+					],
+					calcChanges: {
+						spellAdd: [
+							function (spellKey, spellObj, spName, isDuplicate) {
+								if (spName !== "druid" || isDuplicate) return;
+								var oRef = ClassSubList['druid-land'].features.subclassfeature3;
+								for (var i = 0; i < oRef.choices.length; i++) {
+									var chc = oRef.choices[i];
+									if (chc === "show all") continue;
+									if (oRef[chc.toLowerCase()].spellcastingExtra.indexOf(spellKey) !== -1) {
+										spellObj.firstCol = chc.substring(0, 2);
+										return;
+									}
+								}
+							},
+							'To distinguish between the circle spells from the different lands, the first two letters of each land is shown in the first column on the spell sheet instead of the normal "always prepared" checkbox. Thus, "Ar" for Arid, "Po" for Polar, "Te" for Temperate, and "Tr" for Tropical.',
+						],
+					},
+				},
+				choiceDependencies: [{
+					feature: "subclassfeature10",
+				}],
 			},
-			"subclassfeature2.1" : {
-				name : "Natural Recovery",
-				source : [["SRD", 21], ["P", 68]],
-				minlevel : 2,
-				description : desc("After a short rest, I can recover a number of 5th-level or lower spell slots"),
-				additional : ["1 level spell slots", "1 level spell slots", "2 levels spell slots", "2 levels spell slots", "3 levels spell slots", "3 levels spell slots", "4 levels spell slots", "4 levels spell slots", "5 levels spell slots", "5 levels spell slots", "6 levels spell slots", "6 levels spell slots", "7 levels spell slots", "7 levels spell slots", "8 levels spell slots", "8 levels spell slots", "9 levels spell slots", "9 levels spell slots", "10 levels spell slots", "10 levels spell slots"],
-				usages : 1,
-				recovery : "Long Rest"
+			"subclassfeature3.1": {
+				name: "Land's Aid",
+				source: [["SRD24", 46], ["P24", 85]],
+				minlevel: 3,
+				description: levels.map(function (n) {
+					var d6 = n < 10 ? 2 : n < 14 ? 3 : 4;
+					return desc("As a Magic action, I can expend 1 Wild Shape use to create a 10-ft sphere within 60 ft. Each creature of my choice in it takes " + d6 + "d6 Necrotic damage and can make a Constitution save to halve the damage. One creature of my choice in the area regains " + d6 + "d6 Hit Points.");
+				}),
+				additional: levels.map(function (n) {
+					return n < 3 ? "" : (n < 10 ? 2 : n < 14 ? 3 : 4) + "d6; 1 Wild Shape use";
+				}),
+				action: [["action", " (1 WS)"]],
 			},
-			"subclassfeature3" : {
-				name : "Circle Spells",
-				source : [["SRD", 21], ["P", 68]],
-				minlevel : 3,
-				description : desc('Choose a terrain that grants you spells using the "Choose Feature" button above'),
-				choices : ["Arctic", "Coast", "Desert", "Forest", "Grassland", "Mountain", "Swamp", "Underdark"],
-				"arctic" : {
-					name : "Arctic Circle Spells",
-					description : desc([
-						"My mystical connection to the arctic infuses me with the ability to cast certain spells",
-						"These are always prepared, but don't count against the number of spells I can prepare"
-					]),
-					spellcastingExtra : ["hold person", "spike growth", "sleet storm", "slow", "freedom of movement", "ice storm", "commune with nature", "cone of cold"]
-				},
-				"coast" : {
-					name : "Coast Circle Spells",
-					description : desc([
-						"My mystical connection to the coast infuses me with the ability to cast certain spells",
-						"These are always prepared, but don't count against the number of spells I can prepare"
-					]),
-					spellcastingExtra : ["mirror image", "misty step", "water breathing", "water walk", "control water", "freedom of movement", "conjure elemental", "scrying"]
-				},
-				"desert" : {
-					name : "Desert Circle Spells",
-					description : desc([
-						"My mystical connection to the desert infuses me with the ability to cast certain spells",
-						"These are always prepared, but don't count against the number of spells I can prepare"
-					]),
-					spellcastingExtra : ["blur", "silence", "create food and water", "protection from energy", "blight", "hallucinatory terrain", "insect plague", "wall of stone"]
-				},
-				"forest" : {
-					name : "Forest Circle Spells",
-					description : desc([
-						"My mystical connection to the forest infuses me with the ability to cast certain spells",
-						"These are always prepared, but don't count against the number of spells I can prepare"
-					]),
-					spellcastingExtra : ["barkskin", "spider climb", "call lightning", "plant growth", "divination", "freedom of movement", "commune with nature", "tree stride"]
-				},
-				"grassland" : {
-					name : "Grassland Circle Spells",
-					description : desc([
-						"My connection to the grassland infuses me with the ability to cast certain spells",
-						"These are always prepared, but don't count against the number of spells I can prepare"
-					]),
-					spellcastingExtra : ["invisibility", "pass without trace", "daylight", "haste", "divination", "freedom of movement", "dream", "insect plague"]
-				},
-				"mountain" : {
-					name : "Mountain Circle Spells",
-					description : desc([
-						"My connection to the mountains infuses me with the ability to cast certain spells",
-						"These are always prepared, but don't count against the number of spells I can prepare"
-					]),
-					spellcastingExtra : ["spider climb", "spike growth", "lightning bolt", "meld into stone", "stone shape", "stoneskin", "passwall", "wall of stone"]
-				},
-				"swamp" : {
-					name : "Swamp Circle Spells",
-					description : desc([
-						"My mystical connection to the swamp infuses me with the ability to cast certain spells",
-						"These are always prepared, but don't count against the number of spells I can prepare"
-					]),
-					spellcastingExtra : ["darkness", "melf's acid arrow", "water walk", "stinking cloud", "freedom of movement", "locate creature", "insect plague", "scrying"]
-				},
-				"underdark" : {
-					name : "Underdark Circle Spells",
-					description : desc([
-						"My connection to the underdark infuses me with the ability to cast certain spells",
-						"These are always prepared, but don't count against the number of spells I can prepare"
-					]),
-					spellcastingExtra : ["spider climb", "web", "gaseous form", "stinking cloud", "greater invisibility", "stone shape", "cloudkill", "insect plague"]
-				}
-			},
-			"subclassfeature6" : {
-				name : "Land's Stride",
-				source : [["SRD", 22], ["P", 68]],
-				minlevel : 6,
-				description : desc([
-					"I can travel through nonmagical, difficult terrain without penalty",
-					"I have advantage on saves vs. plants that impede movement by magical influence"
+			"subclassfeature6": {
+				name: "Natural Recovery",
+				source: [["SRD24", 46], ["P24", 85]],
+				minlevel: 6,
+				description: desc([
+					"As a Magic action, I can cast one of my prepared Circle Spells without expending a spell slot.",
+					"When I finish a Short Rest, I can recover half my level in spell slot levels (max level 5 slots).",
 				]),
-				savetxt : { adv_vs : ["magical plants that impede movement"] }
+				additional: levels.map(function (n) {
+					var lvls = Math.ceil(n / 2);
+					var lr = typePF ? "LR; " : "Long Rest; ";
+					return "each 1\xD7 per " + lr + lvls + 
+					" level" + (lvls > 1 ? "s" : "") + " of spell slots";
+				}),
+				extraLimitedFeatures: [{
+					name: "Natural Recovery (Cast Circle Spell)",
+					usages: 1,
+					recovery: "Long Rest",
+				}, {
+					name: "Natural Recovery (Regain Spell Slots)",
+					usages: 1,
+					recovery: "Long Rest",
+				}],
+				action: [["action", "Natural Recovery (Cast Circle Spell)"]],
 			},
-			"subclassfeature10" : {
-				name : "Nature's Ward",
-				source : [["SRD", 22], ["P", 68]],
-				minlevel : 10,
-				description : desc("I am immune to poison/disease and I can't be charmed/frightened by elementals or fey"),
-				savetxt : { text : ["Immune to being charmed or frightened by elementals or fey"], immune : ["poison", "disease"] }
+			"subclassfeature10": {
+				name: "Nature's Ward",
+				source: [["SRD24", 46], ["P24", 85]],
+				minlevel: 10,
+				description: desc('I am immune to being Poisoned and have Resistance to a damage type associated with the land I\'ve currently chosen for my Circle Spells. Use the "Choose Feature" button above to select a land to add its associated Resistance, or select to show all of them.'),
+				savetxt: { immune: ["Poisoned"] },
+				choices: ["Arid", "Polar", "Temperate", "Tropical", "show all"],
+				choicesNotInMenu: true,
+				"arid": {
+					name: "Arid Nature's Ward",
+					description: desc("I am immune to being Poisoned. I have Fire Resistance while I've got arid land Circle Spells."),
+					dmgres: ["Fire"],
+				},
+				"polar": {
+					name: "Polar Nature's Ward",
+					description: desc("I am immune to being Poisoned. I have Cold Resistance while I've got polar land Circle Spells."),
+					dmgres: ["Cold"],
+				},
+				"temperate": {
+					name: "Temperate Nature's Ward",
+					description: desc("I am immune to Poisoned. I have Lightning Resistance while I've temperate land circle spells."),
+					dmgres: ["Lightning"],
+				},
+				"tropical": {
+					name: "Tropical Nature's Ward",
+					description: desc("I am immune to Poisoned. I have Poison Resistance while I've got tropical land Circle Spells."),
+					dmgres: ["Poison"],
+				},
+				"show all": {
+					name: "Nature's Ward",
+					description: desc("I am immune to Poisoned. I have Resistance depending on the Circle Spells land I've chosen."),
+					dmgres: ["Cold (polar)", "Fire (arid)", "Lightn. (temperate)", "Poison (tropical)"],
+				},
 			},
-			"subclassfeature14" : {
-				name : "Nature's Sanctuary",
-				source : [["SRD", 22], ["P", 68]],
-				minlevel : 14,
-				description : desc([
-					"When a beast or plant attacks me, it must make a Wis save or pick a different target",
-					"If it can't, it automatically misses; On a successful save, it is immune for 24 hours"
-				])
-			}
-		}
+			"subclassfeature14": {
+				name: "Nature's Sanctuary",
+				source: [["SRD24", 46], ["P24", 86]],
+				minlevel: 14,
+				description: desc("As a Magic action, I can expend 1 Wild Shape use to create a 15-ft Cube on ground within 120 ft. It lasts for 1 minute, until I'm incapacitated, or I die. While in this area, my allies and I have Half Cover and my Nature's Ward Resistance. As a Bonus Action, I can move the cube up to 60 ft to ground within 120 ft."),
+				additional: "1 Wild Shape use",
+				action: [["action", " (create; 1 WS)"], ["bonus action", " (move)"]],
+			},
+		},
 	},
-*/
+
 	"fighter-champion": {
 		regExpSearch: /champion/i,
 		subname: "Champion",
@@ -3578,7 +3836,7 @@ var Base_ClassSubList = {
 				},
 			},
 			"subclassfeature3.1": {
-				name : "Remarkable Athlete",
+				name: "Remarkable Athlete",
 				source: [["SRD24", 49], ["P24", 96]],
 				minlevel: 3,
 				description: desc("After I score a Critical Hit, I can move half my Speed without provoking Opportunity Attacks. I have Advantage on Initiative rolls and Strength (Athletics) checks."),
@@ -3690,15 +3948,15 @@ var Base_ClassSubList = {
 						return n < 17 ? "" : "4 Focus Points; lasts " + n + " days";
 					}),
 				},
-				autoSelectExtrachoices : [{
-					extrachoice : "quivering palm"
+				autoSelectExtrachoices: [{
+					extrachoice: "quivering palm",
 				}],
 			},
 		},
 	},
 
 	"paladin-devotion": {
-		regExpSearch : /^(?=.*(devotion|obedience))((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
+		regExpSearch: /^(?=.*(devotion|obedience))((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		subname: "Oath of Devotion",
 		subnameShort: "Devotion",
 		source: [["SRD24", 56], ["P24", 113]],
@@ -3879,8 +4137,8 @@ var Base_ClassSubList = {
 		},
 	},
 
-	"sorcerer-draconic" : {
-		regExpSearch : /^(?=.*sorcerer)(?=.*(draconic|dragon)).*$/i,
+	"sorcerer-draconic": {
+		regExpSearch: /^(?=.*sorcerer)(?=.*(draconic|dragon)).*$/i,
 		subname: "Draconic Sorcery",
 		subnameShort: "Draconic",
 		fullname: "Draconic Sorcerer",
@@ -4073,7 +4331,7 @@ var Base_ClassSubList = {
 				spellcastingExtraApplyNonconform: true,
 			},
 			"subclassfeature6": {
-				name : "Dark One's Own Luck",
+				name: "Dark One's Own Luck",
 				source: [["SRD24", 76], ["P24", 162]],
 				minlevel: 6,
 				description: desc("When I make an ability check or save, I can add +1d10 after the d20 roll, before its effects."),
@@ -4192,8 +4450,8 @@ var Base_ClassSubList = {
 				source: [["SRD24", 82], ["P24", 174]],
 				minlevel: 10,
 				description: desc("I can add my Intelligence modifier to one damage roll of any Wizard Evocation spell I cast."),
-				calcChanges : {
-					atkCalc : [
+				calcChanges: {
+					atkCalc: [
 						function (fields, v, output) {
 							if (v.thisWeapon[4].indexOf("wizard") !== -1 && SpellsList[v.thisWeapon[3]] && SpellsList[v.thisWeapon[3]].school === "Evoc") {
 								output.extraDmg += What('Int Mod');
@@ -4201,7 +4459,7 @@ var Base_ClassSubList = {
 						},
 						"I add my Intelligence modifier to a single damage roll of any wizard evocation spell I cast.",
 					],
-					spellAdd : [
+					spellAdd: [
 						function (spellKey, spellObj, spName) {
 							if (spName.indexOf("wizard") !== -1 && !spellObj.psionic && spellObj.school === "Evoc") return genericSpellDmgEdit(spellKey, spellObj, "\\w+\\.?", "Int", true);
 						},

@@ -2630,7 +2630,7 @@ function RunUserScript(atStartup, manualUserScripts) {
 			} else if (sheetVersion >= maxSheetVersion[0]) {
 				failedTestMsg = {
 					cMsg: 'The add-on script "' + scriptName + '" reports that it requires a sheet with a version number lower than v' + maxSheetVersion[1] + ", and is thus probably not compatible with the version of the sheet that you are using (which is v" + semVers + ').'+
-						(maxSheetVersion[0] <= 24000000 ? '' : '\nThis could be because from v24.0.0 onwards, the sheet uses the 2024 (5.5e) rules, while lower versions use the 5e (2014) rules.')+
+						(maxSheetVersion[0] <= 24000000 ? '' : '\nThis could be because from v24.0.0 onwards, the sheet uses the 5.5e (2024) rules, while lower versions use the 5e (2014) rules.')+
 						'\n\nDo you want to continue using this add-on script in the sheet? If you select NO, the "' + scriptName + '" add-on script will be skipped and removed.'+
 						'\n\nYou can find other versions of the sheet with the "Get Latest Version" bookmark.',
 					nIcon: 2,
@@ -2660,7 +2660,7 @@ function RunUserScript(atStartup, manualUserScripts) {
 			eText += 'it returns the following error when run:\n\t"' + error;
 			if (typeof error === "object") for (var e in error) eText += "\n\t  " + e + ": " + error[e];
 			eText += '"\n\n';
-			if (forNewerVersion || forOlderVersion) eText += 'This could be because from v24.0.0 onwards, the sheet uses the 2024 (5.5e) rules, while lower versions use the 5e (2014) rules.\n\n';
+			if (forNewerVersion || forOlderVersion) eText += 'This could be because from v24.0.0 onwards, the sheet uses the 5.5e (2024) rules, while lower versions use the 5e (2014) rules.\n\n';
 			eText += isManual ? "Your add-on script has not been added to the sheet, please try again after fixing the problem." : "The add-on script has been removed from this pdf.";
 			eText += "\n\nFor a more specific error and one that includes the error's line number, try running the add-on script from the JavaScript Console.";
 			if (!forNewerVersion && !forOlderVersion) eText += "\n\nPlease contact the add-on script's author to report this issue.";
@@ -2933,7 +2933,7 @@ function AddWarlockInvocation(invocName, invocObj) { // Add a warlock invocation
 function AddWarlockPactBoon(boonName, boonObj) { // Add a warlock pact boon
 	if (!tDoc.noDeprecatedWarnings && (!tDoc.doneDeprecatedWarnings || tDoc.doneDeprecatedWarnings.indexOf("AddWarlockPactBoon") === -1)) {
 		displayError(false, [
-			'[DEPRECATED] Since v24.0.0 `AddWarlockPactBoon()` is no longer used, as Pact Boon is no longer a separate class feature in the 2024 rules.',
+			'[DEPRECATED] Since v24.0.0 `AddWarlockPactBoon()` is no longer used, as Pact Boon is no longer a separate class feature in the 5.5e (2024) rules.',
 			'Instead, add an Eldritch Invocation using the `AddWarlockInvocation` function (i.e. replace `AddWarlockPactBoon` with `AddWarlockInvocation` in your add-on script).',
 		].join('\n'));
 		if (!tDoc.doneDeprecatedWarnings) tDoc.doneDeprecatedWarnings = [];
@@ -2946,9 +2946,9 @@ function AddWarlockPactBoon(boonName, boonObj) { // Add a warlock pact boon
 function AddFightingStyle(classArr, fsName, fsObj) {
 	if (!tDoc.noDeprecatedWarnings && (!tDoc.doneDeprecatedWarnings || tDoc.doneDeprecatedWarnings.indexOf("AddFightingStyle") === -1)) {
 		displayError(false, [
-			'[DEPRECATED] Since v24.0.0 `AddFightingStyle()` is no longer used for classes using the 2024 rules.',
+			'[DEPRECATED] Since v24.0.0 `AddFightingStyle()` is no longer used for classes using the 5.5e (2024) rules.',
 			'Instead, add a fighting style feat (i.e. FeatsList entry with `type: "fighting style"`).',
-			'Class features with `choicesFightingStyles: true` will get all fighting style feats added as choices. The built-in 2024 Fighter, Paladin, and Ranger classes have this attribute set for their Fighting Style features.',
+			'Class features with `choicesFightingStyles: true` will get all fighting style feats added as choices. The built-in 5.5e (2024) Fighter, Paladin, and Ranger classes have this attribute set for their Fighting Style features.',
 		].join('\n'));
 		if (!tDoc.doneDeprecatedWarnings) tDoc.doneDeprecatedWarnings = [];
 		tDoc.doneDeprecatedWarnings.push("AddFightingStyle");

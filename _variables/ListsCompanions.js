@@ -29,7 +29,9 @@ var Base_CompanionList = {
 			// can't do any attacks
 			objCrea.attacks = [];
 			if (objCrea.type.toLowerCase() === "beast") {
-				objCrea.type = ["Celestial", "Fey", "Fiend"];
+				var findFamiliarCasters = isSpellUsed("find familiar");
+				var onlyDruid = findFamiliarCasters.length && findFamiliarCasters.every(function (cast) { return cast === "druid" });
+				objCrea.type = onlyDruid ? "Fey" : ["Celestial", "Fey", "Fiend"];
 				objCrea.subtype = "";
 			};
 		},
