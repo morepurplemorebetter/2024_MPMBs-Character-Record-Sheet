@@ -2718,7 +2718,7 @@ function RunUserScript(atStartup, manualUserScripts) {
 	};
 
 	// fix wrong reference (common mistake when adding classes)
-	deleteUnknownReferences();
+	fixClassReferences();
 
 	// amend class features with auto-generated (extra)choices
 	processChoicesFightingStyles();
@@ -2739,27 +2739,36 @@ function RunUserScript(atStartup, manualUserScripts) {
 };
 
 // Fix a common mistake in adding classes, having subclass references that don't work
-function deleteUnknownReferences() {
+function fixClassReferences(bDontKickSubclasses) {
 	// Loop through all classes
 	for (var sClass in ClassList) {
 		var oClass = ClassList[sClass];
 		// If the subclasses attribute doesn't exist or is malformed, fix it
 		if (!oClass.subclasses || !isArray(oClass.subclasses) || !isArray(oClass.subclasses[1])) {
 			oClass.subclasses = [
-				oClass.subclasses[0] && typeof oClass.subclasses[0] === "string" ? oClass.subclasses[0] : "Subclasses",
+				oClass.subclasses[0] && typeof oClass.subclasses[0] === "string" ? oClass.subclasses[0] : oClass.name + " Subclass",
 				[]
 			];
-			continue;
+		} else if (!bDontKickSubclasses) {
+			// Loop through all the subclasses from end to start and delete any that don't exist in the ClassSubList object and any duplicates
+			var arrDupl = [];
+			for (var i = oClass.subclasses[1].length - 1; i >= 0; i--) {
+				var sSubcl = oClass.subclasses[1][i];
+				if (!ClassSubList[sSubcl] || arrDupl.indexOf(sSubcl) !== -1) {
+					oClass.subclasses[1].splice(i, 1);
+					displayError(false, 'The subclass "' + sSubcl + '" for the class "' + oClass.name + "\" is missing from the ClassSubList object, or appears multiple times in the `subclasses` attribute. Please contact its author to have this issue corrected. The subclass will be ignored for now.\nBe aware that if you add a subclass using the `AddSubClass()` function, you shouldn't list it in the `subclasses` attribute, the function will take care of that.");
+				} else {
+					arrDupl.push(sSubcl);
+				}
+			}
 		}
-		// Loop through all the subclasses from end to start and delete any that don't exist in the ClassSubList object and any duplicates
-		var arrDupl = [];
-		for (var i = oClass.subclasses[1].length - 1; i >= 0; i--) {
-			var sSubcl = oClass.subclasses[1][i];
-			if (!ClassSubList[sSubcl] || arrDupl.indexOf(sSubcl) !== -1) {
-				oClass.subclasses[1].splice(i, 1);
-				displayError(false, 'The subclass "' + sSubcl + '" for the class "' + oClass.name + "\" is missing from the ClassSubList object, or appears multiple times in the `subclasses` attribute. Please contact its author to have this issue corrected. The subclass will be ignored for now.\nBe aware that if you add a subclass using the `AddSubClass()` function, you shouldn't list it in the `subclasses` attribute, the function will take care of that.");
-			} else {
-				arrDupl.push(sSubcl);
+		// Create subclassGainedLevel attribute if it doesn't exist
+		if (!oClass.subclassGainedLevel) {
+			oClass.subclassGainedLevel = 3; // set it to level 3 by default
+			for (var key in oClass.features) {
+				if (key.indexOf("subclassfeature") !== -1 && oClass.features[key].minlevel && oClass.features[key].minlevel < oClass.subclassGainedLevel) {
+					oClass.subclassGainedLevel = oClass.features[key].minlevel;
+				}
 			}
 		}
 	}
@@ -2829,10 +2838,11 @@ function AddRacialVariant(race, variantName, variantObj) {
 };
 
 // a way to add a subclass without conflicts
-function AddSubClass(iClass, subclassName, subclassObj) {
+function AddSubClass(iClass, subclassName, subclassObj, bDoNotConvert) {
 	iClass = iClass.toLowerCase();
 	subclassName = subclassName.toLowerCase();
 	if (!ClassList[iClass]) return;
+	if (!ClassList[iClass].subclassGainedLevel || !ClassList[iClass].subclasses) fixClassReferences(true);
 	var suffix = 1;
 	var fullScNm = iClass + "-" + subclassName;
 	while (ClassList[iClass].subclasses[1].indexOf(fullScNm) !== -1 || ClassSubList[fullScNm]) {
@@ -2840,9 +2850,81 @@ function AddSubClass(iClass, subclassName, subclassObj) {
 		fullScNm += suffix;
 	};
 	ClassList[iClass].subclasses[1].push(fullScNm);
+	// For legacy subclasses, we need to change at what level the subclass features are gained
+	var classFeatures = { edited: [], good: [], bad: [] };
+	for (var key in subclassObj.features) {
+		if (subclassObj.features[key].minlevel < ClassList[iClass].subclassGainedLevel) {
+			subclassObj.features[key].minlevel = ClassList[iClass].subclassGainedLevel;
+			classFeatures.edited.push(key);
+		}
+	}
+	// Convert legacy features to the new style
+	if (!bDoNotConvert) convert5eFeatureTo2024(iClass, subclassObj.features);
+	// Now make sure that each subclassfeatureX in the Class object also exists in the Subclass object
+	for (var key in ClassList[iClass].features) {
+		if (/^subclassfeature\d+(\.|-)?\d*$/.test(key)) {
+			classFeatures[subclassObj.features[key] ? "good" : "bad"].push(key);
+		}
+	}
+	for (var i = 0; i < classFeatures.bad.length; i++) {
+		var curKey = false, newKey = classFeatures.bad[i];
+		if (classFeatures.edited.length) {
+			// Rename the first feature that had its minlevel changed
+			curKey = classFeatures.edited[0];
+			classFeatures.edited.shift();
+		} else {
+			// Rename the first feature found that isn't also required
+			for (var key in subclassObj.features) {
+				if (classFeatures.good.indexOf(key) !== -1) continue;
+				curKey = key;
+			}
+		}
+		if (curKey) {
+			subclassObj.features[newKey] = subclassObj.features[curKey];
+			delete subclassObj.features[curKey];
+			classFeatures.good.push(newKey);
+		}
+	}
+	// Add the subclass to the ClassSubList object
 	ClassSubList[fullScNm] = subclassObj;
 	return fullScNm;
 };
+
+// update 5e style class features to 2024 style
+function convert5eFeatureTo2024(iClass, feaObj) {
+	for (var key in feaObj) {
+		var feature = feaObj[key];
+		// Blessed Strikes replaces old level 8 subclass feature for clerics, so remove those
+		if (iClass === "cleric" && key === "subclassfeature8" && /Divine Strike|Potent Spellcasting/i.test(feature.name) && ClassList.cleric.source[0][0] === Base_ClassList.cleric.source[0][0]) {
+			delete feaObj[key];
+			continue;
+		}
+		// Channel Divinity has a new style, update the old style
+		if (/^channel divinity:/i.test(feature.name)) {
+			feature.name = feature.name.replace(/^channel divinity: /i, '');
+			if (!feature.additional) {
+				feature.additional = "1 Channel Divinity";
+			} else if (isArray(feature.additional)) {
+				feature.additional = feature.additional.map(function (n) {
+					return "1 CD; " + n;
+				});
+			} else {
+				feature.additional = "1 CD; " + feature.additional;
+			}
+			if (feature.action) {
+				feature.action = feature.action.map(function (n, idx) {
+					if (!isArray(n) && idx === 1) {
+						return idx === 1 && !n ? " (Channel Divinity)" : n;
+					} else if (!n[1]) {
+						n[1] = " (Channel Divinity)";
+					}
+					return n;
+				});
+			}
+			continue;
+		}
+	}
+}
 
 // a way to add a background variant without conflicts
 function AddBackgroundVariant(background, variantName, variantObj) {

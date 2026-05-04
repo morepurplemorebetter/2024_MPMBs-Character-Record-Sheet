@@ -74,7 +74,7 @@ var FightingStyles = {
 };
 
 var GenericClassFeatures = {
-	// Potent Spellcasting is no longer used, but kept for legacy sources that use it
+	// Cleric: Potent Spellcasting kept here because legacy sources might still refer to it here
 	"potent spellcasting": {
 		name: "Potent Spellcasting",
 		description: desc("I add my Wisdom modifier to the damage I deal with my Cleric cantrips."),
@@ -267,6 +267,7 @@ var Base_ClassList = {
 			gold: 75,
 		}],
 		subclasses: ["Barbarian Subclass", ["barbarian-berserker"]],
+		subclassGainedLevel: 3,
 		attacks: [1, 1, 1, 1, 2],
 		features: {
 			"rage": {
@@ -552,6 +553,7 @@ var Base_ClassList = {
 			gold: 90,
 		}],
 		subclasses: ["Bard Subclass", ["bard-lore"]],
+		subclassGainedLevel: 3,
 		spellcastingFactor: 1,
 		spellcastingKnown: {
 			cantrips: [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -729,6 +731,7 @@ var Base_ClassList = {
 			gold: 110,
 		}],
 		subclasses: ["Cleric Subclass", ["cleric-life"]],
+		subclassGainedLevel: 3,
 		spellcastingFactor: 1,
 		spellcastingKnown: {
 			cantrips: [3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
@@ -852,24 +855,7 @@ var Base_ClassList = {
 					description: levels.map(function (n) {
 						return desc(n < 14 ? "I add my Wisdom modifier to the damage I deal with my Cleric cantrips." : "My Cleric cantrips get my Wisdom modifier added to their damage. When I deal damage with one, I can grant myself or a creature within 60 ft twice my Wisdom mod in Temp " + (typePF ? "Hit Points." : "HP."));
 					}),
-					calcChanges: {
-						atkCalc: [
-							function (fields, v, output) {
-								if (v.thisWeapon[3] && /\bcleric\b/.test(v.thisWeapon[4]) && SpellsList[v.thisWeapon[3]].level === 0 && /\d/.test(fields.Damage_Die)) {
-									output.extraDmg += Number(What('Wis Mod'));
-								};
-							},
-							"My Cleric cantrips get my Wisdom modifier added to their damage.",
-						],
-						spellAdd: [
-							function (spellKey, spellObj, spName) {
-								var wisMod = Number(What("Wis Mod"));
-								if (spellObj.psionic || spellObj.level !== 0 || spName.indexOf("cleric") == -1 || wisMod <= 0) return;
-								return genericSpellDmgEdit(spellKey, spellObj, "\\w+\\.?", wisMod);
-							},
-							"My Cleric cantrips get my Wisdom modifier added to their damage.",
-						],
-					},
+					calcChanges: GenericClassFeatures["potent spellcasting"].calcChanges,
 				},
 				choiceDependencies: [{
 					feature: "improved blessed strikes",
@@ -956,6 +942,7 @@ var Base_ClassList = {
 			gold: 50,
 		}],
 		subclasses: ["Druid Subclass", ["druid-land"]],
+		subclassGainedLevel: 3,
 		spellcastingFactor: 1,
 		spellcastingKnown: {
 			cantrips: [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -1288,6 +1275,7 @@ var Base_ClassList = {
 			gold: 155,
 		}],
 		subclasses: ["Fighter Subclass", ["fighter-champion"]],
+		subclassGainedLevel: 3,
 		attacks: levels.map(function (n) { return n < 5 ? 1 : n < 11 ? 2 : n < 20 ? 3 : 4; }),
 		features: {
 			"fighting style": {
@@ -1404,6 +1392,7 @@ var Base_ClassList = {
 			gold: 50,
 		}],
 		subclasses: ["Monastic Tradition", ["monk-open hand"]],
+		subclassGainedLevel: 3,
 		attacks: [1, 1, 1, 1, 2],
 		features: {
 			"martial arts": {
@@ -1735,6 +1724,7 @@ var Base_ClassList = {
 			gold: 150,
 		}],
 		subclasses: ["Paladin Subclass", ["paladin-devotion"]],
+		subclassGainedLevel: 3,
 		attacks: [1, 1, 1, 1, 2],
 		spellcastingFactor: 2,
 		spellcastingKnown: {
@@ -1963,6 +1953,7 @@ var Base_ClassList = {
 			gold: 150,
 		}],
 		subclasses: ["Ranger Subclass", ["ranger-hunter"]],
+		subclassGainedLevel: 3,
 		attacks: [1, 1, 1, 1, 2],
 		spellcastingFactor: 2,
 		spellcastingKnown: {
@@ -2192,6 +2183,7 @@ var Base_ClassList = {
 			gold: 100,
 		}],
 		subclasses: ["Rogue Subclass", ["rogue-thief"]],
+		subclassGainedLevel: 3,
 		features: {
 			"expertise": function() {
 				var a = {
@@ -2426,6 +2418,7 @@ var Base_ClassList = {
 			gold: 50,
 		}],
 		subclasses: ["Sorcerer Subclass", ["sorcerer-draconic"]],
+		subclassGainedLevel: 3,
 		spellcastingFactor: 1,
 		spellcastingKnown: {
 			cantrips: [4, 4, 4, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
@@ -2631,6 +2624,7 @@ var Base_ClassList = {
 			gold: 100,
 		}],
 		subclasses: ["Warlock Subclass", ["warlock-fiend"]],
+		subclassGainedLevel: 3,
 		spellcastingFactor: "warlock1",
 		spellcastingKnown: {
 			cantrips: [2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
@@ -3255,6 +3249,7 @@ var Base_ClassList = {
 			gold: 55,
 		}],
 		subclasses: ["Wizard Subclass", ["wizard-evoker"]],
+		subclassGainedLevel: 3,
 		spellcastingFactor: 1,
 		spellcastingKnown: {
 			cantrips: [3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
