@@ -301,8 +301,8 @@ var Base_ClassList = {
 				action: [["bonus action", " (start/extend)"]],
 				dmgres: [
 					["Bludgeoning", "Bludgeon. (in rage)"],
-					["Piercing", "Piercing (in rage)"],
-					["Slashing", "Slashing (in rage)"],
+					["Piercing",    "Piercing (in rage)"],
+					["Slashing",    "Slashing (in rage)"],
 				],
 				savetxt: { text: ["Adv. on Str saves in rage"] },
 				calcChanges: {
@@ -1016,7 +1016,7 @@ var Base_ClassList = {
 					}),
 					limitations: levels.map(function (n) {
 						var CR = n < 4 ? "1/4" : "1/2";
-						return n < 8 ? "max CR " + CR + ", no Fly speed" : "CR 1 or lower";
+						return n < 8 ? "max CR " + CR + ", no Fly Speed" : "CR 1 or lower";
 					}),
 				},
 				"wild shape rules": {
@@ -1046,6 +1046,7 @@ var Base_ClassList = {
 				source: [["SRD24", 43], ["P24", 81]],
 				minlevel: 2,
 				description: desc("As a Magic action, I can expend a spell slot or a Wild Shape use to cast Find Familiar without Material components. The familiar is Fey and disappears when I finish a Long Rest."),
+				additional: "1 Wild Shape use or spell slot",
 				spellcastingBonus: [{
 					name: "Wild Companion",
 					spells: ["find familiar"],
@@ -1210,9 +1211,9 @@ var Base_ClassList = {
 				source: [["SRD24", 43], ["P24", 82]],
 				minlevel: 20,
 				description: desc([
-					"**Evergreen Wild Shape**. When I roll Initiative and have no Wild Shape uses, I regain one.",
-					"**Nature Magician**. Once per Long Rest, I can convert Wild Shape uses into a spell slot at a rate of 2 spell levels per expended Wild Shape use. This requires no action.",
-					"**Longevity**. For every ten years that pass, my body ages only one.",
+					"***Evergreen Wild Shape***. When I roll Initiative and have no Wild Shape uses, I regain one.",
+					"***Nature Magician***. Once per Long Rest, I can convert Wild Shape uses into a spell slot at a rate of 2 spell levels per expended Wild Shape use. This requires no action.",
+					"***Longevity***. For every ten years that pass, my body ages only one.",
 				]),
 				usages: 1,
 				recovery: "Long Rest",
@@ -1415,7 +1416,7 @@ var Base_ClassList = {
 							if (!classes.known.monk || !classes.known.monk.level) return;
 							// Mark light martial weapons as proficient if Monk is the primary class
 							var isLightMartial = /martial/i.test(v.theWea.type) && /\blight\b/i.test(fields.Description);
-							if ( classes.primary === "monk" && !fields.Proficiency && isLightMartial ) {
+							if ( isLightMartial && !fields.Proficiency && classes.primary === "monk" ) {
 								fields.Proficiency = true;
 							};
 							// The rest is for Monk weapons, so stop if explicitly set to false
@@ -2994,11 +2995,11 @@ var Base_ClassList = {
 					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the chain') !== -1; },
 					description: desc([
 						"When I cast Find Familiar, the summoned create has additional benefits:",
-						" \u2022 **Aerial or Aquatic**. It gains a Fly or Swim speed of 40 ft (my choice at casting).",
-						" \u2022 **Quick Attack**. As a Bonus Action, I can command it to take the Attack action.",
-						" \u2022 **Damage**. I can have it deal Necrotic or Radiant damage instead of Bludg., Pierc., or Slash.",
-						" \u2022 **My Save DC**. If it forces a creature to make a saving throw, it uses my spell save DC.",
-						" \u2022 **Resistance**. As a Reaction when it takes damage, I can grant it resistance vs. that damage."
+						" \u2022 ***Aerial or Aquatic***. It gains a Fly or Swim speed of 40 ft (my choice at casting).",
+						" \u2022 ***Quick Attack***. As a Bonus Action, I can command it to take the Attack action.",
+						" \u2022 ***Damage***. I can have it deal Necrotic or Radiant damage instead of Bludg., Pierc., or Slash.",
+						" \u2022 ***My Save DC***. If it forces a creature to make a saving throw, it uses my spell save DC.",
+						" \u2022 ***Resistance***. As a Reaction when it takes damage, I can grant it resistance vs. that damage."
 					]),
 					action: [
 						["bonus action", "Chain Master: Quick Attack"],
@@ -3882,8 +3883,8 @@ var Base_ClassSubList = {
 				source: [["SRD24", 49], ["P24", 96]],
 				minlevel: 18,
 				description: desc([
-					"**Defy Death**. I have Adv. on Death saves and 18-20 on those saves count as a natural 20.",
-					"**Heroic Rally**. If I'm Blooded and at 1+ HP at the start of my turn, I heal 5 + Con mod HP.",
+					"***Defy Death***. I have Adv. on Death saves and 18-20 on those saves count as a natural 20.",
+					"***Heroic Rally***. If I'm Blooded and at 1+ HP at the start of my turn, I heal 5 + Con mod HP.",
 				]),
 			},
 		},
@@ -3901,9 +3902,9 @@ var Base_ClassSubList = {
 				minlevel: 3,
 				description: desc([
 					"Whenever I hit a Flurry of Blows attack, I can impose one of the following effects:",
-					" \u2022 **Addle**. The target can't make Opportunity Attacks until the start of its next turn.",
-					" \u2022 **Push**. The target must make a Strength save or be pushed up to 15 ft away from me.",
-					" \u2022 **Topple**. The target must make a Dexterity save or have the Prone condition.",
+					" \u2022 ***Addle***. The target can't make Opportunity Attacks until the start of its next turn.",
+					" \u2022 ***Push***. The target must make a Strength save or be pushed up to 15 ft away from me.",
+					" \u2022 ***Topple***. The target must make a Dexterity save or have the Prone condition.",
 				]),
 			},
 			"subclassfeature6": {
@@ -4016,9 +4017,9 @@ var Base_ClassSubList = {
 				minlevel: 20,
 				description: desc([
 					"As a Bonus Action, I can give my Aura of Protection these benefits for 10 minutes:",
-					" \u2022 **Holy Ward**. I have Advantage on saving throws I'm forced to make by a Fiend or Undead.",
-					" \u2022 **Radiant Damage** (Cha mod + Prof Bonus) is dealt to enemies starting " + (typePF ? "their" : "its") + " turn in the aura.",
-					" \u2022 **Sunlight**. The aura is filled with Bright Light that is sunlight.",
+					" \u2022 ***Holy Ward***. I have Advantage on saving throws I'm forced to make by a Fiend or Undead.",
+					" \u2022 ***Radiant Damage*** (Cha mod + Prof Bonus) is dealt to enemies starting " + (typePF ? "their" : "its") + " turn in the aura.",
+					" \u2022 ***Sunlight***. The aura is filled with Bright Light that is sunlight.",
 					"I can end it for free. I can do this once per Long Rest or by using a level 5 spell slot (SS 5+).",
 				]),
 				recovery: "Long Rest",
@@ -4047,8 +4048,8 @@ var Base_ClassSubList = {
 				minlevel: 3,
 				description: desc([
 					"I gain one of the following features and can change my pick whenever I finish a Short Rest.",
-					" \u2610 **Colossus Slayer**. Once per turn when I hit a creature with a weapon, I can have the weapon deal it +1d8 damage if it's not at full HP.",
-					" \u2610 **Horde Breaker**. Once per turn when I attack with a weapon, I can make an extra attack with it against another within range and 5 ft of the first, that I didn't attack this turn.",
+					" \u2610 ***Colossus Slayer***. Once per turn when I hit a creature with a weapon, I can have the weapon deal it +1d8 damage if it's not at full HP.",
+					" \u2610 ***Horde Breaker***. Once per turn when I attack with a weapon, I can make an extra attack with it against another within range and 5 ft of the first, that I didn't attack this turn.",
 				]),
 			},
 			"subclassfeature7": {
@@ -4057,8 +4058,8 @@ var Base_ClassSubList = {
 				minlevel: 7,
 				description: desc([
 					"I gain one of the following features and can change my pick whenever I finish a Short Rest.",
-					" \u2610 **Escape the Horde**. Opportunity Attacks have Disadvantage against me.",
-					" \u2610 **Multiattack Defense**. When a creature hits me with an attack, it has Disadvantage on further attacks against me this turn.",
+					" \u2610 ***Escape the Horde***. Opportunity Attacks have Disadvantage against me.",
+					" \u2610 ***Multiattack Defense***. When a creature hits me with an attack, it has Disadvantage on further attacks against me this turn.",
 				]),
 			},
 			"subclassfeature11": {
@@ -4087,7 +4088,7 @@ var Base_ClassSubList = {
 				name: "Fast Hands",
 				source: [["SRD24", 64], ["P24", 137]],
 				minlevel: 3,
-				description: desc("As a Bonus Action, I can **Use an Object**: take the Utilize action, or take the Magic action to activate a magic item requiring that action. As a Bonus Action, I can make a Dexterity (**Sleight of Hand**) check to pick a lock or disarm a trap with Thieves' Tools, or pick a pocket."),
+				description: desc("As a Bonus Action, I can ***Use an Object***: take the Utilize action, or take the Magic action to activate a magic item requiring that action. As a Bonus Action, I can make a Dexterity (***Sleight of Hand***) check to pick a lock or disarm a trap with Thieves' Tools, or pick a pocket."),
 				action: [["bonus action", ""]],
 			},
 			"subclassfeature3.1": {
@@ -4118,9 +4119,9 @@ var Base_ClassSubList = {
 				source: [["SRD24", 64], ["P24", 137]],
 				minlevel: 13,
 				description: desc([
-					"I can have **Attunement** with up to four magic items at once.",
-					"When I use a magic item property with **Charges**, on a roll of 6 on 1d6 none are expended.",
-					"I can use **Spell Scrolls** with Intelligence as my spellcasting ability. If the spell is 2nd-level or higher, I need to make an Int (Arcana) check (DC 10 + spell level) or the scroll disintegrates.",
+					"I can have ***Attunement*** with up to four magic items at once.",
+					"When I use a magic item property with ***Charges***, on a roll of 6 on 1d6 none are expended.",
+					"I can use ***Spell Scrolls*** with Intelligence as my spellcasting ability. If the spell is 2nd-level or higher, I need to make an Int (Arcana) check (DC 10 + spell level) or the scroll disintegrates.",
 				]),
 			},
 			"subclassfeature17": {

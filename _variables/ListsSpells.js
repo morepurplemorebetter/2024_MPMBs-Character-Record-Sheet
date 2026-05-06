@@ -1,6 +1,6 @@
-var AtHigherLevels = "\n   " + toUni("At Higher Levels") + ". ";
-var UsingHigherLvl = toUni("Using a Higher-Level Spell Slot") + ". ";
-var CantripUpgrade = toUni("Cantrip Upgrade") + ". ";
+var AtHigherLevels = "\n   ***At Higher Levels***. ";
+var UsingHigherLvl = "***Using a Higher-Level Spell Slot***. ";
+var CantripUpgrade = "***Cantrip Upgrade***. ";
 var SpellRitualTag = '\xAE'; // registered trademark symbol
 var SpellRitualTagNonUnicode = '(R)';
 var SpellReqLosTag = '\u25C9'; // fisheye symbol
