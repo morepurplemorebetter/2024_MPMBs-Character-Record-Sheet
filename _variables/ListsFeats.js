@@ -149,7 +149,7 @@ var Base_FeatsList = {
 		calcChanges: {
 			atkCalc: [
 				function (fields, v, output) {
-					if (v.isRangedWeapon && !v.isNaturalWeapon && !v.isDC) output.extraHit += 2;
+					if (v.isRangedWeapon && !v.isDC) output.extraHit += 2;
 				},
 				"My ranged weapons get a +2 bonus on the To Hit.",
 			],

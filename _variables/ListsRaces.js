@@ -388,7 +388,7 @@ var Base_RaceSubList = {
 		vision: [["Darkvision", 120]],
 		spellcastingAbility: [4, 5, 6],
 		trait: [
-			"##\u25C6 Drow Lineage##. I know Dancing Lights, Faerie Fire at level 3, and Darkness at level 5. I can cast each spell once per Long Rest or by using a spell slot as normal; Int, Wis, or Cha is my spellcasting ability for these (choose when selecting the lineage).",
+			"##\u25C6 Drow Lineage##. I know *Dancing Lights*, *Faerie Fire* at level 3, and *Darkness* at level 5. I can cast each spell once per Long Rest or by using a spell slot as normal; Int, Wis, or Cha is my spellcasting ability for these (choose when selecting the lineage).",
 			"##\u25C6 Fey Ancestry##. I have Advantage on saves to avoid or end Charmed.",
 			"##\u25C6 Keen Senses##. I gain proficiency in Insight, Perception, or Survival.",
 			"##\u25C6 Trance##. I don't need to sleep and magic can't put me to sleep. I can have a Long Rest in 4 hours if I spend it in a trancelike meditation, during which I retain consciousness.",
@@ -435,7 +435,7 @@ var Base_RaceSubList = {
 		source: [["SRD24", 85], ["P24", 190]],
 		spellcastingAbility: [4, 5, 6],
 		trait: [
-			"##\u25C6 High Elf Lineage##. I know Prestidigitation and can replace it with another Wizard cantrip after a Long Rest, Detect Magic at level 3, and Misty Step at level 5. I can cast each spell once per Long Rest or by using a spell slot as normal; Int, Wis, or Cha is my spellcasting ability for these (choose one)." + (typePF ?
+			"##\u25C6 High Elf Lineage##. I know *Prestidigitation* and can replace it with another Wizard cantrip after a Long Rest, *Detect Magic* at level 3, and *Misty Step* at level 5. I can cast each spell once per Long Rest or by using a spell slot as normal; Int, Wis, or Cha is my spellcasting ability for these (choose one)." + (typePF ?
 				"\n##\u25C6 Keen Senses##. I gain proficiency in Insight, Perception, or Survival." :
 				" ##\u25C6 Keen Senses##. Insight, Perception, or Survival proficiency."
 			),
@@ -487,7 +487,7 @@ var Base_RaceSubList = {
 		speed: { walk: { spd: 35, enc: 25 } },
 		spellcastingAbility: [4, 5, 6],
 		trait: [
-			"##\u25C6 Wood Elf Lineage##. I know Druidcraft, Longstrider at level 3, and Pass without Trace at level 5. I can cast each spell once per Long Rest or by using a spell slot as normal; Int, Wis, or Cha is my spellcasting ability for these (choose when selecting the lineage).",
+			"##\u25C6 Wood Elf Lineage##. I know *Druidcraft*, *Longstrider* at level 3, and *Pass without Trace* at level 5. I can cast each spell once per Long Rest or by using a spell slot as normal; Int, Wis, or Cha is my spellcasting ability for these (choose when selecting the lineage).",
 			"##\u25C6 Fey Ancestry##. I have Advantage on saves to avoid or end Charmed.",
 			"##\u25C6 Keen Senses##. I gain proficiency in Insight, Perception, or Survival.",
 			"##\u25C6 Trance##. I don't need to sleep and magic can't put me to sleep. I can have a Long Rest in 4 hours if I spend it in a trancelike meditation, during which I retain consciousness.",
@@ -557,7 +557,7 @@ var Base_RaceSubList = {
 		trait: [
 			"**Forest Gnome**",
 			"##\u25C6 Gnomish Cunning##. I have Advantage on Intelligence, Wisdom, and Charisma saving throws.",
-			"##\u25C6 Forest Gnome Lineage##. I know the Minor Illusion cantrip. I always have Speak with Animals prepared and I can cast it without a spell slot my Proficiency Bonus times per Long Rest. I can also use any spell slots I have to cast the spell as normal. Int, Wis, or Cha is my spellcasting ability for these (choose when selecting the lineage).",
+			"##\u25C6 Forest Gnome Lineage##. I know the *Minor Illusion* cantrip. I always have *Speak with Animals* prepared and I can cast it without a spell slot my Proficiency Bonus times per Long Rest. I can also use any spell slots I have to cast the spell as normal. Int, Wis, or Cha is my spellcasting ability for these (choose when selecting the lineage).",
 		].join("\n"),
 	},
 	'gnome-rock': {
@@ -581,7 +581,7 @@ var Base_RaceSubList = {
 		trait: [
 			"**Rock Gnome**",
 			"##\u25C6 Gnomish Cunning##. I have Adv" + (typePF ? "antage" : ".") + " on Intelligence, Wisdom, and Charisma saving throws.",
-			"##\u25C6 Rock Gnome Lineage##. I know the Mending and Prestidigitation cantrips. I can create a Tiny clockwork device (AC 5, 1 HP) if I spend 10 min casting Prestidigitation; I choose (one option of) one of its effects, which the device produces when a creature uses a Bonus Action to activate it via touch. I can have three such devices in existence at a time, and each falls apart after 8 hours or when I dismantle it via touch as a Utilize action.",
+			"##\u25C6 Rock Gnome Lineage##. I know the *Mending* and *Prestidigitation* cantrips. I can create a Tiny clockwork device (AC 5, 1 HP) if I spend 10 min casting Prestidigitation; I choose (one option of) one of its effects, which the device produces when a creature uses a Bonus Action to activate it via touch. I can have three such devices in existence at a time, and each falls apart after 8 hours or when I dismantle it via touch as a Utilize action.",
 		].join("\n"),
 	},
 	"goliath-cloud": {
@@ -755,7 +755,7 @@ var Base_RaceSubList = {
 		},
 		trait: [
 			"**Abyssal Tiefling**",
-			"##\u25C6 Fiendish Legacy##. I known the Poison Spray cantrip. I learn Ray of Sickness at level 3 and Hold Person at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy).",
+			"##\u25C6 Fiendish Legacy##. I known the *Poison Spray* cantrip. I learn *Ray of Sickness* at level 3 and *Hold Person* at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy).",
 			"##\u25C6 Otherworldly Presence##. I know the Thaumaturgy cantrip and use the same spellcasting ability for it.",
 		].join("\n"),
 	},
@@ -801,7 +801,7 @@ var Base_RaceSubList = {
 		},
 		trait: [
 			"**Chthonic Tiefling**",
-			"##\u25C6 Fiendish Legacy##. I known the Chill Touch cantrip. I learn False Life at level 3 and Ray of Enfeeblement at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy).",
+			"##\u25C6 Fiendish Legacy##. I known the *Chill Touch* cantrip. I learn *False Life* at level 3 and *Ray of Enfeeblement* at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy).",
 			"##\u25C6 Otherworldly Presence##. I know the Thaumaturgy cantrip and use the same spellcasting ability for it.",
 		].join("\n"),
 	},
@@ -847,7 +847,7 @@ var Base_RaceSubList = {
 		},
 		trait: [
 			"**Infernal Tiefling**",
-			"##\u25C6 Fiendish Legacy##. I known the Fire Bolt cantrip. I learn Hellish Rebuke at level 3 and Darkness at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy).",
+			"##\u25C6 Fiendish Legacy##. I known the *Fire Bolt* cantrip. I learn *Hellish Rebuke* at level 3 and *Darkness* at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy).",
 			"##\u25C6 Otherworldly Presence##. I know the Thaumaturgy cantrip and use the same spellcasting ability for it.",
 		].join("\n"),
 	},

@@ -270,7 +270,7 @@ var Base_ClassList = {
 		subclassGainedLevel: 3,
 		attacks: [1, 1, 1, 1, 2],
 		features: {
-			"rage": {
+			"rage": { // includes the effects of Persistent Rage
 				name: "Rage",
 				source: [["SRD24", 28], ["P24", 51]],
 				minlevel: 1,
@@ -300,20 +300,20 @@ var Base_ClassList = {
 				recovery: "Long Rest",
 				action: [["bonus action", " (start/extend)"]],
 				dmgres: [
-					["Bludgeoning", "Bludgeon. (in rage)"],
-					["Piercing",    "Piercing (in rage)"],
-					["Slashing",    "Slashing (in rage)"],
+					["Bludgeoning", "Bludgeon. (in Rage)"],
+					["Piercing",    "Piercing (in Rage)"],
+					["Slashing",    "Slashing (in Rage)"],
 				],
-				savetxt: { text: ["Adv. on Str saves in rage"] },
+				savetxt: { text: ["Adv. on Str saves in Rage"] },
 				calcChanges: {
 					atkCalc: [
 						function (fields, v, output) {
 							var lvl = classes.known.barbarian ? classes.known.barbarian.level : false;
-							if (lvl && v.isWeapon && fields.Mod === 1 && /\b(rage|frenzy)\b/i.test(v.WeaponTextName)) {
+							if (lvl && (v.isWeapon || v.baseWeaponName === "unarmed strike") && fields.Mod === 1 && /\b(rage|frenzy)\b/i.test(v.WeaponTextName)) {
 								output.extraDmg += lvl < 9 ? 2 : lvl < 16 ? 3 : 4;
 							}
 						},
-						"Add the text \"Rage\" or \"Frenzy\" to the name of a weapon that uses Strength to have the Rage's bonus damage added to it."
+						"Add the text \"Rage\" or \"Frenzy\" to the name of a weapon that uses Strength to have the Rage's bonus damage added to it.",
 					],
 				},
 			},
@@ -321,9 +321,11 @@ var Base_ClassList = {
 				name: "Unarmored Defense",
 				source: [["SRD24", 29], ["P24", 51]],
 				minlevel: 1,
-				description: desc("If not wearing armor, my AC is 10 + Dexterity modifier + Constitution modifier + Shield."),
+				description: levels.map(function (n) {
+					return n < 14 ? desc("If not wearing armor, my AC is 10 + Dexterity modifier + Constitution modifier + Shield.") : " [AC 10 + Dex mod + Con mod + Shield]";
+				}),
 				armorOptions: [{
-					regExpSearch: /justToAddToDropDownAndEffectWildShape/,
+					regExpSearch: /justToAddToDropDownAndAffectWildShape/,
 					name: "Unarmored Defense (Con)",
 					source: [["SRD24", 29], ["P24", 51]],
 					ac: "10+Con",
@@ -335,10 +337,14 @@ var Base_ClassList = {
 				name: "Weapon Mastery",
 				source: [["SRD24", 29], ["P24", 52]],
 				minlevel: 1,
-				description: desc([
-					"I gain mastery with a number of Simple/Martial weapons. Whenever I finish a Long Rest,",
-					'I can change one of these choices. Use the "Choose Feature" button above to select them.',
-				]),
+				description: levels.map(function (n) {
+					var text = [
+						"I gain mastery with a number of Simple/Martial weapons. Whenever I finish a Long Rest,",
+						'I can change one of these choices. Use the "Choose Feature" button above to select them.',
+					];
+					if (n >= 18) text = "Whenever I finish a Long Rest, I can change one weapon mastery choice.";
+					return desc(text);
+				}),
 				additional: levels.map(function (n) {
 					return (n < 4 ? 2 : n < 10 ? 3 : 4) + " Weapon Masteries";
 				}),
@@ -368,43 +374,29 @@ var Base_ClassList = {
 				minlevel: 3,
 				description: desc('Choose a Barbarian Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
-			"primal knowledge": {
-				name: "Primal Knowledge",
-				source: [["SRD24", 29], ["P24", 52]],
-				minlevel: 3,
-				description: desc('I gain proficiency in one more Barbarian skill. Use the "Choose Feature" button above to select Animal Handling, Athletics, Intimidation, Nature, Perception, or Survival.\nWhile Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability.'),
-				choices: ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
-				"animal handling": {
-					name: "Primal Knowledge: Animal Handling",
-					description: desc('While Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Animal Handling ' + (typePF ? 'proficiency.' : 'prof.')),
-					skills: ["Animal Handling"],
-				},
-				"athletics": {
-					name: "Primal Knowledge: Athletics",
-					description: desc('While Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Athletics proficiency.'),
-					skills: ["Athletics"],
-				},
-				"intimidation": {
-					name: "Primal Knowledge: Intimidation",
-					description: desc('While Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Intimidation proficiency.'),
-					skills: ["Intimidation"],
-				},
-				"nature": {
-					name: "Primal Knowledge: Nature",
-					description: desc('While Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Nature proficiency.'),
-					skills: ["Nature"],
-				},
-				"perception": {
-					name: "Primal Knowledge: Perception",
-					description: desc('While Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Perception proficiency.'),
-					skills: ["Perception"],
-				},
-				"survival": {
-					name: "Primal Knowledge: Survival",
-					description: desc('While Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain Survival proficiency.'),
-					skills: ["Survival"],
-				},
-			},
+			"primal knowledge": function () {
+				var a = {
+					name: "Primal Knowledge",
+					source: [["SRD24", 29], ["P24", 52]],
+					minlevel: 3,
+					description: ' #[Select option with "Choose Feature"]#' + desc("+1 Barbarian skill proficiency. While Raging, I can use Str for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability."),
+					choices: ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
+				};
+				for (var i = 0; i < a.choices.length; i++) {
+					var skill = a.choices[i];
+					var attr = skill.toLowerCase();
+					var proficiency = attr === "animal handling" && !typePF ? " prof." : " proficiency.";
+					a[attr] = {
+						name: "Primal Knowledge: " + skill,
+						description: desc("While Raging, I can use Strength for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability. I gain " + skill + proficiency),
+						skills: [skill],
+						prereqeval: function (v) {
+							return v.skillProfsLC.indexOf(v.choice) === -1 ? true : "markButDisable";
+						},
+					};
+				}
+				return a;
+			}(),
 			"fast movement": {
 				name: "Fast Movement",
 				source: [["SRD24", 29], ["P24", 53]],
@@ -439,25 +431,25 @@ var Base_ClassList = {
 					name: "Forceful Blow",
 					extraname: "Brutal Strike Effect, Barbarian 9",
 					source: [["SRD24", 29], ["P24", 53]],
-					description: "The target is pushed 15 ft straight away from me. I can then move half my Speed straight toward the target without provoking Opportunity Attacks.",
+					description: desc("The target is pushed 15 ft straight away from me. I can then move half my Speed straight toward the target without provoking Opportunity Attacks."),
 				},
 				"hamstring blow": {
 					name: "Hamstring Blow",
 					extraname: "Brutal Strike Effect, Barbarian 9",
 					source: [["SRD24", 30], ["P24", 53]],
-					description: "The target has -15 ft Speed until the start of my next turn. A target can only be affected by the most recent Hamstring Blow, they're not cumulative.",
+					description: desc("The target has -15 ft Speed until the start of my next turn. A target can only be affected by the most recent Hamstring Blow, they're not cumulative."),
 				},
 				"staggering blow": {
 					name: "Staggering Blow",
 					extraname: "Brutal Strike Effect, Barbarian 13",
 					source: [["SRD24", 30], ["P24", 53]],
-					description: "The target has Disadvantage on their next saving throw, and it can't make Opportunity Attacks until the start of my next turn.",
+					description: desc("The target has Disadvantage on their next saving throw, and it can't make Opportunity Attacks until the start of my next turn."),
 				},
 				"sundering blow": {
 					name: "Sundering Blow",
 					extraname: "Brutal Strike Effect, Barbarian 13",
 					source: [["SRD24", 30], ["P24", 53]],
-					description: "+5 bonus on the next attack roll made by another creature against the target before the start of my next turn. An attack can gain this bonus only once.",
+					description: desc("+5 bonus on the next attack roll made by another creature against the target before the start of my next turn. An attack can gain this bonus only once."),
 				},
 				autoSelectExtrachoices: [{
 					extrachoice: "forceful blow",
@@ -481,16 +473,20 @@ var Base_ClassList = {
 				}),
 				usages: "DC 10 +5/try per ",
 				recovery: "Short Rest",
-				usagescalc: "var FieldNmbr = parseFloat(event.target.name.slice(-2)); var usages = Number(What('Limited Feature Used ' + FieldNmbr)); var DCval = Number(usages * 5 + 10); event.value = isNaN(usages) || isNaN(DCval) ? 'DC\u2003\u2003' : 'DC ' + DCval;",
+				usagescalc: "var FieldNmbr = parseFloat(event.target.name.slice(-2)); var usages = Number(What('Limited Feature Used ' + FieldNmbr)); var DCval = Number(usages * 5 + 10); event.value = usages === '' || isNaN(usages) || isNaN(DCval) ? 'DC\u2003\u2003' : 'DC ' + DCval;",
 			},
 			"persistent rage": {
 				name: "Persistent Rage",
 				source: [["SRD24", 30], ["P24", 53]],
 				minlevel: 15,
-				description: desc([
-					"Once per long rest when I roll initiative, I can regain all my expended uses of Rage.",
-					"My Rage now only ends early if I choose to end it, fall Unconscious, or don Heavy armor."
-				]),
+				description: levels.map(function (n) {
+					var text = [
+						"Once per long rest when I roll initiative, I can regain all my expended uses of Rage.",
+						"My Rage now only ends early if I choose to end it, fall Unconscious, or don Heavy armor.",
+					];
+					if (n >= 20) text = "At Initiative roll, I can regain all Rage uses. " + (typePF ? "Rage" : "It") + " doesn't end if Incapacitated or next turn ends.";
+					return desc(text);
+				}),
 				additional: "regain Rage uses",
 				usages: 1,
 				recovery: "Long Rest",
@@ -603,9 +599,11 @@ var Base_ClassList = {
 					extrachoices: ["Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"],
 				}
 				for (var i = 0; i < a.extrachoices.length; i++) {
-					a[a.extrachoices[i].toLowerCase()] = {
-						name: a.extrachoices[i],
-						skills: [[a.extrachoices[i], "only"]],
+					var skill = a.extrachoices[i];
+					var attr = skill.toLowerCase();
+					a[attr] = {
+						name: skill,
+						skills: [[skill, "only"]],
 						prereqeval: function(v) {
 							return v.skillProfsLC.indexOf(v.choice) === -1 ? false : v.skillExpertiseLC.indexOf(v.choice) === -1 ? true : "markButDisable";
 						},
@@ -670,7 +668,7 @@ var Base_ClassList = {
 				source: [["SRD24", 33], ["P24", 61]],
 				minlevel: 20,
 				description: desc([
-					"I always have Power Word Heal and Power Word Kill prepared.",
+					"I always have *Power Word Heal* and *Power Word Kill* prepared.",
 					"I can target a second creature with these if that creature is within 10 ft of the first target.",
 				]),
 				spellcastingBonus: [{
@@ -754,7 +752,7 @@ var Base_ClassList = {
 				name: "Divine Order",
 				source: [["SRD24", 37], ["P24", 70]],
 				minlevel: 1,
-				description: desc('Select a Divine Order using the "Choose Feature" button above.'),
+				description: ' #[Select option with "Choose Feature"]#' + desc('Select a Divine Order using the "Choose Feature" button above.'),
 				choices: ["Protector", "Thaumaturge"],
 				"protector": {
 					name: "Protector Divine Order",
@@ -828,7 +826,7 @@ var Base_ClassList = {
 				name: "Blessed Strikes",
 				source: [["SRD24", 38], ["P24", 71]],
 				minlevel: 7,
-				description: desc('Select a Blessed Strikes option using the "Choose Feature" button above.'),
+				description: ' #[Select option with "Choose Feature"]#' + desc('Select a Blessed Strikes option using the "Choose Feature" button above.'),
 				choices: ["Divine Strike", "Potent Spellcasting"],
 				"divine strike": {
 					name: "Divine Strike",
@@ -874,7 +872,7 @@ var Base_ClassList = {
 				name: "Improved Blessed Strikes",
 				source: [["SRD24", 38], ["P24", 71]],
 				minlevel: 14,
-				description: desc('Select a Blessed Strikes option using the "Choose Feature" button above.'),
+				description: ' #[Select option with "Choose Feature"]#' + desc('Select a Blessed Strikes option using the "Choose Feature" button above.'),
 				choices: ["divine strike", "potent spellcasting"],
 				choicesNotInMenu: true,
 				"divine strike": {
@@ -972,7 +970,7 @@ var Base_ClassList = {
 				name: "Primal Order",
 				source: [["SRD24", 42], ["P24", 80]],
 				minlevel: 1,
-				description: desc('Select a Primal Order using the "Choose Feature" button above.'),
+				description: ' #[Select option with "Choose Feature"]#' + desc('Select a Primal Order using the "Choose Feature" button above.'),
 				choices: ["Magician", "Warden"],
 				"magician": {
 					name: "Magician Primal Order",
@@ -1045,7 +1043,7 @@ var Base_ClassList = {
 				name: "Wild Companion",
 				source: [["SRD24", 43], ["P24", 81]],
 				minlevel: 2,
-				description: desc("As a Magic action, I can expend a spell slot or a Wild Shape use to cast Find Familiar without Material components. The familiar is Fey and disappears when I finish a Long Rest."),
+				description: desc("As a Magic action, I can expend a spell slot or a Wild Shape use to cast *Find Familiar* without Material components. The familiar is Fey and disappears when I finish a Long Rest."),
 				additional: "1 Wild Shape use or spell slot",
 				spellcastingBonus: [{
 					name: "Wild Companion",
@@ -1083,7 +1081,7 @@ var Base_ClassList = {
 				name: "Elemental Fury",
 				source: [["SRD24", 43], ["P24", 81]],
 				minlevel: 7,
-				description: desc('Select an Elemental Fury option using the "Choose Feature" button above.'),
+				description: ' #[Select option with "Choose Feature"]#' + desc('Select an Elemental Fury option using the "Choose Feature" button above.'),
 				choices: ["Potent Spellcasting", "Primal Strike"],
 				"potent spellcasting": {
 					name: "Potent Spellcasting",
@@ -1150,7 +1148,7 @@ var Base_ClassList = {
 				name: "Improved Elemental Fury",
 				source: [["SRD24", 43], ["P24", 81]],
 				minlevel: 15,
-				description: desc('Select an Elemental Fury option using the "Choose Feature" button above.'),
+				description: ' #[Select option with "Choose Feature"]#' + desc('Select an Elemental Fury option using the "Choose Feature" button above.'),
 				choices: ["potent spellcasting", "primal strike"],
 				choicesNotInMenu: true,
 				"potent spellcasting": {
@@ -1302,10 +1300,14 @@ var Base_ClassList = {
 				name: "Weapon Mastery",
 				source: [["SRD24", 48], ["P24", 91]],
 				minlevel: 1,
-				description: desc([
-					"I gain mastery with a number of Simple/Martial weapons. Whenever I finish a Long Rest,",
-					'I can change one of these choices. Use the "Choose Feature" button above to select them.',
-				]),
+				description: levels.map(function (n) {
+					var text = [
+						"I gain mastery with a number of Simple/Martial weapons. Whenever I finish a Long Rest,",
+						'I can change one of these choices. Use the "Choose Feature" button above to select them.',
+					];
+					if (n >= 15) text = "Whenever I finish a Long Rest, I can change one weapon mastery choice.";
+					return desc(text);
+				}),
 				additional: levels.map(function (n) {
 					return (n < 4 ? 3 : n < 10 ? 4 : n < 16 ? 5 : 6) + " Weapon Masteries";
 				}),
@@ -1426,7 +1428,7 @@ var Base_ClassList = {
 								v.theWea.monkweapon = true;
 								// Improve the damage die if there is one and the Martial Arts die is better
 								var aMonkDie = function (n) { return n < 5 ? 6 : n < 11 ? 8 : n < 17 ? 10 : 12; }(classes.known.monk.level);
-								var rxDice = /(\d+)d?(\d*)/i;
+								var rxDice = /(\d+)d?(\d*)/;
 								if (rxDice.test(fields.Damage_Die)) {
 									var curDie = fields.Damage_Die.match(rxDice);
 									var curDieSize = Math.max(Number(curDie[1]), 1) * Math.max(Number(curDie[2]), 1);
@@ -1451,7 +1453,7 @@ var Base_ClassList = {
 				minlevel: 1,
 				description: desc("Without armor and no shield, my AC is 10 + Dexterity modifier + Wisdom modifier."),
 				armorOptions: [{
-					regExpSearch: /justToAddToDropDownAndEffectWildShape/,
+					regExpSearch: /justToAddToDropDownAndAffectWildShape/,
 					name: "Unarmored Defense (Wis)",
 					source: [["SRD24", 50], ["P24", 101]],
 					ac: "10+Wis",
@@ -1775,7 +1777,7 @@ var Base_ClassList = {
 				name: "Fighting Style",
 				source: [["SRD24", 54], ["P24", 110]],
 				minlevel: 2,
-				description: desc('Choose a Fighting Style Feat or Blessed Warrior using the "Choose Feature" button above.'),
+				description: ' #[Select option with "Choose Feature"]#' + desc('Choose a Fighting Style Feat or Blessed Warrior using the "Choose Feature" button above.'),
 				choices: ["Blessed Warrior"],
 				"blessed warrior": {
 					name: "Fighting Style: Blessed Warrior",
@@ -1795,7 +1797,7 @@ var Base_ClassList = {
 				name: "Paladin's Smite",
 				source: [["SRD24", 54], ["P24", 110]],
 				minlevel: 2,
-				description: desc("I always have Divine Smite prepared. Once per Long Rest I can cast it without "+ (typePF ? "using" : "") + " a spell slot."),
+				description: desc("I always have *Divine Smite* prepared. Once per Long Rest I can cast it without "+ (typePF ? "using" : "") + " a spell slot."),
 				spellcastingBonus: [{
 					name: "Paladin's Smite",
 					spells: ["divine smite"],
@@ -1830,7 +1832,7 @@ var Base_ClassList = {
 				name: "Faithful Steed",
 				source: [["SRD24", 55], ["P24", 111]],
 				minlevel: 5,
-				description: desc("I always have Find Steed prepared. Once per Long Rest I can cast it without " + (typePF ? "using " : "") + "a spell slot."),
+				description: desc("I always have *Find Steed* prepared. Once per Long Rest I can cast it without " + (typePF ? "using " : "") + "a spell slot."),
 				spellcastingBonus: [{
 					name: "Faithful Steed",
 					spells: ["find steed"],
@@ -1977,7 +1979,7 @@ var Base_ClassList = {
 				name: "Favored Enemy",
 				source: [["SRD24", 58], ["P24", 119]],
 				minlevel: 1,
-				description: desc("I always have Hunter's Mark prepared. I can cast it without a spell slot several times per " + (typePF ? "Long Rest." : "LR.")),
+				description: desc("I always have *Hunter's Mark* prepared. I can cast it without a spell slot several times per " + (typePF ? "Long Rest." : "LR.")),
 				usages: ProficiencyBonusList, // Not linked to Prof Bonus, but same progression
 				recovery: "Long Rest",
 				spellcastingBonus: [{
@@ -2012,9 +2014,11 @@ var Base_ClassList = {
 					extrachoices: ["Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"],
 				}
 				for (var i = 0; i < a.extrachoices.length; i++) {
-					a[a.extrachoices[i].toLowerCase()] = {
-						name: a.extrachoices[i],
-						skills: [[a.extrachoices[i], "only"]],
+					var skill = a.extrachoices[i];
+					var attr = skill.toLowerCase();
+					a[attr] = {
+						name: skill,
+						skills: [[skill, "only"]],
 						prereqeval: function(v) {
 							return v.skillProfsLC.indexOf(v.choice) === -1 ? false : v.skillExpertiseLC.indexOf(v.choice) === -1 ? true : "markButDisable";
 						},
@@ -2026,7 +2030,7 @@ var Base_ClassList = {
 				name: "Fighting Style",
 				source: [["SRD24", 59], ["P24", 120]],
 				minlevel: 2,
-				description: desc('Choose a Fighting Style Feat or Druidic Warrior using the "Choose Feature" button above.'),
+				description: ' #[Select option with "Choose Feature"]#' + desc('Choose a Fighting Style Feat or Druidic Warrior using the "Choose Feature" button above.'),
 				choices: ["Druidic Warrior"],
 				"druidic warrior": {
 					name: "Fighting Style: Druidic Warrior",
@@ -2200,9 +2204,11 @@ var Base_ClassList = {
 					extrachoices: ["Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History", "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception", "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"],
 				}
 				for (var i = 0; i < a.extrachoices.length; i++) {
-					a[a.extrachoices[i].toLowerCase()] = {
-						name: a.extrachoices[i],
-						skills: [[a.extrachoices[i], "only"]],
+					var skill = a.extrachoices[i];
+					var attr = skill.toLowerCase();
+					a[attr] = {
+						name: skill,
+						skills: [[skill, "only"]],
 						prereqeval: function(v) {
 							return v.skillProfsLC.indexOf(v.choice) === -1 ? false : v.skillExpertiseLC.indexOf(v.choice) === -1 ? true : "markButDisable";
 						},
@@ -2673,7 +2679,7 @@ var Base_ClassList = {
 				"armor of shadows": {
 					name: "Armor of Shadows",
 					source: [["SRD24", 72], ["P24", 155]],
-					description: desc("I can cast Mage Armor on myself without expending a spell slot."),
+					description: desc("I can cast *Mage Armor* on myself without expending a spell slot."),
 					spellcastingBonus: [{
 						name: "Armor of Shadows",
 						spells: ["mage armor"],
@@ -2707,7 +2713,7 @@ var Base_ClassList = {
 					source: [["SRD24", 73], ["P24", 155]],
 					minlevel: 2,
 					submenu: "[Warlock level  2+]",
-					description: desc("I can cast False Life on myself without expending a spell slot to gain its max (12) Temp HP."),
+					description: desc("I can cast *False Life* on myself without expending a spell slot to gain its max (12) Temp HP."),
 					spellcastingBonus: [{
 						name: "Fiendish Vigor",
 						spells: ["false life"],
@@ -2726,7 +2732,7 @@ var Base_ClassList = {
 					source: [["SRD24", 73], ["P24", 156]],
 					minlevel: 2,
 					submenu: "[Warlock level  2+]",
-					description: desc("I can cast Disguise Self without expending a spell slot."),
+					description: desc("I can cast *Disguise Self* without expending a spell slot."),
 					spellcastingBonus: [{
 						name: "Mask of Many Faces",
 						spells: ["disguise self"],
@@ -2739,7 +2745,7 @@ var Base_ClassList = {
 					source: [["SRD24", 74], ["P24", 156]],
 					minlevel: 2,
 					submenu: "[Warlock level  2+]",
-					description: desc("I can cast Silent Image without expending a spell slot."),
+					description: desc("I can cast *Silent Image* without expending a spell slot."),
 					spellcastingBonus: [{
 						name: "Misty Visions",
 						spells: ["silent image"],
@@ -2752,7 +2758,7 @@ var Base_ClassList = {
 					source: [["SRD24", 74], ["P24", 156]],
 					minlevel: 2,
 					submenu: "[Warlock level  2+]",
-					description: desc("I can cast Jump on myself without expending a spell slot."),
+					description: desc("I can cast *Jump* on myself without expending a spell slot."),
 					spellcastingBonus: [{
 						name: "Otherworldly Leap",
 						spells: ["jump"],
@@ -2773,7 +2779,7 @@ var Base_ClassList = {
 					source: [["SRD24", 72], ["P24", 155]],
 					minlevel: 5,
 					submenu: "[Warlock level  5+]",
-					description: desc("I can cast Levitate on myself without expending a spell slot."),
+					description: desc("I can cast *Levitate* on myself without expending a spell slot."),
 					spellcastingBonus: [{
 						name: "Ascendant Step",
 						spells: ["levitate"],
@@ -2804,7 +2810,7 @@ var Base_ClassList = {
 					source: [["SRD24", 73], ["P24", 156]],
 					minlevel: 5,
 					submenu: "[Warlock level  5+]",
-					description: desc("I can breathe underwater and I have a Swim Speed equal to my Speed. Once per Long Rest, I can cast Water Breathing without expending a spell slot."),
+					description: desc("I can breathe underwater and I have a Swim Speed equal to my Speed. Once per Long Rest, I can cast *Water Breathing* without expending a spell slot."),
 					speed: { swim: { spd: "walk", enc: "walk" } },
 					spellcastingBonus: [{
 						name: "Gift of the Depths",
@@ -2818,7 +2824,7 @@ var Base_ClassList = {
 					source: [["SRD24", 73], ["P24", 156]],
 					minlevel: 5,
 					submenu: "[Warlock level  5+]",
-					description: desc("I can cast Alter Self without expending a spell slot."),
+					description: desc("I can cast *Alter Self* without expending a spell slot."),
 					submenu: "[Warlock level 15+]",
 					spellcastingBonus: [{
 						name: "Mask of Myriad Forms",
@@ -2832,7 +2838,7 @@ var Base_ClassList = {
 					source: [["SRD24", 74], ["P24", 156]],
 					minlevel: 5,
 					submenu: "[Warlock level  5+]",
-					description: desc("While I'm in Dim Light or Darkness, I can cast Invisibility on myself without using a spell slot."),
+					description: desc("While I'm in Dim Light or Darkness, I can cast *Invisibility* on myself without using a spell slot."),
 					spellcastingBonus: [{
 						name: "One with Shadows",
 						spells: ["invisibility"],
@@ -2853,7 +2859,7 @@ var Base_ClassList = {
 					source: [["SRD24", 74], ["P24", 157]],
 					minlevel: 7,
 					submenu: "[Warlock level  7+]",
-					description: desc("I can cast Speak with Dead without expending a spell slot."),
+					description: desc("I can cast *Speak with Dead* without expending a spell slot."),
 					spellcastingBonus: [{
 						name: "Whispers of the Grave",
 						spells: ["speak with dead"],
@@ -2867,7 +2873,7 @@ var Base_ClassList = {
 					source: [["SRD24", 74], ["P24", 157]],
 					minlevel: 9,
 					submenu: "[Warlock level  9+]",
-					description: desc("I can cast Arcane Eye without expending a spell slot."),
+					description: desc("I can cast *Arcane Eye* without expending a spell slot."),
 					spellcastingBonus: [{
 						name: "Visions of Distant Realms",
 						spells: ["arcane eye"],
@@ -2970,7 +2976,7 @@ var Base_ClassList = {
 					name: "Pact of the Chain",
 					source: [["SRD24", 74], ["P24", 157]],
 					description: desc([
-						"As a Magic action, I can cast Find Familiar without expending a spell slot. When I do so, I can have the familiar take on a special form (see Companion page).",
+						"As a Magic action, I can cast *Find Familiar* without expending a spell slot. When I do so, I can have the familiar take on a special form (see Companion page).",
 						"Additionally, when I take the Attack action, I can forgo one of my attacks to allow my familiar to use its Reaction to make one attack of its own."
 					]),
 					spellcastingBonus: [{
@@ -3155,7 +3161,7 @@ var Base_ClassList = {
 				name: "Contact Patron",
 				source: [["SRD24", 72], ["P24", 155]],
 				minlevel: 9,
-				description: desc('I always have Contact Other Plane prepared. Once per Long Rest, I can cast it without expending a spell slot and then automatically succeed on its saving throw.'),
+				description: desc('I always have *Contact Other Plane* prepared. Once per Long Rest, I can cast it without expending a spell slot and then automatically succeed on its saving throw.'),
 				spellcastingBonus: [{
 					name: "Contact Patron",
 					spells: ["contact other plane"],
@@ -3303,7 +3309,7 @@ var Base_ClassList = {
 					name: "Scholar",
 					source: [["SRD24", 78], ["P24", 166]],
 					minlevel: 2,
-					description: desc('I gain Expertise in one of these skills in which I have proficiency: Arcana, History, Investigation, Medicine, Nature, or Religion. Use the "Choose Feature" button to select it.'),
+					description: ' #[Select option with "Choose Feature"]#' + desc('I gain Expertise in one of these skills in which I have proficiency: Arcana, History, Investigation, Medicine, Nature, or Religion. Use the "Choose Feature" button to select it.'),
 					skillstxt: "I gain Expertise in one skill: Arcana, History, Investigation, Medicine, Nature, or Religion.",
 					choices: ["Arcana Expertise", "History Expertise", "Investigation Expertise", "Medicine Expertise", "Nature Expertise", "Religion Expertise"],
 				};
@@ -3344,25 +3350,25 @@ var Base_ClassList = {
 					"class": "wizard",
 					level: [1, 1],
 					firstCol: "atwill",
-					spellMasteryLevel1: true,
+					spellMasteryLevel: 1,
 				}, {
 					name: "Spell Mastery level 2",
 					"class": "wizard",
 					level: [2, 2],
 					firstCol: "atwill",
-					spellMasteryLevel2: true,
+					spellMasteryLevel: 2,
 				}],
 				calcChanges: {
 					spellList: [
 						function(spList, spName, spType) {
 							// Limit the selectable spells to those in the spellbook
 							// This has the downside that newly added spells to the spellbook are only selectable the next time the dialog is opened
-							if (spList.spellMasteryLevel1 || spList.spellMasteryLevel2) {
+							if (spList.spellMasteryLevel) {
 								var oWiz = CurrentSpells.wizard;
 								var spellbook = oWiz.selectSp.concat(oWiz.selectBo);
 								if (oWiz.extra && oWiz.extraSpecial) spellbook = spellbook.concat(oWiz.extra);
 								var spellByLvl = CreateSpellList({spells: spellbook}, false, false, true);
-								var level = spList.spellMasteryLevel1 ? 1 : 2;
+								var level = isNaN(spList.spellMasteryLevel) ? 1 : spList.spellMasteryLevel;
 								var oneActionSpells = spellByLvl[level].filter(function (spell) {
 									return SpellsList[spell] && /\b(Act|1 ?a)/i.test(SpellsList[spell].time);
 								});
@@ -3469,12 +3475,12 @@ var Base_ClassSubList = {
 					atkAdd: [
 						function (fields, v) {
 							var lvl = classes.known.barbarian ? classes.known.barbarian.level : false;
-							if (lvl && v.isWeapon && fields.Mod === 1 && /\bfrenzy\b/i.test(v.WeaponTextName)) {
+							if (lvl && (v.isWeapon || v.baseWeaponName === "unarmed strike") && fields.Mod === 1 && /\bfrenzy\b/i.test(v.WeaponTextName)) {
 								var multiplier = lvl < 9 ? 2 : lvl < 16 ? 3 : 4;
 								fields.Description += (fields.Description ? '; ' : '') + '1/turn +' + multiplier + 'd6 damage';
 							}
 						},
-						'Add the text "Frenzy" to the name of a weapon that uses Strength to have the Frenzy bonus damage added to its description.'
+						'Add the text "Frenzy" to the name of a weapon that uses Strength to have the Frenzy bonus damage added to its description.',
 					],
 				},
 			},
@@ -3483,7 +3489,7 @@ var Base_ClassSubList = {
 				source: [["SRD24", 30], ["P24", 54]],
 				minlevel: 6,
 				description: desc("While Raging, I'm immune to being Charmed or Frightened. These end when I enter Rage."),
-				savetxt: { immune: ["Charmed (in rage)", "Frightened (in rage)"] },
+				savetxt: { immune: ["Charmed (in Rage)", "Frightened (in Rage)"] },
 			},
 			"subclassfeature10": {
 				name: "Retaliation",
@@ -3667,7 +3673,7 @@ var Base_ClassSubList = {
 				name: "Circle of the Land Spells",
 				source: [["SRD24", 46], ["P24", 84]],
 				minlevel: 3,
-				description: desc('Whenever I finish a Long Rest, I can choose which type of land I gain automatically prepared spells from: arid, polar, temperate, or tropical. Use the "Choose Feature" button above to either show one of these sets of spells, or all of them.'),
+				description: ' #[Select option with "Choose Feature"]#' + desc('Whenever I finish a Long Rest, I can choose which type of land I gain automatically prepared spells from: arid, polar, temperate, or tropical. Use the "Choose Feature" button above to either show one of these sets of spells, or all of them.'),
 				choices: ["Arid", "Polar", "Temperate", "Tropical", "show all"],
 				"arid": {
 					name: "Arid Land Circle Spells",
@@ -3766,7 +3772,7 @@ var Base_ClassSubList = {
 				name: "Nature's Ward",
 				source: [["SRD24", 46], ["P24", 85]],
 				minlevel: 10,
-				description: desc('I am immune to being Poisoned and have Resistance to a damage type associated with the land I\'ve currently chosen for my Circle Spells. Use the "Choose Feature" button above to select a land to add its associated Resistance, or select to show all of them.'),
+				description: ' #[Select option with "Choose Feature"]#' + desc('I am immune to being Poisoned and have Resistance to a damage type associated with the land I\'ve currently chosen for my Circle Spells. Use the "Choose Feature" button above to select a land to add its associated Resistance, or select to show all of them.'),
 				savetxt: { immune: ["Poisoned"] },
 				choices: ["Arid", "Polar", "Temperate", "Tropical", "show all"],
 				choicesNotInMenu: true,
@@ -4170,7 +4176,7 @@ var Base_ClassSubList = {
 				name: "Elemental Affinity",
 				source: [["SRD24", 70], ["P24", 148]],
 				minlevel: 6,
-				description: desc([
+				description: ' #[Select option with "Choose Feature"]#' + desc([
 					'Choose a damage type using the "Choose Feature" button above.',
 					"I gain resistance to and add my Charisma modifier to spells of the chosen damage type.",
 				]),

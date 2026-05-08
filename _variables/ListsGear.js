@@ -146,7 +146,7 @@ var Base_WeaponsList = {
 	// Unarmed strikes
 	"unarmed strike": {
 		regExpSearch: /\b(fists?|arms?|legs?|foot|feet|claws?|talons?)\b|^(?=.*unarmed)(?=.*strike).*$|^(?=.*martial)(?=.*arts).*$|^(?=.*tavern)(?=.*brawler).*$/i,
-		name: "Unarmed strike (Damage)",
+		name: "Unarmed Strike (Damage)",
 		source: [["SRD24", 190], ["P24", 377]],
 		// list : "melee", // Hardcoded in dropdown
 		ability: 1,
@@ -165,7 +165,7 @@ var Base_WeaponsList = {
 		type: "Natural",
 		damage: ["Str/Dex save", "", "Shove/Grapple"],
 		range: "Melee",
-		description: "Up to 1 size larger; Push 5 ft or prone or grappled condition; Can damage instead (with attack roll)",
+		description: "Up to 1 size larger; Push 5 ft, Prone, or Grappled; Can damage instead (with attack roll)",
 		monkweapon: true,
 		abilitytodamage: false,
 		dc: true,
