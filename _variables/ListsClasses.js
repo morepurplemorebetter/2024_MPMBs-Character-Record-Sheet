@@ -564,7 +564,7 @@ var Base_ClassList = {
 				additional: levels.map(function (n) {
 					return "d" + (n < 5 ? 6 : n < 10 ? 8 : n < 15 ? 10 : 12);
 				}),
-				usages: "Charisma mod" + (typePF ? " per " : "ifier per "),
+				usages: (typePF ? "Cha" : "Charisma") + " mod per ",
 				usagescalc: "event.value = Math.max(1, What('Cha Mod'));",
 				recovery: levels.map(function (n) {
 					return n < 5 ? "Long Rest" : "Short Rest"; // Font of Inspiration
@@ -591,7 +591,7 @@ var Base_ClassList = {
 					source: [["SRD24", 32], ["P24", 60]],
 					minlevel: 2,
 					description: levels.map(function (n) {
-						return n < 2 ? "" : " [with " + (n < 9 ? 2 : 4) + " skills I'm proficient with]";
+						return n < 2 ? "" : " [in " + (n < 9 ? 2 : 4) + " skills I'm proficient with]";
 					}),
 					skillstxt: "Expertise with any two skill proficiencies, and two more at 9th level.",
 					extraTimes: levels.map(function (n) { return n < 2 ? 0 : n < 9 ? 2 : 4; }),
@@ -629,7 +629,7 @@ var Base_ClassList = {
 				name: "Font of Inspiration",
 				source: [["SRD24", 32], ["P24", 61]],
 				minlevel: 5,
-				description: desc("I can expend a spell slot (SS) to regain a Bardic Inspiration use " + (typePF ? "and I" : "\x26") + " regain all on a Short Rest."),
+				description: desc("I can expend a spell slot (SS" + (typePF ? " 1+" : "") + ") to regain a Bardic Inspiration use " + (typePF ? "and" : "\x26") + " regain all on a Short Rest."),
 			},
 			"countercharm": {
 				name: "Countercharm",
@@ -1281,7 +1281,10 @@ var Base_ClassList = {
 				name: "Fighting Style",
 				source: [["SRD24", 47], ["P24", 91]],
 				minlevel: 1,
-				description: desc('Choose a Fighting Style Feat using the "Choose Feature" button above.\nI can swap this fighting style for another whenever I gain a Fighter level.'),
+				description: ' #[Select option with "Choose Feature"]#' + desc([
+					'Choose a Fighting Style Feat using the "Choose Feature" button above.',
+					"I can swap this fighting style for another whenever I gain a Fighter level."
+				]),
 				choicesFightingStyles: {
 					description: desc('I can swap this fighting style for another whenever I gain a Fighter level.'),
 				},
@@ -1415,7 +1418,8 @@ var Base_ClassList = {
 					atkAdd: [
 						function (fields, v) {
 							// Stop if no Monk levels are present
-							if (!classes.known.monk || !classes.known.monk.level) return;
+							var n = classes.known.monk ? classes.known.monk.level : false;
+							if (!n) return;
 							// Mark light martial weapons as proficient if Monk is the primary class
 							var isLightMartial = /martial/i.test(v.theWea.type) && /\blight\b/i.test(fields.Description);
 							if ( isLightMartial && !fields.Proficiency && classes.primary === "monk" ) {
@@ -1427,7 +1431,7 @@ var Base_ClassList = {
 							if ( v.theWea.monkweapon || ( v.isMeleeWeapon && ( isLightMartial || /simple/i.test(v.theWea.type) ) ) ) {
 								v.theWea.monkweapon = true;
 								// Improve the damage die if there is one and the Martial Arts die is better
-								var aMonkDie = function (n) { return n < 5 ? 6 : n < 11 ? 8 : n < 17 ? 10 : 12; }(classes.known.monk.level);
+								var aMonkDie = n < 5 ? 6 : n < 11 ? 8 : n < 17 ? 10 : 12;
 								var rxDice = /(\d+)d?(\d*)/;
 								if (rxDice.test(fields.Damage_Die)) {
 									var curDie = fields.Damage_Die.match(rxDice);
@@ -1436,7 +1440,7 @@ var Base_ClassList = {
 										fields.Damage_Die = fields.Damage_Die.replace(curDie[0], '1d' + aMonkDie);
 									}
 								}
-								// Set the ability to the highest of Str and Dex, if currently one of those
+								// Set the ability to the highest of Str and Dex, if currently one of those or lower than Str or Dex
 								if (fields.Mod === 1 || fields.Mod === 2 || What(AbilityScores.abbreviations[fields.Mod - 1] + " Mod") < What(AbilityScores.abbreviations[v.StrDex - 1] + " Mod")) {
 									fields.Mod = v.StrDex;
 								}
@@ -1611,7 +1615,7 @@ var Base_ClassList = {
 				name: "Evasion",
 				source: [["SRD24", 51], ["P24", 103]],
 				minlevel: 7,
-				description: " [if not Incapacitated]\nWhen I make a Dex save to halve damage, I instead take none if I succeed and half if I fail.",
+				description: " [if not Incapacitated]" + desc("When I make a Dex save to halve damage, I instead take none if I succeed and half if I fail."),
 				savetxt: { text: ["**Dex Save for Half**. *Failure:* half dmg, *Success:* no dmg"] },
 			},
 			"acrobatic movement": {
@@ -2005,7 +2009,7 @@ var Base_ClassList = {
 					source: [["SRD24", 59], ["P24", 120]],
 					minlevel: 2,
 					description: levels.map(function (n) {
-						return " [2 languages; Expertise with " + (n < 9 ? "1 skill]" : "3 skills]");
+						return " [2 languages; Expertise in " + (n < 9 ? "1 skill]" : "3 skills]");
 					}),
 					skillstxt: "Expertise with any one skill proficiency, and two more at 9th level.",
 					languageProfs: [2],
@@ -2196,7 +2200,7 @@ var Base_ClassList = {
 					source: [["SRD24", 61], ["P24", 129]],
 					minlevel: 1,
 					description: levels.map(function (n) {
-						return " [with " + (n < 6 ? 2 : 4) + " skills I'm proficient with]";
+						return " [in " + (n < 6 ? 2 : 4) + " skills I'm proficient with]";
 					}),
 					skillstxt: "Expertise with any two skill proficiencies, and two more at 6th level.",
 					extraTimes: levels.map(function (n) { return n < 6 ? 2 : 4; }),
@@ -2329,7 +2333,7 @@ var Base_ClassList = {
 				name: "Evasion",
 				source: [["SRD24", 63], ["P24", 131]],
 				minlevel: 7,
-				description: " [if not Incapacitated]\nWhen I make a Dex save to halve damage, I instead take none if I succeed and half if I fail.",
+				description: " [if not Incapacitated]" + desc("When I make a Dex save to halve damage, I instead take none if I succeed and half if I fail."),
 				savetxt: { text: ["**Dex Save for Half**. *Failure:* half dmg, *Success:* no dmg"] },
 			},
 			"reliable talent": {
@@ -3502,7 +3506,7 @@ var Base_ClassSubList = {
 				name: "Intimidating Presence",
 				source: [["SRD24", 30], ["P24", 54]],
 				minlevel: 14,
-				description: desc("As a Bonus Action, I can have any creature of my choice within 30 ft make a Wisdom save or be Frightened of me for 1 minute (DC 8 + Str mod + Prof B.). They can repeat this save at each of their turn's end. I can do this once per Long Rest or by expending a Rage use."),
+				description: desc("As a Bonus Action, I can have any creature of my choice within 30 ft make a Wisdom save or be Frightened of me for 1 minute (DC 8 + Str mod + Prof B.). They can repeat this save at each of their turn's end. I can expend a use of Rage to regain use of this."),
 				action: [["bonus action", ""]],
 				usages: 1,
 				recovery: "Long Rest",
@@ -3514,6 +3518,7 @@ var Base_ClassSubList = {
 	"bard-lore": {
 		regExpSearch: /^(?=.*(college|bard|minstrel|troubadour|jongleur))(?=.*lore).*$/i,
 		subname: "College of Lore",
+		subnameShort: "Lore",
 		source: [["SRD24", 35], ["P24", 66]],
 		features: {
 			"subclassfeature3": {
@@ -3851,7 +3856,7 @@ var Base_ClassSubList = {
 				name: "Additional Fighting Style",
 				source: [["SRD24", 49], ["P24", 96]],
 				minlevel: 7,
-				description: desc('Choose another Fighting Style Feat using the "Choose Feature" button above.'),
+				description: ' #[Select option with "Choose Feature"]#' + desc('Choose another Fighting Style Feat using the "Choose Feature" button above.'),
 				choicesFightingStyles: {
 					namePrefix: "Additional Fighting Style: ",
 				},
@@ -4026,7 +4031,7 @@ var Base_ClassSubList = {
 					" \u2022 ***Holy Ward***. I have Advantage on saving throws I'm forced to make by a Fiend or Undead.",
 					" \u2022 ***Radiant Damage*** (Cha mod + Prof Bonus) is dealt to enemies starting " + (typePF ? "their" : "its") + " turn in the aura.",
 					" \u2022 ***Sunlight***. The aura is filled with Bright Light that is sunlight.",
-					"I can end it for free. I can do this once per Long Rest or by using a level 5 spell slot (SS 5+).",
+					"I can end it for free. I can expend a level 5+ spell slot (SS 5+) to regain use of this.",
 				]),
 				recovery: "Long Rest",
 				usages: 1,
@@ -4291,7 +4296,7 @@ var Base_ClassSubList = {
 				name: "Dragon Wings",
 				source: [["SRD24", 70], ["P24", 148]],
 				minlevel: 14,
-				description: desc("As a Bonus Action, I can gain wings on my back that give me 60 ft Fly speed for 1 hour or until I dismiss them (no action). I can do this once per " + (typePF ? "Long Rest" : "LR") + " or by spending 3 Sorcery Points."),
+				description: desc("As a Bonus Action, I can gain wings on my back that give me 60 ft Fly speed for 1 hour or until I dismiss them (no action). I can expend 3 Sorcery Points to regain use of this."),
 				action: [["bonus action", ""]],
 				usages: 1,
 				recovery: "Long Rest",
@@ -4352,7 +4357,7 @@ var Base_ClassSubList = {
 				name: "Hurl Through Hell",
 				source: [["SRD24", 76], ["P24", 162]],
 				minlevel: 14,
-				description: desc("Once per turn when I hit a creature with an attack roll, I can try to move it to the Lower Planes. It must make a Charisma save or disappear, take 8d10 Psychic damage if it isn't a Fiend, and be Incapacitated until my next turn ends, when it returns in the same or closest empty spot. I can do this once per Long Rest or by expending a Pact Magic spells slot (PSS)."),
+				description: desc("Once per turn when I hit a creature with an attack roll, I can try to move it to the Lower Planes. It must make a Charisma save or disappear, take 8d10 Psychic damage if it isn't a Fiend, and be Incapacitated until my next turn ends, when it returns in the same or closest empty spot. I can expend a Pact Magic spells slot (PSS) to regain use of this."),
 				recovery: "Long Rest",
 				usages: 1,
 				altResource: "PSS",
