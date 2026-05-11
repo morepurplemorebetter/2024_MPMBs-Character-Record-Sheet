@@ -1293,7 +1293,12 @@ var Base_ClassList = {
 				name: "Second Wind",
 				source: [["SRD24", 48], ["P24", 91]],
 				minlevel: 1,
-				description: desc("As a bonus action, I regain 1d10 + my Fighter level HP."),
+				description: levels.map(function (n) {
+					var text = "As a Bonus Action, I can regain 1d10 + " + n + " (Fighter level) HP"
+					if (n >= 5) text += " and I can move up to half my Speed without provoking Opportunity Attacks";
+					text += ".";
+					return desc(text);
+				}),
 				additional: levels.map(function (n) { return "1d10+" + n + ", regain 1/SR"; }),
 				usages: levels.map(function (n) { return n < 4 ? 2 : n < 10 ? 3 : 4; }),
 				recovery: "Long Rest",
@@ -1314,7 +1319,9 @@ var Base_ClassList = {
 				additional: levels.map(function (n) {
 					return (n < 4 ? 3 : n < 10 ? 4 : n < 16 ? 5 : 6) + " Weapon Masteries";
 				}),
-				extraTimes: levels.map(function (n) { return n < 4 ? 3 : n < 10 ? 4 : n < 16 ? 5 : 6; }),
+				extraTimes: levels.map(function (n) {
+					return n < 4 ? 3 : n < 10 ? 4 : n < 16 ? 5 : 6;
+				}),
 				extraname: "Weapon Mastery",
 				choicesWeaponMasteries: true,
 			},
@@ -1325,7 +1332,9 @@ var Base_ClassList = {
 				description: levels.map(function (n) {
 					return desc("On my turn I can take an additional action, except the Magic action." + (n < 17 ? '' : " Only once per turn."));
 				}),
-				usages: levels.map(function (n) { return n < 2 ? 0 : n < 17 ? 1 : 2; }),
+				usages: levels.map(function (n) {
+					return n < 2 ? 0 : n < 17 ? 1 : 2;
+				}),
 				recovery: "Short Rest",
 			},
 			"tactical mind": {
@@ -1333,6 +1342,7 @@ var Base_ClassList = {
 				source: [["SRD24", 48], ["P24", 91]],
 				minlevel: 2,
 				description: desc("If I fail an ability check, I can expend a Second Wind to add 1d10. If still fail, not expended."),
+				additional: "1 Second Wind",
 			},
 			"subclassfeature3": {
 				name: "Fighter Subclass",
@@ -1344,14 +1354,21 @@ var Base_ClassList = {
 				name: "Tactical Shift",
 				source: [["SRD24", 48], ["P24", 92]],
 				minlevel: 5,
-				description: desc("When I use Second Wind, I can move half my speed without provoking Opportunity Attacks."),
+				description: " [improves Second Wind: move half Speed]",
 			},
 			"indomitable": {
 				name: "Indomitable",
 				source: [["SRD24", 48], ["P24", 92]],
 				minlevel: 9,
-				description: desc("I can reroll a failed saving throw and add my Fighter level, but must keep the new result."),
-				usages: levels.map(function (n) { return n < 9 ? 0 : n < 13 ? 1 : n < 17 ? 2 : 3; }),
+				description: levels.map(function (n) {
+					return n < 9 ? "" : desc("When I fail a save, I can reroll it with a +" + n + " (Fighter level), but must keep the new result.");
+				}),
+				additional: levels.map(function (n) {
+					return n < 9 ? "" : "reroll with +" + n;
+				}),
+				usages: levels.map(function (n) {
+					return n < 9 ? 0 : n < 13 ? 1 : n < 17 ? 2 : 3;
+				}),
 				recovery: "Long Rest",
 			},
 			"studied attacks": {
