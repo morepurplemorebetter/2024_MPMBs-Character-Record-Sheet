@@ -2844,10 +2844,11 @@ function AddSubClass(iClass, subclassName, subclassObj, bDoNotConvert) {
 	if (!ClassList[iClass]) return;
 	if (!ClassList[iClass].subclassGainedLevel || !ClassList[iClass].subclasses) fixClassReferences(true);
 	var suffix = 1;
-	var fullScNm = iClass + "-" + subclassName;
+	var baseScNm = iClass + "-" + subclassName;
+	var fullScNm = baseScNm;
 	while (ClassList[iClass].subclasses[1].indexOf(fullScNm) !== -1 || ClassSubList[fullScNm]) {
-		suffix += 1;
-		fullScNm += suffix;
+		suffix++;
+		fullScNm = baseScNm + "-" + suffix;
 	};
 	ClassList[iClass].subclasses[1].push(fullScNm);
 	// For legacy subclasses, we need to change at what level the subclass features are gained
@@ -2900,13 +2901,13 @@ function convert5eFeatureTo2024(iClass, feaObj) {
 			continue;
 		}
 		// Channel Divinity has a new style, update the old style
-		if (/^channel divinity:/i.test(feature.name)) {
+		if (/^channel divinity: /i.test(feature.name)) {
 			feature.name = feature.name.replace(/^channel divinity: /i, '');
 			if (!feature.additional) {
 				feature.additional = "1 Channel Divinity";
 			} else if (isArray(feature.additional)) {
 				feature.additional = feature.additional.map(function (n) {
-					return "1 CD; " + n;
+					return n ? "1 CD; " + n : n;
 				});
 			} else {
 				feature.additional = "1 CD; " + feature.additional;

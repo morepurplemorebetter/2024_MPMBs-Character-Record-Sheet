@@ -889,7 +889,7 @@ var Base_ClassList = {
 				source: [["SRD24", 38], ["P24", 71]],
 				minlevel: 20,
 				description: desc([
-					"When I use Divine Intervention, I can choose Wish when I select a spell.",
+					"When I use Divine Intervention, I can choose *Wish* when I select a spell.",
 					"If I do so, I can't use Divine Intervention again until I finish 2d4 Long Rests.",
 				]),
 			},
@@ -1289,7 +1289,7 @@ var Base_ClassList = {
 					description: desc('I can swap this fighting style for another whenever I gain a Fighter level.'),
 				},
 			},
-			"second wind": {
+			"second wind": { // includes Tactical Shift
 				name: "Second Wind",
 				source: [["SRD24", 48], ["P24", 91]],
 				minlevel: 1,
@@ -1313,8 +1313,7 @@ var Base_ClassList = {
 						"I gain mastery with a number of Simple/Martial weapons. Whenever I finish a Long Rest,",
 						'I can change one of these choices. Use the "Choose Feature" button above to select them.',
 					];
-					if (n >= 15) text = "Whenever I finish a Long Rest, I can change one weapon mastery choice.";
-					return desc(text);
+					return n < 18 ? desc(text) : " (change 1/Long Rest)";
 				}),
 				additional: levels.map(function (n) {
 					return (n < 4 ? 3 : n < 10 ? 4 : n < 16 ? 5 : 6) + " Weapon Masteries";
@@ -2295,7 +2294,7 @@ var Base_ClassList = {
 				name: "Steady Aim",
 				source: [["SRD24", 62], ["P24", 130]],
 				minlevel: 3,
-				description: desc("As a Bonus Action if I don't move during my turn, I can give myself Advantage on my next attack roll this turn. After I use this, my Speed becomes 0 until the end of the current turn."),
+				description: desc("As a Bonus Action if I have not moved during my turn, I can give myself Advantage on my next attack roll this turn. After I use this, my Speed becomes 0 until the end of the turn."),
 				action: [["bonus action", ""]],
 			},
 			"subclassfeature3": {
@@ -3523,7 +3522,7 @@ var Base_ClassSubList = {
 				name: "Intimidating Presence",
 				source: [["SRD24", 30], ["P24", 54]],
 				minlevel: 14,
-				description: desc("As a Bonus Action, I can have any creature of my choice within 30 ft make a Wisdom save or be Frightened of me for 1 minute (DC 8 + Str mod + Prof B.). They can repeat this save at each of their turn's end. I can expend a use of Rage to regain use of this."),
+				description: desc("As a Bonus Action, I can have any creature of my choice within 30 ft make a Wisdom save or be Frightened of me for 1 minute (DC 8 + Str mod + Prof B.). They can repeat this save at each of their turn's end. I can expend a use of Rage to restore use of this feature."),
 				action: [["bonus action", ""]],
 				usages: 1,
 				recovery: "Long Rest",
@@ -3643,7 +3642,7 @@ var Base_ClassSubList = {
 				additional: levels.map(function (n) {
 					return n < 3 ? "" : "1 Channel Divinity; divide " + (n * 5) + " Hit Points";
 				}),
-				action: [["action", "Preserve Life (Channel Divinity)"]],
+				action: [["action", " (Channel Divinity)"]],
 			},
 			"subclassfeature6": {
 				name: "Blessed Healer",
@@ -3732,8 +3731,8 @@ var Base_ClassSubList = {
 					],
 					calcChanges: {
 						spellAdd: [
-							function (spellKey, spellObj, spName, isDuplicate) {
-								if (spName !== "druid" || isDuplicate) return;
+							function (spellKey, spellObj, spName, isDuplicate, isBonusSpell) {
+								if (spName !== "druid" || isBonusSpell) return;
 								var oRef = ClassSubList['druid-land'].features.subclassfeature3;
 								for (var i = 0; i < oRef.choices.length; i++) {
 									var chc = oRef.choices[i];
@@ -4048,7 +4047,7 @@ var Base_ClassSubList = {
 					" \u2022 ***Holy Ward***. I have Advantage on saving throws I'm forced to make by a Fiend or Undead.",
 					" \u2022 ***Radiant Damage*** (Cha mod + Prof Bonus) is dealt to enemies starting " + (typePF ? "their" : "its") + " turn in the aura.",
 					" \u2022 ***Sunlight***. The aura is filled with Bright Light that is sunlight.",
-					"I can end it for free. I can expend a level 5+ spell slot (SS 5+) to regain use of this.",
+					"I can end it for free. I can expend a level 5+ spell slot (SS 5+) to restore use of this feature.",
 				]),
 				recovery: "Long Rest",
 				usages: 1,
@@ -4313,7 +4312,7 @@ var Base_ClassSubList = {
 				name: "Dragon Wings",
 				source: [["SRD24", 70], ["P24", 148]],
 				minlevel: 14,
-				description: desc("As a Bonus Action, I can gain wings on my back that give me 60 ft Fly speed for 1 hour or until I dismiss them (no action). I can expend 3 Sorcery Points to regain use of this."),
+				description: desc("As a Bonus Action, I can gain wings on my back that give me 60 ft Fly speed for 1 hour or until I dismiss them (no action). I can expend 3 Sorcery Points to restore use of this feature."),
 				action: [["bonus action", ""]],
 				usages: 1,
 				recovery: "Long Rest",
@@ -4374,7 +4373,7 @@ var Base_ClassSubList = {
 				name: "Hurl Through Hell",
 				source: [["SRD24", 76], ["P24", 162]],
 				minlevel: 14,
-				description: desc("Once per turn when I hit a creature with an attack roll, I can try to move it to the Lower Planes. It must make a Charisma save or disappear, take 8d10 Psychic damage if it isn't a Fiend, and be Incapacitated until my next turn ends, when it returns in the same or closest empty spot. I can expend a Pact Magic spells slot (PSS) to regain use of this."),
+				description: desc("Once per turn when I hit a creature with an attack roll, I can try to move it to the Lower Planes. It must make a Charisma save or disappear, take 8d10 Psychic damage if it isn't a Fiend, and be Incapacitated until my next turn ends, when it returns in the same or closest empty spot. I can expend a Pact Magic spells slot (PSS) to restore use of this feature."),
 				recovery: "Long Rest",
 				usages: 1,
 				altResource: "PSS",

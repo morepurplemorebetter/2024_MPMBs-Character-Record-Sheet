@@ -610,4 +610,32 @@ WeaponsList["purple sword"] = {
 
 	Setting this to false is the same as not including this attribute.
 */
+	mastery: "vex",
+/*	mastery // OPTIONAL //
+	TYPE:	string
+	USE:	set the mastery this weapon has
+	ADDED:	v24.0.0
+
+	The value of this attribute has to match an object name of a mastery in the
+	`WeaponMasteriesList` attribute.
+	By default these are: "cleave", "graze", "nick", "push", "sap", "slow", "topple", and "vex".
+	Add-on scripts can define additional entries in the `WeaponMasteriesList` object.
+
+	The weapon mastery will be added on the first page and only if the text "Mastery", "[M]",
+	or "(M)" is added to the weapon's name, or the weapon is selected through a "Weapon Mastery"
+	class feature using the "Choose Feature" button, or if `masteryAlways` is true (see below).
+
+	Setting this to false or an empty string is the same as not including this attribute.
+*/
+	masteryAlways: true,
+/*	masteryAlways // OPTIONAL //
+	TYPE:	boolean
+	USE:	always add the mastery to this weapon
+	ADDED:	v24.0.8
+
+	If this attribute is set to `true` and the `mastery` attribute (see above) is defined,
+	the sheet will always add the mastery to the weapon when selected on the first page.
+
+	Setting this to false is the same as not including this attribute.
+*/
 }
