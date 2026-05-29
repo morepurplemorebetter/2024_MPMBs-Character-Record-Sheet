@@ -1032,7 +1032,7 @@ var Base_WeaponsList = {
 		type: "Cantrip",
 		damage: ["C", 6, "psychic"],
 		range: "60 ft",
-		description: "Wis save to avoid; Target has disadv. on its next attack roll before its next turn ends",
+		description: "Wis save to avoid; Target has Disadv on its next attack roll before its next turn ends",
 		abilitytodamage: false,
 		dc: true,
 	},
@@ -2309,7 +2309,7 @@ var Base_WeaponMasteriesList = {
 	"vex": {
 		name: "Vex",
 		source: [["SRD24", 90], ["P24", 214]],
-		description: "If I damage a creature, I have Advantage on my next attack vs. it before my next turn ends.",
+		description: "If I damage a creature, I have Advantage on my next attack vs it before my next turn ends.",
 		descriptionFull: "If you hit a creature with this weapon and deal damage to the creature, you have Advantage on your next attack roll against that creature before the end of your next turn.",
 	},
 };

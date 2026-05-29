@@ -706,7 +706,7 @@ savetxt: {
 	The attributes of this object can be "text", "immune", and "adv_vs"
 */
 
-	text: ["Dex save vs. area effects: fail \u2015 half dmg, success \u2015 no dmg", "Magic can't put me to sleep"],
+	text: ["Dex save vs area effects: fail \u2015 half dmg, success \u2015 no dmg", "Magic can't put me to sleep"],
 	/*	text // OPTIONAL //
 		TYPE:	array of strings
 		USE:	add a text to the 1st page
@@ -737,12 +737,12 @@ savetxt: {
 	adv_vs: ["traps", "charmed", "sleep (by magic)"]
 	/*	adv_vs // OPTIONAL //
 		TYPE:	array of strings
-		USE:	add strings to the "Adv. on saves vs." text on the 1st page
+		USE:	add strings to the "Adv on saves vs" text on the 1st page
 		CHANGE:	v13.1.0 (conditional added)
 
-		Each string in the array is added to the list of "Adv. on saves vs." things in the 1st page "Saving Throws" section.
+		Each string in the array is added to the list of "Adv on saves vs" things in the 1st page "Saving Throws" section.
 		Saving throw advantages from all sources are combined and listed alphabetically.
-		In this example it would result in "Adv. on saves vs. charmed, sleep (by magic), and traps".
+		In this example it would result in "Adv on saves vs charmed, sleep (by magic), and traps".
 
 		CONDITIONAL (since v13.1.0)
 		If the string contains something between brackets, then whatever is between those brackets is seen

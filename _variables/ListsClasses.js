@@ -54,7 +54,7 @@ var FightingStyles = {
 	protection: {
 		name: "Protection Fighting Style",
 		description: desc([
-			"As a reaction, I can give disadv. on an attack made vs. someone within 5 ft of me",
+			"As a reaction, I can give Disadv on an attack made vs someone within 5 ft of me",
 			"I need to be wielding a shield and be able to see the attacker to do this"
 		]),
 		action: [["reaction", ""]]
@@ -304,7 +304,7 @@ var Base_ClassList = {
 					["Piercing",    "Piercing (in Rage)"],
 					["Slashing",    "Slashing (in Rage)"],
 				],
-				savetxt: { text: ["Adv. on Str saves in Rage"] },
+				savetxt: { text: ["Adv on Str saves in Rage"] },
 				calcChanges: {
 					atkCalc: [
 						function (fields, v, output) {
@@ -357,16 +357,16 @@ var Base_ClassList = {
 				source: [["SRD24", 29], ["P24", 52]],
 				minlevel: 2,
 				description: levels.map(function (n) {
-					return n < 14 ? desc("I have Advantage on Dexterity saving throws unless I have the Incapacitated condition.") : " [Adv. on Dex saves if not Incapacitated]";
+					return n < 14 ? desc("I have Advantage on Dexterity saving throws unless I have the Incapacitated condition.") : " [Adv on Dex saves if not Incapacitated]";
 				}),
-				savetxt: { text: ["Adv. on Dex saves"] },
+				savetxt: { text: ["Adv on Dex saves"] },
 				advantages: [["Dexterity", true]],
 			},
 			"reckless attack": {
 				name: "Reckless Attack",
 				source: [["SRD24", 29], ["P24", 52]],
 				minlevel: 2,
-				description: desc("As I roll my first attack on my turn, I can decide to attack recklessly. This gives me Adv. on attacks using Strength until my next turn starts, but then attacks against me also gain Adv."),
+				description: desc("As I roll my first attack on my turn, I can decide to attack recklessly. This gives me Adv on attacks using Strength until my next turn starts, but then attacks against me also gain Adv."),
 			},
 			"subclassfeature3": {
 				name: "Barbarian Subclass",
@@ -411,7 +411,7 @@ var Base_ClassList = {
 				source: [["SRD24", 29], ["P24", 53]],
 				minlevel: 7,
 				description: levels.map(function (n) {
-					return n < 14 ? desc("I have Advantage on Initiative rolls because my instincts are so honed.") : " [Adv. on Initiative]";
+					return n < 14 ? desc("I have Advantage on Initiative rolls because my instincts are so honed.") : " [Adv on Initiative]";
 				}),
 				advantages: [["Initiative", true]],
 			},
@@ -422,7 +422,7 @@ var Base_ClassList = {
 				description: levels.map(function (n) {
 					var dice = n < 17 ? 1 : 2;
 					var effects =  n < 17 ? '1 effect' : '2 effects';
-					return desc("If I use Reckless Attack, I can forgo any Adv. on one Strength-based attack on my turn that doesn't have Disadv. so that on a hit it does +" + dice + "d10 damage and " + effects + " (see 3rd page).");
+					return desc("If I use Reckless Attack, I can forgo any Adv on one Strength-based attack on my turn that doesn't have Disadv so that on a hit it does +" + dice + "d10 damage and " + effects + " (see 3rd page).");
 				}),
 				additional: levels.map(function (n) {
 					return n < 17 ? '+1d10 damage, 1 effect' : '+2d10 damage, 2 effects';
@@ -802,7 +802,7 @@ var Base_ClassList = {
 				minlevel: 2,
 				description: levels.map(function (n) {
 					var arr = ["As a Magic action, I can use 1 CD and my Holy Symbol to have each Undead of my choice within 30 ft make a Wis save or be Frightened, Incapacitated, and move away as far as it can on its turn. This lasts for 1 min or until it takes damage, I'm Incapacitated, or I die."];
-					if (n >= 5) arr.push("On a failed save, they also take my Wisdom " + (typePF ? "modifier" : "mod") + " (min 1) number of d8s Radiant damage.");
+					if (n >= 5) arr.push("On a failed save, they also take my " + (typePF ? "Wisdom" : "Wis") + " modifier (min 1) number of d8s Radiant damage.");
 					return desc(arr);
 				}),
 				action: [["action", " (Channel Divinity)"]],
@@ -851,7 +851,7 @@ var Base_ClassList = {
 				"potent spellcasting": {
 					name: "Potent Spellcasting",
 					description: levels.map(function (n) {
-						return desc(n < 14 ? "I add my Wisdom modifier to the damage I deal with my Cleric cantrips." : "My Cleric cantrips get my Wisdom modifier added to their damage. When I deal damage with one, I can grant myself or a creature within 60 ft twice my Wisdom mod in Temp " + (typePF ? "Hit Points." : "HP."));
+						return desc(n < 14 ? "I add my Wisdom modifier to the damage I deal with my Cleric cantrips." : "My Cleric cantrips get my Wisdom modifier added to their damage. When I deal damage with one, I can grant myself or a creature within 60 ft twice my " + (typePF ? "Wisdom" : "Wis") + " modifier in Temp " + (typePF ? "Hit Points." : "HP."));
 					}),
 					calcChanges: GenericClassFeatures["potent spellcasting"].calcChanges,
 				},
@@ -1283,7 +1283,7 @@ var Base_ClassList = {
 				minlevel: 1,
 				description: ' #[Select option with "Choose Feature"]#' + desc([
 					'Choose a Fighting Style Feat using the "Choose Feature" button above.',
-					"I can swap this fighting style for another whenever I gain a Fighter level."
+					"I can swap this fighting style for another whenever I gain a Fighter level.",
 				]),
 				choicesFightingStyles: {
 					description: desc('I can swap this fighting style for another whenever I gain a Fighter level.'),
@@ -1294,7 +1294,7 @@ var Base_ClassList = {
 				source: [["SRD24", 48], ["P24", 91]],
 				minlevel: 1,
 				description: levels.map(function (n) {
-					var text = "As a Bonus Action, I can regain 1d10 + " + n + " (Fighter level) HP"
+					var text = "As a Bonus Action, I can regain 1d10 + " + n + " (Fighter level) HP";
 					if (n >= 5) text += " and I can move up to half my Speed without provoking Opportunity Attacks";
 					text += ".";
 					return desc(text);
@@ -1374,7 +1374,7 @@ var Base_ClassList = {
 				name: "Studied Attacks",
 				source: [["SRD24", 48], ["P24", 92]],
 				minlevel: 13,
-				description: desc("If I miss an attack, I have Adv. on next attack vs. same creature before my next turn ends."),
+				description: desc("If I miss an attack, I have Adv on next attack vs same creature before my next turn ends."),
 			},
 		},
 	},
@@ -1485,7 +1485,7 @@ var Base_ClassList = {
 				name: "Monk's Focus",
 				source: [["SRD24", 50], ["P24", 101]],
 				minlevel: 2,
-				description: "",
+				description: " (see third page)",
 				limfeaname: "Focus Points",
 				usages: levels.map(function (n) { return n < 2 ? "" : n }),
 				recovery: "Short Rest",
@@ -1864,11 +1864,10 @@ var Base_ClassList = {
 				name: "Aura of Protection",
 				source: [["SRD24", 55], ["P24", 111]],
 				minlevel: 6,
-				description: desc("While within my aura, my allies and I add my Charisma mod to saving throws (min +1)."),
 				description: levels.map(function (n) {
 					// Combine with Aura of Courage at level 20 to make room for capstone subclass feature
-					return desc(n < 20 ? 
-						"While within my aura, my allies and I add my Charisma mod to saving throws (min +1)." :
+					return desc(n < 20 ?
+						"While within my aura, my allies and I add my Charisma modifier to saves (min +1)." :
 						"While in my aura, my allies and I add my Cha mod to saves and have Frightened Immunity."
 					);
 				}),
@@ -1881,7 +1880,7 @@ var Base_ClassList = {
 				name: "Abjure Foes",
 				source: [["SRD24", 55], ["P24", 111]],
 				minlevel: 9,
-				description: desc("As a Magic action, I can use 1 CD and my Holy Symbol or weapon to have my " + (typePF ? "Charisma" : "Cha") + " mod (min 1) creatures within 60 ft make a " + (typePF ? "Wisdom" : "Wis") + " save or be Frightened for 1 min or until it takes damage. While Frightened, it can do only one " + (typePF ? "thing " : "") + "on its turn: move, action, or Bonus Action."),
+				description: desc("As a Magic action, I can use 1 CD and my Holy Symbol or weapon to have my Cha modifier (min 1) creatures within 60 ft make a " + (typePF ? "Wisdom" : "Wis") + " save or be Frightened for 1 min or until it takes damage. While Frightened, it can do only one " + (typePF ? "thing " : "") + "on its turn: move, action, or Bonus Action."),
 				additional: "1 Channel Divinity",
 				action: [["action", " (Channel Divinity)"]],
 			},
@@ -2091,7 +2090,7 @@ var Base_ClassList = {
 				description: levels.map(function (n) {
 					return desc(
 						n < 17 ?
-						"As a Magic action, I can gain Temporary " + (typePF ? "Hit Points" : "HP") + " equal to 1d8 + my Wisdom modifier, which I can do my " + (typePF ? "Wisdom" : "Wis") + " mod times per Long Rest. A Short Rest reduces my Exhaustion level by 1." :
+						"As a Magic action, I can gain Temporary " + (typePF ? "Hit Points" : "HP") + " equal to 1d8 + my Wisdom modifier, which I can do my Wis " + (typePF ? "modifier" : "mod") + " times per Long Rest. A Short Rest reduces my Exhaustion level by 1." :
 						"As a Magic action, I gain 1d8 + Wis mod Temp HP. Short Rests reduce my Exhaustion by 1."
 					);
 				}),
@@ -2315,7 +2314,7 @@ var Base_ClassList = {
 				"poison": {
 					name: "Poison",
 					source: [["SRD24", 63], ["P24", 130]],
-					description: desc("If I have a Poisoner's Kit on my person, I can add a toxin to my strike. The target must make a Con save or be Poisoned for 1 min. It can repeat the save at the end of each of its turns."),
+					description: desc("If I have a Poisoner's Kit on my person, I can add a toxin to my strike. The target must make a " + (typePF ? "Constitution" : "Con") + " save or be Poisoned for 1 min. It can repeat the save at the end of each of its turns."),
 					additional: "1d6 cost; Poisoner's Kit required",
 				},
 				"trip": {
@@ -2342,7 +2341,7 @@ var Base_ClassList = {
 				name: "Uncanny Dodge",
 				source: [["SRD24", 63], ["P24", 131]],
 				minlevel: 5,
-				description: desc("As a Reaction, I can halve the damage of an attack roll from an attacker that I can see."),
+				description: desc("As a Reaction when I'm hit by an attack from a source I can see, I can halve the damage."),
 				action: [["reaction", ""]],
 			},
 			"evasion": {
@@ -2362,7 +2361,7 @@ var Base_ClassList = {
 				name: "Devious Strikes",
 				source: [["SRD24", 63], ["P24", 131]],
 				minlevel: 14,
-				description: " [more Cunning Strike options]",
+				description: " [more Cunning Strike options]", // make undefined at level 20? If so, revise Soulknife
 				extraname: "Cunning Strike",
 				"daze": {
 					name: "Daze",
@@ -2972,7 +2971,7 @@ var Base_ClassList = {
 					minlevel: 12,
 					submenu: ["[Warlock level 12+]", "[improves Pact of the Blade]"],
 					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the blade') !== -1; },
-					description: desc("Once per turn when I hit a creature with my pact weapon, I can deal +1d6 Necrotic, Psychic, or Radiant damage, and I can use one HD to heal myself for its roll plus my Constitution mod."),
+					description: desc("Once per turn when I hit a creature with my pact weapon, I can deal +1d6 Necrotic, Psychic, or Radiant damage, and I can use one HD to heal myself for its roll plus my " + (typePF ? "Constitution" : "Con") + " modifier."),
 					calcChanges: {
 						atkAdd: [
 							function (fields, v) {
@@ -3025,7 +3024,7 @@ var Base_ClassList = {
 						" \u2022 ***Quick Attack***. As a Bonus Action, I can command it to take the Attack action.",
 						" \u2022 ***Damage***. I can have it deal Necrotic or Radiant damage instead of Bludg., Pierc., or Slash.",
 						" \u2022 ***My Save DC***. If it forces a creature to make a saving throw, it uses my spell save DC.",
-						" \u2022 ***Resistance***. As a Reaction when it takes damage, I can grant it resistance vs. that damage."
+						" \u2022 ***Resistance***. As a Reaction when it takes damage, I can grant it resistance vs that damage."
 					]),
 					action: [
 						["bonus action", "Chain Master: Quick Attack"],
@@ -3515,14 +3514,14 @@ var Base_ClassSubList = {
 				name: "Retaliation",
 				source: [["SRD24", 30], ["P24", 54]],
 				minlevel: 10,
-				description: desc("As a Reaction when a creature within 5 ft damages me, I can make a melee attack vs. it."),
+				description: desc("As a Reaction when a creature within 5 ft damages me, I can make a melee attack vs it."),
 				action: [["reaction", " (after taking damage)"]],
 			},
 			"subclassfeature14": {
 				name: "Intimidating Presence",
 				source: [["SRD24", 30], ["P24", 54]],
 				minlevel: 14,
-				description: desc("As a Bonus Action, I can have any creature of my choice within 30 ft make a Wisdom save or be Frightened of me for 1 minute (DC 8 + Str mod + Prof B.). They can repeat this save at each of their turn's end. I can expend a use of Rage to restore use of this feature."),
+				description: desc("As a Bonus Action, I can have any creature of my choice within 30 ft make a Wisdom save or be Frightened of me for 1 minute (DC 8 + Str mod + PB). They can repeat this save at the end of each of their turns. I can expend a use of Rage to restore use of this feature."),
 				action: [["bonus action", ""]],
 				usages: 1,
 				recovery: "Long Rest",
@@ -3910,7 +3909,7 @@ var Base_ClassSubList = {
 				source: [["SRD24", 49], ["P24", 96]],
 				minlevel: 18,
 				description: desc([
-					"***Defy Death***. I have Adv. on Death saves and 18-20 on those saves count as a natural 20.",
+					"***Defy Death***. I have Adv on Death saves and 18-20 on those saves count as a natural 20.",
 					"***Heroic Rally***. If I'm Blooded and at 1+ HP at the start of my turn, I heal 5 + Con mod HP.",
 				]),
 			},
@@ -3990,7 +3989,7 @@ var Base_ClassSubList = {
 				minlevel: 3,
 				description: desc([
 					"When I take the Attack action, I can expend 1 CD to imbue a held Melee weapon.",
-					"I add my Charisma " + (typePF ? "modifier" : "mod") + " (min +1) to attacks with it, I can have it deal Radiant or its normal damage on each hit, and it emits Bright Light in a 20-ft radius and Dim Light 20 ft beyond that.",
+					"I add my " + (typePF ? "Charisma" : "Cha") + " modifier (min +1) to attacks with it, I can have it deal Radiant or its normal damage on each hit, and it emits Bright Light in a 20-ft radius and Dim Light 20 ft beyond that.",
 					"This lasts for 10 " + (typePF ? "minutes" : "min") + " or until I end it (no action), use this again, or drop the weapon.",
 				], typePF ? false : " ", "\n"),
 				additional: "1 Channel Divinity",
@@ -4359,7 +4358,7 @@ var Base_ClassSubList = {
 				minlevel: 6,
 				description: desc("When I make an ability check or save, I can add +1d10 after the d20 roll, before its effects."),
 				recovery: "Long Rest",
-				usages: typePF ? "Charisma mod per " : "Charisma modifier per ",
+				usages: typePF ? "Cha modifier per " : "Charisma modifier per ",
 				usagescalc: "event.value = Math.max(1, What('Cha Mod'));",
 			},
 			"subclassfeature10": {
@@ -4466,7 +4465,7 @@ var Base_ClassSubList = {
 				name: "Sculpt Spells",
 				source: [["SRD24", 82], ["P24", 174]],
 				minlevel: 6,
-				description: desc("If I cast an evocation spell affecting others that I can see, I can choose a number of them to protect equal to 1 + the spell's level. They automatically succeed on their saves vs. the spell and take no damage if the spell would normally deal half damage on a successful save."),
+				description: desc("If I cast an evocation spell affecting others that I can see, I can choose a number of them to protect equal to 1 + the spell's level. They automatically succeed on their saves vs the spell and take no damage if the spell would normally deal half damage on a successful save."),
 			},
 			"subclassfeature10": {
 				name: "Empowered Evocation",

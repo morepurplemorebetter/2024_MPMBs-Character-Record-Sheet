@@ -120,7 +120,7 @@ var Base_FeatsList = {
 			atkAdd: [
 				function(fields, v) {
 					if (v.baseWeaponName == "unarmed strike" ) {
-						fields.Description += (fields.Description ? '; ' : '') + '1/turn also Grapple; Adv. vs. Grappled';
+						fields.Description += (fields.Description ? '; ' : '') + '1/turn also Grapple; Adv vs Grappled';
 					};
 				},
 				'I have Advantage on attack rolls against a creature Grappled by me. Once per turn I can use both the Damage and Grapple option when I make an Unarmed Strike as part of the Attack action on my turn.',

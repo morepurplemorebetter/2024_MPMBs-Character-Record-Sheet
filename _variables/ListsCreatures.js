@@ -1262,7 +1262,7 @@ var Base_CreatureList = {
 			damage: [2, 10, "Bludgeoning"],
 			range: "Melee (5 ft)",
 			dc: true,
-			description: "As a Bonus Action vs. Prone creature; Dex save to halve damage",
+			description: "As a Bonus Action vs Prone creature; Dex save to halve damage",
 		}],
 	},
 	"elk": {
@@ -1989,7 +1989,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [3, 10, "piercing"],
 			range: "Melee (5 ft)",
-			description: "Adv. if target is not at full HP; Two Bite attacks as an Action",
+			description: "Adv if target is not at full HP; Two Bite attacks as an Action",
 		}],
 	},
 	"giant spider": {
@@ -2325,7 +2325,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [3, 6, "piercing"],
 			range: "Melee (5 ft)",
-			description: "Adv. if target is not at full HP",
+			description: "Adv if target is not at full HP",
 		}],
 	},
 	"hyena": {
@@ -2534,7 +2534,7 @@ var Base_CreatureList = {
 			damage: [4, 10, "Bludgeoning"],
 			range: "Melee (5 ft)",
 			dc: true,
-			description: "As a Bonus Action vs. Prone creature; Dex save to halve damage",
+			description: "As a Bonus Action vs Prone creature; Dex save to halve damage",
 		}],
 	},
 	"mastiff": {
@@ -2722,7 +2722,7 @@ var Base_CreatureList = {
 			ability: 2,
 			damage: [1, "", "piercing"],
 			range: "Melee (5 ft)",
-			description: "Adv. if target is not at full HP",
+			description: "Adv if target is not at full HP",
 			abilitytodamage: false,
 		}],
 	},

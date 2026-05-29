@@ -280,7 +280,7 @@ FeatsList["purple power"] = {
 	`allowDuplicates` attribute is ignored.
 	Fighting styles always only allow a single instance to exist.
 */
-	description: "Advantage on Charisma (Deception) and (Performance) if wearing something purple. I can mimic casting any spell perfectly, even producing a purple haze while doing so. Wisdom (Insight) vs. Charisma (Deception) to determine there is no spell being cast. [+1 Charisma]",
+	description: "Advantage on Charisma (Deception) and (Performance) if wearing something purple. I can mimic casting any spell perfectly, even producing a purple haze while doing so. Wisdom (Insight) vs Charisma (Deception) to determine there is no spell being cast. [+1 Charisma]",
 /*	description // REQUIRED //
 	TYPE:	string
 	USE:	the text to be filled in the description field of the feat

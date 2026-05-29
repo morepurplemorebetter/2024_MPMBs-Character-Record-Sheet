@@ -270,7 +270,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Gold dust worth 25+ GP, which the spell consumes",
 		duration: "Till dispelled",
-		description: "Entryway/lid locked; designated crea can use it; optional: password to unlock for 1 min (25gp cons.)",
+		description: "Entryway/lid locked; designated crea can use it; optional: password to unlock for 1 min (25gp cons)",
 		descriptionFull: [
 			"You touch a closed door, window, gate, container, or hatch and magically lock it for the duration. This lock can't be unlocked by any nonmagical means. You and any creatures you designate when you cast the spell can open and close the object despite the lock. You can also set a password that, when spoken within 5 feet of the object, unlocks it for 1 minute.",
 		],
@@ -286,7 +286,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "For each of the spell's targets, one jacinth worth 1,000+ GP and one silver bar worth 100+ GP, all of which the spell consumes",
 		duration: "Till dispelled",
-		description: "Me \x26 8 willing crea projected to Astral Plane with identical stats; see book (per crea 1100gp cons.)",
+		description: "Me \x26 8 willing crea projected to Astral Plane with identical stats; see book (per crea 1100gp cons)",
 		descriptionFull: [
 			"You and up to eight willing creatures within range project your astral bodies into the Astral Plane (the spell ends instantly if you are already on that plane). Each target's body is left behind in a state of suspended animation; it has the Unconscious condition, doesn't need food or air, and doesn't age.",
 			"A target's astral form resembles its body in almost every way, replicating its game statistics and possessions. The principal difference is the addition of a silvery cord that trails from between the shoulder blades of the astral form. The cord fades from view after 1 foot. If the cord is cut\u2014which happens only when an effect states that it does so\u2014the target's body and astral form both die.",
@@ -348,7 +348,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "An agate worth 1,000+ GP, which the spell consumes",
 		duration: "Instantaneous",
-		description: "Give beast or plant speech, Int 10 and ability to move; Charmed for 30 days; see book (1000gp cons.)",
+		description: "Give beast or plant speech, Int 10 and ability to move; Charmed for 30 days; see book (1000gp cons)",
 		descriptionFull: [
 			"You spend the casting time tracing magical pathways within a precious gemstone, and then touch the target. The target must be either a Beast or Plant creature with an Intelligence of 3 or less or a natural plant that isn't a creature. The target gains an Intelligence of 10 and the ability to speak one language you know. If the target is a natural plant, it becomes a Plant creature and gains the ability to move its limbs, roots, vines, creepers, and so forth, and it gains senses similar to a human's. The DM chooses statistics appropriate for the awakened Plant, such as the statistics for the Awakened Shrub or Awakened Tree in the Monster Manual.",
 			"The awakened target has the Charmed condition for 30 days or until you or your allies deal damage to it. When that condition ends, the awakened creature chooses its attitude toward you.",
@@ -419,7 +419,7 @@ var Base_SpellsList = {
 		range: "30 ft",
 		components: "V,S",
 		duration: "Conc, 1 min",
-		description: "Any crea in range; For duration, each has adv. on Wis/Death saves and regains max HP from healing",
+		description: "Any crea in range; For duration, each has Adv on Wis/Death saves and regains max HP from healing",
 		descriptionFull: [
 			"Choose any number of creatures within range. For the duration, each target has Advantage on Wisdom saving throws and Death Saving Throws and regains the maximum number of Hit Points possible from any healing.",
 		],
@@ -456,8 +456,8 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 1 min",
 		save: "Wis",
-		description: "1 crea save or: dis. chk/save 1 abi|dis. atk vs. me|save each rnd to act|my atk +1d8 Necro. dmg; see B",
-		descriptionShorter: "1 crea save or: dis. chk/save 1 abi|dis. atk me|save on turn to act|my atk +1d8 Necro. dmg",
+		description: "1 crea save or: Dis chk/save 1 abi|Dis atk vs me|save each rnd to act|my atk +1d8 Necro. dmg; see B",
+		descriptionShorter: "1 crea save or: Dis chk/save 1 abi|Dis atk me|save on turn to act|my atk +1d8 Necro. dmg",
 		descriptionFull: [
 			"You touch a creature, which must succeed on a Wisdom saving throw or become cursed for the duration. Until the curse ends, the target suffers one of the following effects of your choice:",
 			" \u2022 Choose one ability. The target has Disadvantage on ability checks and saving throws made with that ability.",
@@ -568,7 +568,7 @@ var Base_SpellsList = {
 		range: "60 ft spd",
 		components: "option",
 		duration: "Till changed",
-		description: "Hand's space is difficult terrain \x26 I get Half Cover vs. attacks/effects coming through/from its space",
+		description: "Hand's space is difficult terrain \x26 I get Half Cover vs attacks/effects coming through/from its space",
 		descriptionFull: [
 			"The hand grants you Half Cover against attacks and other effects that originate from its space or that pass through it. In addition, its space counts as Difficult Terrain for your enemies.",
 			"This is one of the options of the Bigby's Hand spell, see the line above for its full description.",
@@ -675,7 +675,7 @@ var Base_SpellsList = {
 		range: "Self",
 		components: "V",
 		duration: "Conc, 1 min",
-		description: "Creatures have disadvantage on attacks vs. me unless they have Blindsight or Truesight",
+		description: "Creatures have disadvantage on attacks vs me unless they have Blindsight or Truesight",
 		descriptionFull: [
 			"Your body becomes blurred. For the duration, any creature has Disadvantage on attack rolls against you. An attacker is immune to this effect if it perceives you with Blindsight or Truesight.",
 		],
@@ -771,7 +771,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "1 h",
 		save: "Wis",
-		description: "1+1/SL crea save or Charmed \x26 Friendly; adv. on save if fighting me/ally; ends if we dmg it",
+		description: "1+1/SL crea save or Charmed \x26 Friendly; Adv on save if fighting me/ally; ends if we dmg it",
 		descriptionFull: [
 			"One creature you can see within range makes a Wisdom saving throw. It does so with Advantage if you or your allies are fighting it. On a failed save, the target has the Charmed condition until the spell ends or until you or your allies damage it. The Charmed creature is Friendly to you. When the spell ends, the target knows it was Charmed by you.",
 			UsingHigherLvl + "You can target one additional creature for each spell slot level above 4.",
@@ -789,7 +789,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "1 h",
 		save: "Wis",
-		description: "1+1/SL humanoids save or Charmed \x26 Friendly; adv. on save if fighting me/ally; ends if we dmg it",
+		description: "1+1/SL humanoids save or Charmed \x26 Friendly; Adv on save if fighting me/ally; ends if we dmg it",
 		descriptionFull: [
 			"One Humanoid you can see within range makes a Wisdom saving throw. It does so with Advantage if you or your allies are fighting it. On a failed save, the target has the Charmed condition until the spell ends or until you or your allies damage it. The Charmed creature is Friendly to you. When the spell ends, the target knows it was Charmed by you.",
 			UsingHigherLvl + "You can target one additional creature for each spell slot level above 1.",
@@ -886,7 +886,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "A diamond worth 1,000+ GP, which the spell consumes, and a sealable vessel worth 2,000+ GP that is large enough to hold the creature being cloned",
 		duration: "Instantaneous",
-		description: "Create clone of living crea; after 120 days its soul can enter the clone if dies; see B (1K gp cons.; 2K gp)",
+		description: "Create clone of living crea; after 120 days its soul can enter the clone if dies; see B (1K gp cons; 2K gp)",
 		descriptionFull: [
 			"You touch a creature or at least 1 cubic inch of its flesh. An inert duplicate of that creature forms inside the vessel used in the spell's casting and finishes growing after 120 days; you choose whether the finished clone is the same age as the creature or younger. The clone remains inert and endures indefinitely while its vessel remains undisturbed.",
 			"If the original creature dies after the clone finishes forming, the creature's soul transfers to the clone if the soul is free and willing to return. The clone is physically identical to the original and has the same personality, memories, and abilities, but none of the original's equipment. The creature's original remains, if any, become inert and can't be revived, since the creature's soul is elsewhere.",
@@ -903,8 +903,8 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 10 min",
 		save: "Con",
-		description: "20-ft rad heavy obsc. moves 10 ft start of my turn; cast/enter/end 5d8+1d8/SL Poison dmg; save half",
-		descriptionShorter: "20-ft rad heavy obsc. moves 10 ft/rnd; cast/enter/end 5d8+1d8/SL Poison dmg; save half",
+		description: "20-ft rad heavy obsc moves 10 ft start of my turn; cast/enter/end 5d8+1d8/SL Poison dmg; save half",
+		descriptionShorter: "20-ft rad heavy obsc moves 10 ft/rnd; cast/enter/end 5d8+1d8/SL Poison dmg; save half",
 		descriptionFull: [
 			"You create a 20-foot-radius Sphere of yellow-green fog centered on a point within range. The fog lasts for the duration or until strong wind (such as the one created by Gust of Wind) disperses it, ending the spell. Its area is Heavily Obscured.",
 			"Each creature in the Sphere makes a Constitution saving throw, taking 5d8 Poison damage on a failed save or half as much damage on a successful one. A creature must also make this save when the Sphere moves into its space and when it enters the Sphere or ends its turn there. A creature makes this save only once per turn.",
@@ -1008,7 +1008,7 @@ var Base_SpellsList = {
 		components: "V,S,M",
 		compMaterial: "A pinch of soot and salt",
 		duration: "1 h",
-		description: "Understand all spoken and signed languages, and writing when touched; doesn't help vs. cyphers",
+		description: "Understand all spoken and signed languages, and writing when touched; doesn't help vs cyphers",
 		descriptionFull: [
 			"For the duration, you understand the literal meaning of any language that you hear or see signed. You also understand any written language that you see, but you must be touching the surface on which the words are written. It takes about 1 minute to read one page of text. This spell doesn't decode symbols or secret messages.",
 		],
@@ -1118,8 +1118,8 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 10 min",
 		save: "Dex",
-		description: "Large pack move 30ft/rnd; move/end in 10ft save or 3d10+1d10/SL Slashing dmg; I adv. Str save 5ft",
-		descriptionShorter: "Large move 30ft/rnd; move/end 10ft save or 3d10+1d10/SL Slash. dmg; I adv. Str save 5ft",
+		description: "Large pack move 30ft/rnd; move/end in 10ft save or 3d10+1d10/SL Slashing dmg; I Adv Str save 5ft",
+		descriptionShorter: "Large move 30ft/rnd; move/end 10ft save or 3d10+1d10/SL Slash. dmg; I Adv Str save 5ft",
 		descriptionFull: [
 			"You conjure nature spirits that appear as a Large pack of spectral, intangible animals in an unoccupied space you can see within range. The pack lasts for the duration, and you choose the spirits' animal form, such as wolves, serpents, or birds.",
 			"You have Advantage on Strength saving throws while you're within 5 feet of the pack, and when you move on your turn, you can also move the pack up to 30 feet to an unoccupied space you can see.",
@@ -1326,8 +1326,8 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "7 day",
 		save: "Con",
-		description: "1 crea save or 11d8 Necrotic dmg, Poisoned, and dis. on 1 save; save at end of 5 turns, end if 3 success",
-		descriptionShorter: "1 crea save or 11d8 Necrotic dmg, Poisoned, \x26 dis. 1 save; save at end of 5 turns, end if 3 success",
+		description: "1 crea save or 11d8 Necrotic dmg, Poisoned, and Dis on 1 save; save at end of 5 turns, end if 3 success",
+		descriptionShorter: "1 crea save or 11d8 Necrotic dmg, Poisoned, \x26 Dis 1 save; save at end of 5 turns, end if 3 success",
 		descriptionFull: [
 			"Your touch inflicts a magical contagion. The target must succeed on a Constitution saving throw or take 11d8 Necrotic damage and have the Poisoned condition. Also, choose one ability when you cast the spell. While Poisoned, the target has Disadvantage on saving throws made with the chosen ability.",
 			"The target must repeat the saving throw at the end of each of its turns until it gets three successes or failures. If the target succeeds on three of these saves, the spell ends on the target. If the target fails three of the saves, the spell lasts for 7 days on it.",
@@ -1366,7 +1366,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Ruby dust worth 50+ GP, which the spell consumes",
 		duration: "Till dispelled",
-		description: "Create a permanent magical flame on object that emits 20-ft rad bright light \x26 20-ft dim (50gp cons.)",
+		description: "Create a permanent magical flame on object that emits 20-ft rad bright light \x26 20-ft dim (50gp cons)",
 		descriptionFull: [
 			"A flame springs from an object that you touch. The effect casts Bright Light in a 20-foot radius and Dim Light for an additional 20 feet. It looks like a regular flame, but it creates no heat and consumes no fuel. The flame can be covered or hidden but not smothered or quenched.",
 		],
@@ -1575,7 +1575,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u0192",
 		compMaterial: "One 150+ GP black onyx stone for each corpse",
 		duration: "Instantaneous",
-		description: "Turn corpses into 3+1/SL ghouls i.a.; control 24h; Bns command 120 ft; see B (150gp/corpse cons.)",
+		description: "Turn corpses into 3+1/SL ghouls i.a.; control 24h; Bns command 120 ft; see B (150gp/corpse cons)",
 		descriptionFull: [
 			"You can cast this spell only at night. Choose up to three corpses of Medium or Small Humanoids within range. Each one becomes a Ghoul under your control (see the Monster Manual for its stat block).",
 			"As a Bonus Action on each of your turns, you can mentally command any creature you animated with this spell if the creature is within 120 feet of you (if you control multiple creatures, you can command any of them at the same time, issuing the same command to them). You decide what action the creature will take and where it will move on its next turn, or you can issue a general command, such as to guard a particular place. If you issue no commands, the creature takes the Dodge action and moves only to avoid harm. Once given an order, the creature continues to follow the order until its task is complete.",
@@ -1720,8 +1720,8 @@ var Base_SpellsList = {
 		compMaterial: "A ball of bat guano and sulfur",
 		duration: "Conc, 1 min",
 		save: "Dex",
-		description: "Create bead; conc. ends: all 20ft rad 12d6+1d6/SL Fire dmg (+d6 my EoT), save \xBD; save to throw 40ft",
-		descriptionShorter: "Create bead; conc. end: all 20ft rad 12d6+1d6/SL Fire dmg (+d6 my EoT), save \xBD; save to throw",
+		description: "Create bead; conc ends: all 20ft rad 12d6+1d6/SL Fire dmg (+d6 my EoT), save \xBD; save to throw 40ft",
+		descriptionShorter: "Create bead; conc end: all 20ft rad 12d6+1d6/SL Fire dmg (+d6 my EoT), save \xBD; save to throw",
 		descriptionFull: [
 			"A beam of yellow light flashes from you, then condenses at a chosen point within range as a glowing bead for the duration. When the spell ends, the bead explodes, and each creature in a 20-foot-radius Sphere centered on that point makes a Dexterity saving throw. A creature takes Fire damage equal to the total accumulated damage on a failed save or half as much damage on a successful one.",
 			"The spell's base damage is 12d6, and the damage increases by 1d6 whenever your turn ends and the spell hasn't ended.",
@@ -1890,7 +1890,7 @@ var Base_SpellsList = {
 		range: "Self",
 		components: "V,S",
 		duration: "1 h",
-		description: "Alter appearance with illusion; Study Action: Int (Investigation) check vs. spell DC to discern disguise",
+		description: "Alter appearance with illusion; Study Action: Int (Investigation) check vs spell DC to discern disguise",
 		descriptionFull: [
 			"You make yourself\u2014including your clothing, armor, weapons, and other belongings on your person\u2014look different until the spell ends. You can seem 1 foot shorter or taller and can appear heavier or lighter. You must adopt a form that has the same basic arrangement of limbs as you have. Otherwise, the extent of the illusion is up to you.",
 			"The changes wrought by this spell fail to hold up to physical inspection. For example, if you use this spell to add a hat to your outfit, objects pass through the hat, and anyone who touches it would feel nothing.",
@@ -1931,7 +1931,7 @@ var Base_SpellsList = {
 		compMaterial: "Powdered silver and iron",
 		duration: "Conc, 1 min",
 		save: "Cha",
-		description: "Celestial, Elemental, Fey, Fiend, and Undead dis. on atk vs. me; Act to end early for special option below",
+		description: "Celestial, Elemental, Fey, Fiend, and Undead Dis on atk vs me; Act to end early for special option below",
 		descriptionFull: [
 			"For the duration, Celestials, Elementals, Fey, Fiends, and Undead have Disadvantage on attack rolls against you. You can end the spell early by using either of the following special functions.",
 			"***Break Enchantment***. As a Magic action, you touch a creature that is possessed by or has the Charmed or Frightened condition from one or more creatures of the types above. The target is no longer possessed, Charmed, or Frightened by such creatures.",
@@ -1939,7 +1939,7 @@ var Base_SpellsList = {
 		],
 		dependencies: ["dispel evil and good-1-break enchantment", "dispel evil and good-2-dismissal"],
 		withoutDependencies: {
-			description: "Celestial, elem., fey, fiend, undead dis. on atk vs me; Act to end for Dismissal/Break enchantment; see B",
+			description: "Celestial, elem., fey, fiend, undead Dis on atk vs me; Act to end for Dismissal/Break enchantment; see B",
 		},
 	},
 	"dispel evil and good-1-break enchantment" : {
@@ -2021,7 +2021,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Incense worth 25+ GP, which the spell consumes",
 		duration: "Instantaneous",
-		description: "Receive answer to 1 question about goal, event, or activity to occur within the next 7 days (25gp cons.)",
+		description: "Receive answer to 1 question about goal, event, or activity to occur within the next 7 days (25gp cons)",
 		descriptionFull: [
 			"This spell puts you in contact with a god or a god's servants. You ask one question about a specific goal, event, or activity to occur within 7 days. The DM offers a truthful reply, which might be a short phrase or cryptic rhyme. The spell doesn't account for circumstances that might change the answer, such as the casting of other spells.",
 			"If you cast the spell more than once before finishing a Long Rest, there is a cumulative 25 chance for each casting after the first that you get no answer.",
@@ -2389,7 +2389,7 @@ var Base_SpellsList = {
 		components: "V,S,M",
 		compMaterial: "Fur or a feather",
 		duration: "Conc, 1 h",
-		description: "1+1/SL creature adv. on checks with 1 stat (choose for each target): Str, Dex, Int, Wis, or Cha",
+		description: "1+1/SL creature Adv on checks with 1 stat (choose for each target): Str, Dex, Int, Wis, or Cha",
 		descriptionFull: [
 			"You touch a creature and choose Strength, Dexterity, Intelligence, Wisdom, or Charisma. For the duration, the target has Advantage on ability checks using the chosen ability.",
 			UsingHigherLvl + "You can target one additional creature for each spell slot level above 2. You can choose a different ability for each target.",
@@ -2409,7 +2409,7 @@ var Base_SpellsList = {
 		compMaterial: "A pinch of powdered iron",
 		duration: "Conc, 1 min",
 		save: "Con",
-		description: "1 crea/obj save or Enlarged: +1 size category, adv. Str saves/checks, +1d4 weapon/unarmed dmg",
+		description: "1 crea/obj save or Enlarged: +1 size category, Adv on Str saves/checks, +1d4 weapon/unarmed dmg",
 		descriptionFull: [
 			"For the duration, the spell enlarges or reduces a creature or an object you can see within range (see the chosen effect below). A targeted object must be neither worn nor carried. If the target is an unwilling creature, it can make a Constitution saving throw. On a successful save, the spell has no effect.",
 			"Everything that a targeted creature is wearing and carrying changes size with it. Any item it drops returns to normal size at once. A thrown weapon or piece of ammunition returns to normal size immediately after it hits or misses a target.",
@@ -2420,7 +2420,7 @@ var Base_SpellsList = {
 		dependencies: ["enlarge/reduce-1-reduced"],
 		withoutDependencies: {
 			nameShort: null,
-			description: "1 crea/obj save or Enlarged (Str adv. +1d4 weapon/unarmed dmg), Reduced (Str disadv; -1d4, min 1)",
+			description: "1 crea/obj save or Enlarged (Str Adv; +1d4 weapon/unarmed dmg), or Reduced (Str Dis; -1d4, min 1)",
 		},
 	},
 	"enlarge/reduce-1-reduced": {
@@ -2434,7 +2434,7 @@ var Base_SpellsList = {
 		components: "option",
 		duration: "Conc, 1 min",
 		save: "Con",
-		description: "or Reduced: -1 size category, disadv. Str saves/checks, -1d4 weapon/unarmed dmg (min. 1 dmg)",
+		description: "or Reduced: -1 size category, Disadv on Str saves/checks, -1d4 weapon/unarmed dmg (min 1 dmg)",
 		descriptionFull: [
 			"For the duration, the spell reduces a creature or an object you can see within range. A targeted object must be neither worn nor carried. If the target is an unwilling creature, it can make a Constitution saving throw. On a successful save, the spell has no effect.",
 			"Everything that a targeted creature is wearing and carrying changes size with it. Any item it drops returns to normal size at once. A thrown weapon or piece of ammunition returns to normal size immediately after it hits or misses a target.",
@@ -2627,7 +2627,7 @@ var Base_SpellsList = {
 		components: "V",
 		duration: "Conc, 1 min",
 		save: "Dex",
-		description: "20-ft cube all obj/crea save or emit 10-ft rad dim light and attacks have adv.; no benefit from Invisible",
+		description: "20-ft cube all obj/crea save or emit 10-ft rad dim light and attacks have Adv; no benefit from Invisible",
 		descriptionFull: [
 			"Objects in a 20-foot Cube within range are outlined in blue, green, or violet light (your choice). Each creature in the Cube is also outlined if it fails a Dexterity saving throw. For the duration, objects and affected creatures shed Dim Light in a 10-foot radius and can't benefit from the Invisible condition.",
 			"Attack rolls against an affected creature or object have Advantage if the attacker can see it.",
@@ -2697,7 +2697,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Burning incense worth 10+ GP, which the spell consumes",
 		duration: "Instantaneous",
-		description: "Gain the services of a familiar; Bns see through its eyes; it can deliver touch spells; see B (10gp cons.)",
+		description: "Gain the services of a familiar; Bns see through its eyes; it can deliver touch spells; see B (10gp cons)",
 		descriptionFull: [
 			"You gain the service of a familiar, a spirit that takes an animal form you choose: Bat, Cat, Frog, Hawk, Lizard, Octopus, Owl, Rat, Raven, Spider, Weasel, or another Beast that has a Challenge Rating of 0. Appearing in an unoccupied space within range, the familiar has the statistics of the chosen form, though it is a Celestial, Fey, or Fiend (your choice) instead of a Beast. Your familiar acts independently of you, but it obeys your commands.",
 			"***Telepathic Connection***. While your familiar is within 100 feet of you, you can communicate with it telepathically. Additionally, as a Bonus Action, you can see through the familiar's eyes and hear what it hears until the start of your next turn, gaining the benefits of any special senses it has.",
@@ -2929,7 +2929,7 @@ var Base_SpellsList = {
 		compMaterial: "A cockatrice feather",
 		duration: "Conc, 1 min",
 		save: "Con",
-		description: "1 crea save or Restrained; EoT save until 3 fail: Petrified, or 3 success: free; if conc. full duration perm.",
+		description: "1 crea save or Restrained; EoT save until 3 fail: Petrified, or 3 success: free; if conc full duration perm.",
 		descriptionFull: [
 			"You attempt to turn one creature that you can see within range into stone. The target makes a Constitution saving throw. On a failed save, it has the Restrained condition for the duration. On a successful save, its Speed is 0 until the start of your next turn. Constructs automatically succeed on the save.",
 			"A Restrained target makes another Constitution saving throw at the end of each of its turns. If it successfully saves against this spell three times, the spell ends. If it fails its saves three times, it is turned to stone and has the Petrified condition for the duration. The successes and failures needn't be consecutive; keep track of both until the target collects three of a kind.",
@@ -3030,7 +3030,7 @@ var Base_SpellsList = {
 		components: "V,S,M",
 		compMaterial: "A hummingbird feather",
 		duration: "8 h",
-		description: "1 willing creature adv. on attacks, checks, and saves; attackers dis. vs. them; ends if cast again",
+		description: "1 willing creature Adv on attacks, checks, and saves; attackers Dis vs them; ends if cast again",
 		descriptionFull: [
 			"You touch a willing creature and bestow a limited ability to see into the immediate future. For the duration, the target has Advantage on D20 Tests, and other creatures have Disadvantage on attack rolls against it. The spell ends early if you cast it again.",
 		],
@@ -3064,7 +3064,7 @@ var Base_SpellsList = {
 		components: "V,S,M",
 		compMaterial: "A bit of gauze",
 		duration: "Conc, 1 h",
-		description: "1+1/SL willing crea into mist; fly 10 ft, resist physical dmg, adv. on Str/Dex/Con saves; Act/0HP ends",
+		description: "1+1/SL willing crea into mist; fly 10 ft, resist physical dmg, Adv on Str/Dex/Con saves; Act/0HP ends",
 		descriptionFull: [
 			"A willing creature you touch shape-shifts, along with everything it's wearing and carrying, into a misty cloud for the duration. The spell ends on the target if it drops to 0 Hit Points or if it takes a Magic action to end the spell on itself.",
 			"While in this form, the target's only method of movement is a Fly Speed of 10 feet, and it can hover. The target can enter and occupy the space of another creature. The target has Resistance to Bludgeoning, Piercing, and Slashing damage; it has Immunity to the Prone condition; and it has Advantage on Strength, Dexterity, and Constitution saving throws. The target can pass through narrow openings, but it treats liquids as though they were solid surfaces.",
@@ -3196,7 +3196,7 @@ var Base_SpellsList = {
 		compMaterial: "Powdered diamond worth 200+ GP, which the spell consumes",
 		duration: "Till triggered",
 		save: "Dex",
-		description: "Create glyph that triggers on set condition; Wis (Perception) vs. spell DC to notice; see B (200gp cons.)",
+		description: "Create glyph that triggers on set condition; Wis (Perception) vs spell DC to notice; see B (200gp cons)",
 		descriptionFull: [
 			"You inscribe a glyph that later unleashes a magical effect. You inscribe it either on a surface (such as a table or a section of floor) or within an object that can be closed (such as a book or chest) to conceal the glyph. The glyph can cover an area no larger than 10 feet in diameter. If the surface or object is moved more than 10 feet from where you cast this spell, the glyph is broken, and the spell ends without being triggered.",
 			"The glyph is nearly imperceptible and requires a successful Wisdom (Perception) check against your spell save DC to notice.",
@@ -3269,7 +3269,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Diamond dust worth 100+ GP, which the spell consumes",
 		duration: "Instantaneous",
-		description: "Remove 1 effect: 1 lvl Exhaustion, Charmed, Petrified, curse, stat or max HP reduction (100gp cons.)",
+		description: "Remove 1 effect: 1 lvl Exhaustion, Charmed, Petrified, curse, stat or max HP reduction (100gp cons)",
 		descriptionFull: [
 			"You touch a creature and magically remove one of the following effects from it:",
 			" \u2022 1 Exhaustion level",
@@ -3349,7 +3349,7 @@ var Base_SpellsList = {
 		range: "120 ft",
 		components: "V,S",
 		duration: "1 rnd",
-		description: "Spell attack for 4d6+1d6/SL Radiant dmg and next attack vs. target before my next EoT has advantage",
+		description: "Spell attack for 4d6+1d6/SL Radiant dmg and next attack vs target before my next EoT has advantage",
 		descriptionFull: [
 			"You hurl a bolt of light toward a creature within range. Make a ranged spell attack against the target. On a hit, it takes 4d6 Radiant damage, and the next attack roll made against it before the end of your next turn has Advantage.",
 			UsingHigherLvl + "The damage increases by 1d6 for each spell slot level above 1.",
@@ -3414,7 +3414,7 @@ var Base_SpellsList = {
 		components: "V,S,M",
 		compMaterial: "A mushroom",
 		duration: "24 h",
-		description: "150-ft cube of terrain resembles another sort of terrain; Int (Investigation) vs. spell DC; see book",
+		description: "150-ft cube of terrain resembles another sort of terrain; Int (Investigation) vs spell DC; see book",
 		descriptionFull: [
 			"You make natural terrain in a 150-foot Cube in range look, sound, and smell like another sort of natural terrain. Thus, open fields or a road can be made to resemble a swamp, hill, crevasse, or some other difficult or impassable terrain. A pond can be made to seem like a grassy meadow, a precipice like a gentle slope, or a rock-strewn gully like a wide and smooth road. Manufactured structures, equipment, and creatures within the area aren't changed.",
 			"The tactile characteristics of the terrain are unchanged, so creatures entering the area are likely to notice the illusion. If the difference isn't obvious by touch, a creature examining the illusion can take the Study action to make an Intelligence (Investigation) check against your spell save DC to disbelieve it. If a creature discerns that the terrain is illusory, the creature sees a vague image superimposed on the real terrain.",
@@ -3449,7 +3449,7 @@ var Base_SpellsList = {
 		components: "V,S,M",
 		compMaterial: "A shaving of licorice root",
 		duration: "Conc, 1 min",
-		description: "1 crea +2 AC, speed \xD72, adv. on Dex saves, extra Act: Atk (1 only), Dash, Disengage, Hide, or Utilize",
+		description: "1 crea +2 AC, speed \xD72, Adv on Dex saves, extra Act: Atk (1 only), Dash, Disengage, Hide, or Utilize",
 		descriptionFull: [
 			"Choose a willing creature that you can see within range. Until the spell ends, the target's Speed is doubled, it gains a +2 bonus to Armor Class, it has Advantage on Dexterity saving throws, and it gains an additional action on each of its turns. That action can be used to take only the Attack (one attack only), Dash, Disengage, Hide, or Utilize action.",
 			"When the spell ends, the target is Incapacitated and has a Speed of 0 until the end of its next turn, as a wave of lethargy washes over it.",
@@ -3502,8 +3502,8 @@ var Base_SpellsList = {
 		compMaterial: "A piece of iron and a flame",
 		duration: "Conc, 1 min",
 		save: "Con",
-		description: "1 metal object on touch 2d8+1d8/SL Fire dmg; save or drop obj; if held: dis. atk/chk; Bns reheat obj",
-		descriptionShorter: "1 metal obj on touch 2d8+1d8/SL Fire dmg; save or drop; if held: dis. atk/chk; Bns reheat it",
+		description: "1 metal object on touch 2d8+1d8/SL Fire dmg; save or drop obj; if held: Dis atk/chk; Bns reheat obj",
+		descriptionShorter: "1 metal obj on touch 2d8+1d8/SL Fire dmg; save or drop; if held: Dis atk/chk; Bns reheat it",
 		descriptionFull: [
 			"Choose a manufactured metal object, such as a metal weapon or a suit of Heavy or Medium metal armor, that you can see within range. You cause the object to glow red-hot. Any creature in physical contact with the object takes 2d8 Fire damage when you cast the spell. Until the spell ends, you can take a Bonus Action on each of your later turns to deal this damage again if the object is within range.",
 			"If a creature is holding or wearing the object and takes the damage from it, the creature must succeed on a Constitution saving throw or drop the object if it can. If it doesn't drop the object, it has Disadvantage on attack rolls and ability checks until the start of your next turn.",
@@ -3540,7 +3540,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "A gem-encrusted bowl worth 1,000+ GP, which the spell consumes",
 		duration: "Instantaneous",
-		description: "12 crea eat 1h; 24h: resist Poison, immune Frightened \x26 Poisoned, +2d10 HP/max HP (1000 gp cons.)",
+		description: "12 crea eat 1h; 24h: resist Poison, immune Frightened \x26 Poisoned, +2d10 HP/max HP (1000 gp cons)",
 		descriptionFull: [
 			"You conjure a feast that appears on a surface in an unoccupied 10-foot Cube next to you. The feast takes 1 hour to consume and disappears at the end of that time, and the beneficial effects don't set in until this hour is over. Up to twelve creatures can partake of the feast.",
 			"A creature that partakes gains several benefits, which last for 24 hours. The creature has Resistance to Poison damage, and it has Immunity to the Frightened and Poisoned conditions. Its Hit Point maximum also increases by 2d10, and it gains the same number of Hit Points.",
@@ -3574,8 +3574,8 @@ var Base_SpellsList = {
 		components: "V,S,M",
 		compMaterial: "The petrified eye of a newt",
 		duration: "Conc, 1 h",
-		description: "1 crea +1d6 Necrotic dmg my atks, dis. 1 abi chks; if 0HP: Bns change crea; SL2: 4h, SL3: 8h; SL5: 24h",
-		descriptionShorter: "1 crea +1d6 Necro. dmg my atks, dis. 1 abi chks; 0HP: Bns change; SL2:4h, SL3:8h; SL5:24h",
+		description: "1 crea +1d6 Necrotic dmg my atks, Dis 1 abi chks; if 0HP: Bns change crea; SL2: 4h, SL3: 8h; SL5: 24h",
+		descriptionShorter: "1 crea +1d6 Necro. dmg my atks, Dis 1 abi chks; 0HP: Bns change; SL2:4h, SL3:8h; SL5:24h",
 		descriptionFull: [
 			"You place a curse on a creature that you can see within range. Until the spell ends, you deal an extra 1d6 Necrotic damage to the target whenever you hit it with an attack roll. Also, choose one ability when you cast the spell. The target has Disadvantage on ability checks made with the chosen ability.",
 			"If the target drops to 0 Hit Points before this spell ends, you can take a Bonus Action on a later turn to curse a new creature.",
@@ -3632,7 +3632,7 @@ var Base_SpellsList = {
 		compMaterial: "A reliquary worth 1,000+ GP",
 		duration: "Conc, 1 min",
 		save: "Con",
-		description: "Any crea adv. saves, dis. atks vs them, fiend/undead hit melee atk: save or Blind till its next EoT (1k gp)",
+		description: "Any crea Adv saves, Dis atks vs them, fiend/undead hit melee atk: save or Blind till its next EoT (1k gp)",
 		descriptionFull: [
 			"For the duration, you emit an aura in a 30-foot Emanation. While in the aura, creatures of your choice have Advantage on all saving throws, and other creatures have Disadvantage on attack rolls against them. In addition, when a Fiend or an Undead hits an affected creature with a melee attack roll, the attacker must succeed on a Constitution saving throw or have the Blinded condition until the end of its next turn.",
 		],
@@ -3648,8 +3648,8 @@ var Base_SpellsList = {
 		range: "90 ft",
 		components: "V",
 		duration: "Conc, 1 h",
-		description: "1 crea +1d6 Force dmg my atks; adv. Wis (Perc./Surv.) vs it; if 0HP: Bns change crea; SL3:8h; SL5:24h",
-		descriptionShorter: "1 crea +1d6 Force dmg my atk; adv. Wis (Perc./Surv.) vs; 0HP: Bns change; SL3:8h; SL5:24h",
+		description: "1 crea +1d6 Force dmg my atks; Adv Wis (Perc./Surv.) vs it; if 0HP: Bns change crea; SL3:8h; SL5:24h",
+		descriptionShorter: "1 crea +1d6 Force dmg my atk; Adv Wis (Perc./Surv.) vs; 0HP: Bns change; SL3:8h; SL5:24h",
 		descriptionFull: [
 			"You magically mark one creature you can see within range as your quarry. Until the spell ends, you deal an extra 1d6 Force damage to the target whenever you hit it with an attack roll. You also have Advantage on any Wisdom (Perception or Survival) check you make to find it.",
 			"If the target drops to 0 Hit Points before this spell ends, you can take a Bonus Action to move the mark to a new creature you can see within range.",
@@ -3745,7 +3745,7 @@ var Base_SpellsList = {
 		components: "S,M\u2020",
 		compMaterial: "Ink worth 10+ GP, which the spell consumes",
 		duration: "10 day",
-		description: "Write a message that only I, designated crea, and any with Truesight can understand (10gp cons.)",
+		description: "Write a message that only I, designated crea, and any with Truesight can understand (10gp cons)",
 		descriptionFull: [
 			"You write on parchment, paper, or another suitable material and imbue it with an illusion that lasts for the duration. To you and any creatures you designate when you cast the spell, the writing appears normal, seems to be written in your hand, and conveys whatever meaning you intended when you wrote the text. To all others, the writing appears as if it were written in an unknown or magical script that is unintelligible. Alternatively, the illusion can alter the meaning, handwriting, and language of the text, though the language must be one you know.",
 			"If the spell is dispelled, the original script and the illusion both disappear.",
@@ -3789,8 +3789,8 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 1 min",
 		save: "Dex",
-		description: "20-ft rad all cast/enter/end 10d8 Fire dmg; save half; heavily obsc.; moves 10 ft/rnd away chosen dir.",
-		descriptionShorter: "20-ft rad all cast/enter/end 4d10+1d10/SL Piercing dmg; save half; lightly obsc.; dif. ter.",
+		description: "20-ft rad all cast/enter/end 10d8 Fire dmg; save half; heavily obsc; moves 10 ft/rnd away chosen dir.",
+		descriptionShorter: "20-ft rad all cast/enter/end 4d10+1d10/SL Piercing dmg; save half; lightly obsc; dif. ter.",
 		descriptionFull: [
 			"A swirling cloud of embers and smoke fills a 20-foot-radius Sphere centered on a point within range. The cloud's area is Heavily Obscured. It lasts for the duration or until a strong wind (like that created by Gust of Wind) disperses it.",
 			"When the cloud appears, each creature in it makes a Dexterity saving throw, taking 10d8 Fire damage on a failed save or half as much damage on a successful one. A creature must also make this save when the Sphere moves into its space and when it enters the Sphere or ends its turn there. A creature makes this save only once per turn.",
@@ -3827,7 +3827,7 @@ var Base_SpellsList = {
 		duration: "Conc, 10 min",
 		save: "Con",
 		description: "20-ft rad all cast/enter/end 4d10+1d10/SL Piercing dmg; save half; lightly obscured; difficult terrain",
-		descriptionShorter: "20-ft rad all cast/enter/end 4d10+1d10/SL Piercing dmg; save half; lightly obsc.; dif. ter",
+		descriptionShorter: "20-ft rad all cast/enter/end 4d10+1d10/SL Piercing dmg; save half; lightly obsc; dif. ter",
 		descriptionFull: [
 			"Swarming locusts fill a 20-foot-radius Sphere centered on a point you choose within range. The Sphere remains for the duration, and its area is Lightly Obscured and Difficult Terrain.",
 			"When the swarm appears, each creature in it makes a Constitution saving throw, taking 4d10 Piercing damage on a failed save or half as much damage on a successful one. A creature also makes this save when it enters the spell's area for the first time on a turn or ends its turn there. A creature makes this save only once per turn.",
@@ -3898,7 +3898,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Incense worth 250+ GP, which the spell consumes, and four ivory strips worth 50+ GP each",
 		duration: "Instantaneous",
-		description: "Learn lore summary of famous person, place, or object; fails if not famous; see B (200gp; 250gp cons.)",
+		description: "Learn lore summary of famous person, place, or object; fails if not famous; see B (200gp; 250gp cons)",
 		descriptionFull: [
 			"Name or describe a famous person, place, or object. The spell brings to your mind a brief summary of the significant lore about that famous thing, as described by the DM.",
 			"The lore might consist of important details, amusing revelations, or even secret lore that has never been widely known. The more information you already know about the thing, the more precise and detailed the information you receive is. That information is accurate but might be couched in figurative language or poetry, as determined by the DM.",
@@ -4132,7 +4132,7 @@ var Base_SpellsList = {
 		compMaterial: "Salt and powdered silver worth 100+ GP, which the spell consumes",
 		duration: "1 h + 1 h/SL",
 		save: "Cha",
-		description: "10-ft rad 20-ft high cyl. celes, elem, fey, fiend, undead can't go in/out; dis. on atk; see B (100gp cons.)",
+		description: "10-ft rad 20-ft high cyl. celes, elem, fey, fiend, undead can't go in/out; Dis on atk; see B (100gp cons)",
 		descriptionFull: [
 			"You create a 10-foot-radius, 20-foot-tall Cylinder of magical energy centered on a point on the ground that you can see within range. Glowing runes appear wherever the Cylinder intersects with the floor or other surface.",
 			"Choose one or more of the following types of creatures: Celestials, Elementals, Fey, Fiends, or Undead. The circle affects a creature of the chosen type in the following ways:",
@@ -4198,7 +4198,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Jade dust worth 10+ GP, which the spell consumes",
 		duration: "Till dispelled",
-		description: "Implant message into object (up to 25 words \x26 10 min) that is uttered on chosen trigger (10gp cons.)",
+		description: "Implant message into object (up to 25 words \x26 10 min) that is uttered on chosen trigger (10gp cons)",
 		descriptionFull: [
 			"You implant a message within an object in range\u2014a message that is uttered when a trigger condition is met. Choose an object that you can see and that isn't being worn or carried by another creature. Then speak the message, which must be 25 words or fewer, though it can be delivered over as long as 10 minutes. Finally, determine the circumstance that will trigger the spell to deliver your message.",
 			"When that trigger occurs, a magical mouth appears on the object and recites the message in your voice and at the same volume you spoke. If the object you chose has a mouth or something that looks like a mouth (for example, the mouth of a statue), the magical mouth appears there, so the words appear to come from the object's mouth. When you cast this spell, you can have the spell end after it delivers its message, or it can remain and repeat its message whenever the trigger occurs.",
@@ -4718,7 +4718,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "A pinch of diamond dust worth 25+ GP, which the spell consumes",
 		duration: "8 h",
-		description: "1 creature, or 1 object/place up to 10-ft cube, hidden from all divination magic (25gp cons.)",
+		description: "1 creature, or 1 object/place up to 10-ft cube, hidden from all divination magic (25gp cons)",
 		descriptionFull: [
 			"For the duration, you hide a target that you touch from Divination spells. The target can be a willing creature, or it can be a place or an object no larger than 10 feet in any dimension. The target can't be targeted by any Divination spell or perceived through magical scrying sensors.",
 		],
@@ -4798,7 +4798,7 @@ var Base_SpellsList = {
 		components: "V",
 		duration: "Conc, 1 min",
 		save: "Wis",
-		description: "1 crea save (no move 'til its EoT) or Charmed: no move, dis. atk/Dex save, adv. atk vs it; Act repeat save",
+		description: "1 crea save (no move 'til its EoT) or Charmed: no move, Dis atk/Dex save, Adv atk vs it; Act repeat save",
 		descriptionFull: [
 			"One creature that you can see within range must make a Wisdom saving throw. On a successful save, the target dances comically until the end of its next turn, during which it must spend all its movement to dance in place.",
 			"On a failed save, the target has the Charmed condition for the duration. While Charmed, the target dances comically, must use all its movement to dance in place, and has Disadvantage on Dexterity saving throws and attack rolls, and other creatures have Advantage on attack rolls against it. On each of its turns, the target can take an action to collect itself and repeat the save, ending the spell on itself on a success.",
@@ -4872,8 +4872,8 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 1 min",
 		save: "Wis",
-		description: "1 crea 4d10+1d10/SL Psychic dmg, dis. on chk/atk; save half dmg only; EoT save to end or dmg again",
-		descriptionShorter: "1 crea 4d10+1d10/SL Psychic dmg, dis. on chk/atk; save half only; EoT save to end or dmg",
+		description: "1 crea 4d10+1d10/SL Psychic dmg, Dis on chk/atk; save half dmg only; EoT save to end or dmg again",
+		descriptionShorter: "1 crea 4d10+1d10/SL Psychic dmg, Dis on chk/atk; save half only; EoT save to end or dmg",
 		descriptionFull: [
 			"You tap into the nightmares of a creature you can see within range and create an illusion of its deepest fears, visible only to that creature. The target makes a Wisdom saving throw. On a failed save, the target takes 4d10 Psychic damage and has Disadvantage on ability checks and attack rolls for the duration. On a successful save, the target takes half as much damage, and the spell ends.",
 			"For the duration, the target makes a Wisdom saving throw at the end of each of its turns. On a failed save, it takes the Psychic damage again. On a successful save, the spell ends.",
@@ -4929,7 +4929,7 @@ var Base_SpellsList = {
 		compMaterial: "A jewel worth 1,000+ GP, which the spell consumes",
 		duration: "24 h",
 		save: "Cha",
-		description: "1 celes/elem/fey/fiend save or bound; SL6: 10, SL7: 30, SL8: 180, SL9: 366 days; see B (1000gp cons.)",
+		description: "1 celes/elem/fey/fiend save or bound; SL6: 10, SL7: 30, SL8: 180, SL9: 366 days; see B (1000gp cons)",
 		descriptionFull: [
 			"You attempt to bind a Celestial, an Elemental, a Fey, or a Fiend to your service. The creature must be within range for the entire casting of the spell. (Typically, the creature is first summoned into the center of the inverted version of the Magic Circle spell to trap it while this spell is cast.) At the completion of the casting, the target must succeed on a Charisma saving throw or be bound to serve you for the duration. If the creature was summoned or created by another spell, that spell's duration is extended to match the duration of this spell.",
 			"A bound creature must follow your commands to the best of its ability. You might command the creature to accompany you on an adventure, to guard a location, or to deliver a message. If the creature is Hostile, it strives to twist your commands to achieve its own objectives. If the creature carries out your commands completely before the spell ends, it travels to you to report this fact if you are on the same plane of existence. If you are on a different plane, it returns to the place where you bound it and remains there until the spell ends.",
@@ -5311,7 +5311,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "A flask of Holy Water worth 25+ GP, which the spell consumes",
 		duration: "Conc, 10 min",
-		description: "1 crea no fear/charm/possess and atks dis. from abber./celes./elem./fey/fiends/undead (25gp cons.)",
+		description: "1 crea no fear/charm/possess and atks Dis from abber./celes./elem./fey/fiends/undead (25gp cons)",
 		descriptionFull: [
 			"Until the spell ends, one willing creature you touch is protected against creatures that are Aberrations, Celestials, Elementals, Fey, Fiends, or Undead. The protection grants several benefits. Creatures of those types have Disadvantage on attack rolls against the target. The target also can't be possessed by or gain the Charmed or Frightened conditions from them. If the target is already possessed, Charmed, or Frightened by such a creature, the target has Advantage on any new saving throw against the relevant effect.",
 		],
@@ -5326,7 +5326,7 @@ var Base_SpellsList = {
 		range: "Touch",
 		components: "V,S",
 		duration: "1 h",
-		description: "1 creature cured of Poisoned, gains resistance to Poison damage, and adv. on saves vs. Poisoned",
+		description: "1 creature cured of Poisoned, gains resistance to Poison damage, and Adv on saves vs Poisoned",
 		descriptionFull: [
 			"You touch a creature and end the Poisoned condition on it. For the duration, the target has Advantage on saving throws to avoid or end the Poisoned condition, and it has Resistance to Poison damage.",
 		],
@@ -5356,7 +5356,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "A diamond worth 500+ GP, which the spell consumes",
 		duration: "Instantaneous",
-		description: "Bring corpse that died within the last 10 days to life with 1 HP, no poisons; see book (500gp cons.)",
+		description: "Bring corpse that died within the last 10 days to life with 1 HP, no poisons; see book (500gp cons)",
 		descriptionFull: [
 			"With a touch, you revive a dead creature if it has been dead no longer than 10 days and it wasn't Undead when it died.",
 			"The creature returns to life with 1 Hit Point. This spell also neutralizes any poisons that affected the creature at the time of death.",
@@ -5395,7 +5395,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 1 min",
 		save: "Con",
-		description: "1 crea save or dis. on Str d20 tests, deal -1d8 dmg, repeat save EoT; pass: dis. next atk before my turn",
+		description: "1 crea save or Dis on Str d20 tests, deal -1d8 dmg, repeat save EoT; pass: Dis next atk before my turn",
 		descriptionFull: [
 			"A beam of enervating energy shoots from you toward a creature within range. The target must make a Constitution saving throw. On a successful save, the target has Disadvantage on the next attack roll it makes until the start of your next turn.",
 			"On a failed save, the target has Disadvantage on Strength-based D20 Tests for the duration. During that time, it also subtracts 1d8 from all its damage rolls. The target repeats the save at the end of each of its turns, ending the spell on a success.",
@@ -5466,7 +5466,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Rare oils worth 1,000+ GP, which the spell consumes",
 		duration: "Instantaneous",
-		description: "Bring humanoid that died in last 10 days to life in a new random adult body, see book (1000gp cons.)",
+		description: "Bring humanoid that died in last 10 days to life in a new random adult body, see book (1000gp cons)",
 		descriptionFull: [
 			"You touch a dead Humanoid or a piece of one. If the creature has been dead no longer than 10 days, the spell forms a new body for it and calls the soul to enter that body. Roll 1d10 and consult the table below to determine the body's species, or the DM chooses another playable species.",
 			[
@@ -5527,7 +5527,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "A diamond worth 1,000+ GP, which the spell consumes",
 		duration: "Instantaneous",
-		description: "Bring corpse that died in the last century to life with whole body and full HP; see book (1000gp cons.)",
+		description: "Bring corpse that died in the last century to life with whole body and full HP; see book (1000gp cons)",
 		descriptionFull: [
 			"With a touch, you revive a dead creature that has been dead for no more than a century, didn't die of old age, and wasn't Undead when it died.",
 			"The creature returns to life with all its Hit Points. This spell also neutralizes any poisons that affected the creature at the time of death. This spell closes all mortal wounds and restores any missing body parts.",
@@ -5564,7 +5564,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "A diamond worth 300+ GP, which the spell consumes",
 		duration: "Instantaneous",
-		description: "Bring corpse that died within the last minute to life with 1 HP; see book (300gp cons.)",
+		description: "Bring corpse that died within the last minute to life with 1 HP; see book (300gp cons)",
 		descriptionFull: [
 			"You touch a creature that has died within the last minute. That creature revives with 1 Hit Point. This spell can't revive a creature that has died of old age, nor does it restore any missing body parts.",
 		],
@@ -5618,7 +5618,7 @@ var Base_SpellsList = {
 		compMaterial: "A shard of glass from a mirror",
 		duration: "1 min",
 		save: "Wis",
-		description: "1 crea warded until atk/cast/do dmg; others save to atk or target them; no protection vs. area spells",
+		description: "1 crea warded until atk/cast/do dmg; others save to atk or target them; no protection vs area spells",
 		descriptionFull: [
 			"You ward a creature within range. Until the spell ends, any creature who targets the warded creature with an attack roll or a damaging spell must succeed on a Wisdom saving throw or either choose a new target or lose the attack or spell. This spell doesn't protect the warded creature from areas of effect.",
 			"The spell ends if the warded creature makes an attack roll, casts a spell, or deals damage.",
@@ -5757,7 +5757,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Gem dust worth 5,000+ GP, which the spell consumes",
 		duration: "Till dispelled",
-		description: "1 willing crea/object in suspended animation, Invisible, hidden from Divination; see B (5000gp cons.)",
+		description: "1 willing crea/object in suspended animation, Invisible, hidden from Divination; see B (5000gp cons)",
 		descriptionFull: [
 			"With a touch, you magically sequester an object or a willing creature. For the duration, the target has the Invisible condition and can't be targeted by Divination spells, detected by magic, or viewed remotely with magic.",
 			"If the target is a creature, it enters a state of suspended animation; it has the Unconscious condition, doesn't age, and doesn't need food, water, or air.",
@@ -5795,8 +5795,8 @@ var Base_SpellsList = {
 		compMaterial: "A chip of mica",
 		duration: "Instantaneous",
 		save: "Con",
-		description: "10-ft rad all crea and nonmagical unattended obj 3d8+1d8/SL Thunder dmg; save half; constructs dis.",
-		descriptionShorter: "10-ft rad all crea \x26 nonmagical loose obj 3d8+1d8/SL Thunder dmg; save half; constructs dis.",
+		description: "10-ft rad all crea and nonmagical unattended obj 3d8+1d8/SL Thunder dmg; save half; constructs Dis",
+		descriptionShorter: "10-ft rad all crea \x26 nonmagical loose obj 3d8+1d8/SL Thunder dmg; save half; constructs Dis",
 		descriptionFull: [
 			"A loud noise erupts from a point of your choice within range. Each creature in a 10-foot-radius Sphere centered there makes a Constitution saving throw, taking 3d8 Thunder damage on a failed save or half as much damage on a successful one. A Construct has Disadvantage on the save.",
 			"A nonmagical object that isn't being worn or carried also takes the damage if it's in the spell's area.",
@@ -5915,7 +5915,7 @@ var Base_SpellsList = {
 		components: "V,S,M",
 		compMaterial: "A bit of fleece",
 		duration: "Conc, 10 min",
-		description: "15-ft cube visual illusion; Action to move in a natural way; Int(Investigation) check vs. spell DC; see B",
+		description: "15-ft cube visual illusion; Action to move in a natural way; Int(Investigation) check vs spell DC; see B",
 		descriptionFull: [
 			"You create the image of an object, a creature, or some other visible phenomenon that is no larger than a 15-foot Cube. The image appears at a spot within range and lasts for the duration. The image is purely visual; it isn't accompanied by sound, smell, or other sensory effects.",
 			"As a Magic action, you can cause the image to move to any spot within range. As the image changes location, you can alter its appearance so that its movements appear natural for the image. For example, if you create an image of a creature and move it, you can alter the image so that it appears to be walking.",
@@ -5933,7 +5933,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Powdered ruby worth 1,500+ GP, which the spell consumes",
 		duration: "Till dispelled",
-		description: "Create snow/ice duplicate of humanoid/beast; follows commands \x26 acts on turn; see B (1500gp cons.)",
+		description: "Create snow/ice duplicate of humanoid/beast; follows commands \x26 acts on turn; see B (1500gp cons)",
 		descriptionFull: [
 			"You create a simulacrum of one Beast or Humanoid that is within 10 feet of you for the entire casting of the spell. You finish the casting by touching both the creature and a pile of ice or snow that is the same size as that creature, and the pile turns into the simulacrum, which is a creature. It uses the game statistics of the original creature at the time of casting, except it is a Construct, its Hit Point maximum is half as much, and it can't cast this spell.",
 			"The simulacrum is Friendly to you and creatures you designate. It obeys your commands and acts on your turn in combat. The simulacrum can't gain levels, and it can't take Short or Long Rests.",
@@ -5971,7 +5971,7 @@ var Base_SpellsList = {
 		compMaterial: "A miniature umbrella",
 		duration: "Conc, 1 min",
 		save: "Dex",
-		description: "20-ft rad 40-ft high heavily obsc.; dif. ter.; douses flames; enter/start turn save or Prone and lose conc.",
+		description: "20-ft rad 40-ft high heavily obsc; dif. ter.; douses flames; enter/start turn save or Prone and lose conc",
 		descriptionFull: [
 			"Until the spell ends, sleet falls in a 40-foot-tall, 20-foot-radius Cylinder centered on a point you choose within range. The area is Heavily Obscured, and exposed flames in the area are doused.",
 			"Ground in the Cylinder is Difficult Terrain. When a creature enters the Cylinder for the first time on a turn or starts its turn there, it must succeed on a Dexterity saving throw or have the Prone condition and lose Concentration.",
@@ -6117,9 +6117,9 @@ var Base_SpellsList = {
 		components: "V,S,M",
 		compMaterial: "Seven thorns",
 		duration: "Conc, 10 min",
-		description: "20-ft rad difficult terrain; all 2d4 Piercing dmg per 5 ft moved; Wis(Percep./Survival) vs. DC to notice",
-		descriptionMetric: "6m rad difficult terrain; all 2d4 Piercing dmg per 1,5m moved; Wis(Percep./Survival) vs. DC to notice",
-		descriptionShorter: "20-ft rad dif. ter.; all 2d4 Piercing dmg per 5 ft moved; Wis(Percep./Surv.) vs. DC to notice",
+		description: "20-ft rad difficult terrain; all 2d4 Piercing dmg per 5 ft moved; Wis(Percep./Survival) vs DC to notice",
+		descriptionMetric: "6m rad difficult terrain; all 2d4 Piercing dmg per 1,5m moved; Wis(Percep./Survival) vs DC to notice",
+		descriptionShorter: "20-ft rad dif. ter.; all 2d4 Piercing dmg per 5 ft moved; Wis(Percep./Surv.) vs DC to notice",
 		descriptionFull: [
 			"The ground in a 20-foot-radius Sphere centered on a point within range sprouts hard spikes and thorns. The area becomes Difficult Terrain for the duration. When a creature moves into or within the area, it takes 2d4 Piercing damage for every 5 feet it travels.",
 			"The transformation of the ground is camouflaged to look natural. Any creature that can't see the area when the spell is cast must take a Search action and succeed on a Wisdom (Perception or Survival) check against your spell save DC to recognize the terrain as hazardous before entering it.",
@@ -6233,7 +6233,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Diamond dust worth 100+ GP, which the spell consumes",
 		duration: "Conc, 1 h",
-		description: "1 willing creature has resistance to Bludgeoning, Piercing, and Slashing damage (100gp cons.)",
+		description: "1 willing creature has resistance to Bludgeoning, Piercing, and Slashing damage (100gp cons)",
 		descriptionFull: ["Until the spell ends, one willing creature you touch has Resistance to Bludgeoning, Piercing, and Slashing damage."],
 	},
 	"storm of vengeance": {
@@ -6397,7 +6397,7 @@ var Base_SpellsList = {
 		compMaterial: "Powdered diamond worth 1,000+ GP, which the spell consumes",
 		duration: "Till triggered",
 		save: "sp",
-		description: "Create glyph that triggers on set condition; Wis (Perception) vs. DC to notice; see book (1000gp cons.)",
+		description: "Create glyph that triggers on set condition; Wis (Perception) vs DC to notice; see book (1000gp cons)",
 		descriptionFull: [
 			"You inscribe a harmful glyph either on a surface (such as a section of floor or wall) or within an object that can be closed (such as a book or chest). The glyph can cover an area no larger than 10 feet in diameter. If you choose an object, it must remain in place; if it is moved more than 10 feet from where you cast this spell, the glyph is broken, and the spell ends without being triggered.",
 			"The glyph is nearly imperceptible and requires a successful Wisdom (Perception) check against your spell save DC to notice.",
@@ -6428,7 +6428,7 @@ var Base_SpellsList = {
 		compMaterial: "A tart and a feather",
 		duration: "Conc, 1 min",
 		save: "Wis",
-		description: "1+1/SL crea save or Prone, Incapacitated, can't stand up; save at EoT, and if taking dmg; adv. if dmg",
+		description: "1+1/SL crea save or Prone, Incapacitated, can't stand up; save at EoT, and if taking dmg; Adv if dmg",
 		descriptionFull: [
 			"One creature of your choice that you can see within range makes a Wisdom saving throw. On a failed save, it has the Prone and Incapacitated conditions for the duration. During that time, it laughs uncontrollably if it's capable of laughter, and it can't end the Prone condition on itself.",
 			"At the end of each of its turns and each time it takes damage, it makes another Wisdom saving throw. The target has Advantage on the save if the save is triggered by damage. On a successful save, the spell ends.",
@@ -6505,7 +6505,7 @@ var Base_SpellsList = {
 		components: "V,M\u2020",
 		compMaterial: "Rare inks worth 50+ GP, which the spell consumes",
 		duration: "1 rnd",
-		description: "Create a circle to teleport to another teleportation circle on same plane; see book (50gp cons.)",
+		description: "Create a circle to teleport to another teleportation circle on same plane; see book (50gp cons)",
 		descriptionFull: [
 			"As you cast the spell, you draw a 5-foot-radius circle on the ground inscribed with sigils that link your location to a permanent teleportation circle of your choice whose sigil sequence you know and that is on the same plane of existence as you. A shimmering portal opens within the circle you drew and remains open until the end of your next turn. Any creature that enters the portal instantly appears within 5 feet of the destination circle or in the nearest unoccupied space if that space is occupied.",
 			"Many major temples, guildhalls, and other important places have permanent teleportation circles. Each circle includes a unique sigil sequence\u2014a string of runes arranged in a particular pattern.",
@@ -6674,7 +6674,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Diamonds worth 25,000+ GP, which the spell consumes",
 		duration: "Instantaneous",
-		description: "Return crea that died in the last 200 years to life with new body and full HP; see book (25k gp cons.)",
+		description: "Return crea that died in the last 200 years to life with new body and full HP; see book (25k gp cons)",
 		descriptionFull: [
 			"You touch a creature that has been dead for no longer than 200 years and that died for any reason except old age. The creature is revived with all its Hit Points.",
 			"This spell closes all wounds, neutralizes any poison, cures all magical contagions, and lifts any curses affecting the creature when it died. The spell replaces damaged or missing organs and limbs. If the creature was Undead, it is restored to its non-Undead form.",
@@ -6692,7 +6692,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Mushroom powder worth 25+ GP, which the spell consumes",
 		duration: "1 h",
-		description: "1 willing crea gets Truesight 120 ft: pierce darkness, illus., invisible, ethereal, shape shift (25gp cons.)",
+		description: "1 willing crea gets Truesight 120 ft: pierce darkness, illus., invisible, ethereal, shape shift (25gp cons)",
 		descriptionFull: ["For the duration, the willing creature you touch has Truesight with a range of 120 feet."],
 	},
 	"true strike": {
@@ -6751,7 +6751,7 @@ var Base_SpellsList = {
 		components: "effect",
 		duration: "Till height is 0",
 		save: "Str",
-		description: "-50ft high, -1d10 dmg; it \x26 crea in it move 50ft; \u2264Huge crea in save or dmg; Str(Ath.) vs. DC to swim",
+		description: "-50ft high, -1d10 dmg; it \x26 crea in it move 50ft; \u2264Huge crea in save or dmg; Str(Ath.) vs DC to swim",
 		descriptionFull: [
 			"At the start of each of your turns after the wall appears, the wall, along with any creatures in it, moves 50 feet away from you. Any Huge or smaller creature inside the wall or whose space the wall enters when it moves must succeed on a Strength saving throw or take 5d10 Bludgeoning damage. A creature can take this damage only once per round. At the end of the turn, the wall's height is reduced by 50 feet, and the damage the wall deals on later rounds is reduced by 1d10. When the wall reaches 0 feet in height, the spell ends.",
 			"A creature caught in the wall can move by swimming. Because of the wave's force, though, the creature must succeed on a Strength (Athletics) check against your spell save DC to move at all. If it fails the check, it can't move. A creature that moves out of the wall falls to the ground.",
@@ -6807,9 +6807,9 @@ var Base_SpellsList = {
 		components: "V",
 		duration: "Instantaneous",
 		save: "Wis",
-		description: "1 visible/audible crea save or 1d6 Psychic dmg and disadv. on next attack roll; +1d6 at CL 5, 11, \x26 17",
-		descriptionShorter: "1 visible/audible crea save or 1d6 Psychic dmg and disadv. on its next atk; +1d6 at CL 5, 11, \x26 17",
-		descriptionCantripDie: "1 visible/audible creature save or `CD`d6 Psychic dmg and disadv. on its next attack roll",
+		description: "1 visible/audible crea save or 1d6 Psychic dmg and Disadv on next attack roll; +1d6 at CL 5, 11, \x26 17",
+		descriptionShorter: "1 visible/audible crea save or 1d6 Psychic dmg and Disadv on its next atk; +1d6 at CL 5, 11, \x26 17",
+		descriptionCantripDie: "1 visible/audible creature save or `CD`d6 Psychic dmg and Disadv on its next attack roll",
 		descriptionFull: [
 			"You unleash a string of insults laced with subtle enchantments at one creature you can see or hear within range. The target must succeed on a Wisdom saving throw or take 1d6 Psychic damage and have Disadvantage on the next attack roll it makes before the end of its next turn.",
 			CantripUpgrade + "The damage increases by 1d6 when you reach levels 5 (2d6), 11 (3d6), and 17 (4d6).",
@@ -7035,7 +7035,7 @@ var Base_SpellsList = {
 		compMaterial: "A bit of spiderweb",
 		duration: "Conc, 1 h",
 		save: "Dex",
-		description: "20-ft cu flammable web; enter/start save or Restrained; dif. ter.; lightly obsc.; Str(Ath.) vs. DC to free",
+		description: "20-ft cu flammable web; enter/start save or Restrained; dif. ter.; lightly obsc; Str(Ath.) vs DC to free",
 		descriptionFull: [
 			"You conjure a mass of sticky webbing at a point within range. The webs fill a 20-foot Cube there for the duration. The webs are Difficult Terrain, and the area within them is Lightly Obscured.",
 			"If the webs aren't anchored between two solid masses (such as walls or trees) or layered across a floor, wall, or ceiling, the web collapses on itself, and the spell ends at the start of your next turn. Webs layered over a flat surface have a depth of 5 feet.",

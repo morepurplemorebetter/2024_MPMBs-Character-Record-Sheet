@@ -359,7 +359,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 					svString += svObj.text.join("; ");
 				};
 				if (svObj.adv_vs) {
-					svString += formatLineList((svString ? "; " : "##\u25C6 Saving Throws##. ") + "Adv. on saves vs.", svObj.adv_vs);
+					svString += formatLineList((svString ? "; " : "##\u25C6 Saving Throws##. ") + "Adv on saves vs", svObj.adv_vs);
 				};
 				if (svObj.immune) {
 					svString += formatLineList((svString ? "; " : "##\u25C6 Saving Throws##. ") + "Immune to", svObj.immune);
@@ -5842,34 +5842,50 @@ function PatreonStatement(force) {
 function addEvals(evalObj, NameEntity, Add, type, level) {
 	if (!evalObj) return;
 
+	var updateFromOld = false;
+	var sameAsOld = {};
 	if (Add && type === "default") {
-		// If a default eval, store it so we won't add duplicates
+		// If a default eval, store it so we know which to remove if the DefaultList gets edited
 		if (!CurrentEvals.defaultsProcessed) CurrentEvals.defaultsProcessed = {};
-		if (CurrentEvals.defaultsProcessed[NameEntity]) return;
+		if (CurrentEvals.defaultsProcessed[NameEntity]) {
+			updateFromOld = CurrentEvals.defaultsProcessed[NameEntity];
+		}
+		// If the previous and the new are identical, do not do anything with this
+		// The field transforms any line break to '\n', so correct for that before comparison
+		if (updateFromOld && updateFromOld.toSource().replace(/\r?\n/g, '\r') === evalObj.toSource().replace(/\r?\n/g, '\r')) {
+			return;
+		}
+		// Else store the object so we know what was processed
 		CurrentEvals.defaultsProcessed[NameEntity] = evalObj;
 	}
 
 	// Calculate the priority
-	var priority = level ? level : 0;
-	switch (GetFeatureType(type, true)) {
-		case "magic":
-			priority += 100;
-			break;
-		case "items":
-			priority += 200;
-			break;
-		case "feats":
-			priority += 300;
-			break;
-		case "background":
-			priority += 400;
-			break;
-		case "race":
-			priority += 500;
-			break;
-		case "classes":
-			priority += 600;
-			break;
+	var getPriority = function(type, level, entry) {
+		if (entry && entry[2] !== undefined && !isNaN(entry[2])) {
+			return entry[2];
+		}
+		var priority = level ? level : 0;
+		switch (GetFeatureType(type, true)) {
+			case "magic":
+				priority += 100;
+				break;
+			case "items":
+				priority += 200;
+				break;
+			case "feats":
+				priority += 300;
+				break;
+			case "background":
+				priority += 400;
+				break;
+			case "race":
+				priority += 500;
+				break;
+			case "classes":
+				priority += 600;
+				break;
+		}
+		return priority;
 	}
 
 	// Function to sort
@@ -5880,7 +5896,7 @@ function addEvals(evalObj, NameEntity, Add, type, level) {
 		if (!CurrentEvals.hp) CurrentEvals.hp = {};
 		if (Add) {
 			CurrentEvals.hp[NameEntity] = evalObj.hp;
-		} else if (CurrentEvals.hp && CurrentEvals.hp[NameEntity]) {
+		} else {
 			delete CurrentEvals.hp[NameEntity];
 		};
 		if (evalObj.hpForceRecalc) {
@@ -5892,10 +5908,17 @@ function addEvals(evalObj, NameEntity, Add, type, level) {
 			}
 		}
 		CurrentUpdates.types.push("hp");
-	};
+	} else if (updateFromOld.hp) {
+		// HP calculation existed in old version, but not in new, so delete it
+		if (CurrentEvals.hp && CurrentEvals.hp[NameEntity]) {
+			delete CurrentEvals.hp[NameEntity];
+		};
+		if (updateFromOld.hpForceRecalc && CurrentEvals.hpForceRecalc) {
+			CurrentEvals.hpForceRecalc--;
+		}
+	}
 
 	// Do the rest
-	var bIsArray;
 	var objTypeStr = {
 		"atkAdd": "atkStr",
 		"atkCalc": "atkStr",
@@ -5909,29 +5932,48 @@ function addEvals(evalObj, NameEntity, Add, type, level) {
 	var objSaveStr = { atkStr: "", spellAtkStr: "", spellStr: "", creaStr: "", wildStr: "" };
 	// Process the eval functions
 	for (var sType in objTypeStr) {
-		if (!evalObj[sType]) continue;
-		bIsArray = isArray(evalObj[sType]);
-		var aPrio = [
-			bIsArray && evalObj[sType][2] !== undefined && !isNaN(evalObj[sType][2]) ? evalObj[sType][2] : priority,
-			NameEntity
-		];
+		var oldEntry = !updateFromOld[sType] ? null : isArray(updateFromOld[sType]) ? updateFromOld[sType] : [updateFromOld[sType]];
+		var oldPrio = oldEntry ? [ getPriority(type, level, oldEntry), NameEntity ] : null;
+		if (!evalObj[sType]) {
+			if (oldEntry) {
+				// Updating, but doesn't exist in the new version, so delete the old version
+				if (CurrentEvals[sType]) delete CurrentEvals[sType][NameEntity];
+				if (CurrentEvals[sType+"Order"]) CurrentEvals[sType+"Order"].eject(oldPrio);
+			}
+			continue;
+		}
+
+		var entry = isArray(evalObj[sType]) ? evalObj[sType] : [evalObj[sType]];
+		var aPrio = [ getPriority(type, level, entry), NameEntity ];
 		// Add the descriptive text for safekeeping
-		if (bIsArray && evalObj[sType][1]) objSaveStr[objTypeStr[sType]] += "\n \u2022 " + evalObj[sType][1];
-		// Set the function
+		if (entry[1]) objSaveStr[objTypeStr[sType]] += "\n \u2022 " + entry[1];
+		// Make sure the objects exists
 		if (!CurrentEvals[sType]) CurrentEvals[sType] = {};
 		if (!CurrentEvals[sType+"Order"]) CurrentEvals[sType+"Order"] = [];
+		// Add/Remove the function and priority
 		if (Add) {
-			CurrentEvals[sType][NameEntity] = bIsArray ? evalObj[sType][0] : evalObj[sType];
+			CurrentEvals[sType][NameEntity] = entry[0];
 			CurrentEvals[sType+"Order"].push(aPrio);
 		} else {
-			if (CurrentEvals[sType] && CurrentEvals[sType][NameEntity]) delete CurrentEvals[sType][NameEntity];
+			delete CurrentEvals[sType][NameEntity];
 			CurrentEvals[sType+"Order"].eject(aPrio);
+		}
+		// Process oldEntry if different from old default version
+		if (oldEntry) {
+			CurrentEvals[sType+"Order"].eject(oldPrio);
+			sameAsOld[sType] = entry[0].toSource() === oldEntry[0].toSource();
 		}
 		CurrentEvals[sType+"Order"].sort(fSortArray);
 	}
 	// Process the explanatory strings
 	for (var sStr in objSaveStr) {
-		if (!objSaveStr[sStr]) continue;
+		if (!objSaveStr[sStr]) {
+			// If a string exists for this, it must be a leftover from an older version, so delete it
+			if (CurrentEvals[sStr] && CurrentEvals[sStr][NameEntity]) {
+				delete CurrentEvals[sStr][NameEntity];
+			}
+			continue;
+		}
 		// Remember the old strings for the changes dialog (if not done so already)
 		var sStrMain = sStr.replace("spellAtkStr", "atkStr");
 		if (CurrentUpdates[sStrMain + "Old"] == undefined) {
@@ -5949,11 +5991,19 @@ function addEvals(evalObj, NameEntity, Add, type, level) {
 
 	// Some specifics
 	if (evalObj.atkAdd) CurrentUpdates.types.push("attacksforce");
-	if (evalObj.creatureCallback) RunCreatureCallback("all", "creature", Add, isArray(evalObj.creatureCallback) ? evalObj.creatureCallback[0] : evalObj.creatureCallback, NameEntity);
-	if (evalObj.companionCallback) RunCreatureCallback("all", "companion", Add, isArray(evalObj.companionCallback) ? evalObj.companionCallback[0] : evalObj.companionCallback, NameEntity);
-	if (evalObj.wildshapeCallback) WildshapeRecalc();
+	if (evalObj.creatureCallback && !sameAsOld["creatureCallback"]) {
+		var creatureCallbackFunc = isArray(evalObj.creatureCallback) ? evalObj.creatureCallback[0] : evalObj.creatureCallback;
+		RunCreatureCallback("all", "creature", Add, creatureCallbackFunc, NameEntity);
+	}
+	if (evalObj.companionCallback && !sameAsOld["companionCallback"]) {
+		var companionCallbackFunc = isArray(evalObj.companionCallback) ? evalObj.companionCallback[0] : evalObj.companionCallback;
+		RunCreatureCallback("all", "companion", Add, companionCallbackFunc, NameEntity);
+	}
+	if (evalObj.wildshapeCallback && !sameAsOld["wildshapeCallback"]) {
+		WildshapeRecalc();
+	}
 	// Remove any remaining empty objects when removing stuff
-	if (!Add) CurrentEvals = CleanObject(CurrentEvals);
+	if (!Add || updateFromOld) CurrentEvals = CleanObject(CurrentEvals);
 	// Finally, set this global variable to its field for safekeeping
 	if (type !== "default") SetStringifieds("evals");
 };
@@ -7795,8 +7845,8 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 				if (st !== "text") ProfObj[st][i] = ProfObj[st][i].replace(/,|;/g, "");
 			};
 		};
-		//a functino to parse the 'immune' and 'adv_vs' parts into a usable string
-		var preTxt = { adv_vs: "**Adv. vs.**", immune: "**Immunities**." };
+		//a function to parse the 'immune' and 'adv_vs' parts into a usable string
+		var preTxt = { adv_vs: "**Adv vs**", immune: "**Immunities**." };
 		var parseSvTxt = function() {
 			var sUseName = metric ? "nameMetric" : "name";
 			var oTypes = { adv_vs : [], immune : [] };
@@ -7907,7 +7957,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 		for (var a1 in set) {
 		 for (var b2 in set[a1]) {
 			var nmFld = a1 === "text" && metric ? "nameMetric" : "name";
-			var aSvHead = (a1 === "immune" ? "\"Immunity to " : a1 === "adv_vs" ? "\"Adv. on saves vs. " : "\"") + set[a1][b2][nmFld] + "\"" + " was gained from:";
+			var aSvHead = (a1 === "immune" ? "\"Immunity to " : a1 === "adv_vs" ? "\"Adv on saves vs " : "\"") + set[a1][b2][nmFld] + "\"" + " was gained from:";
 			var aSvTxt = formatLineList(aSvHead, set[a1][b2].src);
 			if (aSvTxt) svTooltip += (svTooltip ? "\n \u2022 " : " \u2022 ") + aSvTxt + ".";
 		 };

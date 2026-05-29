@@ -1013,9 +1013,12 @@ function DirectImport(consoleTrigger) {
 
 		//add the content from the saving throw and vision field, but not if importing from an older version
 		if (FromVersion >= semVersToNmbr(12.998)) {
-			//First make sure the "Immune to" and "Adv. on saves vs." match with the import
+			//First make sure the "Immune to" and "Adv on saves vs" match with the import
 			var importSaveTxt = function(type) {
-				var preTxt = type === "adv_vs" ? "Adv. on saves vs." : type === "immune" ? "Immune to" : false;
+				var preTxt = type === "immune" ? "Immune to"
+					: type === "adv_vs" ?
+					( FromVersion < semVersToNmbr('24.0.8') ? "Adv. on saves vs." : "Adv on saves vs" )
+					: false;
 				var fld = "Saving Throw advantages / disadvantages";
 				var svFld = global.docFrom.getField(fld).value;
 				if (!preTxt || !svFld) return;

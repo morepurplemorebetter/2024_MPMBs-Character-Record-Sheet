@@ -376,7 +376,7 @@ var Base_MagicItemsList = {
 		attunement : true,
 		weight : 6,
 		action : [["reaction", ""]],
-		shieldAdd : "Arrow-Catching Shield (+\u200A2 vs. ranged)"
+		shieldAdd : "Arrow-Catching Shield (+\u200A2 vs ranged)"
 	},
 	"arrow of slaying" : {
 		name : "Arro\u200Aw of Slaying",
@@ -487,7 +487,7 @@ var Base_MagicItemsList = {
 		type : "wondrous item",
 		rarity : "rare",
 		magicItemTable : "G",
-		description : "While wearing this belt, my Con increases by 2 (to max 20), I get adv. on Cha (Persuasion) checks to interact with dwarves, adv. on saves vs. poison, resistance to poison damage, darkvision 60 ft, and know Dwarvish. Each day at dawn, there is a 50% chance I grow a full beard or my current beard becomes visibly thicker.",
+		description : "While wearing this belt, my Con increases by 2 (to max 20), I get Adv on Cha (Persuasion) checks to interact with dwarves, Adv on saves vs poison, resistance to poison damage, darkvision 60 ft, and know Dwarvish. Each day at dawn, there is a 50% chance I grow a full beard or my current beard becomes visibly thicker.",
 		descriptionFull : "While wearing this belt, you gain the following benefits:\n \u2022 Your Constitution score increases by 2, to a maximum of 20.\n \u2022 You have advantage on Charisma (Persuasion) checks made to interact with dwarves.\n\nIn addition, while attuned to the belt, you have a 50% chance each day at dawn of growing a full beard if you're capable of growing one, or a visibly thicker beard if you already have one.\n\nIf you aren't a dwarf, you gain the following additional benefits while wearing the belt:\n \u2022 You have advantage on saving throws against poison, and you have resistance against poison damage.\n \u2022 You have darkvision out to a range of 60 feet.\n \u2022 You can speak, read, and write Dwarvish.",
 		attunement : true,
 		languageProfs : ["Dwarvish"],
@@ -562,7 +562,7 @@ var Base_MagicItemsList = {
 		rarity : "rare",
 		magicItemTable : "G",
 		attunement : true,
-		description : "This axe gives +1 to hit and damage, +1 HP per level, and is cursed. I can't part with it and have disadv. using other weapons. Whenever I'm damaged by a hostile, I must make a DC 15 Wis save or go berserk, using my action each round to attack the closest creature with the axe until none remain within 60 ft.",
+		description : "This axe gives +1 to hit and damage, +1 HP per level, and is cursed. I can't part with it and have Disadv using other weapons. Whenever I'm damaged by a hostile, I must make a DC 15 Wis save or go berserk, using my action each round to attack the closest creature with the axe until none remain within 60 ft.",
 		descriptionFull : "You gain a +1 bonus to attack and damage rolls made with this magic weapon. In addition, while you are attuned to this weapon, your hit point maximum increases by 1 for each level you have attained.\n   " + toUni("Curse") + ". This axe is cursed, and becoming attuned to it extends the curse to you. As long as you remain cursed, you are unwilling to part with the axe, keeping it within reach at all times. You also have disadvantage on attack rolls with weapons other than this one, unless no foe is within 60 feet of you that you can see or hear.\n   Whenever a hostile creature damages you while the axe is in your possession, you must succeed on a DC 15 Wisdom saving throw or go berserk. While berserk, you must use your action each round to attack the creature nearest to you with the axe. If you can make extra attacks as part of the Attack action, you use those extra attacks, moving to attack the next nearest creature after you fell your current target. If you have multiple possible targets, you attack one at random. You are berserk until you start your turn with no creatures within 60 feet of you that you can see or hear.",
 		chooseGear : {
 			type : "weapon",
@@ -811,31 +811,31 @@ var Base_MagicItemsList = {
 		choices : ["Chaotic Evil", "Chaotic Neutral", "Chaotic Good", "Neutral Evil", "Neutral", "Neutral Good", "Lawful Evil", "Lawful Neutral", "Lawful Good"],
 		choicesNotInMenu : true,
 		"chaotic evil" : {
-			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are chaotic evil have adv. on attacks, saves, and checks, while CE clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
+			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are chaotic evil have Adv on attacks, saves, and checks, while CE clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
 		},
 		"chaotic neutral" : {
-			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are chaotic neutral have adv. on attacks, saves, and checks, while CN clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
+			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are chaotic neutral have Adv on attacks, saves, and checks, while CN clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
 		},
 		"chaotic good" : {
-			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are chaotic good have adv. on attacks, saves, and checks, while CG clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
+			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are chaotic good have Adv on attacks, saves, and checks, while CG clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
 		},
 		"neutral evil" : {
-			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are neutral evil have adv. on attacks, saves, and checks, while NE clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
+			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are neutral evil have Adv on attacks, saves, and checks, while NE clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
 		},
 		"neutral" : {
-			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are neutral have adv. on attacks, saves, and checks, while N clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
+			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are neutral have Adv on attacks, saves, and checks, while N clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
 		},
 		"neutral good" : {
-			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are neutral good have adv. on attacks, saves, and checks, while NG clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
+			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are neutral good have Adv on attacks, saves, and checks, while NG clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
 		},
 		"lawful evil" : {
-			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are lawful evil have adv. on attacks, saves, and checks, while LE clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
+			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are lawful evil have Adv on attacks, saves, and checks, while LE clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
 		},
 		"lawful neutral" : {
-			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are lawful neutral have adv. on attacks, saves, and checks, while LN clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
+			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are lawful neutral have Adv on attacks, saves, and checks, while LN clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
 		},
 		"lawful good" : {
-			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are lawful good have adv. on attacks, saves, and checks, while LG clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
+			description : "As an action, I can light this candle. The first time I do, I can cast Gate and destroy it or have it shed dim light in a 30-ft radius. All in the light who are lawful good have Adv on attacks, saves, and checks, while LG clerics/druids can cast their 1st-level spells without using a level 1 slot. It can burn for 4 hours intermittently."
 		}
 	},
 	"cape of the mountebank" : { // contributed by Smashman
@@ -968,7 +968,7 @@ var Base_MagicItemsList = {
 		}],
 		spellChanges : {
 			"web" : {
-				description : "2\xD7 20-ft cubes, anchored, all save or restrained; dif. ter.; lightly obscures; Str check vs. DC 13 to free"
+				description : "2\xD7 20-ft cubes, anchored, all save or restrained; dif. ter.; lightly obscures; Str check vs DC 13 to free"
 			}
 		}
 	},
@@ -1019,7 +1019,7 @@ var Base_MagicItemsList = {
 		type : "wondrous item",
 		rarity : "rare",
 		magicItemTable : "G",
-		description : "This cloak grants me adv. on Stealth checks. In dim light or darkness, I can fly with it and, once per dawn, use it to transform myself into a bat as if casting Polymorph. To fly, at 40 ft speed, I have to grip its edges with both my hands. While in the form of the bat, I retain my Intelligence, Wisdom, and Charisma scores.",
+		description : "This cloak grants me Adv on Stealth checks. In dim light or darkness, I can fly with it and, once per dawn, use it to transform myself into a bat as if casting Polymorph. To fly, at 40 ft speed, I have to grip its edges with both my hands. While in the form of the bat, I retain my Intelligence, Wisdom, and Charisma scores.",
 		descriptionFull : "While wearing this cloak, you have advantage on Dexterity (Stealth) checks. In an area of dim light or darkness, you can grip the edges of the cloak with both hands and use it to fly at a speed of 40 feet. If you ever fail to grip the cloak's edges while flying in this way, or if you are no longer in dim light or darkness, you lose this flying speed.\n   While wearing the cloak in an area of dim light or darkness, you can use your action to cast Polymorph on yourself, transforming into a bat. While you are in the form of the bat, you retain your Intelligence, Wisdom, and Charisma scores. The cloak can't be used this way again until the next dawn.",
 		attunement : true,
 		usages : 1,
@@ -1529,13 +1529,13 @@ var Base_MagicItemsList = {
 		type : "armor (plate)",
 		rarity : "very rare",
 		magicItemTable : "H",
-		description : "While wearing this plate armor, I have +1 AC, know Abyssal, and can use its clawed gauntlets to make unarmed strikes that deal 1d8 slashing damage with a +1 bonus to hit and damage. I have disadv. on attacks and on saves vs. demons, their spells and abilities. I can't doff it without Remove Curse or similar magic.",
+		description : "While wearing this plate armor, I have +1 AC, know Abyssal, and can use its clawed gauntlets to make unarmed strikes that deal 1d8 slashing damage with a +1 bonus to hit and damage. I have Disadv on attacks and on saves vs demons, their spells and abilities. I can't doff it without Remove Curse or similar magic.",
 		descriptionFull : "While wearing this armor, you gain a +1 bonus to AC, and you can understand and speak Abyssal. In addition, the armor's clawed gauntlets turn unarmed strikes with your hands into magic weapons that deal slashing damage, with a +1 bonus to attack and damage rolls and a damage die of 1d8.\n   " + toUni("Curse") + ". Once you don this cursed armor, you can't doff it unless you are targeted by the Remove Curse spell or similar magic. While wearing the armor, you have disadvantage on attack rolls against demons and on saving throws against their spells and special abilities.",
 		attunement : true,
 		weight : 65,
 		cursed : true,
 		languageProfs : ["Abyssal"],
-		savetxt : { text : ["Disadv. on saves vs. demons"] },
+		savetxt : { text : ["Disadv on saves vs demons"] },
 		armorOptions : [{
 			regExpSearch : /^(?=.*demon)(?=.*armor).*$/i,
 			name : "Demon Armor",
@@ -1587,7 +1587,7 @@ var Base_MagicItemsList = {
 		choicesNotInMenu : true,
 		"black (acid)" : {
 			name : "Black Dragon Scale Mail",
-			description : "This scale mail gives +1 to AC, adv. on saves against the frightful presence and breath weapons of dragons, and resistance to acid damage. As an action, I can magically discern the distance and direction to the closest black dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
+			description : "This scale mail gives +1 to AC, Adv on saves against the frightful presence and breath weapons of dragons, and resistance to acid damage. As an action, I can magically discern the distance and direction to the closest black dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
 			dmgres: ["Acid"],
 			limfeaname : "Detect Black Dragon",
 			action : [["action", "Detect Black Dragon"]],
@@ -1604,7 +1604,7 @@ var Base_MagicItemsList = {
 		},
 		"blue (lightning)" : {
 			name : "Blue Dragon Scale Mail",
-			description : "This scale mail gives +1 to AC, adv. on saves against the frightful presence and breath weapons of dragons, and resistance to lightning damage. As an action, I can magically discern the distance and direction to the closest blue dragon in 30 miles. Once I use this action, I can't use it again until the next dawn.",
+			description : "This scale mail gives +1 to AC, Adv on saves against the frightful presence and breath weapons of dragons, and resistance to lightning damage. As an action, I can magically discern the distance and direction to the closest blue dragon in 30 miles. Once I use this action, I can't use it again until the next dawn.",
 			dmgres: ["Lightning"],
 			limfeaname : "Detect Blue Dragon",
 			action : [["action", "Detect Blue Dragon"]],
@@ -1621,7 +1621,7 @@ var Base_MagicItemsList = {
 		},
 		"brass (fire)" : {
 			name : "Brass Dragon Scale Mail",
-			description : "This scale mail gives +1 to AC, adv. on saves against the frightful presence and breath weapons of dragons, and resistance to fire damage. As an action, I can magically discern the distance and direction to the closest brass dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
+			description : "This scale mail gives +1 to AC, Adv on saves against the frightful presence and breath weapons of dragons, and resistance to fire damage. As an action, I can magically discern the distance and direction to the closest brass dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
 			dmgres: ["Fire"],
 			limfeaname : "Detect Brass Dragon",
 			action : [["action", "Detect Brass Dragon"]],
@@ -1638,7 +1638,7 @@ var Base_MagicItemsList = {
 		},
 		"bronze (lightning)" : {
 			name : "Bronze Dragon Scale Mail",
-			description : "This scale mail gives +1 to AC, adv. on saves against the frightful presence and breath weapons of dragons, and resistance to lightning damage. As an action, I can magically discern the distance and direction to the closest bronze dragon in 30 miles. Once I use this action, I can't use it again until the next dawn.",
+			description : "This scale mail gives +1 to AC, Adv on saves against the frightful presence and breath weapons of dragons, and resistance to lightning damage. As an action, I can magically discern the distance and direction to the closest bronze dragon in 30 miles. Once I use this action, I can't use it again until the next dawn.",
 			dmgres: ["Lightning"],
 			limfeaname : "Detect Bronze Dragon",
 			action : [["action", "Detect Bronze Dragon"]],
@@ -1655,7 +1655,7 @@ var Base_MagicItemsList = {
 		},
 		"copper (acid)" : {
 			name : "Copper Dragon Scale Mail",
-			description : "This scale mail gives +1 to AC, adv. on saves against the frightful presence and breath weapons of dragons, and resistance to acid damage. As an action, I can magically discern the distance and direction to the closest copper dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
+			description : "This scale mail gives +1 to AC, Adv on saves against the frightful presence and breath weapons of dragons, and resistance to acid damage. As an action, I can magically discern the distance and direction to the closest copper dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
 			dmgres: ["Acid"],
 			limfeaname : "Detect Copper Dragon",
 			action : [["action", "Detect Copper Dragon"]],
@@ -1672,7 +1672,7 @@ var Base_MagicItemsList = {
 		},
 		"gold (fire)" : {
 			name : "Gold Dragon Scale Mail",
-			description : "This scale mail gives +1 to AC, adv. on saves against the frightful presence and breath weapons of dragons, and resistance to fire damage. As an action, I can magically discern the distance and direction to the closest gold dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
+			description : "This scale mail gives +1 to AC, Adv on saves against the frightful presence and breath weapons of dragons, and resistance to fire damage. As an action, I can magically discern the distance and direction to the closest gold dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
 			dmgres: ["Fire"],
 			limfeaname : "Detect Gold Dragon",
 			action : [["action", "Detect Gold Dragon"]],
@@ -1689,7 +1689,7 @@ var Base_MagicItemsList = {
 		},
 		"green (poison)" : {
 			name : "Green Dragon Scale Mail",
-			description : "This scale mail gives +1 to AC, adv. on saves against the frightful presence and breath weapons of dragons, and resistance to poison damage. As an action, I can magically discern the distance and direction to the closest green dragon in 30 miles. Once I use this action, I can't use it again until the next dawn.",
+			description : "This scale mail gives +1 to AC, Adv on saves against the frightful presence and breath weapons of dragons, and resistance to poison damage. As an action, I can magically discern the distance and direction to the closest green dragon in 30 miles. Once I use this action, I can't use it again until the next dawn.",
 			dmgres: ["Poison"],
 			limfeaname : "Detect Green Dragon",
 			action : [["action", "Detect Green Dragon"]],
@@ -1706,7 +1706,7 @@ var Base_MagicItemsList = {
 		},
 		"red (fire)" : {
 			name : "Red Dragon Scale Mail",
-			description : "This scale mail gives +1 to AC, adv. on saves against the frightful presence and breath weapons of dragons, and resistance to fire damage. As an action, I can magically discern the distance and direction to the closest red dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
+			description : "This scale mail gives +1 to AC, Adv on saves against the frightful presence and breath weapons of dragons, and resistance to fire damage. As an action, I can magically discern the distance and direction to the closest red dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
 			dmgres: ["Fire"],
 			limfeaname : "Detect Red Dragon",
 			action : [["action", "Detect Red Dragon"]],
@@ -1723,7 +1723,7 @@ var Base_MagicItemsList = {
 		},
 		"silver (cold)" : {
 			name : "Silver Dragon Scale Mail",
-			description : "This scale mail gives +1 to AC, adv. on saves against the frightful presence and breath weapons of dragons, and resistance to cold damage. As an action, I can magically discern the distance and direction to the closest silver dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
+			description : "This scale mail gives +1 to AC, Adv on saves against the frightful presence and breath weapons of dragons, and resistance to cold damage. As an action, I can magically discern the distance and direction to the closest silver dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
 			dmgres: ["Cold"],
 			limfeaname : "Detect Silver Dragon",
 			action : [["action", "Detect Silver Dragon"]],
@@ -1740,7 +1740,7 @@ var Base_MagicItemsList = {
 		},
 		"white (cold)" : {
 			name : "White Dragon Scale Mail",
-			description : "This scale mail gives +1 to AC, adv. on saves against the frightful presence and breath weapons of dragons, and resistance to cold damage. As an action, I can magically discern the distance and direction to the closest white dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
+			description : "This scale mail gives +1 to AC, Adv on saves against the frightful presence and breath weapons of dragons, and resistance to cold damage. As an action, I can magically discern the distance and direction to the closest white dragon within 30 miles. Once I use this action, I can't use it again until the next dawn.",
 			dmgres: ["Cold"],
 			limfeaname : "Detect White Dragon",
 			action : [["action", "Detect White Dragon"]],
@@ -1779,7 +1779,7 @@ var Base_MagicItemsList = {
 					if (!v.theWea.isMagicWeapon && v.isMeleeWeapon && /sword|scimitar|rapier/i.test(v.baseWeaponName) && (/^(?=.*dragon)(?=.*slayer).*$/i).test(v.WeaponTextName)) {
 						v.theWea.isMagicWeapon = true;
 						fields.Description = fields.Description.replace(/(, |; )?Counts as magical/i, '');
-						fields.Description += (fields.Description ? '; ' : '') + '+3d6 damage vs. dragons';
+						fields.Description += (fields.Description ? '; ' : '') + '+3d6 damage vs dragons';
 					}
 				},
 				'If I include the words "Dragon Slayer" in a the name of a sword, it will be treated as the magic weapon Dragon Slayer. It has +1 to hit and damage and deals +3d6 damage to creatures with the dragon type.'
@@ -1862,7 +1862,7 @@ var Base_MagicItemsList = {
 			name : "Dwarven Thrower",
 			source : [["SRD", 220], ["D", 167]],
 			range : "Melee, 20/60 ft",
-			description : "Thrown, versatile (1d10); +1d8 damage when thrown (2d8 vs. giants) and returns immediately",
+			description : "Thrown, versatile (1d10); +1d8 damage when thrown (2d8 vs giants) and returns immediately",
 			modifiers : [3, 3],
 			selectNow : true
 		}]
@@ -2016,7 +2016,7 @@ var Base_MagicItemsList = {
 		magicItemTable : "C",
 		description : "These crystal lenses fit over the eyes. While wearing them, I can see much better than normal out to a range of 1 ft. I have advantage on Intelligence (Investigation) checks that rely on sight while searching an area or studying an object within that range.",
 		descriptionFull : "These crystal lenses fit over the eyes. While wearing them, you can see much better than normal out to a range of 1 foot. You have advantage on Intelligence (Investigation) checks that rely on sight while searching an area or studying an object within that range.",
-		vision : [["Adv. on Investigation checks based on sight", 1]]
+		vision : [["Adv on Investigation checks based on sight", 1]]
 	},
 	"eyes of the eagle" : {
 		name : "Eyes of the Eagle",
@@ -2027,7 +2027,7 @@ var Base_MagicItemsList = {
 		description : "These crystal lenses fit over the eyes. While wearing them, I have advantage on Wisdom (Perception) checks that rely on sight. In conditions of clear visibility, I can make out details of even extremely distant creatures and objects as small as 2 ft across.",
 		descriptionFull : "These crystal lenses fit over the eyes. While wearing them, you have advantage on Wisdom (Perception) checks that rely on sight. In conditions of clear visibility, you can make out details of even extremely distant creatures and objects as small as 2 feet across.",
 		attunement : true,
-		vision : [["Adv. on Perception checks that rely on sight", 0]]
+		vision : [["Adv on Perception checks that rely on sight", 0]]
 	},
 	"figurine of wondrous power" : { // contains contributions by Larry Hoy
 		name: "Figurine of Wondrous Power",
@@ -2313,7 +2313,7 @@ var Base_MagicItemsList = {
 					if (!v.theWea.isMagicWeapon && v.isMeleeWeapon && (/sword|scimitar|rapier|axe/i).test(v.baseWeaponName) && (/^(?=.*giant)(?=.*slayer).*$/i).test(v.WeaponTextName)) {
 						v.theWea.isMagicWeapon = true;
 						fields.Description = fields.Description.replace(/(, |; )?Counts as magical/i, '');
-						fields.Description += (fields.Description ? '; ' : '') + '+2d6 damage vs. giants; Giants DC 15 Str save or prone';
+						fields.Description += (fields.Description ? '; ' : '') + '+2d6 damage vs giants; Giants DC 15 Str save or prone';
 					}
 				},
 				'If I include the words "Giant Slayer" in a the name of a sword, it will be treated as the magic weapon Giant Slayer. It has +1 to hit and damage and when hitting a creatures with the giant type, it does +2d6 damage and the target has to make a DC 15 Strength save or be knocked prone.'
@@ -2406,8 +2406,8 @@ var Base_MagicItemsList = {
 		},
 		"attuned (requires belt of giant strength and gauntlets of ogre power)" : {
 			name : "Hammer of Thunderbolts [attuned]",
-			description : "This magical maul has a +1 bonus to hit/damage and gives me +4 Strength (max 30). On a roll of 20 to hit vs. a giant, it dies on a failed DC 17 Con save. I can expend 1 charge to throw it with 20 ft/60 ft range, which, on a hit, causes all within 30 ft to make a DC 17 Con save or be stunned until the end of my next turn.",
-			descriptionLong : "This magical maul adds a +1 bonus to attack and damage rolls made with it. It gives me a +4 bonus to Strength (max 30). On a roll of 20 to hit vs. a giant, the giant dies on a failed DC 17 Con save. The hammer has 5 charges and regains 1d4+1 charges daily at dawn. I can can expend 1 charge and make a ranged weapon attack with the hammer, hurling it as if it had the thrown property with a normal range of 20 ft and a long range of 60 ft. On a hit, it releases an audible thunderclap in a 300 ft radius and all within 30 ft of the target that was hit must make a DC 17 Con save or be stunned until the end of my next turn.",
+			description : "This magical maul has a +1 bonus to hit/damage and gives me +4 Strength (max 30). On a roll of 20 to hit vs a giant, it dies on a failed DC 17 Con save. I can expend 1 charge to throw it with 20 ft/60 ft range, which, on a hit, causes all within 30 ft to make a DC 17 Con save or be stunned until the end of my next turn.",
+			descriptionLong : "This magical maul adds a +1 bonus to attack and damage rolls made with it. It gives me a +4 bonus to Strength (max 30). On a roll of 20 to hit vs a giant, the giant dies on a failed DC 17 Con save. The hammer has 5 charges and regains 1d4+1 charges daily at dawn. I can can expend 1 charge and make a ranged weapon attack with the hammer, hurling it as if it had the thrown property with a normal range of 20 ft and a long range of 60 ft. On a hit, it releases an audible thunderclap in a 300 ft radius and all within 30 ft of the target that was hit must make a DC 17 Con save or be stunned until the end of my next turn.",
 			prerequisite : "Must be wearing a Belt of Giant Strength and Gauntlets of Ogre Power to attune",
 			prereqeval : function () {
 				// don't have to be attuned to the prereqs https://twitter.com/jeremyecrawford/status/948346891296653315
@@ -2423,7 +2423,7 @@ var Base_MagicItemsList = {
 				regExpSearch : /^(?=.*hammer)(?=.*thunderbolts).*$/i,
 				name : "Hammer of Thunderbolts",
 				source : [["SRD", 224], ["D", 173]],
-				description : "Heavy, two-handed; On 20 to hit vs. Giant: DC 17 Con save or die; Expend charge to throw",
+				description : "Heavy, two-handed; On 20 to hit vs Giant: DC 17 Con save or die; Expend charge to throw",
 				modifiers : [1, 1],
 				selectNow : true
 			}]
@@ -2609,7 +2609,7 @@ var Base_MagicItemsList = {
 		rarity : "legendary",
 		magicItemTable : "I",
 		attunement : true,
-		description : "I have a +3 bonus to attack and damage rolls made with this magic sword. It does +2d10 radiant damage against fiends and undead. While holding the drawn sword, I have a 10-ft radius aura (30-ft if level 17 paladin) that grants me and my allies adv. on saves against spells and magical effects.",
+		description : "I have a +3 bonus to attack and damage rolls made with this magic sword. It does +2d10 radiant damage against fiends and undead. While holding the drawn sword, I have a 10-ft radius aura (30-ft if level 17 paladin) that grants me and my allies Adv on saves against spells and magical effects.",
 		descriptionFull : "You gain a +3 bonus to attack and damage rolls made with this magic weapon. When you hit a fiend or an undead with it, that creature takes an extra 2d10 radiant damage.\n   While you hold the drawn sword, it creates an aura in a 10-foot radius around you. You and all creatures friendly to you in the aura have advantage on saving throws against spells and other magical effects. If you have 17 or more levels in the paladin class, the radius of the aura increases to 30 feet.",
 		prerequisite : "Requires attunement by a paladin",
 		prereqeval : function (v) { return classes.known.paladin ? true : false; },
@@ -2629,7 +2629,7 @@ var Base_MagicItemsList = {
 					if (!v.theWea.isMagicWeapon && v.isMeleeWeapon && /sword|scimitar|rapier/i.test(v.baseWeaponName) && (/^(?=.*holy)(?=.*avenger).*$/i).test(v.WeaponTextName)) {
 						v.theWea.isMagicWeapon = true;
 						fields.Description = fields.Description.replace(/(, |; )?Counts as magical/i, '');
-						fields.Description += (fields.Description ? '; ' : '') + '+2d10 radiant damage vs. fiends and undead';
+						fields.Description += (fields.Description ? '; ' : '') + '+2d10 radiant damage vs fiends and undead';
 					}
 				},
 				'If I include the words "Holy Avenger" in a the name of a sword, it will be treated as the magic weapon Holy Avenger. It has +3 to hit and damage and does +2d10 radiant damage to fiends and undead.'
@@ -2675,7 +2675,7 @@ var Base_MagicItemsList = {
 		type : "wondrous item",
 		rarity : "rare",
 		magicItemTable : "G",
-		description : "As an action, I can speak the horn's command word and blow it, creating a 30-ft cone. All in it take 5d6 thunder damage and are deafened for 1 min. Half damage with a DC 15 Con save and not deafened. Glass/crystal creatures/objects have disadv. and take 10d6 damage. There is a 20% chance each use that it explodes.",
+		description : "As an action, I can speak the horn's command word and blow it, creating a 30-ft cone. All in it take 5d6 thunder damage and are deafened for 1 min. Half damage with a DC 15 Con save and not deafened. Glass/crystal creatures/objects have Disadv and take 10d6 damage. There is a 20% chance each use that it explodes.",
 		descriptionLong: "As an action, I can speak the horn's command word and blow it, emitting a thunderous blast in a 30-foot cone audible 600 feet away. Creatures in the cone must make a DC 15 Con save or take 5d6 thunder damage and be deafened for 1 min; otherwise, they just take half the damage. Creatures and objects made of glass or crystal have disadvantage on the save and take 10d6 thunder damage instead. Each use of its magic has a 20% chance of causing it to explode, dealing 10d6 fire damage to the blower and destroying it.",
 		descriptionFull : "You can use an action to speak the horn's command word and then blow the horn, which emits a thunderous blast in a 30-foot cone that is audible 600 feet away. Each creature in the cone must make a DC 15 Constitution saving throw. On a failed save, a creature takes 5d6 thunder damage and is deafened for 1 minute. On a successful save, a creature takes half as much damage and isn't deafened. Creatures and objects made of glass or crystal have disadvantage on the saving throw and take 10d6 thunder damage instead of 5d6.\n   Each use of the horn's magic has a 20% chance of causing the horn to explode. The explosion deals 10d6 fire damage to the blower and destroys the horn.",
 		weight : 2,
@@ -2942,7 +2942,7 @@ var Base_MagicItemsList = {
 		rarity : "legendary",
 		magicItemTable : "I",
 		notLegalAL : true,
-		description : "As an action I can speak the flask's command word and target a creature from another plane that I can see within 60 ft. It must make a DC 17 Wis save (adv. if trapped before) or be trapped in the flask. It holds only 1 creature. As an action, I can open it to release the creature, which then obeys my commands for 1 hour.",
+		description : "As an action I can speak the flask's command word and target a creature from another plane that I can see within 60 ft. It must make a DC 17 Wis save (Adv if trapped before) or be trapped in the flask. It holds only 1 creature. As an action, I can open it to release the creature, which then obeys my commands for 1 hour.",
 		descriptionLong : "As an action I can speak the flask's command word and target a creature from another plane that I can see within 60 ft. It must make a DC 17 Wisdom saving throw or be trapped inside the flask. It has advantage on this save if it was trapped in the flask before. The flask holds only 1 creature, which remain inside until released and doesn't need to breathe, eat, or drink and doesn't age. As an action, I can remove the flak's brass stopper and release the creature inside, which then obeys my commands for 1 hour as long as those commands aren't likely to cause its death. After this time, it acts normally.",
 		descriptionFull : "This iron bottle has a brass stopper. You can use an action to speak the flask's command word, targeting a creature that you can see within 60 feet of you. If the target is native to a plane of existence other than the one you're on, the target must succeed on a DC 17 Wisdom saving throw or be trapped in the flask. If the target has been trapped by the flask before, it has advantage on the saving throw. Once trapped, a creature remains in the flask until released. The flask can hold only one creature at a time. A creature trapped in the flask doesn't need to breathe, eat, or drink and doesn't age.\n   You can use an action to remove the flask's stopper and release the creature the flask contains. The creature is friendly to you and your companions for 1 hour and obeys your commands for that duration. If you give no commands or give it a command that is likely to result in its death, it defends itself but otherwise takes no actions. At the end of the duration, the creature acts in accordance with its normal disposition and alignment.\n   An Identify spell reveals that a creature is inside the flask, but the only way to determine the type of creature is to open the flask. A newly discovered bottle might already contain a creature chosen by the DM or determined randomly.\n\n" + toUni("d100\tContents") + "\n01-50\tEmpty\n   51\tArcanaloth\n   52\tCambion\n53-54\tDao\n55-57\tDemon (type 1): barlgura, shadow demon, or vrock\n58-60\tDemon (type 2): chasme or hezrou\n61-62\tDemon (type 3): glabrezu or yochlol\n63-64\tDemon (type 4): nalfeshnee\n   65\tDemon (type 5): marilith\n   66\tDemon (type 6): balor or goristro\n   67\tDeva\n68-69\tDevil (greater): horned devil, erinyes, ice devil, or pit fiend\n70-72\tDevil (lesser): imp, spined devil, bearded devil, barbed devil, chain devil, or bone devil\n73-74\tDjinni\n75-76\tEfreeti\n77-78\tElemental (any)\n   79\tGithyanki knight\n   80\tGithzerai zerth\n81-82\tInvisible stalker\n83-84\tMarid\n85-86\tMezzoloth\n87-88\tNight hag\n89-90\tNycaloth\n   91\tPlanetar\n92-93\tSalamander\n94-95\tSlaad (any)\n   96\tSolar\n97-98\tSuccubus/Incubus\n   99\tUltroloth\n   00\tXorn",
 		weight : 1
@@ -3044,7 +3044,7 @@ var Base_MagicItemsList = {
 		type : "weapon (mace)",
 		rarity : "rare",
 		magicItemTable : "G",
-		description : "While held, this magic mace sheds bright light in a 20-ft radius and dim light for another 20 ft. It deals +2d6 radiant damage vs. fiends and undead. If it has less than 26 HP after this damage, it must make a DC 15 Wis save or be destroyed. If successfully, it instead becomes frightened of me until the end of my next turn.",
+		description : "While held, this magic mace sheds bright light in a 20-ft radius and dim light for another 20 ft. It deals +2d6 radiant damage vs fiends and undead. If it has less than 26 HP after this damage, it must make a DC 15 Wis save or be destroyed. If successfully, it instead becomes frightened of me until the end of my next turn.",
 		descriptionFull : "When you hit a fiend or an undead with this magic weapon, that creature takes an extra 2d6 radiant damage. If the target has 25 hit points or fewer after taking this damage, it must succeed on a DC 15 Wisdom saving throw or be destroyed. On a successful save, the creature becomes frightened of you until the end of your next turn.\n   While you hold this weapon, it sheds bright light in a 20-foot radius and dim light for an additional 20 feet.",
 		attunement : true,
 		weight : 4,
@@ -3063,7 +3063,7 @@ var Base_MagicItemsList = {
 		type : "weapon (mace)",
 		rarity : "rare",
 		magicItemTable : "G",
-		description : "This magical mace adds a +1 bonus (+3 vs. constructs) to attack and damage rolls made with it. When I roll a 20 on an attack roll, the target takes an extra 7 bludgeoning damage, or an extra 14 bludgeoning damage if it's a construct. If a construct has less than 26 HP after taking this damage, it is destroyed.",
+		description : "This magical mace adds a +1 bonus (+3 vs constructs) to attack and damage rolls made with it. When I roll a 20 on an attack roll, the target takes an extra 7 bludgeoning damage, or an extra 14 bludgeoning damage if it's a construct. If a construct has less than 26 HP after taking this damage, it is destroyed.",
 		descriptionFull : "You gain a +1 bonus to attack and damage rolls made with this magic weapon. The bonus increases to +3 when you use the mace to attack a construct.\n   When you roll a 20 on an attack roll made with this weapon, the target takes an extra 7 bludgeoning damage, or an extra 14 bludgeoning damage if it's a construct. If a construct has 25 hit points or fewer after taking this damage, it is destroyed.",
 		weight : 4,
 		weaponOptions : [{
@@ -3071,7 +3071,7 @@ var Base_MagicItemsList = {
 			regExpSearch : /^(?=.*mace)(?=.*smiting).*$/i,
 			name : "Mace of Smiting",
 			source : [["SRD", 229], ["D", 179]],
-			description : "+2 to hit/damage vs. constructs; On 20 to hit: +7 damage (+14 vs. constructs); Constructs HP<26 destroyed",
+			description : "+2 to hit/damage vs constructs; On 20 to hit: +7 damage (+14 vs constructs); Constructs HP<26 destroyed",
 			modifiers : [1, 1],
 			selectNow : true
 		}]
@@ -3440,7 +3440,7 @@ var Base_MagicItemsList = {
 		type : "weapon (longbow)",
 		rarity : "very rare",
 		magicItemTable : "H",
-		description : "When I attack with this longbow and say its command phrase, I make the target my sworn enemy if I don't have one already for 7 days or until it dies. Attacks with this bow vs. it get adv, +3d6 damage, ignore cover (not full), and suffer no disadv. from long range. While it lives, I have disadv. when I use other weapons.",
+		description : "When I attack with this longbow and say its command phrase, I make the target my sworn enemy if I don't have one already for 7 days or until it dies. Attacks with this bow vs it get adv, +3d6 damage, ignore cover (not full), and suffer no Disadv from long range. While it lives, I have Disadv when I use other weapons.",
 		descriptionLong : "When I use this weapon to make a ranged attack and say its command phrase \"Swift death to you who have wronged me.\", the target of that attack becomes my sworn enemy until it dies or until dawn seven days later. I can have only one such sworn enemy at a time and when it dies, I can choose a new one after the next dawn. My ranged attack rolls with this weapon against me sworn enemy have advantage, do +3d6 piercing damage, ignore all cover except full, and don't suffer disadvantage due to long range. While my sworn enemy lives, I have disadvantage on attack rolls with all other weapons.",
 		descriptionFull : 'When you nock an arrow on this bow, it whispers in Elvish, "Swift defeat to my enemies." When you use this weapon to make a ranged attack, you can, as a command phrase, say, "Swift death to you who have wronged me." The target of your attack becomes your sworn enemy until it dies or until dawn seven days later. You can have only one such sworn enemy at a time. When your sworn enemy dies, you can choose a new one after the next dawn.\n   When you make a ranged attack roll with this weapon against your sworn enemy, you have advantage on the roll. In addition, your target gains no benefit from cover, other than total cover, and you suffer no disadvantage due to long range. If the attack hits, your sworn enemy takes an extra 3d6 piercing damage.\n   While your sworn enemy lives, you have disadvantage on attack rolls with all other weapons.',
 		attunement : true,
@@ -3450,7 +3450,7 @@ var Base_MagicItemsList = {
 			regExpSearch : /oathbow/i,
 			name : "Oathbow",
 			source : [["SRD", 231], ["D", 183]],
-			description : "Ammunition, heavy, two-handed; Vs. sworn enemy: adv, +3d6 damage, no cover/range penalties",
+			description : "Ammunition, heavy, two-handed; vs sworn enemy: adv, +3d6 damage, no cover/range penalties",
 			selectNow : true
 		}]
 	},
@@ -3570,7 +3570,7 @@ var Base_MagicItemsList = {
 		type : "wondrous item (instrument)",
 		rarity : "uncommon",
 		magicItemTable : "F",
-		description : "The pipes have 3 charges, regain 1d3 at dawn, and cause rats to be indifferent toward me unless threatened. As an action, I can play them, then use a bonus action to summon rats in 0.5 miles to form 1 swarm per charge spend. While playing, rat swarms in 30 ft make a Wis check vs. my Cha check or obey my commands.",
+		description : "The pipes have 3 charges, regain 1d3 at dawn, and cause rats to be indifferent toward me unless threatened. As an action, I can play them, then use a bonus action to summon rats in 0.5 miles to form 1 swarm per charge spend. While playing, rat swarms in 30 ft make a Wis check vs my Cha check or obey my commands.",
 		descriptionLong : "The pipes have 3 charges, regain 1d3 at dawn, and cause rats to be indifferent toward me unless threatened. As an action, I can play them, then use a bonus action to summon rats within 0.5 miles to come towards me and form 1 swarm of rats per charge I spend.  When a swarm of rats that isn't under another's control comes within 30 ft of me while I play the pipes, I can make a Charisma check contested by the swarm's Wisdom check. If the swarm fails, it obeys my commands for as long as they can hear the pipes at the start of its turn. If the swarm succeeds or it falls out of the sway, it can't be affected again for 24 hours.",
 		descriptionFull : "You must be proficient with wind instruments to use these pipes. While you are attuned to the pipes, ordinary rats and giant rats are indifferent toward you and will not attack you unless you threaten or harm them.\n   The pipes have 3 charges. If you play the pipes as an action, you can use a bonus action to expend 1 to 3 charges, calling forth one swarm of rats with each expended charge, provided that enough rats are within half a mile of you to be called in this fashion (as determined by the DM). If there aren't enough rats to form a swarm, the charge is wasted. Called swarms move toward the music by the shortest available route but aren't under your control otherwise. The pipes regain 1d3 expended charges daily at dawn.\n   Whenever a swarm of rats that isn't under another creature's control comes within 30 feet of you while you are playing the pipes, you can make a Charisma check contested by the swarm's Wisdom check. If you lose the contest, the swarm behaves as it normally would and can't be swayed by the pipes' music for the next 24 hours. If you win the contest, the swarm is swayed by the pipes' music and becomes friendly to you and your companions for as long as you continue to play the pipes each round as an action. A friendly swarm obeys your commands. If you issue no commands to a friendly swarm, it defends itself but otherwise takes no actions. If a friendly swarm starts its turn and can't hear the pipes' music, your control over that swarm ends, and the swarm behaves as it normally would and can't be swayed by the pipes' music for the next 24 hours.",
 		attunement : true,
@@ -3663,7 +3663,7 @@ var Base_MagicItemsList = {
 		type : "potion",
 		rarity : "common",
 		magicItemTable : "A",
-		description : "Once as an action, I can drink this potion or administer it to another to gain, for 1 hour, a climbing speed equal to the consumer's walking speed and adv. on Str (Athletics) checks to climb. The potion is separated into brown, silver, and gray layers resembling bands of stone. Shaking it fails to mix the colors.",
+		description : "Once as an action, I can drink this potion or administer it to another to gain, for 1 hour, a climbing speed equal to the consumer's walking speed and Adv on Str (Athletics) checks to climb. The potion is separated into brown, silver, and gray layers resembling bands of stone. Shaking it fails to mix the colors.",
 		descriptionFull : "When you drink this potion, you gain a climbing speed equal to your walking speed for 1 hour. During this time, you have advantage on Strength (Athletics) checks you make to climb. The potion is separated into brown, silver, and gray layers resembling bands of stone. Shaking the bottle fails to mix the colors.",
 		weight : 0.5,
 		extraTooltip : "AL: can always be bought for 75 gp"
@@ -3696,7 +3696,7 @@ var Base_MagicItemsList = {
 		rarity : "rare",
 		magicItemTable : "C",
 		description : "Once as an action, I can drink this potion or administer it to another to gain the effect of the Gaseous Form spell for 1 hour (no concentration required), until the consumer drops to 0 HP, or ends the effect as a bonus action. This potion's container seems to hold fog that moves and pours like water.",
-		descriptionLong : "Once as an action, I can drink this potion or administer it to another to gain the effect of the Gaseous Form spell for 1 hour (no concentration required), until the consumer drops to 0 HP, or ends the effect as a bonus action. The consumer, along with everything it's wearing and carrying, transforms into a misty cloud. In this form, it can only move by flying at 10 ft speed, can hover, can't fall, has resistance to nonmagical damage, adv. on Str, Dex, and Con saves, can pass through mere cracks, but can't talk, manipulate items, cast spells, or attack. This container seems to hold fog that moves and pours like water.",
+		descriptionLong : "Once as an action, I can drink this potion or administer it to another to gain the effect of the Gaseous Form spell for 1 hour (no concentration required), until the consumer drops to 0 HP, or ends the effect as a bonus action. The consumer, along with everything it's wearing and carrying, transforms into a misty cloud. In this form, it can only move by flying at 10 ft speed, can hover, can't fall, has resistance to nonmagical damage, Adv on Str, Dex, and Con saves, can pass through mere cracks, but can't talk, manipulate items, cast spells, or attack. This container seems to hold fog that moves and pours like water.",
 		descriptionFull : "When you drink this potion, you gain the effect of the Gaseous Form spell for 1 hour (no concentration required) or until you end the effect as a bonus action. This potion's container seems to hold fog that moves and pours like water.",
 		weight : 0.5
 	},
@@ -4042,7 +4042,7 @@ var Base_MagicItemsList = {
 		"air" : {
 			name : "Ring of Air Elemental Command",
 			sortname : "Ring of Elemental Command, Air",
-			description : "This ring has 5 charges and regains 1d4+1 daily at dawn. It grants me adv. on attacks vs. elementals from the Plane of Air and they have disadv. vs. me. I can expend 2 charges to cast Dominate Monster on an air elemental. When I fall, I descend 60 ft per round and take no falling damage. I also know Auran.",
+			description : "This ring has 5 charges and regains 1d4+1 daily at dawn. It grants me Adv on attacks vs elementals from the Plane of Air and they have Disadv vs me. I can expend 2 charges to cast Dominate Monster on an air elemental. When I fall, I descend 60 ft per round and take no falling damage. I also know Auran.",
 			descriptionFull : "While wearing this ring, you have advantage on attack rolls against elementals from the Elemental Plane of Air, and they have disadvantage on attack rolls against you. In addition, you have access to properties based on the Elemental Plane of Air.\n   The ring has 5 charges. It regains 1d4+1 expended charges daily at dawn. Spells cast from the ring have a save DC of 17.\n   You can expend 2 of the ring's charges to cast Dominate Monster on an air elemental. In addition, when you fall, you descend 60 feet per round and take no damage from falling. You can also speak and understand Auran.\n   If you help slay an air elemental while attuned to the ring, you gain access to the following additional properties:\n \u2022 You have resistance to lightning damage.\n \u2022 You have a flying speed equal to your walking speed and can hover.\n \u2022 You can cast the following spells from the ring, expending the necessary number of charges: Chain Lightning (3 charges), Gust of Wind (2 charges), or Wind Wall (1 charge).",
 			languageProfs : ["Auran"],
 			fixedDC : 17,
@@ -4063,7 +4063,7 @@ var Base_MagicItemsList = {
 		"air (help kill air elemental while attuned)" : {
 			name : "Ring of Air Elemental Command [unlocked]",
 			sortname : "Ring of Elemental Command, Air [unlocked]",
-			description : "This ring grants adv. on attacks vs. elementals from the Plane of Air while they have disadv. vs. me. I have resistance to lightning damage, flying speed equal to my walking speed. I fall at 60 ft per round and take no falling damage. I know Auran. I can cast spells by using its 5 charges, of which it regains 1d4+1 at dawn.",
+			description : "This ring grants Adv on attacks vs elementals from the Plane of Air while they have Disadv vs me. I have resistance to lightning damage, flying speed equal to my walking speed. I fall at 60 ft per round and take no falling damage. I know Auran. I can cast spells by using its 5 charges, of which it regains 1d4+1 at dawn.",
 			descriptionFull : "While wearing this ring, you have advantage on attack rolls against elementals from the Elemental Plane of Air, and they have disadvantage on attack rolls against you. In addition, you have access to properties based on the Elemental Plane of Air.\n   The ring has 5 charges. It regains 1d4+1 expended charges daily at dawn. Spells cast from the ring have a save DC of 17.\n   You can expend 2 of the ring's charges to cast Dominate Monster on an air elemental. In addition, when you fall, you descend 60 feet per round and take no damage from falling. You can also speak and understand Auran.\n   If you help slay an air elemental while attuned to the ring, you gain access to the following additional properties:\n \u2022 You have resistance to lightning damage.\n \u2022 You have a flying speed equal to your walking speed and can hover.\n \u2022 You can cast the following spells from the ring, expending the necessary number of charges: Chain Lightning (3 charges), Gust of Wind (2 charges), or Wind Wall (1 charge).",
 			languageProfs : ["Auran"],
 			dmgres : ["Lightning"],
@@ -4098,7 +4098,7 @@ var Base_MagicItemsList = {
 		"earth" : {
 			name : "Ring of Earth Elemental Command",
 			sortname : "Ring of Elemental Command, Earth",
-			description : "This ring has 5 charges and regains 1d4+1 daily at dawn. It grants me adv. on attacks vs. elementals from the Plane of Earth and they have disadv. vs. me. I can expend 2 charges to cast Dominate Monster on an earth elemental. I move normally in difficult terrain of rubble, rocks, or dirt. I also know Terran.",
+			description : "This ring has 5 charges and regains 1d4+1 daily at dawn. It grants me Adv on attacks vs elementals from the Plane of Earth and they have Disadv vs me. I can expend 2 charges to cast Dominate Monster on an earth elemental. I move normally in difficult terrain of rubble, rocks, or dirt. I also know Terran.",
 			descriptionFull : "While wearing this ring, you have advantage on attack rolls against elementals from the Elemental Plane of Earth and they have disadvantage on attack rolls against you. In addition, you have access to properties based on the Elemental Plane of Earth.\n   The ring has 5 charges. It regains 1d4+1 expended charges daily at dawn. Spells cast from the ring have a save DC of 17.\n   You can expend 2 of the ring's charges to cast Dominate Monster on an earth elemental. In addition, you can move in difficult terrain that is composed of rubble, rocks, or dirt as if it were normal terrain. You can also speak and understand Terran.\n   If you help slay an earth elemental while attuned to the ring, you gain access to the following additional properties:\n \u2022 You have resistance to acid damage.\n \u2022 You can move through solid earth or rock as if those areas were difficult terrain. If you end your turn there, you are shunted out to the nearest unoccupied space you last occupied.\n \u2022 You can cast the following spells from the ring, expending the necessary number of charges: Stone Shape (2 charges), Stoneskin (3 charges), or Wall of Stone (3 charges).",
 			languageProfs : ["Terran"],
 			fixedDC : 17,
@@ -4119,7 +4119,7 @@ var Base_MagicItemsList = {
 		"earth (help kill earth elemental while attuned)" : {
 			name : "Ring of Earth Elemental Command [unlocked]",
 			sortname : "Ring of Elemental Command, Earth [unlocked]",
-			description : "This ring grants resistance to acid damage and adv. on attacks vs. elementals from the Plane of Earth while they have disadv. vs. me. I know Terran, move normally in difficult terrain of rubble, rocks, or dirt, and can move through solid earth or rock as if it were difficult terrain. I can cast spells by using its 5 charges.",
+			description : "This ring grants resistance to acid damage and Adv on attacks vs elementals from the Plane of Earth while they have Disadv vs me. I know Terran, move normally in difficult terrain of rubble, rocks, or dirt, and can move through solid earth or rock as if it were difficult terrain. I can cast spells by using its 5 charges.",
 			descriptionFull : "While wearing this ring, you have advantage on attack rolls against elementals from the Elemental Plane of Earth and they have disadvantage on attack rolls against you. In addition, you have access to properties based on the Elemental Plane of Earth.\n   The ring has 5 charges. It regains 1d4+1 expended charges daily at dawn. Spells cast from the ring have a save DC of 17.\n   You can expend 2 of the ring's charges to cast Dominate Monster on an earth elemental. In addition, you can move in difficult terrain that is composed of rubble, rocks, or dirt as if it were normal terrain. You can also speak and understand Terran.\n   If you help slay an earth elemental while attuned to the ring, you gain access to the following additional properties:\n \u2022 You have resistance to acid damage.\n \u2022 You can move through solid earth or rock as if those areas were difficult terrain. If you end your turn there, you are shunted out to the nearest unoccupied space you last occupied.\n \u2022 You can cast the following spells from the ring, expending the necessary number of charges: Stone Shape (2 charges), Stoneskin (3 charges), or Wall of Stone (3 charges).",
 			languageProfs : ["Terran"],
 			dmgres : ["Acid"],
@@ -4149,7 +4149,7 @@ var Base_MagicItemsList = {
 		"fire" : {
 			name : "Ring of Fire Elemental Command",
 			sortname : "Ring of Elemental Command, Fire",
-			description : "This ring has 5 charges and regains 1d4+1 daily at dawn. It grants me adv. on attacks vs. elementals from the Plane of Fire and they have disadv. vs. me. I can expend 2 charges to cast Dominate Monster (DC 17) on a fire elemental. I have resistance to fire damage and can speak and understand Ignan.",
+			description : "This ring has 5 charges and regains 1d4+1 daily at dawn. It grants me Adv on attacks vs elementals from the Plane of Fire and they have Disadv vs me. I can expend 2 charges to cast Dominate Monster (DC 17) on a fire elemental. I have resistance to fire damage and can speak and understand Ignan.",
 			descriptionFull : "While wearing this ring, you have advantage on attack rolls against elementals from the Elemental Plane of Fire and they have disadvantage on attack rolls against you. In addition, you have access to properties based on the Elemental Plane of Fire.\n   The ring has 5 charges. It regains 1d4+1 expended charges daily at dawn. Spells cast from the ring have a save DC of 17.\n   You can expend 2 of the ring's charges to cast Dominate Monster on a fire elemental. In addition, you have resistance to fire damage. You can also speak and understand Ignan.\n   If you help slay a fire elemental while attuned to the ring, you gain access to the following additional properties:\n \u2022 You are immune to fire damage.\n \u2022 You can cast the following spells from the ring, expending the necessary number of charges: Burning Hands (1 charge), Fireball (2 charges), and Wall of Fire (3 charges).",
 			languageProfs : ["Ignan"],
 			dmgres : ["Fire"],
@@ -4171,7 +4171,7 @@ var Base_MagicItemsList = {
 		"fire (help kill fire elemental while attuned)" : {
 			name : "Ring of Fire Elemental Command [unlocked]",
 			sortname : "Ring of Elemental Command, Fire [unlocked]",
-			description : "This ring has 5 charges, regaining 1d4+1 at dawn. It grants me immunity to fire damage, adv. on attacks vs. elementals from the Plane of Fire and they have disadv. vs. me. I can expend charges to cast spells (DC 17), Burning Hands (1), Dominate Monster (1; fire elemental only), Fireball (2), Wall of Fire (3). I know Ignan.",
+			description : "This ring has 5 charges, regaining 1d4+1 at dawn. It grants me immunity to fire damage, Adv on attacks vs elementals from the Plane of Fire and they have Disadv vs me. I can expend charges to cast spells (DC 17), Burning Hands (1), Dominate Monster (1; fire elemental only), Fireball (2), Wall of Fire (3). I know Ignan.",
 			descriptionFull : "While wearing this ring, you have advantage on attack rolls against elementals from the Elemental Plane of Fire and they have disadvantage on attack rolls against you. In addition, you have access to properties based on the Elemental Plane of Fire.\n   The ring has 5 charges. It regains 1d4+1 expended charges daily at dawn. Spells cast from the ring have a save DC of 17.\n   You can expend 2 of the ring's charges to cast Dominate Monster on a fire elemental. In addition, you have resistance to fire damage. You can also speak and understand Ignan.\n   If you help slay a fire elemental while attuned to the ring, you gain access to the following additional properties:\n \u2022 You are immune to fire damage.\n \u2022 You can cast the following spells from the ring, expending the necessary number of charges: Burning Hands (1 charge), Fireball (2 charges), and Wall of Fire (3 charges).",
 			languageProfs : ["Ignan"],
 			savetxt : { immune : ["fire"] },
@@ -4205,7 +4205,7 @@ var Base_MagicItemsList = {
 		"water" : {
 			name : "Ring of Water Elemental Command",
 			sortname : "Ring of Elemental Command, Water",
-			description : "This ring has 5 charges, regaining 1d4+1 at dawn. It grants me adv. on attacks vs. elementals from the Plane of Water and they have disadv. vs. me. I can expend 2 charges to cast Dominate Monster on a water elemental. I can stand on and walk across liquid surfaces as if they were solid ground. I know Aquan.",
+			description : "This ring has 5 charges, regaining 1d4+1 at dawn. It grants me Adv on attacks vs elementals from the Plane of Water and they have Disadv vs me. I can expend 2 charges to cast Dominate Monster on a water elemental. I can stand on and walk across liquid surfaces as if they were solid ground. I know Aquan.",
 			descriptionFull : "While wearing this ring, you have advantage on attack rolls against elementals from the Elemental Plane of Water and they have disadvantage on attack rolls against you. In addition, you have access to properties based on the Elemental Plane of Water.\n   The ring has 5 charges. It regains 1d4+1 expended charges daily at dawn. Spells cast from the ring have a save DC of 17.\n   You can expend 2 of the ring's charges to cast Dominate Monster on a water elemental. In addition, you can stand on and walk across liquid surfaces as if they were solid ground. You can also speak and understand Aquan.\n   If you help slay a water elemental while attuned to the ring, you gain access to the following additional properties:\n \u2022 You can breathe underwater and have a swimming speed equal to your walking speed.\n \u2022 You can cast the following spells from the ring, expending the necessary number of charges: Create or Destroy Water (1 charge), Control Water (3 charges), Ice Storm (2 charges), or Wall of Ice (3 charges).",
 			languageProfs : ["Aquan"],
 			fixedDC : 17,
@@ -4226,7 +4226,7 @@ var Base_MagicItemsList = {
 		"water (help kill water elemental while attuned)" : {
 			name : "Ring of Water Elemental Command [unlocked]",
 			sortname : "Ring of Elemental Command, Water [unlocked]",
-			description : "This ring gives me adv. on attacks vs. elementals from the Plane of Water while they have disadv. vs. me. I know Aquan, can stand and walk on liquid surfaces as if they were solid ground, swim at my walking speed, and breathe underwater.  I can cast spells by using the ring's 5 charges, of which it regains 1d4+1 at dawn.",
+			description : "This ring gives me Adv on attacks vs elementals from the Plane of Water while they have Disadv vs me. I know Aquan, can stand and walk on liquid surfaces as if they were solid ground, swim at my walking speed, and breathe underwater.  I can cast spells by using the ring's 5 charges, of which it regains 1d4+1 at dawn.",
 			descriptionFull : "While wearing this ring, you have advantage on attack rolls against elementals from the Elemental Plane of Water and they have disadvantage on attack rolls against you. In addition, you have access to properties based on the Elemental Plane of Water.\n   The ring has 5 charges. It regains 1d4+1 expended charges daily at dawn. Spells cast from the ring have a save DC of 17.\n   You can expend 2 of the ring's charges to cast Dominate Monster on a water elemental. In addition, you can stand on and walk across liquid surfaces as if they were solid ground. You can also speak and understand Aquan.\n   If you help slay a water elemental while attuned to the ring, you gain access to the following additional properties:\n \u2022 You can breathe underwater and have a swimming speed equal to your walking speed.\n \u2022 You can cast the following spells from the ring, expending the necessary number of charges: Create or Destroy Water (1 charge), Control Water (3 charges), Ice Storm (2 charges), or Wall of Ice (3 charges).",
 			languageProfs : ["Aquan"],
 			speed : { swim : { spd : "walk", enc : "walk" } },
@@ -4670,14 +4670,14 @@ var Base_MagicItemsList = {
 		type : "wondrous item",
 		rarity : "rare",
 		magicItemTable : "G",
-		description : "This robe gives me adv. on sight-based Perception checks, the ability to see in all directions, see invisible/ethereal out to 120 ft, darkvision 120 ft. I can't close or avert my eyes. If Light is cast on it or Daylight within 5 ft of it, I'm blinded for 1 min, Con save (DC 11-Light, 15-Daylight) at the end of my each of my turns to end.",
+		description : "This robe gives me Adv on sight-based Perception checks, the ability to see in all directions, see invisible/ethereal out to 120 ft, darkvision 120 ft. I can't close or avert my eyes. If Light is cast on it or Daylight within 5 ft of it, I'm blinded for 1 min, Con save (DC 11-Light, 15-Daylight) at the end of my each of my turns to end.",
 		descriptionFull : "This robe is adorned with eyelike patterns. While you wear the robe, you gain the following benefits:\n \u2022 The robe lets you see in all directions, and you have advantage on Wisdom (Perception) checks that rely on sight.\n \u2022 You have darkvision out to a range of 120 feet.\n \u2022 You can see invisible creatures and objects, as well as see into the Ethereal Plane, out to a range of 120 feet.\n\nThe eyes on the robe can't be closed or averted. Although you can close or avert your own eyes, you are never considered to be doing so while wearing this robe.\n   A Light spell cast on the robe or a Daylight spell cast within 5 feet of the robe causes you to be blinded for 1 minute. At the end of each of your turns, you can make a Constitution saving throw (DC 11 for Light or DC 15 for Daylight), ending the blindness on a success.",
 		attunement : true,
 		weight : 4,
 		vision: [
 			["Darkvision", "fixed 120"],
 			["See invisible/ethereal", "fixed 120"],
-			["Adv. on Perception checks based on sight", 0]
+			["Adv on Perception checks based on sight", 0]
 		]
 	},
 	"robe of scintillating colors" : { // contains contributions by SoilentBrad
@@ -4686,7 +4686,7 @@ var Base_MagicItemsList = {
 		type : "wondrous item",
 		rarity : "very rare",
 		magicItemTable : "H",
-		description : "This robe has 3 charges, regaining 1d3 at dawn. As an action, I can use 1 charge to shed 30-ft radius bright light, 30 ft dim light until the end of my next turn, causing all that see me to have disadv. on attacks against me. All within 30 ft that can see me at activation make a DC 15 Wis save or stunned until effect ends.",
+		description : "This robe has 3 charges, regaining 1d3 at dawn. As an action, I can use 1 charge to shed 30-ft radius bright light, 30 ft dim light until the end of my next turn, causing all that see me to have Disadv on attacks against me. All within 30 ft that can see me at activation make a DC 15 Wis save or stunned until effect ends.",
 		descriptionFull : "This robe has 3 charges, and it regains 1d3 expended charges daily at dawn. While you wear it, you can use an action and expend 1 charge to cause the garment to display a shifting pattern of dazzling hues until the end of your next turn. During this time, the robe sheds bright light in a 30-foot radius and dim light for an additional 30 feet. Creatures that can see you have disadvantage on attack rolls against you. In addition, any creature in the bright light that can see you when the robe's power is activated must succeed on a DC 15 Wisdom saving throw or become stunned until the effect ends.",
 		attunement : true,
 		weight : 4,
@@ -4808,7 +4808,7 @@ var Base_MagicItemsList = {
 		type : "rod",
 		rarity : "very rare",
 		magicItemTable : "H",
-		description : "While holding this rod, I have adv. on initiative and Perception and can cast certain spells. As an action once per dawn, I can plant it in the ground, making it shed 60-ft radius bright light, dim for another 60 ft for 10 min. In the bright light, my allies and I gain +1 AC, +1 bonus to saves, and can sense invisible hostiles.",
+		description : "While holding this rod, I have Adv on initiative and Perception and can cast certain spells. As an action once per dawn, I can plant it in the ground, making it shed 60-ft radius bright light, dim for another 60 ft for 10 min. In the bright light, my allies and I gain +1 AC, +1 bonus to saves, and can sense invisible hostiles.",
 		descriptionLong : "While holding this rod, I have advantage on my initiative and Wisdom (Perception) checks. As an action, I can use it to cast either Detect Evil and Good, Detect Magic, Detect Poison and Disease, or See Invisibility. As an action once per dawn, I can plant the rod's haft in the ground, making its head shed bright light in a 60-ft radius and dim light for another 60 ft. This lasts 10 minutes or until a creature pulls the rod from the ground as an action. While in the bright light, my allies and I gain +1 bonus to AC and saving throws and can sense the location of any invisible hostile creatures that are also within the bright light.",
 		descriptionFull : "This rod has a flanged head and the following properties.\n   " + toUni("Alertness") + ". While holding the rod, you have advantage on Wisdom (Perception) checks and on rolls for initiative.\n   " + toUni("Spells") + ". While holding the rod, you can use an action to cast one of the following spells from it: Detect Evil and Good, Detect Magic, Detect Poison and Disease, or See Invisibility.\n   " + toUni("Protective Aura") + ". As an action, you can plant the haft end of the rod in the ground, whereupon the rod's head sheds bright light in a 60-foot radius and dim light for an additional 60 feet. While in that bright light, you and any creature that is friendly to you gain a +1 bonus to AC and saving throws and can sense the location of any invisible hostile creature that is also in the bright light.\n   The rod's head stops glowing and the effect ends after 10 minutes, or when a creature uses an action to pull the rod from the ground. This property can't be used again until the next dawn.",
 		attunement : true,
@@ -4817,7 +4817,7 @@ var Base_MagicItemsList = {
 		recovery : "dawn",
 		limfeaname : "Rod of Alertness (Plant in Ground)",
 		advantages : [["Initiative", true], ["Perception", true]],
-		vision : [["Adv. on Perception checks", 0]],
+		vision : [["Adv on Perception checks", 0]],
 		action : [["action", ""]],
 		spellcastingBonus: [{
 			name: "Robe of Alertness",
@@ -4932,7 +4932,7 @@ var Base_MagicItemsList = {
 		type : "wondrous item",
 		rarity : "uncommon",
 		magicItemTable : "B",
-		description : "This 60 ft silk rope can hold 3000 lb. As an action while I hold one end of it, I can animate it with its command word. Then, as a bonus action, I can command its other end to: start/stop moving (10 ft per turn), (un)fasten itself, coil itself, or (un)knot itself (50 ft length, adv. to climb it). It has AC 20, 20 HP, heals 1 HP/5 min.",
+		description : "This 60 ft silk rope can hold 3000 lb. As an action while I hold one end of it, I can animate it with its command word. Then, as a bonus action, I can command its other end to: start/stop moving (10 ft per turn), (un)fasten itself, coil itself, or (un)knot itself (50 ft length, Adv to climb it). It has AC 20, 20 HP, heals 1 HP/5 min.",
 		descriptionLong : "This 60-ft length of silk rope can hold up to 3000 lb. As an action while holding one end of the rope, I can speak the command word to animate it. Then, as a bonus action, I can command the other end to move 10 ft to a chosen destination up to its maximum length away, moving 10 ft on each of my turns until it reaches it. I can also use the bonus action to tell it to stop moving, to fasten itself securely, to unfasten itself, to knot or unknot itself, or to coil itself for carrying. While knotted, the rope shortens to 50 ft and grants advantage to climb it. The rope has AC 20 and 20 HP, regaining 1 HP per 5 minutes.",
 		descriptionFull : "This 60-foot length of silk rope weighs 3 pounds and can hold up to 3,000 pounds. If you hold one end of the rope and use an action to speak the command word, the rope animates. As a bonus action, you can command the other end to move toward a destination you choose. That end moves 10 feet on your turn when you first command it and 10 feet on each of your turns until reaching its destination, up to its maximum length away, or until you tell it to stop. You can also tell the rope to fasten itself securely to an object or to unfasten itself, to knot or unknot itself, or to coil itself for carrying.\n   If you tell the rope to knot, large knots appear at 1-foot intervals along the rope. While knotted, the rope shortens to a 50-foot length and grants advantage on checks made to climb it.\n   The rope has AC 20 and 20 hit points. It regains 1 hit point every 5 minutes as long as it has at least 1 hit point. If the rope drops to 0 hit points, it is destroyed.",
 		weight : 3,
@@ -5606,8 +5606,8 @@ var Base_MagicItemsList = {
 		type : "staff",
 		rarity : "legendary",
 		magicItemTable : "I",
-		description : "While holding this +2 quarterstaff, I have adv. on saves vs. spells and +2 on spell attacks. The staff has 50 charges to cast spells, regaining 4d6+2 at dawn. As a reaction, I can absorb a spell targeting only me, converting its spell level to charges. If this brings it over 50 charges or I break it is as an action, it explodes.",
-		descriptionLong : "While holding this staff I have a +2 to spell attacks, adv. on saving throws vs. spells, and can be used as a +2 quarterstaff. The staff has 50 charges (4d6+2 at dawn) to cast spells. When the last charge is used, it has a 5% chance to regain 1d12+1 charges. I can use a reaction to absorb a spell targeting only me, converting its spell level to charges. If that brings the staff over 50 charges or I use an action to break it, it explodes. If it explodes, there is a 50% chance I teleport to a random plane, otherwise I take 16\xD7 the charges left in force damage. All within 10 ft take 8\xD7, 20 ft 6\xD7, and 30 ft 4\xD7; DC 17 Dex save halves.",
+		description : "While holding this +2 quarterstaff, I have Adv on saves vs spells and +2 on spell attacks. The staff has 50 charges to cast spells, regaining 4d6+2 at dawn. As a reaction, I can absorb a spell targeting only me, converting its spell level to charges. If this brings it over 50 charges or I break it is as an action, it explodes.",
+		descriptionLong : "While holding this staff I have a +2 to spell attacks, Adv on saving throws vs spells, and can be used as a +2 quarterstaff. The staff has 50 charges (4d6+2 at dawn) to cast spells. When the last charge is used, it has a 5% chance to regain 1d12+1 charges. I can use a reaction to absorb a spell targeting only me, converting its spell level to charges. If that brings the staff over 50 charges or I use an action to break it, it explodes. If it explodes, there is a 50% chance I teleport to a random plane, otherwise I take 16\xD7 the charges left in force damage. All within 10 ft take 8\xD7, 20 ft 6\xD7, and 30 ft 4\xD7; DC 17 Dex save halves.",
 		descriptionFull : "This staff can be wielded as a magic quarterstaff that grants a +2 bonus to attack and damage rolls made with it. While you hold it, you gain a +2 bonus to spell attack rolls.\n   The staff has 50 charges for the following properties. It regains 4d6+2 expended charges daily at dawn. If you expend the last charge, roll a d20. On a 20, the staff regains 1d12+1 charges.\n   " + toUni("Spell Absorption") + ". While holding the staff, you have advantage on saving throws against spells. In addition, you can use your reaction when another creature casts a spell that targets only you. If you do, the staff absorbs the magic of the spell, canceling its effect and gaining a number of charges equal to the absorbed spell's level. However, if doing so brings the staff's total number of charges above 50, the staff explodes as if you activated its retributive strike (see below).\n   " + toUni("Spells") + ". While holding the staff, you can use an action to expend some of its charges to cast one of the following spells from it, using your spell save DC and spellcasting ability: Conjure Elemental (7 charges), Dispel Magic (3 charges), Fireball (7th-level version, 7 charges), Flaming Sphere (2 charges), Ice Storm (4 charges), Invisibility (2 charges), Knock (2 charges), Lightning Bolt (7th-level version, 7 charges), Passwall (5 charges), Plane Shift (7 charges), Telekinesis (5 charges), Wall of Fire (4 charges), or Web (2 charges).\n   You can also use an action to cast one of the following spells from the staff without using any charges: Arcane Lock, Detect Magic, Enlarge/Reduce, Light, Mage Hand, or Protection from Evil and Good.\n   " + toUni("Retributive Strike") + ". You can use an action to break the staff over your knee or against a solid surface, performing a retributive strike. The staff is destroyed and releases its remaining magic in an explosion that expands to fill a 30-foot-radius sphere centered on it.\n   You have a 50% chance to instantly travel to a random plane of existence, avoiding the explosion. If you fail to avoid the effect, you take force damage equal to 16 \xD7 the number of charges in the staff. Every other creature in the area must make a DC 17 Dexterity saving throw. On a failed save, a creature takes an amount of damage based on how far away it is from the point of origin, as shown in the following table. On a successful save, a creature takes half as much damage.\n\n" + toUni("Distance from Origin\tDamage") + "\n10 ft. away or closer\t8 \xD7 the number of charges in the staff\n11 to 20 ft. away\t\t6 \xD7 the number of charges in the staff\n21 to 30 ft. away\t\t4 \xD7 the number of charges in the staff",
 		attunement : true,
 		weight : 4,
@@ -5980,7 +5980,7 @@ var Base_MagicItemsList = {
 		rarity : "rare",
 		magicItemTable : "H",
 		attunement : true,
-		description : "When I roll a 20 to hit with this magic sword vs. a creature, it takes +14 slashing damage and I have a 5% chance of lopping off one of its limbs. It does maximum damage vs. objects. With the command word, the blade gives bright light in a 10-ft radius \u0026 dim light in another 10 ft. " + (typePF ? "This stops if sheathed." : "The light stops when commanded again or sheathed."),
+		description : "When I roll a 20 to hit with this magic sword vs a creature, it takes +14 slashing damage and I have a 5% chance of lopping off one of its limbs. It does maximum damage vs objects. With the command word, the blade gives bright light in a 10-ft radius \u0026 dim light in another 10 ft. " + (typePF ? "This stops if sheathed." : "The light stops when commanded again or sheathed."),
 		descriptionLong : "When I attack a creature with this magic sword and roll a 20 on the attack roll, that target takes an extra 14 slashing damage and I roll another d20. If that turns up a 20 as well, I lop off one of the target's limbs. If the creature has no limb to sever, I lop off a portion of its body instead. When used against an object, the damage dice are maximized. In addition, I can speak the sword's command word to cause the blade to shed bright light in a 10-ft radius and dim light for an additional 10 ft. Speaking the command word again or sheathing the sword puts out the light.",
 		descriptionFull : "When you attack an object with this magic sword and hit, maximize your weapon damage dice against the target.\n   When you attack a creature with this weapon and roll a 20 on the attack roll, that target takes an extra 14 slashing damage. Then roll another d20. If you roll a 20, you lop off one of the target's limbs, with the effect of such loss determined by the DM. If the creature has no limb to sever, you lop off a portion of its body instead.\n   In addition, you can speak the sword's command word to cause the blade to shed bright light in a 10-foot radius and dim light for an additional 10 feet. Speaking the command word again or sheathing the sword puts out the light.", // the SRD says 4d6 but that is incorrect
 		chooseGear : {
@@ -5998,7 +5998,7 @@ var Base_MagicItemsList = {
 					if (!v.theWea.isMagicWeapon && v.isMeleeWeapon && /sword|scimitar|rapier/i.test(v.baseWeaponName) && (/of sharpness/i).test(v.WeaponTextName) && v.theWea.damage[2] == "slashing") {
 						v.theWea.isMagicWeapon = true;
 						fields.Description = fields.Description.replace(/(, |; )?Counts as magical/i, '');
-						fields.Description += (fields.Description ? '; ' : '') + 'On 20 to hit: +14 damage \u0026 5% chance to sever limb; Max damage vs. objects';
+						fields.Description += (fields.Description ? '; ' : '') + 'On 20 to hit: +14 damage \u0026 5% chance to sever limb; Max damage vs objects';
 					}
 				},
 				'If I include the words "of Sharpness" in a the name of a sword that deals slashing damage, it will be treated as the magic weapon Sword of Sharpness. It deals maximum damage against objects. On a roll of 20 to hit against creatures, it deals +14 slashing damage and has a 5% chance to lop off one limb.'
@@ -6255,14 +6255,14 @@ var Base_MagicItemsList = {
 		type : "wand",
 		rarity : "rare",
 		magicItemTable : "G",
-		description : "This wand has 7 charges, regaining 1d6+1 at dawn, which I can use to cast its spells. I can expend 1 charge to gain adv. on a check to escape a grapple or on a save vs. being paralyzed or restrained, the latter requiring me to use my reaction. When the last charge is used there is a 5% chance the wand is destroyed.",
-		descriptionLong : "This wand has 7 charges, regaining 1d6+1 at dawn. I can expend charges to cast (save DC 17) Hold Monster (5 charges) or Hold Person (2 charges). As a reaction, I can expend 1 charge to gain adv. on a save to avoid being paralyzed or restrained. I can also expend 1 charge to gain adv. on a check to escape a grapple. If I expend the wand's last charge, roll a d20. On a 1, the wand crumbles into ashes and is destroyed.",
+		description : "This wand has 7 charges, regaining 1d6+1 at dawn, which I can use to cast its spells. I can expend 1 charge to gain Adv on a check to escape a grapple or on a save vs being paralyzed or restrained, the latter requiring me to use my reaction. When the last charge is used there is a 5% chance the wand is destroyed.",
+		descriptionLong : "This wand has 7 charges, regaining 1d6+1 at dawn. I can expend charges to cast (save DC 17) Hold Monster (5 charges) or Hold Person (2 charges). As a reaction, I can expend 1 charge to gain Adv on a save to avoid being paralyzed or restrained. I can also expend 1 charge to gain Adv on a check to escape a grapple. If I expend the wand's last charge, roll a d20. On a 1, the wand crumbles into ashes and is destroyed.",
 		descriptionFull : "This wand has 7 charges for the following properties. It regains 1d6+1 expended charges daily at dawn. If you expend the wand's last charge, roll a d20. On a 1, the wand crumbles into ashes and is destroyed.\n   " + toUni("Spells") + ". While holding the wand, you can use an action to expend some of its charges to cast one of the following spells (save DC 17): Hold Monster (5 charges) or Hold Person (2 charges).\n   " + toUni("Assisted Escape") + ". While holding the wand, you can use your reaction to expend 1 charge and gain advantage on a saving throw you make to avoid being paralyzed or restrained, or you can expend 1 charge and gain advantage on any check you make to escape a grapple.",
 		attunement : true,
 		weight : 1,
 		prerequisite : "Requires attunement by a spellcaster",
 		prereqeval : function(v) { return v.isSpellcaster; },
-		action : [["reaction", " (adv. on save)"]],
+		action : [["reaction", " (Adv on save)"]],
 		usages : 7,
 		recovery : "dawn",
 		additional : "regains 1d6+1",
