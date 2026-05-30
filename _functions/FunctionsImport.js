@@ -2857,6 +2857,7 @@ function AddSubClass(iClass, subclassName, subclassObj, bDoNotConvert) {
 	// For legacy subclasses, we need to change at what level the subclass features are gained
 	var classFeatures = { edited: [], good: [], bad: [] };
 	for (var key in subclassObj.features) {
+		if (ClassList[iClass].features[key] && key.indexOf("subclassfeature") === -1) continue; // skip features that overwrite parent class features
 		if (subclassObj.features[key].minlevel < ClassList[iClass].subclassGainedLevel) {
 			subclassObj.features[key].minlevel = ClassList[iClass].subclassGainedLevel;
 			classFeatures.edited.push(key);

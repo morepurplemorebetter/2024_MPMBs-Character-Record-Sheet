@@ -1980,7 +1980,6 @@ function FindClasses(NotAtStartup, isFieldVal) {
 			if (subClObj && subClObj.features && subClObj.features[prop]) continue;
 			var cPropAtt = classObj.features[prop];
 			var fNm = ("0" + cPropAtt.minlevel).slice(-2) + (/subclassfeature/i.test(prop) ? "" : "()") + prop;
-			//subClObj && subClObj.features[prop]
 			if (fNm.toString().length > 2) {
 				fAB.push(fNm);
 				fTrans[fNm] = {name: prop, list: "ClassList", item: aClass};
