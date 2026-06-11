@@ -938,7 +938,7 @@ var Base_WeaponsList = {
 		type: "Cantrip",
 		damage: ["C", 8, "cold"],
 		range: "60 ft",
-		description: "Target -10 ft speed until start of my next turn",
+		description: "Target -10 ft Speed until start of my next turn",
 		abilitytodamage: false,
 	},
 	"sacred flame": {
@@ -2297,7 +2297,7 @@ var Base_WeaponMasteriesList = {
 	"slow": {
 		name: "Slow",
 		source: [["SRD24", 90], ["P24", 214]],
-		description: "If I damaged a creature, it has -10 ft speed until the start of my next turn. Not cumulative.",
+		description: "If I damaged a creature, it has -10 ft Speed until the start of my next turn. Not cumulative.",
 		descriptionFull: "If you hit a creature with this weapon and deal damage to it, you can reduce its Speed by 10 feet until the start of your next turn. If the creature is hit more than once by weapons that have this property, the Speed reduction doesn't exceed 10 feet.",
 	},
 	"topple": {

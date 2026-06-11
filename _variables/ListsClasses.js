@@ -737,7 +737,7 @@ var Base_ClassList = {
 			prepared: [4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22],
 		},
 		features: {
-			"spellcasting": {
+			"_spellcasting": {
 				name: "Spellcasting",
 				source: [["SRD24", 36], ["P24", 69]],
 				minlevel: 1,
@@ -948,7 +948,7 @@ var Base_ClassList = {
 			prepared: [4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22],
 		},
 		features: {
-			"spellcasting": {
+			"_spellcasting": {
 				name: "Spellcasting",
 				source: [["SRD24", 41], ["P24", 79]],
 				minlevel: 1,
@@ -1984,7 +1984,7 @@ var Base_ClassList = {
 		},
 		spellcastingFactorRoundupMulti: true,
 		features: {
-			"spellcasting": {
+			"_spellcasting": {
 				name: "Spellcasting",
 				source: [["SRD24", 57], ["P24", 119]],
 				minlevel: 1,
@@ -1998,7 +1998,7 @@ var Base_ClassList = {
 				name: "Favored Enemy",
 				source: [["SRD24", 58], ["P24", 119]],
 				minlevel: 1,
-				description: desc("I always have *Hunter's Mark* prepared. I can cast it without a spell slot several times per " + (typePF ? "Long Rest." : "LR.")),
+				description: desc("I always have *Hunter's Mark* prepared. I can cast it without a spell slot several times per LR."),
 				usages: ProficiencyBonusList, // Not linked to Prof Bonus, but same progression
 				recovery: "Long Rest",
 				spellcastingBonus: [{
@@ -2451,7 +2451,7 @@ var Base_ClassList = {
 			spells: [2, 4, 6, 7, 9, 10, 11, 12, 14, 15, 16, 16, 17, 17, 18, 18, 19, 20, 21, 22],
 		},
 		features: {
-			"spellcasting": {
+			"_spellcasting": {
 				name: "Spellcasting",
 				source: [["SRD24", 64], ["P24", 139]],
 				minlevel: 1,
@@ -2472,9 +2472,9 @@ var Base_ClassList = {
 						" \u2022 The spell save DC of my Sorcerer spells increases by 1.",
 						" \u2022 I have Advantage on spell attack rolls of my Sorcerer spells.",
 					];
-					if (n >= 7) arr.push(" \u2022 I can use op to two of my Metamagic options on each spell I cast (from level 7)."); // Sorcery Incarnate
+					if (n >= 7) arr.push(" \u2022 I can use up to two of my Metamagic options on each spell I cast (from level 7)."); // Sorcery Incarnate
 					if (n >= 20) arr.push(" \u2022 I can use one Metamagic option on each of my turns without spending SP (from level 20)."); // Arcane Apotheosis
-					if (n >= 7) arr.push("When I have no uses left, I can use it if I spend 2 SP as part of the activating Bonus Action."); // Sorcery Incarnate
+					if (n >= 7) arr.push("If I have no uses of this left, I can use it by spending 2 SP when I take the Bonus Action."); // Sorcery Incarnate
 					return desc(arr);
 				}),
 				usages: 2,
@@ -3284,7 +3284,7 @@ var Base_ClassList = {
 			cantripsPrepare: true,
 		},
 		features: {
-			"spellcasting": {
+			"_spellcasting": {
 				name: "Spellcasting",
 				source: [["SRD24", 77], ["P24", 165]],
 				minlevel: 1,
@@ -3321,7 +3321,7 @@ var Base_ClassList = {
 					return lvls + " level" + (lvls > 1 ? "s" : "") + " of spell slots";
 				}),
 				usages: 1,
-				recovery: "Long Rest",
+				recovery: typePF ? "LR" : "Long Rest",
 			},
 			"scholar": function () {
 				var a = {
@@ -3382,7 +3382,7 @@ var Base_ClassList = {
 						function(spList, spName, spType) {
 							// Limit the selectable spells to those in the spellbook
 							// This has the downside that newly added spells to the spellbook are only selectable the next time the dialog is opened
-							if (spList.spellMasteryLevel) {
+							if (spList.spellMasteryLevel && CurrentSpells.wizard && CurrentSpells.wizard.selectSP) {
 								var oWiz = CurrentSpells.wizard;
 								var spellbook = oWiz.selectSp.concat(oWiz.selectBo);
 								if (oWiz.extra && oWiz.extraSpecial) spellbook = spellbook.concat(oWiz.extra);
@@ -3639,7 +3639,7 @@ var Base_ClassSubList = {
 				minlevel: 3,
 				description: desc("As a Magic action, I can expend a use 1 CD to heal Bloodied creatures within 30 ft (me included) up to half their HP maximum. I divide the HP among them as I see fit."),
 				additional: levels.map(function (n) {
-					return n < 3 ? "" : "1 Channel Divinity; divide " + (n * 5) + " Hit Points";
+					return n < 3 ? "" : "1 Channel Divinity; divide " + (n * 5) + (typePF ? "HP" : " Hit Points");
 				}),
 				action: [["action", " (Channel Divinity)"]],
 			},
