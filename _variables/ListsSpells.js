@@ -1985,7 +1985,7 @@ var Base_SpellsList = {
 		range: "120 ft",
 		components: "V,S",
 		duration: "Instantaneous",
-		description: "Dispel all spells on 1 crea/obj/magical effect; if above casting SL, DC 10+SL spellcasting ability check",
+		description: "Dispel all spells on 1 crea/obj/magical effect; if above casting SL, spellcasting ability check DC 10+SL",
 		descriptionFull: [
 			"Choose one creature, object, or magical effect within range. Any ongoing spell of level 3 or lower on the target ends. For each ongoing spell of level 4 or higher on the target, make an ability check using your spellcasting ability (10 plus that spell's level). On a successful check, the spell ends.",
 			UsingHigherLvl + "You automatically end a spell on the target if the spell's level is equal to or less than the level of the spell slot you use.",
@@ -5311,7 +5311,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "A flask of Holy Water worth 25+ GP, which the spell consumes",
 		duration: "Conc, 10 min",
-		description: "1 crea no fear/charm/possess and atks Dis from abber./celes./elem./fey/fiends/undead (25gp cons)",
+		description: "1 crea no fear/charm/possess and atks Dis from aber./celes./elem./fey/fiends/undead (25gp cons)",
 		descriptionFull: [
 			"Until the spell ends, one willing creature you touch is protected against creatures that are Aberrations, Celestials, Elementals, Fey, Fiends, or Undead. The protection grants several benefits. Creatures of those types have Disadvantage on attack rolls against the target. The target also can't be possessed by or gain the Charmed or Frightened conditions from them. If the target is already possessed, Charmed, or Frightened by such a creature, the target has Advantage on any new saving throw against the relevant effect.",
 		],

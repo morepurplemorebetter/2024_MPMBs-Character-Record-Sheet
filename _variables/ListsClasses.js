@@ -276,10 +276,10 @@ var Base_ClassList = {
 				minlevel: 1,
 				description: levels.map(function (n) {
 					var arr = [
-						"As a Bonus Action, I can enter a Rage if I'm not wearing Heavy armor. While I'm in a Rage:",
-						" \u2022 I have Resistance to Bludgeoning, Piercing, and Slashing damage.",
-						" \u2022 I add bonus damage to my weapon and Unarmed Strike attacks that use Strength.",
-						" \u2022 I have Advantage on Strength checks and saves, but can't maintain Concentration.",
+						"As a Bonus Action if I'm not wearing Heavy armor, I can enter a Rage to gain the following.",
+						" \u2022 Resistance to Bludgeoning, Piercing, and Slashing damage.",
+						" \u2022 Bonus damage to my weapon and Unarmed Strike attacks that use Strength.",
+						" \u2022 Advantage on Strength checks and saves, but can't maintain Concentration.",
 					];
 					if (n < 15) {
 						arr = arr.concat([
@@ -1569,7 +1569,7 @@ var Base_ClassList = {
 				description: levels.map(function (n) {
 					var dmgType = n < 13 ? "Bludgeoning, Piercing, or Slashing " : "";
 					var fp = n < 13 && !typePF ? "FP" : "Focus Point";
-					return desc("As a Reaction when I take " + dmgType + "damage from an attack roll, I can reduce it by 1d10 + Monk level + my Dex mod. If reduced to 0, I can expend 1 " + fp + " to redirect it to a creature I can see within 5 ft (or 60 ft if it was a ranged attack), which must make a Dex save or take 2\xD7 Martial Arts die + my Dex mod damage of the same type.");
+					return desc("As a Reaction when I take " + dmgType + "damage from an attack roll, I can reduce it by 1d10 + Monk level + my Dex mod. If reduced to 0, I can expend 1 " + fp + " to redirect it to a creature I can see within 5 ft (or 60 ft if it was a ranged attack), which must make a Dex save or take two Martial Arts dice + Dex mod damage of the same type.");
 				}),
 				action: [["reaction", "Deflect Attack (1 FP to redirect)"]],
 				additional: levels.map(function (n) {
@@ -1598,9 +1598,8 @@ var Base_ClassList = {
 			},
 			"stunning strike": {
 				name: "Stunning Strike",
-				minlevel: 5,
 				source: [["SRD24", 51], ["P24", 103]],
-				extraname: "Focus Feature",
+				minlevel: 5,
 				"stunning strike": {
 					name: "Stunning Strike",
 					extraname: "Monk 5",
@@ -1650,7 +1649,7 @@ var Base_ClassList = {
 				name: "Self-Restoration",
 				source: [["SRD24", 52], ["P24", 103]],
 				minlevel: 10,
-				description: desc("At the end of each of my turns, I can remove the Charmed, Frightened, or Poisoned condition from myself. Forgoing food and drink doesn't give me levels of Exhaustion."),
+				description: desc("At the end of each of my turns, I can cure myself of one of these conditions: Charmed, Frightened, or Poisoned. Forgoing food and drink doesn't give me levels of Exhaustion."),
 			},
 			"deflect energy": {
 				name: "Deflect Energy",
@@ -1664,7 +1663,6 @@ var Base_ClassList = {
 				minlevel: 14,
 				saves: ["Str", "Dex", "Con", "Int", "Wis", "Cha"],
 				savetxt: { text: ["**Failed Save**. 1 FP to reroll"] },
-				extraname: "Focus Feature",
 				"disciplined survivor": {
 					name: "Disciplined Survivor",
 					extraname: "Monk 14",
@@ -1685,7 +1683,6 @@ var Base_ClassList = {
 				source: [["SRD24", 52], ["P24", 103]],
 				minlevel: 18,
 				dmgres: ["3FP: all -Force"],
-				extraname: "Focus Feature",
 				"superior defense": {
 					name: "Superior Defense",
 					extraname: "Monk 18",
@@ -1817,7 +1814,7 @@ var Base_ClassList = {
 				name: "Paladin's Smite",
 				source: [["SRD24", 54], ["P24", 110]],
 				minlevel: 2,
-				description: desc("I always have *Divine Smite* prepared. Once per Long Rest I can cast it without "+ (typePF ? "using" : "") + " a spell slot."),
+				description: desc("I always have *Divine Smite* prepared. Once per Long Rest I can cast it without" + (typePF ? " using" : "") + " a spell slot."),
 				spellcastingBonus: [{
 					name: "Paladin's Smite",
 					spells: ["divine smite"],
@@ -2468,7 +2465,7 @@ var Base_ClassList = {
 				minlevel: 1,
 				description: levels.map(function (n) {
 					var arr = [
-						"As a Bonus Action, I can gain the following benefits for 1 minute:",
+						"As a Bonus Action, I can gain the following benefits for 1 minute.",
 						" \u2022 The spell save DC of my Sorcerer spells increases by 1.",
 						" \u2022 I have Advantage on spell attack rolls of my Sorcerer spells.",
 					];
@@ -3019,7 +3016,7 @@ var Base_ClassList = {
 					submenu: ["[Warlock level  5+]", "[improves Pact of the Chain]"],
 					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the chain') !== -1; },
 					description: desc([
-						"When I cast Find Familiar, the summoned create has additional benefits:",
+						"When I cast Find Familiar, the summoned create has additional benefits.",
 						" \u2022 ***Aerial or Aquatic***. It gains a Fly or Swim speed of 40 ft (my choice at casting).",
 						" \u2022 ***Quick Attack***. As a Bonus Action, I can command it to take the Attack action.",
 						" \u2022 ***Damage***. I can have it deal Necrotic or Radiant damage instead of Bludg., Pierc., or Slash.",
@@ -3198,35 +3195,36 @@ var Base_ClassList = {
 					name: "Mystic Arcanum (6th-level)",
 					"class": "warlock",
 					level: [6, 6],
-					firstCol: "oncelr",
 				}, {
 					name: "Mystic Arcanum (7th-level)",
 					"class": "warlock",
 					level: [7, 7],
-					firstCol: "oncelr",
 					times: levels.map(function (n) { return n < 13 ? 0 : 1; }),
 				}, {
 					name: "Mystic Arcanum (8th-level)",
 					"class": "warlock",
 					level: [8, 8],
-					firstCol: "oncelr",
 					times: levels.map(function (n) { return n < 15 ? 0 : 1; }),
 				}, {
 					name: "Mystic Arcanum (9th-level)",
 					"class": "warlock",
 					level: [9, 9],
-					firstCol: "oncelr",
 					times: levels.map(function (n) { return n < 17 ? 0 : 1; }),
 				}],
 				calcChanges: {
 					spellAdd: [
-						function (spellKey, spellObj, spName, isDuplicate) {
-							// Can't upcast Mystic Arcanum spells
-							if (spName === "warlock" && spellObj.level > 5 && !isDuplicate) {
-								// Get all the Mystic Arcanum selections
-								var mysticArcanumSelections = CurrentSpells.warlock.bonus['mystic arcanum'].map(function (n) { return n.selection[0]; });
-								if (mysticArcanumSelections.indexOf(spellKey) !== -1) {
-									spellObj.allowUpCasting = true;
+						function (spellKey, spellObj, spName, isDuplicate, isBonusSpell) {
+							// Special treatment for Mystic Arcanum spells (any warlock spell level 6 or higher).
+							if (spName === "warlock" && spellObj.level >= 6) {
+								var isMysticArcanumSelection = isBonusSpell && CurrentSpells.warlock.bonus['mystic arcanum'].some(function (n) { return n.selection[0] === spellKey; });
+								// Add Once per Long Rest checkbox for the Mystic Arcanum spells. Put a checked box on a full class list.
+								if (isMysticArcanumSelection && !spellObj.firstCol) {
+									spellObj.firstCol = CurrentSpells.warlock.typeList === 4 ? "checkedbox" : "oncelr";
+								}
+								// Can't upcast Mystic Arcanum spells. Skip bonus spells that are not part of the Mystic Arcanum selection.
+								var notMysticArcanumSpell = isBonusSpell && !isMysticArcanumSelection;
+								if (spellObj.allowUpCasting === undefined && spellObj.level < 9 && !notMysticArcanumSpell) {
+									return removeSpellUpcasting(spellObj);
 								}
 							}
 						},
@@ -3442,7 +3440,7 @@ var Base_ClassList = {
 						function(spList, spName, spType) {
 							// Limit the selectable spells to those in the spellbook
 							// This has the downside that newly added spells to the spellbook are only selectable the next time the dialog is opened
-							if (spList.signatureSpell) {
+							if (spList.signatureSpell && CurrentSpells.wizard && CurrentSpells.wizard.selectSP) {
 								var oWiz = CurrentSpells.wizard;
 								var spellbook = oWiz.selectSp.concat(oWiz.selectBo);
 								if (oWiz.extra && oWiz.extraSpecial) spellbook = spellbook.concat(oWiz.extra);
@@ -3927,7 +3925,7 @@ var Base_ClassSubList = {
 				source: [["SRD24", 52], ["P24", 107]],
 				minlevel: 3,
 				description: desc([
-					"Whenever I hit a Flurry of Blows attack, I can impose one of the following effects:",
+					"Whenever I hit a Flurry of Blows attack, I can impose one of the following effects.",
 					" \u2022 ***Addle***. The target can't make Opportunity Attacks until the start of its next turn.",
 					" \u2022 ***Push***. The target must make a Strength save or be pushed up to 15 ft away from me.",
 					" \u2022 ***Topple***. The target must make a Dexterity save or have the Prone condition.",
@@ -4004,18 +4002,19 @@ var Base_ClassSubList = {
 					],
 				},
 				spellcastingExtra: ["protection from evil and good", "shield of faith", "aid", "zone of truth", "beacon of hope", "dispel magic", "freedom of movement", "guardian of faith", "commune", "flame strike"],
-				toNotesPage: [{
-					name: "Tenets of the Oath of Devotion", // needs to start with "Tenets of the Oath"
-					origin: "",
-					note: [
-						"This oath binds Paladins to the ideals of justice and order with the following tenets:",
-						" \u2022 Let your word be your promise.",
-						" \u2022 Protect the weak and never fear to act.",
-						" \u2022 Let your honorable deeds be an example.",
-					],
-				},
-				GenericClassFeatures["paladin's oath"].toNotesPage,
-			],
+				toNotesPage: [
+					{
+						name: "Tenets of the Oath of Devotion", // needs to start with "Tenets of the Oath"
+						origin: "",
+						note: [
+							"This oath binds Paladins to the ideals of justice and order with the following tenets.",
+							" \u2022 Let your word be your promise.",
+							" \u2022 Protect the weak and never fear to act.",
+							" \u2022 Let your honorable deeds be an example.",
+						],
+					},
+					GenericClassFeatures["paladin's oath"].toNotesPage,
+				],
 			},
 			"subclassfeature7": {
 				name: "Aura of Devotion",
@@ -4042,7 +4041,7 @@ var Base_ClassSubList = {
 				source: [["SRD24", 57], ["P24", 114]],
 				minlevel: 20,
 				description: desc([
-					"As a Bonus Action, I can give my Aura of Protection these benefits for 10 minutes:",
+					"As a Bonus Action, I can give my Aura of Protection these benefits for 10 minutes.",
 					" \u2022 ***Holy Ward***. I have Advantage on saving throws I'm forced to make by a Fiend or Undead.",
 					" \u2022 ***Radiant Damage*** (Cha mod + Prof Bonus) is dealt to enemies starting " + (typePF ? "their" : "its") + " turn in the aura.",
 					" \u2022 ***Sunlight***. The aura is filled with Bright Light that is sunlight.",
@@ -4372,7 +4371,7 @@ var Base_ClassSubList = {
 				name: "Hurl Through Hell",
 				source: [["SRD24", 76], ["P24", 162]],
 				minlevel: 14,
-				description: desc("Once per turn when I hit a creature with an attack roll, I can try to move it to the Lower Planes. It must make a Charisma save or disappear, take 8d10 Psychic damage if it isn't a Fiend, and be Incapacitated until my next turn ends, when it returns in the same or closest empty spot. I can expend a Pact Magic spells slot (PSS) to restore use of this feature."),
+				description: desc("Once per turn when I hit a creature with an attack roll, I can try to move it to the Lower Planes. It must make a Charisma save or disappear, take 8d10 Psychic damage if it isn't a Fiend, and be Incapacitated until my next turn ends, when it returns in the same or closest empty spot. I can expend a Pact Magic spell slot (PSS) to restore use of this feature."),
 				recovery: "Long Rest",
 				usages: 1,
 				altResource: "PSS",

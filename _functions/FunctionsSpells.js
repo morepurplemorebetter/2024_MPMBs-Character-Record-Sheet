@@ -329,9 +329,13 @@ function applySpellcastingAbility(oSpell, oCast) {
 	if (theAbi) {
 		var theAbiMod = Number(What(theAbi + " Mod"));
 		var newSpellDescr = oSpell.description;
-		var spellAbiModRx = /(\+ ?)?(?:my )?(spell)(?:cast)?(?:ing)? (?:abi(?:lity)? )?(mod)(?:ifier)?/i;
+		var spellAbiModRx = /(\+ ?)?(my )?spell(cast(ing)?)? (abi(lity)? )?mod(ifier)?/i;
 		if (spellAbiModRx.test(newSpellDescr)) { // modifier
 			newSpellDescr = newSpellDescr.replace(spellAbiModRx, (theAbiMod >= 0 ? "+" + theAbiMod : theAbiMod) + " (" + theAbi + ")");
+		}
+		var spellAbiRx = /(my )?spell(cast(ing)?)? abi(?:lity)?/i;
+		if (spellAbiRx.test(newSpellDescr)) { // without modifier
+			newSpellDescr = newSpellDescr.replace(spellAbiRx, theAbi);
 		}
 		return newSpellDescr !== oSpell.description ? newSpellDescr : false;
 	}
@@ -705,7 +709,7 @@ function SetSpellSheetElement(target, type, suffix, caster, hidePrepared, forceT
 			var casterName = forceTxt ? forceTxt : spCast.name.replace(/ (\(|\[).+?(\)|\])/g, "");
 			if (!forceTxt) casterName = casterName + (casterName.length >= testLength || /\b(spells|powers|psionics)\b/i.test(casterName) ? "" : isPsionics ? " Psionics" : " Spells");
 			//set the variable to true to later hide the prepared fields if not concerning a list or book
-			if (!spCast.level || spCast.typeSp === "known" || !spCast.known || !spCast.known.prepared || spCast.typeList === 3) {
+			if (!spCast.level || !spCast.known || (!spCast.known.prepared && spCast.typeSp !== "known") || (spCast.typeSp === "known" && spCast.typeList !== 4 && spCast.known.spells) || spCast.typeList === 3) {
 				hidePrepared = true;
 			}
 			if (What(headerArray[2]) !== caster) { //if the header was not already set to the class
@@ -846,6 +850,9 @@ function CalcSpellScores() {
 		if (cSpells.known && isArray(cSpells.known.prepared)) {
 			// numbered of prepared spells is not calculated, but given (PHB 2024)
 			theResult.prepare = cSpells.known.prepared[Math.min(cSpells.known.prepared.length, cSpells.level) - 1];
+		} else if (cSpells.known && !cSpells.known.prepared && isArray(cSpells.known.spells)) {
+			// Full spell sheet for a "known" casters: number of prepared spells is number of known spells
+			theResult.prepare = cSpells.known.spells[Math.min(cSpells.known.spells.length, cSpells.level) - 1];
 		} else {
 			theResult.prepare = theMod;
 			if (cSpells && cSpells.factor && cSpells.factor[0]) {
@@ -3549,9 +3556,10 @@ function GenerateSpellSheet(GoOn) {
 		var preparingCantrips = spCast.preparedCantrips && spCast.typeList !== 3;
 
 		// Process the extra spells, if any
+		var bookCaster = /book/i.test(spCast.typeSp);
+		var listCaster = /list/i.test(spCast.typeSp);
+		var knownCaster = /known/i.test(spCast.typeSp);
 		if (spCast.extra) {
-			var listCaster = /list/i.test(spCast.typeSp);
-			var bookCaster = /book/i.test(spCast.typeSp);
 			var extraNonconform = listCaster ? !spCast.extraSpecial : spCast.extraSpecial;
 			switch (spCast.typeList) {
 				default: case 1: case 2: // Default
@@ -3657,7 +3665,7 @@ function GenerateSpellSheet(GoOn) {
 			return firstCols[aSpell] && !/^(atwill|(once[sl]r\+)?markedbox(_used)?)$/i.test(firstCols[aSpell]);
 		});
 		// Get an array of 12 arrays, one for each spell level, and 2 final ones for the psionic talents/disciplines
-		var orderedSpellList = OrderSpells(fullSpellList, "multi", true, allowedDuplicateSpells, maxLvl);
+		var orderedSpellList = OrderSpells(fullSpellList, "multi", true, spCast.selectBo, maxLvl, allowedDuplicateSpells);
 
 		var preparedOnly = spCast.typeList === 3 || (spCast.known && !spCast.known.prepared && spCast.typeList !== 4);
 
@@ -3733,7 +3741,7 @@ function GenerateSpellSheet(GoOn) {
 				var isBonusSpell = spCast.selectBo && spCast.selectBo.indexOf(aSpell) !== -1;
 				var isDuplicate = y && aSpell === spArray[y - 1];
 				var isRegularSpell = !isBonusSpell || isDuplicate;
-				var bonusBookSpell = bookCaster && isBonusSpell && !isDuplicate;
+				var bonusSpellChecked = (bookCaster || knownCaster) && isBonusSpell && !isDuplicate;
 				//check if not at the end of the page and, if so, create a new page
 				if (lineCurrent > lineMax) AddPage();
 				// Set the first column
@@ -3744,11 +3752,11 @@ function GenerateSpellSheet(GoOn) {
 				} else if (isBonusSpell && !isDuplicate && firstCols[aSpell] && !(firstCols[aSpell] === "markedbox" && preparedOnly)) {
 					// Use the first column set for a bonus spell, unless it is an always prepared box and currently only doing prepared spells
 					toCheck += firstCols[aSpell];
-				} else if (oSpell.firstCol === undefined && (isPsionics || preparedCantrip || autoFirstColumn || bonusBookSpell)) {
+				} else if (oSpell.firstCol === undefined && (isPsionics || preparedCantrip || autoFirstColumn || bonusSpellChecked)) {
 					if (spCast.typeList === 4 || preparedCantrip) {
 						// Showing all spells (or cantrips), so mark the prepared ones with a checked box
-						toCheck += bonusBookSpell || knownSpells.indexOf(aSpell) !== -1 ? "checkedbox" : "checkbox";
-					} else { // Default for list/book casters. Known casters have no first column
+						toCheck += bonusSpellChecked || knownSpells.indexOf(aSpell) !== -1 ? "checkedbox" : "checkbox";
+					} else if (!knownCaster) { // Default for list/book casters. Known casters have no first column
 						toCheck += oSpell.level === 0 ? "atwill" : "checkbox";
 					}
 				}
@@ -4066,11 +4074,12 @@ function MakeSpellMenu_SpellOptions(MenuSelection) {
 
 //a function that takes an array of spells and orders it by level (and alphabet)
 //outputFormat defines whether to return an Array of Arrays ("multi"), or just one array "single";
-function OrderSpells(inputArray, outputFormat, sepPsionics, bonusSp, maxLvl) {
-	var bonusCount = {};
-	if (bonusSp && isArray(bonusSp)) {
-		bonusSp.forEach(function(spl) {
-			bonusCount[spl] = !bonusCount[spl] ? 1 : bonusCount[spl] + 1;
+function OrderSpells(inputArray, outputFormat, sepPsionics, bonusSpells, maxLvl, allowedDuplicateSpells) {
+	var ignoreMaxLvl = !bonusSpells ? [] : isArray(bonusSpells) ? bonusSpells : [bonusSpells];
+	var duplCount = {};
+	if (allowedDuplicateSpells && isArray(allowedDuplicateSpells)) {
+		allowedDuplicateSpells.forEach(function(spl) {
+			duplCount[spl] = !duplCount[spl] ? 1 : duplCount[spl] + 1;
 		});
 	}
 	if (maxLvl === undefined) maxLvl = 9;
@@ -4086,8 +4095,12 @@ function OrderSpells(inputArray, outputFormat, sepPsionics, bonusSp, maxLvl) {
 		var nxtSpell = inputArray[S];
 		if (!SpellsList[nxtSpell]) continue;
 		var spLvl = SpellsList[nxtSpell].level;
-		if (spLvl > maxLvl && !bonusCount[nxtSpell]) continue;
-		if (!refCount[nxtSpell] || refCount[nxtSpell] < bonusCount[nxtSpell] || (spLvl <= maxLvl && refCount[nxtSpell] <= bonusCount[nxtSpell])) {
+		if (spLvl > maxLvl && ignoreMaxLvl.indexOf(nxtSpell) === -1) continue;
+		if (
+			!refCount[nxtSpell] || // not yet added
+			refCount[nxtSpell] < duplCount[nxtSpell] || // still more allowed duplicates
+			(spLvl <= maxLvl && refCount[nxtSpell] <= duplCount[nxtSpell]) // 1 more than the duplicates, if not max level
+		) {
 			refCount[nxtSpell] = !refCount[nxtSpell] ? 1 : refCount[nxtSpell] + 1;
 			var spName = getSpNm(nxtSpell);
 			if (sepPsionics && SpellsList[nxtSpell].psionic) spLvl += 10;
