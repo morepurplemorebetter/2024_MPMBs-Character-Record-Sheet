@@ -108,7 +108,7 @@ var Base_FeatsList = {
 		prereqeval: function (v) {
 			return v.characterLevel >= 4 && (What("Str") >= 13 || What("Dex") >= 13);
 		},
-		description: "Once per turn when I make an Unarmed Strike as part of the Attack action on my turn, I can do both the Damage and Grapple option. I have advantage on attacks against targets I'm Grappling. I can move my normal speed with a Grappled target as long as they are my size or smaller. [+1 Strength or Dexterity]",
+		description: "Once per turn when I make an Unarmed Strike as part of the Attack action on my turn, I can do both the Damage and Grapple option. I have Advantage on attacks against targets I'm Grappling. I can move my normal speed with a Grappled target as long as they are my size or smaller. [+1 Strength or Dexterity]",
 		descriptionFull: [
 			"You gain the following benefits.",
 			"***Ability Score Increase***. Increase your Strength or Dexterity score by 1, to a maximum of 20.",
@@ -129,11 +129,11 @@ var Base_FeatsList = {
 		choices: ["Strength", "Dexterity"],
 		choicesNotInMenu: true,
 		"strength": {
-			description: "Once per turn when I make an Unarmed Strike as part of the Attack action on my turn, I can do both the Damage and Grapple option. I have advantage on attacks against targets I'm Grappling. I can move my normal speed with a Grappled target as long as they are my size or smaller. [+1 Strength]",
+			description: "Once per turn when I make an Unarmed Strike as part of the Attack action on my turn, I can do both the Damage and Grapple option. I have Advantage on attacks against targets I'm Grappling. I can move my normal speed with a Grappled target as long as they are my size or smaller. [+1 Strength]",
 			scores: [1, 0, 0, 0, 0, 0],
 		},
 		"dexterity": {
-			description: "Once per turn when I make an Unarmed Strike as part of the Attack action on my turn, I can do both the Damage and Grapple option. I have advantage on attacks against targets I'm Grappling. I can move my normal speed with a Grappled target as long as they are my size or smaller. [+1 Dexterity]",
+			description: "Once per turn when I make an Unarmed Strike as part of the Attack action on my turn, I can do both the Damage and Grapple option. I have Advantage on attacks against targets I'm Grappling. I can move my normal speed with a Grappled target as long as they are my size or smaller. [+1 Dexterity]",
 			scores: [0, 1, 0, 0, 0, 0],
 		},
 	},

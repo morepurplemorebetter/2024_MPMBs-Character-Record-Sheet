@@ -1814,7 +1814,10 @@ var Base_ClassList = {
 				name: "Paladin's Smite",
 				source: [["SRD24", 54], ["P24", 110]],
 				minlevel: 2,
-				description: desc("I always have *Divine Smite* prepared. Once per Long Rest I can cast it without" + (typePF ? " using" : "") + " a spell slot."),
+				description: levels.map(function (n) {
+					// Condense at level 20 to make room for capstone subclass feature
+					return n < 20 ? desc("I always have *Divine Smite* prepared. Once per Long Rest I can cast it without" + (typePF ? " using" : "") + " a spell slot.") : " [*Divine Smite* always prepared, free cast 1/LR]";
+				}),
 				spellcastingBonus: [{
 					name: "Paladin's Smite",
 					spells: ["divine smite"],
@@ -1849,7 +1852,10 @@ var Base_ClassList = {
 				name: "Faithful Steed",
 				source: [["SRD24", 55], ["P24", 111]],
 				minlevel: 5,
-				description: desc("I always have *Find Steed* prepared. Once per Long Rest I can cast it without " + (typePF ? "using " : "") + "a spell slot."),
+				description: levels.map(function (n) {
+					// Condense at level 20 to make room for capstone subclass feature
+					return n < 20 ? desc("I always have *Find Steed* prepared. Once per Long Rest I can cast it without " + (typePF ? "using " : "") + "a spell slot.") : " [*Find Steed* always prepared, free cast 1/LR]";
+				}),
 				spellcastingBonus: [{
 					name: "Faithful Steed",
 					spells: ["find steed"],
@@ -1877,7 +1883,7 @@ var Base_ClassList = {
 				name: "Abjure Foes",
 				source: [["SRD24", 55], ["P24", 111]],
 				minlevel: 9,
-				description: desc("As a Magic action, I can use 1 CD and my Holy Symbol or weapon to have my Cha modifier (min 1) creatures within 60 ft make a " + (typePF ? "Wisdom" : "Wis") + " save or be Frightened for 1 min or until it takes damage. While Frightened, it can do only one " + (typePF ? "thing " : "") + "on its turn: move, action, or Bonus Action."),
+				description: desc("As a Magic action, I can use 1 CD and my Holy Symbol or weapon to have my Cha modifier creatures I can see within 60 ft make a " + (typePF ? "Wisdom" : "Wis") + " save or be Frightened for 1 min or until taking damage. Frightened creatures can do only one on their turn: move, action, or Bonus Action."),
 				additional: "1 Channel Divinity",
 				action: [["action", " (Channel Divinity)"]],
 			},
@@ -1886,7 +1892,7 @@ var Base_ClassList = {
 				source: [["SRD24", 55], ["P24", 111]],
 				minlevel: 10,
 				description: levels.map(function (n) {
-					// remove text at level 20 to make room for capstone subclass feature
+					// Hide at level 20 to make room for capstone subclass feature
 					return n < 20 ? desc("While within my Aura of Protection, my allies and I have Immunity to being Frightened.") : undefined;
 				}),
 				savetxt: { immune: ["Frightened"] },
@@ -2236,7 +2242,7 @@ var Base_ClassList = {
 				name: "Sneak Attack",
 				source: [["SRD24", 61], ["P24", 129]],
 				minlevel: 1,
-				description: desc("Once per turn, I can deal extra damage with a Finesse or Ranged weapon attack if I have Adv" + (typePF ? "antage" : ".") + " or if a non-Incapacitated ally is within 5 ft of the target and I don't have Disadv."),
+				description: desc("Once per turn, I can deal extra damage with a Finesse or Ranged weapon attack if I have Adv" + (typePF ? "antage" : "") + " or if a non-Incapacitated ally is within 5 ft of the target and I don't have Disadv."),
 				additional: levels.map(function (n) { return Math.ceil(n / 2) + "d6"; }),
 				calcChanges: {
 					atkAdd: [
@@ -2275,7 +2281,7 @@ var Base_ClassList = {
 				minlevel: 1,
 				description: desc("I gain mastery with two weapons and can change them whenever I finish a Long Rest."),
 				additional: "2 Weapon Masteries",
-				extraTimes: [2],
+				extraTimes: 2,
 				extraname: "Weapon Mastery",
 				choicesWeaponMasteries: true,
 			},

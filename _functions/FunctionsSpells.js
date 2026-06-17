@@ -3183,8 +3183,8 @@ function AskUserSpellSheet() {
 			diaDynCols.push(spDias.spellSelectParts.extraCluster);
 			dia.selectAd = OrderSpells(spCast.extra, "single");
 			dia.nameAd = dia.typeSp === "list" ? ( spCast.extraSpecial ? "[added to available spells]" : "[always prepared]" ) :
-				dia.typeSp === "book" ? ( spCast.extraSpecial ? "[added to known/spellbook]" : "[extra options for spellbook]" ) :
-				spCast.extraSpecial ? "[added to spells known]" : "[extra options for spells known]";
+				dia.typeSp === "book" ? ( spCast.extraSpecial ? "[always prepared, in spellbook]" : "[extra options for spellbook]" ) :
+				spCast.extraSpecial ? "[always prepared]" : "[extra options for spells known]"; // NOG TESTEN
 		}
 
 		if (!GoAhead) continue; //not a single spellcasting attribute was found, so skip over this entry in the CurrentSpells variable

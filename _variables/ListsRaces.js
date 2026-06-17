@@ -580,7 +580,7 @@ var Base_RaceSubList = {
 		},
 		trait: [
 			"**Rock Gnome**",
-			"##\u25C6 Gnomish Cunning##. I have Adv" + (typePF ? "antage" : ".") + " on Intelligence, Wisdom, and Charisma saving throws.",
+			"##\u25C6 Gnomish Cunning##. I have Adv" + (typePF ? "antage" : "") + " on Intelligence, Wisdom, and Charisma saving throws.",
 			"##\u25C6 Rock Gnome Lineage##. I know the *Mending* and *Prestidigitation* cantrips. I can create a Tiny clockwork device (AC 5, 1 HP) if I spend 10 min casting Prestidigitation; I choose (one option of) one of its effects, which the device produces when a creature uses a Bonus Action to activate it via touch. I can have three such devices in existence at a time, and each falls apart after 8 hours or when I dismantle it via touch as a Utilize action.",
 		].join("\n"),
 	},
