@@ -3184,7 +3184,7 @@ function AskUserSpellSheet() {
 			dia.selectAd = OrderSpells(spCast.extra, "single");
 			dia.nameAd = dia.typeSp === "list" ? ( spCast.extraSpecial ? "[added to available spells]" : "[always prepared]" ) :
 				dia.typeSp === "book" ? ( spCast.extraSpecial ? "[always prepared, in spellbook]" : "[extra options for spellbook]" ) :
-				spCast.extraSpecial ? "[always prepared]" : "[extra options for spells known]"; // NOG TESTEN
+				spCast.extraSpecial ? "[always prepared]" : "[extra options for spells known]";
 		}
 
 		if (!GoAhead) continue; //not a single spellcasting attribute was found, so skip over this entry in the CurrentSpells variable

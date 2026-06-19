@@ -2112,7 +2112,7 @@ var Base_ClassList = {
 				name: "Nature's Veil",
 				source: [["SRD24", 59], ["P24", 121]],
 				minlevel: 14,
-				description: desc("As a Bonus Action, I can make myself Invisible until the end of my next turn."),
+				description: desc("As a Bonus Action, I can give myself the Invisible condition until the end of my next turn."),
 				action: [["bonus action", ""]],
 				usages: "Wisdom modifier per ",
 				usagescalc: "event.value = Math.max(1, What('Wis Mod'));",

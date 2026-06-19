@@ -652,14 +652,15 @@ CreatureList["purple crawler"] = {
 		wildshapeShow: false,
 	}],
 	notes: [{
-		name: "Lila Laser Light (Purplemancer 13)",
+		name: "Lila Laser Light",
 		minlevel: 13,
 		description: desc([
-			"The purple companion gains the ability to shine in a bright purple color",
+			" (Purplemancer 13). The purple companion gains the ability to shine in a bright purple color",
 			"Once per long rest, it can cast Hypnotic Pattern without requiring components"
 		]),
 		joinString: "",
 		wildshapeShow: ". Once per long rest, cast Hypnotic Pattern without components.",
+		bulletString: "\u2736",
 	}, {
 		useSpellDescription: "find familiar",
 		formatSpellDescription: function(str) {
@@ -679,6 +680,7 @@ CreatureList["purple crawler"] = {
 	CHANGE:	v13.1.11 (added `notes`)
 	CHANGE: v14.0.0 (formatting characters)
 	CHANGE: v14.0.6 (added `wildshapeShow`)
+	CHANGE: v14.0.8 (added `bulletString`)
 	CHANGE: v24.0.0 (added `useSpellDescription`)
 
 	Each of these four attributes work in the same way.
@@ -729,6 +731,16 @@ CreatureList["purple crawler"] = {
 	Will result in:
 		##◆ False Appearance##
 		   While the purple crawler remains motionless, it is indistinguishable from an ordinary purple flower.
+
+	If you want something else than a ◆ ("\u25C6") before the name, you can change it
+	to anything you like by adding the `bulletString` attribute. For example:
+		{
+			name: "Beast's Strike Damage Type",
+			description: "The damage type of the beast's attack can be Bludgeoning, Piercing, or Slashing damage, which is chosen by its master when they summon the beast.",
+			bulletString: "(\u273D)"
+		}
+	Will result in:
+		##(✽) Beast's Strike Damage Type##. The damage type of the beast's attack can be Bludgeoning, Piercing, or Slashing damage, which is chosen by its master when they summon the beast.
 
 	If the `description` attribute is not present, no string will be added to the field.
 	Any description will do, even an empty string (e.g. description : "").

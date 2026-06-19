@@ -2346,9 +2346,7 @@ calcChanges: {
 			SRD   OBJECT KEY             EXPLANATION
 			 V    "familiar"             Find Familiar spell
 			 V    "pact_of_the_chain"    Pact of the Chain familiar (Warlock 3rd-level boon)
-			 V    "mount"                Find Steed spell
 			 -    "steed"                Find Greater Steed spell
-			 -    "companion"            Ranger's Companion (Ranger: Beast Master feature)
 			 -    "strixhaven_mascot"    Strixhaven Mascot familiar (Strixhaven Mascot feat)
 			 -    "companionrr"          Animal Companion (2016/09/12 Unearthed Arcana:
 														Revised Ranger's Beast Conclave feature)
