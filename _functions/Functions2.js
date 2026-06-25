@@ -3277,6 +3277,15 @@ function DoTemplate(tempNm, AddRemove, removePrefix, GoOn) {
 				// grey out the appropriate bookmarks
 				amendBookmarks(BookMarkList[tempNm + "_Bookmarks"], false);
 			}
+
+			//now do some extra actions, depending on the page(s) removed
+			switch (tempNm) {
+			  case "ASfront" :
+				// Reset the conditions as they can no longer be toggled with this page hidden
+				ConditionSet(true, true);
+				break;
+			};
+
 			// Stop progress bar
 			thermoM(thermoTxt, true);
 		} else {
@@ -3636,7 +3645,7 @@ function MakePagesMenu() {
 		["Show location column", "location2#show"],
 		["Hide location column", "location2#hide"],
 		["-", "-"],
-		["Carried Weight options (encumbrance rules)", "weight"]
+		["Carried Weight options (encumbrance rules)", "weight"],
 	]);
 
 	//add a menu item for the third page
@@ -3647,30 +3656,14 @@ function MakePagesMenu() {
 			cReturn : "-",
 			bEnabled : false
 		});
-	} else if (typePF) {
+	} else {
 		//3rd page: add the menu items for the equipment section
 		menuLVL2(pagesMenu, [page3txt + " (equipment section)", "equip"], [
 			["Show location column", "location3#show"],
-			["Hide location column", "location3#hide"]
+			["Hide location column", "location3#hide"],
+			["-", "-"],
+			["Carried Weight options (encumbrance rules)", "weight"],
 		]);
-	} else {
-		var pagethree = {
-			cName : page3txt,
-			oSubMenu : []
-		};
-		//3rd page: add the menu items for the equipment section
-		menuLVL2(pagethree.oSubMenu, ["Equipment section", "equip"], [
-			["Show location column", "location3#show"],
-			["Hide location column", "location3#hide"]
-		]);
-		//3rd page: add the menu items for the visibility of the notes/rules section (CF only)
-		LayerVisibilityOptions(false, "justMenu");
-		pagethree.oSubMenu.push({
-			cName : "Visible sections",
-			oSubMenu : Menus.chooselayers
-		});
-		//3rd page: add the third page menu to the whole menu
-		pagesMenu.push(pagethree);
 	};
 
 	//add the menu for setting Spell Sheet things
@@ -3734,9 +3727,6 @@ function PagesOptions() {
 		case "equip" :
 			if (MenuSelection[3] == "false") InventoryOptions([MenuSelection[1]]);
 			if (MenuSelection[1] == "weight") WeightToCalc_Button();
-			break;
-		case "3rdpage" :
-			LayerVisibilityOptions(false, MenuSelection);
 			break;
 		case "text" :
 			MakeTextMenu_TextOptions(MenuSelection);
@@ -4411,7 +4401,11 @@ function Publish(version, preRelease, build, forPatreon) {
 	sheetVersion = semVersToNmbr(semVers);
 	var docNm = MakeDocName();
 	var resetFlds = ["Opening Remember"];
-	if (!forPatreon) resetFlds = resetFlds.concat(["CurrentSources.Stringified", "User_Imported_Files.Stringified"]);
+	if (!forPatreon) resetFlds = resetFlds.concat([
+		"CurrentSources.Stringified",
+		"CurrentVars.Stringified",
+		"User_Imported_Files.Stringified",
+	]);
 	var defaultTempl = ["", "AScomp", "ASnotes"];
 	for (var i = 0; i < defaultTempl.length; i++) {
 		var prefix = defaultTempl[i] ? What("Template.extras." + defaultTempl[i]).split(",")[1] : "";
@@ -6538,6 +6532,11 @@ function CalcAttackDmgHit(fldName) {
 		if (!DmgHit || /hit/i.test(DmgHit)) hitNum += inP;
 	};
 
+	// Add -2 per Exhaustion Level to the To Hit modifier
+	if (QI && !isDC) {
+		hitNum -= Number(What("Condition.Exhaustion")) * 2;
+	}
+
 	// no longer consider it a DC if Players Make All Rolls is enabled
 	if (tDoc.getField("BlueText.Players Make All Rolls").isBoxChecked(0)) isDC = false;
 	for (var out in output) {
@@ -8149,8 +8148,14 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 					var theVal = oAllMode;
 				}
 				if (!theVal) continue;
-				if (!isNaN(theVal) || !/[xX\*\xD7\/:]/.test(theVal[0])) theVal += " ft";
+				if (!isNaN(theVal) || !/[xX\*\xD7\/:]/.test(theVal[0])) {
+					theVal += " ft";
+				}
 				if (metric) theVal = ConvertToMetric(theVal, 0.5);
+				// Round to two decimal places
+				theVal = theVal.replace(/\d+[.,]\d+/, function (match) {
+					return RoundTo(match, 0.01, false, true);
+				});
 				modArray.push(spMod + " [" + theVal + "]");
 			};
 			// The strings for full speed and encumbered speed
@@ -8164,17 +8169,22 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 					var theVal = theSpeeds[aSpeed];
 					if (!theVal) continue;
 					if (theVal === "walk") {
-						theVal = "as walking speed";
+						theVal = "as Speed";
 					} else if (!isNaN(theVal) || !/[xX\*\xD7\/:]/.test(theVal[0])) {
 						theVal += " ft";
 					};
 					if (metric) theVal = ConvertToMetric(theVal, 0.5);
+					// Round to two decimal places
+					theVal = theVal.replace(/\d+[.,]\d+/, function (match) {
+						return RoundTo(match, 0.01, false, true);
+					});
 					arrs[sV].push(aSpeed + " [" + theVal + "]");
 					goOn = true;
 				};
 				if (goOn) {
 					arrs[sV] = arrs[sV].concat(modArray);
-					ttips[sV] += (ttips[sV] ? "\n\n" : "") + formatMultiList("The total " + (n ? "encumbered " : "") + sT + "ing speed comes from:", arrs[sV]);
+					var speedName = sT === "walk" ? "" : sT.capitalize() + " ";
+					ttips[sV] += (ttips[sV] ? "\n\n" : "") + formatMultiList("The total " + (n ? "encumbered " : "") + speedName + "Speed comes from:", arrs[sV]);
 				};
 			};
 		};
@@ -8834,8 +8844,7 @@ function processToNotesPage(AddRemove, items, type, mainObj, parentObj, namesArr
 		if (noteObj.page3notes) { // add to 3rd page notes section
 			if (AddRemove) {
 				AddString('Extra.Notes', noteStr, true);
-				show3rdPageNotes(); // for a Colourful sheet, show the notes section on the third page
-				var changeMsg = alertTxt + ' has been added to the Notes section on the third page' + (!typePF ? ", while the Rules section on the third page has been hidden" : "") + ". They either wouldn't be apprioprate for or wouldn't fit in the " + fallback.alertType + ".";
+				var changeMsg = alertTxt + " has been added to the Notes section on the third page. They either wouldn't be apprioprate for or wouldn't fit in the " + fallback.alertType + ".";
 				CurrentUpdates.types.push("notes");
 				if (!CurrentUpdates.notesChanges) {
 					CurrentUpdates.notesChanges = [changeMsg];

@@ -380,17 +380,6 @@ function ToggleWhiteout(toggle) {
 	var logTemps = What("Template.extras.ALlog").split(",").splice(1);
 	var templateA = compTemps.concat(noteTemps).concat(wildTemps).concat(logTemps);
 
-	// Show/hide the whiteout field on page 3 depending on the state of the layers
-	if (!typePF && !minVer) {
-		if (nowWhat) {
-			if (CurrentVars.vislayers[0] === "notes") Show("Extra.Notes Whiteout");
-			if (CurrentVars.vislayers[1] === "equipment") Show("Extra.Other Holdings Whiteout");
-		} else {
-			Hide("Extra.Notes Whiteout");
-			Hide("Extra.Other Holdings Whiteout");
-		}
-	}
-
 	// Show/hide the whiteout fields as per the array
 	for (var i = 0; i < templateA.length; i++) {
 		var whiteFld = templateA[i] + "Whiteout";
@@ -522,7 +511,6 @@ function ResetAll(GoOn, noTempl, deleteImports) {
 	AdventureLeagueOptions("advleague#all#0");
 	SetSpellSlotsVisibility();
 	ShowHonorSanity();
-	delete CurrentVars.vislayers; LayerVisibilityOptions();
 	ShowCompanionLayer();
 	if (locColumns[0] === "true") HideInvLocationColumn("Adventuring Gear ", true);
 	if (locColumns[1] === "true") HideInvLocationColumn("Extra.Gear ", true);
@@ -678,146 +666,16 @@ function ToggleTextSize(size, linespacingSize, forceReset, removeLocalRichText) 
 	thermoM(thermoTxt, true); // Stop progress bar
 };
 
-//set the visibility of the layers on the third page. Input is true if a menu is to be created, or false if the remembered setting is to be taken.
-function show3rdPageNotes() {
-	if (typePF || !What("Extra.Notes")) return;
-	LayerVisibilityOptions(false, ['notes', false]);
-}
-function LayerVisibilityOptions(showMenu, useSelect) {
-	if (typePF || minVer) return; //don't do this function in the Printer-Friendly version
-
-	var isReset = false;
-	if (CurrentVars.vislayers === undefined) {
-		isReset = !showMenu;
-		CurrentVars.vislayers = ["notes", "equipment"]; // Hide rules by default for 2024 D&D
+// Deprecated functions in 2024 sheet
+function show3rdPageNotes() { LayerVisibilityOptions(); }
+function LayerVisibilityOptions() {
+	if (!tDoc.noDeprecatedWarnings && (!tDoc.doneDeprecatedWarnings || tDoc.doneDeprecatedWarnings.indexOf("3rdPageNotes") === -1)) {
+		displayError(false, [
+			'[DEPRECATED] Since v24.0.9 `show3rdPageNotes()` and `LayerVisibilityOptions()` are no longer used, as the third page on the Colourful sheets no longer have changable sections.',
+		].join('\n'));
+		if (!tDoc.doneDeprecatedWarnings) tDoc.doneDeprecatedWarnings = [];
+		tDoc.doneDeprecatedWarnings.push("3rdPageNotes");
 	}
-	MakeMobileReady(false); // Undo flatten, if needed
-
-	var possibleOptions = ["notes", "rules", "equipment"];
-	if (!useSelect || useSelect === "justMenu") {
-		Menus.chooselayers = [{
-			cName : "Rules left - Equipment right",
-			cReturn : "3rdpage#rules#equipment",
-			bMarked : CurrentVars.vislayers[0] === "rules" && CurrentVars.vislayers[1] === "equipment"
-		}, {
-			cName : "Notes left - Equipment right",
-			cReturn : "3rdpage#notes#equipment",
-			bMarked : CurrentVars.vislayers[0] === "notes" && CurrentVars.vislayers[1] === "equipment"
-		}, {
-			cName : "Notes left - Rules right",
-			cReturn : "3rdpage#notes#rules",
-			bMarked : CurrentVars.vislayers[0] === "notes" && CurrentVars.vislayers[1] === "rules"
-		}];
-		if (useSelect === "justMenu") return;
-	};
-
-	var selection = useSelect ? useSelect : showMenu ? getMenu("chooselayers") : CurrentVars.vislayers;
-	if (!selection || selection[0] == "nothing") return;
-
-	if (selection[0] === "3rdpage") selection.shift();
-	if (!selection[0] || possibleOptions.indexOf(selection[0]) == -1) selection[0] = CurrentVars.vislayers[0];
-	if (!selection[1] || possibleOptions.indexOf(selection[1]) == -1) selection[1] = CurrentVars.vislayers[1];
-
-	if (!isReset && selection[0] == CurrentVars.vislayers[0] && selection[1] == CurrentVars.vislayers[1]) return; // nothing changed
-
-	// Start progress bar and stop calculations
-	var thermoTxt = thermoM("Show the 3rd page " + selection[0] + " and " + selection[1] + " sections...");
-	calcStop();
-
-	var LNotesFlds = [
-		"Text.Header.Notes.Left",
-		"Extra.Notes",
-	];
-	var HideShowLNotesFlds = "Hide";
-	var LRulesFlds = [
-		"Text.Header.Rules.Left",
-		"Image.Rules.Left"
-	];
-	var HideShowLRulesFlds = "Hide";
-	var RRulesFlds = [
-		"Text.Header.Rules.Right",
-		"Image.Header.RightRules",
-		"Image.DragonheadRightRules",
-		"Image.DragonheadshadowRightRules",
-		"Image.Rules.Right"
-	];
-	var HideShowRRulesFlds = "Hide";
-	var REquipFlds = [
-		"Text.Header.Equip.Right",
-		"Image.Equip.Right",
-		"Image.DividerExtraGear",
-		"Image.DragonheadExtraGear",
-		"Display.Weighttxt.LbKgPage3",
-		"Extra.Gear Weight Subtotal Left",
-		"Extra.Gear Weight Subtotal Right",
-		"Extra.Other Holdings"
-	];
-	var HideShowREquipFlds = "Hide";
-	var REquipFldsNP = [];
-	var HideShowREquipFldsNP = "Hide";
-	for (i = 1; i <= FieldNumbers.extragear; i++) {
-		REquipFldsNP.push("Extra.Gear Button " + i);
-		REquipFlds.push("Extra.Gear Row " + i);
-		REquipFlds.push("Extra.Gear Amount " + i);
-		REquipFlds.push("Extra.Gear Weight " + i);
-	};
-
-	// Hide/show the whiteout fields on the right and left side depending on the visible layer and the settings of text line visibility
-	if (CurrentVars.whiteout && selection[0] === "notes") {
-		Show("Extra.Notes Whiteout");
-	} else {
-		Hide("Extra.Notes Whiteout");
-	}
-	if (CurrentVars.whiteout && selection[1] === "equipment") {
-		Show("Extra.Other Holdings Whiteout");
-	} else {
-		Hide("Extra.Other Holdings Whiteout");
-	}
-
-	//do something with the input
-	switch (selection[0]) {
-		case "notes":
-			HideShowLNotesFlds = "Show";
-			break;
-		case "rules":
-			HideShowLRulesFlds = "Show";
-			break;
-	}
-
-	switch (selection[1]) {
-		case "rules":
-			HideShowRRulesFlds = "Show";
-			Hide("Extra.Gear Location");
-			break;
-		case "equipment":
-			HideShowREquipFlds = "Show";
-			HideShowREquipFldsNP = "DontPrint";
-			if (What("Gear Location Remember").split(",")[1] === "true") {
-				Show("Extra.Gear Location");
-			}
-			break;
-	}
-
-	//set the visibility of the fields
-	for (var L = 0; L < LNotesFlds.length; L++) {
-		tDoc[HideShowLNotesFlds](LNotesFlds[L]);
-	}
-	for (L = 0; L < LRulesFlds.length; L++) {
-		tDoc[HideShowLRulesFlds](LRulesFlds[L]);
-	}
-	for (var R = 0; R < RRulesFlds.length; R++) {
-		tDoc[HideShowRRulesFlds](RRulesFlds[R]);
-	}
-	for (R = 0; R < REquipFlds.length; R++) {
-		tDoc[HideShowREquipFlds](REquipFlds[R]);
-	}
-	for (R = 0; R < REquipFldsNP.length; R++) {
-		tDoc[HideShowREquipFldsNP](REquipFldsNP[R]);
-	}
-
-	CurrentVars.vislayers = selection;
-	SetStringifieds("vars"); // Save the settings to a field
-	thermoM(thermoTxt, true); // Stop progress bar
 }
 
 // Toggle between calculated (Toggle = false) and manual (Toggle = true) attack fields
@@ -1480,165 +1338,228 @@ function ApplyShield(input) {
 }
 
 //Change advantage or disadvantage of saves, skills, checks, attacks, etc. based on condition
-function ConditionSet(isReset) {
-	if (!isReset && !IsNotConditionSet) return;
-	var isStealthDisadv = event.target && event.target.name && event.target.name === "ArmDis";
-	// if (typePF) { // only the stealth disadvantage is part of the printer friendly version
-	if (isStealthDisadv) { // Only do the stealth disadvantage part for the 2024 rules version
-		// Start progress bar and stop calculations
-		var thermoTxt = thermoM("Armor stealth disadvantage...");
-		calcStop();
-		IsNotConditionSet = false;
-		var thisChck = !isReset && tDoc.getField("AC Stealth Disadvantage").isBoxChecked(0) ? true : false;
-		SetProf("advantage", thisChck, ["Ste", false], "Armor");
-		IsNotConditionSet = true;
-		thermoM(thermoTxt, true); // Stop progress bar
-		return;
-	} 
-	// Don't do the rest of this function as it is no longer applicable with the 2024 rules
-	return;
-	var cFlds = {
-		Exh1 : { name : "Extra.Exhaustion Level 1" },
-		Exh2 : { name : "Extra.Exhaustion Level 2" },
-		Exh3 : { name : "Extra.Exhaustion Level 3" },
-		Exh4 : { name : "Extra.Exhaustion Level 4" },
-		Exh5 : { name : "Extra.Exhaustion Level 5" },
-		Exh6 : { name : "Extra.Exhaustion Level 6" },
-		Blinded : { name : "Extra.Condition 1" },
-		Deafened : { name : "Extra.Condition 3" },
-		Frightened : { name : "Extra.Condition 4" },
-		Grappled : { name : "Extra.Condition 5" },
-		Incapacitated : { name : "Extra.Condition 6" },
-		Invisible : { name : "Extra.Condition 7" },
-		Paralyzed : { name : "Extra.Condition 8" },
-		Petrified : { name : "Extra.Condition 9" },
-		Poisoned : { name : "Extra.Condition 10" },
-		Prone : { name : "Extra.Condition 11" },
-		Restrained : { name : "Extra.Condition 12" },
-		Stunned : { name : "Extra.Condition 13" },
-		Unconscious : { name : "Extra.Condition 14" },
-		ArmDis : { name : "AC Stealth Disadvantage" }
+function ConditionSet(isReset, skipArmorStealthDisadv) {
+	var stacked = {
+		attacksDisadv: false,
+		checksDisadv: false,
+		incapacitated: false,
+		failDexStrSaves: false,
+		speedZero: false,
 	}
-
-	var thisFld = "ArmDis";
-	for (var aFld in cFlds) {
-		if (!tDoc.getField(cFlds[aFld].name)) continue;
-		cFlds[aFld].checked = tDoc.getField(cFlds[aFld].name).isBoxChecked(0);
-		if (event.target && event.target.name && cFlds[aFld].name == event.target.name) thisFld = aFld;
-		if ((/Exh\d/).test(aFld)) cFlds[aFld].origchecked = thisFld === aFld ? !cFlds[aFld].checked : cFlds[aFld].checked;
+	var stackedApply = {
+		attacksDisadv: function (apply) {
+			SetProf("advantage", apply, ["Att", false], "Condition(s)");
+		},
+		checksDisadv: function (apply) {
+			for (var i = 0; i < SkillsList.abbreviations.length; i++) {
+				SetProf("advantage", apply, [SkillsList.abbreviations[i], false], "Condition(s)");
+			};
+		},
+		initiativeDisadv: function (apply) {
+			SetProf("advantage", apply, ["Init", false], "Condition(s)");
+		},
+		incapacitated: function (apply) {
+			Checkbox("Condition.Incapacitated", apply);
+			tDoc[apply ? "Uneditable" : "Editable"]("Condition.Incapacitated");
+			conditions.Incapacitated.active = apply;
+		},
+		failDexStrSaves: function (apply) {
+			SetProf("savetxt", apply, { text: ["Fail Str/Dex saves"] }, "Condition(s)");
+		},
+		speedZero: function (apply) {
+			SetProf("speed", apply, { allModes: "\xD70.0001" }, "0 Speed because of Condition(s)");
+		},
+		setProfs: function(apply, sets) {
+			for (var i = 0; i < sets.length; i++) {
+				var set = sets[i];
+				SetProf(set.type, apply, set.object, set.source, set.extra);
+			}
+		},
+		onActivation: function(apply, func) {
+			func(apply);
+		},
 	}
-	var thisChck = !isReset && thisFld && cFlds[thisFld].checked ? true : false;
-	if (!isReset && (!thisFld || !tDoc.getField(cFlds[aFld].name))) return;
+	var conditions = {
+		Blinded: {
+			attacksDisadv: true,
+			setProfs: [{
+				type: "vision",
+				object: "Blinded: fail checks involving sight",
+				source: "Blinded Condition",
+				extra: 0,
+			}],
+		},
+		Charmed: {},
+		Deafened: {
+			setProfs: [{
+				type: "vision",
+				object: "Deafened: fail checks involving hearing",
+				source: "Deafened Condition",
+				extra: 0,
+			}],
+		},
+		Exhaustion: {},
+		Frightened: {
+			attacksDisadv: true,
+			checksDisadv: true,
+		},
+		Grappled: {
+			speedZero: true,
+		},
+		Incapacitated: {
+			initiativeDisadv: true,
+		},
+		Invisible: {
+			setProfs: [{
+				type: "advantage",
+				object: ["Att", true],
+				source: "Invisible Condition",
+			}, {
+				type: "advantage",
+				object: ["Init", true],
+				source: "Invisible Condition",
+			}],
+		},
+		Paralyzed: {
+			incapacitated: true,
+			failDexStrSaves: true,
+			speedZero: true,
+		},
+		Petrified: {
+			incapacitated: true,
+			failDexStrSaves: true,
+			speedZero: true,
+			setProfs: [{
+				type: "resistance",
+				object: "All",
+				source: "Petrified Condition",
+				extra: "All (petrified)",
+			}, {
+				type: "savetxt",
+				object: { immune: ["Poisoned"] },
+				source: "Petrified Condition",
+			}],
+		},
+		Poisoned: {
+			attacksDisadv: true,
+			checksDisadv: true,
+		},
+		Prone: {
+			attacksDisadv: true,
+		},
+		Restrained: {
+			attacksDisadv: true,
+			speedZero: true,
+			setProfs: [{
+				type: "advantage",
+				object: ["Dex", false],
+				source: "Restrained Condition",
+			}],
+		},
+		Stunned: {
+			incapacitated: true,
+			failDexStrSaves: true,
+		},
+		Surprised: {
+			initiativeDisadv: true,
+		},
+		Unconscious: {
+			incapacitated: true,
+			failDexStrSaves: true,
+			speedZero: true,
+			onActivation: function(apply) {
+				// Fall prone when actived, but not undone when deactivated
+				if (apply) {
+					Checkbox("Condition.Prone", true);
+					conditions.Prone.active = true;
+				}
+			},
+		},
+		ArmDisadv: {
+			field: "AC Stealth Disadvantage",
+			setProfs: [{
+				type: "advantage",
+				object: ["Ste", false],
+				source: "Armor",
+			}],
+		},
+	}
 
 	// Start progress bar and stop calculations
 	var thermoTxt = thermoM("Applying the conditions...");
+	var thermoLen = ObjLength(conditions) + ObjLength(stacked), thermoI = 0;
 	calcStop();
-	IsNotConditionSet = false;
 
-	// Do something with other fields dependent on the selection
-	//var stealthLoc = Who("Text.SkillsNames") === "alphabeta" ? "Ste" : "Ath";
-	if (isReset || /Exh\d/.test(thisFld)) {
-		// If this is an exhaustion level, check the ones below and/or uncheck the ones above
-		if (!isReset) {
-			var exhNmbr = Number(thisFld.slice(-1));
-			var strtNmbr = thisChck ? 1 : exhNmbr;
-			var endNmbr = thisChck ? exhNmbr : 7;
-			for (var X = strtNmbr; X < endNmbr; X++) {
-				Checkbox("Extra.Exhaustion Level " + X, thisChck);
-				cFlds["Exh" + X].checked = thisChck;
+	var oCondCurrent = false;
+	for (var condition in conditions) {
+		var oCond = conditions[condition];
+		if (!oCond.field) oCond.field = "Condition." + condition;
+		var oFld = tDoc.getField(oCond.field);
+		if (!oFld || (skipArmorStealthDisadv && condition === "ArmDisadv")) continue;
+		if (isReset) {
+			// Uncheck the checkbox and undo its setProfs
+			Checkbox(oCond.field, false);
+			if (oCond.setProfs) stackedApply.setProfs(false, oCond.setProfs);
+		} else if (oFld.isBoxChecked(0)) {
+			oCond.active = true;
+			for (var option in stacked) {
+				if (oCond[option]) stacked[option] = true;
 			}
 		}
-		// if the level 2 changes, set the current speed
-		if (isReset || cFlds.Exh2.origchecked != cFlds.Exh2.checked || cFlds.Exh5.origchecked != cFlds.Exh5.checked) {
-			SetProf("speed", cFlds.Exh5.checked ? false : cFlds.Exh2.checked, { allModes : "/2" }, "Exhaustion level 2 (condition)");
+		if (!oCondCurrent && event.target && event.target.name && oCond.field == event.target.name) {
+			oCondCurrent = oCond;
 		}
-		// if the level 3 changed, set all the saving throws to adv/dis
-		if (isReset || cFlds.Exh3.origchecked != cFlds.Exh3.checked) {
-			for (var B = 0; B < AbilityScores.abbreviations.length; B++) {
-				SetProf("advantage", cFlds.Exh3.checked, [AbilityScores.abbreviations[B], false], "Exhaustion level 2 (condition)");
-			};
-		}
-		// if the level 4 changes, set the current HP max
-		if (!isReset && cFlds.Exh4.origchecked != cFlds.Exh4.checked) {
-			var maxHP = What("HP Max");
-			var halfMaxHP = Math.floor(maxHP / 2);
-			var curMaxHP = What("HP Max Current");
-			if (cFlds.Exh4.checked) {
-				var extraMin = curMaxHP ? maxHP - curMaxHP : 0;
-				Value("HP Max Current", halfMaxHP - extraMin);
-			} else if (curMaxHP == halfMaxHP || !halfMaxHP) {
-				Value("HP Max Current", "");
-			} else {
-				var extraMin = halfMaxHP - curMaxHP;
-				Value("HP Max Current", maxHP - extraMin);
-			}
-		}
+		thermoI++; thermoM(thermoI/thermoLen); // Increment the progress dialog
 	}
-	if (isReset || /Unconscious|Paralyzed|Petrified|Stunned/.test(thisFld)) {
-		if (thisFld == "Unconscious" && thisChck) {
-			// if unconscious, also check prone, but don't automatically stand up when no longer unconscious
-			Checkbox(cFlds.Prone.name, true);
-			cFlds.Prone.checked = true;
-		} else if (isReset || thisFld == "Petrified") {
-			SetProf("resistance", thisChck, "All", "Petrified (condition)", "All (petrified)");
-			SetProf("savetxt", thisChck, { immune : ["poison", "disease"] }, "Petrified (condition)");
-		}
-		// Incapacitated and fail str/dex saves if any of these are checked, but only undo if none are
-		var anyChecked = cFlds.Paralyzed.checked || cFlds.Petrified.checked || cFlds.Stunned.checked || cFlds.Unconscious.checked;
-		Checkbox(cFlds.Incapacitated.name, anyChecked);
-		cFlds.Incapacitated.checked = anyChecked;
-		SetProf("savetxt", anyChecked, { text : ["Fail Str/Dex saves"] }, "Conditions (paralyzed, petrified, stunned, or unconscious)");
-	}
-	if (isReset || thisFld == "Blinded") {
-		SetProf("vision", thisChck, "Blinded: fail checks involving sight", "Blinded (condition)", 0);
-	}
-	if (isReset || thisFld == "Deafened") {
-		SetProf("vision", thisChck, "Deafened: fail checks involving hearing", "Deafened (condition)", 0);
-	}
-	if (isReset || thisFld == "Restrained") {
-		SetProf("advantage", thisChck, ["Dex", false], "Restrained (condition)");
-	}
-	if (isReset || thisFld == "Invisible") {
-		SetProf("advantage", thisChck, ["Att", true], "Invisible (condition)");
-	}
-	if (!isReset && thisFld == "Incapacitated" && (cFlds.Unconscious.checked || cFlds.Paralyzed.checked || cFlds.Petrified.checked || cFlds.Stunned.checked)) {
-		Checkbox(cFlds.Incapacitated.name, true);
-		cFlds.Incapacitated.checked = true;
-	}
-	if (isReset || thisFld == "ArmDis") {
-		SetProf("advantage", thisChck, ["Ste", false], "Armor");
-	}
-	thermoM(0.25); //increment the progress dialog's progress
 
-	// Ability checks disadvantage
-	if (isReset || /Exh|Frightened|Poisoned/.test(thisFld)) {
-		var abiDisadv = cFlds.Exh1.checked || cFlds.Frightened.checked || cFlds.Poisoned.checked;
-		for (var S = 0; S < SkillsList.abbreviations.length; S++) {
-			SetProf("advantage", abiDisadv, [SkillsList.abbreviations[S], false], "Exhaustion, Frightened, or Poisoned (conditions)");
-		};
-	}
-	thermoM(0.5); //increment the progress dialog's progress
-
-	// Attack disadvantage
-	if (isReset || /Exh|Blinded|Frightened|Poisoned|Prone|Restrained/.test(thisFld)) {
-		var attDisadv = cFlds.Exh3.checked || cFlds.Frightened.checked || cFlds.Poisoned.checked || cFlds.Prone.checked || cFlds.Restrained.checked || (cFlds.Blinded.checked && What("Class Features").toLowerCase().indexOf("feral senses") === -1);
-		SetProf("advantage", attDisadv, ["Att", false], "Exhaustion, Blinded, Frightened, Poisoned, Prone, or Restrained (conditions)");
-	}
-	thermoM(0.75); //increment the progress dialog's progress
-
-	// Set movement speed
-	if (isReset || /Exh|Grappled|Paralyzed|Petrified|Restrained|Stunned|Unconscious/.test(thisFld)) {
-		var spdFormat = cFlds.Exh5.checked || cFlds.Grappled.checked || cFlds.Paralyzed.checked || cFlds.Petrified.checked || cFlds.Restrained.checked || cFlds.Stunned.checked || cFlds.Unconscious.checked ? "event.value = '0 " + (What("Unit System") == "imperial" ? "ft" : "m") + "';" :"";
-		var spdFlds = ["Speed", "Speed encumbered"];
-		for (var i = 0; i < spdFlds.length; i++) {
-			tDoc.getField(spdFlds[i]).setAction("Format", spdFormat);
-			Value(spdFlds[i], What(spdFlds[i]));
+	if (isReset) {
+		// Undo all stacked (the setProfs have already been undone above)
+		for (var option in stacked) {
+			stackedApply[option](false);
+			thermoI++; thermoM(thermoI/thermoLen); // Increment the progress dialog
+		}
+	} else if (oCondCurrent) {
+		for (var option in oCondCurrent) {
+			var apply = stacked[option] !== undefined ? stacked[option] : oCondCurrent.active;
+			if (!stackedApply[option]) continue;
+			stackedApply[option](apply, oCondCurrent[option]);
+			thermoI++; thermoM(thermoI/thermoLen); // Increment the progress dialog
 		}
 	}
 
-	IsNotConditionSet = true;
 	thermoM(thermoTxt, true); // Stop progress bar
+
+	return; // Old stuff beyond here
 };
+
+// Make the Exhaustion field limited to the allowed exhaustion levels 1-6 (field validation)
+function ValidateExhaustion() {
+	var level = Number(event.value);
+	if (isNaN(event.value) || level < 0 || level > 6) {
+		event.rc = false;
+	} else {
+		var speed = -5 * level;
+		SetProf("speed", level ? true : false, { allModes: speed }, "Exhaustion");
+		if (level === 0) event.value = "";
+	}
+}
+
+// Make the Exhaustion Effect field display the effect of the exhaustion level (field calculation)
+function CalcExhaustionEffect() {
+	var text = "";
+	var level = Number(What("Condition.Exhaustion"));
+	if (level === 6) {
+		text = "Dead!";
+	} else if (level) {
+		text = (-2 * level) + " | " + (-5 * level) + " ft";
+		if (What("Unit System") === "metric") text = ConvertToMetric(text, 0.5);
+	}
+	event.value = text;
+	event.target.display = text ? display.visible : display.hidden;
+	var themeColor = ColorList[What("Color.Theme")].RGB;
+	event.target.strokeColor = themeColor;
+	event.target.textColor = themeColor;
+}
 
 // apply the Class and Levels field change (field validation)
 function classesFieldVal() {
@@ -4871,7 +4792,6 @@ function ReplaceString(field, inputstring, newline, theoldstring, alreadyRegExp)
 		AddString(field, inputstring, multilines);
 		return;
 	};
-	if (field == "Extra.Notes") show3rdPageNotes();
 };
 
 // add (change === true) or remove (change === false) a skill proficiency with or without expertise; If expertise === "only", only add/remove the expertise, considering the skill already has proficiency; If expertise === "increment", only add/remove the expertise, considering the skill already has proficiency, otherwise add proficiency
@@ -5036,6 +4956,8 @@ function CalcAllSkills(isCompPage) {
 		if (!profDie) setVals[setFld] += addProf;
 		// all skill bonus
 		if (!isInit) setVals[setFld] += allBonus;
+		// add -2 per exhaustion level
+		if (!pr) setVals[setFld] -= Number(What("Condition.Exhaustion")) * 2;
 		// passive perception
 		if (doPass) {
 			setVals[passPercFld] = setVals[setFld] + 10;
@@ -5085,12 +5007,21 @@ function CalcSave() {
 	//get the variable entered into the bonus field for all
 	var AllBonus = EvalBonus(What(Save.replace("Comp.", "BlueText.Comp.").replace("Mod", "Bonus").replace(Ability, "All")), QI ? true : prefix);
 
+	//add -2 per exhaustion level
+	var exhaustionLevel = QI ? Number(What("Condition.Exhaustion")) : 0;
+
 	//calculate the total
-	var theResult = Mod === "" ? "" : Number(Mod) + Number(ProfBonus) + Number(ExtraBonus) + Number(AllBonus);
+	var theResult = Mod === "" ? "" : Number(Mod) + Number(ProfBonus) + Number(ExtraBonus) + Number(AllBonus) - (exhaustionLevel * 2);
 
 	//change the total to fail if some condition dictates it
-	if (!typePF && QI && (Ability === "Str" || Ability === "Dex") && (tDoc.getField("Extra.Condition 8").isBoxChecked(0) === 1 || tDoc.getField("Extra.Condition 9").isBoxChecked(0) === 1 || tDoc.getField("Extra.Condition 13").isBoxChecked(0) === 1 || tDoc.getField("Extra.Condition 14").isBoxChecked(0) === 1)) {
-		theResult = "fail";
+	if (!typePF && QI && /^(Str|Dex)$/.test(Ability)) {
+		var failConditions = ["Paralyzed", "Petrified", "Stunned", "Unconscious"].some(
+			function (condition) {
+				var oFld = tDoc.getField("Condition." + condition);
+				return oFld && oFld.isBoxChecked(0);
+			}
+		);
+		if (failConditions) theResult = "fail";
 	}
 
 	event.value = theResult;
@@ -7132,9 +7063,8 @@ function ClassFeatureOptions(Input, AddRemove, ForceExtraname) {
 
 			if (addIt) { // add the string to the third page
 				AddString("Extra.Notes", feaString[1].replace(/^[\r\n]*/, ''), true);
-				show3rdPageNotes(); // for a Colourful sheet, show the notes section on the third page
 				var extraNm = propFeaCs.extraname ? propFeaCs.extraname : ForceExtraname ? ForceExtraname : propFea.extraname ? propFea.extraname : propFea.name;
-				var changeMsg = "The " + extraNm + ' "' + propFeaCs.name + '" has been added to the Notes section on the third page' + (!typePF ? ", while the Rules section on the third page has been hidden" : "") + ". They wouldn't fit in the Class Features section if the class is taken to level 20.";
+				var changeMsg = "The " + extraNm + ' "' + propFeaCs.name + "\" has been added to the Notes section on the third page. The sheet can't put these on the second page because they have no inherit order. However, you can manually cut and paste them to wherever you want.";
 				CurrentUpdates.types.push("notes");
 				if (!CurrentUpdates.notesChanges) {
 					CurrentUpdates.notesChanges = [changeMsg];
@@ -8864,13 +8794,8 @@ function ApplyColorScheme(aColour) {
 		temp = [""];
 
 		if (imgFields[i] === "Divider") {
-			//also set it for the divider that can be hidden on the third page
-			tDoc.getField("Image.DividerExtraGear").buttonSetIcon(theIcon);
 			//if divider, also add the adventurers log template names
 			temp = temp.concat(ALlogA);
-		} else if (imgFields[i] === "Header.Right") {
-			//also set it for the header that can be hidden on the third page
-			tDoc.getField("Image.Header.RightRules").buttonSetIcon(theIcon);
 		}
 
 		//if anything but level or title, also do something with the extra template pages
@@ -9021,8 +8946,6 @@ function ApplyDragonColorScheme(aColour) {
 
 	thermoM(2/6); //increment the progress dialog's progress
 
-	tDoc.getField("Image.DragonheadExtraGear").buttonSetIcon(theIcon);
-	tDoc.getField("Image.DragonheadRightRules").buttonSetIcon(theIcon);
 	for (var pA = 0; pA < prefixFullA.length; pA++) {
 		if (pA > 0 && !prefixFullA[pA]) continue; //ignore anything but the first "" in the array
 		tDoc.getField(prefixFullA[pA] + "Image.Dragonhead").buttonSetIcon(theIcon);
@@ -9044,8 +8967,7 @@ function ApplyDragonColorScheme(aColour) {
 		"Race Features Menu",
 		"Class Features Menu",
 		"Equipment.menu",
-		"Extra.Layers Button",
-		"Buttons"
+		"Buttons",
 	];
 
 	//add the buttons names of the extra templates to buttons array
@@ -10425,11 +10347,9 @@ function HideInvLocationColumn(type, currentstate) {
 		RowName.rect = gRect; // Update the value of b.rect
 		RowName.value = RowName.value; //re-input the value as to counteract the changing of font
 	}
-	if (typePF || (type === "Extra.Gear " && CurrentVars.vislayers[1] === "equipment") || type === "Adventuring Gear ") { //only show things on the third page, if the extra equipment section is visible
-		tDoc[HideShow](type + "Location");
-		if (!currentstate && type === "Adventuring Gear " && What("Adventuring Gear Remember") === false) {
-			Hide("Adventuring Gear Location.Row " + FieldNumbers.gearMIrow);
-		}
+	tDoc[HideShow](type + "Location");
+	if (!currentstate && type === "Adventuring Gear " && What("Adventuring Gear Remember") === false) {
+		Hide("Adventuring Gear Location.Row " + FieldNumbers.gearMIrow);
 	}
 	var theState = What("Gear Location Remember").split(",");
 	theState = type === "Extra.Gear " ? [theState[0], !currentstate] : [!currentstate, theState[1]];

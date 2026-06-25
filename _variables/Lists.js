@@ -289,12 +289,11 @@ var CurrentRace = {};
 var CurrentCompRace = {};
 var CurrentSpells = {};
 var CurrentCasters = {};
-var CurrentSources = {firstTime: true, globalExcl: [], globalKnown: []};
+var CurrentSources = { firstTime: true, globalExcl: [], globalKnown: [] };
 var CurrentEvals = {};
 var CurrentScriptFiles = {};
 var CurrentVars = {
 	manual: {},
-	vislayers: ["notes", "equipment"],
 	fixRichTextFormatting: !tDoc.isWindows,
 };
 var UpdateSpellSheets = {};
@@ -360,7 +359,6 @@ var IsNotImport = true;
 var IsNotFeatMenu = true;
 var IsNotMagicItemMenu = true;
 var IsNotWeaponMenu = true;
-var IsNotConditionSet = true;
 var IsNotUserScript = true;
 var IsSetDropDowns = false;
 var IsCharLvlVal = false;
@@ -1890,7 +1888,7 @@ var FontList = {
 var BookMarkList = {
 	"CSfront" : "Show Buttons",
 	"CSback" : "Background Menu",
-	"ASfront" : !typePF ? "Text.Header.Status" : "Extra.Notes",
+	"ASfront" : !typePF ? "Text.Header.Conditions" : "Extra.Notes",
 	"ASoverflow" : "Extra.Magic Item " + (FieldNumbers.magicitemsD + 1),
 	"ASbackgr" : !typePF ? "Text.Header.Background2" : "Sex",
 	"AScomp" : "Comp.Desc.Name",
@@ -1951,12 +1949,9 @@ var BookMarkList = {
 	"Equipment" : "Adventuring Gear Row 1",
 	"Coins, Gems, and other Valuables" : "Valuables1",
 
-	"Additional sheet" : !typePF ? "Text.Header.Status.1" : "Extra.Notes.1",
+	"Additional sheet" : !typePF ? "Text.Header.Conditions.1" : "Extra.Notes.1",
 	"Additional sheet_template" : "ASfront",
-	"Status" : "Text.Header.Status.1",
-	"Exhaustion" : "Extra.Exhaustion Level 1.1",
-	"Conditions" : "Extra.Condition 1.1",
-	"Combat Rules / Notes" : "Extra.Notes.1",
+	"Conditions" : "Text.Header.Conditions.1",
 	"Notes  " : "Extra.Notes.1",
 	"Possessions" : "Text.Header.Possessions.1",
 	"Magic Items" : "Extra.Magic Item 1.1",
@@ -2254,7 +2249,7 @@ var BackwardsCompatible = {
 	'MakeMobileReady Remember' : "!CurrentVars.mobileset ? '' : CurrentVars.mobileset.active ? true : '';",
 	'WhiteoutRemember' : "CurrentVars.whiteout",
 	'FontSize Remember' : "CurrentVars.fontsize",
-	'Extra.Layers Remember' : 'CurrentVars.vislayers.toString()',
+	'Extra.Layers Remember' : 'LayerVisibilityOptions()',
 	'BlueTextRemember' : "CurrentVars.bluetxt ? 'Yes' : 'No';",
 	'Class Features Remember' : "classFeaChoiceBackwardsComp();",
 	'Manual Attack Remember' : "CurrentVars.manual.attacks ? 'No' : 'Yes';",
@@ -2314,7 +2309,7 @@ var licenseGPLV3 = [
 ];
 
 /*
- UNICODE    RESULT
+ UNICODE    RESULT    FOR
  \u2264     ≤
  \u2265     ≥
  \x26       &
@@ -2324,6 +2319,16 @@ var licenseGPLV3 = [
  \xB2       ²
  \xB3       ³
  \xD7       ×
- \u2020     †
- \u0192     ƒ
+ \u2020     †         Consumed costly material component
+ \u0192     ƒ         Costly material component that is not consumed
+ \u2605     ★        Monk footnote
+ \u2726     ✦        
+ \u2731     ✱        
+ \u2736     ✶        Sorcerer footnote
+ \u2738     ✸        Wizard footnote
+ \u274B     ❋        
+ \u273D     ✽        Ranger footnote
+ \u2665     ♥        
+ \u2666     ♦        
+ \u266A     ♪        Bard footnote
 */

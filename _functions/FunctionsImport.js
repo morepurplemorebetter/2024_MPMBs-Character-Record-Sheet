@@ -592,19 +592,24 @@ function DirectImport(consoleTrigger) {
 
 		//reset conditions
 		if (!fromSheetTypePF && global.docFrom.ConditionSet) {
-			var conResets = [];
-			var doCondi = false;
-			for (var c = 1; c <= 14; c++) {
-				if (c <= 6) {
-					conResets.push("Extra.Exhaustion Level " + c);
-					if (!doCondi && global.docFrom.getField("Extra.Exhaustion Level " + c).value !== global.docFrom.getField("Extra.Exhaustion Level " + c).defaultValue) doCondi = true;
+			// sheets before v14.0.9-beta
+			if (FromVersion < semVersToNmbr("14.0.9-beta")) {
+				var conResets = [];
+				var doCondi = false;
+				for (var c = 1; c <= 14; c++) {
+					if (c <= 6) {
+						conResets.push("Extra.Exhaustion Level " + c);
+						if (!doCondi && global.docFrom.getField("Extra.Exhaustion Level " + c).value !== global.docFrom.getField("Extra.Exhaustion Level " + c).defaultValue) doCondi = true;
+					}
+					conResets.push("Extra.Condition " + c);
+					if (!doCondi && global.docFrom.getField("Extra.Condition " + c).value !== global.docFrom.getField("Extra.Condition " + c).defaultValue) doCondi = true;
+				};
+				if (doCondi) {
+					global.docFrom.resetForm(conResets);
+					global.docFrom.ConditionSet();
 				}
-				conResets.push("Extra.Condition " + c);
-				if (!doCondi && global.docFrom.getField("Extra.Condition " + c).value !== global.docFrom.getField("Extra.Condition " + c).defaultValue) doCondi = true;
-			};
-			if (doCondi) {
-				global.docFrom.resetForm(conResets);
-				global.docFrom.ConditionSet();
+			} else {
+				global.docFrom.ConditionSet(true, true);
 			}
 		}
 
@@ -633,12 +638,10 @@ function DirectImport(consoleTrigger) {
 			if (global.docFrom.getField("WhiteoutRemember")) ToggleWhiteout(eval_ish(global.docFrom.What("WhiteoutRemember")));
 			var FontSize_Remember_field = global.docFrom.getField("FontSize Remember") ? global.docFrom.getField("FontSize Remember").value : undefined;
 			if ((bothPF || bothCF || FontSize_Remember_field === 0) && FontSize_Remember_field != undefined) ToggleTextSize(FontSize_Remember_field);
-			LayerVisibilityOptions(false, global.docFrom.getField("Extra.Layers Remember") ? global.docFrom.getField("Extra.Layers Remember").value : undefined);
 			ToggleBlueText(global.docFrom.getField("Extra.Layers Remember") ? global.docFrom.getField("Extra.Layers Remember").value === "Yes" : false);
 		} else {
 			ToggleWhiteout(!!global.docFrom.CurrentVars.whiteout);
 			ToggleTextSize(global.docFrom.CurrentVars.fontsize);
-			LayerVisibilityOptions(false, global.docFrom.CurrentVars.vislayers);
 			ToggleBlueText(!!global.docFrom.CurrentVars.bluetxt);
 		}
 		SetStringifieds("vars");
@@ -2008,9 +2011,6 @@ function Import(type) {
 	thermoM(13/25); //increment the progress dialog's progress
 	thermoTxt = thermoM("Getting the sheet ready...", false); //change the progress dialog text
 
-	//set the layer visibility to what the imported field says
-	LayerVisibilityOptions();
-
 	//set the visibility of Honor/Sanity as imported
 	ShowHonorSanity();
 
@@ -2144,7 +2144,7 @@ function MakeExportArray() {
 		var Fvalue = What(Fname) !== tDoc.getField(Fname).defaultValue;
 		var Frtf = tDoc.getField(Fname).type === "text" && tDoc.getField(Fname).richText;
 		var Fcalc = (/Bonus$/i).test(Fname) || tDoc.getField(Fname).calcOrderIndex === -1;
-		if (!Frtf && Fvalue && Fcalc && notExport.indexOf(Fname) === -1 && Fname.indexOf("Limited Feature") === -1 && Fname.indexOf("SpellSlots") === -1 && !(/^(Comp.Use.)?Attack.\d.(?!Weapon Selection)|^Feat Description \d$|^Tool \d$|^Language \d$|^(bonus |re)?action \d$|^HD\d (Used|Level|Die|Con Mod)$|Wildshape.\d.|^Resistance Damage Type \d$|^Extra.Exhaustion Level \d$|^Extra.Condition \d+$|^Template\.extras.+$|spells\..*\.\d+|spellshead|spellsdiv|spellsgloss/i).test(Fname)) {
+		if (!Frtf && Fvalue && Fcalc && notExport.indexOf(Fname) === -1 && Fname.indexOf("Limited Feature") === -1 && Fname.indexOf("SpellSlots") === -1 && !(/^(Comp.Use.)?Attack.\d.(?!Weapon Selection)|^Feat Description \d$|^Tool \d$|^Language \d$|^(bonus |re)?action \d$|^HD\d (Used|Level|Die|Con Mod)$|Wildshape.\d.|^Resistance Damage Type \d$|^Extra.Exhaustion Level \d$|^Extra.Condition \d+$|^Condition\.^Template\.extras.+$|spells\..*\.\d+|spellshead|spellsdiv|spellsgloss/i).test(Fname)) {
 			tempArray.push(Fname);
 		}
 	}
