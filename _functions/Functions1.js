@@ -1389,7 +1389,7 @@ function ConditionSet(isReset, skipArmorStealthDisadv) {
 				extra: 0,
 			}],
 		},
-		Charmed: {},
+		// Charmed: {}, // Has nothing to automate
 		Deafened: {
 			setProfs: [{
 				type: "vision",
@@ -1398,7 +1398,7 @@ function ConditionSet(isReset, skipArmorStealthDisadv) {
 				extra: 0,
 			}],
 		},
-		Exhaustion: {},
+		// Exhaustion: {}, // Has its own function
 		Frightened: {
 			attacksDisadv: true,
 			checksDisadv: true,
