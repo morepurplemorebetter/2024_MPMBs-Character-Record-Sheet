@@ -517,7 +517,7 @@ var Base_ClassList = {
 		prereqs: "Charisma 13",
 		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
 		die: 8,
-		save: ["Dex", "Cha"],
+		saves: ["Dex", "Cha"],
 		skillstxt: {
 			primary:   "Choose any 3 skills.",
 			secondary: "Choose any 1 skill.",
