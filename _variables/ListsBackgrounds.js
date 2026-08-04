@@ -3,7 +3,7 @@ var Base_BackgroundList = {
 	"acolyte": {
 		regExpSearch: /acolyte/i,
 		name: "Acolyte",
-		source: [["SRD24", 83], ["P24", 178]],
+		source: [["SRD24", 83], ["PHB24", 178]],
 		scorestxt: "+2 to one and +1 to another -or- +1 to all three: Intelligence, Wisdom, and Charisma",
 		skills: ["Insight", "Religion"],
 		toolProfs: [["Calligrapher's Supplies", "Dex"]],
@@ -59,7 +59,7 @@ var Base_BackgroundList = {
 	"criminal": {
 		regExpSearch: /criminal/i,
 		name: "Criminal",
-		source: [["SRD24", 83], ["P24", 179]],
+		source: [["SRD24", 83], ["PHB24", 179]],
 		scorestxt: "+2 to one and +1 to another -or- +1 to all three: Dexterity, Constitution, and Intelligence",
 		skills: ["Sleight of Hand", "Stealth"],
 		toolProfs: [["Thieves' Tools", "Dex"]],
@@ -130,7 +130,7 @@ var Base_BackgroundList = {
 	"sage": {
 		regExpSearch: /sage/i,
 		name: "Sage",
-		source: [["SRD24", 83], ["P24", 183]],
+		source: [["SRD24", 83], ["PHB24", 183]],
 		scorestxt: "+2 to one and +1 to another -or- +1 to all three: Constitution, Intelligence, and Wisdom",
 		skills: ["Arcana", "History"],
 		toolProfs: [["Calligrapher's Supplies", "Dex"]],
@@ -200,7 +200,7 @@ var Base_BackgroundList = {
 	"soldier": {
 		regExpSearch: /^(?!.*mercenary)(?=.*soldier).*$/i,
 		name: "Soldier",
-		source: [["SRD24", 83], ["P24", 185]],
+		source: [["SRD24", 83], ["PHB24", 185]],
 		scorestxt: "+2 to one and +1 to another -or- +1 to all three: Strength, Dexterity, and Constitution",
 		skills: ["Athletics", "Intimidation"],
 		toolProfs: [["Gaming Set", 1]],
@@ -277,22 +277,22 @@ var Base_BackgroundSubList = {};
 var Base_BackgroundFeatureList = {
 	"acolyte": {
 		description: "I devoted myself to service in a temple, either nestled in a town or a secluded sacred grove. There I performed rites in honor of a god or pantheon. I served under a priest and studied religion. Thanks to my priest's instruction and my own devotion, I also learned to channel a modicum of divine power in service to my place of worship and the people who pray there.",
-		source: [["SRD24", 83], ["P24", 178]],
+		source: [["SRD24", 83], ["PHB24", 178]],
 		featsAdd: [{ key: "magic initiate", choice: "cleric" }]
 	},
 	"criminal": {
 		description: "I eked out a living in dark alleyways, cutting purses or burgling shops. Perhaps I was part of a small gang of like-minded wrongdoers who looked out for each other. Or maybe I was a lone wolf, fending for myself against the local thieves' guild and more fearsome lawbreakers.",
-		source: [["SRD24", 83], ["P24", 179]],
+		source: [["SRD24", 83], ["PHB24", 179]],
 		featsAdd: ["Alert"]
 	},
 	"sage": {
 		description: "I spent my formative years traveling between manors and monasteries, performing various odd jobs and services in exchange for access to their libraries. I whiled away many a long evening studying books and scrolls, learning the lore of the multiverse - even the rudiments of magic - and my mind yearns for more.",
-		source: [["SRD24", 83], ["P24", 183]],
+		source: [["SRD24", 83], ["PHB24", 183]],
 		featsAdd: [{ key: "magic initiate", choice: "wizard" }]
 	},
 	"soldier": {
 		description: "I began training for war as soon as I reached adulthood and carry precious few memories of life before I took up arms. Battle is in my blood. Sometimes I catch myself reflexively performing the basic fighting exercises I learned first. Eventually, I put that training to use on the battlefield, protecting the realm by waging war.",
-		source: [["SRD24", 83], ["P24", 185]],
+		source: [["SRD24", 83], ["PHB24", 185]],
 		featsAdd: ["Savage Attacker"]
 	}
 };

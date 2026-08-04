@@ -3,7 +3,7 @@ var Base_CreatureList = {
 	"awakened shrub": {
 		name: "Awakened Shrub",
 		nameThis: "shrub",
-		source: [["SRD24", 260], ["M24", 23]],
+		source: [["SRD24", 260], ["MM24", 23]],
 		size: 4,
 		type: "Plant",
 		alignment: "Neutral",
@@ -30,7 +30,7 @@ var Base_CreatureList = {
 	"awakened tree": {
 		name: "Awakened Tree",
 		nameThis: "tree",
-		source: [["SRD24", 260], ["M24", 23]],
+		source: [["SRD24", 260], ["MM24", 23]],
 		size: 1,
 		type: "Plant",
 		alignment: "Neutral",
@@ -56,7 +56,7 @@ var Base_CreatureList = {
 	// Pact of the Chain familiars
 	"imp": {
 		name: "Imp",
-		source: [["SRD24", 300], ["M24", 177]],
+		source: [["SRD24", 300], ["MM24", 177]],
 		size: 5,
 		type: "Fiend",
 		subtype: "Devil",
@@ -102,7 +102,7 @@ var Base_CreatureList = {
 	"pseudodragon": {
 		name: "Pseudodragon",
 		nameThis: "dragon",
-		source: [["SRD24", 316], ["M24", 249]],
+		source: [["SRD24", 316], ["MM24", 249]],
 		size: 5,
 		type: "Dragon",
 		companion: ["pact_of_the_chain"],
@@ -151,7 +151,7 @@ var Base_CreatureList = {
 	},
 	"quasit": {
 		name: "Quasit",
-		source: [["SRD24", 317], ["M24", 252]],
+		source: [["SRD24", 317], ["MM24", 252]],
 		size: 5,
 		type: "Fiend",
 		subtype: "Demon",
@@ -206,7 +206,7 @@ var Base_CreatureList = {
 		name: "Skeleton",
 		nameAlt: ["Humanoid Skeleton", "Skeleton, Humanoid"],
 		nameThis: "skeleton",
-		source: [["SRD24", 325], ["M24", 282]],
+		source: [["SRD24", 325], ["MM24", 282]],
 		size: 3,
 		type: "Undead",
 		companion: ["pact_of_the_chain"],
@@ -239,7 +239,7 @@ var Base_CreatureList = {
 	"sphinx of wonder": {
 		name: "Sphinx of Wonder",
 		nameThis: "sphinx",
-		source: [["SRD24", 327], ["M24", 291]],
+		source: [["SRD24", 327], ["MM24", 291]],
 		size: 5,
 		type: "Celestial",
 		companion: ["pact_of_the_chain"],
@@ -279,7 +279,7 @@ var Base_CreatureList = {
 	},
 	"sprite": {
 		name: "Sprite",
-		source: [["SRD24", 329], ["M24", 298]],
+		source: [["SRD24", 329], ["MM24", 298]],
 		size: 5,
 		type: "Fey",
 		companion: ["pact_of_the_chain"],
@@ -331,7 +331,7 @@ var Base_CreatureList = {
 		name: "Warhorse Skeleton",
 		nameAlt: ["Skeleton, Warhorse"],
 		nameThis: "skeleton",
-		source: [["SRD24", 326], ["M24", 282]],
+		source: [["SRD24", 326], ["MM24", 282]],
 		size: 2,
 		type: "Undead",
 		alignment: "Lawful Evil",
@@ -361,7 +361,7 @@ var Base_CreatureList = {
 	},
 	"zombie": {
 		name: "Zombie",
-		source: [["SRD24", 343], ["M24", 346]],
+		source: [["SRD24", 343], ["MM24", 346]],
 		size: 3,
 		type: "Undead",
 		alignment: "Neutral Evil",
@@ -393,7 +393,7 @@ var Base_CreatureList = {
 		name: "Ogre Zombie",
 		nameAlt: ["Zombie, Ogre"],
 		nameThis: "zombie",
-		source: [["SRD24", 344], ["M24", 346]],
+		source: [["SRD24", 344], ["MM24", 346]],
 		size: 2,
 		type: "Undead",
 		alignment: "Neutral Evil",
@@ -426,7 +426,7 @@ var Base_CreatureList = {
 		name: "Flying Snake",
 		nameAlt: ["Snake, Flying"],
 		nameThis: "snake",
-		source: [["SRD24", 348], ["M24", 353]],
+		source: [["SRD24", 348], ["MM24", 353]],
 		size: 5,
 		type: "Monstrosity",
 		alignment: "Unaligned",
@@ -456,7 +456,7 @@ var Base_CreatureList = {
 	"giant eagle": {
 		name: "Giant Eagle",
 		nameAlt: ["Eagle, Giant"],
-		source: [["SRD24", 350], ["M24", 356]],
+		source: [["SRD24", 350], ["MM24", 356]],
 		size: 2,
 		type: "Celestial",
 		alignment: "Neutral Good",
@@ -489,7 +489,7 @@ var Base_CreatureList = {
 	"giant elk": {
 		name: "Giant Elk",
 		nameAlt: ["Elk, Giant"],
-		source: [["SRD24", 351], ["M24", 356]],
+		source: [["SRD24", 351], ["MM24", 356]],
 		size: 1,
 		type: "Celestial",
 		alignment: "Neutral Good",
@@ -528,7 +528,7 @@ var Base_CreatureList = {
 	"giant owl": {
 		name: "Giant Owl",
 		nameAlt: ["Owl, Giant"],
-		source: [["SRD24", 352], ["M24", 358]],
+		source: [["SRD24", 352], ["MM24", 358]],
 		size: 2,
 		type: "Celestial",
 		alignment: "Neutral",
@@ -570,7 +570,7 @@ var Base_CreatureList = {
 	"giant vulture": {
 		name: "Giant Vulture",
 		nameAlt: ["Vulture, Giant"],
-		source: [["SRD24", 354], ["M24", 361]],
+		source: [["SRD24", 354], ["MM24", 361]],
 		size: 2,
 		type: "Monstrosity",
 		alignment: "Neutral Evil",
@@ -604,7 +604,7 @@ var Base_CreatureList = {
 	// Beasts (Familiar & Wild Shape)
 	"allosaurus": {
 		name: "Allosaurus",
-		source: [["SRD24", 344], ["M24", 348]],
+		source: [["SRD24", 344], ["MM24", 348]],
 		size: 2,
 		type: "Beast",
 		subtype: "Dinosaur",
@@ -640,7 +640,7 @@ var Base_CreatureList = {
 	},
 	"ankylosaurus": {
 		name: "Ankylosaurus",
-		source: [["SRD24", 344], ["M24", 348]],
+		source: [["SRD24", 344], ["MM24", 348]],
 		size: 1,
 		type: "Beast",
 		subtype: "Dinosaur",
@@ -669,7 +669,7 @@ var Base_CreatureList = {
 	},
 	"ape": {
 		name: "Ape",
-		source: [["SRD24", 344], ["M24", 348]],
+		source: [["SRD24", 344], ["MM24", 348]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -705,7 +705,7 @@ var Base_CreatureList = {
 	},
 	"archelon": {
 		name: "Archelon",
-		source: [["SRD24", 344], ["M24", 349]],
+		source: [["SRD24", 344], ["MM24", 349]],
 		size: 1,
 		type: "Beast",
 		subtype: "Dinosaur",
@@ -740,7 +740,7 @@ var Base_CreatureList = {
 	},
 	"baboon": {
 		name: "Baboon",
-		source: [["SRD24", 345], ["M24", 349]],
+		source: [["SRD24", 345], ["MM24", 349]],
 		size: 4,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -766,7 +766,7 @@ var Base_CreatureList = {
 	},
 	"badger": {
 		name: "Badger",
-		source: [["SRD24", 345], ["M24", 349]],
+		source: [["SRD24", 345], ["MM24", 349]],
 		size: 5,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -793,7 +793,7 @@ var Base_CreatureList = {
 	},
 	"bat": {
 		name: "Bat",
-		source: [["SRD24", 345], ["M24", 349]],
+		source: [["SRD24", 345], ["MM24", 349]],
 		size: 5,
 		type: "Beast",
 		companion: ["familiar"],
@@ -820,7 +820,7 @@ var Base_CreatureList = {
 		name: "Black Bear",
 		nameAlt: ["Bear, Black"],
 		nameThis: "bear",
-		source: [["SRD24", 345], ["M24", 349]],
+		source: [["SRD24", 345], ["MM24", 349]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -852,7 +852,7 @@ var Base_CreatureList = {
 	"blood hawk": {
 		name: "Blood Hawk",
 		nameThis: "hawk",
-		source: [["SRD24", 345], ["M24", 350]],
+		source: [["SRD24", 345], ["MM24", 350]],
 		size: 4,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -882,7 +882,7 @@ var Base_CreatureList = {
 	},
 	"boar": {
 		name: "Boar",
-		source: [["SRD24", 346], ["M24", 350]],
+		source: [["SRD24", 346], ["MM24", 350]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -916,7 +916,7 @@ var Base_CreatureList = {
 		name: "Brown Bear",
 		nameAlt: ["Bear, Brown"],
 		nameThis: "bear",
-		source: [["SRD24", 346], ["M24", 350]],
+		source: [["SRD24", 346], ["MM24", 350]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -952,7 +952,7 @@ var Base_CreatureList = {
 	},
 	"camel": {
 		name: "Camel",
-		source: [["SRD24", 346], ["M24", 351]],
+		source: [["SRD24", 346], ["MM24", 351]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -976,7 +976,7 @@ var Base_CreatureList = {
 	},
 	"cat": {
 		name: "Cat",
-		source: [["SRD24", 346], ["M24", 351]],
+		source: [["SRD24", 346], ["MM24", 351]],
 		size: 5,
 		type: "Beast",
 		companion: ["familiar"],
@@ -1012,7 +1012,7 @@ var Base_CreatureList = {
 		name: "Constrictor Snake",
 		nameAlt: ["Snake, Constrictor"],
 		nameThis: "snake",
-		source: [["SRD24", 346], ["M24", 351]],
+		source: [["SRD24", 346], ["MM24", 351]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1051,7 +1051,7 @@ var Base_CreatureList = {
 	},
 	"crab": {
 		name: "Crab",
-		source: [["SRD24", 347], ["M24", 351]],
+		source: [["SRD24", 347], ["MM24", 351]],
 		size: 5,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1081,7 +1081,7 @@ var Base_CreatureList = {
 	},
 	"crocodile": {
 		name: "Crocodile",
-		source: [["SRD24", 347], ["M24", 352]],
+		source: [["SRD24", 347], ["MM24", 352]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1116,7 +1116,7 @@ var Base_CreatureList = {
 	},
 	"deer": {
 		name: "Deer",
-		source: [["SRD24", 347], ["M24", 352]],
+		source: [["SRD24", 347], ["MM24", 352]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1148,7 +1148,7 @@ var Base_CreatureList = {
 		name: "Dire Wolf",
 		nameAlt: ["Wolf, Dire"],
 		nameThis: "wolf",
-		source: [["SRD24", 347], ["M24", 352]],
+		source: [["SRD24", 347], ["MM24", 352]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1182,7 +1182,7 @@ var Base_CreatureList = {
 		name: "Draft Horse",
 		nameAlt: ["Horse, Draft"],
 		nameThis: "horse",
-		source: [["SRD24", 347], ["M24", 352]],
+		source: [["SRD24", 347], ["MM24", 352]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1204,7 +1204,7 @@ var Base_CreatureList = {
 	},
 	"eagle": {
 		name: "Eagle",
-		source: [["SRD24", 348], ["M24", 353]],
+		source: [["SRD24", 348], ["MM24", 353]],
 		size: 4,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1229,7 +1229,7 @@ var Base_CreatureList = {
 	},
 	"elephant": {
 		name: "Elephant",
-		source: [["SRD24", 348], ["M24", 353]],
+		source: [["SRD24", 348], ["MM24", 353]],
 		size: 1,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1268,7 +1268,7 @@ var Base_CreatureList = {
 	"elk": {
 		name: "Elk",
 		nameAlt: ["Reindeer", "Yak"], // Reindeer from Icewind Dale: Rime of the Frostmaiden, Yak from Storm King's Thunder
-		source: [["SRD24", 348], ["M24", 353]],
+		source: [["SRD24", 348], ["MM24", 353]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1300,7 +1300,7 @@ var Base_CreatureList = {
 	"frog": {
 		name: "Frog",
 		nameAlt: ["Toad"],
-		source: [["SRD24", 348], ["M24", 354]],
+		source: [["SRD24", 348], ["MM24", 354]],
 		size: 5,
 		type: "Beast",
 		companion: ["familiar"],
@@ -1337,7 +1337,7 @@ var Base_CreatureList = {
 	"giant ape": {
 		name: "Giant Ape",
 		nameAlt: ["Ape, Giant"],
-		source: [["SRD24", 349], ["M24", 354]],
+		source: [["SRD24", 349], ["MM24", 354]],
 		size: 1,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1388,7 +1388,7 @@ var Base_CreatureList = {
 	"giant badger": {
 		name: "Giant Badger",
 		nameAlt: ["Badger, Giant"],
-		source: [["SRD24", 349], ["M24", 354]],
+		source: [["SRD24", 349], ["MM24", 354]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1416,7 +1416,7 @@ var Base_CreatureList = {
 	"giant bat": {
 		name: "Giant Bat",
 		nameAlt: ["Bat, Giant"],
-		source: [["SRD24", 349], ["M24", 355]],
+		source: [["SRD24", 349], ["MM24", 355]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1440,7 +1440,7 @@ var Base_CreatureList = {
 	"giant boar": {
 		name: "Giant Boar",
 		nameAlt: ["Boar, Giant"],
-		source: [["SRD24", 349], ["M24", 355]],
+		source: [["SRD24", 349], ["MM24", 355]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1474,7 +1474,7 @@ var Base_CreatureList = {
 	"giant centipede": {
 		name: "Giant Centipede",
 		nameAlt: ["Centipede, Giant"],
-		source: [["SRD24", 349], ["M24", 355]],
+		source: [["SRD24", 349], ["MM24", 355]],
 		size: 4,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1500,7 +1500,7 @@ var Base_CreatureList = {
 		name: "Giant Constrictor Snake",
 		nameAlt: ["Snake, Giant Constrictor"],
 		nameThis: "snake",
-		source: [["SRD24", 350], ["M24", 355]],
+		source: [["SRD24", 350], ["MM24", 355]],
 		size: 1,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1541,7 +1541,7 @@ var Base_CreatureList = {
 	"giant crab": {
 		name: "Giant Crab",
 		nameAlt: ["Crab, Giant"],
-		source: [["SRD24", 350], ["M24", 356]],
+		source: [["SRD24", 350], ["MM24", 356]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1576,7 +1576,7 @@ var Base_CreatureList = {
 	"giant crocodile": {
 		name: "Giant Crocodile",
 		nameAlt: ["Crocodile, Giant", "Whirlwyrm"], // Whirlwyrm from Turn of Fortune's Wheel (Planescape)
-		source: [["SRD24", 350], ["M24", 356]],
+		source: [["SRD24", 350], ["MM24", 356]],
 		size: 1,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1622,7 +1622,7 @@ var Base_CreatureList = {
 		name: "Giant Fire Beetle",
 		nameAlt: ["Beetle, Giant Fire"],
 		nameThis: "beetle",
-		source: [["SRD24", 351], ["M24", 357]],
+		source: [["SRD24", 351], ["MM24", 357]],
 		size: 4,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1671,7 +1671,7 @@ var Base_CreatureList = {
 	"giant frog": {
 		name: "Giant Frog",
 		nameAlt: ["Frog, Giant"],
-		source: [["SRD24", 351], ["M24", 357]],
+		source: [["SRD24", 351], ["MM24", 357]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1714,7 +1714,7 @@ var Base_CreatureList = {
 	"giant goat": {
 		name: "Giant Goat",
 		nameAlt: ["Goat, Giant", "Moose"], // Moose from Icewind Dale: Rime of the Frostmaiden
-		source: [["SRD24", 351], ["M24", 357]],
+		source: [["SRD24", 351], ["MM24", 357]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1747,7 +1747,7 @@ var Base_CreatureList = {
 	"giant hyena": {
 		name: "Giant Hyena",
 		nameAlt: ["Hyena, Giant"],
-		source: [["SRD24", 352], ["M24", 357]],
+		source: [["SRD24", 352], ["MM24", 357]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1778,7 +1778,7 @@ var Base_CreatureList = {
 	"giant lizard": {
 		name: "Giant Lizard",
 		nameAlt: ["Lizard, Giant"],
-		source: [["SRD24", 352], ["M24", 358]],
+		source: [["SRD24", 352], ["MM24", 358]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1807,7 +1807,7 @@ var Base_CreatureList = {
 	"giant octopus": {
 		name: "Giant Octopus",
 		nameAlt: ["Octopus, Giant"],
-		source: [["SRD24", 352], ["M24", 358]],
+		source: [["SRD24", 352], ["MM24", 358]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1850,7 +1850,7 @@ var Base_CreatureList = {
 	"giant rat": {
 		name: "Giant Rat",
 		nameAlt: ["Rat, Giant"],
-		source: [["SRD24", 353], ["M24", 358]],
+		source: [["SRD24", 353], ["MM24", 358]],
 		size: 4,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1882,7 +1882,7 @@ var Base_CreatureList = {
 	"giant scorpion": {
 		name: "Giant Scorpion",
 		nameAlt: ["Scorpion, Giant"],
-		source: [["SRD24", 353], ["M24", 359]],
+		source: [["SRD24", 353], ["MM24", 359]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1919,7 +1919,7 @@ var Base_CreatureList = {
 	},
 	"giant seahorse": {
 		name: "Giant Seahorse",
-		source: [["SRD24", 353], ["M24", 359]],
+		source: [["SRD24", 353], ["MM24", 359]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1955,7 +1955,7 @@ var Base_CreatureList = {
 	"giant shark": {
 		name: "Giant Shark",
 		nameAlt: ["Shark, Giant"],
-		source: [["SRD24", 353], ["M24", 359]],
+		source: [["SRD24", 353], ["MM24", 359]],
 		size: 1,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -1995,7 +1995,7 @@ var Base_CreatureList = {
 	"giant spider": {
 		name: "Giant Spider",
 		nameAlt: ["Spider, Giant"],
-		source: [["SRD24", 353], ["M24", 359]],
+		source: [["SRD24", 353], ["MM24", 359]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2045,7 +2045,7 @@ var Base_CreatureList = {
 	"giant toad": {
 		name: "Giant Toad",
 		nameAlt: ["Toad, Giant"],
-		source: [["SRD24", 354], ["M24", 360]],
+		source: [["SRD24", 354], ["MM24", 360]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2084,7 +2084,7 @@ var Base_CreatureList = {
 		name: "Giant Venomous Snake",
 		nameAlt: ["Snake, Giant Venomous"],
 		nameThis: "snake",
-		source: [["SRD24", 354], ["M24", 361]],
+		source: [["SRD24", 354], ["MM24", 361]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2112,7 +2112,7 @@ var Base_CreatureList = {
 	"giant wasp": {
 		name: "Giant Wasp",
 		nameAlt: ["Wasp, Giant"],
-		source: [["SRD24", 354], ["M24", 361]],
+		source: [["SRD24", 354], ["MM24", 361]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2140,7 +2140,7 @@ var Base_CreatureList = {
 	"giant weasel": {
 		name: "Giant Weasel",
 		nameAlt: ["Weasel, Giant"],
-		source: [["SRD24", 355], ["M24", 361]],
+		source: [["SRD24", 355], ["MM24", 361]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2170,7 +2170,7 @@ var Base_CreatureList = {
 		name: "Giant Wolf Spider",
 		nameAlt: ["Wolf Spider, Giant"],
 		nameThis: "spider",
-		source: [["SRD24", 355], ["M24", 362]],
+		source: [["SRD24", 355], ["MM24", 362]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2202,7 +2202,7 @@ var Base_CreatureList = {
 	},
 	"goat": {
 		name: "Goat",
-		source: [["SRD24", 355], ["M24", 362]],
+		source: [["SRD24", 355], ["MM24", 362]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2235,7 +2235,7 @@ var Base_CreatureList = {
 	"hawk": {
 		name: "Hawk",
 		nameAlt: ["Falcon"], // from Waterdeep: Dragon Heist
-		source: [["SRD24", 355], ["M24", 362]],
+		source: [["SRD24", 355], ["MM24", 362]],
 		companion: ["familiar"],
 		size: 5,
 		type: "Beast",
@@ -2262,7 +2262,7 @@ var Base_CreatureList = {
 	},
 	"hippopotamus": {
 		name: "Hippopotamus",
-		source: [["SRD24", 355], ["M24", 362]],
+		source: [["SRD24", 355], ["MM24", 362]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2299,7 +2299,7 @@ var Base_CreatureList = {
 		name: "Hunter Shark",
 		nameAlt: ["Shark, Hunter"],
 		nameThis: "shark",
-		source: [["SRD24", 356], ["M24", 363]],
+		source: [["SRD24", 356], ["MM24", 363]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2330,7 +2330,7 @@ var Base_CreatureList = {
 	},
 	"hyena": {
 		name: "Hyena",
-		source: [["SRD24", 356], ["M24", 363]],
+		source: [["SRD24", 356], ["MM24", 363]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2360,7 +2360,7 @@ var Base_CreatureList = {
 	},
 	"jackal": {
 		name: "Jackal",
-		source: [["SRD24", 356], ["M24", 364]],
+		source: [["SRD24", 356], ["MM24", 364]],
 		size: 4,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2389,7 +2389,7 @@ var Base_CreatureList = {
 		name: "Killer Whale",
 		nameAlt: ["Orca"],
 		nameThis: "orca",
-		source: [["SRD24", 356], ["M24", 364]],
+		source: [["SRD24", 356], ["MM24", 364]],
 		size: 1,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2420,7 +2420,7 @@ var Base_CreatureList = {
 	},
 	"lion": {
 		name: "Lion",
-		source: [["SRD24", 356], ["M24", 364]],
+		source: [["SRD24", 356], ["MM24", 364]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2468,7 +2468,7 @@ var Base_CreatureList = {
 	},
 	"lizard": {
 		name: "Lizard",
-		source: [["SRD24", 357], ["M24", 364]],
+		source: [["SRD24", 357], ["MM24", 364]],
 		size: 5,
 		type: "Beast",
 		companion: ["familiar"],
@@ -2496,7 +2496,7 @@ var Base_CreatureList = {
 	},
 	"mammoth": {
 		name: "Mammoth",
-		source: [["SRD24", 357], ["M24", 365]],
+		source: [["SRD24", 357], ["MM24", 365]],
 		size: 1,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2539,7 +2539,7 @@ var Base_CreatureList = {
 	},
 	"mastiff": {
 		name: "Mastiff",
-		source: [["SRD24", 357], ["M24", 365]],
+		source: [["SRD24", 357], ["MM24", 365]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2566,7 +2566,7 @@ var Base_CreatureList = {
 	},
 	"mule": {
 		name: "Mule",
-		source: [["SRD24", 357], ["M24", 365]],
+		source: [["SRD24", 357], ["MM24", 365]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2593,7 +2593,7 @@ var Base_CreatureList = {
 	},
 	"octopus": {
 		name: "Octopus",
-		source: [["SRD24", 357], ["M24", 365]],
+		source: [["SRD24", 357], ["MM24", 365]],
 		size: 4,
 		type: "Beast",
 		companion: ["familiar"],
@@ -2635,7 +2635,7 @@ var Base_CreatureList = {
 	},
 	"owl": {
 		name: "Owl",
-		source: [["SRD24", 358], ["M24", 366]],
+		source: [["SRD24", 358], ["MM24", 366]],
 		size: 5,
 		type: "Beast",
 		companion: ["familiar"],
@@ -2668,7 +2668,7 @@ var Base_CreatureList = {
 	},
 	"panther": {
 		name: "Panther",
-		source: [["SRD24", 358], ["M24", 366]],
+		source: [["SRD24", 358], ["MM24", 366]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2679,7 +2679,7 @@ var Base_CreatureList = {
 		scores: [14, 16, 10, 3, 14, 7],
 		skills: {
 			"perception": 4,
-			"stealth": 6,
+			"stealth": 7,
 		},
 		senses: "Darkvision 60 ft",
 		passivePerception: 14,
@@ -2699,7 +2699,7 @@ var Base_CreatureList = {
 	},
 	"piranha": {
 		name: "Piranha",
-		source: [["SRD24", 358], ["M24", 366]],
+		source: [["SRD24", 358], ["MM24", 366]],
 		size: 5,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2728,7 +2728,7 @@ var Base_CreatureList = {
 	},
 	"plesiosaurus": {
 		name: "Plesiosaurus",
-		source: [["SRD24", 358], ["M24", 366]],
+		source: [["SRD24", 358], ["MM24", 366]],
 		size: 2,
 		type: "Beast",
 		subtype: "Dinosaur",
@@ -2761,7 +2761,7 @@ var Base_CreatureList = {
 		name: "Polar Bear",
 		nameAlt: ["Bear, Polar"],
 		nameThis: "bear",
-		source: [["SRD24", 359], ["M24", 367]],
+		source: [["SRD24", 359], ["MM24", 367]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2794,7 +2794,7 @@ var Base_CreatureList = {
 	},
 	"pony": {
 		name: "Pony",
-		source: [["SRD24", 359], ["M24", 367]],
+		source: [["SRD24", 359], ["MM24", 367]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2817,7 +2817,7 @@ var Base_CreatureList = {
 	},
 	"pteranodon": {
 		name: "Pteranodon",
-		source: [["SRD24", 359], ["M24", 367]],
+		source: [["SRD24", 359], ["MM24", 367]],
 		size: 3,
 		type: "Beast",
 		subtype: "Dinosaur",
@@ -2847,7 +2847,7 @@ var Base_CreatureList = {
 	},
 	"rat": {
 		name: "Rat",
-		source: [["SRD24", 359], ["M24", 367]],
+		source: [["SRD24", 359], ["MM24", 367]],
 		size: 5,
 		type: "Beast",
 		companion: ["familiar"],
@@ -2879,7 +2879,7 @@ var Base_CreatureList = {
 	"raven": {
 		name: "Raven",
 		nameAlt: ["Crow"], // from Waterdeep: Dungeon of the Mad Mage
-		source: [["SRD24", 359], ["M24", 368]],
+		source: [["SRD24", 359], ["MM24", 368]],
 		size: 5,
 		type: "Beast",
 		companion: ["familiar"],
@@ -2912,7 +2912,7 @@ var Base_CreatureList = {
 		name: "Reef Shark",
 		nameAlt: ["Shark, Reef"],
 		nameThis: "shark",
-		source: [["SRD24", 360], ["M24", 368]],
+		source: [["SRD24", 360], ["MM24", 368]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2946,7 +2946,7 @@ var Base_CreatureList = {
 	"rhinoceros": {
 		name: "Rhinoceros",
 		nameAlt: ["Ceratok"], // from Guildmasters' Guide to Ravnica
-		source: [["SRD24", 360], ["M24", 368]],
+		source: [["SRD24", 360], ["MM24", 368]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -2976,7 +2976,7 @@ var Base_CreatureList = {
 		name: "Riding Horse",
 		nameAlt: ["Horse, Riding", "Horse"],
 		nameThis: "horse",
-		source: [["SRD24", 360], ["M24", 368]],
+		source: [["SRD24", 360], ["MM24", 368]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -3000,7 +3000,7 @@ var Base_CreatureList = {
 		name: "Saber-Toothed Tiger",
 		nameAlt: ["Tiger, Saber-Toothed"],
 		nameThis: "tiger",
-		source: [["SRD24", 360], ["M24", 369]],
+		source: [["SRD24", 360], ["MM24", 369]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -3040,7 +3040,7 @@ var Base_CreatureList = {
 	},
 	"scorpion": {
 		name: "Scorpion",
-		source: [["SRD24", 360], ["M24", 369]],
+		source: [["SRD24", 360], ["MM24", 369]],
 		size: 5,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -3064,7 +3064,7 @@ var Base_CreatureList = {
 	},
 	"seahorse": {
 		name: "Seahorse",
-		source: [["SRD24", 361], ["M24", 369]],
+		source: [["SRD24", 361], ["MM24", 369]],
 		size: 5,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -3093,7 +3093,7 @@ var Base_CreatureList = {
 	},
 	"spider": {
 		name: "Spider",
-		source: [["SRD24", 361], ["M24", 369]],
+		source: [["SRD24", 361], ["MM24", 369]],
 		size: 5,
 		type: "Beast",
 		companion: ["familiar"],
@@ -3130,7 +3130,7 @@ var Base_CreatureList = {
 	"tiger": {
 		name: "Tiger",
 		nameAlt: ["Snow Leopard", "Leopard, Snow"], // from Tales from the Yawning Portal
-		source: [["SRD24", 363], ["M24", 371]],
+		source: [["SRD24", 363], ["MM24", 371]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -3162,7 +3162,7 @@ var Base_CreatureList = {
 	},
 	"triceratops": {
 		name: "Triceratops",
-		source: [["SRD24", 363], ["M24", 372]],
+		source: [["SRD24", 363], ["MM24", 372]],
 		size: 1,
 		type: "Beast",
 		subtype: "Dinosaur",
@@ -3196,7 +3196,7 @@ var Base_CreatureList = {
 		name: "Tyrannosaurus Rex",
 		nameAlt: ["T-Rex"],
 		nameThis: "tyrannosaurus",
-		source: [["SRD24", 363], ["M24", 372]],
+		source: [["SRD24", 363], ["MM24", 372]],
 		size: 1,
 		type: "Beast",
 		subtype: "Dinosaur",
@@ -3243,7 +3243,7 @@ var Base_CreatureList = {
 		name: "Venomous Snake",
 		nameAlt: ["Snake, Venomous"],
 		nameThis: "snake",
-		source: [["SRD24", 363], ["M24", 372]],
+		source: [["SRD24", 363], ["MM24", 372]],
 		size: 5,
 		type: "Beast",
 		companion: ["pact_of_the_chain"],
@@ -3269,7 +3269,7 @@ var Base_CreatureList = {
 	"vulture": {
 		name: "Vulture",
 		nameAlt: ["Peacock"], // from Baldur's Gate: Descend into Avernus
-		source: [["SRD24", 363], ["M24", 372]],
+		source: [["SRD24", 363], ["MM24", 372]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -3300,7 +3300,7 @@ var Base_CreatureList = {
 		name: "Warhorse",
 		nameAlt: ["Horse, War"],
 		nameThis: "horse",
-		source: [["SRD24", 364], ["M24", 373]],
+		source: [["SRD24", 364], ["MM24", 373]],
 		size: 2,
 		type: "Beast",
 		alignment: "Unaligned",
@@ -3328,7 +3328,7 @@ var Base_CreatureList = {
 	},
 	"weasel": {
 		name: "Weasel",
-		source: [["SRD24", 364], ["M24", 372]],
+		source: [["SRD24", 364], ["MM24", 372]],
 		size: 5,
 		type: "Beast",
 		companion: ["familiar"],
@@ -3359,7 +3359,7 @@ var Base_CreatureList = {
 	"wolf": {
 		name: "Wolf",
 		nameAlt: ["Sled Dog", "Dog, Sled"], // from Rise of Tiamat
-		source: [["SRD24", 364], ["M24", 373]],
+		source: [["SRD24", 364], ["MM24", 373]],
 		size: 3,
 		type: "Beast",
 		alignment: "Unaligned",

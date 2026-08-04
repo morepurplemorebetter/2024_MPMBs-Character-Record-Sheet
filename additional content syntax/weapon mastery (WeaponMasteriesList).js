@@ -115,7 +115,7 @@ WeaponMasteriesList["purplefication"] = {
 	when that attack references this mastery and is set to include its mastery.
 */
 	source: ["SRD24", 204],
-	source: [["P24", 214], ["S", 115]],
+	source: [["PHB24", 214], ["S", 115]],
 /*	source // REQUIRED //
 	TYPE:	array with two entries (or array of these arrays)
 	USE:	define where the mastery is found

@@ -3,7 +3,7 @@ var Base_CompanionList = {
 		name: "Find Familiar",
 		nameTooltip: "the Find Familiar spell",
 		nameMenu: "Familiar (Find Familiar spell)", // required
-		source: [["SRD24", 130], ["P24", 272]], // required
+		source: [["SRD24", 130], ["PHB24", 272]], // required
 		includeCheck : function(sCrea, objCrea, iCreaCR, bIsAL) {
 			return objCrea.type.toLowerCase() === "beast" && iCreaCR === 0;
 		},
@@ -41,7 +41,7 @@ var Base_CompanionList = {
 		nameTooltip: "Warlock (Pact of the Chain)",
 		nameOrigin: "variant of the Find Familiar 1st-level conjuration [ritual] spell",
 		nameMenu: "Pact of the Chain familiar (Warlock's Eldritch Invocation)",
-		source: [["SRD24", 74], ["P24", 157]],
+		source: [["SRD24", 74], ["PHB24", 157]],
 		includeCheck: function(sCrea, objCrea, iCreaCR, bIsAL) {
 			if (objCrea.companion) {
 				if (objCrea.companion.indexOf("familiar") !== -1) return true;
@@ -61,7 +61,7 @@ var Base_CompanionList = {
 			}],
 			notes: [{
 				name: "Pact of the Chain: Find Familiar",
-				source: [["SRD24", 74], ["P24", 157]],
+				source: [["SRD24", 74], ["PHB24", 157]],
 				useSpellDescription: "find familiar",
 				formatSpellDescription: function(str) {
 					str = str.replace(

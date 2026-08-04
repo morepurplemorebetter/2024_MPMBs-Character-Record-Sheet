@@ -677,7 +677,7 @@ function MakeCompMenu_CompOptions(prefix, MenuSelection, force) {
 		}
 
 		var aCompMenu = [], bAddMenuDivider = false;
-		if ((CurrentSources.globalExcl.indexOf("SRD") !== -1 || CurrentSources.globalExcl.indexOf("SRD24") !== -1) && ((!SourceList.M || (SourceList.M && CurrentSources.globalExcl.indexOf("M") !== -1)) || (!SourceList.M24 || (SourceList.M && CurrentSources.globalExcl.indexOf("M24") !== -1)))) {
+		if ((CurrentSources.globalExcl.indexOf("SRD") !== -1 || CurrentSources.globalExcl.indexOf("SRD24") !== -1) && ((!SourceList.M || (SourceList.M && CurrentSources.globalExcl.indexOf("M") !== -1)) || (!SourceList.MM24 || (SourceList.M && CurrentSources.globalExcl.indexOf("MM24") !== -1)))) {
 			// If the SRD is excluded (and the MM if it exists), add a warning here
 			aCompMenu = [{
 				cName : "Be aware: the SRD " + (SourceList.M ? "and Monster Manual are" : "is") + " excluded from the sources!",
@@ -8824,7 +8824,7 @@ function processToNotesPage(AddRemove, items, type, mainObj, parentObj, namesArr
 		var noteSrc = noteObj.source ? stringSource(noteObj, "first,abbr", ", ") : fallback.noteSrc;
 		var noteDesc = "";
 		if (noteObj.useDescriptionFull && fallback.descrFull) {
-			noteDesc = ConvertToFirstPerson(
+			noteDesc = "\r" + ConvertToFirstPerson(
 				formatDescriptionFull(fallback.descrFull, true),
 				noteObj.useDescriptionFull,
 				fallback.noteOrig

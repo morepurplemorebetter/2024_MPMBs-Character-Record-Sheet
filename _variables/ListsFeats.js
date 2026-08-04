@@ -5,7 +5,7 @@ var Base_FeatsList = {
 	"alert": {
 		name: "Alert",
 		type: "origin",
-		source: [["SRD24", 87], ["P24", 200]],
+		source: [["SRD24", 87], ["PHB24", 200]],
 		addMod: [{
 			type: "skill", field: "Init", mod: "prof",
 			text: "I can add my Proficiency Bonus to Initiative rolls.",
@@ -20,7 +20,7 @@ var Base_FeatsList = {
 	"magic initiate": {
 		name: "Magic Initiate",
 		type: "origin",
-		source: [["SRD24", 87], ["P24", 201]],
+		source: [["SRD24", 87], ["PHB24", 201]],
 		description: "Pick Cleric, Druid, or Wizard",
 		descriptionFull: [
 			"You gain the following benefits.",
@@ -83,14 +83,14 @@ var Base_FeatsList = {
 	"savage attacker": {
 		name: "Savage Attacker",
 		type: "origin",
-		source: [["SRD24", 87], ["P24", 201]],
+		source: [["SRD24", 87], ["PHB24", 201]],
 		description: "I've trained to deal particularly damaging strikes. Once per turn when I hit a target with a weapon, I can roll the weapon's damage dice twice and use either roll against the target.",
 		descriptionFull: "You've trained to deal particularly damaging strikes. Once per turn when you hit a target with a weapon, you can roll the weapon's damage dice twice and use either roll against the target.",
 	},
 	"skilled": {
 		name: "Skilled",
 		type: "origin",
-		source: [["SRD24", 87], ["P24", 201]],
+		source: [["SRD24", 87], ["PHB24", 201]],
 		skillstxt: "Choose three skills or tools",
 		description: "I gain proficiency in any combination of three skills or tools of my choice.",
 		descriptionFull: [
@@ -102,7 +102,7 @@ var Base_FeatsList = {
 	// General feats
 	"grappler": {
 		name: "Grappler",
-		source: [["SRD24", 87], ["P24", 204]],
+		source: [["SRD24", 87], ["PHB24", 204]],
 		type: "general",
 		prerequisite: "Level 4+, Strength or Dexterity 13+",
 		prereqeval: function (v) {
@@ -140,7 +140,7 @@ var Base_FeatsList = {
 	// Fighting Style feats
 	"archery": {
 		name: "Archery",
-		source: [["SRD24", 87], ["P24", 209]],
+		source: [["SRD24", 87], ["PHB24", 209]],
 		type: "fighting style",
 		description: "I gain a +2 bonus to attack rolls I make with Ranged weapons.",
 		descriptionFull: [
@@ -157,7 +157,7 @@ var Base_FeatsList = {
 	},
 	"defense": {
 		name: "Defense",
-		source: [["SRD24", 88], ["P24", 209]],
+		source: [["SRD24", 88], ["PHB24", 209]],
 		type: "fighting style",
 		description: "While I'm wearing Light, Medium, or Heavy armor, I gain a +1 bonus to Armor Class.",
 		descriptionFull: [
@@ -172,7 +172,7 @@ var Base_FeatsList = {
 	},
 	"great weapon fighting": {
 		name: "Great Weapon Fighting",
-		source: [["SRD24", 88], ["P24", 209]],
+		source: [["SRD24", 88], ["PHB24", 209]],
 		type: "fighting style",
 		description: "When I roll damage for an attack I make with a Melee weapon that I'm holding with two hands, I can treat any 1 or 2 on a damage die as a 3. The weapon must have the Two-Handed or Versatile property to gain this benefit.",
 		descriptionClassFeature: desc("I treat 1 or 2 on damage as 3 for Two-Handed/Versatile Melee weapons held with 2 hands."),
@@ -192,7 +192,7 @@ var Base_FeatsList = {
 	},
 	"two-weapon fighting": {
 		name: "Two-Weapon Fighting",
-		source: [["SRD24", 88], ["P24", 210]],
+		source: [["SRD24", 88], ["PHB24", 210]],
 		type: "fighting style",
 		description: "When I make the off-hand extra attack as a result of using a weapon that has the Light property, I can add my ability modifier to the damage of that attack if I'm not already adding it to the damage.",
 		descriptionClassFeature: desc("I add my ability modifier to the damage of the off-hand attack after using a Light weapon."),
@@ -211,7 +211,7 @@ var Base_FeatsList = {
 	// Epic Boons feats
 	"boon of combat prowess": {
 		name: "Boon of Combat Prowess",
-		source: [["SRD24", 88], ["P24", 210]],
+		source: [["SRD24", 88], ["PHB24", 210]],
 		type: "epic boon",
 		prerequisite: "Level 19+",
 		prereqeval: function (v) { return v.characterLevel >= 19; },
@@ -262,7 +262,7 @@ var Base_FeatsList = {
 	},
 	"boon of dimensional travel": {
 		name: "Boon of Dimensional Travel",
-		source: [["SRD24", 88], ["P24", 210]],
+		source: [["SRD24", 88], ["PHB24", 210]],
 		type: "epic boon",
 		prerequisite: "Level 19+",
 		prereqeval: function (v) { return v.characterLevel >= 19; },
@@ -313,7 +313,7 @@ var Base_FeatsList = {
 	},
 	"boon of fate": {
 		name: "Boon of Fate",
-		source: [["SRD24", 88], ["P24", 210]],
+		source: [["SRD24", 88], ["PHB24", 210]],
 		type: "epic boon",
 		prerequisite: "Level 19+",
 		prereqeval: function (v) { return v.characterLevel >= 19; },
@@ -360,7 +360,7 @@ var Base_FeatsList = {
 	},
 	"boon of irresistible offense": {
 		name: "Boon of Irresistible Offense",
-		source: [["SRD24", 88], ["P24", 211]],
+		source: [["SRD24", 88], ["PHB24", 211]],
 		type: "epic boon",
 		prerequisite: "Level 19+",
 		prereqeval: function (v) { return v.characterLevel >= 19; },
@@ -388,7 +388,7 @@ var Base_FeatsList = {
 	},
 	"boon of spell recall": {
 		name: "Boon of Spell Recall",
-		source: [["SRD24", 88], ["P24", 211]],
+		source: [["SRD24", 88], ["PHB24", 211]],
 		type: "epic boon",
 		prerequisite: "Level 19+, Spellcasting Feature",
 		prereqeval: function (v) {
@@ -423,7 +423,7 @@ var Base_FeatsList = {
 	},
 	"boon of the night spirit": {
 		name: "Boon of the Night Spirit",
-		source: [["SRD24", 88], ["P24", 211]],
+		source: [["SRD24", 88], ["PHB24", 211]],
 		type: "epic boon",
 		prerequisite: "Level 19+",
 		prereqeval: function (v) { return v.characterLevel >= 19; },
@@ -476,7 +476,7 @@ var Base_FeatsList = {
 	},
 	"boon of truesight": {
 		name: "Boon of Truesight",
-		source: [["SRD24", 88], ["P24", 211]],
+		source: [["SRD24", 88], ["PHB24", 211]],
 		type: "epic boon",
 		prerequisite: "Level 19+",
 		prereqeval: function (v) { return v.characterLevel >= 19; },

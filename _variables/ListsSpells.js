@@ -22,7 +22,7 @@ var Base_SpellsList = {
 	"acid splash": {
 		name: "Acid Splash",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 107], ["P24", 239]],
+		source: [["SRD24", 107], ["PHB24", 239]],
 		level: 0,
 		school: "Evoc",
 		time: "Act",
@@ -40,7 +40,7 @@ var Base_SpellsList = {
 	"aid": {
 		name: "Aid",
 		classes: ["artificer", "bard", "cleric", "druid", "paladin", "ranger"],
-		source: [["SRD24", 107], ["P24", 239]],
+		source: [["SRD24", 107], ["PHB24", 239]],
 		level: 2,
 		school: "Abjur",
 		time: "Act",
@@ -57,7 +57,7 @@ var Base_SpellsList = {
 	"alarm": {
 		name: "Alarm",
 		classes: ["artificer", "ranger", "wizard"],
-		source: [["SRD24", 107], ["P24", 239]],
+		source: [["SRD24", 107], ["PHB24", 239]],
 		ritual: true,
 		level: 1,
 		school: "Abjur",
@@ -76,7 +76,7 @@ var Base_SpellsList = {
 	"alter self": {
 		name: "Alter Self",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 107], ["P24", 239]],
+		source: [["SRD24", 107], ["PHB24", 239]],
 		level: 2,
 		school: "Trans",
 		time: "Act",
@@ -94,7 +94,7 @@ var Base_SpellsList = {
 	"animal friendship": {
 		name: "Animal Friendship",
 		classes: ["bard", "druid", "ranger"],
-		source: [["SRD24", 107], ["P24", 239]],
+		source: [["SRD24", 107], ["PHB24", 239]],
 		reqLoS: true,
 		level: 1,
 		school: "Ench",
@@ -106,14 +106,14 @@ var Base_SpellsList = {
 		save: "Wis",
 		description: "1+1/SL beasts save or Charmed; ends if the beast is damaged by me or my allies",
 		descriptionFull: [
-			"Target a Beast that you can see within range. The target must succeed on a Wisdom saving throw or have the Charmed condition for the duration. If you or one of your allies deals damage to the target, the spells ends.",
+			"Target a Beast that you can see within range. The target must succeed on a Wisdom saving throw or have the Charmed condition for the duration. If you or one of your allies deals damage to the target, the spell ends.",
 			UsingHigherLvl + "You can target one additional Beast for each spell slot level above 1.",
 		],
 	},
 	"animal messenger": {
 		name: "Animal Messenger",
 		classes: ["bard", "druid", "ranger"],
-		source: [ ["SRD24", 108], ["P24", 240] ],
+		source: [ ["SRD24", 108], ["PHB24", 240] ],
 		ritual: true,
 		reqLoS: true,
 		level: 2,
@@ -134,7 +134,7 @@ var Base_SpellsList = {
 	"animal shapes": {
 		name: "Animal Shapes",
 		classes: ["druid"],
-		source: [ ["SRD24", 108], ["P24", 240] ],
+		source: [ ["SRD24", 108], ["PHB24", 240] ],
 		reqLoS: true,
 		level: 8,
 		school: "Trans",
@@ -152,7 +152,7 @@ var Base_SpellsList = {
 	"animate dead": {
 		name: "Animate Dead",
 		classes: ["cleric", "wizard"],
-		source: [ ["SRD24", 108], ["P24", 240] ],
+		source: [ ["SRD24", 108], ["PHB24", 240] ],
 		level: 3,
 		school: "Necro",
 		time: "1 min",
@@ -171,7 +171,7 @@ var Base_SpellsList = {
 	"animate objects": {
 		name: "Animate Objects",
 		classes: ["artificer", "bard", "sorcerer", "wizard"],
-		source: [["SRD24", 108], ["P24", 240]],
+		source: [["SRD24", 108], ["PHB24", 240]],
 		level: 5,
 		school: "Trans",
 		time: "Act",
@@ -189,7 +189,7 @@ var Base_SpellsList = {
 	"antilife shell": {
 		name: "Antilife Shell",
 		classes: ["druid"],
-		source: [ ["SRD24", 109], ["P24", 241] ],
+		source: [ ["SRD24", 109], ["PHB24", 241] ],
 		level: 5,
 		school: "Abjur",
 		time: "Act",
@@ -205,7 +205,7 @@ var Base_SpellsList = {
 	"antimagic field": {
 		name: "Antimagic Field",
 		classes: ["cleric", "wizard"],
-		source: [["SRD24", 109], ["P24", 241]],
+		source: [["SRD24", 109], ["PHB24", 241]],
 		level: 8,
 		school: "Abjur",
 		time: "Act",
@@ -224,7 +224,7 @@ var Base_SpellsList = {
 	"antipathy/sympathy": {
 		name: "Antipathy/Sympathy",
 		classes: ["bard", "druid", "wizard"],
-		source: [["SRD24", 109], ["P24", 242]],
+		source: [["SRD24", 109], ["PHB24", 242]],
 		level: 8,
 		school: "Ench",
 		time: "1 h",
@@ -244,7 +244,7 @@ var Base_SpellsList = {
 	"arcane eye": {
 		name: "Arcane Eye",
 		classes: ["artificer", "wizard"],
-		source: [["SRD24", 110], ["P24", 242]],
+		source: [["SRD24", 110], ["PHB24", 242]],
 		level: 4,
 		school: "Div",
 		time: "Act",
@@ -262,7 +262,7 @@ var Base_SpellsList = {
 	"arcane lock": {
 		name: "Arcane Lock",
 		classes: ["artificer", "wizard"],
-		source: [["SRD24", 110], ["P24", 242]],
+		source: [["SRD24", 110], ["PHB24", 242]],
 		level: 2,
 		school: "Abjur",
 		time: "Act",
@@ -278,7 +278,7 @@ var Base_SpellsList = {
 	"astral projection": {
 		name: "Astral Projection",
 		classes: ["cleric", "warlock", "wizard"],
-		source: [["SRD24", 111], ["P24", 243]],
+		source: [["SRD24", 111], ["PHB24", 243]],
 		level: 9,
 		school: "Necro",
 		time: "1 h",
@@ -298,7 +298,7 @@ var Base_SpellsList = {
 	"augury": {
 		name: "Augury",
 		classes: ["cleric", "druid", "wizard"],
-		source: [["SRD24", 111], ["P24", 244]],
+		source: [["SRD24", 111], ["PHB24", 244]],
 		ritual: true,
 		level: 2,
 		school: "Div",
@@ -324,7 +324,7 @@ var Base_SpellsList = {
 	"aura of life": {
 		name: "Aura of Life",
 		classes: ["cleric", "paladin"],
-		source: [["SRD24", 111], ["P24", 244]],
+		source: [["SRD24", 111], ["PHB24", 244]],
 		level: 4,
 		school: "Abjur",
 		time: "Act",
@@ -340,7 +340,7 @@ var Base_SpellsList = {
 	"awaken": {
 		name: "Awaken",
 		classes: ["bard", "druid"],
-		source: [["SRD24", 111], ["P24", 244]],
+		source: [["SRD24", 111], ["PHB24", 244]],
 		level: 5,
 		school: "Trans",
 		time: "8 h",
@@ -357,7 +357,7 @@ var Base_SpellsList = {
 	"bane": {
 		name: "Bane",
 		classes: ["bard", "cleric", "warlock"],
-		source: [["SRD24", 112], ["P24", 245]],
+		source: [["SRD24", 112], ["PHB24", 245]],
 		reqLoS: true,
 		level: 1,
 		school: "Ench",
@@ -376,7 +376,7 @@ var Base_SpellsList = {
 	"banishment": {
 		name: "Banishment",
 		classes: ["cleric", "paladin", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 112], ["P24", 245]],
+		source: [["SRD24", 112], ["PHB24", 245]],
 		reqLoS: true,
 		level: 4,
 		school: "Abjur",
@@ -396,7 +396,7 @@ var Base_SpellsList = {
 	"barkskin": {
 		name: "Barkskin",
 		classes: ["druid", "ranger"],
-		source: [["SRD24", 112], ["P24", 245]],
+		source: [["SRD24", 112], ["PHB24", 245]],
 		level: 2,
 		school: "Trans",
 		time: "Bns",
@@ -412,7 +412,7 @@ var Base_SpellsList = {
 	"beacon of hope": {
 		name: "Beacon of Hope",
 		classes: ["cleric"],
-		source: [["SRD24", 112], ["P24", 245]],
+		source: [["SRD24", 112], ["PHB24", 245]],
 		level: 3,
 		school: "Abjur",
 		time: "Act",
@@ -427,7 +427,7 @@ var Base_SpellsList = {
 	"befuddlement": {
 		name: "Befuddlement",
 		classes: ["bard", "druid", "warlock", "wizard"],
-		source: [["SRD24", 112], ["P24", 245]],
+		source: [["SRD24", 112], ["PHB24", 245]],
 		reqLoS: true,
 		level: 8,
 		school: "Ench",
@@ -448,7 +448,7 @@ var Base_SpellsList = {
 	"bestow curse": {
 		name: "Bestow Curse",
 		classes: ["bard", "cleric", "wizard"],
-		source: [["SRD24", 112], ["P24", 246]],
+		source: [["SRD24", 112], ["PHB24", 246]],
 		level: 3,
 		school: "Necro",
 		time: "Act",
@@ -471,7 +471,7 @@ var Base_SpellsList = {
 		name: "Bigby's Hand",
 		nameAlt: "Arcane Hand",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 110], ["P24", 246]],
+		source: [["SRD24", 110], ["PHB24", 246]],
 		level: 5,
 		school: "Evoc",
 		time: "Act",
@@ -499,7 +499,7 @@ var Base_SpellsList = {
 	"bigby's hand-1-clenched fist" : {
 		name: "BH: Clenched Fist",
 		nameAlt: "AH: Clenched Fist",
-		source: [["SRD24", 110], ["P24", 246]],
+		source: [["SRD24", 110], ["PHB24", 246]],
 		level: 5,
 		school: "Evoc",
 		time: "Bns",
@@ -520,7 +520,7 @@ var Base_SpellsList = {
 	"bigby's hand-2-forceful hand" : {
 		name: "BH: Forceful Hand",
 		nameAlt: "AH: Forceful Hand",
-		source: [["SRD24", 110], ["P24", 246]],
+		source: [["SRD24", 110], ["PHB24", 246]],
 		level: 5,
 		school: "Evoc",
 		time: "Bns",
@@ -538,7 +538,7 @@ var Base_SpellsList = {
 	"bigby's hand-3-grasping hand" : {
 		name: "BH: Grasping Hand",
 		nameAlt: "AH: Grasping Hand",
-		source: [["SRD24", 110], ["P24", 246]],
+		source: [["SRD24", 110], ["PHB24", 246]],
 		level: 5,
 		school: "Evoc",
 		time: "Bns",
@@ -561,7 +561,7 @@ var Base_SpellsList = {
 	"bigby's hand-4-interposing hand" : {
 		name: "BH: Interposing Hand",
 		nameAlt: "AH: Interposing Hand",
-		source: [["SRD24", 110], ["P24", 246]],
+		source: [["SRD24", 110], ["PHB24", 246]],
 		level: 5,
 		school: "Evoc",
 		time: "Bns",
@@ -578,7 +578,7 @@ var Base_SpellsList = {
 	"blade barrier": {
 		name: "Blade Barrier",
 		classes: ["cleric"],
-		source: [["SRD24", 112], ["P24", 247]],
+		source: [["SRD24", 112], ["PHB24", 247]],
 		level: 6,
 		school: "Evoc",
 		time: "Act",
@@ -598,7 +598,7 @@ var Base_SpellsList = {
 	"bless": {
 		name: "Bless",
 		classes: ["cleric", "paladin"],
-		source: [["SRD24", 112], ["P24", 247]],
+		source: [["SRD24", 112], ["PHB24", 247]],
 		level: 1,
 		school: "Ench",
 		time: "Act",
@@ -615,7 +615,7 @@ var Base_SpellsList = {
 	"blight": {
 		name: "Blight",
 		classes: ["druid", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 112], ["P24", 247]],
+		source: [["SRD24", 112], ["PHB24", 247]],
 		reqLoS: true,
 		level: 4,
 		school: "Necro",
@@ -634,7 +634,7 @@ var Base_SpellsList = {
 	"blindness/deafness": {
 		name: "Blindness/Deafness",
 		classes: ["bard", "cleric", "sorcerer", "wizard"],
-		source: [["SRD24", 112], ["P24", 248]],
+		source: [["SRD24", 112], ["PHB24", 248]],
 		reqLoS: true,
 		level: 2,
 		school: "Trans",
@@ -652,7 +652,7 @@ var Base_SpellsList = {
 	"blink": {
 		name: "Blink",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 112], ["P24", 248]],
+		source: [["SRD24", 112], ["PHB24", 248]],
 		level: 3,
 		school: "Trans",
 		time: "Act",
@@ -668,7 +668,7 @@ var Base_SpellsList = {
 	"blur": {
 		name: "Blur",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 113], ["P24", 248]],
+		source: [["SRD24", 113], ["PHB24", 248]],
 		level: 2,
 		school: "Illus",
 		time: "Act",
@@ -683,7 +683,7 @@ var Base_SpellsList = {
 	"burning hands": {
 		name: "Burning Hands",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 113], ["P24", 248]],
+		source: [["SRD24", 113], ["PHB24", 248]],
 		level: 1,
 		school: "Evoc",
 		time: "Act",
@@ -701,7 +701,7 @@ var Base_SpellsList = {
 	"call lightning": {
 		name: "Call Lightning",
 		classes: ["druid"],
-		source: [["SRD24", 113], ["P24", 248]],
+		source: [["SRD24", 113], ["PHB24", 248]],
 		reqLoS: true,
 		level: 3,
 		school: "Conj",
@@ -724,7 +724,7 @@ var Base_SpellsList = {
 	"calm emotions": {
 		name: "Calm Emotions",
 		classes: ["bard", "cleric"],
-		source: [["SRD24", 113], ["P24", 249]],
+		source: [["SRD24", 113], ["PHB24", 249]],
 		level: 2,
 		school: "Ench",
 		time: "Act",
@@ -742,7 +742,7 @@ var Base_SpellsList = {
 	"chain lightning": {
 		name: "Chain Lightning",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 113], ["P24", 249]],
+		source: [["SRD24", 113], ["PHB24", 249]],
 		reqLoS: true,
 		level: 6,
 		school: "Evoc",
@@ -762,7 +762,7 @@ var Base_SpellsList = {
 	"charm monster": {
 		name: "Charm Monster",
 		classes: ["bard", "druid", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 113], ["P24", 249]],
+		source: [["SRD24", 113], ["PHB24", 249]],
 		reqLoS: true,
 		level: 4,
 		school: "Ench",
@@ -780,7 +780,7 @@ var Base_SpellsList = {
 	"charm person": {
 		name: "Charm Person",
 		classes: ["bard", "druid", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 115], ["P24", 249]],
+		source: [["SRD24", 115], ["PHB24", 249]],
 		reqLoS: true,
 		level: 1,
 		school: "Ench",
@@ -798,7 +798,7 @@ var Base_SpellsList = {
 	"chill touch": {
 		name: "Chill Touch",
 		classes: ["sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 115], ["P24", 249]],
+		source: [["SRD24", 115], ["PHB24", 249]],
 		level: 0,
 		school: "Necro",
 		time: "Act",
@@ -816,7 +816,7 @@ var Base_SpellsList = {
 	"chromatic orb": {
 		name: "Chromatic Orb",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 115], ["P24", 249]],
+		source: [["SRD24", 115], ["PHB24", 249]],
 		level: 1,
 		school: "Evoc",
 		time: "Act",
@@ -842,7 +842,7 @@ var Base_SpellsList = {
 	"circle of death": {
 		name: "Circle of Death",
 		classes: ["sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 115], ["P24", 250]],
+		source: [["SRD24", 115], ["PHB24", 250]],
 		level: 6,
 		school: "Necro",
 		time: "Act",
@@ -860,7 +860,7 @@ var Base_SpellsList = {
 	"clairvoyance": {
 		name: "Clairvoyance",
 		classes: ["bard", "cleric", "sorcerer", "wizard"],
-		source: [["SRD24", 115], ["P24", 250]],
+		source: [["SRD24", 115], ["PHB24", 250]],
 		level: 3,
 		school: "Div",
 		time: "10 min",
@@ -878,7 +878,7 @@ var Base_SpellsList = {
 	"clone": {
 		name: "Clone",
 		classes: ["wizard"],
-		source: [["SRD24", 115], ["P24", 251]],
+		source: [["SRD24", 115], ["PHB24", 251]],
 		level: 8,
 		school: "Necro",
 		time: "1 h",
@@ -895,7 +895,7 @@ var Base_SpellsList = {
 	"cloudkill": {
 		name: "Cloudkill",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 116], ["P24", 251]],
+		source: [["SRD24", 116], ["PHB24", 251]],
 		level: 5,
 		school: "Conj",
 		time: "Act",
@@ -915,7 +915,7 @@ var Base_SpellsList = {
 	"color spray": {
 		name: "Color Spray",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 116], ["P24", 251]],
+		source: [["SRD24", 116], ["PHB24", 251]],
 		level: 1,
 		school: "Illus",
 		time: "Act",
@@ -932,7 +932,7 @@ var Base_SpellsList = {
 	"command": {
 		name: "Command",
 		classes: ["bard", "cleric", "paladin"],
-		source: [["SRD24", 116], ["P24", 251]],
+		source: [["SRD24", 116], ["PHB24", 251]],
 		reqLoS: true,
 		level: 1,
 		school: "Ench",
@@ -955,7 +955,7 @@ var Base_SpellsList = {
 	"commune": {
 		name: "Commune",
 		classes: ["cleric"],
-		source: [["SRD24", 116], ["P24", 251]],
+		source: [["SRD24", 116], ["PHB24", 251]],
 		ritual: true,
 		level: 5,
 		school: "Div",
@@ -975,7 +975,7 @@ var Base_SpellsList = {
 		name: "Commune with Nature",
 		nameShort: "Commune w. Nature",
 		classes: ["druid", "ranger"],
-		source: [["SRD24", 116], ["P24", 252]],
+		source: [["SRD24", 116], ["PHB24", 252]],
 		ritual: true,
 		level: 5,
 		school: "Div",
@@ -999,7 +999,7 @@ var Base_SpellsList = {
 		name: "Comprehend Languages",
 		nameShort: "Comp. Languages",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 117], ["P24", 252]],
+		source: [["SRD24", 117], ["PHB24", 252]],
 		ritual: true,
 		level: 1,
 		school: "Div",
@@ -1016,7 +1016,7 @@ var Base_SpellsList = {
 	"compulsion": {
 		name: "Compulsion",
 		classes: ["bard"],
-		source: [["SRD24", 117], ["P24", 252]],
+		source: [["SRD24", 117], ["PHB24", 252]],
 		reqLoS: true,
 		level: 4,
 		school: "Ench",
@@ -1034,7 +1034,7 @@ var Base_SpellsList = {
 	"cone of cold": {
 		name: "Cone of Cold",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 117], ["P24", 253]],
+		source: [["SRD24", 117], ["PHB24", 253]],
 		level: 5,
 		school: "Evoc",
 		time: "Act",
@@ -1052,7 +1052,7 @@ var Base_SpellsList = {
 	"confusion": {
 		name: "Confusion",
 		classes: ["bard", "druid", "sorcerer", "wizard"],
-		source: [["SRD24", 117], ["P24", 253]],
+		source: [["SRD24", 117], ["PHB24", 253]],
 		level: 4,
 		school: "Ench",
 		time: "Act",
@@ -1082,7 +1082,7 @@ var Base_SpellsList = {
 	},
 	"confusion-1-d10 roll": {
 		name: "Confused: d10 start turn",
-		source: [["SRD24", 117], ["P24", 253]],
+		source: [["SRD24", 117], ["PHB24", 253]],
 		level: 4,
 		school: "Ench",
 		time: "",
@@ -1109,7 +1109,7 @@ var Base_SpellsList = {
 	"conjure animals": {
 		name: "Conjure Animals",
 		classes: ["druid", "ranger"],
-		source: [["SRD24", 117], ["P24", 254]],
+		source: [["SRD24", 117], ["PHB24", 254]],
 		reqLoS: true,
 		level: 3,
 		school: "Conj",
@@ -1130,7 +1130,7 @@ var Base_SpellsList = {
 	"conjure celestial": {
 		name: "Conjure Celestial",
 		classes: ["cleric"],
-		source: [["SRD24", 118], ["P24", 254]],
+		source: [["SRD24", 118], ["PHB24", 254]],
 		reqLoS: true,
 		level: 7,
 		school: "Conj",
@@ -1161,7 +1161,7 @@ var Base_SpellsList = {
 	},
 	"conjure celestial-1-healing light": {
 		name: "Conj. Cel: Healing Light",
-		source: [["SRD24", 118], ["P24", 254]],
+		source: [["SRD24", 118], ["PHB24", 254]],
 		reqLoS: true,
 		level: 7,
 		school: "Conj",
@@ -1182,7 +1182,7 @@ var Base_SpellsList = {
 	},
 	"conjure celestial-2-searing light": {
 		name: "Conj. Cel: Searing Light",
-		source: [["SRD24", 118], ["P24", 254]],
+		source: [["SRD24", 118], ["PHB24", 254]],
 		reqLoS: true,
 		level: 7,
 		school: "Conj",
@@ -1205,7 +1205,7 @@ var Base_SpellsList = {
 	"conjure elemental": {
 		name: "Conjure Elemental",
 		classes: ["druid", "wizard"],
-		source: [["SRD24", 118], ["P24", 254]],
+		source: [["SRD24", 118], ["PHB24", 254]],
 		reqLoS: true,
 		level: 5,
 		school: "Conj",
@@ -1219,7 +1219,7 @@ var Base_SpellsList = {
 		descriptionShorter: "10ft cu; if no R, enter/SoT 5ft save or 8d8 elem. dmg, Restrain: SoT save or 4d8; +d8/SL",
 		descriptionFull: [
 			"You conjure a Large, intangible spirit from the Elemental Planes that appears in an unoccupied space within range. Choose the spirit's element, which determines its damage type: air (Lightning), earth (Thunder), fire (Fire), or water (Cold). The spirit lasts for the duration.",
-			"Whenever a creature you can see enters the spirit's space or starts its turn within 5 feet of the spirit, you can force that creature to make a Dexterity saving throw if the spirit has no creature Restrained. On failed save, the target takes 8d8 damage of the spirit's type, and the target has the Restrained condition until the spell ends. At the start of each of its turns, the Restrained target repeats the save. On a failed save, the target takes 4d8 damage of the spirit's type. On a successful save, the target isn't Restrained by the spirit.",
+			"Whenever a creature you can see enters the spirit's space or starts its turn within 5 feet of the spirit, you can force that creature to make a Dexterity saving throw if the spirit has no creature Restrained. On a failed save, the target takes 8d8 damage of the spirit's type, and the target has the Restrained condition until the spell ends. At the start of each of its turns, the Restrained target repeats the save. On a failed save, the target takes 4d8 damage of the spirit's type. On a successful save, the target isn't Restrained by the spirit.",
 			UsingHigherLvl + "The damage increases by 1d8 for each spell slot level above 5.",
 		],
 		dynamicDamageBonus: {
@@ -1233,7 +1233,7 @@ var Base_SpellsList = {
 	"conjure fey": {
 		name: "Conjure Fey",
 		classes: ["druid"],
-		source: [["SRD24", 118], ["P24", 255]],
+		source: [["SRD24", 118], ["PHB24", 255]],
 		reqLoS: true,
 		level: 6,
 		school: "Conj",
@@ -1253,7 +1253,7 @@ var Base_SpellsList = {
 		name: "Conjure Minor Elementals",
 		nameShort: "Conj. Minor Elementals",
 		classes: ["druid", "wizard"],
-		source: [["SRD24", 118], ["P24", 255]],
+		source: [["SRD24", 118], ["PHB24", 255]],
 		level: 4,
 		school: "Conj",
 		time: "Act",
@@ -1278,7 +1278,7 @@ var Base_SpellsList = {
 		name: "Conjure Woodland Beings",
 		nameShort: "Conj. Woodland Beings",
 		classes: ["druid", "ranger"],
-		source: [["SRD24", 118], ["P24", 255]],
+		source: [["SRD24", 118], ["PHB24", 255]],
 		reqLoS: true,
 		level: 4,
 		school: "Conj",
@@ -1297,7 +1297,7 @@ var Base_SpellsList = {
 	"contact other plane": {
 		name: "Contact Other Plane",
 		classes: ["warlock", "wizard"],
-		source: [["SRD24", 119], ["P24", 255]],
+		source: [["SRD24", 119], ["PHB24", 255]],
 		ritual: true,
 		level: 5,
 		school: "Div",
@@ -1318,7 +1318,7 @@ var Base_SpellsList = {
 	"contagion": {
 		name: "Contagion",
 		classes: ["cleric", "druid"],
-		source: [["SRD24", 119], ["P24", 256]],
+		source: [["SRD24", 119], ["PHB24", 256]],
 		level: 5,
 		school: "Necro",
 		time: "Act",
@@ -1340,7 +1340,7 @@ var Base_SpellsList = {
 	"contingency": {
 		name: "Contingency",
 		classes: ["wizard"],
-		source: [["SRD24", 119], ["P24", 256]],
+		source: [["SRD24", 119], ["PHB24", 256]],
 		level: 6,
 		school: "Abjur",
 		time: "10 min",
@@ -1358,7 +1358,7 @@ var Base_SpellsList = {
 	"continual flame": {
 		name: "Continual Flame",
 		classes: ["artificer", "cleric", "druid", "wizard"],
-		source: [["SRD24", 119], ["P24", 256]],
+		source: [["SRD24", 119], ["PHB24", 256]],
 		level: 2,
 		school: "Evoc",
 		time: "Act",
@@ -1374,7 +1374,7 @@ var Base_SpellsList = {
 	"control water": {
 		name: "Control Water",
 		classes: ["cleric", "druid", "wizard"],
-		source: [ ["SRD24", 119], ["P24", 256]],
+		source: [ ["SRD24", 119], ["PHB24", 256]],
 		level: 4,
 		school: "Trans",
 		time: "Act",
@@ -1400,7 +1400,7 @@ var Base_SpellsList = {
 	"control water-1-flood": {
 		name: "Control Water: Flood",
 		nameShort: "Control W: Flood",
-		source: [["SRD24", 119], ["P24", 256]],
+		source: [["SRD24", 119], ["PHB24", 256]],
 		level: 5,
 		school: "Evoc",
 		time: "Act",
@@ -1418,7 +1418,7 @@ var Base_SpellsList = {
 	"control water-2-part water": {
 		name: "Control Water: Part Water",
 		nameShort: "Control W: Part Water",
-		source: [["SRD24", 119], ["P24", 256]],
+		source: [["SRD24", 119], ["PHB24", 256]],
 		level: 5,
 		school: "Evoc",
 		time: "Act",
@@ -1435,7 +1435,7 @@ var Base_SpellsList = {
 	"control water-3-redirect flow": {
 		name: "Control Water: Redirect Flow",
 		nameShort: "Control W: Redirect Flow",
-		source: [["SRD24", 119], ["P24", 256]],
+		source: [["SRD24", 119], ["PHB24", 256]],
 		level: 5,
 		school: "Evoc",
 		time: "Act",
@@ -1452,7 +1452,7 @@ var Base_SpellsList = {
 	"control water-4-whirlpool": {
 		name: "Control Water: Whirlpool",
 		nameShort: "Control W: Whirlpool",
-		source: [["SRD24", 119], ["P24", 256]],
+		source: [["SRD24", 119], ["PHB24", 256]],
 		level: 5,
 		school: "Evoc",
 		time: "Act",
@@ -1471,7 +1471,7 @@ var Base_SpellsList = {
 	"control weather": {
 		name: "Control Weather",
 		classes: ["cleric", "druid", "wizard"],
-		source: [["SRD24", 120], ["P24", 257]],
+		source: [["SRD24", 120], ["PHB24", 257]],
 		level: 8,
 		school: "Trans",
 		time: "10 min",
@@ -1514,7 +1514,7 @@ var Base_SpellsList = {
 	"counterspell": {
 		name: "Counterspell",
 		classes: ["sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 120], ["P24", 258]],
+		source: [["SRD24", 120], ["PHB24", 258]],
 		reqLoS: true,
 		level: 3,
 		school: "Abjur",
@@ -1532,7 +1532,7 @@ var Base_SpellsList = {
 	"create food and water": {
 		name: "Create Food and Water",
 		classes: ["artificer", "cleric", "paladin"],
-		source: [["SRD24", 120], ["P24", 258]],
+		source: [["SRD24", 120], ["PHB24", 258]],
 		level: 3,
 		school: "Conj",
 		time: "Act",
@@ -1547,7 +1547,7 @@ var Base_SpellsList = {
 	"create or destroy water": {
 		name: "Create or Destroy Water",
 		classes: ["cleric", "druid"],
-		source: [["SRD24", 121], ["P24", 258]],
+		source: [["SRD24", 121], ["PHB24", 258]],
 		level: 1,
 		school: "Trans",
 		time: "Act",
@@ -1567,7 +1567,7 @@ var Base_SpellsList = {
 	"create undead": {
 		name: "Create Undead",
 		classes: ["cleric", "warlock", "wizard"],
-		source: [["SRD24", 121], ["P24", 258]],
+		source: [["SRD24", 121], ["PHB24", 258]],
 		level: 6,
 		school: "Necro",
 		time: "1 min",
@@ -1586,7 +1586,7 @@ var Base_SpellsList = {
 	"creation": {
 		name: "Creation",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 121], ["P24", 259]],
+		source: [["SRD24", 121], ["PHB24", 259]],
 		level: 5,
 		school: "Illus",
 		time: "1 min",
@@ -1613,7 +1613,7 @@ var Base_SpellsList = {
 	"cure wounds": {
 		name: "Cure Wounds",
 		classes: ["artificer", "bard", "cleric", "druid", "paladin", "ranger"],
-		source: [["SRD24", 121], ["P24", 259]],
+		source: [["SRD24", 121], ["PHB24", 259]],
 		level: 1,
 		school: "Abjur",
 		time: "Act",
@@ -1629,7 +1629,7 @@ var Base_SpellsList = {
 	"dancing lights": {
 		name: "Dancing Lights",
 		classes: ["artificer", "bard", "sorcerer", "wizard"],
-		source: [["SRD24", 121], ["P24", 259]],
+		source: [["SRD24", 121], ["PHB24", 259]],
 		level: 0,
 		school: "Illus",
 		time: "Act",
@@ -1646,7 +1646,7 @@ var Base_SpellsList = {
 	"darkness": {
 		name: "Darkness",
 		classes: ["sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 122], ["P24", 260]],
+		source: [["SRD24", 122], ["PHB24", 260]],
 		level: 2,
 		school: "Evoc",
 		time: "Act",
@@ -1664,7 +1664,7 @@ var Base_SpellsList = {
 	"darkvision": {
 		name: "Darkvision",
 		classes: ["artificer", "druid", "ranger", "sorcerer", "wizard"],
-		source: [["SRD24", 122], ["P24", 260]],
+		source: [["SRD24", 122], ["PHB24", 260]],
 		level: 2,
 		school: "Trans",
 		time: "Act",
@@ -1678,7 +1678,7 @@ var Base_SpellsList = {
 	"daylight": {
 		name: "Daylight",
 		classes: ["cleric", "druid", "paladin", "ranger", "sorcerer"],
-		source: [["SRD24", 122], ["P24", 260]],
+		source: [["SRD24", 122], ["PHB24", 260]],
 		level: 3,
 		school: "Evoc",
 		time: "Act",
@@ -1695,7 +1695,7 @@ var Base_SpellsList = {
 	"death ward": {
 		name: "Death Ward",
 		classes: ["cleric", "paladin"],
-		source: [["SRD24", 122], ["P24", 261]],
+		source: [["SRD24", 122], ["PHB24", 261]],
 		level: 4,
 		school: "Abjur",
 		time: "Act",
@@ -1711,7 +1711,7 @@ var Base_SpellsList = {
 	"delayed blast fireball": {
 		name: "Delayed Blast Fireball",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 122], ["P24", 261]],
+		source: [["SRD24", 122], ["PHB24", 261]],
 		level: 7,
 		school: "Evoc",
 		time: "Act",
@@ -1736,7 +1736,7 @@ var Base_SpellsList = {
 	"demiplane": {
 		name: "Demiplane",
 		classes: ["sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 122], ["P24", 261]],
+		source: [["SRD24", 122], ["PHB24", 261]],
 		reqLoS: true,
 		level: 8,
 		school: "Conj",
@@ -1754,7 +1754,7 @@ var Base_SpellsList = {
 	"detect evil and good": {
 		name: "Detect Evil and Good",
 		classes: ["cleric", "paladin"],
-		source: [["SRD24", 123], ["P24", 261]],
+		source: [["SRD24", 123], ["PHB24", 261]],
 		level: 1,
 		school: "Div",
 		time: "Act",
@@ -1770,7 +1770,7 @@ var Base_SpellsList = {
 	"detect magic": {
 		name: "Detect Magic",
 		classes: ["artificer", "bard", "cleric", "druid", "paladin", "ranger", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 123], ["P24", 262]],
+		source: [["SRD24", 123], ["PHB24", 262]],
 		ritual: true,
 		level: 1,
 		school: "Div",
@@ -1788,7 +1788,7 @@ var Base_SpellsList = {
 		name: "Detect Poison and Disease",
 		nameShort: "Detect Poison/Disease",
 		classes: ["cleric", "druid", "paladin", "ranger"],
-		source: [["SRD24", 123], ["P24", 262]],
+		source: [["SRD24", 123], ["PHB24", 262]],
 		ritual: true,
 		level: 1,
 		school: "Div",
@@ -1806,7 +1806,7 @@ var Base_SpellsList = {
 	"detect thoughts": {
 		name: "Detect Thoughts",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 123], ["P24", 262]],
+		source: [["SRD24", 123], ["PHB24", 262]],
 		level: 2,
 		school: "Div",
 		time: "Act",
@@ -1830,7 +1830,7 @@ var Base_SpellsList = {
 	},
 	"detect thoughts-1-sense thoughts" : {
 		name: "DT: Sense Thoughts",
-		source: [["SRD24", 123], ["P24", 262]],
+		source: [["SRD24", 123], ["PHB24", 262]],
 		level: 2,
 		school: "Div",
 		time: "Act",
@@ -1847,7 +1847,7 @@ var Base_SpellsList = {
 	},
 	"detect thoughts-2-read thoughts" : {
 		name: "DT: Read Thoughts",
-		source: [["SRD24", 123], ["P24", 262]],
+		source: [["SRD24", 123], ["PHB24", 262]],
 		level: 2,
 		school: "Div",
 		time: "Act",
@@ -1866,7 +1866,7 @@ var Base_SpellsList = {
 	"dimension door": {
 		name: "Dimension Door",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 123], ["P24", 262]],
+		source: [["SRD24", 123], ["PHB24", 262]],
 		level: 4,
 		school: "Conj",
 		time: "Act",
@@ -1883,7 +1883,7 @@ var Base_SpellsList = {
 	"disguise self": {
 		name: "Disguise Self",
 		classes: ["artificer", "bard", "sorcerer", "wizard"],
-		source: [["SRD24", 124], ["P24", 262]],
+		source: [["SRD24", 124], ["PHB24", 262]],
 		level: 1,
 		school: "Illus",
 		time: "Act",
@@ -1900,7 +1900,7 @@ var Base_SpellsList = {
 	"disintegrate": {
 		name: "Disintegrate",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 124], ["P24", 263]],
+		source: [["SRD24", 124], ["PHB24", 263]],
 		reqLoS: true,
 		level: 6,
 		school: "Trans",
@@ -1922,7 +1922,7 @@ var Base_SpellsList = {
 	"dispel evil and good": {
 		name: "Dispel Evil and Good",
 		classes: ["cleric", "paladin"],
-		source: [["SRD24", 124], ["P24", 263]],
+		source: [["SRD24", 124], ["PHB24", 263]],
 		level: 5,
 		school: "Abjur",
 		time: "Act",
@@ -1944,7 +1944,7 @@ var Base_SpellsList = {
 	},
 	"dispel evil and good-1-break enchantment" : {
 		name: "DEG: Break Enchantment",
-		source: [["SRD24", 124], ["P24", 263]],
+		source: [["SRD24", 124], ["PHB24", 263]],
 		level: 5,
 		school: "Abjur",
 		time: "Act",
@@ -1960,7 +1960,7 @@ var Base_SpellsList = {
 	},
 	"dispel evil and good-2-dismissal" : {
 		name: "DEG: Dismissal",
-		source: [["SRD24", 124], ["P24", 263]],
+		source: [["SRD24", 124], ["PHB24", 263]],
 		level: 5,
 		school: "Abjur",
 		time: "Act",
@@ -1978,7 +1978,7 @@ var Base_SpellsList = {
 	"dispel magic": {
 		name: "Dispel Magic",
 		classes: ["artificer", "bard", "cleric", "druid", "paladin", "ranger", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 124], ["P24", 264]],
+		source: [["SRD24", 124], ["PHB24", 264]],
 		level: 3,
 		school: "Abjur",
 		time: "Act",
@@ -1994,7 +1994,7 @@ var Base_SpellsList = {
 	"dissonant whispers": {
 		name: "Dissonant Whispers",
 		classes: ["bard"],
-		source: [["SRD24", 124], ["P24", 264]],
+		source: [["SRD24", 124], ["PHB24", 264]],
 		reqLoS: true,
 		level: 1,
 		school: "Ench",
@@ -2012,7 +2012,7 @@ var Base_SpellsList = {
 	"divination": {
 		name: "Divination",
 		classes: ["cleric", "druid", "wizard"],
-		source: [["SRD24", 125], ["P24", 264]],
+		source: [["SRD24", 125], ["PHB24", 264]],
 		ritual: true,
 		level: 4,
 		school: "Div",
@@ -2030,7 +2030,7 @@ var Base_SpellsList = {
 	"divine favor": {
 		name: "Divine Favor",
 		classes: ["paladin"],
-		source: [["SRD24", 125], ["P24", 265]],
+		source: [["SRD24", 125], ["PHB24", 265]],
 		level: 1,
 		school: "Trans",
 		time: "Bns",
@@ -2043,7 +2043,7 @@ var Base_SpellsList = {
 	"divine smite": {
 		name: "Divine Smite",
 		classes: ["paladin"],
-		source: [["SRD24", 125], ["P24", 265]],
+		source: [["SRD24", 125], ["PHB24", 265]],
 		level: 1,
 		school: "Evoc",
 		time: "Bns",
@@ -2063,7 +2063,7 @@ var Base_SpellsList = {
 	"divine word": {
 		name: "Divine Word",
 		classes: ["cleric"],
-		source: [["SRD24", 125], ["P24", 265]],
+		source: [["SRD24", 125], ["PHB24", 265]],
 		level: 7,
 		school: "Evoc",
 		time: "Bns",
@@ -2089,7 +2089,7 @@ var Base_SpellsList = {
 	},
 	"divine word-1-hp effects" : {
 		name: "Divine Word: HP Effects",
-		source: [["SRD24", 125], ["P24", 265]],
+		source: [["SRD24", 125], ["PHB24", 265]],
 		level: 7,
 		school: "Evoc",
 		time: "",
@@ -2113,7 +2113,7 @@ var Base_SpellsList = {
 	"dominate beast": {
 		name: "Dominate Beast",
 		classes: ["druid", "ranger", "sorcerer"],
-		source: [["SRD24", 125], ["P24", 265]],
+		source: [["SRD24", 125], ["PHB24", 265]],
 		reqLoS: true,
 		level: 4,
 		school: "Ench",
@@ -2133,7 +2133,7 @@ var Base_SpellsList = {
 	"dominate monster": {
 		name: "Dominate Monster",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 125], ["P24", 265]],
+		source: [["SRD24", 125], ["PHB24", 265]],
 		reqLoS: true,
 		level: 8,
 		school: "Ench",
@@ -2153,7 +2153,7 @@ var Base_SpellsList = {
 	"dominate person": {
 		name: "Dominate Person",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 126], ["P24", 266]],
+		source: [["SRD24", 126], ["PHB24", 266]],
 		reqLoS: true,
 		level: 5,
 		school: "Ench",
@@ -2173,7 +2173,7 @@ var Base_SpellsList = {
 	"dragon's breath": {
 		name: "Dragon's Breath",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 126], ["P24", 266]],
+		source: [["SRD24", 126], ["PHB24", 266]],
 		level: 2,
 		school: "Trans",
 		time: "Bns",
@@ -2195,7 +2195,7 @@ var Base_SpellsList = {
 		nameAlt: "Instant Summons",
 		nameShort: "Draw. Instant Sum.",
 		classes: ["wizard"],
-		source: [["SRD24", 143], ["P24", 266]],
+		source: [["SRD24", 143], ["PHB24", 266]],
 		ritual: true,
 		level: 6,
 		school: "Conj",
@@ -2214,7 +2214,7 @@ var Base_SpellsList = {
 	"dream": {
 		name: "Dream",
 		classes: ["bard", "warlock", "wizard"],
-		source: [["SRD24", 126], ["P24", 266]],
+		source: [["SRD24", 126], ["PHB24", 266]],
 		level: 5,
 		school: "Illus",
 		time: "1 min",
@@ -2236,7 +2236,7 @@ var Base_SpellsList = {
 	"druidcraft": {
 		name: "Druidcraft",
 		classes: ["druid"],
-		source: [["SRD24", 126], ["P24", 266]],
+		source: [["SRD24", 126], ["PHB24", 266]],
 		level: 0,
 		school: "Trans",
 		time: "Act",
@@ -2255,7 +2255,7 @@ var Base_SpellsList = {
 	"earthquake": {
 		name: "Earthquake",
 		classes: ["cleric", "druid", "sorcerer"],
-		source: [["SRD24", 127], ["P24", 267]],
+		source: [["SRD24", 127], ["PHB24", 267]],
 		reqLoS: true,
 		level: 8,
 		school: "Trans",
@@ -2278,7 +2278,7 @@ var Base_SpellsList = {
 	"eldritch blast": {
 		name: "Eldritch Blast",
 		classes: ["warlock"],
-		source: [["SRD24", 127], ["P24", 267]],
+		source: [["SRD24", 127], ["PHB24", 267]],
 		level: 0,
 		school: "Evoc",
 		time: "Act",
@@ -2299,7 +2299,7 @@ var Base_SpellsList = {
 	"elementalism": {
 		name: "Elementalism",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 127], ["P24", 267]],
+		source: [["SRD24", 127], ["PHB24", 267]],
 		level: 0,
 		school: "Trans",
 		time: "Act",
@@ -2320,7 +2320,7 @@ var Base_SpellsList = {
 	"elementalism": {
 		name: "Elementalism",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 127], ["P24", 267]],
+		source: [["SRD24", 127], ["PHB24", 267]],
 		level: 0,
 		school: "Trans",
 		time: "Act",
@@ -2341,7 +2341,7 @@ var Base_SpellsList = {
 	},
 	"elementalism-1-air-earth" : {
 		name: "Elementalism: Air/Earth",
-		source: [["SRD24", 127], ["P24", 267]],
+		source: [["SRD24", 127], ["PHB24", 267]],
 		level: 0,
 		school: "Trans",
 		time: "Act",
@@ -2360,7 +2360,7 @@ var Base_SpellsList = {
 	},
 	"elementalism-2-fire-water" : {
 		name: "Elementalism: Fire/Water",
-		source: [["SRD24", 127], ["P24", 267]],
+		source: [["SRD24", 127], ["PHB24", 267]],
 		level: 0,
 		school: "Trans",
 		time: "Act",
@@ -2381,7 +2381,7 @@ var Base_SpellsList = {
 	"enhance ability": {
 		name: "Enhance Ability",
 		classes: ["artificer", "bard", "cleric", "druid", "ranger", "sorcerer", "wizard"],
-		source: [["SRD24", 127], ["P24", 268]],
+		source: [["SRD24", 127], ["PHB24", 268]],
 		level: 2,
 		school: "Trans",
 		time: "Act",
@@ -2399,7 +2399,7 @@ var Base_SpellsList = {
 		name: "Enlarge/Reduce",
 		nameShort: "Enlarge/Reduce:" + (typePF ? " " : "") + "Enlarge",
 		classes: ["artificer", "bard", "druid", "sorcerer", "wizard"],
-		source: [["SRD24", 127], ["P24", 268]],
+		source: [["SRD24", 127], ["PHB24", 268]],
 		reqLoS: true,
 		level: 2,
 		school: "Trans",
@@ -2425,7 +2425,7 @@ var Base_SpellsList = {
 	},
 	"enlarge/reduce-1-reduced": {
 		name: "Enlarge/Reduce: Reduce",
-		source: [["SRD24", 127], ["P24", 268]],
+		source: [["SRD24", 127], ["PHB24", 268]],
 		reqLoS: true,
 		level: 2,
 		school: "Trans",
@@ -2447,7 +2447,7 @@ var Base_SpellsList = {
 	"ensnaring strike": {
 		name: "Ensnaring Strike",
 		classes: ["ranger"],
-		source: [["SRD24", 127], ["P24", 268]],
+		source: [["SRD24", 127], ["PHB24", 268]],
 		level: 1,
 		school: "Conj",
 		time: "Bns",
@@ -2467,7 +2467,7 @@ var Base_SpellsList = {
 	"entangle": {
 		name: "Entangle",
 		classes: ["druid", "ranger"],
-		source: [["SRD24", 127], ["P24", 268]],
+		source: [["SRD24", 127], ["PHB24", 268]],
 		level: 1,
 		school: "Conj",
 		time: "Act",
@@ -2484,7 +2484,7 @@ var Base_SpellsList = {
 	"enthrall": {
 		name: "Enthrall",
 		classes: ["bard", "warlock"],
-		source: [["SRD24", 127], ["P24", 269]],
+		source: [["SRD24", 127], ["PHB24", 269]],
 		reqLoS: true,
 		level: 2,
 		school: "Ench",
@@ -2501,7 +2501,7 @@ var Base_SpellsList = {
 	"etherealness": {
 		name: "Etherealness",
 		classes: ["bard", "cleric", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 127], ["P24", 269]],
+		source: [["SRD24", 127], ["PHB24", 269]],
 		level: 7,
 		school: "Conj",
 		time: "Act",
@@ -2521,7 +2521,7 @@ var Base_SpellsList = {
 		name: "Evard's Black Tentacles",
 		nameAlt: "Black Tentacles",
 		classes: ["wizard"],
-		source: [["SRD24", 112], ["P24", 270]],
+		source: [["SRD24", 112], ["PHB24", 270]],
 		reqLoS: true,
 		level: 4,
 		school: "Conj",
@@ -2542,7 +2542,7 @@ var Base_SpellsList = {
 	"expeditious retreat": {
 		name: "Expeditious Retreat",
 		classes: ["artificer", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 129], ["P24", 270]],
+		source: [["SRD24", 129], ["PHB24", 270]],
 		level: 1,
 		school: "Trans",
 		time: "Bns",
@@ -2555,7 +2555,7 @@ var Base_SpellsList = {
 	"eyebite": {
 		name: "Eyebite",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 129], ["P24", 270]],
+		source: [["SRD24", 129], ["PHB24", 270]],
 		reqLoS: true,
 		level: 6,
 		school: "Necro",
@@ -2579,7 +2579,7 @@ var Base_SpellsList = {
 	},
 	"eyebite-1-options" : {
 		name: "Eyebite: options",
-		source: [["SRD24", 129], ["P24", 270]],
+		source: [["SRD24", 129], ["PHB24", 270]],
 		reqLoS: true,
 		level: 6,
 		school: "Necro",
@@ -2602,7 +2602,7 @@ var Base_SpellsList = {
 	"fabricate": {
 		name: "Fabricate",
 		classes: ["artificer", "wizard"],
-		source: [["SRD24", 129], ["P24", 271]],
+		source: [["SRD24", 129], ["PHB24", 271]],
 		level: 4,
 		school: "Trans",
 		time: "10 min",
@@ -2619,7 +2619,7 @@ var Base_SpellsList = {
 	"faerie fire": {
 		name: "Faerie Fire",
 		classes: ["artificer", "bard", "druid"],
-		source: [["SRD24", 129], ["P24", 271]],
+		source: [["SRD24", 129], ["PHB24", 271]],
 		level: 1,
 		school: "Evoc",
 		time: "Act",
@@ -2636,7 +2636,7 @@ var Base_SpellsList = {
 	"false life": {
 		name: "False Life",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 129], ["P24", 271]],
+		source: [["SRD24", 129], ["PHB24", 271]],
 		level: 1,
 		school: "Necro",
 		time: "Act",
@@ -2653,7 +2653,7 @@ var Base_SpellsList = {
 	"fear": {
 		name: "Fear",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 130], ["P24", 271]],
+		source: [["SRD24", 130], ["PHB24", 271]],
 		level: 3,
 		school: "Illus",
 		time: "Act",
@@ -2671,7 +2671,7 @@ var Base_SpellsList = {
 	"feather fall": {
 		name: "Feather Fall",
 		classes: ["artificer", "bard", "sorcerer", "wizard"],
-		source: [["SRD24", 130], ["P24", 271]],
+		source: [["SRD24", 130], ["PHB24", 271]],
 		level: 1,
 		school: "Trans",
 		time: "React",
@@ -2688,7 +2688,7 @@ var Base_SpellsList = {
 	"find familiar": {
 		name: "Find Familiar",
 		classes: ["wizard"],
-		source: [["SRD24", 130], ["P24", 272]],
+		source: [["SRD24", 130], ["PHB24", 272]],
 		ritual: true,
 		level: 1,
 		school: "Conj",
@@ -2710,7 +2710,7 @@ var Base_SpellsList = {
 	"find steed": {
 		name: "Find Steed",
 		classes: ["paladin"],
-		source: [["SRD24", 130], ["P24", 272]],
+		source: [["SRD24", 130], ["PHB24", 272]],
 		level: 2,
 		school: "Conj",
 		time: "Act",
@@ -2729,7 +2729,7 @@ var Base_SpellsList = {
 	"find the path": {
 		name: "Find the Path",
 		classes: ["bard", "cleric", "druid"],
-		source: [["SRD24", 131], ["P24", 273]],
+		source: [["SRD24", 131], ["PHB24", 273]],
 		level: 6,
 		school: "Div",
 		time: "1 min",
@@ -2746,7 +2746,7 @@ var Base_SpellsList = {
 	"find traps": {
 		name: "Find Traps",
 		classes: ["cleric", "druid", "ranger"],
-		source: [["SRD24", 131], ["P24", 273]],
+		source: [["SRD24", 131], ["PHB24", 273]],
 		level: 2,
 		school: "Div",
 		time: "Act",
@@ -2762,7 +2762,7 @@ var Base_SpellsList = {
 	"finger of death": {
 		name: "Finger of Death",
 		classes: ["sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 131], ["P24", 273]],
+		source: [["SRD24", 131], ["PHB24", 273]],
 		reqLoS: true,
 		level: 7,
 		school: "Necro",
@@ -2780,7 +2780,7 @@ var Base_SpellsList = {
 	"fire bolt": {
 		name: "Fire Bolt",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 132], ["P24", 274]],
+		source: [["SRD24", 132], ["PHB24", 274]],
 		level: 0,
 		school: "Evoc",
 		time: "Act",
@@ -2797,7 +2797,7 @@ var Base_SpellsList = {
 	"fire shield": {
 		name: "Fire Shield",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 132], ["P24", 274]],
+		source: [["SRD24", 132], ["PHB24", 274]],
 		level: 4,
 		school: "Evoc",
 		time: "Act",
@@ -2822,7 +2822,7 @@ var Base_SpellsList = {
 	"fire storm": {
 		name: "Fire Storm",
 		classes: ["cleric", "druid", "sorcerer"],
-		source: [["SRD24", 132], ["P24", 275]],
+		source: [["SRD24", 132], ["PHB24", 275]],
 		level: 7,
 		school: "Evoc",
 		time: "Act",
@@ -2839,7 +2839,7 @@ var Base_SpellsList = {
 	"fireball": {
 		name: "Fireball",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 131], ["P24", 274]],
+		source: [["SRD24", 131], ["PHB24", 274]],
 		level: 3,
 		school: "Evoc",
 		time: "Act",
@@ -2858,7 +2858,7 @@ var Base_SpellsList = {
 	"flame blade": {
 		name: "Flame Blade",
 		classes: ["druid", "sorcerer"],
-		source: [["SRD24", 132], ["P24", 275]],
+		source: [["SRD24", 132], ["PHB24", 275]],
 		level: 2,
 		school: "Evoc",
 		time: "Bns",
@@ -2878,7 +2878,7 @@ var Base_SpellsList = {
 	"flame strike": {
 		name: "Flame Strike",
 		classes: ["cleric"],
-		source: [["SRD24", 132], ["P24", 275]],
+		source: [["SRD24", 132], ["PHB24", 275]],
 		level: 5,
 		school: "Evoc",
 		time: "Act",
@@ -2897,7 +2897,7 @@ var Base_SpellsList = {
 	"flaming sphere": {
 		name: "Flaming Sphere",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 132], ["P24", 275]],
+		source: [["SRD24", 132], ["PHB24", 275]],
 		level: 2,
 		school: "Conj",
 		time: "Act",
@@ -2919,7 +2919,7 @@ var Base_SpellsList = {
 	"flesh to stone": {
 		name: "Flesh to Stone",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 133], ["P24", 275]],
+		source: [["SRD24", 133], ["PHB24", 275]],
 		reqLoS: true,
 		level: 6,
 		school: "Trans",
@@ -2939,7 +2939,7 @@ var Base_SpellsList = {
 	"fly": {
 		name: "Fly",
 		classes: ["artificer", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 133], ["P24", 276]],
+		source: [["SRD24", 133], ["PHB24", 276]],
 		level: 3,
 		school: "Trans",
 		time: "Act",
@@ -2956,7 +2956,7 @@ var Base_SpellsList = {
 	"fog cloud": {
 		name: "Fog Cloud",
 		classes: ["druid", "ranger", "sorcerer", "wizard"],
-		source: [["SRD24", 133], ["P24", 276]],
+		source: [["SRD24", 133], ["PHB24", 276]],
 		level: 1,
 		school: "Conj",
 		time: "Act",
@@ -2972,7 +2972,7 @@ var Base_SpellsList = {
 	"forbiddance": {
 		name: "Forbiddance",
 		classes: ["cleric"],
-		source: [["SRD24", 133], ["P24", 276]],
+		source: [["SRD24", 133], ["PHB24", 276]],
 		ritual: true,
 		level: 6,
 		school: "Abjur",
@@ -3001,7 +3001,7 @@ var Base_SpellsList = {
 	"forcecage": {
 		name: "Forcecage",
 		classes: ["bard", "warlock", "wizard"],
-		source: [["SRD24", 134], ["P24", 276]],
+		source: [["SRD24", 134], ["PHB24", 276]],
 		level: 7,
 		school: "Evoc",
 		time: "Act",
@@ -3022,7 +3022,7 @@ var Base_SpellsList = {
 	"foresight": {
 		name: "Foresight",
 		classes: ["bard", "druid", "warlock", "wizard"],
-		source: [["SRD24", 134], ["P24", 276]],
+		source: [["SRD24", 134], ["PHB24", 276]],
 		level: 9,
 		school: "Div",
 		time: "1 min",
@@ -3038,7 +3038,7 @@ var Base_SpellsList = {
 	"freedom of movement": {
 		name: "Freedom of Movement",
 		classes: ["artificer", "bard", "cleric", "druid", "ranger"],
-		source: [["SRD24", 134], ["P24", 277]],
+		source: [["SRD24", 134], ["PHB24", 277]],
 		level: 4,
 		school: "Abjur",
 		time: "Act",
@@ -3056,7 +3056,7 @@ var Base_SpellsList = {
 	"gaseous form": {
 		name: "Gaseous Form",
 		classes: ["sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 134], ["P24", 277]],
+		source: [["SRD24", 134], ["PHB24", 277]],
 		level: 3,
 		school: "Trans",
 		time: "Act",
@@ -3075,7 +3075,7 @@ var Base_SpellsList = {
 	"gate": {
 		name: "Gate",
 		classes: ["cleric", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 135], ["P24", 277]],
+		source: [["SRD24", 135], ["PHB24", 277]],
 		reqLoS: true,
 		level: 9,
 		school: "Conj",
@@ -3096,7 +3096,7 @@ var Base_SpellsList = {
 	"geas": {
 		name: "Geas",
 		classes: ["bard", "cleric", "druid", "paladin", "wizard"],
-		source: [["SRD24", 135], ["P24", 278]],
+		source: [["SRD24", 135], ["PHB24", 278]],
 		reqLoS: true,
 		level: 5,
 		school: "Ench",
@@ -3118,7 +3118,7 @@ var Base_SpellsList = {
 	"gentle repose": {
 		name: "Gentle Repose",
 		classes: ["cleric", "paladin", "wizard"],
-		source: [["SRD24", 135], ["P24", 278]],
+		source: [["SRD24", 135], ["PHB24", 278]],
 		ritual: true,
 		level: 2,
 		school: "Necro",
@@ -3136,7 +3136,7 @@ var Base_SpellsList = {
 	"giant insect": {
 		name: "Giant Insect",
 		classes: ["druid"],
-		source: [["SRD24", 135], ["P24", 279]],
+		source: [["SRD24", 135], ["PHB24", 279]],
 		reqLoS: true,
 		level: 4,
 		school: "Conj",
@@ -3154,7 +3154,7 @@ var Base_SpellsList = {
 	"glibness": {
 		name: "Glibness",
 		classes: ["bard", "warlock"],
-		source: [["SRD24", 136], ["P24", 279]],
+		source: [["SRD24", 136], ["PHB24", 279]],
 		level: 8,
 		school: "Trans",
 		time: "Act",
@@ -3169,7 +3169,7 @@ var Base_SpellsList = {
 	"globe of invulnerability": {
 		name: "Globe of Invulnerability",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 136], ["P24", 279]],
+		source: [["SRD24", 136], ["PHB24", 279]],
 		level: 6,
 		school: "Abjur",
 		time: "Act",
@@ -3187,7 +3187,7 @@ var Base_SpellsList = {
 	"glyph of warding": {
 		name: "Glyph of Warding",
 		classes: ["artificer", "bard", "cleric", "wizard"],
-		source: [["SRD24", 136], ["P24", 279]],
+		source: [["SRD24", 136], ["PHB24", 279]],
 		level: 3,
 		school: "Abjur",
 		time: "1 h",
@@ -3212,7 +3212,7 @@ var Base_SpellsList = {
 	"goodberry": {
 		name: "Goodberry",
 		classes: ["druid", "ranger"],
-		source: [["SRD24", 137], ["P24", 280]],
+		source: [["SRD24", 137], ["PHB24", 280]],
 		level: 1,
 		school: "Conj",
 		time: "Act",
@@ -3230,7 +3230,7 @@ var Base_SpellsList = {
 	"grease": {
 		name: "Grease",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 137], ["P24", 280]],
+		source: [["SRD24", 137], ["PHB24", 280]],
 		level: 1,
 		school: "Conj",
 		time: "Act",
@@ -3248,7 +3248,7 @@ var Base_SpellsList = {
 	"greater invisibility": {
 		name: "Greater Invisibility",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 137], ["P24", 281]],
+		source: [["SRD24", 137], ["PHB24", 281]],
 		level: 4,
 		school: "Illus",
 		time: "Act",
@@ -3261,7 +3261,7 @@ var Base_SpellsList = {
 	"greater restoration": {
 		name: "Greater Restoration",
 		classes: ["artificer", "bard", "cleric", "druid", "paladin", "ranger"],
-		source: [["SRD24", 137], ["P24", 281]],
+		source: [["SRD24", 137], ["PHB24", 281]],
 		level: 5,
 		school: "Abjur",
 		time: "Act",
@@ -3282,7 +3282,7 @@ var Base_SpellsList = {
 	"guardian of faith": {
 		name: "Guardian of Faith",
 		classes: ["cleric"],
-		source: [["SRD24", 137], ["P24", 281]],
+		source: [["SRD24", 137], ["PHB24", 281]],
 		reqLoS: true,
 		level: 4,
 		school: "Conj",
@@ -3301,7 +3301,7 @@ var Base_SpellsList = {
 	"guards and wards": {
 		name: "Guards and Wards",
 		classes: ["bard", "wizard"],
-		source: [["SRD24", 137], ["P24", 282]],
+		source: [["SRD24", 137], ["PHB24", 282]],
 		level: 6,
 		school: "Abjur",
 		time: "1 h",
@@ -3329,7 +3329,7 @@ var Base_SpellsList = {
 	"guidance": {
 		name: "Guidance",
 		classes: ["artificer", "cleric", "druid"],
-		source: [["SRD24", 138], ["P24", 282]],
+		source: [["SRD24", 138], ["PHB24", 282]],
 		level: 0,
 		school: "Div",
 		time: "Act",
@@ -3342,7 +3342,7 @@ var Base_SpellsList = {
 	"guiding bolt": {
 		name: "Guiding Bolt",
 		classes: ["cleric"],
-		source: [["SRD24", 138], ["P24", 282]],
+		source: [["SRD24", 138], ["PHB24", 282]],
 		level: 1,
 		school: "Evoc",
 		time: "Act",
@@ -3358,7 +3358,7 @@ var Base_SpellsList = {
 	"gust of wind": {
 		name: "Gust of Wind",
 		classes: ["druid", "ranger", "sorcerer", "wizard"],
-		source: [["SRD24", 138], ["P24", 282]],
+		source: [["SRD24", 138], ["PHB24", 282]],
 		level: 2,
 		school: "Evoc",
 		time: "Act",
@@ -3378,7 +3378,7 @@ var Base_SpellsList = {
 	"hallow": {
 		name: "Hallow",
 		classes: ["cleric"],
-		source: [["SRD24", 138], ["P24", 283]],
+		source: [["SRD24", 138], ["PHB24", 283]],
 		level: 5,
 		school: "Abjur",
 		time: "24 h",
@@ -3406,7 +3406,7 @@ var Base_SpellsList = {
 	"hallucinatory terrain": {
 		name: "Hallucinatory Terrain",
 		classes: ["bard", "druid", "warlock", "wizard"],
-		source: [["SRD24", 139], ["P24", 283]],
+		source: [["SRD24", 139], ["PHB24", 283]],
 		level: 4,
 		school: "Illus",
 		time: "10 min",
@@ -3423,7 +3423,7 @@ var Base_SpellsList = {
 	"harm": {
 		name: "Harm",
 		classes: ["cleric"],
-		source: [["SRD24", 139], ["P24", 283]],
+		source: [["SRD24", 139], ["PHB24", 283]],
 		reqLoS: true,
 		level: 6,
 		school: "Necro",
@@ -3440,7 +3440,7 @@ var Base_SpellsList = {
 	"haste": {
 		name: "Haste",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 139], ["P24", 284]],
+		source: [["SRD24", 139], ["PHB24", 284]],
 		reqLoS: true,
 		level: 3,
 		school: "Trans",
@@ -3458,7 +3458,7 @@ var Base_SpellsList = {
 	"heal": {
 		name: "Heal",
 		classes: ["cleric", "druid"],
-		source: [["SRD24", 139], ["P24", 284]],
+		source: [["SRD24", 139], ["PHB24", 284]],
 		reqLoS: true,
 		level: 6,
 		school: "Abjur",
@@ -3475,7 +3475,7 @@ var Base_SpellsList = {
 	"healing word": {
 		name: "Healing Word",
 		classes: ["bard", "cleric", "druid"],
-		source: [["SRD24", 139], ["P24", 284]],
+		source: [["SRD24", 139], ["PHB24", 284]],
 		reqLoS: true,
 		level: 1,
 		school: "Abjur",
@@ -3492,7 +3492,7 @@ var Base_SpellsList = {
 	"heat metal": {
 		name: "Heat Metal",
 		classes: ["artificer", "bard", "druid"],
-		source: [["SRD24", 139], ["P24", 284]],
+		source: [["SRD24", 139], ["PHB24", 284]],
 		reqLoS: true,
 		level: 2,
 		school: "Trans",
@@ -3513,7 +3513,7 @@ var Base_SpellsList = {
 	"hellish rebuke": {
 		name: "Hellish Rebuke",
 		classes: ["warlock"],
-		source: [["SRD24", 140], ["P24", 284]],
+		source: [["SRD24", 140], ["PHB24", 284]],
 		reqLoS: true,
 		level: 1,
 		school: "Evoc",
@@ -3532,7 +3532,7 @@ var Base_SpellsList = {
 	"heroes' feast": {
 		name: "Heroes' Feast",
 		classes: ["bard", "cleric", "druid"],
-		source: [["SRD24", 140], ["P24", 284]],
+		source: [["SRD24", 140], ["PHB24", 284]],
 		level: 6,
 		school: "Conj",
 		time: "10 min",
@@ -3549,7 +3549,7 @@ var Base_SpellsList = {
 	"heroism": {
 		name: "Heroism",
 		classes: ["bard", "paladin"],
-		source: [["SRD24", 140], ["P24", 285]],
+		source: [["SRD24", 140], ["PHB24", 285]],
 		level: 1,
 		school: "Ench",
 		time: "Act",
@@ -3565,7 +3565,7 @@ var Base_SpellsList = {
 	"hex": {
 		name: "Hex",
 		classes: ["warlock"],
-		source: [["SRD24", 140], ["P24", 285]],
+		source: [["SRD24", 140], ["PHB24", 285]],
 		reqLoS: true,
 		level: 1,
 		school: "Ench",
@@ -3585,7 +3585,7 @@ var Base_SpellsList = {
 	"hold monster": {
 		name: "Hold Monster",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 140], ["P24", 285]],
+		source: [["SRD24", 140], ["PHB24", 285]],
 		reqLoS: true,
 		level: 5,
 		school: "Ench",
@@ -3604,7 +3604,7 @@ var Base_SpellsList = {
 	"hold person": {
 		name: "Hold Person",
 		classes: ["bard", "cleric", "druid", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 141], ["P24", 286]],
+		source: [["SRD24", 141], ["PHB24", 286]],
 		reqLoS: true,
 		level: 2,
 		school: "Ench",
@@ -3623,7 +3623,7 @@ var Base_SpellsList = {
 	"holy aura": {
 		name: "Holy Aura",
 		classes: ["cleric"],
-		source: [["SRD24", 141], ["P24", 286]],
+		source: [["SRD24", 141], ["PHB24", 286]],
 		level: 8,
 		school: "Abjur",
 		time: "Act",
@@ -3640,7 +3640,7 @@ var Base_SpellsList = {
 	"hunter's mark": {
 		name: "Hunter's Mark",
 		classes: ["ranger"],
-		source: [["SRD24", 141], ["P24", 287]],
+		source: [["SRD24", 141], ["PHB24", 287]],
 		reqLoS: true,
 		level: 1,
 		school: "Div",
@@ -3659,7 +3659,7 @@ var Base_SpellsList = {
 	"hypnotic pattern": {
 		name: "Hypnotic Pattern",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 141], ["P24", 287]],
+		source: [["SRD24", 141], ["PHB24", 287]],
 		level: 3,
 		school: "Illus",
 		time: "Act",
@@ -3677,7 +3677,7 @@ var Base_SpellsList = {
 	"ice knife": {
 		name: "Ice Knife",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 141], ["P24", 287]],
+		source: [["SRD24", 141], ["PHB24", 287]],
 		level: 1,
 		school: "Conj",
 		time: "Act",
@@ -3697,7 +3697,7 @@ var Base_SpellsList = {
 	"ice storm": {
 		name: "Ice Storm",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 141], ["P24", 287]],
+		source: [["SRD24", 141], ["PHB24", 287]],
 		level: 4,
 		school: "Evoc",
 		time: "Act",
@@ -3718,7 +3718,7 @@ var Base_SpellsList = {
 	"identify": {
 		name: "Identify",
 		classes: ["artificer", "bard", "wizard"],
-		source: [["SRD24", 142], ["P24", 287]],
+		source: [["SRD24", 142], ["PHB24", 287]],
 		ritual: true,
 		level: 1,
 		school: "Div",
@@ -3736,7 +3736,7 @@ var Base_SpellsList = {
 	"illusory script": {
 		name: "Illusory Script",
 		classes: ["bard", "warlock", "wizard"],
-		source: [["SRD24", 142], ["P24", 288]],
+		source: [["SRD24", 142], ["PHB24", 288]],
 		ritual: true,
 		level: 1,
 		school: "Illus",
@@ -3755,7 +3755,7 @@ var Base_SpellsList = {
 	"imprisonment": {
 		name: "Imprisonment",
 		classes: ["warlock", "wizard"],
-		source: [["SRD24", 142], ["P24", 288]],
+		source: [["SRD24", 142], ["PHB24", 288]],
 		reqLoS: true,
 		level: 9,
 		school: "Abjur",
@@ -3781,7 +3781,7 @@ var Base_SpellsList = {
 	"incendiary cloud": {
 		name: "Incendiary Cloud",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 142], ["P24", 288]],
+		source: [["SRD24", 142], ["PHB24", 288]],
 		level: 8,
 		school: "Conj",
 		time: "Act",
@@ -3800,7 +3800,7 @@ var Base_SpellsList = {
 	"inflict wounds": {
 		name: "Inflict Wounds",
 		classes: ["cleric"],
-		source: [["SRD24", 143], ["P24", 288]],
+		source: [["SRD24", 143], ["PHB24", 288]],
 		level: 1,
 		school: "Necro",
 		time: "Act",
@@ -3817,7 +3817,7 @@ var Base_SpellsList = {
 	"insect plague": {
 		name: "Insect Plague",
 		classes: ["cleric", "druid", "sorcerer"],
-		source: [["SRD24", 143], ["P24", 289]],
+		source: [["SRD24", 143], ["PHB24", 289]],
 		level: 5,
 		school: "Conj",
 		time: "Act",
@@ -3837,7 +3837,7 @@ var Base_SpellsList = {
 	"invisibility": {
 		name: "Invisibility",
 		classes: ["artificer", "bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 143], ["P24", 289]],
+		source: [["SRD24", 143], ["PHB24", 289]],
 		level: 2,
 		school: "Illus",
 		time: "Act",
@@ -3854,7 +3854,7 @@ var Base_SpellsList = {
 	"jump": {
 		name: "Jump",
 		classes: ["artificer", "druid", "ranger", "sorcerer", "wizard"],
-		source: [["SRD24", 143], ["P24", 290]],
+		source: [["SRD24", 143], ["PHB24", 290]],
 		level: 1,
 		school: "Trans",
 		time: "Bns",
@@ -3871,7 +3871,7 @@ var Base_SpellsList = {
 	"knock": {
 		name: "Knock",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 143], ["P24", 290]],
+		source: [["SRD24", 143], ["PHB24", 290]],
 		reqLoS: true,
 		level: 2,
 		school: "Trans",
@@ -3890,7 +3890,7 @@ var Base_SpellsList = {
 	"legend lore": {
 		name: "Legend Lore",
 		classes: ["bard", "cleric", "wizard"],
-		source: [["SRD24", 144], ["P24", 290]],
+		source: [["SRD24", 144], ["PHB24", 290]],
 		level: 5,
 		school: "Div",
 		time: "10 min",
@@ -3909,7 +3909,7 @@ var Base_SpellsList = {
 		name: "Leomund's Secret Chest",
 		nameAlt: "Secret Chest",
 		classes: ["artificer", "wizard"],
-		source: [["SRD24", 160], ["P24", 290]],
+		source: [["SRD24", 160], ["PHB24", 290]],
 		level: 4,
 		school: "Conj",
 		time: "Act",
@@ -3929,7 +3929,7 @@ var Base_SpellsList = {
 		name: "Leomund's Tiny Hut",
 		nameAlt: "Tiny Hut",
 		classes: ["bard", "wizard"],
-		source: [["SRD24", 169], ["P24", 291]],
+		source: [["SRD24", 169], ["PHB24", 291]],
 		ritual: true,
 		level: 3,
 		school: "Evoc",
@@ -3949,7 +3949,7 @@ var Base_SpellsList = {
 	"lesser restoration": {
 		name: "Lesser Restoration",
 		classes: ["artificer", "bard", "cleric", "druid", "paladin", "ranger"],
-		source: [["SRD24", 144], ["P24", 291]],
+		source: [["SRD24", 144], ["PHB24", 291]],
 		level: 2,
 		school: "Abjur",
 		time: "Bns",
@@ -3962,7 +3962,7 @@ var Base_SpellsList = {
 	"levitate": {
 		name: "Levitate",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 144], ["P24", 291]],
+		source: [["SRD24", 144], ["PHB24", 291]],
 		reqLoS: true,
 		level: 2,
 		school: "Trans",
@@ -3982,7 +3982,7 @@ var Base_SpellsList = {
 	"light": {
 		name: "Light",
 		classes: ["artificer", "bard", "cleric", "sorcerer", "wizard"],
-		source: [["SRD24", 144], ["P24", 292]],
+		source: [["SRD24", 144], ["PHB24", 292]],
 		level: 0,
 		school: "Evoc",
 		time: "Act",
@@ -3999,7 +3999,7 @@ var Base_SpellsList = {
 	"lightning bolt": {
 		name: "Lightning Bolt",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 144], ["P24", 292]],
+		source: [["SRD24", 144], ["PHB24", 292]],
 		level: 3,
 		school: "Evoc",
 		time: "Act",
@@ -4018,7 +4018,7 @@ var Base_SpellsList = {
 		name: "Locate Animals or Plants",
 		nameShort: "Locate Animal/Plants",
 		classes: ["bard", "druid", "ranger"],
-		source: [["SRD24", 144], ["P24", 292]],
+		source: [["SRD24", 144], ["PHB24", 292]],
 		ritual: true,
 		level: 2,
 		school: "Div",
@@ -4035,7 +4035,7 @@ var Base_SpellsList = {
 	"locate creature": {
 		name: "Locate Creature",
 		classes: ["bard", "cleric", "druid", "paladin", "ranger", "wizard"],
-		source: [["SRD24", 145], ["P24", 292]],
+		source: [["SRD24", 145], ["PHB24", 292]],
 		level: 4,
 		school: "Div",
 		time: "Act",
@@ -4053,7 +4053,7 @@ var Base_SpellsList = {
 	"locate object": {
 		name: "Locate Object",
 		classes: ["bard", "cleric", "druid", "paladin", "ranger", "wizard"],
-		source: [["SRD24", 145], ["P24", 293]],
+		source: [["SRD24", 145], ["PHB24", 293]],
 		level: 2,
 		school: "Div",
 		time: "Act",
@@ -4071,7 +4071,7 @@ var Base_SpellsList = {
 	"longstrider": {
 		name: "Longstrider",
 		classes: ["artificer", "bard", "druid", "ranger", "wizard"],
-		source: [["SRD24", 145], ["P24", 293]],
+		source: [["SRD24", 145], ["PHB24", 293]],
 		level: 1,
 		school: "Trans",
 		time: "Act",
@@ -4088,7 +4088,7 @@ var Base_SpellsList = {
 	"mage armor": {
 		name: "Mage Armor",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 145], ["P24", 293]],
+		source: [["SRD24", 145], ["PHB24", 293]],
 		level: 1,
 		school: "Abjur",
 		time: "Act",
@@ -4104,7 +4104,7 @@ var Base_SpellsList = {
 	"mage hand": {
 		name: "Mage Hand",
 		classes: ["artificer", "bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 145], ["P24", 293]],
+		source: [["SRD24", 145], ["PHB24", 293]],
 		level: 0,
 		school: "Conj",
 		time: "Act",
@@ -4122,7 +4122,7 @@ var Base_SpellsList = {
 	"magic circle": {
 		name: "Magic Circle",
 		classes: ["cleric", "paladin", "warlock", "wizard"],
-		source: [["SRD24", 145], ["P24", 293]],
+		source: [["SRD24", 145], ["PHB24", 293]],
 		reqLoS: true,
 		level: 3,
 		school: "Abjur",
@@ -4146,7 +4146,7 @@ var Base_SpellsList = {
 	"magic jar": {
 		name: "Magic Jar",
 		classes: ["wizard"],
-		source: [["SRD24", 146], ["P24", 294]],
+		source: [["SRD24", 146], ["PHB24", 294]],
 		reqLoS: true,
 		level: 6,
 		school: "Necro",
@@ -4170,7 +4170,7 @@ var Base_SpellsList = {
 	"magic missile": {
 		name: "Magic Missile",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 146], ["P24", 295]],
+		source: [["SRD24", 146], ["PHB24", 295]],
 		reqLoS: true,
 		level: 1,
 		school: "Evoc",
@@ -4188,7 +4188,7 @@ var Base_SpellsList = {
 	"magic mouth": {
 		name: "Magic Mouth",
 		classes: ["artificer", "bard", "wizard"],
-		source: [["SRD24", 146], ["P24", 295]],
+		source: [["SRD24", 146], ["PHB24", 295]],
 		ritual: true,
 		reqLoS: true,
 		level: 2,
@@ -4208,7 +4208,7 @@ var Base_SpellsList = {
 	"magic weapon": {
 		name: "Magic Weapon",
 		classes: ["paladin", "ranger", "sorcerer", "wizard"],
-		source: [["SRD24", 146], ["P24", 295]],
+		source: [["SRD24", 146], ["PHB24", 295]],
 		level: 2,
 		school: "Trans",
 		time: "Bns",
@@ -4224,7 +4224,7 @@ var Base_SpellsList = {
 	"major image": {
 		name: "Major Image",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 147], ["P24", 295]],
+		source: [["SRD24", 147], ["PHB24", 295]],
 		reqLoS: true,
 		level: 3,
 		school: "Illus",
@@ -4244,7 +4244,7 @@ var Base_SpellsList = {
 	"mass cure wounds": {
 		name: "Mass Cure Wounds",
 		classes: ["bard", "cleric", "druid"],
-		source: [["SRD24", 147], ["P24", 296]],
+		source: [["SRD24", 147], ["PHB24", 296]],
 		reqLoS: true,
 		level: 5,
 		school: "Abjur",
@@ -4261,7 +4261,7 @@ var Base_SpellsList = {
 	"mass heal": {
 		name: "Mass Heal",
 		classes: ["cleric"],
-		source: [["SRD24", 147], ["P24", 296]],
+		source: [["SRD24", 147], ["PHB24", 296]],
 		reqLoS: true,
 		level: 9,
 		school: "Abjur",
@@ -4277,7 +4277,7 @@ var Base_SpellsList = {
 	"mass healing word": {
 		name: "Mass Healing Word",
 		classes: ["bard", "cleric"],
-		source: [["SRD24", 148], ["P24", 296]],
+		source: [["SRD24", 148], ["PHB24", 296]],
 		reqLoS: true,
 		level: 3,
 		school: "Abjur",
@@ -4294,7 +4294,7 @@ var Base_SpellsList = {
 	"mass suggestion": {
 		name: "Mass Suggestion",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 148], ["P24", 296]],
+		source: [["SRD24", 148], ["PHB24", 296]],
 		reqLoS: true,
 		level: 6,
 		school: "Ench",
@@ -4314,7 +4314,7 @@ var Base_SpellsList = {
 	"maze": {
 		name: "Maze",
 		classes: ["wizard"],
-		source: [["SRD24", 148], ["P24", 296]],
+		source: [["SRD24", 148], ["PHB24", 296]],
 		reqLoS: true,
 		level: 8,
 		school: "Conj",
@@ -4332,7 +4332,7 @@ var Base_SpellsList = {
 	"meld into stone": {
 		name: "Meld into Stone",
 		classes: ["cleric", "druid", "ranger"],
-		source: [["SRD24", 148], ["P24", 296]],
+		source: [["SRD24", 148], ["PHB24", 296]],
 		ritual: true,
 		level: 3,
 		school: "Trans",
@@ -4351,7 +4351,7 @@ var Base_SpellsList = {
 		name: "Melf's Acid Arrow",
 		nameAlt: "Acid Arrow",
 		classes: ["wizard"],
-		source: [["SRD24", 107], ["P24", 297]],
+		source: [["SRD24", 107], ["PHB24", 297]],
 		level: 2,
 		school: "Evoc",
 		time: "Act",
@@ -4372,7 +4372,7 @@ var Base_SpellsList = {
 	"mending": {
 		name: "Mending",
 		classes: ["artificer", "bard", "cleric", "druid", "sorcerer", "wizard"],
-		source : [["SRD24", 148], ["P24", 297]],
+		source : [["SRD24", 148], ["PHB24", 297]],
 		level: 0,
 		school: "Trans",
 		time: "1 min",
@@ -4390,7 +4390,7 @@ var Base_SpellsList = {
 	"message": {
 		name: "Message",
 		classes: ["artificer", "bard", "druid", "sorcerer", "wizard"],
-		source: [["SRD24", 148], ["P24", 298]],
+		source: [["SRD24", 148], ["PHB24", 298]],
 		level: 0,
 		school: "Trans",
 		time: "Act",
@@ -4407,7 +4407,7 @@ var Base_SpellsList = {
 	"meteor swarm": {
 		name: "Meteor Swarm",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 149], ["P24", 298]],
+		source: [["SRD24", 149], ["PHB24", 298]],
 		reqLoS: true,
 		level: 9,
 		school: "Evoc",
@@ -4426,7 +4426,7 @@ var Base_SpellsList = {
 	"mind blank": {
 		name: "Mind Blank",
 		classes: ["bard", "wizard"],
-		source: [["SRD24", 149], ["P24", 298]],
+		source: [["SRD24", 149], ["PHB24", 298]],
 		level: 8,
 		school: "Abjur",
 		time: "Act",
@@ -4441,7 +4441,7 @@ var Base_SpellsList = {
 	"mind spike": {
 		name: "Mind Spike",
 		classes: ["sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 149], ["P24", 298]],
+		source: [["SRD24", 149], ["PHB24", 298]],
 		reqLoS: true,
 		level: 2,
 		school: "Div",
@@ -4461,7 +4461,7 @@ var Base_SpellsList = {
 	"minor illusion": {
 		name: "Minor Illusion",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 149], ["P24", 298]],
+		source: [["SRD24", 149], ["PHB24", 298]],
 		level: 0,
 		school: "Illus",
 		time: "Act",
@@ -4480,7 +4480,7 @@ var Base_SpellsList = {
 	"mirage arcane": {
 		name: "Mirage Arcane",
 		classes: ["bard", "druid", "wizard"],
-		source: [["SRD24", 149], ["P24", 299]],
+		source: [["SRD24", 149], ["PHB24", 299]],
 		level: 7,
 		school: "Illus",
 		time: "10 min",
@@ -4499,7 +4499,7 @@ var Base_SpellsList = {
 	"mirror image": {
 		name: "Mirror Image",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 150], ["P24", 299]],
+		source: [["SRD24", 150], ["PHB24", 299]],
 		level: 2,
 		school: "Illus",
 		time: "Act",
@@ -4516,7 +4516,7 @@ var Base_SpellsList = {
 	"mislead": {
 		name: "Mislead",
 		classes: ["bard", "warlock", "wizard"],
-		source: [["SRD24", 150], ["P24", 299]],
+		source: [["SRD24", 150], ["PHB24", 299]],
 		level: 5,
 		school: "Illus",
 		time: "Act",
@@ -4533,7 +4533,7 @@ var Base_SpellsList = {
 	"misty step": {
 		name: "Misty Step",
 		classes: ["sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 150], ["P24", 299]],
+		source: [["SRD24", 150], ["PHB24", 299]],
 		reqLoS: true,
 		level: 2,
 		school: "Conj",
@@ -4547,7 +4547,7 @@ var Base_SpellsList = {
 	"modify memory": {
 		name: "Modify Memory",
 		classes: ["bard", "wizard"],
-		source: [["SRD24", 150], ["P24", 299]],
+		source: [["SRD24", 150], ["PHB24", 299]],
 		reqLoS: true,
 		level: 5,
 		school: "Ench",
@@ -4569,7 +4569,7 @@ var Base_SpellsList = {
 	"moonbeam": {
 		name: "Moonbeam",
 		classes: ["druid"],
-		source: [["SRD24", 150], ["P24", 300]],
+		source: [["SRD24", 150], ["PHB24", 300]],
 		level: 2,
 		school: "Evoc",
 		time: "Act",
@@ -4599,7 +4599,7 @@ var Base_SpellsList = {
 		nameAlt: "Faithful Hound",
 		nameShort: "Mor. Faithful Hound",
 		classes: ["artificer", "wizard"],
-		source: [["SRD24", 129], ["P24", 300]],
+		source: [["SRD24", 129], ["PHB24", 300]],
 		// reqLoS: true, // only for the initial casting, after that it depends on the dog, so removed to avoid confusion
 		level: 4,
 		school: "Conj",
@@ -4623,7 +4623,7 @@ var Base_SpellsList = {
 		nameAlt: "Magnificent Mansion",
 		nameShort: "Mor. Magni. Mansion",
 		classes: ["bard", "wizard"],
-		source: [["SRD24", 147], ["P24", 300]],
+		source: [["SRD24", 147], ["PHB24", 300]],
 		level: 7,
 		school: "Conj",
 		time: "1 min",
@@ -4645,7 +4645,7 @@ var Base_SpellsList = {
 		nameAlt: "Private Sanctum",
 		nameShort: "Mor. Private Sanctum",
 		classes: ["artificer", "wizard"],
-		source: [["SRD24", 156], ["P24", 301]],
+		source: [["SRD24", 156], ["PHB24", 301]],
 		level: 4,
 		school: "Abjur",
 		time: "10 min",
@@ -4672,7 +4672,7 @@ var Base_SpellsList = {
 		name: "Mordenkainen's Sword",
 		nameAlt: "Arcane Sword",
 		classes: ["bard", "wizard"],
-		source: [["SRD24", 110], ["P24", 302]],
+		source: [["SRD24", 110], ["PHB24", 302]],
 		level: 7,
 		school: "Evoc",
 		time: "Act",
@@ -4691,7 +4691,7 @@ var Base_SpellsList = {
 	"move earth": {
 		name: "Move Earth",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 151], ["P24", 302]],
+		source: [["SRD24", 151], ["PHB24", 302]],
 		level: 6,
 		school: "Trans",
 		time: "Act",
@@ -4710,7 +4710,7 @@ var Base_SpellsList = {
 	"nondetection": {
 		name: "Nondetection",
 		classes: ["bard", "ranger", "wizard"],
-		source: [["SRD24", 151], ["P24", 302]],
+		source: [["SRD24", 151], ["PHB24", 302]],
 		level: 3,
 		school: "Abjur",
 		time: "Act",
@@ -4727,7 +4727,7 @@ var Base_SpellsList = {
 		name: "Nystul's Magic Aura",
 		nameAlt: "Arcanist's Magic Aura",
 		classes: ["wizard"],
-		source: [["SRD24", 110], ["P24", 302]],
+		source: [["SRD24", 110], ["PHB24", 302]],
 		level: 2,
 		school: "Illus",
 		time: "Act",
@@ -4746,7 +4746,7 @@ var Base_SpellsList = {
 		name: "Otiluke's Freezing Sphere",
 		nameAlt: "Freezing Sphere",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 134], ["P24", 302]],
+		source: [["SRD24", 134], ["PHB24", 302]],
 		level: 6,
 		school: "Evoc",
 		time: "Act",
@@ -4758,7 +4758,7 @@ var Base_SpellsList = {
 		description: "60ft rad all 10d6+1d6/SL Cold dmg; save\xBD; freeze 30ft sq water \x26 restrain; hold \u22641 min to use; see B",
 		descriptionShorter: "60ft rad all 10d6+1d6/SL Cold dmg; save\xBD; freeze 30ft sq water \x26 restrain; hold \u22641 min; see B",
 		descriptionFull: [
-			"A frigid globe streaks from you to a point of your choice within range, where it explodes in a 60-foot-radius Sphere. Each creature in that area makes a Constitution saving throw, taking 10d6 Cold damage on failed save or half as much damage on a successful one.",
+			"A frigid globe streaks from you to a point of your choice within range, where it explodes in a 60-foot-radius Sphere. Each creature in that area makes a Constitution saving throw, taking 10d6 Cold damage on a failed save or half as much damage on a successful one.",
 			"If the globe strikes a body of water, it freezes the water to a depth of 6 inches over an area 30 feet square. This ice lasts for 1 minute. Creatures that were swimming on the surface of frozen water are trapped in the ice and have the Restrained condition. A trapped creature can take an action to make a Strength (Athletics) check against your spell save DC to break free.",
 			"You can refrain from firing the globe after completing the spell's casting. If you do so, a globe about the size of a sling bullet, cool to the touch, appears in your hand. At any time, you or a creature you give the globe to can throw the globe (to a range of 40 feet) or hurl it with a sling (to the sling's normal range). It shatters on impact, with the same effect as a normal casting of the spell. You can also set the globe down without shattering it. After 1 minute, if the globe hasn't already shattered, it explodes.",
 			UsingHigherLvl + "The damage increases by 1d6 for each spell slot level above 6.",
@@ -4768,7 +4768,7 @@ var Base_SpellsList = {
 		name: "Otiluke's Resilient Sphere",
 		nameAlt: "Resilient Sphere",
 		classes: ["artificer", "wizard"],
-		source: [["SRD24", 158], ["P24", 303]],
+		source: [["SRD24", 158], ["PHB24", 303]],
 		level: 4,
 		school: "Abjur",
 		time: "Act",
@@ -4789,7 +4789,7 @@ var Base_SpellsList = {
 		name: "Otto's Irresistible Dance",
 		nameAlt: "Irresistible Dance",
 		classes: ["bard", "wizard"],
-		source: [["SRD24", 143], ["P24", 303]],
+		source: [["SRD24", 143], ["PHB24", 303]],
 		reqLoS: true,
 		level: 6,
 		school: "Ench",
@@ -4807,7 +4807,7 @@ var Base_SpellsList = {
 	"pass without trace": {
 		name: "Pass without Trace",
 		classes: ["druid", "ranger"],
-		source: [["SRD24", 151], ["P24", 303]],
+		source: [["SRD24", 151], ["PHB24", 303]],
 		level: 2,
 		school: "Abjur",
 		time: "Act",
@@ -4823,7 +4823,7 @@ var Base_SpellsList = {
 	"passwall": {
 		name: "Passwall",
 		classes: ["wizard"],
-		source: [["SRD24", 151], ["P24", 304]],
+		source: [["SRD24", 151], ["PHB24", 304]],
 		reqLoS: true,
 		level: 5,
 		school: "Trans",
@@ -4841,7 +4841,7 @@ var Base_SpellsList = {
 	"phantasmal force": {
 		name: "Phantasmal Force",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 151], ["P24", 304]],
+		source: [["SRD24", 151], ["PHB24", 304]],
 		reqLoS: true,
 		level: 2,
 		school: "Illus",
@@ -4863,7 +4863,7 @@ var Base_SpellsList = {
 	"phantasmal killer": {
 		name: "Phantasmal Killer",
 		classes: ["bard", "wizard"],
-		source: [["SRD24", 152], ["P24", 304]],
+		source: [["SRD24", 152], ["PHB24", 304]],
 		reqLoS: true,
 		level: 4,
 		school: "Illus",
@@ -4883,7 +4883,7 @@ var Base_SpellsList = {
 	"phantom steed": {
 		name: "Phantom Steed",
 		classes: ["wizard"],
-		source: [["SRD24", 152], ["P24", 304]],
+		source: [["SRD24", 152], ["PHB24", 304]],
 		ritual: true,
 		level: 3,
 		school: "Illus",
@@ -4901,7 +4901,7 @@ var Base_SpellsList = {
 	"planar ally": {
 		name: "Planar Ally",
 		classes: ["cleric"],
-		source: [["SRD24", 152], ["P24", 304]],
+		source: [["SRD24", 152], ["PHB24", 304]],
 		level: 6,
 		school: "Conj",
 		time: "10 min",
@@ -4920,7 +4920,7 @@ var Base_SpellsList = {
 	"planar binding": {
 		name: "Planar Binding",
 		classes: ["bard", "cleric", "druid", "warlock", "wizard"],
-		source: [["SRD24", 152], ["P24", 305]],
+		source: [["SRD24", 152], ["PHB24", 305]],
 		level: 5,
 		school: "Abjur",
 		time: "1 h",
@@ -4939,7 +4939,7 @@ var Base_SpellsList = {
 	"plane shift": {
 		name: "Plane Shift",
 		classes: ["cleric", "druid", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 153], ["P24", 305]],
+		source: [["SRD24", 153], ["PHB24", 305]],
 		level: 7,
 		school: "Conj",
 		time: "Act",
@@ -4956,7 +4956,7 @@ var Base_SpellsList = {
 	"plant growth": {
 		name: "Plant Growth",
 		classes: ["bard", "druid", "ranger"],
-		source: [["SRD24", 153], ["P24", 305]],
+		source: [["SRD24", 153], ["PHB24", 305]],
 		level: 3,
 		school: "Trans",
 		time: "Act/8h",
@@ -4974,7 +4974,7 @@ var Base_SpellsList = {
 	"poison spray": {
 		name: "Poison Spray",
 		classes: ["artificer", "druid", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 153], ["P24", 306]],
+		source: [["SRD24", 153], ["PHB24", 306]],
 		level: 0,
 		school: "Necro",
 		time: "Act",
@@ -4991,7 +4991,7 @@ var Base_SpellsList = {
 	"polymorph": {
 		name: "Polymorph",
 		classes: ["bard", "druid", "sorcerer", "wizard"],
-		source: [["SRD24", 153], ["P24", 306]],
+		source: [["SRD24", 153], ["PHB24", 306]],
 		reqLoS: true,
 		level: 4,
 		school: "Trans",
@@ -5012,7 +5012,7 @@ var Base_SpellsList = {
 	"power word heal": {
 		name: "Power Word Heal",
 		classes: ["bard", "cleric"],
-		source: [["SRD24", 154], ["P24", 306]],
+		source: [["SRD24", 154], ["PHB24", 306]],
 		reqLoS: true,
 		level: 9,
 		school: "Ench",
@@ -5028,7 +5028,7 @@ var Base_SpellsList = {
 	"power word kill": {
 		name: "Power Word Kill",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 154], ["P24", 306]],
+		source: [["SRD24", 154], ["PHB24", 306]],
 		reqLoS: true,
 		level: 9,
 		school: "Ench",
@@ -5042,7 +5042,7 @@ var Base_SpellsList = {
 	"power word stun": {
 		name: "Power Word Stun",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 154], ["P24", 306]],
+		source: [["SRD24", 154], ["PHB24", 306]],
 		reqLoS: true,
 		level: 8,
 		school: "Ench",
@@ -5060,7 +5060,7 @@ var Base_SpellsList = {
 	"prayer of healing": {
 		name: "Prayer of Healing",
 		classes: ["cleric", "paladin"],
-		source: [["SRD24", 154], ["P24", 307]],
+		source: [["SRD24", 154], ["PHB24", 307]],
 		level: 2,
 		school: "Abjur",
 		time: "10 min",
@@ -5077,7 +5077,7 @@ var Base_SpellsList = {
 	"prestidigitation": {
 		name: "Prestidigitation",
 		classes: ["artificer", "bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 154], ["P24", 307]],
+		source: [["SRD24", 154], ["PHB24", 307]],
 		level: 0,
 		school: "Trans",
 		time: "Act",
@@ -5099,7 +5099,7 @@ var Base_SpellsList = {
 		name: "Prismatic Spray",
 		nameShort: "Prismatic Spray (1-5)",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 154], ["P24", 307]],
+		source: [["SRD24", 154], ["PHB24", 307]],
 		level: 7,
 		school: "Evoc",
 		time: "Act",
@@ -5139,7 +5139,7 @@ var Base_SpellsList = {
 	},
 	"prismatic spray-1-6" : {
 		name: "Prismatic Spray (6)",
-		source: [["SRD24", 154], ["P24", 307]],
+		source: [["SRD24", 154], ["PHB24", 307]],
 		level: 7,
 		school: "Evoc",
 		time: "Act",
@@ -5168,7 +5168,7 @@ var Base_SpellsList = {
 	},
 	"prismatic spray-2-7-8" : {
 		name: "Prismatic Spray (7-8)",
-		source: [["SRD24", 154], ["P24", 307]],
+		source: [["SRD24", 154], ["PHB24", 307]],
 		level: 7,
 		school: "Evoc",
 		time: "Act",
@@ -5198,7 +5198,7 @@ var Base_SpellsList = {
 	"prismatic wall": {
 		name: "Prismatic Wall",
 		classes: ["bard", "wizard"],
-		source: [["SRD24", 155], ["P24", 308]],
+		source: [["SRD24", 155], ["PHB24", 308]],
 		level: 9,
 		school: "Abjur",
 		time: "Act",
@@ -5232,7 +5232,7 @@ var Base_SpellsList = {
 	"produce flame": {
 		name: "Produce Flame",
 		classes: ["druid"],
-		source: [["SRD24", 156], ["P24", 308]],
+		source: [["SRD24", 156], ["PHB24", 308]],
 		level: 0,
 		school: "Conj",
 		time: "Bns",
@@ -5252,7 +5252,7 @@ var Base_SpellsList = {
 	"programmed illusion": {
 		name: "Programmed Illusion",
 		classes: ["bard", "wizard"],
-		source: [["SRD24", 156], ["P24", 309]],
+		source: [["SRD24", 156], ["PHB24", 309]],
 		level: 6,
 		school: "Illus",
 		time: "Act",
@@ -5271,7 +5271,7 @@ var Base_SpellsList = {
 	"project image": {
 		name: "Project Image",
 		classes: ["bard", "wizard"],
-		source: [["SRD24", 156], ["P24", 309]],
+		source: [["SRD24", 156], ["PHB24", 309]],
 		level: 7,
 		school: "Illus",
 		time: "Act",
@@ -5289,7 +5289,7 @@ var Base_SpellsList = {
 	"protection from energy": {
 		name: "Protection from Energy",
 		classes: ["artificer", "cleric", "druid", "ranger", "sorcerer", "wizard"],
-		source: [["SRD24", 157], ["P24", 309]],
+		source: [["SRD24", 157], ["PHB24", 309]],
 		level: 3,
 		school: "Abjur",
 		time: "Act",
@@ -5303,7 +5303,7 @@ var Base_SpellsList = {
 		name: "Protection from Evil and Good",
 		nameShort: "Prot. from Evil/Good",
 		classes: ["cleric", "druid", "paladin", "warlock", "wizard"],
-		source: [["SRD24", 157], ["P24", 309]],
+		source: [["SRD24", 157], ["PHB24", 309]],
 		level: 1,
 		school: "Abjur",
 		time: "Act",
@@ -5319,7 +5319,7 @@ var Base_SpellsList = {
 	"protection from poison": {
 		name: "Protection from Poison",
 		classes: ["artificer", "cleric", "druid", "paladin", "ranger"],
-		source: [["SRD24", 157], ["P24", 310]],
+		source: [["SRD24", 157], ["PHB24", 310]],
 		level: 2,
 		school: "Abjur",
 		time: "Act",
@@ -5334,7 +5334,7 @@ var Base_SpellsList = {
 	"purify food and drink": {
 		name: "Purify Food and Drink",
 		classes: ["artificer", "cleric", "druid", "paladin"],
-		source: [["SRD24", 157], ["P24", 310]],
+		source: [["SRD24", 157], ["PHB24", 310]],
 		ritual: true,
 		level: 1,
 		school: "Trans",
@@ -5348,7 +5348,7 @@ var Base_SpellsList = {
 	"raise dead": {
 		name: "Raise Dead",
 		classes: ["bard", "cleric", "paladin"],
-		source: [["SRD24", 157], ["P24", 310]],
+		source: [["SRD24", 157], ["PHB24", 310]],
 		level: 5,
 		school: "Necro",
 		time: "1 h",
@@ -5369,7 +5369,7 @@ var Base_SpellsList = {
 		nameAlt: "Telepathic Bond",
 		nameShort: "Rary's Telepath. Bond",
 		classes: ["bard", "wizard"],
-		source: [["SRD24", 168], ["P24", 311]],
+		source: [["SRD24", 168], ["PHB24", 311]],
 		ritual: true,
 		level: 5,
 		school: "Div",
@@ -5387,7 +5387,7 @@ var Base_SpellsList = {
 	"ray of enfeeblement": {
 		name: "Ray of Enfeeblement",
 		classes: ["warlock", "wizard"],
-		source: [["SRD24", 157], ["P24", 311]],
+		source: [["SRD24", 157], ["PHB24", 311]],
 		level: 2,
 		school: "Necro",
 		time: "Act",
@@ -5405,7 +5405,7 @@ var Base_SpellsList = {
 	"ray of frost": {
 		name: "Ray of Frost",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 157], ["P24", 311]],
+		source: [["SRD24", 157], ["PHB24", 311]],
 		level: 0,
 		school: "Evoc",
 		time: "Act",
@@ -5422,7 +5422,7 @@ var Base_SpellsList = {
 	"ray of sickness": {
 		name: "Ray of Sickness",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 158], ["P24", 311]],
+		source: [["SRD24", 158], ["PHB24", 311]],
 		level: 1,
 		school: "Necro",
 		time: "Act",
@@ -5438,7 +5438,7 @@ var Base_SpellsList = {
 	"regenerate": {
 		name: "Regenerate",
 		classes: ["bard", "cleric", "druid"],
-		source: [["SRD24", 158], ["P24", 311]],
+		source: [["SRD24", 158], ["PHB24", 311]],
 		level: 7,
 		school: "Trans",
 		time: "1 min",
@@ -5458,7 +5458,7 @@ var Base_SpellsList = {
 	"reincarnate": {
 		name: "Reincarnate",
 		classes: ["druid"],
-		source: [["SRD24", 158], ["P24", 311]],
+		source: [["SRD24", 158], ["PHB24", 311]],
 		level: 5,
 		school: "Necro",
 		time: "1 h",
@@ -5488,7 +5488,7 @@ var Base_SpellsList = {
 	"remove curse": {
 		name: "Remove Curse",
 		classes: ["cleric", "paladin", "warlock", "wizard"],
-		source: [["SRD24", 158], ["P24", 312]],
+		source: [["SRD24", 158], ["PHB24", 312]],
 		level: 3,
 		school: "Abjur",
 		time: "Act",
@@ -5503,7 +5503,7 @@ var Base_SpellsList = {
 	"resistance": {
 		name: "Resistance",
 		classes: ["artificer", "cleric", "druid"],
-		source: [["SRD24", 158], ["P24", 312]],
+		source: [["SRD24", 158], ["PHB24", 312]],
 		level: 0,
 		school: "Abjur",
 		time: "Act",
@@ -5519,7 +5519,7 @@ var Base_SpellsList = {
 	"resurrection": {
 		name: "Resurrection",
 		classes: ["bard", "cleric"],
-		source: [["SRD24", 158], ["P24", 312]],
+		source: [["SRD24", 158], ["PHB24", 312]],
 		level: 7,
 		school: "Necro",
 		time: "1 h",
@@ -5538,7 +5538,7 @@ var Base_SpellsList = {
 	"reverse gravity": {
 		name: "Reverse Gravity",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 159], ["P24", 312]],
+		source: [["SRD24", 159], ["PHB24", 312]],
 		level: 7,
 		school: "Trans",
 		time: "Act",
@@ -5556,7 +5556,7 @@ var Base_SpellsList = {
 	"revivify": {
 		name: "Revivify",
 		classes: ["artificer", "cleric", "druid", "paladin", "ranger"],
-		source: [["SRD24", 159], ["P24", 312]],
+		source: [["SRD24", 159], ["PHB24", 312]],
 		level: 3,
 		school: "Necro",
 		time: "Act",
@@ -5572,7 +5572,7 @@ var Base_SpellsList = {
 	"rope trick": {
 		name: "Rope Trick",
 		classes: ["artificer", "wizard"],
-		source: [["SRD24", 159], ["P24", 312]],
+		source: [["SRD24", 159], ["PHB24", 312]],
 		level: 2,
 		school: "Trans",
 		time: "Act",
@@ -5590,7 +5590,7 @@ var Base_SpellsList = {
 	"sacred flame": {
 		name: "Sacred Flame",
 		classes: ["cleric"],
-		source: [["SRD24", 159], ["P24", 313]],
+		source: [["SRD24", 159], ["PHB24", 313]],
 		reqLoS: true,
 		level: 0,
 		school: "Evoc",
@@ -5609,7 +5609,7 @@ var Base_SpellsList = {
 	"sanctuary": {
 		name: "Sanctuary",
 		classes: ["artificer", "cleric"],
-		source: [["SRD24", 159], ["P24", 313]],
+		source: [["SRD24", 159], ["PHB24", 313]],
 		level: 1,
 		school: "Abjur",
 		time: "Bns",
@@ -5627,7 +5627,7 @@ var Base_SpellsList = {
 	"scorching ray": {
 		name: "Scorching Ray",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 159], ["P24", 313]],
+		source: [["SRD24", 159], ["PHB24", 313]],
 		level: 2,
 		school: "Evoc",
 		time: "Act",
@@ -5644,7 +5644,7 @@ var Base_SpellsList = {
 	"scrying": {
 		name: "Scrying",
 		classes: ["bard", "cleric", "druid", "warlock", "wizard"],
-		source: [["SRD24", 160], ["P24", 313]],
+		source: [["SRD24", 160], ["PHB24", 313]],
 		level: 5,
 		school: "Div",
 		time: "10 min",
@@ -5676,7 +5676,7 @@ var Base_SpellsList = {
 	"searing smite": {
 		name: "Searing Smite",
 		classes: ["paladin"],
-		source: [["SRD24", 160], ["P24", 314]],
+		source: [["SRD24", 160], ["PHB24", 314]],
 		level: 1,
 		school: "Evoc",
 		time: "Bns",
@@ -5695,7 +5695,7 @@ var Base_SpellsList = {
 	"see invisibility": {
 		name: "See Invisibility",
 		classes: ["artificer", "bard", "sorcerer", "wizard"],
-		source: [["SRD24", 160], ["P24", 314]],
+		source: [["SRD24", 160], ["PHB24", 314]],
 		level: 2,
 		school: "Div",
 		time: "Act",
@@ -5711,7 +5711,7 @@ var Base_SpellsList = {
 	"seeming": {
 		name: "Seeming",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 160], ["P24", 314]],
+		source: [["SRD24", 160], ["PHB24", 314]],
 		reqLoS: true,
 		level: 5,
 		school: "Illus",
@@ -5731,7 +5731,7 @@ var Base_SpellsList = {
 	"sending": {
 		name: "Sending",
 		classes: ["bard", "cleric", "wizard"],
-		source: [["SRD24", 161], ["P24", 314]],
+		source: [["SRD24", 161], ["PHB24", 314]],
 		level: 3,
 		school: "Div",
 		time: "Act",
@@ -5749,7 +5749,7 @@ var Base_SpellsList = {
 	"sequester": {
 		name: "Sequester",
 		classes: ["wizard"],
-		source: [["SRD24", 161], ["P24", 315]],
+		source: [["SRD24", 161], ["PHB24", 315]],
 		level: 7,
 		school: "Trans",
 		time: "Act",
@@ -5767,7 +5767,7 @@ var Base_SpellsList = {
 	"shapechange": {
 		name: "Shapechange",
 		classes: ["druid", "wizard"],
-		source: [["SRD24", 161], ["P24", 315]],
+		source: [["SRD24", 161], ["PHB24", 315]],
 		level: 9,
 		school: "Trans",
 		time: "Act",
@@ -5786,7 +5786,7 @@ var Base_SpellsList = {
 	"shatter": {
 		name: "Shatter",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 161], ["P24", 316]],
+		source: [["SRD24", 161], ["PHB24", 316]],
 		level: 2,
 		school: "Evoc",
 		time: "Act",
@@ -5806,7 +5806,7 @@ var Base_SpellsList = {
 	"shield": {
 		name: "Shield",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 161], ["P24", 316]],
+		source: [["SRD24", 161], ["PHB24", 316]],
 		level: 1,
 		school: "Abjur",
 		time: "React",
@@ -5822,7 +5822,7 @@ var Base_SpellsList = {
 	"shield of faith": {
 		name: "Shield of Faith",
 		classes: ["cleric", "paladin"],
-		source: [["SRD24", 162], ["P24", 316]],
+		source: [["SRD24", 162], ["PHB24", 316]],
 		level: 1,
 		school: "Abjur",
 		time: "Bns",
@@ -5836,7 +5836,7 @@ var Base_SpellsList = {
 	"shillelagh": {
 		name: "Shillelagh",
 		classes: ["druid"],
-		source: [["SRD24", 162], ["P24", 316]],
+		source: [["SRD24", 162], ["PHB24", 316]],
 		level: 0,
 		school: "Trans",
 		time: "Bns",
@@ -5855,7 +5855,7 @@ var Base_SpellsList = {
 	"shining smite": {
 		name: "Shining Smite",
 		classes: ["paladin"],
-		source: [["SRD24", 162], ["P24", 316]],
+		source: [["SRD24", 162], ["PHB24", 316]],
 		level: 2,
 		school: "Trans",
 		time: "Bns",
@@ -5874,7 +5874,7 @@ var Base_SpellsList = {
 	"shocking grasp": {
 		name: "Shocking Grasp",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 162], ["P24", 316]],
+		source: [["SRD24", 162], ["PHB24", 316]],
 		level: 0,
 		school: "Evoc",
 		time: "Act",
@@ -5891,7 +5891,7 @@ var Base_SpellsList = {
 	"silence": {
 		name: "Silence",
 		classes: ["bard", "cleric", "ranger"],
-		source: [["SRD24", 162], ["P24", 316]],
+		source: [["SRD24", 162], ["PHB24", 316]],
 		ritual: true,
 		level: 2,
 		school: "Illus",
@@ -5907,7 +5907,7 @@ var Base_SpellsList = {
 	"silent image": {
 		name: "Silent Image",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 162], ["P24", 317]],
+		source: [["SRD24", 162], ["PHB24", 317]],
 		level: 1,
 		school: "Illus",
 		time: "Act",
@@ -5925,7 +5925,7 @@ var Base_SpellsList = {
 	"simulacrum": {
 		name: "Simulacrum",
 		classes: ["wizard"],
-		source: [["SRD24", 162], ["P24", 317]],
+		source: [["SRD24", 162], ["PHB24", 317]],
 		level: 7,
 		school: "Illus",
 		time: "12 h",
@@ -5944,7 +5944,7 @@ var Base_SpellsList = {
 	"sleep": {
 		name: "Sleep",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 163], ["P24", 317]],
+		source: [["SRD24", 163], ["PHB24", 317]],
 		level: 1,
 		school: "Ench",
 		time: "Act",
@@ -5962,7 +5962,7 @@ var Base_SpellsList = {
 	"sleet storm": {
 		name: "Sleet Storm",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 163], ["P24", 317]],
+		source: [["SRD24", 163], ["PHB24", 317]],
 		level: 3,
 		school: "Conj",
 		time: "Act",
@@ -5980,7 +5980,7 @@ var Base_SpellsList = {
 	"slow": {
 		name: "Slow",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 163], ["P24", 318]],
+		source: [["SRD24", 163], ["PHB24", 318]],
 		level: 3,
 		school: "Trans",
 		time: "Act",
@@ -5999,7 +5999,7 @@ var Base_SpellsList = {
 	"sorcerous burst": {
 		name: "Sorcerous Burst",
 		classes: ["sorcerer"],
-		source: [["SRD24", 163], ["P24", 318]],
+		source: [["SRD24", 163], ["PHB24", 318]],
 		level: 0,
 		school: "Evoc",
 		time: "Act",
@@ -6024,7 +6024,7 @@ var Base_SpellsList = {
 	"spare the dying": {
 		name: "Spare the Dying",
 		classes: ["artificer", "cleric", "druid"],
-		source: [["SRD24", 163], ["P24", 318]],
+		source: [["SRD24", 163], ["PHB24", 318]],
 		level: 0,
 		school: "Necro",
 		time: "Act",
@@ -6040,7 +6040,7 @@ var Base_SpellsList = {
 	"speak with animals": {
 		name: "Speak with Animals",
 		classes: ["bard", "druid", "ranger", "warlock"],
-		source: [["SRD24", 164], ["P24", 318]],
+		source: [["SRD24", 164], ["PHB24", 318]],
 		ritual: true,
 		level: 1,
 		school: "Div",
@@ -6057,7 +6057,7 @@ var Base_SpellsList = {
 	"speak with dead": {
 		name: "Speak with Dead",
 		classes: ["bard", "cleric", "wizard"],
-		source: [["SRD24", 164], ["P24", 318]],
+		source: [["SRD24", 164], ["PHB24", 318]],
 		level: 3,
 		school: "Necro",
 		time: "Act",
@@ -6074,7 +6074,7 @@ var Base_SpellsList = {
 	"speak with plants": {
 		name: "Speak with Plants",
 		classes: ["bard", "druid", "ranger"],
-		source: [["SRD24", 164], ["P24", 319]],
+		source: [["SRD24", 164], ["PHB24", 319]],
 		level: 3,
 		school: "Trans",
 		time: "Act",
@@ -6092,7 +6092,7 @@ var Base_SpellsList = {
 	"spider climb": {
 		name: "Spider Climb",
 		classes: ["artificer", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 164], ["P24", 319]],
+		source: [["SRD24", 164], ["PHB24", 319]],
 		level: 2,
 		school: "Trans",
 		time: "Act",
@@ -6109,7 +6109,7 @@ var Base_SpellsList = {
 	"spike growth": {
 		name: "Spike Growth",
 		classes: ["druid", "ranger"],
-		source: [["SRD24", 164], ["P24", 319]],
+		source: [["SRD24", 164], ["PHB24", 319]],
 		level: 2,
 		school: "Trans",
 		time: "Act",
@@ -6128,7 +6128,7 @@ var Base_SpellsList = {
 	"spirit guardians": {
 		name: "Spirit Guardians",
 		classes: ["cleric"],
-		source: [["SRD24", 164], ["P24", 319]],
+		source: [["SRD24", 164], ["PHB24", 319]],
 		level: 3,
 		school: "Conj",
 		time: "Act",
@@ -6154,7 +6154,7 @@ var Base_SpellsList = {
 	"spiritual weapon": {
 		name: "Spiritual Weapon",
 		classes: ["cleric"],
-		source: [["SRD24", 165], ["P24", 319]],
+		source: [["SRD24", 165], ["PHB24", 319]],
 		level: 2,
 		school: "Evoc",
 		time: "Bns",
@@ -6172,7 +6172,7 @@ var Base_SpellsList = {
 	"starry wisp": {
 		name: "Starry Wisp",
 		classes: ["bard", "druid"],
-		source: [["SRD24", 165], ["P24", 320]],
+		source: [["SRD24", 165], ["PHB24", 320]],
 		level: 0,
 		school: "Evoc",
 		time: "Act",
@@ -6190,7 +6190,7 @@ var Base_SpellsList = {
 	"stinking cloud": {
 		name: "Stinking Cloud",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 165], ["P24", 321]],
+		source: [["SRD24", 165], ["PHB24", 321]],
 		level: 3,
 		school: "Conj",
 		time: "Act",
@@ -6208,7 +6208,7 @@ var Base_SpellsList = {
 	"stone shape": {
 		name: "Stone Shape",
 		classes: ["artificer", "cleric", "druid", "wizard"],
-		source: [["SRD24", 165], ["P24", 321]],
+		source: [["SRD24", 165], ["PHB24", 321]],
 		level: 4,
 		school: "Trans",
 		time: "Act",
@@ -6225,7 +6225,7 @@ var Base_SpellsList = {
 	"stoneskin": {
 		name: "Stoneskin",
 		classes: ["artificer", "druid", "ranger", "sorcerer", "wizard"],
-		source: [["SRD24", 165], ["P24", 321]],
+		source: [["SRD24", 165], ["PHB24", 321]],
 		level: 4,
 		school: "Trans",
 		time: "Act",
@@ -6239,7 +6239,7 @@ var Base_SpellsList = {
 	"storm of vengeance": {
 		name: "Storm of Vengeance",
 		classes: ["druid"],
-		source: [["SRD24", 165], ["P24", 321]],
+		source: [["SRD24", 165], ["PHB24", 321]],
 		level: 9,
 		school: "Conj",
 		time: "Act",
@@ -6267,7 +6267,7 @@ var Base_SpellsList = {
 	},
 	"storm of vengeance-1-turns 2-4" : {
 		name: "Storm of V: turns 2-4",
-		source: [["SRD24", 165], ["P24", 321]],
+		source: [["SRD24", 165], ["PHB24", 321]],
 		level: 9,
 		school: "Conj",
 		time: "SoT",
@@ -6289,7 +6289,7 @@ var Base_SpellsList = {
 	},
 	"storm of vengeance-2-turns 5-10" : {
 		name: "Storm of V: turns 5-10",
-		source: [["SRD24", 165], ["P24", 321]],
+		source: [["SRD24", 165], ["PHB24", 321]],
 		level: 9,
 		school: "Conj",
 		time: "SoT",
@@ -6309,7 +6309,7 @@ var Base_SpellsList = {
 	"suggestion": {
 		name: "Suggestion",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 166], ["P24", 321]],
+		source: [["SRD24", 166], ["PHB24", 321]],
 		reqLoS: true,
 		level: 2,
 		school: "Ench",
@@ -6328,7 +6328,7 @@ var Base_SpellsList = {
 	"summon dragon": {
 		name: "Summon Dragon",
 		classes: ["wizard"],
-		source: [["SRD24", 166], ["P24", 324]],
+		source: [["SRD24", 166], ["PHB24", 324]],
 		reqLoS: true,
 		level: 5,
 		school: "Conj",
@@ -6347,7 +6347,7 @@ var Base_SpellsList = {
 	"sunbeam": {
 		name: "Sunbeam",
 		classes: ["cleric", "druid", "sorcerer", "wizard"],
-		source: [["SRD24", 166], ["P24", 329]],
+		source: [["SRD24", 166], ["PHB24", 329]],
 		level: 6,
 		school: "Evoc",
 		time: "Act",
@@ -6369,7 +6369,7 @@ var Base_SpellsList = {
 	"sunburst": {
 		name: "Sunburst",
 		classes: ["cleric", "druid", "sorcerer", "wizard"],
-		source: [["SRD24", 167], ["P24", 329]],
+		source: [["SRD24", 167], ["PHB24", 329]],
 		level: 8,
 		school: "Evoc",
 		time: "Act",
@@ -6388,7 +6388,7 @@ var Base_SpellsList = {
 	"symbol": {
 		name: "Symbol",
 		classes: ["bard", "cleric", "druid", "wizard"],
-		source: [["SRD24", 167], ["P24", 329]],
+		source: [["SRD24", 167], ["PHB24", 329]],
 		level: 7,
 		school: "Abjur",
 		time: "1 min",
@@ -6418,7 +6418,7 @@ var Base_SpellsList = {
 		nameAlt: "Hideous Laughter",
 		nameShort: "T's Hideous Laughter",
 		classes: ["bard", "warlock", "wizard"],
-		source: [["SRD24", 140], ["P24", 331]],
+		source: [["SRD24", 140], ["PHB24", 331]],
 		reqLoS: true,
 		level: 1,
 		school: "Ench",
@@ -6438,7 +6438,7 @@ var Base_SpellsList = {
 	"telekinesis": {
 		name: "Telekinesis",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 167], ["P24", 331]],
+		source: [["SRD24", 167], ["PHB24", 331]],
 		reqLoS: true,
 		level: 5,
 		school: "Trans",
@@ -6459,7 +6459,7 @@ var Base_SpellsList = {
 	"teleport": {
 		name: "Teleport",
 		classes: ["bard", "sorcerer", "wizard"],
-		source: [["SRD24", 168], ["P24", 331]],
+		source: [["SRD24", 168], ["PHB24", 331]],
 		reqLoS: true,
 		level: 7,
 		school: "Conj",
@@ -6497,7 +6497,7 @@ var Base_SpellsList = {
 	"teleportation circle": {
 		name: "Teleportation Circle",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 168], ["P24", 332]],
+		source: [["SRD24", 168], ["PHB24", 332]],
 		level: 5,
 		school: "Conj",
 		time: "1 min",
@@ -6517,7 +6517,7 @@ var Base_SpellsList = {
 		name: "Tenser's Floating Disk",
 		nameAlt: "Floating Disk",
 		classes: ["wizard"],
-		source: [["SRD24", 133], ["P24", 332]],
+		source: [["SRD24", 133], ["PHB24", 332]],
 		ritual: true,
 		reqLoS: true,
 		level: 1,
@@ -6537,7 +6537,7 @@ var Base_SpellsList = {
 	"thaumaturgy": {
 		name: "Thaumaturgy",
 		classes: ["cleric"],
-		source: [["SRD24", 169], ["P24", 333]],
+		source: [["SRD24", 169], ["PHB24", 333]],
 		level: 0,
 		school: "Trans",
 		time: "Act",
@@ -6558,7 +6558,7 @@ var Base_SpellsList = {
 	"thunderwave": {
 		name: "Thunderwave",
 		classes: ["bard", "druid", "sorcerer", "wizard"],
-		source: [["SRD24", 169], ["P24", 334]],
+		source: [["SRD24", 169], ["PHB24", 334]],
 		level: 1,
 		school: "Evoc",
 		time: "Act",
@@ -6577,7 +6577,7 @@ var Base_SpellsList = {
 	"time stop": {
 		name: "Time Stop",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 169], ["P24", 334]],
+		source: [["SRD24", 169], ["PHB24", 334]],
 		level: 9,
 		school: "Trans",
 		time: "Act",
@@ -6593,7 +6593,7 @@ var Base_SpellsList = {
 	"tongues": {
 		name: "Tongues",
 		classes: ["bard", "cleric", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 169], ["P24", 334]],
+		source: [["SRD24", 169], ["PHB24", 334]],
 		level: 3,
 		school: "Div",
 		time: "Act",
@@ -6609,7 +6609,7 @@ var Base_SpellsList = {
 	"transport via plants": {
 		name: "Transport via Plants",
 		classes: ["druid"],
-		source: [["SRD24", 170], ["P24", 334]],
+		source: [["SRD24", 170], ["PHB24", 334]],
 		level: 6,
 		school: "Conj",
 		time: "Act",
@@ -6624,7 +6624,7 @@ var Base_SpellsList = {
 	"tree stride": {
 		name: "Tree Stride",
 		classes: ["druid", "ranger"],
-		source: [["SRD24", 170], ["P24", 335]],
+		source: [["SRD24", 170], ["PHB24", 335]],
 		level: 5,
 		school: "Conj",
 		time: "Act",
@@ -6640,7 +6640,7 @@ var Base_SpellsList = {
 	"true polymorph": {
 		name: "True Polymorph",
 		classes: ["bard", "warlock", "wizard"],
-		source: [["SRD24", 170], ["P24", 335]],
+		source: [["SRD24", 170], ["PHB24", 335]],
 		reqLoS: true,
 		level: 9,
 		school: "Trans",
@@ -6666,7 +6666,7 @@ var Base_SpellsList = {
 	"true resurrection": {
 		name: "True Resurrection",
 		classes: ["cleric", "druid"],
-		source: [["SRD24", 170], ["P24", 336]],
+		source: [["SRD24", 170], ["PHB24", 336]],
 		level: 9,
 		school: "Necro",
 		time: "1 h",
@@ -6684,7 +6684,7 @@ var Base_SpellsList = {
 	"true seeing": {
 		name: "True Seeing",
 		classes: ["bard", "cleric", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 171], ["P24", 336]],
+		source: [["SRD24", 171], ["PHB24", 336]],
 		level: 6,
 		school: "Div",
 		time: "Act",
@@ -6698,7 +6698,7 @@ var Base_SpellsList = {
 	"true strike": {
 		name: "True Strike",
 		classes: ["bard", "sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 171], ["P24", 336]],
+		source: [["SRD24", 171], ["PHB24", 336]],
 		level: 0,
 		school: "Div",
 		time: "Act",
@@ -6717,7 +6717,7 @@ var Base_SpellsList = {
 	"tsunami": {
 		name: "Tsunami",
 		classes: ["druid"],
-		source: [["SRD24", 171], ["P24", 336]],
+		source: [["SRD24", 171], ["PHB24", 336]],
 		level: 8,
 		school: "Conj",
 		time: "1 min",
@@ -6743,7 +6743,7 @@ var Base_SpellsList = {
 	},
 	"tsunami-1-start of my turn" : {
 		name: "Tsunami: start of my turn",
-		source: [["SRD24", 171], ["P24", 336]],
+		source: [["SRD24", 171], ["PHB24", 336]],
 		level: 8,
 		school: "Conj",
 		time: "SoT",
@@ -6763,7 +6763,7 @@ var Base_SpellsList = {
 	"unseen servant": {
 		name: "Unseen Servant",
 		classes: ["bard", "warlock", "wizard"],
-		source: [["SRD24", 171], ["P24", 336]],
+		source: [["SRD24", 171], ["PHB24", 336]],
 		ritual: true,
 		level: 1,
 		school: "Conj",
@@ -6782,7 +6782,7 @@ var Base_SpellsList = {
 	"vampiric touch": {
 		name: "Vampiric Touch",
 		classes: ["sorcerer", "warlock", "wizard"],
-		source: [["SRD24", 171], ["P24", 337]],
+		source: [["SRD24", 171], ["PHB24", 337]],
 		level: 3,
 		school: "Necro",
 		time: "Act",
@@ -6799,7 +6799,7 @@ var Base_SpellsList = {
 	"vicious mockery": {
 		name: "Vicious Mockery",
 		classes: ["bard"],
-		source: [["SRD24", 171], ["P24", 337]],
+		source: [["SRD24", 171], ["PHB24", 337]],
 		level: 0,
 		school: "Ench",
 		time: "Act",
@@ -6818,7 +6818,7 @@ var Base_SpellsList = {
 	"vitriolic sphere": {
 		name: "Vitriolic Sphere",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 172], ["P24", 337]],
+		source: [["SRD24", 172], ["PHB24", 337]],
 		level: 4,
 		school: "Evoc",
 		time: "Act",
@@ -6841,7 +6841,7 @@ var Base_SpellsList = {
 	"wall of fire": {
 		name: "Wall of Fire",
 		classes: ["druid", "sorcerer", "wizard"],
-		source: [["SRD24", 172], ["P24", 338]],
+		source: [["SRD24", 172], ["PHB24", 338]],
 		level: 4,
 		school: "Evoc",
 		time: "Act",
@@ -6864,7 +6864,7 @@ var Base_SpellsList = {
 	"wall of force": {
 		name: "Wall of Force",
 		classes: ["wizard"],
-		source: [["SRD24", 172], ["P24", 338]],
+		source: [["SRD24", 172], ["PHB24", 338]],
 		level: 5,
 		school: "Evoc",
 		time: "Act",
@@ -6881,7 +6881,7 @@ var Base_SpellsList = {
 	"wall of ice": {
 		name: "Wall of Ice",
 		classes: ["wizard"],
-		source: [["SRD24", 172], ["P24", 339]],
+		source: [["SRD24", 172], ["PHB24", 339]],
 		level: 6,
 		school: "Evoc",
 		time: "Act",
@@ -6906,7 +6906,7 @@ var Base_SpellsList = {
 	},
 	"wall of ice-1-breaching it" : {
 		name: "Wall of Ice: breaching it",
-		source: [["SRD24", 172], ["P24", 339]],
+		source: [["SRD24", 172], ["PHB24", 339]],
 		level: 6,
 		school: "Evoc",
 		time: "",
@@ -6928,7 +6928,7 @@ var Base_SpellsList = {
 	"wall of stone": {
 		name: "Wall of Stone",
 		classes: ["artificer", "druid", "sorcerer", "wizard"],
-		source: [["SRD24", 173], ["P24", 339]],
+		source: [["SRD24", 173], ["PHB24", 339]],
 		level: 5,
 		school: "Evoc",
 		time: "Act",
@@ -6951,7 +6951,7 @@ var Base_SpellsList = {
 	"wall of thorns": {
 		name: "Wall of Thorns",
 		classes: ["druid"],
-		source: [["SRD24", 173], ["P24", 339]],
+		source: [["SRD24", 173], ["PHB24", 339]],
 		level: 6,
 		school: "Conj",
 		time: "Act",
@@ -6974,7 +6974,7 @@ var Base_SpellsList = {
 	"warding bond": {
 		name: "Warding Bond",
 		classes: ["cleric", "paladin"],
-		source: [["SRD24", 173], ["P24", 340]],
+		source: [["SRD24", 173], ["PHB24", 340]],
 		level: 2,
 		school: "Abjur",
 		time: "Act",
@@ -6991,7 +6991,7 @@ var Base_SpellsList = {
 	"water breathing": {
 		name: "Water Breathing",
 		classes: ["artificer", "druid", "ranger", "sorcerer", "wizard"],
-		source: [["SRD24", 173], ["P24", 340]],
+		source: [["SRD24", 173], ["PHB24", 340]],
 		ritual: true,
 		level: 3,
 		school: "Trans",
@@ -7008,7 +7008,7 @@ var Base_SpellsList = {
 	"water walk": {
 		name: "Water Walk",
 		classes: ["artificer", "cleric", "druid", "ranger", "sorcerer"],
-		source: [["SRD24", 173], ["P24", 340]],
+		source: [["SRD24", 173], ["PHB24", 340]],
 		ritual: true,
 		level: 3,
 		school: "Trans",
@@ -7026,7 +7026,7 @@ var Base_SpellsList = {
 	"web": {
 		name: "Web",
 		classes: ["artificer", "sorcerer", "wizard"],
-		source: [["SRD24", 174], ["P24", 340]],
+		source: [["SRD24", 174], ["PHB24", 340]],
 		level: 2,
 		school: "Conj",
 		time: "Act",
@@ -7047,7 +7047,7 @@ var Base_SpellsList = {
 	"weird": {
 		name: "Weird",
 		classes: ["warlock", "wizard"],
-		source: [["SRD24", 174], ["P24", 341]],
+		source: [["SRD24", 174], ["PHB24", 341]],
 		level: 9,
 		school: "Illus",
 		time: "Act",
@@ -7069,7 +7069,7 @@ var Base_SpellsList = {
 	"wind walk": {
 		name: "Wind Walk",
 		classes: ["druid"],
-		source: [["SRD24", 174], ["P24", 341]],
+		source: [["SRD24", 174], ["PHB24", 341]],
 		level: 6,
 		school: "Trans",
 		time: "1 min",
@@ -7086,7 +7086,7 @@ var Base_SpellsList = {
 	"wind wall": {
 		name: "Wind Wall",
 		classes: ["druid", "ranger"],
-		source: [["SRD24", 174], ["P24", 341]],
+		source: [["SRD24", 174], ["PHB24", 341]],
 		level: 3,
 		school: "Evoc",
 		time: "Act",
@@ -7109,7 +7109,7 @@ var Base_SpellsList = {
 	"wish": {
 		name: "Wish",
 		classes: ["sorcerer", "wizard"],
-		source: [["SRD24", 175], ["P24", 341]],
+		source: [["SRD24", 175], ["PHB24", 341]],
 		level: 9,
 		school: "Conj",
 		time: "Act",
@@ -7134,7 +7134,7 @@ var Base_SpellsList = {
 	"word of recall": {
 		name: "Word of Recall",
 		classes: ["cleric"],
-		source: [["SRD24", 175], ["P24", 343]],
+		source: [["SRD24", 175], ["PHB24", 343]],
 		level: 6,
 		school: "Conj",
 		time: "Act",
@@ -7150,7 +7150,7 @@ var Base_SpellsList = {
 	"zone of truth": {
 		name: "Zone of Truth",
 		classes: ["bard", "cleric", "paladin"],
-		source: [["SRD24", 175], ["P24", 343]],
+		source: [["SRD24", 175], ["PHB24", 343]],
 		level: 2,
 		school: "Ench",
 		time: "Act",

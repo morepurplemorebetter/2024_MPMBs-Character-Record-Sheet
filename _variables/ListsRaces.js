@@ -2,7 +2,7 @@ var Base_RaceList = {
 	"dragonborn": {
 		regExpSearch: /dragonborn/i,
 		name: "Dragonborn",
-		source: [["SRD24", 84], ["P24", 187]],
+		source: [["SRD24", 84], ["PHB24", 187]],
 		plural: "Dragonborn",
 		size: 3,
 		speed: { walk: { spd: 30, enc: 20 } },
@@ -20,7 +20,7 @@ var Base_RaceList = {
 				weaponOptions: [{
 					regExpSearch: /^(?=.*breath)(?=.*weapon).*$/i,
 					name: "Breath weapon",
-					source: [["P24", 187]],
+					source: [["PHB24", 187]],
 					ability: 3,
 					type: "Natural",
 					damage: ["C", 10, "fire"],
@@ -43,7 +43,7 @@ var Base_RaceList = {
 			},
 			"draconic flight": {
 				name: "Draconic Flight",
-				source: [["P24", 187]],
+				source: [["PHB24", 187]],
 				minlevel: 5,
 				usages: 1,
 				recovery: "long rest",
@@ -61,7 +61,7 @@ var Base_RaceList = {
 	"dwarf": {
 		regExpSearch: /dwarf|dwarv(ish|en)|neidar|klar|hylar|daewar/i,
 		name: "Dwarf",
-		source: [["SRD24", 84], ["P24", 188]],
+		source: [["SRD24", 84], ["PHB24", 188]],
 		plural: "Dwarves",
 		size: 3,
 		speed: { walk: { spd: 30, enc: 20 } },
@@ -97,7 +97,7 @@ var Base_RaceList = {
 	"elf": {
 		regExpSearch: /elf\b|elves\b|elv(ish|en)\b/i,
 		name: "Elf",
-		source: [["SRD24", 84], ["P24", 189]],
+		source: [["SRD24", 84], ["PHB24", 189]],
 		plural: "Elves",
 		size: 3,
 		speed: { walk: { spd: 30, enc: 20 } },
@@ -118,7 +118,7 @@ var Base_RaceList = {
 	"gnome": {
 		regExpSearch: /gnome/i,
 		name: "Gnome",
-		source: [["SRD24", 85], ["P24", 191]],
+		source: [["SRD24", 85], ["PHB24", 191]],
 		plural: "Gnomes",
 		size: 4,
 		speed: { walk: { spd: 30, enc: 20 } },
@@ -135,7 +135,7 @@ var Base_RaceList = {
 	"goliath": {
 		regExpSearch: /goliath/i,
 		name: "Goliath",
-		source: [["SRD24", 85], ["P24", 192]],
+		source: [["SRD24", 85], ["PHB24", 192]],
 		plural: "Goliaths",
 		size: 3,
 		speed: { walk: { spd: 35, enc: 25 } },
@@ -144,7 +144,7 @@ var Base_RaceList = {
 		features: {
 			"large form": {
 				name: "Large Form",
-				source: [["SRD24", 86], ["P24", 192]],
+				source: [["SRD24", 86], ["PHB24", 192]],
 				minlevel: 5,
 				usages: 1,
 				recovery: "long rest",
@@ -166,7 +166,7 @@ var Base_RaceList = {
 	"halfling": {
 		regExpSearch: /half.?ling|hobbit/i,
 		name: "Halfling",
-		source: [["SRD24", 86], ["P24", 193]],
+		source: [["SRD24", 86], ["PHB24", 193]],
 		plural: "Halflings",
 		speed: { walk: { spd: 30, enc: 20 } },
 		savetxt: { adv_vs : ["Frightened"] },
@@ -187,7 +187,7 @@ var Base_RaceList = {
 	"human": {
 		regExpSearch: /human/i,
 		name: "Human",
-		source: [["SRD24", 86], ["P24", 194]],
+		source: [["SRD24", 86], ["PHB24", 194]],
 		plural: "Humans",
 		size: [3, 4],
 		speed: { walk: { spd: 30, enc: 20 } },
@@ -209,7 +209,7 @@ var Base_RaceList = {
 	"orc": {
 		regExpSearch: /or(c|k)/i,
 		name: "Orc",
-		source: [["SRD24", 86], ["P24", 195]],
+		source: [["SRD24", 86], ["PHB24", 195]],
 		plural: "Orcs",
 		size: 3,
 		speed: { walk : { spd : 30, enc : 20 } },
@@ -217,7 +217,7 @@ var Base_RaceList = {
 		features: {
 			"adrenaline rush" : {
 				name: "Adrenaline Rush",
-				source: [["SRD24", 86], ["P24", 195]],
+				source: [["SRD24", 86], ["PHB24", 195]],
 				minlevel: 1,
 				usages: "Proficiency Bonus per ",
 				usagescalc: "event.value = How('Proficiency Bonus');",
@@ -227,7 +227,7 @@ var Base_RaceList = {
 			},
 			"relentless endurance" : {
 				name: "Relentless Endurance",
-				source: [["SRD24", 86], ["P24", 195]],
+				source: [["SRD24", 86], ["PHB24", 195]],
 				minlevel: 1,
 				usages: 1,
 				recovery: "long rest",
@@ -248,7 +248,7 @@ var Base_RaceList = {
 	"tiefling": {
 		regExpSearch: /^((?=.*tiefling)|(?=.*planetouched)(?=.*(hell|fiend|lower))).*$/i,
 		name: "Tiefling",
-		source: [["SRD24", 86], ["P24", 197]],
+		source: [["SRD24", 86], ["PHB24", 197]],
 		plural: "Tieflings",
 		size: [3, 4],
 		speed: { walk: { spd: 30, enc: 20 } },
@@ -273,7 +273,7 @@ var Base_RaceSubList = {
 	"dragonborn-black": {
 		name: "Black Dragonborn",
 		regExpSearch: /^(?=.*black)(?=.*dragonborn).*$/i,
-		source: [["SRD24", 84], ["P24", 187]],
+		source: [["SRD24", 84], ["PHB24", 187]],
 		dmgres: ["Acid"],
 		trait: [
 			"**Black Dragonborn**",
@@ -284,7 +284,7 @@ var Base_RaceSubList = {
 	"dragonborn-blue": {
 		name: "Blue Dragonborn",
 		regExpSearch: /^(?=.*blue)(?=.*dragonborn).*$/i,
-		source: [["SRD24", 84], ["P24", 187]],
+		source: [["SRD24", 84], ["PHB24", 187]],
 		dmgres: ["Lightning"],
 		trait: [
 			"**Blue Dragonborn**",
@@ -295,7 +295,7 @@ var Base_RaceSubList = {
 	"dragonborn-green": {
 		name: "Green Dragonborn",
 		regExpSearch: /^(?=.*green)(?=.*dragonborn).*$/i,
-		source: [["SRD24", 84], ["P24", 187]],
+		source: [["SRD24", 84], ["PHB24", 187]],
 		dmgres: ["Poison"],
 		trait: [
 			"**Green Dragonborn**",
@@ -306,7 +306,7 @@ var Base_RaceSubList = {
 	"dragonborn-red": {
 		name: "Red Dragonborn",
 		regExpSearch: /^(?=.*red)(?=.*dragonborn).*$/i,
-		source: [["SRD24", 84], ["P24", 187]],
+		source: [["SRD24", 84], ["PHB24", 187]],
 		dmgres: ["Fire"],
 		trait: [
 			"**Red Dragonborn**",
@@ -317,7 +317,7 @@ var Base_RaceSubList = {
 	"dragonborn-white": {
 		name: "White Dragonborn",
 		regExpSearch: /^(?=.*white)(?=.*dragonborn).*$/i,
-		source: [["SRD24", 84], ["P24", 187]],
+		source: [["SRD24", 84], ["PHB24", 187]],
 		dmgres: ["Cold"],
 		trait: [
 			"**White Dragonborn**",
@@ -328,7 +328,7 @@ var Base_RaceSubList = {
 	"dragonborn-brass": {
 		name: "Brass Dragonborn",
 		regExpSearch: /^(?=.*brass)(?=.*dragonborn).*$/i,
-		source: [["SRD24", 84], ["P24", 187]],
+		source: [["SRD24", 84], ["PHB24", 187]],
 		dmgres: ["Fire"],
 		trait: [
 			"**Brass Dragonborn**",
@@ -339,7 +339,7 @@ var Base_RaceSubList = {
 	"dragonborn-bronze": {
 		name: "Bronze Dragonborn",
 		regExpSearch: /^(?=.*bronze)(?=.*dragonborn).*$/i,
-		source: [["SRD24", 84], ["P24", 187]],
+		source: [["SRD24", 84], ["PHB24", 187]],
 		dmgres: ["Lightning"],
 		trait: [
 			"**Bronze Dragonborn**",
@@ -350,7 +350,7 @@ var Base_RaceSubList = {
 	"dragonborn-copper": {
 		name: "Copper Dragonborn",
 		regExpSearch: /^(?=.*copper)(?=.*dragonborn).*$/i,
-		source: [["SRD24", 84], ["P24", 187]],
+		source: [["SRD24", 84], ["PHB24", 187]],
 		dmgres: ["Acid"],
 		trait: [
 			"**Copper Dragonborn**",
@@ -361,7 +361,7 @@ var Base_RaceSubList = {
 	"dragonborn-gold": {
 		name: "Gold Dragonborn",
 		regExpSearch: /^(?=.*gold)(?=.*dragonborn).*$/i,
-		source: [["SRD24", 84], ["P24", 187]],
+		source: [["SRD24", 84], ["PHB24", 187]],
 		dmgres: ["Fire"],
 		trait: [
 			"**Gold Dragonborn**",
@@ -372,7 +372,7 @@ var Base_RaceSubList = {
 	"dragonborn-silver": {
 		name: "Silver Dragonborn",
 		regExpSearch: /^(?=.*silver)(?=.*dragonborn).*$/i,
-		source: [["SRD24", 84], ["P24", 187]],
+		source: [["SRD24", 84], ["PHB24", 187]],
 		dmgres: ["Cold"],
 		trait: [
 			"**Silver Dragonborn**",
@@ -383,7 +383,7 @@ var Base_RaceSubList = {
 	"elf-drow": {
 		regExpSearch: /^((?=.*drow)|(?=.*(elfs?|elv(es|ish|en))\b)(?=.*(dark|underdark|deep|depth))).*$/i,
 		name: "Drow",
-		source: [["SRD24", 85], ["P24", 190]],
+		source: [["SRD24", 85], ["PHB24", 190]],
 		sortname: "Drow (Dark Elf)",
 		vision: [["Darkvision", 120]],
 		spellcastingAbility: [4, 5, 6],
@@ -396,7 +396,7 @@ var Base_RaceSubList = {
 		features: {
 			"drow lineage 1": {
 				name: "Dancing Lights (Drow Lineage)",
-				source: [["SRD24", 85], ["P24", 190]],
+				source: [["SRD24", 85], ["PHB24", 190]],
 				minlevel: 1,
 				spellcastingBonus: [{
 					name: "Drow level 1",
@@ -406,7 +406,7 @@ var Base_RaceSubList = {
 			},
 			"drow lineage 3": {
 				name: "Faerie Fire (Drow Lineage)",
-				source: [["SRD24", 85], ["P24", 190]],
+				source: [["SRD24", 85], ["PHB24", 190]],
 				minlevel: 3,
 				spellFirstColTitle: "PR",
 				spellcastingBonus: [{
@@ -418,7 +418,7 @@ var Base_RaceSubList = {
 			},
 			"drow lineage 5": {
 				name: "Darkness (Drow Lineage)",
-				source: [["SRD24", 85], ["P24", 190]],
+				source: [["SRD24", 85], ["PHB24", 190]],
 				minlevel: 5,
 				spellcastingBonus: [{
 					name: "Drow level 5",
@@ -432,7 +432,7 @@ var Base_RaceSubList = {
 	"elf-high": {
 		regExpSearch: /^((?=.*(silvanesti|qualinesti))|(?=.*(elfs?|elv(es|ish|en))\b)(?=.*\b(high|sun|moon|grey|gray|valleys?|silvers?)\b)).*$/i,
 		name: "High Elf",
-		source: [["SRD24", 85], ["P24", 190]],
+		source: [["SRD24", 85], ["PHB24", 190]],
 		spellcastingAbility: [4, 5, 6],
 		trait: [
 			"##\u25C6 High Elf Lineage##. I know *Prestidigitation* and can replace it with another Wizard cantrip after a Long Rest, *Detect Magic* at level 3, and *Misty Step* at level 5. I can cast each spell once per Long Rest or by using a spell slot as normal; Int, Wis, or Cha is my spellcasting ability for these (choose one)." + (typePF ?
@@ -445,7 +445,7 @@ var Base_RaceSubList = {
 		features: {
 			"high elf lineage 1": {
 				name: "Prestidigitation (High Elf Lineage)",
-				source: [["SRD24", 85], ["P24", 190]],
+				source: [["SRD24", 85], ["PHB24", 190]],
 				minlevel: 1,
 				spellFirstColTitle: "PR",
 				spellcastingPreparedCantrips: { "class": ["wizard"] },
@@ -458,7 +458,7 @@ var Base_RaceSubList = {
 			},
 			"high elf lineage 3": {
 				name: "Detect Magic (High Elf Lineage)",
-				source: [["SRD24", 85], ["P24", 190]],
+				source: [["SRD24", 85], ["PHB24", 190]],
 				minlevel: 3,
 				spellcastingBonus: [{
 					name: "High Elf level 3",
@@ -469,7 +469,7 @@ var Base_RaceSubList = {
 			},
 			"high elf lineage 5": {
 				name: "Misty Step (High Elf Lineage)",
-				source: [["SRD24", 85], ["P24", 190]],
+				source: [["SRD24", 85], ["PHB24", 190]],
 				minlevel: 5,
 				spellcastingBonus: [{
 					name: "High Elf level 5",
@@ -483,7 +483,7 @@ var Base_RaceSubList = {
 	"elf-wood": {
 		regExpSearch: /^((?=.*(grugach|kagonesti|silhana))|(?=.*(elfs?|elv(es|ish|en))\b)(?=.*\b(woodlands?|woods?|forests?|wilds?|green)\b)).*$/i,
 		name: "Wood Elf",
-		source: [["SRD24", 85], ["P24", 190]],
+		source: [["SRD24", 85], ["PHB24", 190]],
 		speed: { walk: { spd: 35, enc: 25 } },
 		spellcastingAbility: [4, 5, 6],
 		trait: [
@@ -495,7 +495,7 @@ var Base_RaceSubList = {
 		features: {
 			"wood elf lineage 1": {
 				name: "Druidcraft (Wood Elf Lineage)",
-				source: [["SRD24", 85], ["P24", 190]],
+				source: [["SRD24", 85], ["PHB24", 190]],
 				minlevel: 1,
 				spellcastingBonus: [{
 					name: "Wood Elf level 1",
@@ -505,7 +505,7 @@ var Base_RaceSubList = {
 			},
 			"wood elf lineage 3": {
 				name: "Longstrider (Wood Elf Lineage)",
-				source: [["SRD24", 85], ["P24", 190]],
+				source: [["SRD24", 85], ["PHB24", 190]],
 				minlevel: 3,
 				spellFirstColTitle: "PR",
 				spellcastingBonus: [{
@@ -517,7 +517,7 @@ var Base_RaceSubList = {
 			},
 			"wood elf lineage 5": {
 				name: "Pass without Trace (Wood Elf Lineage)",
-				source: [["SRD24", 85], ["P24", 190]],
+				source: [["SRD24", 85], ["PHB24", 190]],
 				minlevel: 5,
 				spellcastingBonus: [{
 					name: "Wood Elf level 5",
@@ -531,13 +531,13 @@ var Base_RaceSubList = {
 	'gnome-forest': {
 		regExpSearch: /^(?=.*gnome)(?=.*(wood|forest|wild|green)).*$/i,
 		name: "Forest Gnome",
-		source: [["SRD24", 85], ["P24", 191]],
+		source: [["SRD24", 85], ["PHB24", 191]],
 		spellcastingAbility: [4, 5, 6],
 		features: {
 			"forest gnome lineage": {
 				name: "Forest Gnome Lineage",
 				limfeaname: "Speak with Animals (Forest Gnome)",
-				source: [["SRD24", 85], ["P24", 191]],
+				source: [["SRD24", 85], ["PHB24", 191]],
 				minlevel: 1,
 				usages: "Proficiency Bonus per ",
 				usagescalc: "event.value = How('Proficiency Bonus');",
@@ -563,12 +563,12 @@ var Base_RaceSubList = {
 	'gnome-rock': {
 		regExpSearch: /^(?=.*gnome)(?=.*(rock|tinker)).*$/i,
 		name: "Rock Gnome",
-		source: [["SRD24", 85], ["P24", 191]],
+		source: [["SRD24", 85], ["PHB24", 191]],
 		spellcastingAbility: [4, 5, 6],
 		features: {
 			"rock gnome lineage": {
 				name: "Rock Gnome Lineage",
-				source: [["SRD24", 85], ["P24", 191]],
+				source: [["SRD24", 85], ["PHB24", 191]],
 				spellcastingBonus: [{
 					name: "Rock Gnome Lineage",
 					spells: ["mending", "prestidigitation"],
@@ -587,11 +587,11 @@ var Base_RaceSubList = {
 	"goliath-cloud": {
 		regExpSearch: /^(?=.*cloud)(?=.*goliath).*$/i,
 		sortname: "Cloud Giant Ancestry Goliath",
-		source: [["SRD24", 85], ["P24", 192]],
+		source: [["SRD24", 85], ["PHB24", 192]],
 		features: {
 			"cloud's jaunt": {
 				name: "Cloud's Jaunt",
-				source: [["SRD24", 85], ["P24", 192]],
+				source: [["SRD24", 85], ["PHB24", 192]],
 				minlevel: 1,
 				usages: "Proficiency Bonus per ",
 				usagescalc: "event.value = How('Proficiency Bonus');",
@@ -609,11 +609,11 @@ var Base_RaceSubList = {
 	"goliath-fire": {
 		regExpSearch: /^(?=.*fire)(?=.*goliath).*$/i,
 		sortname: "Fire Giant Ancestry Goliath",
-		source: [["SRD24", 85], ["P24", 192]],
+		source: [["SRD24", 85], ["PHB24", 192]],
 		features: {
 			"fire's burn": {
 				name: "Fire's Burn",
-				source: [["SRD24", 85], ["P24", 192]],
+				source: [["SRD24", 85], ["PHB24", 192]],
 				minlevel: 1,
 				usages: "Proficiency Bonus per ",
 				usagescalc: "event.value = How('Proficiency Bonus');",
@@ -630,11 +630,11 @@ var Base_RaceSubList = {
 	"goliath-frost": {
 		regExpSearch: /^(?=.*frost)(?=.*goliath).*$/i,
 		sortname: "Frost Giant Ancestry Goliath",
-		source: [["SRD24", 85], ["P24", 192]],
+		source: [["SRD24", 85], ["PHB24", 192]],
 		features: {
 			"frost's chill": {
 				name: "Frost's Chill",
-				source: [["SRD24", 85], ["P24", 192]],
+				source: [["SRD24", 85], ["PHB24", 192]],
 				minlevel: 1,
 				usages: "Proficiency Bonus per ",
 				usagescalc: "event.value = How('Proficiency Bonus');",
@@ -651,11 +651,11 @@ var Base_RaceSubList = {
 	"goliath-hill": {
 		regExpSearch: /^(?=.*hill)(?=.*goliath).*$/i,
 		sortname: "Hill Giant Ancestry Goliath",
-		source: [["SRD24", 85], ["P24", 192]],
+		source: [["SRD24", 85], ["PHB24", 192]],
 		features: {
 			"hill's tumble": {
 				name: "Hill's Tumble",
-				source: [["SRD24", 85], ["P24", 192]],
+				source: [["SRD24", 85], ["PHB24", 192]],
 				minlevel: 1,
 				usages: "Proficiency Bonus per ",
 				usagescalc: "event.value = How('Proficiency Bonus');",
@@ -672,11 +672,11 @@ var Base_RaceSubList = {
 	"goliath-stone": {
 		regExpSearch: /^(?=.*stone)(?=.*goliath).*$/i,
 		sortname: "Stone Giant Ancestry Goliath",
-		source: [["SRD24", 85], ["P24", 192]],
+		source: [["SRD24", 85], ["PHB24", 192]],
 		features: {
 			"stone's endurance": {
 				name: "Stone's Endurance",
-				source: [["SRD24", 85], ["P24", 192]],
+				source: [["SRD24", 85], ["PHB24", 192]],
 				minlevel: 1,
 				usages: "Proficiency Bonus per ",
 				usagescalc: "event.value = How('Proficiency Bonus');",
@@ -694,11 +694,11 @@ var Base_RaceSubList = {
 	"goliath-storm": {
 		regExpSearch: /^(?=.*storm)(?=.*goliath).*$/i,
 		sortname: "Storm Giant Ancestry Goliath",
-		source: [["SRD24", 86], ["P24", 192]],
+		source: [["SRD24", 86], ["PHB24", 192]],
 		features: {
 			"storm's thunder": {
 				name: "Storm's Thunder",
-				source: [["SRD24", 86], ["P24", 192]],
+				source: [["SRD24", 86], ["PHB24", 192]],
 				minlevel: 1,
 				usages: "Proficiency Bonus per ",
 				usagescalc: "event.value = How('Proficiency Bonus');",
@@ -716,12 +716,12 @@ var Base_RaceSubList = {
 	"tiefling-abyssal": {
 		regExpSearch: /^(?=.*(tiefling|planetouched))(?=.*(abyssal|demon)).*$/i,
 		name: "Abyssal Tiefling",
-		source: [["SRD24", 86], ["P24", 197]],
+		source: [["SRD24", 86], ["PHB24", 197]],
 		dmgres: ["Poison"],
 		features: {
 			"abyssal legacy 1": {
 				name: "Poison Spray (Abyssal Legacy)",
-				source: [["SRD24", 86], ["P24", 197]],
+				source: [["SRD24", 86], ["PHB24", 197]],
 				minlevel: 1,
 				spellcastingBonus: [{
 					name: "Abyssal level 1",
@@ -731,7 +731,7 @@ var Base_RaceSubList = {
 			},
 			"abyssal legacy 3": {
 				name: "Ray of Sickness (Abyssal Legacy)",
-				source: [["SRD24", 86], ["P24", 197]],
+				source: [["SRD24", 86], ["PHB24", 197]],
 				minlevel: 3,
 				spellFirstColTitle: "PR",
 				spellcastingBonus: [{
@@ -743,7 +743,7 @@ var Base_RaceSubList = {
 			},
 			"abyssal legacy 5": {
 				name: "Hold Person (Abyssal Legacy)",
-				source: [["SRD24", 86], ["P24", 197]],
+				source: [["SRD24", 86], ["PHB24", 197]],
 				minlevel: 5,
 				spellcastingBonus: [{
 					name: "Abyssal level 5",
@@ -762,12 +762,12 @@ var Base_RaceSubList = {
 	"tiefling-chthonic": {
 		regExpSearch: /^(?=.*(tiefling|planetouched))(?=.*(chthonic|yugoloth)).*$/i,
 		name: "Chthonic Tiefling",
-		source: [["SRD24", 86], ["P24", 197]],
+		source: [["SRD24", 86], ["PHB24", 197]],
 		dmgres: ["Necrotic"],
 		features: {
 			"chthonic legacy 1": {
 				name: "Chill Touch (Chthonic Legacy)",
-				source: [["SRD24", 86], ["P24", 197]],
+				source: [["SRD24", 86], ["PHB24", 197]],
 				minlevel: 1,
 				spellcastingBonus: [{
 					name: "Chthonic level 1",
@@ -777,7 +777,7 @@ var Base_RaceSubList = {
 			},
 			"chthonic legacy 3": {
 				name: "False Life (Chthonic Legacy)",
-				source: [["SRD24", 86], ["P24", 197]],
+				source: [["SRD24", 86], ["PHB24", 197]],
 				minlevel: 3,
 				spellFirstColTitle: "PR",
 				spellcastingBonus: [{
@@ -789,7 +789,7 @@ var Base_RaceSubList = {
 			},
 			"chthonic legacy 5": {
 				name: "Ray of Enfeeblement (Chthonic Legacy)",
-				source: [["SRD24", 86], ["P24", 197]],
+				source: [["SRD24", 86], ["PHB24", 197]],
 				minlevel: 5,
 				spellcastingBonus: [{
 					name: "Chthonic level 5",
@@ -808,12 +808,12 @@ var Base_RaceSubList = {
 	"tiefling-infernal": {
 		regExpSearch: /^(?=.*(tiefling|planetouched))(?=.*(infernal|devil)).*$/i,
 		name: "Infernal Tiefling",
-		source: [["SRD24", 86], ["P24", 197]],
+		source: [["SRD24", 86], ["PHB24", 197]],
 		dmgres: ["Fire"],
 		features: {
 			"infernal legacy 1": {
 				name: "Fire Bolt (Infernal Legacy)",
-				source: [["SRD24", 86], ["P24", 197]],
+				source: [["SRD24", 86], ["PHB24", 197]],
 				minlevel: 1,
 				spellcastingBonus: [{
 					name: "Infernal level 1",
@@ -823,7 +823,7 @@ var Base_RaceSubList = {
 			},
 			"infernal legacy 3": {
 				name: "Hellish Rebuke (Infernal Legacy)",
-				source: [["SRD24", 86], ["P24", 197]],
+				source: [["SRD24", 86], ["PHB24", 197]],
 				minlevel: 3,
 				spellFirstColTitle: "PR",
 				spellcastingBonus: [{
@@ -835,7 +835,7 @@ var Base_RaceSubList = {
 			},
 			"infernal legacy 5": {
 				name: "Darkness (Infernal Legacy)",
-				source: [["SRD24", 86], ["P24", 197]],
+				source: [["SRD24", 86], ["PHB24", 197]],
 				minlevel: 5,
 				spellcastingBonus: [{
 					name: "Infernal level 5",

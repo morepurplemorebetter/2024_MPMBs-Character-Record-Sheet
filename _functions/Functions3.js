@@ -2862,7 +2862,7 @@ function ApplyMagicItem(input, FldNmbr) {
 
 		// Create the tooltip
 		var tooltipStr = (theMI.type ? theMI.type + ", " : "") + (theMI.rarity ? theMI.rarity : "");
-		if (theMI.attunement) tooltipStr += tooltipStr ? " (requires attunement)" : "requires attunement";
+		if (theMI.attunement) tooltipStr += tooltipStr ? " (Requires Attunement)" : "Requires Attunement";
 		tooltipStr = toUni(theMI.name, "bold") + (tooltipStr ? "\n" + tooltipStr[0].toUpperCase() + tooltipStr.substr(1) : "");
 
 		if (theMI.notLegalAL) {
@@ -3867,10 +3867,12 @@ function selectMagicItemGearType(AddRemove, FldNmbr, typeObj, oldChoice, correct
 		if (isApplyFld && event.target.setValPrepared) selectedItem = baseList[isItem].name;
 		var theItemName = baseList[isItem].name.toLowerCase();
 	}
-	// ammunitions are often written as plural, but we don't want that here
-	if (typeNm == "ammunition" && theItemName.substr(-1) == "s") {
-		theItemName = theItemName.substr(0, theItemName.length - 1);
-		if (selectedItem) selectedItem = selectedItem.substr(0, selectedItem.length - 1);
+	// ammunitions are often written as plural and with a comma to sort better, but we don't want that here
+	if (typeNm == "ammunition") {
+		var rxComma = /(.*?), (.*)/;
+		var rxPluralS = /s$/;
+		theItemName = theItemName.replace(rxComma, "$2 $1").replace(rxPluralS, '');
+		if (selectedItem) selectedItem = selectedItem.replace(rxComma, "$2 $1").replace(rxPluralS, '');
 	}
 	// get the new name of the magic item
 	var theItemNameCap = theItemName.capitalize();

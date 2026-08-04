@@ -2828,7 +2828,7 @@ function AddRacialVariant(race, variantName, variantObj) {
 		// With v24 change, turn the race itself in a variant so it remains selectable
 		var sBaseVarKey = race + "-basic";
 		RaceSubList[sBaseVarKey] = newObj(RaceList[race]);
-		RaceList[race].variants = [sBaseVarKey];
+		RaceList[race].variants = ['basic'];
 	}
 	var suffix = 1;
 	variantName = variantName.toLowerCase();

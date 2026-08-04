@@ -100,7 +100,7 @@ var GenericClassFeatures = {
 	// Warlock: Eldritch Invocations that alter how cantrips function
 	"agonizing blast": {
 		name: "Agonizing Blast",
-		source: [["SRD24", 72], ["P24", 155]],
+		source: [["SRD24", 72], ["PHB24", 155]],
 		calcChanges: {
 			atkCalc: [
 				function (fields, v, output) {
@@ -127,7 +127,7 @@ var GenericClassFeatures = {
 	},
 	"eldritch spear": {
 		name: "Eldritch Spear",
-		source: [["SRD24", 73], ["P24", 155]],
+		source: [["SRD24", 73], ["PHB24", 155]],
 		calcChanges: {
 			atkAdd: [
 				function (fields, v) {
@@ -171,7 +171,7 @@ var GenericClassFeatures = {
 	},
 	"repelling blast": {
 		name: "Repelling Blast",
-		source: [["SRD24", 74], ["P24", 157]],
+		source: [["SRD24", 74], ["PHB24", 157]],
 		calcChanges: {
 			atkAdd: [
 				function (fields, v) {
@@ -220,7 +220,7 @@ var GenericClassFeatures = {
 	"paladin's oath": {
 		toNotesPage: { // Important, don't make this into an array!
 			name: "Breaking Your Oath",
-			source: [["SRD24", 54], ["P24", 111]],
+			source: [["SRD24", 54], ["PHB24", 111]],
 			origin: "",
 			note: [
 				"A Paladin tries to hold to the highest standards of conduct, but even the most dedicated are fallible. Sometimes a Paladin transgresses their oath.",
@@ -235,7 +235,7 @@ var Base_ClassList = {
 	"barbarian": {
 		regExpSearch: /^((?=.*(marauder|barbarian|viking|(norse|tribes?|clans?)(wo)?m(a|e)n))|((?=.*(warrior|fighter))(?=.*(feral|tribal)))).*$/i,
 		name: "Barbarian",
-		source: [["SRD24", 28], ["P24", 51]],
+		source: [["SRD24", 28], ["PHB24", 51]],
 		primaryAbility: "Strength",
 		prereqs: "Strength 13",
 		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
@@ -272,7 +272,7 @@ var Base_ClassList = {
 		features: {
 			"rage": { // includes the effects of Persistent Rage
 				name: "Rage",
-				source: [["SRD24", 28], ["P24", 51]],
+				source: [["SRD24", 28], ["PHB24", 51]],
 				minlevel: 1,
 				description: levels.map(function (n) {
 					var arr = [
@@ -319,7 +319,7 @@ var Base_ClassList = {
 			},
 			"unarmored defense": {
 				name: "Unarmored Defense",
-				source: [["SRD24", 29], ["P24", 51]],
+				source: [["SRD24", 29], ["PHB24", 51]],
 				minlevel: 1,
 				description: levels.map(function (n) {
 					return n < 14 ? desc("If not wearing armor, my AC is 10 + Dexterity modifier + Constitution modifier + Shield.") : " [AC 10 + Dex mod + Con mod + Shield]";
@@ -327,7 +327,7 @@ var Base_ClassList = {
 				armorOptions: [{
 					regExpSearch: /justToAddToDropDownAndAffectWildShape/,
 					name: "Unarmored Defense (Con)",
-					source: [["SRD24", 29], ["P24", 51]],
+					source: [["SRD24", 29], ["PHB24", 51]],
 					ac: "10+Con",
 					affectsWildShape: true,
 					selectNow: true,
@@ -335,7 +335,7 @@ var Base_ClassList = {
 			},
 			"weapon mastery": {
 				name: "Weapon Mastery",
-				source: [["SRD24", 29], ["P24", 52]],
+				source: [["SRD24", 29], ["PHB24", 52]],
 				minlevel: 1,
 				description: levels.map(function (n) {
 					var text = [
@@ -354,7 +354,7 @@ var Base_ClassList = {
 			},
 			"danger sense": {
 				name: "Danger Sense",
-				source: [["SRD24", 29], ["P24", 52]],
+				source: [["SRD24", 29], ["PHB24", 52]],
 				minlevel: 2,
 				description: levels.map(function (n) {
 					return n < 14 ? desc("I have Advantage on Dexterity saving throws unless I have the Incapacitated condition.") : " [Adv on Dex saves if not Incapacitated]";
@@ -364,20 +364,20 @@ var Base_ClassList = {
 			},
 			"reckless attack": {
 				name: "Reckless Attack",
-				source: [["SRD24", 29], ["P24", 52]],
+				source: [["SRD24", 29], ["PHB24", 52]],
 				minlevel: 2,
 				description: desc("As I roll my first attack on my turn, I can decide to attack recklessly. This gives me Adv on attacks using Strength until my next turn starts, but then attacks against me also gain Adv."),
 			},
 			"subclassfeature3": {
 				name: "Barbarian Subclass",
-				source: [["SRD24", 29], ["P24", 52]],
+				source: [["SRD24", 29], ["PHB24", 52]],
 				minlevel: 3,
 				description: desc('Choose a Barbarian Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
 			"primal knowledge": function () {
 				var a = {
 					name: "Primal Knowledge",
-					source: [["SRD24", 29], ["P24", 52]],
+					source: [["SRD24", 29], ["PHB24", 52]],
 					minlevel: 3,
 					description: ' #[Select option with "Choose Feature"]#' + desc("+1 Barbarian skill proficiency. While Raging, I can use Str for my Acrobatics, Intimidation, Perception, Stealth, and Survival checks even if they normally use a different ability."),
 					choices: ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"],
@@ -399,7 +399,7 @@ var Base_ClassList = {
 			}(),
 			"fast movement": {
 				name: "Fast Movement",
-				source: [["SRD24", 29], ["P24", 53]],
+				source: [["SRD24", 29], ["PHB24", 53]],
 				minlevel: 5,
 				description: levels.map(function (n) {
 					return n < 14 ? desc("My speed increases by 10 ft while I'm not wearing Heavy armor.") : " [+10 ft speed if not wearing Heavy Armor]";
@@ -408,7 +408,7 @@ var Base_ClassList = {
 			},
 			"feral instinct": {
 				name: "Feral Instinct",
-				source: [["SRD24", 29], ["P24", 53]],
+				source: [["SRD24", 29], ["PHB24", 53]],
 				minlevel: 7,
 				description: levels.map(function (n) {
 					return n < 14 ? desc("I have Advantage on Initiative rolls because my instincts are so honed.") : " [Adv on Initiative]";
@@ -417,7 +417,7 @@ var Base_ClassList = {
 			},
 			"brutal strike": { // includes the level 13 and 17 Improved Brutal Strike features
 				name: "Brutal Strike",
-				source: [["SRD24", 29], ["P24", 53]],
+				source: [["SRD24", 29], ["PHB24", 53]],
 				minlevel: 9,
 				description: levels.map(function (n) {
 					var dice = n < 17 ? 1 : 2;
@@ -430,25 +430,25 @@ var Base_ClassList = {
 				"forceful blow": {
 					name: "Forceful Blow",
 					extraname: "Brutal Strike Effect, Barbarian 9",
-					source: [["SRD24", 29], ["P24", 53]],
+					source: [["SRD24", 29], ["PHB24", 53]],
 					description: desc("The target is pushed 15 ft straight away from me. I can then move half my Speed straight toward the target without provoking Opportunity Attacks."),
 				},
 				"hamstring blow": {
 					name: "Hamstring Blow",
 					extraname: "Brutal Strike Effect, Barbarian 9",
-					source: [["SRD24", 30], ["P24", 53]],
+					source: [["SRD24", 30], ["PHB24", 53]],
 					description: desc("The target has -15 ft Speed until the start of my next turn. A target can only be affected by the most recent Hamstring Blow, they're not cumulative."),
 				},
 				"staggering blow": {
 					name: "Staggering Blow",
 					extraname: "Brutal Strike Effect, Barbarian 13",
-					source: [["SRD24", 30], ["P24", 53]],
+					source: [["SRD24", 30], ["PHB24", 53]],
 					description: desc("The target has Disadvantage on their next saving throw, and it can't make Opportunity Attacks until the start of my next turn."),
 				},
 				"sundering blow": {
 					name: "Sundering Blow",
 					extraname: "Brutal Strike Effect, Barbarian 13",
-					source: [["SRD24", 30], ["P24", 53]],
+					source: [["SRD24", 30], ["PHB24", 53]],
 					description: desc("+5 bonus on the next attack roll made by another creature against the target before the start of my next turn. An attack can gain this bonus only once."),
 				},
 				autoSelectExtrachoices: [{
@@ -465,7 +465,7 @@ var Base_ClassList = {
 			},
 			"relentless rage": {
 				name: "Relentless Rage",
-				source: [["SRD24", 30], ["P24", 53]],
+				source: [["SRD24", 30], ["PHB24", 53]],
 				minlevel: 11,
 				description: desc("While Raging, if I drop to 0 HP and don't die, I can make a DC 10 Con save to instead have twice my Barbarian level HP. Each attempt adds +5 DC. DC resets to 10 after a Short Rest."),
 				additional: levels.map(function (n) {
@@ -477,7 +477,7 @@ var Base_ClassList = {
 			},
 			"persistent rage": {
 				name: "Persistent Rage",
-				source: [["SRD24", 30], ["P24", 53]],
+				source: [["SRD24", 30], ["PHB24", 53]],
 				minlevel: 15,
 				description: levels.map(function (n) {
 					var text = [
@@ -493,13 +493,13 @@ var Base_ClassList = {
 			},
 			"indomitable might": {
 				name: "Indomitable Might",
-				source: [["SRD24", 30], ["P24", 53]],
+				source: [["SRD24", 30], ["PHB24", 53]],
 				minlevel: 18,
 				description: desc("If a Strength check or save is lower than my Strength score, I can use the score instead."),
 			},
 			"primal champion": {
 				name: "Primal Champion",
-				source: [["SRD24", 30], ["P24", 53]],
+				source: [["SRD24", 30], ["PHB24", 53]],
 				minlevel: 20,
 				description: " [+4 Str and Con, up to 25]",
 				scores:        [ 4, 0,  4, 0, 0, 0],
@@ -511,7 +511,7 @@ var Base_ClassList = {
 	"bard": {
 		regExpSearch: /(bard|minstrel|troubadour|jongleur)/i,
 		name: "Bard",
-		source: [["SRD24", 31], ["P24", 59]],
+		source: [["SRD24", 31], ["PHB24", 59]],
 		primaryAbility: "Charisma",
 		abilitySave: 6,
 		prereqs: "Charisma 13",
@@ -558,7 +558,7 @@ var Base_ClassList = {
 		features: {
 			"bardic inspiration": {
 				name: "Bardic Inspiration",
-				source: [["SRD24", 31], ["P24", 59]],
+				source: [["SRD24", 31], ["PHB24", 59]],
 				minlevel: 1,
 				description: desc("As a Bonus Action, I can give a Bardic Inspiration Die (BID) to another creature within 60 ft that can see or hear me. It can't have more than one. Once within the next hour when it fails a D20 Test, the creature can add its BID to the result, potentially causing it to succeed."),
 				additional: levels.map(function (n) {
@@ -576,7 +576,7 @@ var Base_ClassList = {
 			},
 			"spellcasting": {
 				name: "Spellcasting",
-				source: [["SRD24", 31], ["P24", 59]],
+				source: [["SRD24", 31], ["PHB24", 59]],
 				minlevel: 1,
 				description: desc("I can cast Bard cantrips/spells I know, using Cha as my spellcasting ability. I can use Musical Instruments as Spellcasting Focus for them. I can swap 1 cantrip \x26 spell when I gain a level."),
 				additional: levels.map(function (n, idx) {
@@ -588,7 +588,7 @@ var Base_ClassList = {
 			"expertise": function() {
 				var a = {
 					name: "Expertise",
-					source: [["SRD24", 32], ["P24", 60]],
+					source: [["SRD24", 32], ["PHB24", 60]],
 					minlevel: 2,
 					description: levels.map(function (n) {
 						return n < 2 ? "" : " [in " + (n < 9 ? 2 : 4) + " skills I'm proficient with]";
@@ -613,7 +613,7 @@ var Base_ClassList = {
 			}(),
 			"jack of all trades": {
 				name: "Jack of All Trades",
-				source: [["SRD24", 32], ["P24", 60]],
+				source: [["SRD24", 32], ["PHB24", 60]],
 				minlevel: 2,
 				description: desc("I can add half my Proficiency Bonus to any skill check that doesn't otherwise use it."),
 				eval: function() { Checkbox('Jack of All Trades', true); },
@@ -621,26 +621,26 @@ var Base_ClassList = {
 			},
 			"subclassfeature3": {
 				name: "Bard Subclass",
-				source: [["SRD24", 32], ["P24", 60]],
+				source: [["SRD24", 32], ["PHB24", 60]],
 				minlevel: 3,
 				description: desc('Choose a Bard Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
 			"font of inspiration": {
 				name: "Font of Inspiration",
-				source: [["SRD24", 32], ["P24", 61]],
+				source: [["SRD24", 32], ["PHB24", 61]],
 				minlevel: 5,
 				description: desc("I can expend a spell slot (SS" + (typePF ? " 1+" : "") + ") to regain a Bardic Inspiration use " + (typePF ? "and" : "\x26") + " regain all on a Short Rest."),
 			},
 			"countercharm": {
 				name: "Countercharm",
-				source: [["SRD24", 33], ["P24", 61]],
+				source: [["SRD24", 33], ["PHB24", 61]],
 				minlevel: 7,
 				description: desc("As a Reaction when I or a creature within 30 ft fails a save against an effect that applies the Charmed or Frightened condition, I can cause the save to be rerolled with Advantage."),
 				action: [["reaction", ""]],
 			},
 			"magical secrets": {
 				name: "Magical Secrets",
-				source: [["SRD24", 33], ["P24", 61]],
+				source: [["SRD24", 33], ["PHB24", 61]],
 				minlevel: 10,
 				description: desc("Whenever I choose prepared spells for my Bard spellcasting feature, I can pick from the Bard, Cleric, Druid, and Wizard spell lists, and they count as Bard spells for me."),
 				calcChanges: {
@@ -659,13 +659,13 @@ var Base_ClassList = {
 			},
 			"superior inspiration": {
 				name: "Superior Inspiration",
-				source: [["SRD24", 33], ["P24", 61]],
+				source: [["SRD24", 33], ["PHB24", 61]],
 				minlevel: 18,
 				description: desc("When I roll Initiative and have less than 2 Bardic Inspiration uses, I regain uses until I got 2."),
 			},
 			"words of creation": {
 				name: "Words of Creation",
-				source: [["SRD24", 33], ["P24", 61]],
+				source: [["SRD24", 33], ["PHB24", 61]],
 				minlevel: 20,
 				description: desc([
 					"I always have *Power Word Heal* and *Power Word Kill* prepared.",
@@ -694,7 +694,7 @@ var Base_ClassList = {
 	"cleric": {
 		regExpSearch: /cleric|priest|clergy|acolyte/i,
 		name: "Cleric",
-		source: [["SRD24", 36], ["P24", 69]],
+		source: [["SRD24", 36], ["PHB24", 69]],
 		primaryAbility: "Wisdom",
 		abilitySave: 5,
 		prereqs: "Wisdom 13",
@@ -739,7 +739,7 @@ var Base_ClassList = {
 		features: {
 			"_spellcasting": {
 				name: "Spellcasting",
-				source: [["SRD24", 36], ["P24", 69]],
+				source: [["SRD24", 36], ["PHB24", 69]],
 				minlevel: 1,
 				description: desc("I can cast known/prepared Cleric cantrips/spells, using Wisdom as my spellcasting ability. I can use a Holy Symbol as a Spellcasting Focus for them. I can swap out 1 cantrip whenever I gain a Cleric level and change all my prepared Cleric spells whenever I finish a Long Rest."),
 				additional: levels.map(function (n, idx) {
@@ -750,7 +750,7 @@ var Base_ClassList = {
 			},
 			"divine order": {
 				name: "Divine Order",
-				source: [["SRD24", 37], ["P24", 70]],
+				source: [["SRD24", 37], ["PHB24", 70]],
 				minlevel: 1,
 				description: ' #[Select option with "Choose Feature"]#' + desc('Select a Divine Order using the "Choose Feature" button above.'),
 				choices: ["Protector", "Thaumaturge"],
@@ -776,7 +776,7 @@ var Base_ClassList = {
 			},
 			"channel divinity": {
 				name: "Channel Divinity",
-				source: [["SRD24", 37], ["P24", 70]],
+				source: [["SRD24", 37], ["PHB24", 70]],
 				minlevel: 2,
 				description: desc("I regain one CD use on a Short Rest. Effects use my Cleric spell save DC. See options below."),
 				usages: [0, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4],
@@ -785,7 +785,7 @@ var Base_ClassList = {
 			},
 			"divine spark": {
 				name: "Divine Spark",
-				source: [["SRD24", 37], ["P24", 70]],
+				source: [["SRD24", 37], ["PHB24", 70]],
 				minlevel: 2,
 				description: levels.map(function (n) {
 					var dice = n < 7 ? 1 : n < 13 ? 2 : n < 18 ? 3 : 4;
@@ -798,7 +798,7 @@ var Base_ClassList = {
 			},
 			"turn undead": {
 				name: "Turn Undead",
-				source: [["SRD24", 37], ["P24", 70]],
+				source: [["SRD24", 37], ["PHB24", 70]],
 				minlevel: 2,
 				description: levels.map(function (n) {
 					var arr = ["As a Magic action, I can use 1 CD and my Holy Symbol to have each Undead of my choice within 30 ft make a Wis save or be Frightened, Incapacitated, and move away as far as it can on its turn. This lasts for 1 min or until it takes damage, I'm Incapacitated, or I die."];
@@ -812,19 +812,19 @@ var Base_ClassList = {
 			},
 			"subclassfeature3": {
 				name: "Cleric Subclass",
-				source: [["SRD24", 37], ["P24", 71]],
+				source: [["SRD24", 37], ["PHB24", 71]],
 				minlevel: 3,
 				description: desc('Choose a Cleric Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
 			"sear undead": {
 				name: "Sear Undead",
-				source: [["SRD24", 37], ["P24", 71]],
+				source: [["SRD24", 37], ["PHB24", 71]],
 				minlevel: 5,
 				description: " [improves Turn Undead to deal damage]",
 			},
 			"blessed strikes": { // includes the effects of Improved Blessed Strikes
 				name: "Blessed Strikes",
-				source: [["SRD24", 38], ["P24", 71]],
+				source: [["SRD24", 38], ["PHB24", 71]],
 				minlevel: 7,
 				description: ' #[Select option with "Choose Feature"]#' + desc('Select a Blessed Strikes option using the "Choose Feature" button above.'),
 				choices: ["Divine Strike", "Potent Spellcasting"],
@@ -861,7 +861,7 @@ var Base_ClassList = {
 			},
 			"divine intervention": {
 				name: "Divine Intervention",
-				source: [["SRD24", 38], ["P24", 71]],
+				source: [["SRD24", 38], ["PHB24", 71]],
 				minlevel: 10,
 				description: desc("As a Magic action, I can cast one Cleric spell of level 5 or lower of my choice that doesn't require a Reaction to cast. I cast it without requiring a spell slot or Material components."),
 				action: [["action", ""]],
@@ -870,7 +870,7 @@ var Base_ClassList = {
 			},
 			"improved blessed strikes": {
 				name: "Improved Blessed Strikes",
-				source: [["SRD24", 38], ["P24", 71]],
+				source: [["SRD24", 38], ["PHB24", 71]],
 				minlevel: 14,
 				description: ' #[Select option with "Choose Feature"]#' + desc('Select a Blessed Strikes option using the "Choose Feature" button above.'),
 				choices: ["divine strike", "potent spellcasting"],
@@ -886,7 +886,7 @@ var Base_ClassList = {
 			},
 			"greater divine intervention": {
 				name: "Greater Divine Intervention",
-				source: [["SRD24", 38], ["P24", 71]],
+				source: [["SRD24", 38], ["PHB24", 71]],
 				minlevel: 20,
 				description: desc([
 					"When I use Divine Intervention, I can choose *Wish* when I select a spell.",
@@ -899,7 +899,7 @@ var Base_ClassList = {
 	"druid": {
 		regExpSearch: /druid/i,
 		name: "Druid",
-		source: [["SRD24", 41], ["P24", 79]],
+		source: [["SRD24", 41], ["PHB24", 79]],
 		primaryAbility: "Wisdom",
 		abilitySave: 5,
 		prereqs: "Wisdom 13",
@@ -950,7 +950,7 @@ var Base_ClassList = {
 		features: {
 			"_spellcasting": {
 				name: "Spellcasting",
-				source: [["SRD24", 41], ["P24", 79]],
+				source: [["SRD24", 41], ["PHB24", 79]],
 				minlevel: 1,
 				description: desc("I can cast known/prepared Druid cantrips/spells, using Wisdom as my spellcasting ability. I can use a Druidic Focus as a Spellcasting Focus for them. I can swap out 1 cantrip whenever I gain a Druid level and change all my prepared Druid spells whenever I finish a Long Rest."),
 				additional: levels.map(function (n, idx) {
@@ -961,14 +961,14 @@ var Base_ClassList = {
 			},
 			"druidic": {
 				name: "Druidic",
-				source: [["SRD24", 42], ["P24", 80]],
+				source: [["SRD24", 42], ["PHB24", 80]],
 				minlevel: 1,
 				description: desc("I always have Speak with Animals prepared. I know Druidic. I can leave hidden messages in it. Druidic speakers understand, but others need a DC 15 Investigation check just to spot " + (typePF ? "them." : "it.")),
 				languageProfs: ["Druidic"],
 			},
 			"primal order": {
 				name: "Primal Order",
-				source: [["SRD24", 42], ["P24", 80]],
+				source: [["SRD24", 42], ["PHB24", 80]],
 				minlevel: 1,
 				description: ' #[Select option with "Choose Feature"]#' + desc('Select a Primal Order using the "Choose Feature" button above.'),
 				choices: ["Magician", "Warden"],
@@ -994,7 +994,7 @@ var Base_ClassList = {
 			},
 			"wild shape": {
 				name: "Wild Shape",
-				source: [["SRD24", 42], ["P24", 80]],
+				source: [["SRD24", 42], ["PHB24", 80]],
 				minlevel: 2,
 				description: " (see 3rd page)",
 				usages: levels.map(function (n) {
@@ -1019,7 +1019,7 @@ var Base_ClassList = {
 				},
 				"wild shape rules": {
 					name: "Wild Shape Rules",
-					source: [["SRD24", 42], ["P24", 80]],
+					source: [["SRD24", 42], ["PHB24", 80]],
 					extraname: "Druid 2",
 					description: levels.map(function (n) {
 						if (n < 2) return "";
@@ -1041,7 +1041,7 @@ var Base_ClassList = {
 			},
 			"wild companion": {
 				name: "Wild Companion",
-				source: [["SRD24", 43], ["P24", 81]],
+				source: [["SRD24", 43], ["PHB24", 81]],
 				minlevel: 2,
 				description: desc("As a Magic action, I can expend a spell slot or a Wild Shape use to cast *Find Familiar* without Material components. The familiar is Fey and disappears when I finish a Long Rest."),
 				additional: "1 Wild Shape use or spell slot",
@@ -1064,13 +1064,13 @@ var Base_ClassList = {
 			},
 			"subclassfeature3": {
 				name: "Druid Subclass",
-				source: [["SRD24", 43], ["P24", 81]],
+				source: [["SRD24", 43], ["PHB24", 81]],
 				minlevel: 3,
 				description: desc('Choose a Druid Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
 			"wild resurgence": {
 				name: "Wild Resurgence",
-				source: [["SRD24", 43], ["P24", 81]],
+				source: [["SRD24", 43], ["PHB24", 81]],
 				minlevel: 5,
 				description: desc("Once on each of my turns when I'm out of WS uses, I can expend a spell slot to regain one. Once per " + (typePF ? "Long Rest" : "LR") + ", I can expend a WS use to gain a 1st-level spell slot. Both require no action."),
 				usages: 1,
@@ -1079,7 +1079,7 @@ var Base_ClassList = {
 			},
 			"elemental fury": { // includes the effects of Improved Elemental Fury
 				name: "Elemental Fury",
-				source: [["SRD24", 43], ["P24", 81]],
+				source: [["SRD24", 43], ["PHB24", 81]],
 				minlevel: 7,
 				description: ' #[Select option with "Choose Feature"]#' + desc('Select an Elemental Fury option using the "Choose Feature" button above.'),
 				choices: ["Potent Spellcasting", "Primal Strike"],
@@ -1146,7 +1146,7 @@ var Base_ClassList = {
 			},
 			"improved elemental fury": {
 				name: "Improved Elemental Fury",
-				source: [["SRD24", 43], ["P24", 81]],
+				source: [["SRD24", 43], ["PHB24", 81]],
 				minlevel: 15,
 				description: ' #[Select option with "Choose Feature"]#' + desc('Select an Elemental Fury option using the "Choose Feature" button above.'),
 				choices: ["potent spellcasting", "primal strike"],
@@ -1200,13 +1200,13 @@ var Base_ClassList = {
 			},
 			"beast spells": {
 				name: "Beast Spells",
-				source: [["SRD24", 43], ["P24", 81]],
+				source: [["SRD24", 43], ["PHB24", 81]],
 				minlevel: 18,
 				description: desc("I can cast spells in Wild Shape, except spells with costly or consumed Material components."),
 			},
 			"archdruid": {
 				name: "Archdruid",
-				source: [["SRD24", 43], ["P24", 82]],
+				source: [["SRD24", 43], ["PHB24", 82]],
 				minlevel: 20,
 				description: desc([
 					"***Evergreen Wild Shape***. When I roll Initiative and have no Wild Shape uses, I regain one.",
@@ -1223,7 +1223,7 @@ var Base_ClassList = {
 	"fighter": {
 		regExpSearch: /fighter/i,
 		name: "Fighter",
-		source: [["SRD24", 47], ["P24", 91]],
+		source: [["SRD24", 47], ["PHB24", 91]],
 		primaryAbility: "Strength or Dexterity",
 		prereqs: "Strength 13 or Dexterity 13",
 		die: 10,
@@ -1279,7 +1279,7 @@ var Base_ClassList = {
 		features: {
 			"fighting style": {
 				name: "Fighting Style",
-				source: [["SRD24", 47], ["P24", 91]],
+				source: [["SRD24", 47], ["PHB24", 91]],
 				minlevel: 1,
 				description: ' #[Select option with "Choose Feature"]#' + desc([
 					'Choose a Fighting Style Feat using the "Choose Feature" button above.',
@@ -1291,7 +1291,7 @@ var Base_ClassList = {
 			},
 			"second wind": { // includes Tactical Shift
 				name: "Second Wind",
-				source: [["SRD24", 48], ["P24", 91]],
+				source: [["SRD24", 48], ["PHB24", 91]],
 				minlevel: 1,
 				description: levels.map(function (n) {
 					var text = "As a Bonus Action, I can regain 1d10 + " + n + " (Fighter level) HP";
@@ -1306,7 +1306,7 @@ var Base_ClassList = {
 			},
 			"weapon mastery": {
 				name: "Weapon Mastery",
-				source: [["SRD24", 48], ["P24", 91]],
+				source: [["SRD24", 48], ["PHB24", 91]],
 				minlevel: 1,
 				description: levels.map(function (n) {
 					var text = [
@@ -1326,7 +1326,7 @@ var Base_ClassList = {
 			},
 			"action surge": {
 				name: "Action Surge",
-				source: [["SRD24", 48], ["P24", 91]],
+				source: [["SRD24", 48], ["PHB24", 91]],
 				minlevel: 2,
 				description: levels.map(function (n) {
 					return desc("On my turn I can take an additional action, except the Magic action." + (n < 17 ? '' : " Only once per turn."));
@@ -1338,26 +1338,26 @@ var Base_ClassList = {
 			},
 			"tactical mind": {
 				name: "Tactical Mind",
-				source: [["SRD24", 48], ["P24", 91]],
+				source: [["SRD24", 48], ["PHB24", 91]],
 				minlevel: 2,
 				description: desc("If I fail an ability check, I can expend a Second Wind to add 1d10. If still fail, not expended."),
 				additional: "1 Second Wind",
 			},
 			"subclassfeature3": {
 				name: "Fighter Subclass",
-				source: [["SRD24", 48], ["P24", 92]],
+				source: [["SRD24", 48], ["PHB24", 92]],
 				minlevel: 3,
 				description: desc('Choose a Fighter Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
 			"tactical shift": {
 				name: "Tactical Shift",
-				source: [["SRD24", 48], ["P24", 92]],
+				source: [["SRD24", 48], ["PHB24", 92]],
 				minlevel: 5,
 				description: " [improves Second Wind: move half Speed]",
 			},
 			"indomitable": {
 				name: "Indomitable",
-				source: [["SRD24", 48], ["P24", 92]],
+				source: [["SRD24", 48], ["PHB24", 92]],
 				minlevel: 9,
 				description: levels.map(function (n) {
 					return n < 9 ? "" : desc("When I fail a save, I can reroll it with a +" + n + " (Fighter level), but must keep the new result.");
@@ -1372,7 +1372,7 @@ var Base_ClassList = {
 			},
 			"studied attacks": {
 				name: "Studied Attacks",
-				source: [["SRD24", 48], ["P24", 92]],
+				source: [["SRD24", 48], ["PHB24", 92]],
 				minlevel: 13,
 				description: desc("If I miss an attack, I have Adv on next attack vs same creature before my next turn ends."),
 			},
@@ -1382,7 +1382,7 @@ var Base_ClassList = {
 	"monk": {
 		regExpSearch: /^((?=.*(monk|monastic))|(((?=.*martial)(?=.*(artist|arts)))|((?=.*spiritual)(?=.*warrior)))).*$/i,
 		name: "Monk",
-		source: [["SRD24", 49], ["P24", 101]],
+		source: [["SRD24", 49], ["PHB24", 101]],
 		primaryAbility: "Dexterity and Wisdom",
 		abilitySave: 5,
 		prereqs: "Dexterity 13 and Wisdom 13",
@@ -1419,7 +1419,7 @@ var Base_ClassList = {
 		features: {
 			"martial arts": {
 				name: "Martial Arts",
-				source: [["SRD24", 50], ["P24", 101]],
+				source: [["SRD24", 50], ["PHB24", 101]],
 				minlevel: 1,
 				description: desc([
 					"Monk weapons: Unarmed Strike, Simple Melee weapons, and Light Martial Melee weapons.",
@@ -1469,13 +1469,13 @@ var Base_ClassList = {
 			},
 			"unarmored defense": {
 				name: "Unarmored Defense",
-				source: [["SRD24", 50], ["P24", 101]],
+				source: [["SRD24", 50], ["PHB24", 101]],
 				minlevel: 1,
 				description: desc("Without armor and no shield, my AC is 10 + Dexterity modifier + Wisdom modifier."),
 				armorOptions: [{
 					regExpSearch: /justToAddToDropDownAndAffectWildShape/,
 					name: "Unarmored Defense (Wis)",
-					source: [["SRD24", 50], ["P24", 101]],
+					source: [["SRD24", 50], ["PHB24", 101]],
 					ac: "10+Wis",
 					affectsWildShape: true,
 					selectNow: true,
@@ -1483,7 +1483,7 @@ var Base_ClassList = {
 			},
 			"monk's focus": {
 				name: "Monk's Focus",
-				source: [["SRD24", 50], ["P24", 101]],
+				source: [["SRD24", 50], ["PHB24", 101]],
 				minlevel: 2,
 				description: " (see third page)",
 				limfeaname: "Focus Points",
@@ -1493,7 +1493,7 @@ var Base_ClassList = {
 				action: [["bonus action", "Dash / Disengage"]],
 				"flurry of blows": {
 					name: "Flurry of Blows",
-					source: [["SRD24", 50], ["P24", 102]],
+					source: [["SRD24", 50], ["PHB24", 102]],
 					description: levels.map(function (n) {
 						return desc("As a Bonus Action, I can make " + (n < 10 ? "two" : "three") + " Unarmed Strikes.");
 					}),
@@ -1502,7 +1502,7 @@ var Base_ClassList = {
 				},
 				"patient defense": {
 					name: "Patient Defense",
-					source: [["SRD24", 50], ["P24", 102]],
+					source: [["SRD24", 50], ["PHB24", 102]],
 					description: levels.map(function (n) {
 						return desc(n < 10 ?
 							"As a Bonus Action, I can take the Disengage action. As a Bonus Action, I can expend 1 Focus Point to take both the Disengage and the Dodge actions." :
@@ -1516,7 +1516,7 @@ var Base_ClassList = {
 				},
 				"step of the wind": {
 					name: "Step of the Wind",
-					source: [["SRD24", 51], ["P24", 102]],
+					source: [["SRD24", 51], ["PHB24", 102]],
 					description: levels.map(function (n) {
 						return desc(n < 10 ?
 							"As a Bonus Action, I can take the Dash action. As a Bonus Action, I can " + (typePF ? "expend" : "use") + " 1 Focus Point to take both the Disengage and the Dash actions and double my jump distance for the turn." :
@@ -1536,7 +1536,7 @@ var Base_ClassList = {
 			},
 			"unarmored movement": {
 				name: "Unarmored Movement",
-				source: [["SRD24", 51], ["P24", 102]],
+				source: [["SRD24", 51], ["PHB24", 102]],
 				minlevel: 2,
 				description: desc("My speed increases while I'm not wearing armor or wielding a shield."),
 				additional: levels.map(function (n) {
@@ -1551,7 +1551,7 @@ var Base_ClassList = {
 			},
 			"uncanny metabolism": {
 				name: "Uncanny Metabolism",
-				source: [["SRD24", 51], ["P24", 102]],
+				source: [["SRD24", 51], ["PHB24", 102]],
 				minlevel: 2,
 				description: desc("When I roll initiative, I can regain all Focus Points and heal 1 Martial Arts die + Monk level."),
 				usages: 1,
@@ -1564,7 +1564,7 @@ var Base_ClassList = {
 			},
 			"deflect attacks": {
 				name: "Deflect Attacks",
-				source: [["SRD24", 51], ["P24", 102]],
+				source: [["SRD24", 51], ["PHB24", 102]],
 				minlevel: 3,
 				description: levels.map(function (n) {
 					var dmgType = n < 13 ? "Bludgeoning, Piercing, or Slashing " : "";
@@ -1582,13 +1582,13 @@ var Base_ClassList = {
 			},
 			"subclassfeature3": {
 				name: "Monk Subclass",
-				source: [["SRD24", 51], ["P24", 103]],
+				source: [["SRD24", 51], ["PHB24", 103]],
 				minlevel: 3,
 				description: desc('Choose a Monk Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
 			"slow fall": {
 				name: "Slow Fall",
-				source: [["SRD24", 51], ["P24", 103]],
+				source: [["SRD24", 51], ["PHB24", 103]],
 				minlevel: 4,
 				description: desc("As a Reaction when I fall, I can reduce the damage I take from it by " + (typePF ? "five times" : "5\xD7") + " my Monk level."),
 				additional: levels.map(function (n) {
@@ -1598,12 +1598,12 @@ var Base_ClassList = {
 			},
 			"stunning strike": {
 				name: "Stunning Strike",
-				source: [["SRD24", 51], ["P24", 103]],
+				source: [["SRD24", 51], ["PHB24", 103]],
 				minlevel: 5,
 				"stunning strike": {
 					name: "Stunning Strike",
 					extraname: "Monk 5",
-					source: [["SRD24", 51], ["P24", 103]],
+					source: [["SRD24", 51], ["PHB24", 103]],
 					description: desc("Once per turn when I hit a creature with a Monk weapon, I can expend 1 Focus Point to have it make a Constitution save. *Failure:* it is Stunned. *Success:* its Speed is halved and the next attack against it has Advantage. These effects last until the start of my next turn."),
 					additional: "1 Focus Point",
 				},
@@ -1611,7 +1611,7 @@ var Base_ClassList = {
 			},
 			"empowered strikes": {
 				name: "Empowered Strikes",
-				source: [["SRD24", 51], ["P24", 103]],
+				source: [["SRD24", 51], ["PHB24", 103]],
 				minlevel: 6,
 				description: desc("I can deal Force damage with my Unarmed Strike instead of its normal damage type."),
 				calcChanges: {
@@ -1628,45 +1628,45 @@ var Base_ClassList = {
 			},
 			"evasion": {
 				name: "Evasion",
-				source: [["SRD24", 51], ["P24", 103]],
+				source: [["SRD24", 51], ["PHB24", 103]],
 				minlevel: 7,
 				description: " [if not Incapacitated]" + desc("When I make a Dex save to halve damage, I instead take none if I succeed and half if I fail."),
 				savetxt: { text: ["**Dex Save for Half**. *Failure:* half dmg, *Success:* no dmg"] },
 			},
 			"acrobatic movement": {
 				name: "Acrobatic Movement",
-				source: [["SRD24", 51], ["P24", 103]],
+				source: [["SRD24", 51], ["PHB24", 103]],
 				minlevel: 9,
 				description: desc("If without armor or shield, I can move on vertical surfaces or across liquids during my turn."),
 			},
 			"heightened focus": {
 				name: "Heightened Focus",
-				source: [["SRD24", 51], ["P24", 103]],
+				source: [["SRD24", 51], ["PHB24", 103]],
 				minlevel: 10,
 				description: " [improves Focus Features]",
 			},
 			"self-restoration": {
 				name: "Self-Restoration",
-				source: [["SRD24", 52], ["P24", 103]],
+				source: [["SRD24", 52], ["PHB24", 103]],
 				minlevel: 10,
 				description: desc("At the end of each of my turns, I can cure myself of one of these conditions: Charmed, Frightened, or Poisoned. Forgoing food and drink doesn't give me levels of Exhaustion."),
 			},
 			"deflect energy": {
 				name: "Deflect Energy",
-				source: [["SRD24", 52], ["P24", 103]],
+				source: [["SRD24", 52], ["PHB24", 103]],
 				minlevel: 13,
 				description: " [improves Deflect Attacks: any damage type]",
 			},
 			"disciplined survivor": {
 				name: "Disciplined Survivor",
-				source: [["SRD24", 52], ["P24", 103]],
+				source: [["SRD24", 52], ["PHB24", 103]],
 				minlevel: 14,
 				saves: ["Str", "Dex", "Con", "Int", "Wis", "Cha"],
 				savetxt: { text: ["**Failed Save**. 1 FP to reroll"] },
 				"disciplined survivor": {
 					name: "Disciplined Survivor",
 					extraname: "Monk 14",
-					source: [["SRD24", 51], ["P24", 103]],
+					source: [["SRD24", 51], ["PHB24", 103]],
 					description: desc("When I fail a save, I can expend 1 Focus Point to reroll it once. I'm proficient in all saves."),
 					additional: "1 Focus Point",
 				},
@@ -1674,19 +1674,19 @@ var Base_ClassList = {
 			},
 			"perfect focus": {
 				name: "Perfect Focus",
-				source: [["SRD24", 52], ["P24", 103]],
+				source: [["SRD24", 52], ["PHB24", 103]],
 				minlevel: 15,
 				description: desc("When I roll Initiative and I have less than 4 Focus Points, I regain them until I have 4."),
 			},
 			"superior defense": {
 				name: "Superior Defense",
-				source: [["SRD24", 52], ["P24", 103]],
+				source: [["SRD24", 52], ["PHB24", 103]],
 				minlevel: 18,
 				dmgres: ["3FP: all -Force"],
 				"superior defense": {
 					name: "Superior Defense",
 					extraname: "Monk 18",
-					source: [["SRD24", 52], ["P24", 103]],
+					source: [["SRD24", 52], ["PHB24", 103]],
 					description: desc("At the start of my turn, I can expend 3 Focus Points to gain Resistance to all types of damage except Force damage for 1 minute, or until I'm Incapacitated."),
 					additional: "3 Focus Points",
 				},
@@ -1694,7 +1694,7 @@ var Base_ClassList = {
 			},
 			"body and mind": {
 				name: "Body and Mind",
-				source: [["SRD24", 52], ["P24", 103]],
+				source: [["SRD24", 52], ["PHB24", 103]],
 				minlevel: 20,
 				description: " [+4 Dexterity and +4 Wisdom, up to max 25]",
 				scores:        [0,  4, 0, 0,  4, 0],
@@ -1706,7 +1706,7 @@ var Base_ClassList = {
 	"paladin": {
 		regExpSearch: /^((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		name: "Paladin",
-		source: [["SRD24", 53], ["P24", 109]],
+		source: [["SRD24", 53], ["PHB24", 109]],
 		primaryAbility: "Strength and Charisma",
 		abilitySave: 6,
 		prereqs: "Strength 13 and Charisma 13",
@@ -1755,7 +1755,7 @@ var Base_ClassList = {
 		features: {
 			"lay on hands": {
 				name: "Lay on Hands",
-				source: [["SRD24", 53], ["P24", 109]],
+				source: [["SRD24", 53], ["PHB24", 109]],
 				minlevel: 1,
 				description: levels.map(function (n) {
 					var arr = [
@@ -1772,7 +1772,7 @@ var Base_ClassList = {
 			},
 			"spellcasting": {
 				name: "Spellcasting",
-				source: [["SRD24", 54], ["P24", 109]],
+				source: [["SRD24", 54], ["PHB24", 109]],
 				minlevel: 1,
 				description: desc("I can cast prepared Paladin spells, using Cha as spellcasting ability. I can use a Holy Symbol as Spellcasting Focus for them. I can change 1 prepared spell whenever I finish a Long Rest."),
 				additional: levels.map(function (n, idx) {
@@ -1782,7 +1782,7 @@ var Base_ClassList = {
 			},
 			"weapon mastery": {
 				name: "Weapon Mastery",
-				source: [["SRD24", 54], ["P24", 110]],
+				source: [["SRD24", 54], ["PHB24", 110]],
 				minlevel: 1,
 				description: desc("I gain mastery with two weapons and can change them whenever I finish a Long Rest."),
 				additional: "2 Weapon Masteries",
@@ -1792,13 +1792,13 @@ var Base_ClassList = {
 			},
 			"fighting style": {
 				name: "Fighting Style",
-				source: [["SRD24", 54], ["P24", 110]],
+				source: [["SRD24", 54], ["PHB24", 110]],
 				minlevel: 2,
 				description: ' #[Select option with "Choose Feature"]#' + desc('Choose a Fighting Style Feat or Blessed Warrior using the "Choose Feature" button above.'),
 				choices: ["Blessed Warrior"],
 				"blessed warrior": {
 					name: "Fighting Style: Blessed Warrior",
-					source: [["SRD24", 54], ["P24", 110]],
+					source: [["SRD24", 54], ["PHB24", 110]],
 					description: desc('I learn two Cleric cantrips. I can swap one of these cantrips whenever I gain a Paladin level.'),
 					spellcastingBonus: [{
 						name: "Cleric cantrip",
@@ -1812,7 +1812,7 @@ var Base_ClassList = {
 			},
 			"paladin's smite": {
 				name: "Paladin's Smite",
-				source: [["SRD24", 54], ["P24", 110]],
+				source: [["SRD24", 54], ["PHB24", 110]],
 				minlevel: 2,
 				description: levels.map(function (n) {
 					// Condense at level 20 to make room for capstone subclass feature
@@ -1827,7 +1827,7 @@ var Base_ClassList = {
 			},
 			"channel divinity": {
 				name: "Channel Divinity",
-				source: [["SRD24", 54], ["P24", 110]],
+				source: [["SRD24", 54], ["PHB24", 110]],
 				minlevel: 3,
 				description: desc("I regain one CD use on a Short Rest. Effects use my Paladin spell save DC. See options below."),
 				usages: [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
@@ -1836,7 +1836,7 @@ var Base_ClassList = {
 			},
 			"divine sense": {
 				name: "Divine Sense",
-				source: [["SRD24", 55], ["P24", 111]],
+				source: [["SRD24", 55], ["PHB24", 111]],
 				minlevel: 3,
 				description: desc("As a Bonus Action, I can use 1 CD to detect, for 10 min or until Incapacitated, the location and type of Celestials, Fiends, Undead, and consecrated or desecrated places and objects."),
 				additional: "1 Channel Divinity",
@@ -1844,13 +1844,13 @@ var Base_ClassList = {
 			},
 			"subclassfeature3": {
 				name: "Paladin Subclass",
-				source: [["SRD24", 55], ["P24", 111]],
+				source: [["SRD24", 55], ["PHB24", 111]],
 				minlevel: 3,
 				description: desc('Choose a Paladin Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
 			"faithful steed": {
 				name: "Faithful Steed",
-				source: [["SRD24", 55], ["P24", 111]],
+				source: [["SRD24", 55], ["PHB24", 111]],
 				minlevel: 5,
 				description: levels.map(function (n) {
 					// Condense at level 20 to make room for capstone subclass feature
@@ -1865,7 +1865,7 @@ var Base_ClassList = {
 			},
 			"aura of protection": {
 				name: "Aura of Protection",
-				source: [["SRD24", 55], ["P24", 111]],
+				source: [["SRD24", 55], ["PHB24", 111]],
 				minlevel: 6,
 				description: levels.map(function (n) {
 					// Combine with Aura of Courage at level 20 to make room for capstone subclass feature
@@ -1881,7 +1881,7 @@ var Base_ClassList = {
 			},
 			"abjure foes": {
 				name: "Abjure Foes",
-				source: [["SRD24", 55], ["P24", 111]],
+				source: [["SRD24", 55], ["PHB24", 111]],
 				minlevel: 9,
 				description: desc("As a Magic action, I can use 1 CD and my Holy Symbol or weapon to have my Cha modifier creatures I can see within 60 ft make a " + (typePF ? "Wisdom" : "Wis") + " save or be Frightened for 1 min or until taking damage. Frightened creatures can do only one on their turn: move, action, or Bonus Action."),
 				additional: "1 Channel Divinity",
@@ -1889,7 +1889,7 @@ var Base_ClassList = {
 			},
 			"aura of courage": {
 				name: "Aura of Courage",
-				source: [["SRD24", 55], ["P24", 111]],
+				source: [["SRD24", 55], ["PHB24", 111]],
 				minlevel: 10,
 				description: levels.map(function (n) {
 					// Hide at level 20 to make room for capstone subclass feature
@@ -1899,7 +1899,7 @@ var Base_ClassList = {
 			},
 			"radiant strikes": {
 				name: "Radiant Strikes",
-				source: [["SRD24", 55], ["P24", 111]],
+				source: [["SRD24", 55], ["PHB24", 111]],
 				minlevel: 11,
 				description: desc("When I hit with a Melee weapon or Unarmed Strike attack, I deal +1d8 Radiant damage."),
 				calcChanges: {
@@ -1916,7 +1916,7 @@ var Base_ClassList = {
 			},
 			"restoring touch": {
 				name: "Restoring Touch",
-				source: [["SRD24", 55], ["P24", 111]],
+				source: [["SRD24", 55], ["PHB24", 111]],
 				minlevel: 14,
 				description: levels.map(function (n) {
 					// remove text at level 20 to make room for capstone subclass feature
@@ -1925,7 +1925,7 @@ var Base_ClassList = {
 			},
 			"aura expansion": {
 				name: "Aura Expansion",
-				source: [["SRD24", 55], ["P24", 111]],
+				source: [["SRD24", 55], ["PHB24", 111]],
 				minlevel: 18,
 				description: levels.map(function (n) {
 					// remove text at level 20 to make room for capstone subclass feature
@@ -1938,7 +1938,7 @@ var Base_ClassList = {
 	"ranger": {
 		regExpSearch: /^((?=.*(ranger|strider))|((?=.*(nature|natural))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		name: "Ranger",
-		source: [["SRD24", 57], ["P24", 119]],
+		source: [["SRD24", 57], ["PHB24", 119]],
 		primaryAbility: "Dexterity and Wisdom",
 		abilitySave: 5,
 		prereqs: "Dexterity 13 and Wisdom 13",
@@ -1989,7 +1989,7 @@ var Base_ClassList = {
 		features: {
 			"_spellcasting": {
 				name: "Spellcasting",
-				source: [["SRD24", 57], ["P24", 119]],
+				source: [["SRD24", 57], ["PHB24", 119]],
 				minlevel: 1,
 				description: desc("I can cast prepared Ranger spells, using Wis as spellcasting ability. I can use a Druidic Focus as Spellcasting Focus for them. I can change 1 prepared spell whenever I finish a Long Rest."),
 				additional: levels.map(function (n, idx) {
@@ -1999,7 +1999,7 @@ var Base_ClassList = {
 			},
 			"favored enemy": {
 				name: "Favored Enemy",
-				source: [["SRD24", 58], ["P24", 119]],
+				source: [["SRD24", 58], ["PHB24", 119]],
 				minlevel: 1,
 				description: desc("I always have *Hunter's Mark* prepared. I can cast it without a spell slot several times per LR."),
 				usages: ProficiencyBonusList, // Not linked to Prof Bonus, but same progression
@@ -2013,7 +2013,7 @@ var Base_ClassList = {
 			},
 			"weapon mastery": {
 				name: "Weapon Mastery",
-				source: [["SRD24", 58], ["P24", 120]],
+				source: [["SRD24", 58], ["PHB24", 120]],
 				minlevel: 1,
 				description: desc("I gain mastery with two weapons and can change them whenever I finish a Long Rest."),
 				additional: "2 Weapon Masteries",
@@ -2024,7 +2024,7 @@ var Base_ClassList = {
 			"expertise": function() {
 				var a = {
 					name: "Deft Explorer",
-					source: [["SRD24", 59], ["P24", 120]],
+					source: [["SRD24", 59], ["PHB24", 120]],
 					minlevel: 2,
 					description: levels.map(function (n) {
 						return " [2 languages; Expertise in " + (n < 9 ? "1 skill]" : "3 skills]");
@@ -2050,13 +2050,13 @@ var Base_ClassList = {
 			}(),
 			"fighting style": {
 				name: "Fighting Style",
-				source: [["SRD24", 59], ["P24", 120]],
+				source: [["SRD24", 59], ["PHB24", 120]],
 				minlevel: 2,
 				description: ' #[Select option with "Choose Feature"]#' + desc('Choose a Fighting Style Feat or Druidic Warrior using the "Choose Feature" button above.'),
 				choices: ["Druidic Warrior"],
 				"druidic warrior": {
 					name: "Fighting Style: Druidic Warrior",
-					source: [["SRD24", 59], ["P24", 120]],
+					source: [["SRD24", 59], ["PHB24", 120]],
 					description: desc('I learn two Druid cantrips. I can swap one of these cantrips whenever I gain a Ranger level.'),
 					spellcastingBonus: [{
 						name: "Druid cantrip",
@@ -2070,13 +2070,13 @@ var Base_ClassList = {
 			},
 			"subclassfeature3": {
 				name: "Ranger Subclass",
-				source: [["SRD24", 59], ["P24", 120]],
+				source: [["SRD24", 59], ["PHB24", 120]],
 				minlevel: 3,
 				description: desc('Choose a Ranger Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
 			"roving": {
 				name: "Roving",
-				source: [["SRD24", 59], ["P24", 121]],
+				source: [["SRD24", 59], ["PHB24", 121]],
 				minlevel: 6,
 				description: desc("I have a Climb \x26 Swim speed equal to my Speed. I gain +10 ft Speed if not in Heavy armor."),
 				speed: {
@@ -2088,7 +2088,7 @@ var Base_ClassList = {
 			// Expertise level 9 feature is part of Deft Explorer
 			"tireless": {
 				name: "Tireless",
-				source: [["SRD24", 59], ["P24", 121]],
+				source: [["SRD24", 59], ["PHB24", 121]],
 				minlevel: 10,
 				description: levels.map(function (n) {
 					return desc(
@@ -2104,13 +2104,13 @@ var Base_ClassList = {
 			},
 			"relentless hunter": {
 				name: "Relentless Hunter",
-				source: [["SRD24", 59], ["P24", 121]],
+				source: [["SRD24", 59], ["PHB24", 121]],
 				minlevel: 13,
 				description: desc("Taking damage can't break my concentration on Hunter's Mark."),
 			},
 			"nature's veil": {
 				name: "Nature's Veil",
-				source: [["SRD24", 59], ["P24", 121]],
+				source: [["SRD24", 59], ["PHB24", 121]],
 				minlevel: 14,
 				description: desc("As a Bonus Action, I can give myself the Invisible condition until the end of my next turn."),
 				action: [["bonus action", ""]],
@@ -2120,7 +2120,7 @@ var Base_ClassList = {
 			},
 			"precise hunter": {
 				name: "Precise Hunter",
-				source: [["SRD24", 59], ["P24", 121]],
+				source: [["SRD24", 59], ["PHB24", 121]],
 				minlevel: 17,
 				description: " [Hunter's Mark gives me Advantage on attacks]",
 				calcChanges: {
@@ -2137,14 +2137,14 @@ var Base_ClassList = {
 			},
 			"feral senses": {
 				name: "Feral Senses",
-				source: [["SRD24", 59], ["P24", 121]],
+				source: [["SRD24", 59], ["PHB24", 121]],
 				minlevel: 18,
 				description: " [I gain Blindsight 30 ft]",
 				vision: [["Blindsight", 30]],
 			},
 			"foe slayer": {
 				name: "Foe Slayer",
-				source: [["SRD24", 59], ["P24", 121]],
+				source: [["SRD24", 59], ["PHB24", 121]],
 				minlevel: 20,
 				description: " [Hunter's Mark damage die is now d10]",
 				calcChanges: {
@@ -2165,7 +2165,7 @@ var Base_ClassList = {
 	"rogue": {
 		regExpSearch: /rogue|miscreant/i,
 		name: "Rogue",
-		source: [["SRD24", 61], ["P24", 129]],
+		source: [["SRD24", 61], ["PHB24", 129]],
 		primaryAbility: "Dexterity",
 		abilitySave: 2,
 		prereqs: "Dexterity 13",
@@ -2215,7 +2215,7 @@ var Base_ClassList = {
 			"expertise": function() {
 				var a = {
 					name: "Expertise",
-					source: [["SRD24", 61], ["P24", 129]],
+					source: [["SRD24", 61], ["PHB24", 129]],
 					minlevel: 1,
 					description: levels.map(function (n) {
 						return " [in " + (n < 6 ? 2 : 4) + " skills I'm proficient with]";
@@ -2240,7 +2240,7 @@ var Base_ClassList = {
 			}(),
 			"sneak attack": {
 				name: "Sneak Attack",
-				source: [["SRD24", 61], ["P24", 129]],
+				source: [["SRD24", 61], ["PHB24", 129]],
 				minlevel: 1,
 				description: desc("Once per turn, I can deal extra damage with a Finesse or Ranged weapon attack if I have Adv" + (typePF ? "antage" : "") + " or if a non-Incapacitated ally is within 5 ft of the target and I don't have Disadv."),
 				additional: levels.map(function (n) { return Math.ceil(n / 2) + "d6"; }),
@@ -2259,7 +2259,7 @@ var Base_ClassList = {
 			},
 			"thieves cant": {
 				name: "Thieves' Cant",
-				source: [["SRD24", 62], ["P24", 129]],
+				source: [["SRD24", 62], ["PHB24", 129]],
 				minlevel: 1,
 				description: desc("I know Thieves' Cant so I can convey messages inconspicuously, and one other language."),
 				languageProfs: ["Thieves' Cant", 1],
@@ -2277,7 +2277,7 @@ var Base_ClassList = {
 			},
 			"weapon mastery": {
 				name: "Weapon Mastery",
-				source: [["SRD24", 62], ["P24", 130]],
+				source: [["SRD24", 62], ["PHB24", 130]],
 				minlevel: 1,
 				description: desc("I gain mastery with two weapons and can change them whenever I finish a Long Rest."),
 				additional: "2 Weapon Masteries",
@@ -2287,27 +2287,27 @@ var Base_ClassList = {
 			},
 			"cunning action": {
 				name: "Cunning Action",
-				source: [["SRD24", 62], ["P24", 130]],
+				source: [["SRD24", 62], ["PHB24", 130]],
 				minlevel: 2,
 				description: desc("As a Bonus Action on my turn, I can take the Dash, Disengage, or Hide action."),
 				action: [["bonus action", "Dash / Disengage / Hide"]],
 			},
 			"steady aim": {
 				name: "Steady Aim",
-				source: [["SRD24", 62], ["P24", 130]],
+				source: [["SRD24", 62], ["PHB24", 130]],
 				minlevel: 3,
 				description: desc("As a Bonus Action if I have not moved during my turn, I can give myself Advantage on my next attack roll this turn. After I use this, my Speed becomes 0 until the end of the turn."),
 				action: [["bonus action", ""]],
 			},
 			"subclassfeature3": {
 				name: "Rogue Subclass",
-				source: [["SRD24", 62], ["P24", 130]],
+				source: [["SRD24", 62], ["PHB24", 130]],
 				minlevel: 3,
 				description: desc('Choose a Rogue Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
 			"cunning strike": {
 				name: "Cunning Strike",
-				source: [["SRD24", 63], ["P24", 130]],
+				source: [["SRD24", 63], ["PHB24", 130]],
 				minlevel: 5,
 				description: desc("When I deal Sneak Attack damage, I can add a Cunning Strike effect by forgoing a number of Sneak Attack damage dice. The effect occurs immediately after the damage is dealt."),
 				additional: levels.map(function (n) { // includes Improved Cunning Strike
@@ -2316,19 +2316,19 @@ var Base_ClassList = {
 				extraname: "Cunning Strike",
 				"poison": {
 					name: "Poison",
-					source: [["SRD24", 63], ["P24", 130]],
+					source: [["SRD24", 63], ["PHB24", 130]],
 					description: desc("If I have a Poisoner's Kit on my person, I can add a toxin to my strike. The target must make a " + (typePF ? "Constitution" : "Con") + " save or be Poisoned for 1 min. It can repeat the save at the end of each of its turns."),
 					additional: "1d6 cost; Poisoner's Kit required",
 				},
 				"trip": {
 					name: "Trip",
-					source: [["SRD24", 63], ["P24", 130]],
+					source: [["SRD24", 63], ["PHB24", 130]],
 					description: desc("If the target is Large or smaller, it must make a Dexterity save or fall Prone."),
 					additional: "1d6 cost",
 				},
 				"withdraw": {
 					name: "Withdraw",
-					source: [["SRD24", 63], ["P24", 131]],
+					source: [["SRD24", 63], ["PHB24", 131]],
 					description: desc("I move up to half my Speed without provoking Opportunity Attacks."),
 					additional: "1d6 cost",
 				},
@@ -2342,45 +2342,45 @@ var Base_ClassList = {
 			},
 			"uncanny dodge": {
 				name: "Uncanny Dodge",
-				source: [["SRD24", 63], ["P24", 131]],
+				source: [["SRD24", 63], ["PHB24", 131]],
 				minlevel: 5,
 				description: desc("As a Reaction when I'm hit by an attack from a source I can see, I can halve the damage."),
 				action: [["reaction", ""]],
 			},
 			"evasion": {
 				name: "Evasion",
-				source: [["SRD24", 63], ["P24", 131]],
+				source: [["SRD24", 63], ["PHB24", 131]],
 				minlevel: 7,
 				description: " [if not Incapacitated]" + desc("When I make a Dex save to halve damage, I instead take none if I succeed and half if I fail."),
 				savetxt: { text: ["**Dex Save for Half**. *Failure:* half dmg, *Success:* no dmg"] },
 			},
 			"reliable talent": {
 				name: "Reliable Talent",
-				source: [["SRD24", 63], ["P24", 131]],
+				source: [["SRD24", 63], ["PHB24", 131]],
 				minlevel: 7,
 				description: desc("I treat a roll of 9 or lower as a 10 for ability checks I make using a skill or tool proficiency."),
 			},
 			"devious strikes": {
 				name: "Devious Strikes",
-				source: [["SRD24", 63], ["P24", 131]],
+				source: [["SRD24", 63], ["PHB24", 131]],
 				minlevel: 14,
 				description: " [more Cunning Strike options]", // make undefined at level 20? If so, revise Soulknife
 				extraname: "Cunning Strike",
 				"daze": {
 					name: "Daze",
-					source: [["SRD24", 63], ["P24", 131]],
+					source: [["SRD24", 63], ["PHB24", 131]],
 					description: desc("The target must make a Constitution save or on its next turn it can do only one of the following: move, take an action, or take a Bonus Action."),
 					additional: "2d6 cost",
 				},
 				"knock out": {
 					name: "Knock Out",
-					source: [["SRD24", 63], ["P24", 131]],
+					source: [["SRD24", 63], ["PHB24", 131]],
 					description: desc("The target must make a Constitution save or be knocked Unconscious for 1 minute or until it takes any damage. It can repeat the save at the end of each of its turns to end the effect."),
 					additional: "6d6 cost",
 				},
 				"obscure": {
 					name: "Obscure",
-					source: [["SRD24", 63], ["P24", 131]],
+					source: [["SRD24", 63], ["PHB24", 131]],
 					description: desc("The target must make a Dexterity save or be Blinded until the end of its next turn."),
 					additional: "3d6 cost",
 				},
@@ -2394,20 +2394,20 @@ var Base_ClassList = {
 			},
 			"slippery mind": {
 				name: "Slippery Mind",
-				source: [["SRD24", 63], ["P24", 131]],
+				source: [["SRD24", 63], ["PHB24", 131]],
 				minlevel: 15,
 				description: " [Wisdom and Charisma save proficiency]",
 				saves: ["Wis", "Cha"],
 			},
 			"elusive": {
 				name: "Elusive",
-				source: [["SRD24", 63], ["P24", 131]],
+				source: [["SRD24", 63], ["PHB24", 131]],
 				minlevel: 18,
 				description: desc("No attack roll can have Advantage against me unless I'm Incapacitated."),
 			},
 			"stroke of luck": {
 				name: "Stroke of Luck",
-				source: [["SRD24", 63], ["P24", 131]],
+				source: [["SRD24", 63], ["PHB24", 131]],
 				minlevel: 20,
 				description: desc("If I fail a D20 Test, I can turn the roll into a 20."),
 				recovery: "Short Rest",
@@ -2419,7 +2419,7 @@ var Base_ClassList = {
 	"sorcerer" : {
 		regExpSearch: /sorcerer/i,
 		name: "Sorcerer",
-		source: [["SRD24", 64], ["P24", 139]],
+		source: [["SRD24", 64], ["PHB24", 139]],
 		primaryAbility: "Charisma",
 		abilitySave: 6,
 		prereqs: "Charisma 13",
@@ -2456,7 +2456,7 @@ var Base_ClassList = {
 		features: {
 			"_spellcasting": {
 				name: "Spellcasting",
-				source: [["SRD24", 64], ["P24", 139]],
+				source: [["SRD24", 64], ["PHB24", 139]],
 				minlevel: 1,
 				description: desc("I can cast Sorcerer cantrips/spells I know, using Cha as spellcasting ability. I can use Arcane Focus as Spellcasting Focus for them. I can swap 1 cantrip and 1 spell when I gain a level."),
 				additional: levels.map(function (n, idx) {
@@ -2467,7 +2467,7 @@ var Base_ClassList = {
 			},
 			"innate sorcery": {
 				name: "Innate Sorcery",
-				source: [["SRD24", 65], ["P24", 140]],
+				source: [["SRD24", 65], ["PHB24", 140]],
 				minlevel: 1,
 				description: levels.map(function (n) {
 					var arr = [
@@ -2489,7 +2489,7 @@ var Base_ClassList = {
 			},
 			"font of magic": {
 				name: "Font of Magic",
-				source: [["SRD24", 66], ["P24", 140]],
+				source: [["SRD24", 66], ["PHB24", 140]],
 				minlevel: 2,
 				description: levels.map(function (n) {
 					var txt = "I have Sorcery Points (SP) which I can use to create magical effects. I can expend a spell slot to regain SP equal to the slot's level (no action). As a Bonus Action, I can spend SP to create a spell slot at the rate below. This new spell slot lasts until I finish a Long Rest.";
@@ -2509,7 +2509,7 @@ var Base_ClassList = {
 			},
 			"metamagic": {
 				name: "Metamagic",
-				source: [["SRD24", 66], ["P24", 141]],
+				source: [["SRD24", 66], ["PHB24", 141]],
 				minlevel: 2,
 				description: desc('I can use Metamagic options I know to modify spells I cast. I can only use one Metamagic option on a spell unless noted otherwise. Whenever I gain a Sorcerer level, I can replace a Metamagic option with another. Use the "Choose Feature" button above to select them.'),
 				additional: levels.map(function (n) {
@@ -2522,74 +2522,74 @@ var Base_ClassList = {
 				}),
 				"careful spell": {
 					name: "Careful Spell",
-					source: [["SRD24", 66], ["P24", 141]],
+					source: [["SRD24", 66], ["PHB24", 141]],
 					description: desc("When I cast a spell that requires a save, I can spend 1 SP to choose my Cha mod of creatures to automatically succeed on their save and take no damage if they would normally take half."),
 					additional: "1 Sorcery Point",
 				},
 				"distant spell" : {
 					name: "Distant Spell",
-					source: [["SRD24", 67], ["P24", 141]],
+					source: [["SRD24", 67], ["PHB24", 141]],
 					description: desc("When I cast a spell, I can spend 1 SP to double its range or change its Touch range to 30 ft."),
 					additional: "1 Sorcery Point",
 				},
 				"empowered spell": {
 					name: "Empowered Spell",
-					source: [["SRD24", 67], ["P24", 142]],
+					source: [["SRD24", 67], ["PHB24", 142]],
 					description: desc("When I roll damage for a spell, I can spend 1 SP to reroll my Cha mod of damage dice, but must use the new rolls. I can use Empower even if I used another Metamagic during its casting."),
 					additional: "1 Sorcery Point",
 				},
 				"extended spell": {
 					name: "Extended Spell",
-					source: [["SRD24", 67], ["P24", 142]],
+					source: [["SRD24", 67], ["PHB24", 142]],
 					description: desc("When I cast a spell with a duration of at least 1 min, I can spend 1 SP to double its duration (to max 24 hours) and to have Advantage on saves to maintain my Concentration on it."),
 					additional: "1 Sorcery Point",
 				},
 				"heightened spell": {
 					name: "Heightened Spell",
-					source: [["SRD24", 67], ["P24", 142]],
+					source: [["SRD24", 67], ["PHB24", 142]],
 					description: desc("When I cast a spell with a save, I can spend 2 SP to give one target Disadvantage on its saves."),
 					additional: "2 Sorcery Points",
 				},
 				"quickened spell": {
 					name: "Quickened Spell",
-					source: [["SRD24", 67], ["P24", 142]],
+					source: [["SRD24", 67], ["PHB24", 142]],
 					description: desc("I can spend 2 SP to change the casting time of a spell from an Action to a Bonus Action. If I do so, I can't cast a level 1+ spell on the same turn besides the modified spell."),
 					additional: "2 Sorcery Points",
 				},
 				"seeking spell": {
 					name: "Seeking Spell",
-					source: [["SRD24", 67], ["P24", 142]],
+					source: [["SRD24", 67], ["PHB24", 142]],
 					description: desc("When I miss an attack roll for a spell, I can spend 1 SP to reroll the d20, but must use the new roll. I can use Seeking Spell even if I used another Metamagic during its casting."),
 					additional: "1 Sorcery Point",
 				},
 				"subtle spell": {
 					name: "Subtle Spell",
-					source: [["SRD24", 67], ["P24", 142]],
+					source: [["SRD24", 67], ["PHB24", 142]],
 					description: desc("When I cast a spell, I can spend 1 SP to cast it without any Verbal, Somatic, or Material components, except Material components that are consumed or have a cost specified."),
 					additional: "1 Sorcery Point",
 				},
 				"transmuted spell": {
 					name: "Transmuted Spell",
-					source: [["SRD24", 67], ["P24", 142]],
+					source: [["SRD24", 67], ["PHB24", 142]],
 					description: desc("When I cast a spell that deals Acid, Cold, Fire, Lightning, Poison, or Thunder damage, I can spend 1 SP to change that damage type to one of the other listed types."),
 					additional: "1 Sorcery Point",
 				},
 				"twinned spell": {
 					name: "Twinned Spell",
-					source: [["SRD24", 67], ["P24", 142]],
+					source: [["SRD24", 67], ["PHB24", 142]],
 					description: desc("When I cast a spell that can be cast with a higher level spell slot to target an additional creature, I can spend 1 SP to increase the spell's effective level by 1."),
 					additional: "1 Sorcery Point",
 				},
 			},
 			"subclassfeature3": {
 				name: "Sorcerer Subclass",
-				source: [["SRD24", 66], ["P24", 141]],
+				source: [["SRD24", 66], ["PHB24", 141]],
 				minlevel: 3,
 				description: desc('Choose a Sorcerer Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
 			"sorcerous restoration": {
 				name: "Sorcerous Restoration",
-				source: [["SRD24", 66], ["P24", 141]],
+				source: [["SRD24", 66], ["PHB24", 141]],
 				minlevel: 5,
 				description: desc("When I finish a Short Rest, I can regain expended Sorcery Points equal to half my level."),
 				usages: 1,
@@ -2600,13 +2600,13 @@ var Base_ClassList = {
 			},
 			"sorcery incarnate": {
 				name: "Sorcery Incarnate",
-				source: [["SRD24", 66], ["P24", 141]],
+				source: [["SRD24", 66], ["PHB24", 141]],
 				minlevel: 7,
 				description: " [improves Innate Sorcery]",
 			},
 			"arcane apotheosis": {
 				name: "Arcane Apotheosis",
-				source: [["SRD24", 66], ["P24", 141]],
+				source: [["SRD24", 66], ["PHB24", 141]],
 				minlevel: 20,
 				description: " [improves Innate Sorcery]",
 			},
@@ -2616,7 +2616,7 @@ var Base_ClassList = {
 	"warlock": {
 		regExpSearch: /warlock/i,
 		name: "Warlock",
-		source: [["SRD24", 70], ["P24", 153]],
+		source: [["SRD24", 70], ["PHB24", 153]],
 		primaryAbility: "Charisma",
 		abilitySave: 6,
 		prereqs: "Charisma 13",
@@ -2666,7 +2666,7 @@ var Base_ClassList = {
 		features: {
 			"eldritch invocations": {
 				name: "Eldritch Invocations",
-				source: [["SRD24", 70], ["P24", 153]],
+				source: [["SRD24", 70], ["PHB24", 153]],
 				minlevel: 1,
 				description: desc("Select invocations using the \"Choose Feature\" button above. Whenever I gain a Warlock level, I can replace one invocation with another, if it isn't a prerequisite for any invocations I have."),
 				additional: levels.map(function (n) {
@@ -2700,7 +2700,7 @@ var Base_ClassList = {
 				// no prerequisites
 				"armor of shadows": {
 					name: "Armor of Shadows",
-					source: [["SRD24", 72], ["P24", 155]],
+					source: [["SRD24", 72], ["PHB24", 155]],
 					description: desc("I can cast *Mage Armor* on myself without expending a spell slot."),
 					spellcastingBonus: [{
 						name: "Armor of Shadows",
@@ -2718,13 +2718,13 @@ var Base_ClassList = {
 				},
 				"eldritch mind": {
 					name: "Eldritch Mind",
-					source: [["SRD24", 72], ["P24", 155]],
+					source: [["SRD24", 72], ["PHB24", 155]],
 					description: desc("I have Advantage on Constitution saving throws to maintain Concentration."),
 				},
 				// level 2+
 				"devil's sight": {
 					name: "Devil's Sight",
-					source: [["SRD24", 72], ["P24", 155]],
+					source: [["SRD24", 72], ["PHB24", 155]],
 					minlevel: 2,
 					submenu: "[Warlock level  2+]",
 					description: desc("I can see normally in Dim Light and Darkness, both magical and nonmagical, out to 120 ft."),
@@ -2732,7 +2732,7 @@ var Base_ClassList = {
 				},
 				"fiendish vigor": {
 					name: "Fiendish Vigor",
-					source: [["SRD24", 73], ["P24", 155]],
+					source: [["SRD24", 73], ["PHB24", 155]],
 					minlevel: 2,
 					submenu: "[Warlock level  2+]",
 					description: desc("I can cast *False Life* on myself without expending a spell slot to gain its max (12) Temp HP."),
@@ -2751,7 +2751,7 @@ var Base_ClassList = {
 				},
 				"mask of many faces": {
 					name: "Mask of Many Faces",
-					source: [["SRD24", 73], ["P24", 156]],
+					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 2,
 					submenu: "[Warlock level  2+]",
 					description: desc("I can cast *Disguise Self* without expending a spell slot."),
@@ -2764,7 +2764,7 @@ var Base_ClassList = {
 				},
 				"misty visions": {
 					name: "Misty Visions",
-					source: [["SRD24", 74], ["P24", 156]],
+					source: [["SRD24", 74], ["PHB24", 156]],
 					minlevel: 2,
 					submenu: "[Warlock level  2+]",
 					description: desc("I can cast *Silent Image* without expending a spell slot."),
@@ -2777,7 +2777,7 @@ var Base_ClassList = {
 				},
 				"otherworldly leap": {
 					name: "Otherworldly Leap",
-					source: [["SRD24", 74], ["P24", 156]],
+					source: [["SRD24", 74], ["PHB24", 156]],
 					minlevel: 2,
 					submenu: "[Warlock level  2+]",
 					description: desc("I can cast *Jump* on myself without expending a spell slot."),
@@ -2798,7 +2798,7 @@ var Base_ClassList = {
 				// level 5+
 				"ascendant step": {
 					name: "Ascendant Step",
-					source: [["SRD24", 72], ["P24", 155]],
+					source: [["SRD24", 72], ["PHB24", 155]],
 					minlevel: 5,
 					submenu: "[Warlock level  5+]",
 					description: desc("I can cast *Levitate* on myself without expending a spell slot."),
@@ -2818,7 +2818,7 @@ var Base_ClassList = {
 				},
 				"gaze of two minds": {
 					name: "Gaze of Two Minds",
-					source: [["SRD24", 73], ["P24", 156]],
+					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 5,
 					submenu: "[Warlock level  5+]",
 					description: desc([
@@ -2829,7 +2829,7 @@ var Base_ClassList = {
 				},
 				"gift of the depths": {
 					name: "Gift of the Depths",
-					source: [["SRD24", 73], ["P24", 156]],
+					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 5,
 					submenu: "[Warlock level  5+]",
 					description: desc("I can breathe underwater and I have a Swim Speed equal to my Speed. Once per Long Rest, I can cast *Water Breathing* without expending a spell slot."),
@@ -2843,7 +2843,7 @@ var Base_ClassList = {
 				},
 				"master of myriad forms": {
 					name: "Master of Myriad Forms",
-					source: [["SRD24", 73], ["P24", 156]],
+					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 5,
 					submenu: "[Warlock level  5+]",
 					description: desc("I can cast *Alter Self* without expending a spell slot."),
@@ -2857,7 +2857,7 @@ var Base_ClassList = {
 				},
 				"one with shadows": {
 					name: "One with Shadows",
-					source: [["SRD24", 74], ["P24", 156]],
+					source: [["SRD24", 74], ["PHB24", 156]],
 					minlevel: 5,
 					submenu: "[Warlock level  5+]",
 					description: desc("While I'm in Dim Light or Darkness, I can cast *Invisibility* on myself without using a spell slot."),
@@ -2878,7 +2878,7 @@ var Base_ClassList = {
 				// level 7+
 				"whispers of the grave": {
 					name: "Whispers of the Grave",
-					source: [["SRD24", 74], ["P24", 157]],
+					source: [["SRD24", 74], ["PHB24", 157]],
 					minlevel: 7,
 					submenu: "[Warlock level  7+]",
 					description: desc("I can cast *Speak with Dead* without expending a spell slot."),
@@ -2892,7 +2892,7 @@ var Base_ClassList = {
 				// level 9+
 				"visions of distant realms": {
 					name: "Visions of Distant Realms",
-					source: [["SRD24", 74], ["P24", 157]],
+					source: [["SRD24", 74], ["PHB24", 157]],
 					minlevel: 9,
 					submenu: "[Warlock level  9+]",
 					description: desc("I can cast *Arcane Eye* without expending a spell slot."),
@@ -2906,7 +2906,7 @@ var Base_ClassList = {
 				// level 15+
 				"witch sight": {
 					name: "Witch Sight",
-					source: [["SRD24", 74], ["P24", 157]],
+					source: [["SRD24", 74], ["PHB24", 157]],
 					minlevel: 15,
 					submenu: "[Warlock level 15+]",
 					description: " [Truesight 30 ft]",
@@ -2915,7 +2915,7 @@ var Base_ClassList = {
 				// Pact of the Blade tree
 				"pact of the blade": {
 					name: "Pact of the Blade",
-					source: [["SRD24", 74], ["P24", 156]],
+					source: [["SRD24", 74], ["PHB24", 156]],
 					description: desc([
 						"As a Bonus Action, I can bond with a magical weapon I touch, or conjure a pact weapon, a Melee weapon of my choice. I have proficiency with it and can use it as a Spellcasting Focus.",
 						"Whenever I attack with it, I can use Charisma instead of Strength or Dexterity with it, and I can cause it to deal Necrotic, Psychic or Radiant damage instead of its normal damage type.",
@@ -2946,7 +2946,7 @@ var Base_ClassList = {
 				},
 				"devouring blade (req: lvl 12+, thirsting blade)": {
 					name: "Devouring Blade",
-					source: [["SRD24", 72], ["P24", 155]],
+					source: [["SRD24", 72], ["PHB24", 155]],
 					minlevel: 12,
 					submenu: ["[Warlock level 12+]", "[improves Pact of the Blade]"],
 					prereqeval: function(v) {
@@ -2957,7 +2957,7 @@ var Base_ClassList = {
 				},
 				"eldritch smite (req: lvl 5+, pact of the blade)": {
 					name: "Eldritch Smite",
-					source: [["SRD24", 72], ["P24", 155]],
+					source: [["SRD24", 72], ["PHB24", 155]],
 					minlevel: 5,
 					submenu: ["[Warlock level  5+]", "[improves Pact of the Blade]"],
 					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the blade') !== -1; },
@@ -2970,7 +2970,7 @@ var Base_ClassList = {
 				},
 				"lifedrinker (req: lvl 12+, pact of the blade)": {
 					name: "Lifedrinker",
-					source: [["SRD24", 73], ["P24", 156]],
+					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 12,
 					submenu: ["[Warlock level 12+]", "[improves Pact of the Blade]"],
 					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the blade') !== -1; },
@@ -2986,7 +2986,7 @@ var Base_ClassList = {
 				},
 				"thirsting blade (req: lvl 5+, pact of the blade)": {
 					name: "Thirsting Blade",
-					source: [["SRD24", 75], ["P24", 157]],
+					source: [["SRD24", 75], ["PHB24", 157]],
 					minlevel: 5,
 					submenu: ["[Warlock level  5+]", "[improves Pact of the Blade]"],
 					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the blade') !== -1; },
@@ -2996,7 +2996,7 @@ var Base_ClassList = {
 				// Pact of the Chain tree
 				"pact of the chain": {
 					name: "Pact of the Chain",
-					source: [["SRD24", 74], ["P24", 157]],
+					source: [["SRD24", 74], ["PHB24", 157]],
 					description: desc([
 						"As a Magic action, I can cast *Find Familiar* without expending a spell slot. When I do so, I can have the familiar take on a special form (see Companion page).",
 						"Additionally, when I take the Attack action, I can forgo one of my attacks to allow my familiar to use its Reaction to make one attack of its own."
@@ -3017,7 +3017,7 @@ var Base_ClassList = {
 				},
 				"investment of the chain master (req: lvl 5+, pact of the chain)": {
 					name: "Investment of the Chain Master",
-					source: [["SRD24", 73], ["P24", 156]],
+					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 5,
 					submenu: ["[Warlock level  5+]", "[improves Pact of the Chain]"],
 					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the chain') !== -1; },
@@ -3108,7 +3108,7 @@ var Base_ClassList = {
 				// Pact of the Tome tree
 				"pact of the tome": {
 					name: "Pact of the Tome",
-					source: [["SRD24", 74], ["P24", 157]],
+					source: [["SRD24", 74], ["PHB24", 157]],
 					description: desc("I have a Book of Shadows with three cantrips and two 1st-level Ritual spells. While the book is on my person, I have them prepared as Warlock spells. I can use the book as a Spellcasting Focus. I can conjure a replacement, and pick new spells, at the end of a Short or Long Rest."),
 					eval: function() {
 						// Create a separate spell list entry for this, so its not confusing which cantrips/spells can be selected for it.
@@ -3130,7 +3130,7 @@ var Base_ClassList = {
 				},
 				"gift of the protectors (req: lvl 9+, pact of the tome)": {
 					name: "Gift of the Protectors",
-					source: [["SRD24", 73], ["P24", 156]],
+					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 9,
 					submenu: ["[Warlock level  9+]", "[improves Pact of the Tome]"],
 					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the tome') !== -1; },
@@ -3145,7 +3145,7 @@ var Base_ClassList = {
 			},
 			"pact magic": {
 				name: "Pact Magic",
-				source: [["SRD24", 71], ["P24", 153]],
+				source: [["SRD24", 71], ["PHB24", 153]],
 				minlevel: 1,
 				description: desc("I can cast Warlock cantrips/spells I know, using Cha as spellcasting ability. I can use Arcane Focus as Spellcasting Focus for them. I can swap 1 cantrip and 1 spell when I gain a level."),
 				additional: levels.map(function (n, idx) {
@@ -3159,7 +3159,7 @@ var Base_ClassList = {
 			},
 			"magical cunning": {
 				name: "Magical Cunning",
-				source: [["SRD24", 72], ["P24", 154]],
+				source: [["SRD24", 72], ["PHB24", 154]],
 				minlevel: 2,
 				description: levels.map(function (n) {
 					var amount = n < 20 ? "half my max number of" : "all my expended"
@@ -3175,13 +3175,13 @@ var Base_ClassList = {
 			},
 			"subclassfeature3": {
 				name: "Warlock Subclass",
-				source: [["SRD24", 72], ["P24", 154]],
+				source: [["SRD24", 72], ["PHB24", 154]],
 				minlevel: 3,
 				description: desc('Choose a Warlock Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
 			"contact patron": {
 				name: "Contact Patron",
-				source: [["SRD24", 72], ["P24", 155]],
+				source: [["SRD24", 72], ["PHB24", 155]],
 				minlevel: 9,
 				description: desc('I always have *Contact Other Plane* prepared. Once per Long Rest, I can cast it without expending a spell slot and then automatically succeed on its saving throw.'),
 				spellcastingBonus: [{
@@ -3193,7 +3193,7 @@ var Base_ClassList = {
 			},
 			"mystic arcanum": {
 				name: "Mystic Arcanum",
-				source: [["SRD24", 72], ["P24", 155]],
+				source: [["SRD24", 72], ["PHB24", 155]],
 				minlevel: 11,
 				description: desc("I can choose one Warlock spell for each level above. I can cast each of these once per Long Rest without expending a spell slot. Whenever I gain a Warlock level, I can change one pick."),
 				additional: ["", "", "", "", "", "", "", "", "", "", "6th level", "6th level", "6th and 7th level", "6th and 7th level", "6th, 7th, and 8th level", "6th, 7th, and 8th level", "6th, 7th, 8th, and 9th level", "6th, 7th, 8th, and 9th level", "6th, 7th, 8th, and 9th level", "6th, 7th, 8th, and 9th level"],
@@ -3240,7 +3240,7 @@ var Base_ClassList = {
 			},
 			"eldritch master": {
 				name: "Eldritch Master",
-				source: [["SRD24", 72], ["P24", 155]],
+				source: [["SRD24", 72], ["PHB24", 155]],
 				minlevel: 20,
 				description: " [regain all slots with Magical Cunning]",
 			},
@@ -3250,7 +3250,7 @@ var Base_ClassList = {
 	"wizard": {
 		regExpSearch: /wizard/i,
 		name: "Wizard",
-		source: [["SRD24", 77], ["P24", 165]],
+		source: [["SRD24", 77], ["PHB24", 165]],
 		primaryAbility: "Intelligence",
 		abilitySave: 4,
 		prereqs: "Intelligence 13",
@@ -3290,7 +3290,7 @@ var Base_ClassList = {
 		features: {
 			"_spellcasting": {
 				name: "Spellcasting",
-				source: [["SRD24", 77], ["P24", 165]],
+				source: [["SRD24", 77], ["PHB24", 165]],
 				minlevel: 1,
 				description: desc("I can cast Wizard cantrips/spells, using Intelligence as my spellcasting ability. I can use an Arcane Focus as a Spellcasting Focus for them. Whenever I finish a Long Rest, I can change 1 cantrip to another Wizard cantrip and all my prepared spells to spells in my spellbook. Whenever I gain a Wizard level, I add two spells for which I have spell slots to my spellbook."),
 				additional: levels.map(function (n, idx) {
@@ -3300,7 +3300,7 @@ var Base_ClassList = {
 				}),
 				toNotesPage: [{
 					name: "Expanding and Replacing a Spellbook",
-					source: [["SRD24", 78], ["P24", 167]],
+					source: [["SRD24", 78], ["PHB24", 167]],
 					note: [
 						"The spells I add to my spellbook as I gain levels reflect my ongoing magical research, but I might find other spells during my adventures that I can add to the book. I could discover a Wizard spell on a Spell Scroll for example, and then copy it into my spellbook.",
 						"##Copying a Spell into the Book##. When I find a level 1+ Wizard spell, I can copy it into my spellbook if it's of a level I can prepare and if I have time to copy it. For each level of the spell, the transcription takes 2 hours and costs 50 gp. Afterward I can prepare the spell like the other spells in my spellbook.",
@@ -3311,13 +3311,13 @@ var Base_ClassList = {
 			},
 			"ritual adept": {
 				name: "Ritual Adept",
-				source: [["SRD24", 78], ["P24", 166]],
+				source: [["SRD24", 78], ["PHB24", 166]],
 				minlevel: 1,
 				description: desc("I can cast any Ritual spell as a Ritual directly from my spellbook without having " + (typePF ? "them" : "it") + " prepared."),
 			},
 			"arcane recovery": {
 				name: "Arcane Recovery",
-				source: [["SRD24", 78], ["P24", 166]],
+				source: [["SRD24", 78], ["PHB24", 166]],
 				minlevel: 1,
 				description: desc("When I finish a Short Rest, I can recover half my level in spell slot levels (max level 5 slots)."),
 				additional: levels.map(function (n) {
@@ -3330,7 +3330,7 @@ var Base_ClassList = {
 			"scholar": function () {
 				var a = {
 					name: "Scholar",
-					source: [["SRD24", 78], ["P24", 166]],
+					source: [["SRD24", 78], ["PHB24", 166]],
 					minlevel: 2,
 					description: ' #[Select option with "Choose Feature"]#' + desc('I gain Expertise in one of these skills in which I have proficiency: Arcana, History, Investigation, Medicine, Nature, or Religion. Use the "Choose Feature" button to select it.'),
 					skillstxt: "I gain Expertise in one skill: Arcana, History, Investigation, Medicine, Nature, or Religion.",
@@ -3353,19 +3353,19 @@ var Base_ClassList = {
 			}(),
 			"subclassfeature3": {
 				name: "Wizard Subclass",
-				source: [["SRD24", 78], ["P24", 167]],
+				source: [["SRD24", 78], ["PHB24", 167]],
 				minlevel: 3,
 				description: desc('Choose a Wizard Subclass using the "Class" button/bookmark or type its name into the "Class" field.'),
 			},
 			"memorize spell": {
 				name: "Memorize Spell",
-				source: [["SRD24", 79], ["P24", 167]],
+				source: [["SRD24", 79], ["PHB24", 167]],
 				minlevel: 5,
 				description: desc("When I finish a Short Rest, I can change one prepared Wizard spell to another in my book."),
 			},
 			"spell mastery": {
 				name: "Spell Mastery",
-				source: [["SRD24", 79], ["P24", 167]],
+				source: [["SRD24", 79], ["PHB24", 167]],
 				minlevel: 18,
 				description: desc("I pick a level 1 and a level 2 spell in my spellbook with a casting time of an action. I always have them prepared and can cast them at their lowest level without using a spell slot. Whenever I finish a Long Rest, I can replace 1 pick with another eligible spell."),
 				spellcastingBonus: [{
@@ -3421,7 +3421,7 @@ var Base_ClassList = {
 			},
 			"signature spells": {
 				name: "Signature Spells",
-				source: [["SRD24", 79], ["P24", 167]],
+				source: [["SRD24", 79], ["PHB24", 167]],
 				minlevel: 20,
 				description: "\nI pick two 3rd-level spells from my spellbook. I always have these spells prepared and I can cast each once per Short Rest without expending a spell slot.",
 				extraLimitedFeatures: [{
@@ -3483,12 +3483,12 @@ var Base_ClassSubList = {
 		subname: "Path of the Berserker",
 		subnameShort: "Berserker",
 		fullname: "Berserker",
-		source: [["SRD24", 30], ["P24", 54]],
+		source: [["SRD24", 30], ["PHB24", 54]],
 		abilitySave: 1,
 		features: {
 			"subclassfeature3": {
 				name: "Frenzy",
-				source: [["SRD24", 30], ["P24", 54]],
+				source: [["SRD24", 30], ["PHB24", 54]],
 				minlevel: 3,
 				description: desc("If I use Reckless Attack " + (typePF ? "while Raging" : "in Rage") + ", my 1st Strength attack hit on my turn deals extra damage."),
 				additional: levels.map(function (n) {
@@ -3509,21 +3509,21 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature6": {
 				name: "Mindless Rage",
-				source: [["SRD24", 30], ["P24", 54]],
+				source: [["SRD24", 30], ["PHB24", 54]],
 				minlevel: 6,
 				description: desc("While Raging, I'm immune to being Charmed or Frightened. These end when I enter Rage."),
 				savetxt: { immune: ["Charmed (in Rage)", "Frightened (in Rage)"] },
 			},
 			"subclassfeature10": {
 				name: "Retaliation",
-				source: [["SRD24", 30], ["P24", 54]],
+				source: [["SRD24", 30], ["PHB24", 54]],
 				minlevel: 10,
 				description: desc("As a Reaction when a creature within 5 ft damages me, I can make a melee attack vs it."),
 				action: [["reaction", " (after taking damage)"]],
 			},
 			"subclassfeature14": {
 				name: "Intimidating Presence",
-				source: [["SRD24", 30], ["P24", 54]],
+				source: [["SRD24", 30], ["PHB24", 54]],
 				minlevel: 14,
 				description: desc("As a Bonus Action, I can have any creature of my choice within 30 ft make a Wisdom save or be Frightened of me for 1 minute (DC 8 + Str mod + PB). They can repeat this save at the end of each of their turns. I can expend a use of Rage to restore use of this feature."),
 				action: [["bonus action", ""]],
@@ -3538,25 +3538,25 @@ var Base_ClassSubList = {
 		regExpSearch: /^(?=.*(college|bard|minstrel|troubadour|jongleur))(?=.*lore).*$/i,
 		subname: "College of Lore",
 		subnameShort: "Lore",
-		source: [["SRD24", 35], ["P24", 66]],
+		source: [["SRD24", 35], ["PHB24", 66]],
 		features: {
 			"subclassfeature3": {
 				name: "Bonus Proficiencies",
-				source: [["SRD24", 35], ["P24", 66]],
+				source: [["SRD24", 35], ["PHB24", 66]],
 				minlevel: 3,
 				description: desc("I gain proficiency with three skills of my choice."),
 				skillstxt: "Choose any three skills.",
 			},
 			"subclassfeature3.1": {
 				name: "Cutting Words",
-				source: [["SRD24", 35], ["P24", 66]],
+				source: [["SRD24", 35], ["PHB24", 66]],
 				minlevel: 3,
 				description: desc("As a Reaction when a creature I can see within 60 ft makes a damage roll or succeeds on an ability check or attack roll, I can expend and roll a Bardic Inspiration Die to subtract it from the result to reduce the damage or potentially causing it to fail or miss."),
 				action: [["reaction", ""]],
 			},
 			"subclassfeature6": {
 				name: "Magical Discoveries",
-				source: [["SRD24", 35], ["P24", 66]],
+				source: [["SRD24", 35], ["PHB24", 66]],
 				minlevel: 6,
 				description: desc("I learn two cantrips or spells from the Cleric, Druid, or Wizard spell list. These must be of a level for which I have spell slots. I can swap one for another whenever I gain a Bard level."),
 				spellcastingBonus: [{
@@ -3567,7 +3567,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature14": {
 				name: "Peerless Skill",
-				source: [["SRD24", 35], ["P24", 67]],
+				source: [["SRD24", 35], ["PHB24", 67]],
 				minlevel: 14,
 				description: desc("When I fail an ability check or attack roll, I can expend and roll one Bardic Inspiration Die to add it to the result, potentially causing it to succeed. On a failure, the BID isn't expended."),
 			},
@@ -3577,11 +3577,11 @@ var Base_ClassSubList = {
 	"cleric-life": {
 		regExpSearch: /^(?=.*(cleric|priest|clergy|acolyte))(?=.*\b(life|living|healing)\b).*$/i,
 		subname: "Life Domain",
-		source: [["SRD24", 40], ["P24", 73]],
+		source: [["SRD24", 40], ["PHB24", 73]],
 		features: {
 			"subclassfeature3": {
 				name: "Disciple of Life",
-				source: [["SRD24", 40], ["P24", 73]],
+				source: [["SRD24", 40], ["PHB24", 73]],
 				minlevel: 3,
 				description: desc("When a spell I cast with a spell slot restores HP, it restores extra 2 + slot level HP that turn."),
 				spellcastingExtra: ["bless", "cure wounds", "aid", "lesser restoration", "mass healing word", "revivify", "aura of life", "death ward", "greater restoration", "mass cure wounds"],
@@ -3639,7 +3639,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature3.1": {
 				name: "Preserve Life",
-				source: [["SRD24", 40], ["P24", 73]],
+				source: [["SRD24", 40], ["PHB24", 73]],
 				minlevel: 3,
 				description: desc("As a Magic action, I can expend a use 1 CD to heal Bloodied creatures within 30 ft (me included) up to half their HP maximum. I divide the HP among them as I see fit."),
 				additional: levels.map(function (n) {
@@ -3649,13 +3649,13 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature6": {
 				name: "Blessed Healer",
-				source: [["SRD24", 40], ["P24", 74]],
+				source: [["SRD24", 40], ["PHB24", 74]],
 				minlevel: 6,
 				description: desc("After I cast a spell with a spell slot that restores HP to another, I regain 2 + slot level HP."),
 			},
 			"subclassfeature17": {
 				name: "Supreme Healing",
-				source: [["SRD24", 40], ["P24", 74]],
+				source: [["SRD24", 40], ["PHB24", 74]],
 				minlevel: 17,
 				description: desc("When I restore HP with a spell or Channel Divinity, I don't roll dice but use their maximum."),
 				calcChanges: {
@@ -3691,11 +3691,11 @@ var Base_ClassSubList = {
 		regExpSearch: /^(?=.*druid)(?=.*land).*$/i,
 		subname: "Circle of the Land",
 		subnameShort: "Land",
-		source: [["SRD24", 46], ["P24", 84]],
+		source: [["SRD24", 46], ["PHB24", 84]],
 		features: {
 			"subclassfeature3": {
 				name: "Circle of the Land Spells",
-				source: [["SRD24", 46], ["P24", 84]],
+				source: [["SRD24", 46], ["PHB24", 84]],
 				minlevel: 3,
 				description: ' #[Select option with "Choose Feature"]#' + desc('Whenever I finish a Long Rest, I can choose which type of land I gain automatically prepared spells from: arid, polar, temperate, or tropical. Use the "Choose Feature" button above to either show one of these sets of spells, or all of them.'),
 				choices: ["Arid", "Polar", "Temperate", "Tropical", "show all"],
@@ -3756,7 +3756,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature3.1": {
 				name: "Land's Aid",
-				source: [["SRD24", 46], ["P24", 85]],
+				source: [["SRD24", 46], ["PHB24", 85]],
 				minlevel: 3,
 				description: levels.map(function (n) {
 					var d6 = n < 10 ? 2 : n < 14 ? 3 : 4;
@@ -3769,7 +3769,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature6": {
 				name: "Natural Recovery",
-				source: [["SRD24", 46], ["P24", 85]],
+				source: [["SRD24", 46], ["PHB24", 85]],
 				minlevel: 6,
 				description: desc([
 					"As a Magic action, I can cast one of my prepared Circle Spells without expending a spell slot.",
@@ -3794,7 +3794,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature10": {
 				name: "Nature's Ward",
-				source: [["SRD24", 46], ["P24", 85]],
+				source: [["SRD24", 46], ["PHB24", 85]],
 				minlevel: 10,
 				description: ' #[Select option with "Choose Feature"]#' + desc('I am immune to being Poisoned and have Resistance to a damage type associated with the land I\'ve currently chosen for my Circle Spells. Use the "Choose Feature" button above to select a land to add its associated Resistance, or select to show all of them.'),
 				savetxt: { immune: ["Poisoned"] },
@@ -3828,7 +3828,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature14": {
 				name: "Nature's Sanctuary",
-				source: [["SRD24", 46], ["P24", 86]],
+				source: [["SRD24", 46], ["PHB24", 86]],
 				minlevel: 14,
 				description: desc("As a Magic action, I can expend 1 Wild Shape use to create a 15-ft Cube on ground within 120 ft. It lasts for 1 minute, until I'm incapacitated, or I die. While in this area, my allies and I have Half Cover and my Nature's Ward Resistance. As a Bonus Action, I can move the cube up to 60 ft to ground within 120 ft."),
 				additional: "1 Wild Shape use",
@@ -3841,11 +3841,11 @@ var Base_ClassSubList = {
 		regExpSearch: /champion/i,
 		subname: "Champion",
 		fullname: "Champion",
-		source: [["SRD24", 49], ["P24", 96]],
+		source: [["SRD24", 49], ["PHB24", 96]],
 		features: {
 			"subclassfeature3": {
 				name: "Improved Critical",
-				source: [["SRD24", 49], ["P24", 96]],
+				source: [["SRD24", 49], ["PHB24", 96]],
 				minlevel: 3,
 				description: desc("I score a Critical Hit with my weapon and unarmed strike attacks on a roll of 19 and 20."),
 				calcChanges: {
@@ -3863,7 +3863,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature3.1": {
 				name: "Remarkable Athlete",
-				source: [["SRD24", 49], ["P24", 96]],
+				source: [["SRD24", 49], ["PHB24", 96]],
 				minlevel: 3,
 				description: desc("After I score a Critical Hit, I can move half my Speed without provoking Opportunity Attacks. I have Advantage on Initiative rolls and Strength (Athletics) checks."),
 				advantages: [
@@ -3873,7 +3873,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature7": {
 				name: "Additional Fighting Style",
-				source: [["SRD24", 49], ["P24", 96]],
+				source: [["SRD24", 49], ["PHB24", 96]],
 				minlevel: 7,
 				description: ' #[Select option with "Choose Feature"]#' + desc('Choose another Fighting Style Feat using the "Choose Feature" button above.'),
 				choicesFightingStyles: {
@@ -3882,13 +3882,13 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature10": {
 				name: "Heroic Warrior",
-				source: [["SRD24", 49], ["P24", 96]],
+				source: [["SRD24", 49], ["PHB24", 96]],
 				minlevel: 10,
 				description: desc("I can give myself Heroic Inspiration whenever I start my turn in combat without it."),
 			},
 			"subclassfeature15": {
 				name: "Superior Critical",
-				source: [["SRD24", 49], ["P24", 96]],
+				source: [["SRD24", 49], ["PHB24", 96]],
 				minlevel: 15,
 				description: desc("I now score a Critical Hit with my weapons \x26 unarmed strikes on a roll of 18, 19, and 20."),
 				calcChanges: {
@@ -3910,7 +3910,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature18": {
 				name: "Survivor",
-				source: [["SRD24", 49], ["P24", 96]],
+				source: [["SRD24", 49], ["PHB24", 96]],
 				minlevel: 18,
 				description: desc([
 					"***Defy Death***. I have Adv on Death saves and 18-20 on those saves count as a natural 20.",
@@ -3924,11 +3924,11 @@ var Base_ClassSubList = {
 		regExpSearch: /^(?=.*\bopen\b)(?=.*\bhand\b)((?=.*(monk|monastic))|(((?=.*martial)(?=.*(artist|arts)))|((?=.*spiritual)(?=.*warrior)))).*$/i,
 		subname: "Warrior of the Open Hand",
 		subnameShort: "Open Hand",
-		source: [["SRD24", 52], ["P24", 107]],
+		source: [["SRD24", 52], ["PHB24", 107]],
 		features: {
 			"subclassfeature3": {
 				name: "Open Hand Technique",
-				source: [["SRD24", 52], ["P24", 107]],
+				source: [["SRD24", 52], ["PHB24", 107]],
 				minlevel: 3,
 				description: desc([
 					"Whenever I hit a Flurry of Blows attack, I can impose one of the following effects.",
@@ -3939,7 +3939,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature6": {
 				name: "Wholeness of Body",
-				source: [["SRD24", 52], ["P24", 107]],
+				source: [["SRD24", 52], ["PHB24", 107]],
 				minlevel: 6,
 				description: desc("As a Bonus Action, I can regain Hit Points equal to my martial die + my Wisdom modifier."),
 				additional: levels.map(function (n) {
@@ -3953,19 +3953,19 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature11": {
 				name: "Fleet Step",
-				source: [["SRD24", 52], ["P24", 107]],
+				source: [["SRD24", 52], ["PHB24", 107]],
 				minlevel: 11,
 				description: desc("When I take a Bonus Action that's not Step of the Wind, I can also Step of the Wind after."),
 			},
 			"subclassfeature17": {
 				name: "Quivering Palm",
-				source: [["SRD24", 52], ["P24", 107]],
+				source: [["SRD24", 52], ["PHB24", 107]],
 				minlevel: 17,
 				extraname: "Focus Feature",
 				"quivering palm": {
 					name: "Quivering Palm",
 					extraname: "Open Hand 17",
-					source: [["SRD24", 52], ["P24", 107]],
+					source: [["SRD24", 52], ["PHB24", 107]],
 					description: desc([
 						"When I hit a creature with an Unarmed Strike, I can expend 4 Focus Points to start lethal vibrations. These last for my Monk level in days, until I end them (no action), or do this again.",
 						"I can end these if on the same plane, as an action or by forgoing one attack from my Attack action, to deal 10d12 Force damage to the target, who can make a Con save for half damage.",
@@ -3985,11 +3985,11 @@ var Base_ClassSubList = {
 		regExpSearch: /^(?=.*(devotion|obedience))((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
 		subname: "Oath of Devotion",
 		subnameShort: "Devotion",
-		source: [["SRD24", 56], ["P24", 113]],
+		source: [["SRD24", 56], ["PHB24", 113]],
 		features: {
 			"subclassfeature3": {
 				name: "Sacred Weapon",
-				source: [["SRD24", 56], ["P24", 113]],
+				source: [["SRD24", 56], ["PHB24", 113]],
 				minlevel: 3,
 				description: desc([
 					"When I take the Attack action, I can expend 1 CD to imbue a held Melee weapon.",
@@ -4024,14 +4024,14 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature7": {
 				name: "Aura of Devotion",
-				source: [["SRD24", 56], ["P24", 114]],
+				source: [["SRD24", 56], ["PHB24", 114]],
 				minlevel: 7,
 				description: desc("While within my Aura of Protection, my allies and I have Immunity to being Charmed."),
 				savetxt: { immune: ["Charmed"] },
 			},
 			"subclassfeature15": {
 				name: "Smite of Protection",
-				source: [["SRD24", 57], ["P24", 114]],
+				source: [["SRD24", 57], ["PHB24", 114]],
 				minlevel: 15,
 				description: desc("After I cast Divine Smite, allies and I " + (typePF ? "within" : "in") + " my Aura have Half Cover until my next turn starts."),
 				spellChanges: {
@@ -4044,7 +4044,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature20": {
 				name: "Holy Nimbus",
-				source: [["SRD24", 57], ["P24", 114]],
+				source: [["SRD24", 57], ["PHB24", 114]],
 				minlevel: 20,
 				description: desc([
 					"As a Bonus Action, I can give my Aura of Protection these benefits for 10 minutes.",
@@ -4065,17 +4065,17 @@ var Base_ClassSubList = {
 		regExpSearch: /^(?!.*(monster|barbarian|bard|cleric|druid|fighter|monk|paladin|rogue|sorcerer|warlock|wizard))(?=.*(hunter|huntress|hunts(wo)?m(e|a)n)).*$/i,
 		subname: "Hunter",
 		fullname: "Hunter",
-		source: [["SRD24", 61], ["P24", 127]],
+		source: [["SRD24", 61], ["PHB24", 127]],
 		features: {
 			"subclassfeature3": {
 				name: "Hunter's Lore",
-				source: [["SRD24", 61], ["P24", 127]],
+				source: [["SRD24", 61], ["PHB24", 127]],
 				minlevel: 3,
 				description: desc("I know the Immunities, Resistances, and Vulnerabilities of the target of my Hunter's Mark."),
 			},
 			"subclassfeature3.1": {
 				name: "Hunter's Prey",
-				source: [["SRD24", 61], ["P24", 127]],
+				source: [["SRD24", 61], ["PHB24", 127]],
 				minlevel: 3,
 				description: desc([
 					"I gain one of the following features and can change my pick whenever I finish a Short Rest.",
@@ -4085,7 +4085,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature7": {
 				name: "Defensive Tactics",
-				source: [["SRD24", 61], ["P24", 127]],
+				source: [["SRD24", 61], ["PHB24", 127]],
 				minlevel: 7,
 				description: desc([
 					"I gain one of the following features and can change my pick whenever I finish a Short Rest.",
@@ -4095,13 +4095,13 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature11": {
 				name: "Superior Hunter's Prey",
-				source: [["SRD24", 61], ["P24", 127]],
+				source: [["SRD24", 61], ["PHB24", 127]],
 				minlevel: 11,
 				description: desc("Once per turn when I deal damage to a creature marked by my Hunter's Mark, I can also deal the spell's extra damage to a different creature that I can see within 30 ft of the first."),
 			},
 			"subclassfeature15": {
 				name: "Superior Hunter's Defense",
-				source: [["SRD24", 61], ["P24", 127]],
+				source: [["SRD24", 61], ["PHB24", 127]],
 				minlevel: 15,
 				description: desc("As a Reaction when I take damage, I can gain Resistance to that type until my turn ends."),
 				action: [["reaction", ""]],
@@ -4113,31 +4113,31 @@ var Base_ClassSubList = {
 		regExpSearch: /^(?!.*(barbarian|bard|cleric|druid|fighter|monk|paladin|ranger|sorcerer|warlock|wizard))(?=.*(thief|burglar)).*$/i,
 		subname: "Thief",
 		fullname: "Thief",
-		source: [["SRD24", 64], ["P24", 137]],
+		source: [["SRD24", 64], ["PHB24", 137]],
 		features: {
 			"subclassfeature3": {
 				name: "Fast Hands",
-				source: [["SRD24", 64], ["P24", 137]],
+				source: [["SRD24", 64], ["PHB24", 137]],
 				minlevel: 3,
 				description: desc("As a Bonus Action, I can ***Use an Object***: take the Utilize action, or take the Magic action to activate a magic item requiring that action. As a Bonus Action, I can make a Dexterity (***Sleight of Hand***) check to pick a lock or disarm a trap with Thieves' Tools, or pick a pocket."),
 				action: [["bonus action", ""]],
 			},
 			"subclassfeature3.1": {
 				name: "Second-Story Work",
-				source: [["SRD24", 64], ["P24", 137]],
+				source: [["SRD24", 64], ["PHB24", 137]],
 				minlevel: 3,
 				description: desc("I gain a Climb Speed equal to my Speed. I can determine my jump distance using Dexterity."),
 				speed: { climb: { spd: "walk", enc: "walk" } },
 			},
 			"subclassfeature9": {
 				name: "Supreme Sneak",
-				source: [["SRD24", 64], ["P24", 137]],
+				source: [["SRD24", 64], ["PHB24", 137]],
 				minlevel: 9,
 				description: " [extra Cunning Strike option]",
 				extraname: "Cunning Strike",
 				"stealth attack": {
 					name: "Stealth Attack",
-					source: [["SRD24", 63], ["P24", 131]],
+					source: [["SRD24", 63], ["PHB24", 131]],
 					description: desc("If I have the Hide action's Invisible condition, this attack doesn't end it if I end the turn behind Three-Quarters Cover or Total Cover."),
 					additional: "1d6 cost",
 				},
@@ -4147,7 +4147,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature13": {
 				name: "Use Magic Device",
-				source: [["SRD24", 64], ["P24", 137]],
+				source: [["SRD24", 64], ["PHB24", 137]],
 				minlevel: 13,
 				description: desc([
 					"I can have ***Attunement*** with up to four magic items at once.",
@@ -4157,7 +4157,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature17": {
 				name: "Thief's Reflexes",
-				source: [["SRD24", 64], ["P24", 137]],
+				source: [["SRD24", 64], ["PHB24", 137]],
 				minlevel: 17,
 				description: desc("I can take a second turn during the first round of any combat, at my Initiative minus 10."),
 			},
@@ -4169,11 +4169,11 @@ var Base_ClassSubList = {
 		subname: "Draconic Sorcery",
 		subnameShort: "Draconic",
 		fullname: "Draconic Sorcerer",
-		source: [["SRD24", 69], ["P24", 148]],
+		source: [["SRD24", 69], ["PHB24", 148]],
 		features: {
 			"subclassfeature3": {
 				name: "Draconic Resilience",
-				source: [["SRD24", 69], ["P24", 148]],
+				source: [["SRD24", 69], ["PHB24", 148]],
 				minlevel: 3,
 				description: desc([
 					"When I am not wearing armor, my base AC is 10 + Dexterity modifier + Charisma modifier.",
@@ -4189,7 +4189,7 @@ var Base_ClassSubList = {
 				armorOptions: [{
 					regExpSearch: /^(?=.*(dragon|draconic))(?=.*(hide|skin|scales|resilience)).*$/i,
 					name: "Draconic Resilience",
-					source: [["SRD24", 69], ["P24", 148]],
+					source: [["SRD24", 69], ["PHB24", 148]],
 					ac: "10+Cha",
 					affectsWildShape: true,
 					selectNow: true,
@@ -4199,7 +4199,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature6": {
 				name: "Elemental Affinity",
-				source: [["SRD24", 70], ["P24", 148]],
+				source: [["SRD24", 70], ["PHB24", 148]],
 				minlevel: 6,
 				description: ' #[Select option with "Choose Feature"]#' + desc([
 					'Choose a damage type using the "Choose Feature" button above.',
@@ -4314,7 +4314,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature14": {
 				name: "Dragon Wings",
-				source: [["SRD24", 70], ["P24", 148]],
+				source: [["SRD24", 70], ["PHB24", 148]],
 				minlevel: 14,
 				description: desc("As a Bonus Action, I can gain wings on my back that give me 60 ft Fly speed for 1 hour or until I dismiss them (no action). I can expend 3 Sorcery Points to restore use of this feature."),
 				action: [["bonus action", ""]],
@@ -4324,7 +4324,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature18": {
 				name: "Dragon Companion",
-				source: [["SRD24", 70], ["P24", 149]],
+				source: [["SRD24", 70], ["PHB24", 149]],
 				minlevel: 18,
 				description: desc("I don't require a Material component to cast Summon Dragon and can change its duration to be 1 minute (no Concentration). Once per Long Rest, I can cast it without a spell slot."),
 				spellChanges: {
@@ -4344,11 +4344,11 @@ var Base_ClassSubList = {
 	"warlock-fiend": {
 		regExpSearch: /^(?=.*(fiend|devil|demon|daemon|hell|abyss))(?=.*warlock).*$/i,
 		subname: "Fiend Patron",
-		source: [["SRD24", 76], ["P24", 161]],
+		source: [["SRD24", 76], ["PHB24", 161]],
 		features: {
 			"subclassfeature3": {
 				name: "Dark One's Blessing",
-				source: [["SRD24", 76], ["P24", 161]],
+				source: [["SRD24", 76], ["PHB24", 161]],
 				minlevel: 3,
 				description: desc("When I reduce an enemy to 0 Hit Points or another reduces an enemy within 10 ft of me" + (typePF ? "\n" : " ") + "to 0 HP, I gain Temporary Hit Points equal to my Charisma modifier plus my Warlock level."),
 				additional: levels.map(function (n) {
@@ -4359,7 +4359,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature6": {
 				name: "Dark One's Own Luck",
-				source: [["SRD24", 76], ["P24", 162]],
+				source: [["SRD24", 76], ["PHB24", 162]],
 				minlevel: 6,
 				description: desc("When I make an ability check or save, I can add +1d10 after the d20 roll, before its effects."),
 				recovery: "Long Rest",
@@ -4368,14 +4368,14 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature10": {
 				name: "Fiendish Resilience",
-				source: [["SRD24", 76], ["P24", 162]],
+				source: [["SRD24", 76], ["PHB24", 162]],
 				minlevel: 10,
 				description: desc("After a Rest, I can gain Resistance to a chosen damage type (not Force) until I do this again."),
 				additional: "After a Short or Long Rest",
 			},
 			"subclassfeature14": {
 				name: "Hurl Through Hell",
-				source: [["SRD24", 76], ["P24", 162]],
+				source: [["SRD24", 76], ["PHB24", 162]],
 				minlevel: 14,
 				description: desc("Once per turn when I hit a creature with an attack roll, I can try to move it to the Lower Planes. It must make a Charisma save or disappear, take 8d10 Psychic damage if it isn't a Fiend, and be Incapacitated until my next turn ends, when it returns in the same or closest empty spot. I can expend a Pact Magic spell slot (PSS) to restore use of this feature."),
 				recovery: "Long Rest",
@@ -4389,17 +4389,17 @@ var Base_ClassSubList = {
 		regExpSearch: /(evocation|evocer|evoker)/i,
 		subname: "Evoker",
 		fullname: "Evoker",
-		source: [["SRD24", 82], ["P24", 174]],
+		source: [["SRD24", 82], ["PHB24", 174]],
 		features: {
 			"subclassfeature3": {
 				name: "Evocation Savant",
-				source: [["SRD24", 82], ["P24", 174]],
+				source: [["SRD24", 82], ["PHB24", 174]],
 				minlevel: 3,
 				description: desc("I add two Wizard Evocation spells, up to level 2, to my spellbook. Whenever I gain access to a new level of spell slots in this class, I can add one Wizard Evocation spell to my spellbook."),
 			},
 			"subclassfeature3.1": {
 				name: "Potent Cantrip",
-				source: [["SRD24", 82], ["P24", 174]],
+				source: [["SRD24", 82], ["PHB24", 174]],
 				minlevel: 3,
 				description: desc("My damaging cantrips still deal half damage when I miss or the target successfully saves."),
 				calcChanges: {
@@ -4468,13 +4468,13 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature6": {
 				name: "Sculpt Spells",
-				source: [["SRD24", 82], ["P24", 174]],
+				source: [["SRD24", 82], ["PHB24", 174]],
 				minlevel: 6,
 				description: desc("If I cast an evocation spell affecting others that I can see, I can choose a number of them to protect equal to 1 + the spell's level. They automatically succeed on their saves vs the spell and take no damage if the spell would normally deal half damage on a successful save."),
 			},
 			"subclassfeature10": {
 				name: "Empowered Evocation",
-				source: [["SRD24", 82], ["P24", 174]],
+				source: [["SRD24", 82], ["PHB24", 174]],
 				minlevel: 10,
 				description: desc("I can add my Intelligence modifier to one damage roll of any Wizard Evocation spell I cast."),
 				calcChanges: {
@@ -4496,7 +4496,7 @@ var Base_ClassSubList = {
 			},
 			"subclassfeature14": {
 				name: "Overchannel",
-				source: [["SRD24", 82], ["P24", 174]],
+				source: [["SRD24", 82], ["PHB24", 174]],
 				minlevel: 14,
 				description: desc("When I cast a Wizard spell using a level 1-5 spell slot, I can have it deal maximum damage on the turn that I cast it. From the second time onwards that I do this after a Long Rest, I suffer 1d12 per attempt per spell slot level in Necrotic damage (e.g. 3rd attempt = 3d12 per spell slot level). This damage ignores Resistance and Immunity."),
 				extraLimitedFeatures: [{

@@ -375,7 +375,7 @@ function dynamicFeatureCreation() {
 			return n === feat && (!featChoice || nChoice === featChoice);
 		});
 	};
-	var lessonsOfTheFirstOnesSubMenu = "Lessons of the First Ones (req: lvl 2+)" + stringSource({source: [["SRD24", 73], ["P24", 156]]}, "first,abbr", "   \t[", "]");
+	var lessonsOfTheFirstOnesSubMenu = "Lessons of the First Ones (req: lvl 2+)" + stringSource({source: [["SRD24", 73], ["PHB24", 156]]}, "first,abbr", "   \t[", "]");
 	for (var key in FeatsList) {
 		var oFeat = FeatsList[key];
 		if (/origin/i.test(oFeat.type)) {
