@@ -1054,8 +1054,7 @@ var Base_AmmoList = {
 		invName: "Crossbow bolts", // incorrect, but clearer than the PHB'24 "bolt"
 	},
 	"sling bullet": { // PHB'24 changed
-		name: "Sling Bullets",
-		sortname: "Bullets, Sling",
+		name: "Bullets, Sling",
 		weight: 0.075,
 		source: [["SRD24", 96], ["PHB24", 222]],
 		icon: "Bullets",
@@ -1063,8 +1062,7 @@ var Base_AmmoList = {
 		alternatives: [/^(?=.*bullet)(?=.*sling).*$/i],
 	},
 	"firearm bullet": { // PHB'24 new
-		name: "Firearm Bullets",
-		sortname: "Bullets, Firearm",
+		name: "Bullets, Firearm",
 		weight: 0.2,
 		source: [["SRD24", 96], ["PHB24", 222]],
 		icon: "Bullets",

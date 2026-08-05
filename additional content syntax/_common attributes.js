@@ -999,7 +999,7 @@ scoresMaximum: [24, 0, 24, 0, "+2", 0],
 scoresMaxLimited: true,
 /*	scores // OPTIONAL //
 	TYPE:	boolean
-	USE:	wether to apply the ability score maximum increase only if that maximum is reached (true) or always (false)
+	USE:	whether to apply the ability score maximum increase only if that maximum is reached (true) or always (false)
 	ADDED:	v13.0.8
 
 	By default, the ability score increases can never increase an ability score above 20.
@@ -2818,6 +2818,8 @@ toNotesPage: [{
 		USE:	the name of the feature to add to the notes section
 
 		This string will be preceded by a diamond-shaped bullet.
+		If this string is identical to the parent's name and no `origin` attribute is present,
+		the `origin` will not be displayed seperatly, because it would be the same as the name.
 
 		If no 'popupName' attribute is present, see below,
 		the name will also be used for the informational "changes" pop-up dialog.
@@ -3012,6 +3014,9 @@ toNotesPage: [{
 		`minlevel: 1`, this will result in "Orc: Adrenaline Rush 1".
 
 		This attribute can be an empty string. If so, no origin is given for the note.
+
+		Fit
+
 		Setting this attribute to `false` will result in the origin being written as "false".
 	*/
 }],
