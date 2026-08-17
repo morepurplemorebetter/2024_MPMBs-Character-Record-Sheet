@@ -51,85 +51,6 @@ var Base_MagicItemsList = {
 			},
 		},
 	},
-	"adamantine ammunition": {
-		name: "Adamantine Ammunition",
-		nameTest: /adamantine.+(ammunition|ammo|\u180B)/i,
-		source: [["DMG24", 227]],
-		type: "Weapon (Any Ammunition)",
-		rarity: "Uncommon",
-		magicItemTable: "Armaments",
-		description: "This ammunition is made of adamantine, one of the hardest substances in existence. Whenever I hit an object with it, the hit is a Critical Hit.",
-		descriptionFull: "This piece of ammunition is made of adamantine, one of the hardest substances in existence. Whenever this piece of ammunition hits an object, the hit is a Critical Hit.",
-		allowDuplicates: true,
-		chooseGear: {
-			type: "ammo",
-			prefixOrSuffix: ["between", "Adamantine", "\u180B"],
-			itemName1stPage: ["suffix", "Adamantine"],
-			descriptionChange: ["replace", "ammunition"],
-			excludeCheck: function (inObjKey, inObj) {
-				return /vials|flasks/i.test(inObj.icon);
-			},
-			removePluralS: true,
-		},
-	},
-	"adamantine weapon": {
-		name: "Adamantine Weapon",
-		nameTest: /adamantine.+(weapon|\uFEFF)/i,
-		source: [["DMG24", 227]],
-		type: "Weapon (Any Melee)",
-		rarity: "Uncommon",
-		magicItemTable: "Armaments",
-		description: "This weapon is made of adamantine, one of the hardest substances in existence. Whenever I hit an object with it, the hit is a Critical Hit.",
-		descriptionFull: "This weapon is made of adamantine, one of the hardest substances in existence. Whenever this weapon hits an object, the hit is a Critical Hit.",
-		allowDuplicates: true,
-		chooseGear: {
-			type: "weapon",
-			prefixOrSuffix: ["between", "Adamantine", "\uFEFF"],
-			itemName1stPage: ["suffix", "Adamantine"],
-			descriptionChange: ["replace", "weapon"],
-			excludeCheck: function (inObjKey, inObj) {
-				return inObj.list != "melee";
-			},
-		},
-		calcChanges: {
-			atkAdd: [
-				function (fields, v) {
-					if (v.isMeleeWeapon && /adamantine/i.test(v.WeaponTextName)) {
-						fields.Description += (fields.Description ? '; ' : '') + 'Auto-Crit on objects';
-					}
-				},
-				'If I include the word "Adamantine" in the name of a melee weapon, it will be treated as the magic item Adamantine Weapon. Whenever it hits an object, it automatically scores a Critical Hit.',
-			],
-		},
-	},
-	"alchemy jug": {
-		name: "Alchemy Jug",
-		source: [["DMG24", 227]],
-		type: "Wondrous Item",
-		rarity: "Uncommon",
-		magicItemTable: "Implements",
-		description: "As a Magic action, command the jug to produce liquid; or Utilize action to uncork and pour 2 gal/min. It only makes one liquid up to its max amount, until the next dawn. Oil (1 qt), acid (8 fl oz), basic poison (1/2 fl oz), beer (4 gal), honey/wine (1 gal), fresh water (8 gal), mayonnaise/vinegar (2 gal), salt water (12 gal).",
-		descriptionLong: "A heavy ceramic jug. As a Magic action, the jug can be commanded to hold a chosen liquid. With a Utilize action, I can uncork the jug and pour the liquid out at 2 gallons per minute. Once commanded to produce a liquid, it can't produce a different one or more than the maximum of one, until the next dawn.\rLiquids (with maximum): acid (8 fl oz), basic poison (1/2 fl oz), beer (4 gallons), honey (1 gallon), mayonnaise (2 gallons), oil (1 quart), vinegar (2 gallons), fresh water (8 gallons), salt water (12 gallons), wine (1 gallon).",
-		descriptionFull: [
-			"This ceramic jug appears to be able to hold a gallon of liquid and weighs 12 pounds whether full or empty. The jug sloshes when it is shaken, even if the jug is empty.",
-			"You can take a Magic action and name one liquid from the Alchemy Jug Liquids table to cause the jug to produce the chosen liquid. Afterward, you can uncork the jug as a Utilize action and pour that liquid out, up to 2 gallons per minute. The maximum amount of liquid the jug can produce depends on the liquid you named.",
-			"Once the jug starts producing a liquid, it can't produce a different one, or more of one that has reached its maximum, until the next dawn.",
-			[
-				["Liquid", "Max. Amount"],
-				["Acid", "8 ounces"],
-				["Basic Poison", "4 ounces"],
-				["Beer", "4 gallons"],
-				["Honey", "1 gallon"],
-				["Mayonnaise", "2 gallons"],
-				["Oil", "1 quart"],
-				["Vinegar", "2 gallons"],
-				["Water, fresh", "8 gallons"],
-				["Water, salt", "12 gallons"],
-				["Wine", "1 gallon"],
-			],
-		],
-		weight: 12,
-	},
 	"ammunition": {
 		name: "Ammunition, +1, +2, or +3",
 		source: [["SRD24", 209], ["DMG24", 228]],
@@ -439,21 +360,6 @@ var Base_MagicItemsList = {
 			},
 		},
 	},
-	"armor of gleaming": {
-		name: "Armor of Gleaming",
-		nameTest: "of Gleaming \u180C",
-		source: [["DMG24", 230]],
-		type: "Armor (Any Light, Medium, or Heavy)",
-		rarity: "Common",
-		description: "This armor never gets dirty.",
-		descriptionFull: "This armor never gets dirty.",
-		allowDuplicates: true,
-		chooseGear: {
-			type: "armor",
-			prefixOrSuffix: "prefix",
-			descriptionChange: ["replace", "armor"],
-		},
-	},
 	"armor of invulnerability": {
 		name: "Armor of Invulnerability",
 		source: [["SRD24", 210], ["DMG24", 230]],
@@ -654,88 +560,6 @@ var Base_MagicItemsList = {
 		},
 	},
 
-
-	"blackrazor": {
-		name: "Blackrazor",
-		source: [["DMG24", 236]],
-		type: "Weapon (Greatsword)",
-		rarity: "Artifact",
-		attunement: true,
-		description: "This sentient +3 greatsword gives me 30 ft Blindsight and makes me immune to being Charmed or Frightened. Once per dawn it can cast *Haste* on me as it sees fit. If I use it to bring a creature to 0 HP, it devours the creature's soul, granting me Temporary HP equal to the slain creature's max HP. See Notes page.",
-		descriptionFull: [
-			"Hidden in the dungeon of White Plume Mountain, *Blackrazor* shines like a piece of night sky filled with stars. Its black scabbard is decorated with pieces of cut obsidian.",
-			'You gain a +3 bonus to attack rolls and damage rolls made with this magic weapon. If you hit an Undead with this weapon, you take 1d10 Necrotic damage, and the target regains 1d10 Hit Points. If this Necrotic damage reduces you to 0 Hit Points, *Blackrazor* devours your soul (see "Devour Soul" below).',
-			"While you hold this weapon, you have Immunity to the Charmed and Frightened conditions, and you have Blindsight with a range of 30 feet.",
-			"***Devour Soul***. Whenever you use *Blackrazor* to reduce a creature to 0 Hit Points, the sword slays the creature and devours its soul unless it is a Construct or an Undead. A creature whose soul has been devoured by *Blackrazor* can be restored to life only by a *Wish* spell.",
-			"When *Blackrazor* devours a soul that isn't yours, you gain Temporary Hit Points equal to the slain creature's Hit Point maximum.",
-			"***Haste***. *Blackrazor* can cast *Haste* on you, after which it can't cast this spell again until the next dawn. *Blackrazor* decides when to cast the spell, which takes effect at the start of your turn. The spell lasts for 1 minute (no Concentration required) or until *Blackrazor* decides to end it, which it can do at the end of any of your turns.",
-			"***Sentience***. *Blackrazor* is a sentient Chaotic Neutral weapon with an Intelligence of 17, a Wisdom of 10, and a Charisma of 19. It has hearing and Darkvision out to 120 feet.",
-			"The weapon speaks Common and can communicate with its wielder telepathically. Its voice is deep and echoing. While you are attuned to it, *Blackrazor* also understands every language you know.",
-			"***Personality***. *Blackrazor* speaks with an imperious tone, as though accustomed to being obeyed.",
-			"The sword's purpose is to consume souls. It doesn't care whose souls it eats, including the wielder's. The sword believes that all matter and energy sprang from a void of negative energy and will one day return to it. *Blackrazor* is meant to hurry that process along.",
-			"Despite its nihilism, *Blackrazor* feels a strange kinship to *Wave* and *Whelm*, two other weapons locked away under White Plume Mountain. It wants the three weapons to be reunited and wielded together in combat, even though it violently disagrees with *Whelm* and finds *Wave* tedious.",
-			"*Blackrazor*'s hunger for souls must be regularly fed. If the sword goes 3 days or more without consuming a soul, a conflict between it and its wielder occurs at the next sunset.",
-			"***Destroying Blackrazor***. *Blackrazor* can be destroyed by crushing it in the great gears of Mechanus. Primus, the creator of the modrons, also knows a series of musical tones that *Blackrazor* can't stand to hear, causing the sword to shatter.",
-		],
-		weight: 6,
-		notLegalAL: true,
-		action: [["bonus action", ""]],
-		weaponOptions: [{
-			baseWeapon: "greatsword",
-			regExpSearch: /blackrazor/i,
-			name: "Blackrazor",
-			source: [["DMG24", 236]],
-			description: "Heavy, two-handed; Devours soul; Heals undead",
-			modifiers: [3, 3],
-			selectNow: true,
-		}],
-		toNotesPage: [{
-				name: "Features",
-				useDescriptionFull: function(str) {
-					return str.replace("magic weapon", "magic greatsword").replace("reduces I", "reduces me");
-				},
-			},
-			Object.assign({}, sentientItemConflictNote, { amendTo: "Blackrazor" }),
-		],
-		savetxt: { immune: ["charmed", "frightened"] },
-		vision: [["Blindsight", 30]],
-		spellcastingBonus: [{
-			name: "Once per dawn",
-			spells: ["haste"],
-			selection: ["haste"],
-			firstCol: "oncelr",
-		}],
-		spellChanges: {
-			haste: {
-				range: "Self",
-				duration: "1 min",
-				description: "I get +2 AC, speed \xD72, Adv on Dex saves, extra Act: Atk (1 only), Dash, Disengage, Hide, or Utilize",
-				changes: "Blackrazor casts the spell on me, so it doesn't require my Concentration, but Blackrazor can stop the spell at any time.",
-			},
-		},
-	},
-
-
-	"cast-off armor": {
-		name: "Cast-Off Armor",
-		nameTest: /cast-off.+(armou?r|\u180C)/i,
-		source: [["DMG24", 243]],
-		type: "Armor (Any Light, Medium, or Heavy)",
-		rarity: "Common",
-		magicItemTable: "Armaments",
-		description: "As a Magic action, I can doff this armor.",
-		descriptionFull: "You can doff this armor as a Magic action.",
-		allowDuplicates: true,
-		chooseGear: {
-			type: "armor",
-			prefixOrSuffix: ["between", "Cast-Off", "\u180C"],
-			itemName1stPage: ["suffix", "Cast-Off"],
-			descriptionChange: ["replace", "armor"],
-		},
-		action: [["action", ""]],
-	},
-
-
 	"demon armor": {
 		name: "Demon Armor",
 		nameTest: /demon.+(armou?r|\u180C)/i,
@@ -892,53 +716,6 @@ var Base_MagicItemsList = {
 	},
 
 
-	"efreeti chain": {
-		name: "Efreeti Chain",
-		source: [["DMG24", 257]],
-		type: "Armor (Chain Mail or Chain Shirt)",
-		rarity: "Legendary",
-		magicItemTable: "Armaments",
-		attunement: true,
-		description: "Select one of the choices.",
-		descriptionFull: "While wearing this armor, you gain a +3 bonus to Armor Class, you have Immunity to Fire damage, and you know Primordial. In addition, you can stand on and move across molten rock as if it were solid ground.",
-		languageProfs: ["Primordial"],
-		savetxt: { immune: ["Fire"] },
-		choicesNotInMenu: true,
-		allowDuplicates: true,
-		choices: ["Chain Shirt", "Chain Mail"],
-		"chain shirt": {
-			name: "Efreeti Chain Shirt",
-			description: "While wearing this chain shirt, I gain a +3 bonus to Armor Class, have Immunity to Fire damage, and know Primordial. In addition, I can stand on and move across molten rock as if it were solid ground.",
-			weight: 20,
-			armorOptions: [{
-				regExpSearch: /^(?=.*efreeti)(?=.*chain)(?=.*shirt).*$/i,
-				name: "Efreeti Chain Shirt",
-				source: [["DMG24", 257]],
-				type: "medium",
-				ac: "13+3",
-				weight: 20,
-				selectNow: true,
-			}],
-		},
-		"chain mail": {
-			name: "Efreeti Chain Mail",
-			description: "While wearing this chain mail, I gain a +3 bonus to Armor Class, have Immunity to Fire damage, and know Primordial. In addition, I can stand on and move across molten rock as if it were solid ground.",
-			weight: 55,
-			armorOptions: [{
-				regExpSearch: /^(?!.*(scale|plate|ring|shirt))(?=.*efreeti)(?=.*chain)(?=.*mail).*$/i,
-				name: "Efreeti Chain Mail",
-				source: [["DMG24", 257]],
-				type: "heavy",
-				ac: "16+3",
-				stealthdis: true,
-				weight: 55,
-				strReq: 13,
-				selectNow: true,
-			}],
-		},
-	},
-
-
 	"elven chain": {
 		name: "Elven Chain",
 		source: [["SRD24", 220], ["DMG24", 257]],
@@ -1073,32 +850,6 @@ var Base_MagicItemsList = {
 		scoresStackable: true,
 	},
 
-
-	"mariner's armor": {
-		name: "Mariner's Armor",
-		nameTest: /mariner.+(armou?r|\u180C)/i,
-		source: [["DMG24", 278]],
-		type: "Armor (Any Light, Medium, or Heavy)",
-		rarity: "Uncommon",
-		magicItemTable: ["Armaments", "Relics"],
-		description: "While wearing this armor decorated with fish and shell motifs, I have a Swim Speed equal to my Speed. If I start my turn underwater with 0 Hit Points, I immediately regain 1d4 Hit Points. The armor can't heal anyone again until the next dawn.",
-		descriptionFull: [
-			"While wearing this armor, you have a Swim Speed equal to your Speed. In addition, if you start your turn underwater with 0 Hit Points, you immediately regain 1d4 Hit Points. The armor can't heal anyone again until the next dawn.",
-			"The armor is decorated with fish and shell motifs.",
-		],
-		usages: 1,
-		recovery: "Dawn",
-		speed: { swim: { spd: "walk", enc: "walk" } },
-		allowDuplicates: true,
-		chooseGear: {
-			type: "armor",
-			prefixOrSuffix: ["between", "Mariner's", "\u180C"],
-			itemName1stPage: ["suffix", "Mariner's"],
-			descriptionChange: ["replace", "armor"],
-		},
-	},
-
-
 	"mithral armor": {
 		name: "Mithral Armor",
 		nameTest: /mithral.+(armou?r|\u180C)/i,
@@ -1204,7 +955,7 @@ var Base_MagicItemsList = {
 		weight: 4,
 		action: [["action", ""]],
 	},
-	"robe of stars": { // NOG TESTEN: naam op spell sheet
+	"robe of stars": {
 		name: "Robe of Stars",
 		source: [["SRD24", 240], ["DMG24", 297]],
 		type: "Wondrous Item",
@@ -1230,7 +981,7 @@ var Base_MagicItemsList = {
 		}],
 		spellFirstColTitle: "\u2605",
 		spellcastingBonus: {
-			name: "1 star",
+			name: "as 5th-level",
 			spells: ["magic missile"],
 			selection: ["magic missile"],
 			firstCol: 1,
@@ -1316,72 +1067,6 @@ var Base_MagicItemsList = {
 		],
 		weight: 4,
 		action: [["action", ""]],
-	},
-
-
-	"rod of the pact keeper": {
-		name: "Rod of the Pact Keeper",
-		nameTest: /^(?=.*pact.keeper)(?=.*(arcane focus|crystal|orb|rod|staff|wand)).*$/i,
-		source: [["DMG24", 301]],
-		type: "Rod",
-		magicItemTable: "Arcana",
-		attunement: true,
-		prerequisite: "Requires Attunement by a Warlock",
-		prereqeval: function(v) { return classes.known.warlock; },
-		description: "Select one of the choices.",
-		descriptionFull: [
-			"While holding this rod, you gain a bonus to spell attack rolls and to the saving throw DCs of your Warlock spells. The bonus is determined by the rod's rarity: Uncommon (+1), Rare (+2), or Very Rare (+3).",
-			"In addition, you can regain one spell slot as a Magic action while holding the rod. You can't use this property again until you finish a Long Rest.",
-		],
-		limfeaname: "Rod of the Pact Keeper (regain spell slot)",
-		usages: 1,
-		recovery: "Long Rest",
-		action: [["action", ""]],
-		weight: 2,
-		allowDuplicates: true,
-		choices: ["+1 Rod of the Pact Keeper (Uncommon)", "+2 Rod of the Pact Keeper (Rare)", "+3 Rod of the Pact Keeper (Very Rare)"],
-		"+1 rod of the pact keeper (uncommon)": {
-			name: "Rod of the Pact Keeper +1",
-			nameTest: /^(?=.*pact.keeper)(?=.*(arcane focus|crystal|orb|rod|staff|wand))(?=.*\+1)(?!.*\+[23]).*$/i,
-			rarity: "Uncommon",
-			description: "While holding this arcane focus, I gain a +1 bonus to spell attack rolls and saving throw DCs of my Warlock spells.\rAs a Magic action once per Long Rest, I can use it to regain one spell slot.",
-			calcChanges: {
-				spellCalc: [
-					function(type, spellcasters, ability) {
-						if (type != "prepare" && spellcasters.indexOf('warlock') !== -1) return 1;
-					},
-					"I gain a +1 bonus to spell attack rolls and saving throw DCs of my Warlock spells.",
-				],
-			},
-		},
-		"+2 rod of the pact keeper (rare)": {
-			name: "Rod of the Pact Keeper +2",
-			nameTest: /^(?=.*pact.keeper)(?=.*(arcane focus|crystal|orb|rod|staff|wand))(?=.*\+2)(?!.*\+[13]).*$/i,
-			rarity: "Rare",
-			description: "While holding this arcane focus, I gain a +2 bonus to spell attack rolls and saving throw DCs of my Warlock spells.\rAs a Magic action once per Long Rest, I can use it to regain one spell slot.",
-			calcChanges: {
-				spellCalc: [
-					function(type, spellcasters, ability) {
-						if (type != "prepare" && spellcasters.indexOf('warlock') !== -1) return 2;
-					},
-					"I gain a +2 bonus to spell attack rolls and saving throw DCs of my Warlock spells.",
-				],
-			},
-		},
-		"+3 rod of the pact keeper (very rare)": {
-			name: "Rod of the Pact Keeper +3",
-			nameTest: /^(?=.*pact.keeper)(?=.*(arcane focus|crystal|orb|rod|staff|wand))(?=.*\+3)(?!.*\+[12]).*$/i,
-			rarity: "Very Rare",
-			description: "While holding this arcane focus, I gain a +3 bonus to spell attack rolls and saving throw DCs of my Warlock spells.\rAs a Magic action once per Long Rest, I can use it to regain one spell slot.",
-			calcChanges: {
-				spellCalc: [
-					function(type, spellcasters, ability) {
-						if (type != "prepare" && spellcasters.indexOf('warlock') !== -1) return 3;
-					},
-					"I gain a +3 bonus to spell attack rolls and saving throw DCs of my Warlock spells.",
-				],
-			},
-		},
 	},
 
 
@@ -1526,18 +1211,6 @@ var Base_MagicItemsList = {
 			allowDuplicates: true,
 			shieldAdd: "+3 Shield",
 		},
-	},
-	"shield of expression": {
-		name: "Shield of Expression",
-		source: [["DMG24", 303]],
-		type: "Shield",
-		rarity: "Common",
-		magicItemTable: ["Armaments", "Relics"],
-		description: "The front of this shield is shaped in the likeness of a face. As a Bonus Action while bearing the shield, I can alter the the face's expression.",
-		descriptionFull: "The front of this Shield is shaped in the likeness of a face. While bearing the Shield, you can take a Bonus Action to alter the face's expression.",
-		weight: 6,
-		shieldAdd: "Shield of Expression",
-		action: [["bonus action", ""]],
 	},
 	"shield of missile attraction": {
 		name: "Shield of Missile Attraction",
@@ -1776,28 +1449,6 @@ var Base_MagicItemsList = {
 			],
 		},
 	},
-	"talking doll": {
-		name: "Talking Doll",
-		source: [["DMG24", 315]],
-		type: "Wondrous Item",
-		rarity: "Common",
-		magicItemTable: ["Arcana", "Implements"],
-		attunement: true,
-		description: "I can spend a Short Rest telling this doll to say up to six phrases, each up to six words long, and set a condition under which the doll speaks each phrase. Whatever the condition, it must occur within 5 ft of the doll to make it speak. The doll's phrases are lost when my Attunement to the doll ends.",
-		descriptionLong: "While this doll is within 5 ft of me, I can spend a Short Rest telling it to say up to six phrases, none of which can be more than six words long, and set a condition under which the doll speaks each phrase. I can also replace old phrases with new ones. Whatever the condition, it must occur within 5 ft of the doll to make it speak. For example, whenever someone picks up the doll, it might say, \"I want a piece of candy.\" The doll's phrases are lost when my Attunement to the doll ends.",
-		descriptionFull: "While this doll is within 5 feet of you, you can spend a Short Rest telling it to say up to six phrases, none of which can be more than six words long, and set a condition under which the doll speaks each phrase. You can also replace old phrases with new ones. Whatever the condition, it must occur within 5 feet of the doll to make it speak. For example, whenever someone picks up the doll, it might say, \"I want a piece of candy.\" The doll's phrases are lost when your Attunement to the doll ends.",
-	},
-	"tankard of sobriety": {
-		name: "Tankard of Sobriety",
-		source: [["DMG24", 315]],
-		type: "Wondrous Item",
-		rarity: "Common",
-		magicItemTable: ["Arcana", "Implements"],
-		description: "This tankard has a stern face sculpted into one side. I can drink ale, wine, or any other nonmagical alcoholic beverage poured into it without becoming inebriated. The tankard has no effect on magical liquids or harmful substances such as poison.",
-		descriptionFull: "This tankard has a stern face sculpted into one side. You can drink ale, wine, or any other nonmagical alcoholic beverage poured into it without becoming inebriated. The tankard has no effect on magical liquids or harmful substances such as poison.",
-		weight: 1,
-	},
-
 
 	"tome of clear thought": {
 		name: "Tome of Clear Thought",
@@ -1824,30 +1475,6 @@ var Base_MagicItemsList = {
 		scores: [0, 0, 0, 0, 0, 2],
 		scoresMaxLimited: [0, 0, 0, 0, 0, 30],
 		scoresStackable: true,
-	},
-	"tome of the stilled tongue": {
-		name: "Tome of the Stilled Tongue",
-		source: [["DMG24", 317]],
-		type: "Wondrous Item",
-		rarity: "Legendary",
-		magicItemTable: "Arcana",
-		attunement: true,
-		prerequisite: "Requires Attunement by a Wizard",
-		prereqeval: function(v) {
-			return !!classes.known.wizard;
-		},
-		description: "I can use this book as a Spellbook and an Arcane Focus. Once per dawn while holding it, I can take a Bonus Action to cast a spell I have written in it, without expending a spell slot or using any Verbal or Somatic components. Only I can remove the tongue pinned to the cover, doing so erases all spells within.",
-		descriptionLong: "This book has a dessicated tongue pinned to the cover, the first few pages of which are filled with indecipherable scrawls. The remaining pages are blank. I can use it as a Spellbook and an Arcane Focus. Once per dawn while holding it, I can take a Bonus Action to cast a spell I have written in the tome, without expending a spell slot or using any Verbal or Somatic components. Only I can remove the tongue from the book's cover, permanently erasing all spells within. Vecna watches the user of this tome and can write cryptic messages in it which typically fade away after they are read.",
-		descriptionFull: [
-			"This book has a desiccated tongue pinned to its front cover. Five of these tomes exist, and it's unknown which one is the original. The tongue on the first Tome of the Stilled Tongue belonged to a treacherous former servant of the lich Vecna. The tongues pinned to the covers of the four copies came from other spellcasters who crossed Vecna. The first few pages of each tome are filled with indecipherable scrawls. The remaining pages are blank.",
-			"While attuned to this item, you can use it as a Spellbook and an Arcane Focus. In addition, while holding the tome, you can take a Bonus Action to cast a spell you have written in this tome, without expending a spell slot or using any Verbal or Somatic components. Once used, this property of the tome can't be used again until the next dawn.",
-			"Only you can remove the tongue from the book's cover. If you do so, all spells written in the book are permanently erased.",
-			"Vecna watches anyone using this tome and can write cryptic messages in it. These messages typically fade away after they are read.",
-		],
-		weight: 5,
-		action: [["bonus action", ""]],
-		usages: 1,
-		recovery: "Dawn",
 	},
 	"tome of understanding": {
 		name: "Tome of Understanding",
@@ -1879,28 +1506,6 @@ var Base_MagicItemsList = {
 		additional: "1d6+1 oz",
 		recovery: "\u2013",
 		action: [["action", " (pour 1+ oz)"]],
-	},
-
-
-	"walloping ammunition": {
-		name: "Walloping Ammunition",
-		nameTest: /walloping.+(ammunition|ammo|\u180B)/i,
-		source: [["DMG24", 318]],
-		type: "Weapon (Any Ammunition)",
-		rarity: "Common",
-		magicItemTable: ["Armaments", "Implements"],
-		description: "This magic ammunition packs a wallop. A creature hit by it must succeed on a DC 10 Strength saving throw or be knocked Prone.",
-		descriptionFull: "A creature hit by this ammunition must succeed on a DC 10 Strength saving throw or have the Prone condition.",
-		allowDuplicates: true,
-		chooseGear: {
-			type: "ammo",
-			prefixOrSuffix: ["between", "Walloping", "\u180B"],
-			descriptionChange: ["replace", "ammunition"],
-			excludeCheck: function (inObjKey, inObj) {
-				return /vials|flasks/i.test(inObj.icon);
-			},
-			removePluralS: true,
-		},
 	},
 
 
@@ -2017,75 +1622,5 @@ var Base_MagicItemsList = {
 		action: [["action", " (start/stop)"]],
 		usages: 1,
 		recovery: "1d12 h",
-	},
-	"wraps of unarmed power": {
-		name: "Wraps of Unarmed Power",
-		source: [["DMG24", 325]],
-		type: "Wondrous Item",
-		magicItemTable: "Armaments",
-		description: "Select one of the choices.",
-		descriptionFull: "While wearing these wraps, you have a bonus to attack rolls and damage rolls made with your Unarmed Strikes. The bonus is determined by the wraps' rarity, and those strikes deal your choice of Force damage or their normal damage type: Uncommon (+1), Rare (+2), or Very Rare (+3).",
-		allowDuplicates: true,
-		choices: ["+1 Wraps of Unarmed Power (Uncommon)", "+2 Wraps of Unarmed Power (Rare)", "+3 Wraps of Unarmed Power (Very Rare)"],
-		calcChanges: {
-			atkAdd: [
-				function (fields, v) {
-					if (v.baseWeaponName === "unarmed strike" && DamageTypes[fields.Damage_Type.toLowerCase()] && !/force/i.test(fields.Damage_Type)) {
-						var shortOldType = fields.Damage_Type.replace(/(tic|(eon)?ing)$/i, ".").capitalize();
-						fields.Damage_Type = shortOldType + '/Force';
-					};
-				},
-				"",
-				700,
-			],
-		},
-		"+1 wraps of unarmed power (uncommon)": {
-			name: "Wraps of Unarmed Power +1",
-			nameTest: "+1 Wraps of Unarmed Power",
-			rarity: "Uncommon",
-			description: "While wearing these wraps, I gain a +1 bonus to the attack and damage rolls of my Unarmed Strikes and I can have them deal Force damage instead of their normal damage.",
-			calcChanges: {
-				atkCalc: [
-					function(fields, v, output) {
-						if (v.baseWeaponName === "unarmed strike") {
-							output.magic += 1;
-						};
-					},
-					"My Unarmed Strikes gain a +1 bonus to hit and damage and I can choose to have them deal Force damage or their normal damage.",
-				],
-			},
-		},
-		"+2 wraps of unarmed power (rare)": {
-			name: "Wraps of Unarmed Power +2",
-			nameTest: "+2 Wraps of Unarmed Power",
-			rarity: "Rare",
-			description: "While wearing these wraps, I gain a +2 bonus to the attack and damage rolls of my Unarmed Strikes and I can have them deal Force damage instead of their normal damage.",
-			calcChanges: {
-				atkCalc: [
-					function(fields, v, output) {
-						if (v.baseWeaponName === "unarmed strike") {
-							output.magic += 2;
-						};
-					},
-					"My Unarmed Strikes gain a +2 bonus to hit and damage and I can choose to have them deal Force damage or their normal damage.",
-				],
-			},
-		},
-		"+3 wraps of unarmed power (very rare)": {
-			name: "Wraps of Unarmed Power +3",
-			nameTest: "+3 Wraps of Unarmed Power",
-			rarity: "Very Rare",
-			description: "While wearing these wraps, I gain a +3 bonus to the attack and damage rolls of my Unarmed Strikes and I can have them deal Force damage instead of their normal damage.",
-			calcChanges: {
-				atkCalc: [
-					function(fields, v, output) {
-						if (v.baseWeaponName === "unarmed strike") {
-							output.magic += 3;
-						};
-					},
-					"My Unarmed Strikes gain a +3 bonus to hit and damage and I can choose to have them deal Force damage or their normal damage.",
-				],
-			},
-		},
 	},
 };
