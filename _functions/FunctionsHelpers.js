@@ -203,8 +203,8 @@ function addAbilityScoreChoicesToFeat(oFeat, abilities, iScoresMaximum, bAddName
 			}
 			oFeat[abiLC].scores[abiIdx] = 1;
 			if (iScoresMaximum) {
-				oFeat[abiLC].scoresMaximum = [0, 0, 0, 0, 0, 0];
-				oFeat[abiLC].scoresMaximum[abiIdx] = iScoresMaximum;
+				oFeat[abiLC].scoresMaxLimited = [0, 0, 0, 0, 0, 0];
+				oFeat[abiLC].scoresMaxLimited[abiIdx] = iScoresMaximum;
 			}
 			if (bAddNameAbbreviations) oFeat[abiLC].name = oFeat.name + " [" + abiAbbr + "]";
 			if (oFeat.calculate) oFeat[abiLC].calculate = oFeat.calculate;

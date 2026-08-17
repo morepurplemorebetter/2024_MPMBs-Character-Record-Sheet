@@ -271,9 +271,7 @@ var Base_SpellsList = {
 		compMaterial: "Gold dust worth 25+ GP, which the spell consumes",
 		duration: "Till dispelled",
 		description: "Entryway/lid locked; designated crea can use it; optional: password to unlock for 1 min (25gp cons)",
-		descriptionFull: [
-			"You touch a closed door, window, gate, container, or hatch and magically lock it for the duration. This lock can't be unlocked by any nonmagical means. You and any creatures you designate when you cast the spell can open and close the object despite the lock. You can also set a password that, when spoken within 5 feet of the object, unlocks it for 1 minute.",
-		],
+		descriptionFull: "You touch a closed door, window, gate, container, or hatch and magically lock it for the duration. This lock can't be unlocked by any nonmagical means. You and any creatures you designate when you cast the spell can open and close the object despite the lock. You can also set a password that, when spoken within 5 feet of the object, unlocks it for 1 minute.",
 	},
 	"astral projection": {
 		name: "Astral Projection",
@@ -333,9 +331,7 @@ var Base_SpellsList = {
 		duration: "Conc, 10 min",
 		description: "Me \x26 allies in aura resist Necrotic dmg, no max HP reduction; at their SoT, 0 HP ally in aura heal 1 HP",
 		descriptionShorter: "Me \x26 allies resist Necrotic dmg, no max HP reduction; at their SoT, 0 HP ally heals 1 HP",
-		descriptionFull: [
-			"An aura radiates from you in a 30-foot Emanation for the duration. While in the aura, you and your allies have Resistance to Necrotic damage, and your Hit Point maximums can't be reduced. If an ally with 0 Hit Points starts its turn in the aura, that ally regains 1 Hit Point.",
-		],
+		descriptionFull: "An aura radiates from you in a 30-foot Emanation for the duration. While in the aura, you and your allies have Resistance to Necrotic damage, and your Hit Point maximums can't be reduced. If an ally with 0 Hit Points starts its turn in the aura, that ally regains 1 Hit Point.",
 	},
 	"awaken": {
 		name: "Awaken",
@@ -405,9 +401,7 @@ var Base_SpellsList = {
 		compMaterial: "A handful of oak bark",
 		duration: "1 h",
 		description: "1 willing creature has AC 17 if its AC is lower than that",
-		descriptionFull: [
-			"You touch a willing creature. Until the spell ends, the target's skin assumes a bark-like appearance, and the target has an Armor Class of 17 if its AC is lower than that.",
-		],
+		descriptionFull: "You touch a willing creature. Until the spell ends, the target's skin assumes a bark-like appearance, and the target has an Armor Class of 17 if its AC is lower than that.",
 	},
 	"beacon of hope": {
 		name: "Beacon of Hope",
@@ -420,9 +414,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 1 min",
 		description: "Any crea in range; For duration, each has Adv on Wis/Death saves and regains max HP from healing",
-		descriptionFull: [
-			"Choose any number of creatures within range. For the duration, each target has Advantage on Wisdom saving throws and Death Saving Throws and regains the maximum number of Hit Points possible from any healing.",
-		],
+		descriptionFull: "Choose any number of creatures within range. For the duration, each target has Advantage on Wisdom saving throws and Death Saving Throws and regains the maximum number of Hit Points possible from any healing.",
 	},
 	"befuddlement": {
 		name: "Befuddlement",
@@ -676,9 +668,7 @@ var Base_SpellsList = {
 		components: "V",
 		duration: "Conc, 1 min",
 		description: "Creatures have disadvantage on attacks vs me unless they have Blindsight or Truesight",
-		descriptionFull: [
-			"Your body becomes blurred. For the duration, any creature has Disadvantage on attack rolls against you. An attacker is immune to this effect if it perceives you with Blindsight or Truesight.",
-		],
+		descriptionFull: "Your body becomes blurred. For the duration, any creature has Disadvantage on attack rolls against you. An attacker is immune to this effect if it perceives you with Blindsight or Truesight.",
 	},
 	"burning hands": {
 		name: "Burning Hands",
@@ -925,9 +915,7 @@ var Base_SpellsList = {
 		duration: "Instantaneous",
 		save: "Con",
 		description: "All creatures in 15-ft cone save or Blinded until the end of my next turn",
-		descriptionFull: [
-			"You launch a dazzling array of flashing, colorful light. Each creature in a 15-foot Cone originating from you must succeed on a Constitution saving throw or have the Blinded condition until the end of your next turn.",
-		],
+		descriptionFull: "You launch a dazzling array of flashing, colorful light. Each creature in a 15-foot Cone originating from you must succeed on a Constitution saving throw or have the Blinded condition until the end of your next turn.",
 	},
 	"command": {
 		name: "Command",
@@ -1009,9 +997,7 @@ var Base_SpellsList = {
 		compMaterial: "A pinch of soot and salt",
 		duration: "1 h",
 		description: "Understand all spoken and signed languages, and writing when touched; doesn't help vs cyphers",
-		descriptionFull: [
-			"For the duration, you understand the literal meaning of any language that you hear or see signed. You also understand any written language that you see, but you must be touching the surface on which the words are written. It takes about 1 minute to read one page of text. This spell doesn't decode symbols or secret messages.",
-		],
+		descriptionFull: "For the duration, you understand the literal meaning of any language that you hear or see signed. You also understand any written language that you see, but you must be touching the surface on which the words are written. It takes about 1 minute to read one page of text. This spell doesn't decode symbols or secret messages.",
 	},
 	"compulsion": {
 		name: "Compulsion",
@@ -1367,9 +1353,7 @@ var Base_SpellsList = {
 		compMaterial: "Ruby dust worth 50+ GP, which the spell consumes",
 		duration: "Till dispelled",
 		description: "Create a permanent magical flame on object that emits 20-ft rad bright light \x26 20-ft dim (50gp cons)",
-		descriptionFull: [
-			"A flame springs from an object that you touch. The effect casts Bright Light in a 20-foot radius and Dim Light for an additional 20 feet. It looks like a regular flame, but it creates no heat and consumes no fuel. The flame can be covered or hidden but not smothered or quenched.",
-		],
+		descriptionFull: "A flame springs from an object that you touch. The effect casts Bright Light in a 20-foot radius and Dim Light for an additional 20 feet. It looks like a regular flame, but it creates no heat and consumes no fuel. The flame can be covered or hidden but not smothered or quenched.",
 	},
 	"control water": {
 		name: "Control Water",
@@ -1525,9 +1509,7 @@ var Base_SpellsList = {
 		duration: "Instantaneous",
 		save: "Con",
 		description: "Interrupt 1 creature casting a spell; it save or action wasted and spell fails to cast, but keep spell slot",
-		descriptionFull: [
-			"You attempt to interrupt a creature in the process of casting a spell. The creature makes a Constitution saving throw. On a failed save, the spell dissipates with no effect, and the action, Bonus Action, or Reaction used to cast it is wasted. If that spell was cast with a spell slot, the slot isn't expended.",
-		],
+		descriptionFull: "You attempt to interrupt a creature in the process of casting a spell. The creature makes a Constitution saving throw. On a failed save, the spell dissipates with no effect, and the action, Bonus Action, or Reaction used to cast it is wasted. If that spell was cast with a spell slot, the slot isn't expended.",
 	},
 	"create food and water": {
 		name: "Create Food and Water",
@@ -1540,9 +1522,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Instantaneous",
 		description: "Create 45 lb of food and 30 gallons of fresh water on ground/in containers; food spoils after 24 hrs",
-		descriptionFull: [
-			"You create 45 pounds of food and 30 gallons of fresh water on the ground or in containers within range\u2014both useful in fending off the hazards of malnutrition and dehydration. The food is bland but nourishing and looks like a food of your choice, and the water is clean. The food spoils after 24 hours if uneaten.",
-		],
+		descriptionFull: "You create 45 pounds of food and 30 gallons of fresh water on the ground or in containers within range\u2014both useful in fending off the hazards of malnutrition and dehydration. The food is bland but nourishing and looks like a food of your choice, and the water is clean. The food spoils after 24 hours if uneaten.",
 	},
 	"create or destroy water": {
 		name: "Create or Destroy Water",
@@ -2494,9 +2474,7 @@ var Base_SpellsList = {
 		duration: "1 min",
 		save: "Wis",
 		description: "Any creature save (auto pass if fighting) or -10 on Wis (Perception) checks and Passive Perception",
-		descriptionFull: [
-			"You weave a distracting string of words, causing creatures of your choice that you can see within range to make a Wisdom saving throw. Any creature you or your companions are fighting automatically succeeds on this save. On a failed save, a target has a -10 penalty to Wisdom (Perception) checks and Passive Perception until the spell ends.",
-		],
+		descriptionFull: "You weave a distracting string of words, causing creatures of your choice that you can see within range to make a Wisdom saving throw. Any creature you or your companions are fighting automatically succeeds on this save. On a failed save, a target has a -10 penalty to Wisdom (Perception) checks and Passive Perception until the spell ends.",
 	},
 	"etherealness": {
 		name: "Etherealness",
@@ -2681,9 +2659,7 @@ var Base_SpellsList = {
 		compMaterial: "A small feather or piece of down",
 		duration: "1 min",
 		description: "5 creatures descend only 60 ft/round for duration or until they land, taking no falling damage",
-		descriptionFull: [
-			"Choose up to five falling creatures within range. A falling creature's rate of descent slows to 60 feet per round until the spell ends. If a creature lands before the spell ends, the creature takes no damage from the fall, and the spell ends for that creature.",
-		],
+		descriptionFull: "Choose up to five falling creatures within range. A falling creature's rate of descent slows to 60 feet per round until the spell ends. If a creature lands before the spell ends, the creature takes no damage from the fall, and the spell ends for that creature.",
 	},
 	"find familiar": {
 		name: "Find Familiar",
@@ -3031,9 +3007,7 @@ var Base_SpellsList = {
 		compMaterial: "A hummingbird feather",
 		duration: "8 h",
 		description: "1 willing creature Adv on attacks, checks, and saves; attackers Dis vs them; ends if cast again",
-		descriptionFull: [
-			"You touch a willing creature and bestow a limited ability to see into the immediate future. For the duration, the target has Advantage on D20 Tests, and other creatures have Disadvantage on attack rolls against it. The spell ends early if you cast it again.",
-		],
+		descriptionFull: "You touch a willing creature and bestow a limited ability to see into the immediate future. For the duration, the target has Advantage on D20 Tests, and other creatures have Disadvantage on attack rolls against it. The spell ends early if you cast it again.",
 	},
 	"freedom of movement": {
 		name: "Freedom of Movement",
@@ -3162,9 +3136,7 @@ var Base_SpellsList = {
 		components: "V",
 		duration: "1 h",
 		description: "I can choose to replace roll with 15 on any Charisma check; magic cannot detect if I am lying",
-		descriptionFull: [
-			"Until the spell ends, when you make a Charisma check, you can replace the number you roll with a 15. Additionally, no matter what you say, magic that would determine if you are telling the truth indicates that you are being truthful.",
-		],
+		descriptionFull: "Until the spell ends, when you make a Charisma check, you can replace the number you roll with a 15. Additionally, no matter what you say, magic that would determine if you are telling the truth indicates that you are being truthful.",
 	},
 	"globe of invulnerability": {
 		name: "Globe of Invulnerability",
@@ -3433,9 +3405,7 @@ var Base_SpellsList = {
 		duration: "Instantaneous",
 		save: "Con",
 		description: "1 crea 14d6 Necrotic dmg, reduce max HP by same till 1 max HP; save halves and max not reduced",
-		descriptionFull: [
-			"You unleash virulent magic on a creature you can see within range. The target makes a Constitution saving throw. On a failed save, it takes 14d6 Necrotic damage, and its Hit Point maximum is reduced by an amount equal to the Necrotic damage it took. On a successful save, it takes half as much damage only. This spell can't reduce a target's Hit Point maximum below 1.",
-		],
+		descriptionFull: "You unleash virulent magic on a creature you can see within range. The target makes a Constitution saving throw. On a failed save, it takes 14d6 Necrotic damage, and its Hit Point maximum is reduced by an amount equal to the Necrotic damage it took. On a successful save, it takes half as much damage only. This spell can't reduce a target's Hit Point maximum below 1.",
 	},
 	"haste": {
 		name: "Haste",
@@ -3633,9 +3603,7 @@ var Base_SpellsList = {
 		duration: "Conc, 1 min",
 		save: "Con",
 		description: "Any crea Adv saves, Dis atks vs them, fiend/undead hit melee atk: save or Blind till its next EoT (1k gp)",
-		descriptionFull: [
-			"For the duration, you emit an aura in a 30-foot Emanation. While in the aura, creatures of your choice have Advantage on all saving throws, and other creatures have Disadvantage on attack rolls against them. In addition, when a Fiend or an Undead hits an affected creature with a melee attack roll, the attacker must succeed on a Constitution saving throw or have the Blinded condition until the end of its next turn.",
-		],
+		descriptionFull: "For the duration, you emit an aura in a 30-foot Emanation. While in the aura, creatures of your choice have Advantage on all saving throws, and other creatures have Disadvantage on attack rolls against them. In addition, when a Fiend or an Undead hits an affected creature with a melee attack roll, the attacker must succeed on a Constitution saving throw or have the Blinded condition until the end of its next turn.",
 	},
 	"hunter's mark": {
 		name: "Hunter's Mark",
@@ -4028,9 +3996,7 @@ var Base_SpellsList = {
 		compMaterial: "Fur from a bloodhound",
 		duration: "Instantaneous",
 		description: "Learn direction and distance to closest named or described kind of beast or plant within 5 miles, if any",
-		descriptionFull: [
-			"Describe or name a specific kind of Beast, Plant creature, or nonmagical plant. You learn the direction and distance to the closest creature or plant of that kind within 5 miles, if any are present.",
-		],
+		descriptionFull: "Describe or name a specific kind of Beast, Plant creature, or nonmagical plant. You learn the direction and distance to the closest creature or plant of that kind within 5 miles, if any are present.",
 	},
 	"locate creature": {
 		name: "Locate Creature",
@@ -4097,9 +4063,7 @@ var Base_SpellsList = {
 		compMaterial: "A piece of cured leather",
 		duration: "8 h",
 		description: "1 creature that isn't wearing armor has AC 13 + Dex modifier; spell ends if it dons armor",
-		descriptionFull: [
-			"You touch a willing creature who isn't wearing armor. Until the spell ends, the target's base AC becomes 13 plus its Dexterity modifier. The spell ends early if the target dons armor.",
-		],
+		descriptionFull: "You touch a willing creature who isn't wearing armor. Until the spell ends, the target's base AC becomes 13 plus its Dexterity modifier. The spell ends early if the target dons armor.",
 	},
 	"mage hand": {
 		name: "Mage Hand",
@@ -4270,9 +4234,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Instantaneous",
 		description: "Heal 700 HP split among any creatures in range; each also cured of Blinded, Deafened, and Poisoned",
-		descriptionFull: [
-			"A flood of healing energy flows from you into creatures around you. You restore up to 700 Hit Points, divided as you choose among any number of creatures that you can see within range. Creatures healed by this spell also have the Blinded, Deafened, and Poisoned conditions removed from them.",
-		],
+		descriptionFull: "A flood of healing energy flows from you into creatures around you. You restore up to 700 Hit Points, divided as you choose among any number of creatures that you can see within range. Creatures healed by this spell also have the Blinded, Deafened, and Poisoned conditions removed from them.",
 	},
 	"mass healing word": {
 		name: "Mass Healing Word",
@@ -4434,9 +4396,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "24 h",
 		description: "1 crea immune to Psychic, Charmed, mind reading, magical observation, mind control, divination",
-		descriptionFull: [
-			"Until the spell ends, one willing creature you touch has Immunity to Psychic damage and the Charmed condition. The target is also unaffected by anything that would sense its emotions or alignment, read its thoughts, or magically detect its location, and no spell\u2014not even Wish\u2014can gather information about the target, observe it remotely, or control its mind.",
-		],
+		descriptionFull: "Until the spell ends, one willing creature you touch has Immunity to Psychic damage and the Charmed condition. The target is also unaffected by anything that would sense its emotions or alignment, read its thoughts, or magically detect its location, and no spell\u2014not even Wish\u2014can gather information about the target, observe it remotely, or control its mind.",
 	},
 	"mind spike": {
 		name: "Mind Spike",
@@ -4719,9 +4679,7 @@ var Base_SpellsList = {
 		compMaterial: "A pinch of diamond dust worth 25+ GP, which the spell consumes",
 		duration: "8 h",
 		description: "1 creature, or 1 object/place up to 10-ft cube, hidden from all divination magic (25gp cons)",
-		descriptionFull: [
-			"For the duration, you hide a target that you touch from Divination spells. The target can be a willing creature, or it can be a place or an object no larger than 10 feet in any dimension. The target can't be targeted by any Divination spell or perceived through magical scrying sensors.",
-		],
+		descriptionFull: "For the duration, you hide a target that you touch from Divination spells. The target can be a willing creature, or it can be a place or an object no larger than 10 feet in any dimension. The target can't be targeted by any Divination spell or perceived through magical scrying sensors.",
 	},
 	"nystul's magic aura": {
 		name: "Nystul's Magic Aura",
@@ -4816,9 +4774,7 @@ var Base_SpellsList = {
 		compMaterial: "Ashes from burned mistletoe",
 		duration: "Conc, 1 h",
 		description: "Me and any creatures in the area gain +10 on Dexterity (Stealth) checks and leave no tracks",
-		descriptionFull: [
-			"You radiate a concealing aura in a 30-foot Emanation for the duration. While in the aura, you and each creature you choose have a +10 bonus to Dexterity (Stealth) checks and leave no tracks.",
-		],
+		descriptionFull: "You radiate a concealing aura in a 30-foot Emanation for the duration. While in the aura, you and each creature you choose have a +10 bonus to Dexterity (Stealth) checks and leave no tracks.",
 	},
 	"passwall": {
 		name: "Passwall",
@@ -5021,9 +4977,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Instantaneous",
 		description: "1 crea heals all HP \x26 cured of Charmed, Frightened, Paralyzed, Poisoned, Stunned; can React to stand",
-		descriptionFull: [
-			"A wave of healing energy washes over one creature you can see within range. The target regains all its Hit Points. If the creature has the Charmed, Frightened, Paralyzed, Poisoned, or Stunned condition, the condition ends. If the creature has the Prone condition, it can use its Reaction to stand up.",
-		],
+		descriptionFull: "A wave of healing energy washes over one creature you can see within range. The target regains all its Hit Points. If the creature has the Charmed, Frightened, Paralyzed, Poisoned, or Stunned condition, the condition ends. If the creature has the Prone condition, it can use its Reaction to stand up.",
 	},
 	"power word kill": {
 		name: "Power Word Kill",
@@ -5312,9 +5266,7 @@ var Base_SpellsList = {
 		compMaterial: "A flask of Holy Water worth 25+ GP, which the spell consumes",
 		duration: "Conc, 10 min",
 		description: "1 crea no fear/charm/possess and atks Dis from aber./celes./elem./fey/fiends/undead (25gp cons)",
-		descriptionFull: [
-			"Until the spell ends, one willing creature you touch is protected against creatures that are Aberrations, Celestials, Elementals, Fey, Fiends, or Undead. The protection grants several benefits. Creatures of those types have Disadvantage on attack rolls against the target. The target also can't be possessed by or gain the Charmed or Frightened conditions from them. If the target is already possessed, Charmed, or Frightened by such a creature, the target has Advantage on any new saving throw against the relevant effect.",
-		],
+		descriptionFull: "Until the spell ends, one willing creature you touch is protected against creatures that are Aberrations, Celestials, Elementals, Fey, Fiends, or Undead. The protection grants several benefits. Creatures of those types have Disadvantage on attack rolls against the target. The target also can't be possessed by or gain the Charmed or Frightened conditions from them. If the target is already possessed, Charmed, or Frightened by such a creature, the target has Advantage on any new saving throw against the relevant effect.",
 	},
 	"protection from poison": {
 		name: "Protection from Poison",
@@ -5327,9 +5279,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "1 h",
 		description: "1 creature cured of Poisoned, gains resistance to Poison damage, and Adv on saves vs Poisoned",
-		descriptionFull: [
-			"You touch a creature and end the Poisoned condition on it. For the duration, the target has Advantage on saving throws to avoid or end the Poisoned condition, and it has Resistance to Poison damage.",
-		],
+		descriptionFull: "You touch a creature and end the Poisoned condition on it. For the duration, the target has Advantage on saving throws to avoid or end the Poisoned condition, and it has Resistance to Poison damage.",
 	},
 	"purify food and drink": {
 		name: "Purify Food and Drink",
@@ -5447,9 +5397,7 @@ var Base_SpellsList = {
 		compMaterial: "A prayer wheel",
 		duration: "1 h",
 		description: "1 crea heals 4d8+15 HP and 1 HP at start of their turn; severed body parts regrow in 2 min",
-		descriptionFull: [
-			"A creature you touch regains 4d8 + 15 Hit Points. For the duration, the target regains 1 Hit Point at the start of each of its turns, and any severed body parts regrow after 2 minutes.",
-		],
+		descriptionFull: "A creature you touch regains 4d8 + 15 Hit Points. For the duration, the target regains 1 Hit Point at the start of each of its turns, and any severed body parts regrow after 2 minutes.",
 		dynamicDamageBonus: {
 			multipleDmgMoments: false,
 			extraDmgGroupsSameType: /(and |\x26 )((?:\+?\d+d?\d*)+)( HP\/rnd)/i, // WERKT DIT???
@@ -5496,9 +5444,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Instantaneous",
 		description: "1 creature or object is freed of all curses; cursed magic items break attunement, but curse remains",
-		descriptionFull: [
-			"At your touch, all curses affecting one creature or object end. If the object is a cursed magic item, its curse remains, but the spell breaks its owner's Attunement to the object so it can be removed or discarded.",
-		],
+		descriptionFull: "At your touch, all curses affecting one creature or object end. If the object is a cursed magic item, its curse remains, but the spell breaks its owner's Attunement to the object so it can be removed or discarded.",
 	},
 	"resistance": {
 		name: "Resistance",
@@ -5511,9 +5457,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 1 min",
 		description: "Choose dmg type (except Force or Psychic); 1 willing crea takes -1d4 dmg of that type, once per turn",
-		descriptionFull: [
-			"You touch a willing creature and choose a damage type: Acid, Bludgeoning, Cold, Fire, Lightning, Necrotic, Piercing, Poison, Radiant, Slashing, or Thunder. When the creature takes damage of the chosen type before the spell ends, the creature reduces the total damage taken by 1d4. A creature can benefit from this spell only once per turn.",
-		],
+		descriptionFull: "You touch a willing creature and choose a damage type: Acid, Bludgeoning, Cold, Fire, Lightning, Necrotic, Piercing, Poison, Radiant, Slashing, or Thunder. When the creature takes damage of the chosen type before the spell ends, the creature reduces the total damage taken by 1d4. A creature can benefit from this spell only once per turn.",
 		dynamicDamageBonus: { doNotProcess : true },
 	},
 	"resurrection": {
@@ -5565,9 +5509,7 @@ var Base_SpellsList = {
 		compMaterial: "A diamond worth 300+ GP, which the spell consumes",
 		duration: "Instantaneous",
 		description: "Bring corpse that died within the last minute to life with 1 HP; see book (300gp cons)",
-		descriptionFull: [
-			"You touch a creature that has died within the last minute. That creature revives with 1 Hit Point. This spell can't revive a creature that has died of old age, nor does it restore any missing body parts.",
-		],
+		descriptionFull: "You touch a creature that has died within the last minute. That creature revives with 1 Hit Point. This spell can't revive a creature that has died of old age, nor does it restore any missing body parts.",
 	},
 	"rope trick": {
 		name: "Rope Trick",
@@ -5704,9 +5646,7 @@ var Base_SpellsList = {
 		compMaterial: "A pinch of talc",
 		duration: "1 h",
 		description: "See Invisible/ethereal creatures and objects as if they were visible; ethereals appear ghostly",
-		descriptionFull: [
-			"For the duration, you see creatures and objects that have the Invisible condition as if they were visible, and you can see into the Ethereal Plane. Creatures and objects there appear ghostly.",
-		],
+		descriptionFull: "For the duration, you see creatures and objects that have the Invisible condition as if they were visible, and you can see into the Ethereal Plane. Creatures and objects there appear ghostly.",
 	},
 	"seeming": {
 		name: "Seeming",
@@ -5815,9 +5755,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "1 rnd",
 		description: "Cast if hit by atk; until my next SoT: +5 AC and no dmg from Magic Missile; works against trigger atk",
-		descriptionFull: [
-			"An imperceptible barrier of magical force protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack, and you take no damage from Magic Missile.",
-		],
+		descriptionFull: "An imperceptible barrier of magical force protects you. Until the start of your next turn, you have a +5 bonus to AC, including against the triggering attack, and you take no damage from Magic Missile.",
 	},
 	"shield of faith": {
 		name: "Shield of Faith",
@@ -5900,9 +5838,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 10 min",
 		description: "20-ft rad no sound; all within Deafened, immune to Thunder dmg, and can't use Verbal components",
-		descriptionFull: [
-			"For the duration, no sound can be created within or pass through a 20-foot-radius Sphere centered on a point you choose within range. Any creature or object entirely inside the Sphere has Immunity to Thunder damage, and creatures have the Deafened condition while entirely inside it. Casting a spell that includes a Verbal component is impossible there.",
-		],
+		descriptionFull: "For the duration, no sound can be created within or pass through a 20-foot-radius Sphere centered on a point you choose within range. Any creature or object entirely inside the Sphere has Immunity to Thunder damage, and creatures have the Deafened condition while entirely inside it. Casting a spell that includes a Verbal component is impossible there.",
 	},
 	"silent image": {
 		name: "Silent Image",
@@ -6218,9 +6154,7 @@ var Base_SpellsList = {
 		duration: "Instantaneous",
 		description: "Form 5-ft cube of stone into any shape; can have up to 2 hinges and a latch, but no finer mechanisms",
 		descriptionMetric: "Form 1,5-m cube of stone into a shape; can have up to 2 hinges and a latch, but no finer mechanisms",
-		descriptionFull: [
-			"You touch a stone object of Medium size or smaller or a section of stone no more than 5 feet in any dimension and form it into any shape you like. For example, you could shape a large rock into a weapon, statue, or coffer, or you could make a small passage through a wall that is 5 feet thick. You could also shape a stone door or its frame to seal the door shut. The object you create can have up to two hinges and a latch, but finer mechanical detail isn't possible.",
-		],
+		descriptionFull: "You touch a stone object of Medium size or smaller or a section of stone no more than 5 feet in any dimension and form it into any shape you like. For example, you could shape a large rock into a weapon, statue, or coffer, or you could make a small passage through a wall that is 5 feet thick. You could also shape a stone door or its frame to seal the door shut. The object you create can have up to two hinges and a latch, but finer mechanical detail isn't possible.",
 	},
 	"stoneskin": {
 		name: "Stoneskin",
@@ -6602,9 +6536,7 @@ var Base_SpellsList = {
 		compMaterial: "A miniature ziggurat",
 		duration: "1 h",
 		description: "1 crea understands all spoken and signed languages, and all creatures with a language understand it",
-		descriptionFull: [
-			"This spell grants the creature you touch the ability to understand any spoken or signed language that it hears or sees. Moreover, when the target communicates by speaking or signing, any creature that knows at least one language can understand it if that creature can hear the speech or see the signing.",
-		],
+		descriptionFull: "This spell grants the creature you touch the ability to understand any spoken or signed language that it hears or sees. Moreover, when the target communicates by speaking or signing, any creature that knows at least one language can understand it if that creature can hear the speech or see the signing.",
 	},
 	"transport via plants": {
 		name: "Transport via Plants",
@@ -6615,11 +6547,9 @@ var Base_SpellsList = {
 		time: "Act",
 		range: "10 ft",
 		components: "V,S",
-		duration: "1 rnd",
+		duration: "1 min",
 		description: "All that move into Large plant in range step out of another plant I have touched on the same plane",
-		descriptionFull: [
-			"This spell creates a magical link between a Large or larger inanimate plant within range and another plant, at any distance, on the same plane of existence. You must have seen or touched the destination plant at least once before. For the duration, any creature can step into the target plant and exit from the destination plant by using 5 feet of movement.",
-		],
+		descriptionFull: "This spell creates a magical link between a Large or larger inanimate plant within range and another plant, at any distance, on the same plane of existence. You must have seen or touched the destination plant at least once before. For the duration, any creature can step into the target plant and exit from the destination plant by using 5 feet of movement.",
 	},
 	"tree stride": {
 		name: "Tree Stride",
@@ -7001,9 +6931,7 @@ var Base_SpellsList = {
 		compMaterial: "A short reed",
 		duration: "24 h",
 		description: "10 willing creatures gain the ability to breathe underwater",
-		descriptionFull: [
-			"This spell grants up to ten willing creatures of your choice within range the ability to breathe underwater until the spell ends. Affected creatures also retain their normal mode of respiration.",
-		],
+		descriptionFull: "This spell grants up to ten willing creatures of your choice within range the ability to breathe underwater until the spell ends. Affected creatures also retain their normal mode of respiration.",
 	},
 	"water walk": {
 		name: "Water Walk",

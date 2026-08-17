@@ -143,9 +143,7 @@ var Base_FeatsList = {
 		source: [["SRD24", 87], ["PHB24", 209]],
 		type: "fighting style",
 		description: "I gain a +2 bonus to attack rolls I make with Ranged weapons.",
-		descriptionFull: [
-			"You gain a +2 bonus to attack rolls you make with Ranged weapons.",
-		],
+		descriptionFull: "You gain a +2 bonus to attack rolls you make with Ranged weapons.",
 		calcChanges: {
 			atkCalc: [
 				function (fields, v, output) {
@@ -160,9 +158,7 @@ var Base_FeatsList = {
 		source: [["SRD24", 88], ["PHB24", 209]],
 		type: "fighting style",
 		description: "While I'm wearing Light, Medium, or Heavy armor, I gain a +1 bonus to Armor Class.",
-		descriptionFull: [
-			"While you're wearing Light, Medium, or Heavy armor, you gain a +1 bonus to Armor Class.",
-		],
+		descriptionFull: "While you're wearing Light, Medium, or Heavy armor, you gain a +1 bonus to Armor Class.",
 		extraAC: {
 			name: "Defense Fighting Style",
 			mod: 1,
@@ -176,9 +172,7 @@ var Base_FeatsList = {
 		type: "fighting style",
 		description: "When I roll damage for an attack I make with a Melee weapon that I'm holding with two hands, I can treat any 1 or 2 on a damage die as a 3. The weapon must have the Two-Handed or Versatile property to gain this benefit.",
 		descriptionClassFeature: desc("I treat 1 or 2 on damage as 3 for Two-Handed/Versatile Melee weapons held with 2 hands."),
-		descriptionFull: [
-			"When you roll damage for an attack you make with a Melee weapon that you are holding with two hands, you can treat any 1 or 2 on a damage die as a 3. The weapon must have the Two-Handed or Versatile property to gain this benefit.",
-		],
+		descriptionFull: "When you roll damage for an attack you make with a Melee weapon that you are holding with two hands, you can treat any 1 or 2 on a damage die as a 3. The weapon must have the Two-Handed or Versatile property to gain this benefit.",
 		calcChanges: {
 			atkAdd: [
 				function (fields, v) {
@@ -196,9 +190,7 @@ var Base_FeatsList = {
 		type: "fighting style",
 		description: "When I make the off-hand extra attack as a result of using a weapon that has the Light property, I can add my ability modifier to the damage of that attack if I'm not already adding it to the damage.",
 		descriptionClassFeature: desc("I add my ability modifier to the damage of the off-hand attack after using a Light weapon."),
-		descriptionFull: [
-			"When you make an extra attack as a result of using a weapon that has the Light property, you can add your ability modifier to the damage of that attack if you aren't already adding it to the damage.",
-		],
+		descriptionFull: "When you make an extra attack as a result of using a weapon that has the Light property, you can add your ability modifier to the damage of that attack if you aren't already adding it to the damage.",
 		calcChanges: {
 			atkCalc: [
 				function (fields, v, output) {
@@ -227,37 +219,37 @@ var Base_FeatsList = {
 			name: "Boon of Combat Prowess [Str]",
 			description: "When I miss with an attack roll, I can hit instead. Once I use this benefit, I can't use it again until the start of my next turn. [+1 Strength]",
 			scores: [1, 0, 0, 0, 0, 0],
-			scoresMaximum: [30, 0, 0, 0, 0, 0],
+			scoresMaxLimited: [30, 0, 0, 0, 0, 0],
 		},
 		"dexterity": {
 			name: "Boon of Combat Prowess [Dex]",
 			description: "When I miss with an attack roll, I can hit instead. Once I use this benefit, I can't use it again until the start of my next turn. [+1 Dexterity]",
 			scores: [0, 1, 0, 0, 0, 0],
-			scoresMaximum: [0, 30, 0, 0, 0, 0],
+			scoresMaxLimited: [0, 30, 0, 0, 0, 0],
 		},
 		"constitution": {
 			name: "Boon of Combat Prowess [Con]",
 			description: "When I miss with an attack roll, I can hit instead. Once I use this benefit, I can't use it again until the start of my next turn. [+1 constitution]",
 			scores: [0, 0, 1, 0, 0, 0],
-			scoresMaximum: [0, 0, 30, 0, 0, 0],
+			scoresMaxLimited: [0, 0, 30, 0, 0, 0],
 		},
 		"intelligence": {
 			name: "Boon of Combat Prowess [Int]",
 			description: "When I miss with an attack roll, I can hit instead. Once I use this benefit, I can't use it again until the start of my next turn. [+1 Intelligence]",
 			scores: [0, 0, 0, 1, 0, 0],
-			scoresMaximum: [0, 0, 0, 30, 0, 0],
+			scoresMaxLimited: [0, 0, 0, 30, 0, 0],
 		},
 		"wisdom": {
 			name: "Boon of Combat Prowess [Wis]",
 			description: "When I miss with an attack roll, I can hit instead. Once I use this benefit, I can't use it again until the start of my next turn. [+1 Wisdom]",
 			scores: [0, 0, 0, 0, 1, 0],
-			scoresMaximum: [0, 0, 0, 0, 30, 0],
+			scoresMaxLimited: [0, 0, 0, 0, 30, 0],
 		},
 		"charisma": {
 			name: "Boon of Combat Prowess [Cha]",
 			description: "When I miss with an attack roll, I can hit instead. Once I use this benefit, I can't use it again until the start of my next turn. [+1 Charisma]",
 			scores: [0, 0, 0, 0, 0, 1],
-			scoresMaximum: [0, 0, 0, 0, 0, 30],
+			scoresMaxLimited: [0, 0, 0, 0, 0, 30],
 		},
 	},
 	"boon of dimensional travel": {
@@ -278,37 +270,37 @@ var Base_FeatsList = {
 			name: "Boon of Dimensional Travel [Str]",
 			description: "Immediately after I take the Attack action or the Magic action, I can teleport up to 30 ft to an unoccupied space I can see. [+1 Strength]",
 			scores: [1, 0, 0, 0, 0, 0],
-			scoresMaximum: [30, 0, 0, 0, 0, 0],
+			scoresMaxLimited: [30, 0, 0, 0, 0, 0],
 		},
 		"dexterity": {
 			name: "Boon of Dimensional Travel [Dex]",
 			description: "Immediately after I take the Attack action or the Magic action, I can teleport up to 30 ft to an unoccupied space I can see. [+1 Dexterity]",
 			scores: [0, 1, 0, 0, 0, 0],
-			scoresMaximum: [0, 30, 0, 0, 0, 0],
+			scoresMaxLimited: [0, 30, 0, 0, 0, 0],
 		},
 		"constitution": {
 			name: "Boon of Dimensional Travel [Con]",
 			description: "Immediately after I take the Attack action or the Magic action, I can teleport up to 30 ft to an unoccupied space I can see. [+1 Constitution]",
 			scores: [0, 0, 1, 0, 0, 0],
-			scoresMaximum: [0, 0, 30, 0, 0, 0],
+			scoresMaxLimited: [0, 0, 30, 0, 0, 0],
 		},
 		"intelligence": {
 			name: "Boon of Dimensional Travel [Int]",
 			description: "Immediately after I take the Attack action or the Magic action, I can teleport up to 30 ft to an unoccupied space I can see. [+1 Intelligence]",
 			scores: [0, 0, 0, 1, 0, 0],
-			scoresMaximum: [0, 0, 0, 30, 0, 0],
+			scoresMaxLimited: [0, 0, 0, 30, 0, 0],
 		},
 		"wisdom": {
 			name: "Boon of Dimensional Travel [Wis]",
 			description: "Immediately after I take the Attack action or the Magic action, I can teleport up to 30 ft to an unoccupied space I can see. [+1 Wisdom]",
 			scores: [0, 0, 0, 0, 1, 0],
-			scoresMaximum: [0, 0, 0, 0, 30, 0],
+			scoresMaxLimited: [0, 0, 0, 0, 30, 0],
 		},
 		"charisma": {
 			name: "Boon of Dimensional Travel [Cha]",
 			description: "Immediately after I take the Attack action or the Magic action, I can teleport up to 30 ft to an unoccupied space I can see. [+1 Charisma]",
 			scores: [0, 0, 0, 0, 0, 1],
-			scoresMaximum: [0, 0, 0, 0, 0, 30],
+			scoresMaxLimited: [0, 0, 0, 0, 0, 30],
 		},
 	},
 	"boon of fate": {
@@ -330,32 +322,32 @@ var Base_FeatsList = {
 		"strength": {
 			description: "When I or another creature within 60 ft of me succeeds or fails a D20 Test, I can roll 2d4 and apply the total rolled as a bonus or penalty to the d20 roll. Once I do this, I can't do so again until I roll Initiative or finish a Short or Long Rest. [+1 Strength]",
 			scores: [1, 0, 0, 0, 0, 0],
-			scoresMaximum: [30, 0, 0, 0, 0, 0],
+			scoresMaxLimited: [30, 0, 0, 0, 0, 0],
 		},
 		"dexterity": {
 			description: "When I or another creature within 60 ft of me succeeds or fails a D20 Test, I can roll 2d4 and apply the total rolled as a bonus or penalty to the d20 roll. Once I do this, I can't do so again until I roll Initiative or finish a Short or Long Rest. [+1 Dexterity]",
 			scores: [0, 1, 0, 0, 0, 0],
-			scoresMaximum: [0, 30, 0, 0, 0, 0],
+			scoresMaxLimited: [0, 30, 0, 0, 0, 0],
 		},
 		"constitution": {
 			description: "When I or another creature within 60 ft of me succeeds or fails a D20 Test, I can roll 2d4 and apply the total rolled as a bonus or penalty to the d20 roll. Once I do this, I can't do so again until I roll Initiative or finish a Short or Long Rest. [+1 Constitution]",
 			scores: [0, 0, 1, 0, 0, 0],
-			scoresMaximum: [0, 0, 30, 0, 0, 0],
+			scoresMaxLimited: [0, 0, 30, 0, 0, 0],
 		},
 		"intelligence": {
 			description: "When I or another creature within 60 ft of me succeeds or fails a D20 Test, I can roll 2d4 and apply the total rolled as a bonus or penalty to the d20 roll. Once I do this, I can't do so again until I roll Initiative or finish a Short or Long Rest. [+1 Intelligence]",
 			scores: [0, 0, 0, 1, 0, 0],
-			scoresMaximum: [0, 0, 0, 30, 0, 0],
+			scoresMaxLimited: [0, 0, 0, 30, 0, 0],
 		},
 		"wisdom": {
 			description: "When I or another creature within 60 ft of me succeeds or fails a D20 Test, I can roll 2d4 and apply the total rolled as a bonus or penalty to the d20 roll. Once I do this, I can't do so again until I roll Initiative or finish a Short or Long Rest. [+1 Wisdom]",
 			scores: [0, 0, 0, 0, 1, 0],
-			scoresMaximum: [0, 0, 0, 0, 30, 0],
+			scoresMaxLimited: [0, 0, 0, 0, 30, 0],
 		},
 		"charisma": {
 			description: "When I or another creature within 60 ft of me succeeds or fails a D20 Test, I can roll 2d4 and apply the total rolled as a bonus or penalty to the d20 roll. Once I do this, I can't do so again until I roll Initiative or finish a Short or Long Rest. [+1 Charisma]",
 			scores: [0, 0, 0, 0, 0, 1],
-			scoresMaximum: [0, 0, 0, 0, 0, 30],
+			scoresMaxLimited: [0, 0, 0, 0, 0, 30],
 		},
 	},
 	"boon of irresistible offense": {
@@ -377,13 +369,13 @@ var Base_FeatsList = {
 			name: "Boon of Irresistible Offense [Str]",
 			description: "Bludgeoning, Piercing, and Slashing damage I deal ignores Resistance. When I roll a 20 on the d20 for an attack roll, I can deal extra damage to the target equal to my Strength score. This damage is of the same type as the attack's type. [+1 Strength]",
 			scores: [1, 0, 0, 0, 0, 0],
-			scoresMaximum: [30, 0, 0, 0, 0, 0],
+			scoresMaxLimited: [30, 0, 0, 0, 0, 0],
 		},
 		"dexterity": {
 			name: "Boon of Irresistible Offense [Dex]",
 			description: "Bludgeoning, Piercing, and Slashing damage I deal ignores Resistance. When I roll a 20 on the d20 for an attack roll, I can deal extra damage to the target equal to my Dexterity score. This damage is of the same type as the attack's type. [+1 Dexterity]",
 			scores: [0, 1, 0, 0, 0, 0],
-			scoresMaximum: [0, 30, 0, 0, 0, 0],
+			scoresMaxLimited: [0, 30, 0, 0, 0, 0],
 		},
 	},
 	"boon of spell recall": {
@@ -406,19 +398,19 @@ var Base_FeatsList = {
 			name: "Boon of Spell Recall [Int]",
 			description: "Whenever I cast a spell with a level 1-4 spell slot, I roll a 1d4. If the number I roll is the same as the slot's level, the slot isn't expended. [+1 Intelligence]",
 			scores: [0, 0, 0, 1, 0, 0],
-			scoresMaximum: [0, 0, 0, 30, 0, 0],
+			scoresMaxLimited: [0, 0, 0, 30, 0, 0],
 		},
 		"wisdom": {
 			name: "Boon of Spell Recall [Wis]",
 			description: "Whenever I cast a spell with a level 1-4 spell slot, I roll a 1d4. If the number I roll is the same as the slot's level, the slot isn't expended. [+1 Wisdom]",
 			scores: [0, 0, 0, 0, 1, 0],
-			scoresMaximum: [0, 0, 0, 0, 30, 0],
+			scoresMaxLimited: [0, 0, 0, 0, 30, 0],
 		},
 		"charisma": {
 			name: "Boon of Spell Recall [Cha]",
 			description: "Whenever I cast a spell with a level 1-4 spell slot, I roll a 1d4. If the number I roll is the same as the slot's level, the slot isn't expended. [+1 Charisma]",
 			scores: [0, 0, 0, 0, 0, 1],
-			scoresMaximum: [0, 0, 0, 0, 0, 30],
+			scoresMaxLimited: [0, 0, 0, 0, 0, 30],
 		},
 	},
 	"boon of the night spirit": {
@@ -441,37 +433,37 @@ var Base_FeatsList = {
 			name: "Boon of the Night Spirit [Str]",
 			description: "##Shadowy Form##. While in Dim Light or Darkness, I get Resistance to all damage except Psychic and Radiant. As a Bonus Action while in Dim Light or Darkness, I can ##Merge with Shadows## to give myself the Invisible condition. This condition ends on me immediately after I take an Action, Bonus Action, or Reaction." + (typePF ? "" : " [+1 Strength]"),
 			scores: [1, 0, 0, 0, 0, 0],
-			scoresMaximum: [30, 0, 0, 0, 0, 0],
+			scoresMaxLimited: [30, 0, 0, 0, 0, 0],
 		},
 		"dexterity": {
 			name: "Boon of the Night Spirit [Dex]",
 			description: "##Shadowy Form##. While in Dim Light or Darkness, I get Resistance to all damage except Psychic and Radiant. As a Bonus Action while in Dim Light or Darkness, I can ##Merge with Shadows## to give myself the Invisible condition. This condition ends on me immediately after I take an Action, Bonus Action, or Reaction." + (typePF ? "" : " [+1 Dexterity]"),
 			scores: [0, 1, 0, 0, 0, 0],
-			scoresMaximum: [0, 30, 0, 0, 0, 0],
+			scoresMaxLimited: [0, 30, 0, 0, 0, 0],
 		},
 		"constitution": {
 			name: "Boon of the Night Spirit [Con]",
 			description: "##Shadowy Form##. While in Dim Light or Darkness, I get Resistance to all damage except Psychic and Radiant. As a Bonus Action while in Dim Light or Darkness, I can ##Merge with Shadows## to give myself the Invisible condition. This condition ends on me immediately after I take an Action, Bonus Action, or Reaction." + (typePF ? "" : " [+1 Constitution]"),
 			scores: [0, 0, 1, 0, 0, 0],
-			scoresMaximum: [0, 0, 30, 0, 0, 0],
+			scoresMaxLimited: [0, 0, 30, 0, 0, 0],
 		},
 		"intelligence": {
 			name: "Boon of the Night Spirit [Int]",
 			description: "##Shadowy Form##. While in Dim Light or Darkness, I get Resistance to all damage except Psychic and Radiant. As a Bonus Action while in Dim Light or Darkness, I can ##Merge with Shadows## to give myself the Invisible condition. This condition ends on me immediately after I take an Action, Bonus Action, or Reaction." + (typePF ? "" : " [+1 Intelligence]"),
 			scores: [0, 0, 0, 1, 0, 0],
-			scoresMaximum: [0, 0, 0, 30, 0, 0],
+			scoresMaxLimited: [0, 0, 0, 30, 0, 0],
 		},
 		"wisdom": {
 			name: "Boon of the Night Spirit [Wis]",
 			description: "##Shadowy Form##. While in Dim Light or Darkness, I get Resistance to all damage except Psychic and Radiant. As a Bonus Action while in Dim Light or Darkness, I can ##Merge with Shadows## to give myself the Invisible condition. This condition ends on me immediately after I take an Action, Bonus Action, or Reaction." + (typePF ? "" : " [+1 Wisdom]"),
 			scores: [0, 0, 0, 0, 1, 0],
-			scoresMaximum: [0, 0, 0, 0, 30, 0],
+			scoresMaxLimited: [0, 0, 0, 0, 30, 0],
 		},
 		"charisma": {
 			name: "Boon of the Night Spirit [Cha]",
 			description: "##Shadowy Form##. While in Dim Light or Darkness, I get Resistance to all damage except Psychic and Radiant. As a Bonus Action while in Dim Light or Darkness, I can ##Merge with Shadows## to give myself the Invisible condition. This condition ends on me immediately after I take an Action, Bonus Action, or Reaction." + (typePF ? "" : " [+1 Charisma]"),
 			scores: [0, 0, 0, 0, 0, 1],
-			scoresMaximum: [0, 0, 0, 0, 0, 30],
+			scoresMaxLimited: [0, 0, 0, 0, 0, 30],
 		},
 	},
 	"boon of truesight": {
@@ -492,32 +484,32 @@ var Base_FeatsList = {
 		"strength": {
 			description: "I have Truesight with a range of 60 ft. [+1 Strength]",
 			scores: [1, 0, 0, 0, 0, 0],
-			scoresMaximum: [30, 0, 0, 0, 0, 0],
+			scoresMaxLimited: [30, 0, 0, 0, 0, 0],
 		},
 		"dexterity": {
 			description: "I have Truesight with a range of 60 ft. [+1 Dexterity]",
 			scores: [0, 1, 0, 0, 0, 0],
-			scoresMaximum: [0, 30, 0, 0, 0, 0],
+			scoresMaxLimited: [0, 30, 0, 0, 0, 0],
 		},
 		"constitution": {
 			description: "I have Truesight with a range of 60 ft. [+1 Constitution]",
 			scores: [0, 0, 1, 0, 0, 0],
-			scoresMaximum: [0, 0, 30, 0, 0, 0],
+			scoresMaxLimited: [0, 0, 30, 0, 0, 0],
 		},
 		"intelligence": {
 			description: "I have Truesight with a range of 60 ft. [+1 Intelligence]",
 			scores: [0, 0, 0, 1, 0, 0],
-			scoresMaximum: [0, 0, 0, 30, 0, 0],
+			scoresMaxLimited: [0, 0, 0, 30, 0, 0],
 		},
 		"wisdom": {
 			description: "I have Truesight with a range of 60 ft. [+1 Wisdom]",
 			scores: [0, 0, 0, 0, 1, 0],
-			scoresMaximum: [0, 0, 0, 0, 30, 0],
+			scoresMaxLimited: [0, 0, 0, 0, 30, 0],
 		},
 		"charisma": {
 			description: "I have Truesight with a range of 60 ft. [+1 Charisma]",
 			scores: [0, 0, 0, 0, 0, 1],
-			scoresMaximum: [0, 0, 0, 0, 0, 30],
+			scoresMaxLimited: [0, 0, 0, 0, 0, 30],
 		},
 	},
 };
