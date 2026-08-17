@@ -1677,7 +1677,7 @@ creaturesAdd: [
 		}
 	],
 	["Purple Crawler"],
-	["Cat", false, false, "familiar"]
+	["Cat", false, false, "familiar"],
 ],
 /*	creatureOptions // OPTIONAL //
 	TYPE:	array of arrays (variable length)

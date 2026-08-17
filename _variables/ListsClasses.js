@@ -233,7 +233,7 @@ var GenericClassFeatures = {
 
 var Base_ClassList = {
 	"barbarian": {
-		regExpSearch: /^((?=.*(marauder|barbarian|viking|(norse|tribes?|clans?)(wo)?m(a|e)n))|((?=.*(warrior|fighter))(?=.*(feral|tribal)))).*$/i,
+		regExpSearch: /^((?=.*(marauder|barbarian|viking|(norse|tribes?|clans?)(wo)?m(a|e)n))|((?=.*warrior)(?=.*(feral|tribal))))(?!.*(monk|fighter|paladin|ranger)).*$/i,
 		name: "Barbarian",
 		source: [["SRD24", 28], ["PHB24", 51]],
 		primaryAbility: "Strength",
@@ -1221,7 +1221,7 @@ var Base_ClassList = {
 	},
 
 	"fighter": {
-		regExpSearch: /fighter/i,
+		regExpSearch : /^(?=.*fighter)(?!.*(barbarian|monk|paladin|ranger)).*$/i,
 		name: "Fighter",
 		source: [["SRD24", 47], ["PHB24", 91]],
 		primaryAbility: "Strength or Dexterity",
@@ -1380,7 +1380,7 @@ var Base_ClassList = {
 	},
 
 	"monk": {
-		regExpSearch: /^((?=.*(monk|monastic))|(((?=.*martial)(?=.*(artist|arts)))|((?=.*spiritual)(?=.*warrior)))).*$/i,
+		regExpSearch: /^((?=.*(monk|monastic))|(((?=.*martial)(?=.*(artist|arts)))|((?=.*spiritual)(?=.*warrior))))(?!.*(barbarian|fighter|paladin|ranger)).*$/i,
 		name: "Monk",
 		source: [["SRD24", 49], ["PHB24", 101]],
 		primaryAbility: "Dexterity and Wisdom",
@@ -1704,7 +1704,7 @@ var Base_ClassList = {
 	},
 
 	"paladin": {
-		regExpSearch: /^((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
+		regExpSearch: /^((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|warrior|warlord|trooper))))(?!.*(monk|fighter|barbarian|ranger)).*$/i,
 		name: "Paladin",
 		source: [["SRD24", 53], ["PHB24", 109]],
 		primaryAbility: "Strength and Charisma",
@@ -1936,7 +1936,7 @@ var Base_ClassList = {
 	},
 
 	"ranger": {
-		regExpSearch: /^((?=.*(ranger|strider))|((?=.*(nature|natural))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
+		regExpSearch: /^((?=.*(ranger|strider))|((?=.*(nature|natural))(?=.*(knight|warrior|warlord|trooper))))(?!.*(monk|fighter|barbarian|paladin)).*$/i,
 		name: "Ranger",
 		source: [["SRD24", 57], ["PHB24", 119]],
 		primaryAbility: "Dexterity and Wisdom",
@@ -3982,7 +3982,7 @@ var Base_ClassSubList = {
 	},
 
 	"paladin-devotion": {
-		regExpSearch: /^(?=.*(devotion|obedience))((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|fighter|warrior|warlord|trooper)))).*$/i,
+		regExpSearch: /^(?=.*(devotion|obedience))((?=.*paladin)|((?=.*(exalted|sacred|holy|divine))(?=.*(knight|warrior|warlord|trooper)))).*$/i,
 		subname: "Oath of Devotion",
 		subnameShort: "Devotion",
 		source: [["SRD24", 56], ["PHB24", 113]],
