@@ -1241,7 +1241,7 @@ function ApplyArmor(input) {
 	} else {
 		tDoc.resetForm(ArmorFields);
 	}
-	ConditionSet();
+	ConditionSet(false, false, [ArmorFields[3]]);
 	thermoM(thermoTxt, true); // Stop progress bar
 };
 
@@ -1338,7 +1338,7 @@ function ApplyShield(input) {
 }
 
 //Change advantage or disadvantage of saves, skills, checks, attacks, etc. based on condition
-function ConditionSet(isReset, skipArmorStealthDisadv) {
+function ConditionSet(isReset, skipArmorStealthDisadv, triggerFields) {
 	var stacked = {
 		attacksDisadv: false,
 		checksDisadv: false,
@@ -1490,7 +1490,7 @@ function ConditionSet(isReset, skipArmorStealthDisadv) {
 	var thermoLen = ObjLength(conditions) + ObjLength(stacked), thermoI = 0;
 	calcStop();
 
-	var oCondCurrent = false;
+	var oCondCurrent = [];
 	for (var condition in conditions) {
 		var oCond = conditions[condition];
 		if (!oCond.field) oCond.field = "Condition." + condition;
@@ -1506,8 +1506,14 @@ function ConditionSet(isReset, skipArmorStealthDisadv) {
 				if (oCond[option]) stacked[option] = true;
 			}
 		}
-		if (!oCondCurrent && event.target && event.target.name && oCond.field == event.target.name) {
-			oCondCurrent = oCond;
+		if (!oCondCurrent.length && !triggerFields && event.target && event.target.name && oCond.field == event.target.name) {
+			oCondCurrent.push(oCond);
+		} else if (triggerFields && (
+			(isArray(triggerFields) && triggerFields.indexOf(oCond.field) !== -1) ||
+			(typeof triggerFields === "string" && triggerFields === oCond.field) ||
+			(triggerFields instanceof RegExp && triggerFields.test(oCond.field)) )
+		) {
+			oCondCurrent.push(oCond);
 		}
 		thermoI++; thermoM(thermoI/thermoLen); // Increment the progress dialog
 	}
@@ -1519,17 +1525,19 @@ function ConditionSet(isReset, skipArmorStealthDisadv) {
 			thermoI++; thermoM(thermoI/thermoLen); // Increment the progress dialog
 		}
 	} else if (oCondCurrent) {
-		for (var option in oCondCurrent) {
-			var apply = stacked[option] !== undefined ? stacked[option] : oCondCurrent.active;
-			if (!stackedApply[option]) continue;
-			stackedApply[option](apply, oCondCurrent[option]);
-			thermoI++; thermoM(thermoI/thermoLen); // Increment the progress dialog
+		for (var i = 0; i < oCondCurrent.length; i++) {
+			for (var option in oCondCurrent[i]) {
+				var apply = stacked[option] !== undefined ? stacked[option] : oCondCurrent[i].active;
+				if (!stackedApply[option]) continue;
+				stackedApply[option](apply, oCondCurrent[i][option]);
+				thermoI++; thermoM(thermoI/thermoLen); // Increment the progress dialog
+			}
 		}
 	}
 
 	thermoM(thermoTxt, true); // Stop progress bar
 
-	return; // Old stuff beyond here
+	return;
 };
 
 // Make the Exhaustion field limited to the allowed exhaustion levels 1-6 (field validation)

@@ -49,7 +49,7 @@
 				Magic Item main attributes
 				Magic Item choices
 
-	Sheet:		v24.0.12 and above (PHB'24)
+	Sheet:		v24.0.13 and above (PHB'24)
 */
 "example feature name" = { // you can ignore this, it is just here to make this file valid JavaScript
 
@@ -1879,6 +1879,8 @@ calcChanges: {
 				Note that this is only run for attacks that are recognized, not manually added
 		CHANGE:	v13.0.8 (priority, 3rd array entry)
 				v13.1.1 (added v.isThrownWeapon)
+				v24.0.8 (v.isWeapon is more strict)
+				v14.0.13 (added v.isSimpleOrMartial)
 
 		// 1st array entry // REQUIRED //
 		Both examples do the exact same thing, just one is a string and the other is a function.
@@ -1920,6 +1922,7 @@ calcChanges: {
 				isRangedWeapon, // boolean, whether (true) or not (false) this attack has a range that doesn't include 'melee' and is considered a ranged weapon attack (i.e. not natural attacks in 2024 rules) [changed v24.0.8]
 				isThrownWeapon, // boolean, whether (true) or not (false) this attack is a weapon and has the 'thrown' property [added v13.1.1]
 				isNaturalWeapon, // boolean, whether (true) or not (false) this attack has the type 'natural' (then `v.isWeapon === false`) [changed v24.0.8]
+				isSimpleOrMartial, // boolean, whether (true) or not (false) this weapon has the Simple or Martial type [added v14.0.13]
 				theWea, // object, the entry as it appears in the WeaponsList object
 				StrDex, // number, either 1 (Str) or 2 (Dex) depending on which of the two ability scores is higher
 				WeaponName, // string, the name of the entry in the WeaponsList object
@@ -1983,6 +1986,8 @@ calcChanges: {
 				Note that this is only run for attacks that are recognized, not manually added
 		CHANGE:	v13.0.8 (priority, 3rd array entry)
 				v13.1.1 (added v.isThrownWeapon)
+				v24.0.8 (v.isWeapon is more strict)
+				v14.0.13 (added v.isSimpleOrMartial)
 
 		// 1st array entry // REQUIRED //
 		Both examples do the exact same thing, just one is a string and the other is a function.
@@ -2012,6 +2017,7 @@ calcChanges: {
 				isRangedWeapon, // boolean, whether (true) or not (false) this attack has a range that doesn't include 'melee' and is considered a ranged weapon attack (i.e. not natural attacks in 2024 rules) [changed v24.0.8]
 				isThrownWeapon, // boolean, whether (true) or not (false) this attack is a weapon and has the 'thrown' property [added v13.1.1]
 				isNaturalWeapon, // boolean, whether (true) or not (false) this attack has the type 'natural' (then `v.isWeapon === false`) [changed v24.0.8]
+				isSimpleOrMartial, // boolean, whether (true) or not (false) this weapon has the Simple or Martial type [added v14.0.13]
 				theWea, // object, the entry as it appears in the WeaponsList object
 				StrDex, // number, either 1 (Str) or 2 (Dex) depending on which of the two ability scores is higher
 				WeaponName, // string, the name of the entry in the WeaponsList object

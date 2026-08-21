@@ -6136,11 +6136,8 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 	// if a weapon was found, set the variables
 	if (aWea) {
 		// create the variable from the baseWeapon
-		var theWea = {};
-		if (aWea.baseWeapon && WeaponsList[aWea.baseWeapon]) {
-			for (var attr in WeaponsList[aWea.baseWeapon]) theWea[attr] = WeaponsList[aWea.baseWeapon][attr];
-		}
-		for (var attr in aWea) theWea[attr] = aWea[attr];
+		var oBaseWeapon = aWea.baseWeapon && WeaponsList[aWea.baseWeapon] ? WeaponsList[aWea.baseWeapon] : {};
+		var theWea = Object.assign({}, oBaseWeapon, aWea);
 
 		thermoTxt = thermoM("Applying the weapon's features...", false); //change the progress dialog text
 		fields.Description = theWea.description ? theWea.description : ""; //add description
@@ -6201,6 +6198,7 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 			var isRangedWeapon = isWeapon && !isMeleeWeapon && /\d/i.test(fields.Range);
 			var isThrownWeapon = isWeapon && /\bthrown\b/i.test(fields.Description) && /\d ?(ft|m)\.?($|[^)])/i.test(fields.Range);
 			var isNaturalWeapon = theWea && /natural/i.test(theWea.type);
+			var isSimpleOrMartial = isWeapon && /simple|martial/i.test(theWea.type);
 
 			var gatherVars = {
 				WeaponText: WeaponText,
@@ -6212,6 +6210,7 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 				isRangedWeapon: isRangedWeapon,
 				isThrownWeapon: isThrownWeapon,
 				isNaturalWeapon: isNaturalWeapon,
+				isSimpleOrMartial: isSimpleOrMartial,
 				theWea: theWea,
 				StrDex: StrDex,
 				WeaponName: WeaponName,
@@ -6343,10 +6342,10 @@ function CalcAttackDmgHit(fldName) {
 	var aWea = QI || isNaN(parseFloat(WeaponName)) ? WeaponsList[WeaponName] : !QI && !isNaN(parseFloat(WeaponName)) && CurrentCompRace[prefix] && CurrentCompRace[prefix].attacks ? CurrentCompRace[prefix].attacks[WeaponName] : false;
 	var WeaponTextName = QI ? CurrentWeapons.field[ArrayNmbr] : CurrentWeapons.compField[prefix][ArrayNmbr];
 	var theWea = {};
-	if (aWea && aWea.baseWeapon && WeaponsList[aWea.baseWeapon]) {
-		for (var attr in WeaponsList[aWea.baseWeapon]) theWea[attr] = WeaponsList[aWea.baseWeapon][attr];
+	if (aWea) {
+		var oBaseWeapon = aWea.baseWeapon && WeaponsList[aWea.baseWeapon] ? WeaponsList[aWea.baseWeapon] : {};
+		theWea = Object.assign({}, oBaseWeapon, aWea);
 	}
-	if (aWea) for (var attr in aWea) theWea[attr] = aWea[attr];
 	var useSpellModRem = existsInCurrentSpells(theWea.useSpellMod) ? theWea.useSpellMod : false;
 	var sFixedCaster = useSpellModRem ? getHighestSpellcastingAbility(useSpellModRem, false, isDC).caster : false;
 	var oFixedCaster = sFixedCaster ? CurrentSpells[sFixedCaster] : false;
@@ -6385,6 +6384,7 @@ function CalcAttackDmgHit(fldName) {
 	var isRangedWeapon = isWeapon && !isMeleeWeapon && /\d/i.test(fields.Range);
 	var isThrownWeapon = isWeapon && /\bthrown\b/i.test(fields.Description) && /\d ?(ft|m)\.?($|[^)])/i.test(fields.Range);
 	var isNaturalWeapon = theWea && /natural/i.test(theWea.type);
+	var isSimpleOrMartial = isWeapon && /simple|martial/i.test(theWea.type);
 
 	// see if this is a off-hand attack and the modToDmg shouldn't be use
 	var isOffHand = /^(?!.*(spell|cantrip))(?=.*(off.{0,3}hand|secondary)).*$/i.test(WeaponText);
@@ -6408,6 +6408,7 @@ function CalcAttackDmgHit(fldName) {
 			isRangedWeapon : isRangedWeapon,
 			isThrownWeapon : isThrownWeapon,
 			isNaturalWeapon : isNaturalWeapon,
+			isSimpleOrMartial : isSimpleOrMartial,
 			theWea : theWea,
 			WeaponName : WeaponName,
 			baseWeaponName : theWea.baseWeapon ? theWea.baseWeapon : WeaponName,
