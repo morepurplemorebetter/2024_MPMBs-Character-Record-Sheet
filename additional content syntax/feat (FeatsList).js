@@ -285,6 +285,7 @@ FeatsList["purple power"] = {
 	TYPE:	string
 	USE:	the text to be filled in the description field of the feat
 	CHANGE: v14.0.0 (formatting characters)
+	CHANGE: v14.0.13 (array input joined by carriage return "\r")
 
 	Note that the sheet normally uses the first person for this.
 	Make sure that this description is not too long and fits in the description field.
@@ -328,6 +329,8 @@ FeatsList["purple power"] = {
 
 	Be aware that the default font on the Colourful sheets is already italic,
 	so making something only italic won't be visible on the Colourful sheets.
+
+	If this attribute is an array, the sheet will join it with a carriage return "\r".
 */
 	descriptionClassFeature: "I treat 1 or 2 on damage as 3 for Two-Handed/Versatile Melee weapons held with 2 hands.",
 /*	descriptionClassFeature // OPTIONAL //

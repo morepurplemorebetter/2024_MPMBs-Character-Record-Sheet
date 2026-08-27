@@ -445,7 +445,7 @@ weaponProfs: [
 weaponsAdd: ["Bite", "Longsword +2"], // legacy, before v13.1.14
 weaponsAdd: {
 	select: ["Bite", "Rusty Greataxe"],
-	options: ["Longsword +2", "Rusty Greataxe"]
+	options: ["Longsword +2", "Rusty Greataxe"],
 },
 /*	weaponsAdd // OPTIONAL //
 	TYPE:	object
