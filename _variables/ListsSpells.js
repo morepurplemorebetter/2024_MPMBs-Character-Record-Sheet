@@ -1,21 +1,21 @@
 var AtHigherLevels = "\n   ***At Higher Levels***. ";
 var UsingHigherLvl = "***Using a Higher-Level Spell Slot***. ";
 var CantripUpgrade = "***Cantrip Upgrade***. ";
-var SpellRitualTag = '\xAE'; // registered trademark symbol
-var SpellRitualTagNonUnicode = '(R)';
-var SpellReqLosTag = '\u25C9'; // fisheye symbol
+var SpellRitualTag = "\xAE"; // registered trademark symbol
+var SpellRitualTagNonUnicode = "(R)";
+var SpellReqLosTag = "\u25C9"; // fisheye symbol
 
 var Base_spellLevelList = ["Cantrips (0-level)", "1st-level", "2nd-level", "3rd-level", "4th-level", "5th-level", "6th-level", "7th-level", "8th-level", "9th-level", "Talents", "Disciplines"];
 
 var Base_spellSchoolList = {
-	"Abjur" : "abjuration",
-	"Conj" : "conjuration",
-	"Div" : "divination",
-	"Ench" : "enchantment",
-	"Evoc" : "evocation",
-	"Illus" : "illusion",
-	"Necro" : "necromancy",
-	"Trans" : "transmutation",
+	"Abjur": "abjuration",
+	"Conj": "conjuration",
+	"Div": "divination",
+	"Ench": "enchantment",
+	"Evoc": "evocation",
+	"Illus": "illusion",
+	"Necro": "necromancy",
+	"Trans": "transmutation",
 };
 
 var Base_SpellsList = {
@@ -253,7 +253,7 @@ var Base_SpellsList = {
 		compMaterial: "A bit of bat fur",
 		duration: "Conc, 1 h",
 		description: 'Create Invisible 1" magic eye I see through; 30 ft Darkvision; Bns to move (unlimited range, 30 ft/rnd)',
-		descriptionMetric: 'Create Invisible magic eye I see through; 9 m Darkvision; Bns to move (unlimited range, 9 m/round)',
+		descriptionMetric: "Create Invisible magic eye I see through; 9 m Darkvision; Bns to move (unlimited range, 9 m/round)",
 		descriptionFull: [
 			"You create an Invisible, invulnerable eye within range that hovers for the duration. You mentally receive visual information from the eye, which can see in every direction. It also has Darkvision with a range of 30 feet.",
 			"As a Bonus Action, you can move the eye up to 30 feet in any direction. A solid barrier blocks the eye's movement, but the eye can pass through an opening as small as 1 inch in diameter.",
@@ -488,7 +488,7 @@ var Base_SpellsList = {
 			description: "Large hand attacks, pushes, grapples or protects; AC 20, my max HP; Bns to move 60 ft and act; see B",
 		},
 	},
-	"bigby's hand-1-clenched fist" : {
+	"bigby's hand-1-clenched fist": {
 		name: "BH: Clenched Fist",
 		nameAlt: "AH: Clenched Fist",
 		source: [["SRD24", 110], ["PHB24", 246]],
@@ -509,7 +509,7 @@ var Base_SpellsList = {
 			multipleDmgMoments: true,
 		},
 	},
-	"bigby's hand-2-forceful hand" : {
+	"bigby's hand-2-forceful hand": {
 		name: "BH: Forceful Hand",
 		nameAlt: "AH: Forceful Hand",
 		source: [["SRD24", 110], ["PHB24", 246]],
@@ -527,7 +527,7 @@ var Base_SpellsList = {
 		],
 		firstCol: "\u27a5",
 	},
-	"bigby's hand-3-grasping hand" : {
+	"bigby's hand-3-grasping hand": {
 		name: "BH: Grasping Hand",
 		nameAlt: "AH: Grasping Hand",
 		source: [["SRD24", 110], ["PHB24", 246]],
@@ -550,7 +550,7 @@ var Base_SpellsList = {
 			multipleDmgMoments: true,
 		},
 	},
-	"bigby's hand-4-interposing hand" : {
+	"bigby's hand-4-interposing hand": {
 		name: "BH: Interposing Hand",
 		nameAlt: "AH: Interposing Hand",
 		source: [["SRD24", 110], ["PHB24", 246]],
@@ -1137,8 +1137,8 @@ var Base_SpellsList = {
 		dependencies: ["conjure celestial-1-healing light", "conjure celestial-2-searing light"],
 		withoutDependencies: {
 			description: "10ft rad 40ft high cast/enter/end heal 4d12+spell mod HP or 6d12 Rad. dmg; save \xBD; +d12/SL; see B",
-			dynamicDamageBonus : {
-				multipleDmgTypes : {
+			dynamicDamageBonus: {
+				multipleDmgTypes: {
 					dmgTypes: ["radiant"],
 					inDescriptionAs: "Rad\\.",
 				},
@@ -1808,7 +1808,7 @@ var Base_SpellsList = {
 			description: "Sense thinking crea/read 1 vis. crea surface thoughts; Act: switch/probe: save, knows, Arcana chk end",
 		},
 	},
-	"detect thoughts-1-sense thoughts" : {
+	"detect thoughts-1-sense thoughts": {
 		name: "DT: Sense Thoughts",
 		source: [["SRD24", 123], ["PHB24", 262]],
 		level: 2,
@@ -1825,7 +1825,7 @@ var Base_SpellsList = {
 		],
 		firstCol: "\u27a5",
 	},
-	"detect thoughts-2-read thoughts" : {
+	"detect thoughts-2-read thoughts": {
 		name: "DT: Read Thoughts",
 		source: [["SRD24", 123], ["PHB24", 262]],
 		level: 2,
@@ -1834,7 +1834,7 @@ var Base_SpellsList = {
 		range: "30 ft",
 		components: "option",
 		duration: "Till changed",
-		save : "Wis",
+		save: "Wis",
 		description: "Learn surface thoughts of 1 crea; next turn Act: crea save or probe; ends if saved or it Act: Arcana chk",
 		descriptionFull: [
 			"Target one creature you can see within 30 feet of yourself or one creature within 30 feet of yourself that you detected with the Sense Thoughts option. You learn what is most on the target's mind right now. If the target doesn't know any languages and isn't telepathic, you learn nothing.",
@@ -1922,7 +1922,7 @@ var Base_SpellsList = {
 			description: "Celestial, elem., fey, fiend, undead Dis on atk vs me; Act to end for Dismissal/Break enchantment; see B",
 		},
 	},
-	"dispel evil and good-1-break enchantment" : {
+	"dispel evil and good-1-break enchantment": {
 		name: "DEG: Break Enchantment",
 		source: [["SRD24", 124], ["PHB24", 263]],
 		level: 5,
@@ -1938,7 +1938,7 @@ var Base_SpellsList = {
 		],
 		firstCol: "\u27a5",
 	},
-	"dispel evil and good-2-dismissal" : {
+	"dispel evil and good-2-dismissal": {
 		name: "DEG: Dismissal",
 		source: [["SRD24", 124], ["PHB24", 263]],
 		level: 5,
@@ -2067,7 +2067,7 @@ var Base_SpellsList = {
 			description: "Any crea save or Deaf/Blind/Stunned/Dead based on current HP; banishes extraplanar crea; see book",
 		},
 	},
-	"divine word-1-hp effects" : {
+	"divine word-1-hp effects": {
 		name: "Divine Word: HP Effects",
 		source: [["SRD24", 125], ["PHB24", 265]],
 		level: 7,
@@ -2555,7 +2555,7 @@ var Base_SpellsList = {
 			description: "1 crea in 60 ft save or Unconscious, Frightened, or Poisoned; Act to target another crea not yet saved",
 		},
 	},
-	"eyebite-1-options" : {
+	"eyebite-1-options": {
 		name: "Eyebite: options",
 		source: [["SRD24", 129], ["PHB24", 270]],
 		reqLoS: true,
@@ -4334,7 +4334,7 @@ var Base_SpellsList = {
 	"mending": {
 		name: "Mending",
 		classes: ["artificer", "bard", "cleric", "druid", "sorcerer", "wizard"],
-		source : [["SRD24", 148], ["PHB24", 297]],
+		source: [["SRD24", 148], ["PHB24", 297]],
 		level: 0,
 		school: "Trans",
 		time: "1 min",
@@ -4547,8 +4547,8 @@ var Base_SpellsList = {
 			"When the Cylinder appears, each creature in it makes a Constitution saving throw. On a failed save, a creature takes 2d10 Radiant damage, and if the creature is shape-shifted (as a result of the Polymorph spell, for example), it reverts to its true form and can't shape-shift until it leaves the Cylinder. On a successful save, a creature takes half as much damage only. A creature also makes this save when the spell's area moves into its space and when it enters the spell's area or ends its turn there. A creature makes this save only once per turn.",
 			UsingHigherLvl + "The damage increases by 1d10 for each spell slot level above 2.",
 		],
-		dynamicDamageBonus : {
-			multipleDmgTypes : {
+		dynamicDamageBonus: {
+			multipleDmgTypes: {
 				dmgTypes: ["radiant"],
 				inDescriptionAs: "Rad\\.",
 			},
@@ -5091,7 +5091,7 @@ var Base_SpellsList = {
 			description: "All creatures random effect each: 12d6 damage, Restrained, or Blinded; save halves/negates; see book",
 		},
 	},
-	"prismatic spray-1-6" : {
+	"prismatic spray-1-6": {
 		name: "Prismatic Spray (6)",
 		source: [["SRD24", 154], ["PHB24", 307]],
 		level: 7,
@@ -5120,7 +5120,7 @@ var Base_SpellsList = {
 		],
 		firstCol: "\u27a5",
 	},
-	"prismatic spray-2-7-8" : {
+	"prismatic spray-2-7-8": {
 		name: "Prismatic Spray (7-8)",
 		source: [["SRD24", 154], ["PHB24", 307]],
 		level: 7,
@@ -5350,7 +5350,7 @@ var Base_SpellsList = {
 			"A beam of enervating energy shoots from you toward a creature within range. The target must make a Constitution saving throw. On a successful save, the target has Disadvantage on the next attack roll it makes until the start of your next turn.",
 			"On a failed save, the target has Disadvantage on Strength-based D20 Tests for the duration. During that time, it also subtracts 1d8 from all its damage rolls. The target repeats the save at the end of each of its turns, ending the spell on a success.",
 		],
-		dynamicDamageBonus: { doNotProcess : true },
+		dynamicDamageBonus: { doNotProcess: true },
 	},
 	"ray of frost": {
 		name: "Ray of Frost",
@@ -5458,7 +5458,7 @@ var Base_SpellsList = {
 		duration: "Conc, 1 min",
 		description: "Choose dmg type (except Force or Psychic); 1 willing crea takes -1d4 dmg of that type, once per turn",
 		descriptionFull: "You touch a willing creature and choose a damage type: Acid, Bludgeoning, Cold, Fire, Lightning, Necrotic, Piercing, Poison, Radiant, Slashing, or Thunder. When the creature takes damage of the chosen type before the spell ends, the creature reduces the total damage taken by 1d4. A creature can benefit from this spell only once per turn.",
-		dynamicDamageBonus: { doNotProcess : true },
+		dynamicDamageBonus: { doNotProcess: true },
 	},
 	"resurrection": {
 		name: "Resurrection",
@@ -6199,7 +6199,7 @@ var Base_SpellsList = {
 			save: "C/D",
 		},
 	},
-	"storm of vengeance-1-turns 2-4" : {
+	"storm of vengeance-1-turns 2-4": {
 		name: "Storm of V: turns 2-4",
 		source: [["SRD24", 165], ["PHB24", 321]],
 		level: 9,
@@ -6221,7 +6221,7 @@ var Base_SpellsList = {
 		firstCol: "\u27a5",
 		dynamicDamageBonus: { doNotProcess: true },
 	},
-	"storm of vengeance-2-turns 5-10" : {
+	"storm of vengeance-2-turns 5-10": {
 		name: "Storm of V: turns 5-10",
 		source: [["SRD24", 165], ["PHB24", 321]],
 		level: 9,
@@ -6671,7 +6671,7 @@ var Base_SpellsList = {
 			descriptionShorterMetric: "90\xD715\xD790m (l\xD7w\xD7h) wave moves away at 15 m/rnd; 6d10 Bludg. dmg; save half; see B",
 		},
 	},
-	"tsunami-1-start of my turn" : {
+	"tsunami-1-start of my turn": {
 		name: "Tsunami: start of my turn",
 		source: [["SRD24", 171], ["PHB24", 336]],
 		level: 8,
@@ -6780,10 +6780,10 @@ var Base_SpellsList = {
 		compMaterial: "A piece of charcoal",
 		duration: "Conc, 1 min",
 		save: "Dex",
-		description : "60\xD71\xD720ft (l\xD7w\xD7h) or 10ft rad; all enter/end in 10ft 1 side 5d8+1d8/SL Fire dmg; cast: all in save \xBD",
-		descriptionMetric : "18\xD70,3\xD76m (l\xD7w\xD7h) or 3m rad; all enter/end in 3m 1 side 5d8+1d8/SL Fire dmg; cast: all in save \xBD",
-		descriptionShorter : "60|1|20 (l|w|h) or 10ft rad; 5d8+1d8/SL Fire dmg; cast:all in save \xBD; enter/end 10ft dmg",
-		descriptionShorterMetric : "18|0,3|6 (l|w|h) or 3m rad; 5d8+1d8/SL Fire dmg; cast: all in save \xBD; enter/end 3m dmg",
+		description: "60\xD71\xD720ft (l\xD7w\xD7h) or 10ft rad; all enter/end in 10ft 1 side 5d8+1d8/SL Fire dmg; cast: all in save \xBD",
+		descriptionMetric: "18\xD70,3\xD76m (l\xD7w\xD7h) or 3m rad; all enter/end in 3m 1 side 5d8+1d8/SL Fire dmg; cast: all in save \xBD",
+		descriptionShorter: "60|1|20 (l|w|h) or 10ft rad; 5d8+1d8/SL Fire dmg; cast:all in save \xBD; enter/end 10ft dmg",
+		descriptionShorterMetric: "18|0,3|6 (l|w|h) or 3m rad; 5d8+1d8/SL Fire dmg; cast: all in save \xBD; enter/end 3m dmg",
 		descriptionFull: [
 			"You create a wall of fire on a solid surface within range. You can make the wall up to 60 feet long, 20 feet high, and 1 foot thick, or a ringed wall up to 20 feet in diameter, 20 feet high, and 1 foot thick. The wall is opaque and lasts for the duration.",
 			"When the wall appears, each creature in its area makes a Dexterity saving throw, taking 5d8 Fire damage on a failed save or half as much damage on a successful one.",
@@ -6834,7 +6834,7 @@ var Base_SpellsList = {
 		dynamicDamageBonus: { multipleDmgMoments: false },
 		dependencies: ["wall of ice-1-breaching it"],
 	},
-	"wall of ice-1-breaching it" : {
+	"wall of ice-1-breaching it": {
 		name: "Wall of Ice: breaching it",
 		source: [["SRD24", 172], ["PHB24", 339]],
 		level: 6,

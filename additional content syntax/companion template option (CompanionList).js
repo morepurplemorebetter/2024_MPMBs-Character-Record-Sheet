@@ -187,9 +187,9 @@ CompanionList["purple familiar"] = {
 
 	Setting this attribute to false is the same as not including this attribute.
 */
-action : [
+action: [
 	["reaction", " (start)"],
-	["bonus action", "Shove"]
+	["bonus action", "Shove"],
 ],
 /*	action // OPTIONAL //
 	TYPE:	array (variable length)
@@ -208,7 +208,7 @@ action : [
 	defined, see above. If `nameTooltip` isn't defined, the `name` will be used instead.
 */
 	includeCheck: function(sCrea, objCrea, iCreaCR, bIsAL) {
-		return objCrea.type.toLowerCase() === "beast" && objCrea.size >= 3 && iCreaCR <= 1/4 ? true : false;
+		return objCrea.type.toLowerCase() === "beast" && objCrea.size >= 3 && iCreaCR <= 1 / 4 ? true : false;
 	},
 /*	includeCheck // OPTIONAL //
 	TYPE:	function
@@ -274,7 +274,7 @@ action : [
 			ability: 2,
 			damage: [1, 6, "acid"],
 			range: "60 ft",
-			description: ""
+			description: "",
 		}],
 	},
 /*	attributesAdd // OPTIONAL //
@@ -346,12 +346,12 @@ action : [
 	notes: [{
 		name: "False Appearance",
 		description: "While the purple familiar remains motionless, it is indistinguishable from an ordinary purple flower.",
-		joinString: "\n   "
+		joinString: "\n   ",
 	}, {
 		name: "Invisibility",
 		minlevel: 5,
 		description: "As an action, the purple familiar magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell).",
-		addMod: [{ type : "skill", field : "all", mod : "max(oCha|1)", text : "The purple familiar adds its master's Charisma modifier (min 1) to all its skill checks." }]
+		addMod: [{ type: "skill", field: "all", mod: "max(oCha|1)", text: "The purple familiar adds its master's Charisma modifier (min 1) to all its skill checks." }],
 	}, {
 		name: "Keen Sight",
 		minlevel: 8,
@@ -363,7 +363,7 @@ action : [
 		removeeval: function(prefix, lvl) {
 			// Change size back to Medium
 			PickDropdown(prefix + "Comp.Desc.Size", 3);
-		}
+		},
 	}],
 /*	notes // OPTIONAL //
 	TYPE:	array (variable length) with objects
@@ -521,7 +521,7 @@ action : [
 // >>> Run custom function >>> //
 // >>>>>>>>>>>>>>>>>>>>>>>>>>> //
 	eval: function(prefix, lvl) {
-		AddString(prefix + 'Cnote.Left', 'The purple familiar always serves a singular master. If that master gets killed, it will serve the one who killed its master, if any.', true);
+		AddString(prefix + "Cnote.Left", "The purple familiar always serves a singular master. If that master gets killed, it will serve the one who killed its master, if any.", true);
 	},
 /*	eval // OPTIONAL //
 	TYPE:	function
@@ -547,7 +547,7 @@ action : [
 */
 
 	removeeval: function(prefix, lvl) {
-		RemoveString(prefix + 'Cnote.Left', 'The purple familiar always serves a singular master. If that master gets killed, it will serve the one who killed its master, if any.', true);
+		RemoveString(prefix + "Cnote.Left", "The purple familiar always serves a singular master. If that master gets killed, it will serve the one who killed its master, if any.", true);
 	},
 /*	removeeval // OPTIONAL //
 	TYPE:	function

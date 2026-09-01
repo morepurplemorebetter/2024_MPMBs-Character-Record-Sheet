@@ -216,7 +216,7 @@ FeatsList["purple power"] = {
 	Setting this to "" is the same as not including this attribute.
 */
 	prereqeval: function(v) {
-		return v.isSpellcaster && CurrentRace.known.indexOf('dwarf') !== -1;
+		return v.isSpellcaster && CurrentRace.known.indexOf("dwarf") !== -1;
 	},
 	prereqeval: "CurrentSpells.toSource() !== '({})' && CurrentRace.known.indexOf('dwarf') !== -1",
 /*	prereqeval // OPTIONAL //
@@ -453,7 +453,7 @@ FeatsList["purple power"] = {
 	To set up a choice, add the 'choices' attribute, see below, and add an object for each of those choices.
 	The object name has to be exactly the same as the string in the 'choices' array, but need to be all lowercase.
 */
-	choices: ['Fire', 'Ice'],
+	choices: ["Fire", "Ice"],
 /*	choices // OPTIONAL //
 	TYPE:	array (variable length)
 	USE:	options for the feat
@@ -507,7 +507,7 @@ FeatsList["purple power"] = {
 	Setting this attribute to false is the same as not including this attribute.
 */
 
-	"fire" : {
+	"fire": {
 	/*	Choice Object Name
 		TYPE:	object name
 		USE:	this has to be identical to the entry in the 'choices' array that this refers to, but all lowercase

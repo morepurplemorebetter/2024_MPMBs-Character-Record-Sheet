@@ -227,7 +227,7 @@ function rangeStringToPartsObject(range, stopFunction) {
 	var rangeParts = range.match(/(\d*[,.]?\d+).?(ft|feet|foot|m\b|metre|meter)/i);
 	if (!rangeParts) return;
 	var rangeFT = Number(rangeParts[1].replace(",", "."));
-	if (rangeParts[2].toLowerCase()[0] === 'm') {
+	if (rangeParts[2].toLowerCase()[0] === "m") {
 		// If the range is in metres, convert it to feet
 		rangeFT = RoundTo(rangeFT / UnitsList.metric.length, 0.5);
 	}
@@ -285,16 +285,16 @@ function amendRangeObject(range, srcName, addition, stopFunction) {
  */
 function dynamicFeatureCreation() {
 	// Warlock invocations that change cantrips: add one for each eligible cantrip
-	var invocationFeature = ClassList.warlock.features['eldritch invocations'];
+	var invocationFeature = ClassList.warlock.features["eldritch invocations"];
 	var dmgSpellRx = /(takes?|or) \d+d\d+ \w* ?(damage|dmg)/i;
 	// Debatable if this should include True Strike, or only from level 5 onwards, but this automation has it as an option so the DM can decide to allow it or not.
-	var dmgSpellEx = ['true strike', 'green-flame blade', 'booming blade'];
+	var dmgSpellEx = ["true strike", "green-flame blade", "booming blade"];
 	var atkSpellRx = /spell at(tac)?k/i;
 	var atkSpellEx = dmgSpellEx;
 	var rngSpellRx = /^(?!.*(S:|rad|touch|self|cone|cube)).*\d+([.,]\d+)?.?(f.{0,2}t|m).*$/i;
 	var range10FtFunc = function (sRange, nRangeFT) { return nRangeFT < 10; };
 	var prereqFunc = function(v) {
-		var invocationFeature = ClassList.warlock.features['eldritch invocations'];
+		var invocationFeature = ClassList.warlock.features["eldritch invocations"];
 		var cantrip = invocationFeature[v.choice].invocationMeta.cantrip;
 		var oSpell = SpellsList[cantrip];
 		if (!cantrip || !oSpell || !oSpell.classes || !classes.known.warlock) return "skip";
@@ -304,7 +304,7 @@ function dynamicFeatureCreation() {
 	var evalFunc = function(lvlA, choiceA) {
 		var addIt = lvlA[1] ? true : false;
 		var choice = choiceA[addIt ? 1 : 0];
-		var invocationFeature = ClassList.warlock.features['eldritch invocations'];
+		var invocationFeature = ClassList.warlock.features["eldritch invocations"];
 		var invocation = invocationFeature[choice].invocationMeta.type;
 		var otherInvocationsOfSameType = getActiveInvocations(invocation, false, choice);
 		// Only do something if there are no active other invocations of the same type ( i.e. only add if the first / remove if the last of its type)
@@ -366,7 +366,7 @@ function dynamicFeatureCreation() {
 	}
 	// Warlock invocations that add origin feat
 	var prereqFuncFeat = function(v) {
-		var invocationFeature = ClassList.warlock.features['eldritch invocations'];
+		var invocationFeature = ClassList.warlock.features["eldritch invocations"];
 		var invocationMeta = invocationFeature[v.choice].invocationMeta;
 		var feat = invocationMeta.feat;
 		var featChoice = invocationMeta.choice;
@@ -375,7 +375,7 @@ function dynamicFeatureCreation() {
 			return n === feat && (!featChoice || nChoice === featChoice);
 		});
 	};
-	var lessonsOfTheFirstOnesSubMenu = "Lessons of the First Ones (req: lvl 2+)" + stringSource({source: [["SRD24", 73], ["PHB24", 156]]}, "first,abbr", "   \t[", "]");
+	var lessonsOfTheFirstOnesSubMenu = "Lessons of the First Ones (req: lvl 2+)" + stringSource({ source: [["SRD24", 73], ["PHB24", 156]] }, "first,abbr", "   \t[", "]");
 	for (var key in FeatsList) {
 		var oFeat = FeatsList[key];
 		if (/origin/i.test(oFeat.type)) {
@@ -421,8 +421,8 @@ function dynamicFeatureCreation() {
  * invocation keys that match the provided parameters
  */
 function getActiveInvocations(invocation, matchObject, skipInvocation) {
-	var activeInvocations = GetFeatureChoice('classes', 'warlock', 'eldritch invocations', true);
-	var invocationFeature = ClassList.warlock.features['eldritch invocations'];
+	var activeInvocations = GetFeatureChoice("classes", "warlock", "eldritch invocations", true);
+	var invocationFeature = ClassList.warlock.features["eldritch invocations"];
 	var matchingInvocations = activeInvocations.filter(function (n) {
 		var obj = invocationFeature[n];
 		if (n === skipInvocation || !obj || !obj.invocationMeta) return false;

@@ -129,7 +129,7 @@ MagicItemsList["staff of purple"] = {
 	The shortest of the 'name', 'nameAlt', and 'nameTest' attributes will be used for the 'chooseGear' attribute, see below.
 */
 	nameTest: "Purple Staff",
-	nameTest:  /^(?=.*staff)(?=.*magic)(?=.*(green|red|blue|orange|yellow|pink))).*$/i,
+	nameTest: /^(?=.*staff)(?=.*magic)(?=.*(green|red|blue|orange|yellow|pink)).*$/i,
 /*	nameTest // OPTIONAL //
 	TYPE:	string or regular expression
 	USE:	alternative name with which the sheet can recognize the magic item
@@ -279,7 +279,7 @@ MagicItemsList["staff of purple"] = {
 	Setting this to "" is the same as not including this attribute.
 */
 	prereqeval: function(v) {
-		return v.isSpellcaster && CurrentRace.known.indexOf('dwarf') !== -1;
+		return v.isSpellcaster && CurrentRace.known.indexOf("dwarf") !== -1;
 	},
 	prereqeval: "CurrentSpells.toSource() !== '({})' && CurrentRace.known.indexOf('dwarf') !== -1",
 /*	prereqeval // OPTIONAL //
@@ -757,7 +757,7 @@ MagicItemsList["staff of purple"] = {
 	To set up a choice, add the 'choices' attribute, see below, and add an object for each of those choices.
 	The object name has to be exactly the same as the string in the 'choices' array, but need to be all lowercase.
 */
-	choices: ['Fire', 'Ice'],
+	choices: ["Fire", "Ice"],
 /*	choices // OPTIONAL //
 	TYPE:	array (variable length)
 	USE:	options for the magic item
@@ -885,5 +885,5 @@ MagicItemsList["staff of purple"] = {
 		'usages', 'additional', 'recovery', 'usagesCalc', and 'limfeaname' will all be
 		merged from the choice object into the parent to generate a single limited feature.
 	*/
-	}
+	},
 }

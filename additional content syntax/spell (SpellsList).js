@@ -806,7 +806,7 @@ SpellsList["sindering purple"] = {
 	*/
 		multipleDmgTypes: {
 			dmgTypes: ["acid", "cold", "fire", "lightning", "thunder"],
-			inDescriptionAs: 'Acid, Cold, Fire, Lightning, or Thunder|Acid/Cold/Fire/Lightning/Thunder'
+			inDescriptionAs: "Acid, Cold, Fire, Lightning, or Thunder|Acid/Cold/Fire/Lightning/Thunder",
 		},
 	/*	multipleDmgTypes // OPTIONAL //
 		TYPE:	object (with exactly two attributes)

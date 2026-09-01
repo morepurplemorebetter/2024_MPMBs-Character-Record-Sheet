@@ -3,10 +3,10 @@ var Base_DefaultEvalsList = {
 		atkAdd: [
 			function (fields, v) {
 				if (v.WeaponName === "shillelagh-club" || v.WeaponName === "shillelagh-quarterstaff") {
-					fields.Damage_Die = function(n){ return n < 5 ? '1d8' : n < 11 ? '1d10' : n < 17 ? '1d12' : '2d6'}(classes.totallevel);
+					fields.Damage_Die = function(n){ return n < 5 ? "1d8" : n < 11 ? "1d10" : n < 17 ? "1d12" : "2d6"}(classes.totallevel);
 				};
 			},
-			'', // no description means it doesn't appear in the dialog/menu listing changes
+			"", // no description means it doesn't appear in the dialog/menu listing changes
 			1, // highest priority
 		],
 	},
@@ -15,7 +15,7 @@ var Base_DefaultEvalsList = {
 			function (spellKey, spellObj, spName, isDuplicate) {
 				if (spellKey === "spare the dying" && classes.totallevel) {
 					var cDie = cantripDie[Math.min(classes.totallevel, cantripDie.length) - 1];
-					var range = 15 * Math.pow(2, cDie-1) + " ft";
+					var range = 15 * Math.pow(2, cDie - 1) + " ft";
 					if (What("Unit System") === "metric") range = ConverToMetric(range, 0.5);
 					spellObj.range = range;
 				};
@@ -27,20 +27,20 @@ var Base_DefaultEvalsList = {
 	"True Strike": {
 		atkAdd: [
 			function (fields, v) {
-				if (v.isWeapon && v.baseWeaponName !== 'true strike' && /true.strike|[\(\[]TS[\]\)]/i.test(v.WeaponTextName)) {
+				if (v.isWeapon && v.baseWeaponName !== "true strike" && /true.strike|[\(\[]TS[\]\)]/i.test(v.WeaponTextName)) {
 					// Save that this is related to the True Strike cantrip
-					if (!v.thisWeapon[3]) v.thisWeapon[3] = 'true strike';
+					if (!v.thisWeapon[3]) v.thisWeapon[3] = "true strike";
 					// Radiant damage type optional
 					if (!/radiant|[,; /\-]/i.test(fields.Damage_Type)) {
 						fields.Damage_Type = fields.Damage_Type.capitalize().replace("eoning", ".") + "/Radiant";
 					};
 					// Bonus damage to description
 					if (classes.totallevel >= 5) {
-						fields.Description += (fields.Description ? '; ' : '') + '+' + EvalDmgDie('Bd6') + ' Radiant damage';
+						fields.Description += (fields.Description ? "; " : "") + "+" + EvalDmgDie("Bd6") + " Radiant damage";
 					};
 					// Use highest spellcasting ability
 					if (!v.theWea.useSpellMod) {
-						var aCasters = isSpellUsed('true strike');
+						var aCasters = isSpellUsed("true strike");
 						if (aCasters.length && !v.thisWeapon[4].length) v.thisWeapon[4] = aCasters;
 						if (!aCasters.length) aCasters = Object.keys(CurrentSpells);
 						if (aCasters.length) v.theWea.useSpellMod = aCasters;
@@ -52,19 +52,19 @@ var Base_DefaultEvalsList = {
 		],
 		atkCalc: [
 			function (fields, v, output) {
-				if (v.isWeapon && v.baseWeaponName !== 'true strike' && /true strike|[\(\[]TS[\]\)]/i.test(v.WeaponTextName)) {
+				if (v.isWeapon && v.baseWeaponName !== "true strike" && /true strike|[\(\[]TS[\]\)]/i.test(v.WeaponTextName)) {
 					// Save that this is related to the True Strike cantrip
-					if (!v.thisWeapon[3]) v.thisWeapon[3] = 'true strike';
+					if (!v.thisWeapon[3]) v.thisWeapon[3] = "true strike";
 					// Use highest spellcasting ability
 					if (!v.theWea.useSpellMod) {
-						var aCasters = isSpellUsed('true strike');
+						var aCasters = isSpellUsed("true strike");
 						if (aCasters.length && !v.thisWeapon[4].length) v.thisWeapon[4] = aCasters;
 						if (!aCasters.length) aCasters = Object.keys(CurrentSpells);
 						if (aCasters.length) v.theWea.useSpellMod = aCasters;
 					};
 				};
 			},
-			'',
+			"",
 			1,
 		],
 	},
@@ -84,7 +84,7 @@ var Base_DefaultEvalsList = {
 							var oClassFea = clFea[sFea];
 							if (!oClassFea.choicesWeaponMasteries || !oFeaChoices.extrachoices) continue;
 							var weapons = oFeaChoices.extrachoices.map(function (choice) {
-								return oClassFea[choice].weaponMastery ? oClassFea[choice].weaponMastery : '';
+								return oClassFea[choice].weaponMastery ? oClassFea[choice].weaponMastery : "";
 							});
 							if (weapons.indexOf(v.baseWeaponName) !== -1) {
 								addMastery = true;
@@ -96,12 +96,12 @@ var Base_DefaultEvalsList = {
 				};
 				if (addMastery) {
 					var oMastery = WeaponMasteriesList[v.theWea.mastery];
-					if (fields.Description) fields.Description += fields.Description.indexOf(';') !== -1 ? '; ' : ', ';
+					if (fields.Description) fields.Description += fields.Description.indexOf(";") !== -1 ? "; " : ", ";
 					fields.Description += oMastery.name;
-					if (fields.Description_Tooltip) fields.Description_Tooltip += '\n\n';
-					fields.Description_Tooltip += toUni(oMastery.name + ' Weapon Mastery', "bold");
+					if (fields.Description_Tooltip) fields.Description_Tooltip += "\n\n";
+					fields.Description_Tooltip += toUni(oMastery.name + " Weapon Mastery", "bold");
 					fields.Description_Tooltip += stringSource(oMastery, "first,abbr", " (", ")");
-					fields.Description_Tooltip += '\n' + formatDescriptionFull(oMastery.descriptionFull);
+					fields.Description_Tooltip += "\n" + formatDescriptionFull(oMastery.descriptionFull);
 					v.masteryAdded = true;
 				};
 			},

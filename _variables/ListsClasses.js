@@ -8,9 +8,9 @@ var FightingStyles = {
 				function (fields, v, output) {
 					if (v.isRangedWeapon && !v.isNaturalWeapon && !v.isDC) output.extraHit += 2;
 				},
-				"My ranged weapons get a +2 bonus on the To Hit."
-			]
-		}
+				"My ranged weapons get a +2 bonus on the To Hit.",
+			],
+		},
 	},
 	defense: {
 		name: "Defense Fighting Style",
@@ -19,8 +19,8 @@ var FightingStyles = {
 			name: "Defense Fighting Style", // necessary for features referring to fighting style properties directly
 			mod: 1,
 			text: "I gain a +1 bonus to AC while wearing armor.",
-			stopeval: function (v) { return !v.wearingArmor; }
-		}
+			stopeval: function (v) { return !v.wearingArmor; },
+		},
 	},
 	dueling: {
 		name: "Dueling Fighting Style",
@@ -29,13 +29,13 @@ var FightingStyles = {
 			atkCalc: [
 				function (fields, v, output) {
 					for (var i = 1; i <= FieldNumbers.actions; i++) {
-						if (/off.hand.attack/i.test(What('Bonus Action ' + i))) return;
+						if (/off.hand.attack/i.test(What("Bonus Action " + i))) return;
 					};
 					if (v.isMeleeWeapon && !v.isNaturalWeapon && !/((^|[^+-]\b)2|\btwo).?hand(ed)?s?\b/i.test(fields.Description)) output.extraDmg += 2;
 				},
-				"When I'm wielding a melee weapon in one hand and no weapon in my other hand, I do +2 damage with that melee weapon. This condition will always be false if the bonus action 'Off-hand Attack' exists."
-			]
-		}
+				"When I'm wielding a melee weapon in one hand and no weapon in my other hand, I do +2 damage with that melee weapon. This condition will always be false if the bonus action 'Off-hand Attack' exists.",
+			],
+		},
 	},
 	great_weapon: {
 		name: "Great Weapon Fighting Style",
@@ -44,20 +44,20 @@ var FightingStyles = {
 			atkAdd: [
 				function (fields, v) {
 					if (v.isMeleeWeapon && /\bversatile\b|((^|[^+-]\b)2|\btwo).?hand(ed)?s?\b/i.test(fields.Description)) {
-						fields.Description += (fields.Description ? '; ' : '') + 'Re-roll 1 or 2 on damage die' + (/versatile/i.test(fields.Description) ? ' when two-handed' : '');
+						fields.Description += (fields.Description ? "; " : "") + "Re-roll 1 or 2 on damage die" + (/versatile/i.test(fields.Description) ? " when two-handed" : "");
 					}
 				},
-				"While wielding a two-handed or versatile melee weapon in two hands, I can re-roll a 1 or 2 on any damage die once."
-			]
-		}
+				"While wielding a two-handed or versatile melee weapon in two hands, I can re-roll a 1 or 2 on any damage die once.",
+			],
+		},
 	},
 	protection: {
 		name: "Protection Fighting Style",
 		description: desc([
 			"As a reaction, I can give Disadv on an attack made vs someone within 5 ft of me",
-			"I need to be wielding a shield and be able to see the attacker to do this"
+			"I need to be wielding a shield and be able to see the attacker to do this",
 		]),
-		action: [["reaction", ""]]
+		action: [["reaction", ""]],
 	},
 	two_weapon: {
 		name: "Two-Weapon Fighting Style",
@@ -67,10 +67,10 @@ var FightingStyles = {
 				function (fields, v, output) {
 					if (v.isOffHand) output.modToDmg = true;
 				},
-				'When engaging in two-weapon fighting, I can add my ability modifier to the damage of my off-hand attacks. If a melee weapon includes "off-hand" or "secondary" in its name or description, it is considered an off-hand attack.'
-			]
-		}
-	}
+				'When engaging in two-weapon fighting, I can add my ability modifier to the damage of my off-hand attacks. If a melee weapon includes "off-hand" or "secondary" in its name or description, it is considered an off-hand attack.',
+			],
+		},
+	},
 };
 
 var GenericClassFeatures = {
@@ -82,7 +82,7 @@ var GenericClassFeatures = {
 			atkCalc: [
 				function (fields, v, output) {
 					if (v.thisWeapon[3] && /\bcleric\b/.test(v.thisWeapon[4]) && SpellsList[v.thisWeapon[3]].level === 0 && /\d/.test(fields.Damage_Die)) {
-						output.extraDmg += Number(What('Wis Mod'));
+						output.extraDmg += Number(What("Wis Mod"));
 					};
 				},
 				"My cleric cantrips get my Wisdom modifier added to their damage.",
@@ -107,7 +107,7 @@ var GenericClassFeatures = {
 					// Stop if not a recognized spell, Charisma modifier is 0 or less, or no matching agonizing blast selected for this cantrip
 					var spellKey = v.thisWeapon[3];
 					var chaMod = Number(What("Cha Mod"));
-					if (!spellKey || chaMod <= 0 || !getActiveInvocations('agonizing blast', { cantrip: spellKey })) return;
+					if (!spellKey || chaMod <= 0 || !getActiveInvocations("agonizing blast", { cantrip: spellKey })) return;
 
 					output.extraDmg += chaMod;
 				},
@@ -117,7 +117,7 @@ var GenericClassFeatures = {
 				function (spellKey, spellObj, spName) {
 					// Stop if Charisma modifier is 0 or less or no matching agonizing blast selected for this cantrip
 					var chaMod = Number(What("Cha Mod"));
-					if (chaMod <= 0 || !getActiveInvocations('agonizing blast', { cantrip: spellKey })) return;
+					if (chaMod <= 0 || !getActiveInvocations("agonizing blast", { cantrip: spellKey })) return;
 
 					genericSpellDmgEdit(spellKey, spellObj, "\\w+\\.?", chaMod, false, true);
 				},
@@ -133,7 +133,7 @@ var GenericClassFeatures = {
 				function (fields, v) {
 					// Stop if not a recognized spell, no warlock levels present, or no matching eldritch spear selected for this cantrip
 					var spellKey = v.thisWeapon[3];
-					if (!spellKey || !classes.known.warlock || !getActiveInvocations('eldritch spear', { cantrip: spellKey })) return;
+					if (!spellKey || !classes.known.warlock || !getActiveInvocations("eldritch spear", { cantrip: spellKey })) return;
 
 					var name = "eldritch spear";
 					var addition = "+" + (classes.known.warlock.level * 30);
@@ -151,7 +151,7 @@ var GenericClassFeatures = {
 			spellAdd: [
 				function (spellKey, spellObj, spName) {
 					// Stop if no warlock levels present or no matching eldritch spear selected for this cantrip
-					if (!classes.known.warlock || !getActiveInvocations('eldritch spear', { cantrip: spellKey })) return;
+					if (!classes.known.warlock || !getActiveInvocations("eldritch spear", { cantrip: spellKey })) return;
 
 					var name = "eldritch spear";
 					var addition = "+" + (classes.known.warlock.level * 30);
@@ -177,16 +177,16 @@ var GenericClassFeatures = {
 				function (fields, v) {
 					// Stop if not a recognized spell, requires a save, or no matching repelling blast selected for this cantrip
 					var spellKey = v.thisWeapon[3];
-					if (!spellKey || v.isDC || !getActiveInvocations('repelling blast', { cantrip: spellKey })) return;
+					if (!spellKey || v.isDC || !getActiveInvocations("repelling blast", { cantrip: spellKey })) return;
 
-					fields.Description += (fields.Description ? '; ' : '') + '\u2264Large push 10 ft';
+					fields.Description += (fields.Description ? "; " : "") + "\u2264Large push 10 ft";
 				},
 				"When I hit a Large or smaller creature with a warlock cantrips for which I have selected the Repelling Blast Eldritch Invocation, I can push it 10 ft straight away from me.",
 			],
 			spellAdd: [
 				function (spellKey, spellObj, spName) {
 					// Stop if no matching repelling blast selected for this cantrip
-					if (!getActiveInvocations('repelling blast', { cantrip: spellKey })) return;
+					if (!getActiveInvocations("repelling blast", { cantrip: spellKey })) return;
 
 					// Only amend the spell short description if using the special cantrip die description, otherwise it'll never fit
 					if (CurrentCasters.amendSpDescr && spellObj.descriptionCantripDie && spName) {
@@ -245,11 +245,11 @@ var Base_ClassList = {
 			primary: "Choose 2: Animal Handling, Athletics, Intimidation, Nature, Perception, or Survival.",
 		},
 		armorProfs: {
-			primary:   [true,  true,  false, true],
+			primary: [true,  true,  false, true],
 			secondary: [false, false, false, true],
 		},
 		weaponProfs: {
-			primary:   [true,  true],
+			primary: [true,  true],
 			secondary: [false, true],
 		},
 		startingEquipment: [{
@@ -421,11 +421,11 @@ var Base_ClassList = {
 				minlevel: 9,
 				description: levels.map(function (n) {
 					var dice = n < 17 ? 1 : 2;
-					var effects =  n < 17 ? '1 effect' : '2 effects';
+					var effects =  n < 17 ? "1 effect" : "2 effects";
 					return desc("If I use Reckless Attack, I can forgo any Adv on one Strength-based attack on my turn that doesn't have Disadv so that on a hit it does +" + dice + "d10 damage and " + effects + " (see 3rd page).");
 				}),
 				additional: levels.map(function (n) {
-					return n < 17 ? '+1d10 damage, 1 effect' : '+2d10 damage, 2 effects';
+					return n < 17 ? "+1d10 damage, 1 effect" : "+2d10 damage, 2 effects";
 				}),
 				"forceful blow": {
 					name: "Forceful Blow",
@@ -505,7 +505,7 @@ var Base_ClassList = {
 				scores: [4, 0, 4, 0, 0, 0],
 				scoresMaxLimited: [25, 0, 25, 0, 0, 0],
 			},
-		}
+		},
 	},
 
 	"bard": {
@@ -519,15 +519,15 @@ var Base_ClassList = {
 		die: 8,
 		saves: ["Dex", "Cha"],
 		skillstxt: {
-			primary:   "Choose any 3 skills.",
+			primary: "Choose any 3 skills.",
 			secondary: "Choose any 1 skill.",
 		},
 		toolProfs: {
-			primary:   [["Musical instrument", 3]],
+			primary: [["Musical instrument", 3]],
 			secondary: [["Musical instrument", 1]],
 		},
 		armorProfs: {
-			primary:   [true, false, false, false],
+			primary: [true, false, false, false],
 			secondary: [true, false, false, false],
 		},
 		weaponProfs: {
@@ -616,8 +616,8 @@ var Base_ClassList = {
 				source: [["SRD24", 32], ["PHB24", 60]],
 				minlevel: 2,
 				description: desc("I can add half my Proficiency Bonus to any skill check that doesn't otherwise use it."),
-				eval: function() { Checkbox('Jack of All Trades', true); },
-				removeeval: function() { Checkbox('Jack of All Trades', false); },
+				eval: function() { Checkbox("Jack of All Trades", true); },
+				removeeval: function() { Checkbox("Jack of All Trades", false); },
 			},
 			"subclassfeature3": {
 				name: "Bard Subclass",
@@ -653,7 +653,7 @@ var Base_ClassList = {
 								});
 							spList.extraspells = spList.extraspells.concat(MagicalSecrets);
 						},
-						'From 10th level Bard onwards, I can pick 1st-level and higher spells from the Bard, Cleric, Druid, and Wizard spell lists whenever I choose new prepared spells or swap out a previously prepared spell.',
+						"From 10th level Bard onwards, I can pick 1st-level and higher spells from the Bard, Cleric, Druid, and Wizard spell lists whenever I choose new prepared spells or swap out a previously prepared spell.",
 					],
 				},
 			},
@@ -705,7 +705,7 @@ var Base_ClassList = {
 			primary: "Choose 2: History, Insight, Medicine, Persuasion, or Religion.",
 		},
 		armorProfs: {
-			primary:   [true, true, false, true],
+			primary: [true, true, false, true],
 			secondary: [true, true, false, true],
 		},
 		weaponProfs: {
@@ -756,16 +756,16 @@ var Base_ClassList = {
 				choices: ["Protector", "Thaumaturge"],
 				"protector": {
 					name: "Protector Divine Order",
-					description: desc('I gain proficiency with Martial weapons and training with Heavy armor.'),
+					description: desc("I gain proficiency with Martial weapons and training with Heavy armor."),
 					armorProfs: [false, false, true, false],
 					weaponProfs: [false, true],
 				},
 				"thaumaturge": {
 					name: "Thaumaturge Divine Order",
-					description: desc('I add my Wis mod to my Int (Arcana or Religion) checks and know one extra Cleric cantrip.'),
+					description: desc("I add my Wis mod to my Int (Arcana or Religion) checks and know one extra Cleric cantrip."),
 					addMod: [
-						{type: "skill", field: "Arcana", mod: "max(Wis|1)", text: "I add my Wisdom modifier (minimum +1) to my Intelligence (Arcana) checks."},
-						{type: "skill", field: "Religion", mod: "max(Wis|1)", text: "I add my Wisdom modifier (minimum +1) to my Intelligence (Religion) checks."},
+						{ type: "skill", field: "Arcana", mod: "max(Wis|1)", text: "I add my Wisdom modifier (minimum +1) to my Intelligence (Arcana) checks." },
+						{ type: "skill", field: "Religion", mod: "max(Wis|1)", text: "I add my Wisdom modifier (minimum +1) to my Intelligence (Religion) checks." },
 					],
 					spellcastingBonus: [{
 						name: "Thaumaturge Divine Order",
@@ -841,7 +841,7 @@ var Base_ClassList = {
 						atkAdd: [
 							function (fields, v) {
 								if (classes.known.cleric && v.isWeapon && !v.isDC) {
-									fields.Description += (fields.Description ? '; ' : '') + '1/turn +' + (classes.known.cleric.level < 14 ? 1 : 2) + 'd8 Radiant/Necrotic damage';
+									fields.Description += (fields.Description ? "; " : "") + "1/turn +" + (classes.known.cleric.level < 14 ? 1 : 2) + "d8 Radiant/Necrotic damage";
 								}
 							},
 							"Once per turn when I hit a creature with an attack roll using a weapon, I can deal the target extra Necrotic or Radiant damage (my choice).",
@@ -913,7 +913,7 @@ var Base_ClassList = {
 			primary: ["Herbalism kit"],
 		},
 		armorProfs: {
-			primary:   [true, false, false, true],
+			primary: [true, false, false, true],
 			secondary: [true, false, false, true],
 		},
 		weaponProfs: {
@@ -974,10 +974,10 @@ var Base_ClassList = {
 				choices: ["Magician", "Warden"],
 				"magician": {
 					name: "Magician Primal Order",
-					description: desc('I add my Wis mod to my Int (Arcana or Nature) checks and know one extra Druid cantrip.'),
+					description: desc("I add my Wis mod to my Int (Arcana or Nature) checks and know one extra Druid cantrip."),
 					addMod: [
-						{type: "skill", field: "Arcana", mod: "max(Wis|1)", text: "I add my Wisdom modifier (minimum +1) to my Intelligence (Arcana) checks."},
-						{type: "skill", field: "Nature", mod: "max(Wis|1)", text: "I add my Wisdom modifier (minimum +1) to my Intelligence (Nature) checks."},
+						{ type: "skill", field: "Arcana", mod: "max(Wis|1)", text: "I add my Wisdom modifier (minimum +1) to my Intelligence (Arcana) checks." },
+						{ type: "skill", field: "Nature", mod: "max(Wis|1)", text: "I add my Wisdom modifier (minimum +1) to my Intelligence (Nature) checks." },
 					],
 					spellcastingBonus: [{
 						name: "Magician Primal Order",
@@ -987,7 +987,7 @@ var Base_ClassList = {
 				},
 				"warden": {
 					name: "Warden Primal Order",
-					description: desc('I gain proficiency with Martial weapons and training with Medium armor.'),
+					description: desc("I gain proficiency with Martial weapons and training with Medium armor."),
 					armorProfs: [false, true, false, false],
 					weaponProfs: [false, true],
 				},
@@ -1006,7 +1006,7 @@ var Base_ClassList = {
 				wildshapePageInfo: {
 					tempHP: levels,
 					duration: levels.map(function (n) {
-						return Math.floor(n/2) + " hour" + (n > 3 ? "s" : "");
+						return Math.floor(n / 2) + " hour" + (n > 3 ? "s" : "");
 					}),
 					knownForms: levels.map(function (n) {
 						var knownForms = n < 4 ? 4 : n < 8 ? 6 : 8;
@@ -1023,7 +1023,7 @@ var Base_ClassList = {
 					extraname: "Druid 2",
 					description: levels.map(function (n) {
 						if (n < 2) return "";
-						var duration = Math.floor(n/2) + " hour" + (n > 3 ? "s" : "");
+						var duration = Math.floor(n / 2) + " hour" + (n > 3 ? "s" : "");
 						var knownForms = n < 4 ? 4 : n < 8 ? 6 : 8;
 						var CR = n < 4 ? "1/4" : n < 8 ? "1/2" : 1;
 						var canFly = n < 8 ? "can't" : "can";
@@ -1092,7 +1092,7 @@ var Base_ClassList = {
 						atkCalc: [
 							function (fields, v, output) {
 								if (v.thisWeapon[3] && /\bdruid\b/.test(v.thisWeapon[4]) && SpellsList[v.thisWeapon[3]].level === 0 && /\d/.test(fields.Damage_Die)) {
-									output.extraDmg += Number(What('Wis Mod'));
+									output.extraDmg += Number(What("Wis Mod"));
 								};
 							},
 							"My Druid cantrips get my Wisdom modifier added to their damage.",
@@ -1120,7 +1120,7 @@ var Base_ClassList = {
 						atkAdd: [
 							function (fields, v) {
 								if (classes.known.druid && v.isWeapon && !v.isDC) {
-									fields.Description += (fields.Description ? '; ' : '') + '1/turn +' + (classes.known.druid.level < 15 ? 1 : 2) + 'd8 Cold/Fire/Lightn./Thunder damage';
+									fields.Description += (fields.Description ? "; " : "") + "1/turn +" + (classes.known.druid.level < 15 ? 1 : 2) + "d8 Cold/Fire/Lightn./Thunder damage";
 								}
 							},
 							"Once per turn when I hit a creature with an attack roll using a weapon or a Beast form's attack in Wild Shape, I can deal the target extra Cold, Fire, Lightning, or Thunder damage (my choice).",
@@ -1221,7 +1221,7 @@ var Base_ClassList = {
 	},
 
 	"fighter": {
-		regExpSearch : /^(?=.*fighter)(?!.*(barbarian|monk|paladin|ranger)).*$/i,
+		regExpSearch: /^(?=.*fighter)(?!.*(barbarian|monk|paladin|ranger)).*$/i,
 		name: "Fighter",
 		source: [["SRD24", 47], ["PHB24", 91]],
 		primaryAbility: "Strength or Dexterity",
@@ -1230,14 +1230,14 @@ var Base_ClassList = {
 		improvements: [0, 0, 0, 1, 1, 2, 2, 3, 3, 3, 3, 4, 4, 5, 5, 6, 6, 6, 7, 7],
 		saves: ["Str", "Con"],
 		skillstxt: {
-			primary: "Choose 2: Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Persuasion, Perception, or Survival."
+			primary: "Choose 2: Acrobatics, Animal Handling, Athletics, History, Insight, Intimidation, Persuasion, Perception, or Survival.",
 		},
 		armorProfs: {
-			primary:   [true, true, true,  true],
+			primary: [true, true, true,  true],
 			secondary: [true, true, false, true],
 		},
 		weaponProfs: {
-			primary:   [true,  true],
+			primary: [true,  true],
 			secondary: [false, true],
 		},
 		startingEquipment: [{
@@ -1286,7 +1286,7 @@ var Base_ClassList = {
 					"I can swap this fighting style for another whenever I gain a Fighter level.",
 				]),
 				choicesFightingStyles: {
-					description: desc('I can swap this fighting style for another whenever I gain a Fighter level.'),
+					description: desc("I can swap this fighting style for another whenever I gain a Fighter level."),
 				},
 			},
 			"second wind": { // includes Tactical Shift
@@ -1329,7 +1329,7 @@ var Base_ClassList = {
 				source: [["SRD24", 48], ["PHB24", 91]],
 				minlevel: 2,
 				description: levels.map(function (n) {
-					return desc("On my turn I can take an additional action, except the Magic action." + (n < 17 ? '' : " Only once per turn."));
+					return desc("On my turn I can take an additional action, except the Magic action." + (n < 17 ? "" : " Only once per turn."));
 				}),
 				usages: levels.map(function (n) {
 					return n < 2 ? 0 : n < 17 ? 1 : 2;
@@ -1453,7 +1453,7 @@ var Base_ClassList = {
 									var curDie = fields.Damage_Die.match(rxDice);
 									var curDieSize = Math.max(Number(curDie[1]), 1) * Math.max(Number(curDie[2]), 1);
 									if (curDieSize < aMonkDie) {
-										fields.Damage_Die = fields.Damage_Die.replace(curDie[0], '1d' + aMonkDie);
+										fields.Damage_Die = fields.Damage_Die.replace(curDie[0], "1d" + aMonkDie);
 									}
 								}
 								// Set the ability to the highest of Str and Dex, if currently one of those or lower than Str or Dex
@@ -1463,7 +1463,7 @@ var Base_ClassList = {
 							};
 						},
 						"I can use either Strength or Dexterity and my Martial Arts damage die in place of the normal damage die for any 'Monk Weapons', which include Unarmed Strike, Simple melee weapons, and Martial melee weapons with the Light property.",
-						5
+						5,
 					],
 				},
 			},
@@ -1546,7 +1546,7 @@ var Base_ClassList = {
 				changeeval: function (lvl) {
 					var n = lvl[1];
 					var spd = n < 2 ? 0 : n < 6 ? 10 : n < 10 ? 15 : n < 14 ? 20 : n < 18 ? 25 : 30;
-					SetProf('speed', !!spd, {allModes: "+" + spd}, "Monk: Unarmored Movement");
+					SetProf("speed", !!spd, { allModes: "+" + spd }, "Monk: Unarmored Movement");
 				},
 			},
 			"uncanny metabolism": {
@@ -1619,7 +1619,7 @@ var Base_ClassList = {
 						function (fields, v) {
 							if (v.baseWeaponName === "unarmed strike" && DamageTypes[fields.Damage_Type.toLowerCase()] && !/force/i.test(fields.Damage_Type)) {
 								var shortOldType = fields.Damage_Type.replace(/(tic|(eon)?ing)$/i, ".").capitalize();
-								fields.Damage_Type = shortOldType + '/Force';
+								fields.Damage_Type = shortOldType + "/Force";
 							};
 						},
 						"I can deal Force damage with my Unarmed Strike instead of its normal damage type.",
@@ -1717,11 +1717,11 @@ var Base_ClassList = {
 			primary: "Choose 2: Athletics, Insight, Intimidation, Medicine, Persuasion, or Religion.",
 		},
 		armorProfs: {
-			primary:   [true, true,  true, true],
+			primary: [true, true,  true, true],
 			secondary: [true, true, false, true],
 		},
 		weaponProfs: {
-			primary:   [true,  true],
+			primary: [true,  true],
 			secondary: [false, true],
 		},
 		startingEquipment: [{
@@ -1799,7 +1799,7 @@ var Base_ClassList = {
 				"blessed warrior": {
 					name: "Fighting Style: Blessed Warrior",
 					source: [["SRD24", 54], ["PHB24", 110]],
-					description: desc('I learn two Cleric cantrips. I can swap one of these cantrips whenever I gain a Paladin level.'),
+					description: desc("I learn two Cleric cantrips. I can swap one of these cantrips whenever I gain a Paladin level."),
 					spellcastingBonus: [{
 						name: "Cleric cantrip",
 						"class": ["cleric"],
@@ -1906,8 +1906,8 @@ var Base_ClassList = {
 					atkAdd: [
 						function (fields, v) {
 							if (!v.isDC && (v.isMeleeWeapon || v.baseWeaponName === "unarmed strike")) {
-								fields.Description += (fields.Description ? '; ' : '') + '+1d8 Radiant damage';
-								if (v.isThrownWeapon) fields.Description += ' in melee';
+								fields.Description += (fields.Description ? "; " : "") + "+1d8 Radiant damage";
+								if (v.isThrownWeapon) fields.Description += " in melee";
 							}
 						},
 						"When I hit a target with an attack roll using a Melee weapon or an Unarmed Strike, the target takes an extra 1d8 Radiant damage.",
@@ -1950,11 +1950,11 @@ var Base_ClassList = {
 			secondary: "Choose 1: Animal Handling, Athletics, Insight, Investigation, Nature, Perception, Stealth, or Survival.",
 		},
 		armorProfs: {
-			primary:   [true, true, false, true],
+			primary: [true, true, false, true],
 			secondary: [true, true, false, true],
 		},
 		weaponProfs: {
-			primary:   [true,  true],
+			primary: [true,  true],
 			secondary: [false, true],
 		},
 		startingEquipment: [{
@@ -2057,7 +2057,7 @@ var Base_ClassList = {
 				"druidic warrior": {
 					name: "Fighting Style: Druidic Warrior",
 					source: [["SRD24", 59], ["PHB24", 120]],
-					description: desc('I learn two Druid cantrips. I can swap one of these cantrips whenever I gain a Ranger level.'),
+					description: desc("I learn two Druid cantrips. I can swap one of these cantrips whenever I gain a Ranger level."),
 					spellcastingBonus: [{
 						name: "Druid cantrip",
 						"class": ["druid"],
@@ -2080,9 +2080,9 @@ var Base_ClassList = {
 				minlevel: 6,
 				description: desc("I have a Climb \x26 Swim speed equal to my Speed. I gain +10 ft Speed if not in Heavy armor."),
 				speed: {
-					walk:  { spd: "+10",  enc: "" },
+					walk: { spd: "+10",  enc: "" },
 					climb: { spd: "walk", enc: "walk" },
-					swim:  { spd: "walk", enc: "walk" },
+					swim: { spd: "walk", enc: "walk" },
 				},
 			},
 			// Expertise level 9 feature is part of Deft Explorer
@@ -2173,15 +2173,15 @@ var Base_ClassList = {
 		die: 8,
 		saves: ["Int", "Dex"],
 		skillstxt: {
-			primary:   "Choose 4: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Persuasion, Sleight of Hand, or Stealth.",
-			secondary: "Choose 1: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Persuasion, Sleight of Hand, or Stealth."
+			primary: "Choose 4: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Persuasion, Sleight of Hand, or Stealth.",
+			secondary: "Choose 1: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Persuasion, Sleight of Hand, or Stealth.",
 		},
 		toolProfs: {
-			primary:   [["Thieves' tools", "Dex"]],
+			primary: [["Thieves' tools", "Dex"]],
 			secondary: [["Thieves' tools", "Dex"]],
 		},
 		armorProfs: {
-			primary:   [true, false, false, false],
+			primary: [true, false, false, false],
 			secondary: [true, false, false, false],
 		},
 		weaponProfs: {
@@ -2249,7 +2249,7 @@ var Base_ClassList = {
 						function (fields, v) {
 							if (classes.known.rogue && classes.known.rogue.level && !v.isSpell && !v.isDC && (v.isRangedWeapon || /\bfinesse\b/i.test(fields.Description))) {
 								v.sneakAtk = Math.ceil(classes.known.rogue.level / 2);
-								fields.Description += (fields.Description ? '; ' : '') + 'Sneak Attack ' + v.sneakAtk + 'd6';
+								fields.Description += (fields.Description ? "; " : "") + "Sneak Attack " + v.sneakAtk + "d6";
 							};
 						},
 						"Once per turn, when I attack with a Ranged or Finesse weapon while I have Advantage or an ally that is not Incapacitated is within 5 ft of the target, I can add my Sneak Attack damage to the attack.",
@@ -2416,7 +2416,7 @@ var Base_ClassList = {
 		},
 	},
 
-	"sorcerer" : {
+	"sorcerer": {
 		regExpSearch: /sorcerer/i,
 		name: "Sorcerer",
 		source: [["SRD24", 64], ["PHB24", 139]],
@@ -2526,7 +2526,7 @@ var Base_ClassList = {
 					description: desc("When I cast a spell that requires a save, I can spend 1 SP to choose my Cha mod of creatures to automatically succeed on their save and take no damage if they would normally take half."),
 					additional: "1 Sorcery Point",
 				},
-				"distant spell" : {
+				"distant spell": {
 					name: "Distant Spell",
 					source: [["SRD24", 67], ["PHB24", 141]],
 					description: desc("When I cast a spell, I can spend 1 SP to double its range or change its Touch range to 30 ft."),
@@ -2595,7 +2595,7 @@ var Base_ClassList = {
 				usages: 1,
 				recovery: "Long Rest",
 				aditional: levels.map(function (n) {
-					return n < 5 ? "" : Math.floor(n/2) + " SP";
+					return n < 5 ? "" : Math.floor(n / 2) + " SP";
 				}),
 			},
 			"sorcery incarnate": {
@@ -2627,7 +2627,7 @@ var Base_ClassList = {
 			primary: "Choose 2: Arcana, Deception, History, Intimidation, Investigation, Nature, or Religion.",
 		},
 		armorProfs: {
-			primary:   [true, false, false, false],
+			primary: [true, false, false, false],
 			secondary: [true, false, false, false],
 		},
 		weaponProfs: {
@@ -2676,11 +2676,20 @@ var Base_ClassList = {
 				extraname: "Eldritch Invocation",
 				extrachoices: [
 					// no prerequisites
-					"Armor of Shadows", "Eldritch Mind", 
+					"Armor of Shadows",
+"Eldritch Mind", 
 					// level 2+
-					"Devil's Sight", "Fiendish Vigor", "Mask of Many Faces", "Misty Visions", "Otherworldly Leap", 
+					"Devil's Sight",
+"Fiendish Vigor",
+"Mask of Many Faces",
+"Misty Visions",
+"Otherworldly Leap", 
 					// level 5+
-					"Ascendant Step", "Gaze of Two Minds", "Gift of the Depths", "Master of Myriad Forms", "One with Shadows", 
+					"Ascendant Step",
+"Gaze of Two Minds",
+"Gift of the Depths",
+"Master of Myriad Forms",
+"One with Shadows", 
 					// level 7+
 					"Whispers of the Grave",
 					// level 9+
@@ -2688,11 +2697,17 @@ var Base_ClassList = {
 					// level 15+
 					"Witch Sight",
 					// Pact of the Blade tree
-					"Pact of the Blade", "Devouring Blade (req: lvl 12+, Thirsting Blade)", "Eldritch Smite (req: lvl 5+, Pact of the Blade)", "Lifedrinker (req: lvl 12+, Pact of the Blade)", "Thirsting Blade (req: lvl 5+, Pact of the Blade)",
+					"Pact of the Blade",
+"Devouring Blade (req: lvl 12+, Thirsting Blade)",
+"Eldritch Smite (req: lvl 5+, Pact of the Blade)",
+"Lifedrinker (req: lvl 12+, Pact of the Blade)",
+"Thirsting Blade (req: lvl 5+, Pact of the Blade)",
 					// Pact of the Chain tree
-					"Pact of the Chain", "Investment of the Chain Master (req: lvl 5+, Pact of the Chain)",
+					"Pact of the Chain",
+"Investment of the Chain Master (req: lvl 5+, Pact of the Chain)",
 					// Pact of the Tome tree
-					"Pact of the Tome", "Gift of the Protectors (req: lvl 9+, Pact of the Tome)",
+					"Pact of the Tome",
+"Gift of the Protectors (req: lvl 9+, Pact of the Tome)",
 				],
 				extraTimes: levels.map(function (n) {
 					return n < 2 ? 1 : n < 5 ? 3 : n < 7 ? 5 : n < 9 ? 6 : n < 12 ? 7 : n < 15 ? 8 : n < 18 ? 9 : 10;
@@ -2838,7 +2853,7 @@ var Base_ClassList = {
 						name: "Gift of the Depths",
 						spells: ["water breathing"],
 						selection: ["water breathing"],
-						firstCol: 'oncelr',
+						firstCol: "oncelr",
 					}],
 				},
 				"master of myriad forms": {
@@ -2886,7 +2901,7 @@ var Base_ClassList = {
 						name: "Whispers of the Grave",
 						spells: ["speak with dead"],
 						selection: ["speak with dead"],
-						firstCol: "atwill"
+						firstCol: "atwill",
 					}],
 				},
 				// level 9+
@@ -2928,7 +2943,8 @@ var Base_ClassList = {
 								if (v.theWea.pactWeapon || ((v.isMeleeWeapon || v.theWea.isMagicWeapon || v.thisWeapon[1]) && /\bpact\b/i.test(v.WeaponTextName))) {
 									v.pactWeapon = true;
 								}
-							}, "",
+							},
+							"",
 							90,
 						],
 						atkAdd: [
@@ -2936,7 +2952,7 @@ var Base_ClassList = {
 								if (v.pactWeapon || v.theWea.pactWeapon || ((v.isMeleeWeapon || v.theWea.isMagicWeapon || v.thisWeapon[1]) && /\bpact\b/i.test(v.WeaponTextName))) {
 									v.pactWeapon = true;
 									fields.Proficiency = true;
-									if ((fields.Mod === 1 || fields.Mod === 2) && What('Cha Mod') > What(AbilityScores.abbreviations[fields.Mod - 1] + ' Mod')) fields.Mod = 6;
+									if ((fields.Mod === 1 || fields.Mod === 2) && What("Cha Mod") > What(AbilityScores.abbreviations[fields.Mod - 1] + " Mod")) fields.Mod = 6;
 								};
 							},
 							"If I include the word 'Pact' in a melee or magic weapon's name, it gets treated as my Pact Weapon. If the attack uses Strength or Dexterity but my Charisma modifier is higher, it will use Charisma instead.",
@@ -2960,7 +2976,7 @@ var Base_ClassList = {
 					source: [["SRD24", 72], ["PHB24", 155]],
 					minlevel: 5,
 					submenu: ["[Warlock level  5+]", "[improves Pact of the Blade]"],
-					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the blade') !== -1; },
+					prereqeval: function(v) { return v.choiceActive.indexOf("pact of the blade") !== -1; },
 					description: desc("Once per turn when I hit a creature with my pact weapon, I can expend a Pact Magic spell slot to deal it 1d8+1d8/slot level Force damage and knock it Prone if it is Huge or smaller."),
 					additional: levels.map(function (n) {
 						// No. of d8s = Pact Magic spell slot level + 1
@@ -2973,12 +2989,12 @@ var Base_ClassList = {
 					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 12,
 					submenu: ["[Warlock level 12+]", "[improves Pact of the Blade]"],
-					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the blade') !== -1; },
+					prereqeval: function(v) { return v.choiceActive.indexOf("pact of the blade") !== -1; },
 					description: desc("Once per turn when I hit a creature with my pact weapon, I can deal +1d6 Necrotic, Psychic, or Radiant damage, and I can use one HD to heal myself for its roll plus my " + (typePF ? "Constitution" : "Con") + " modifier."),
 					calcChanges: {
 						atkAdd: [
 							function (fields, v) {
-								if (v.pactWeapon) fields.Description += (fields.Description ? '; ' : '') + 'Lifedrinker';
+								if (v.pactWeapon) fields.Description += (fields.Description ? "; " : "") + "Lifedrinker";
 							},
 							"My pact weapons have the Lifedrinker feature: Once per turn when I hit a creature with my pact weapon, I can deal +1d6 Necrotic, Psychic, or Radiant damage, and I can expend and roll one Hit Point Dice to heal myself for the amount rolled plus my Constitution modifier.",
 						],
@@ -2989,7 +3005,7 @@ var Base_ClassList = {
 					source: [["SRD24", 75], ["PHB24", 157]],
 					minlevel: 5,
 					submenu: ["[Warlock level  5+]", "[improves Pact of the Blade]"],
-					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the blade') !== -1; },
+					prereqeval: function(v) { return v.choiceActive.indexOf("pact of the blade") !== -1; },
 					description: desc("When I take the Attack action on my turn, I can attack twice with my pact weapon."),
 					action: [["action", "Pact Weapon (2 attacks per Action)"]],
 				},
@@ -2999,13 +3015,13 @@ var Base_ClassList = {
 					source: [["SRD24", 74], ["PHB24", 157]],
 					description: desc([
 						"As a Magic action, I can cast *Find Familiar* without expending a spell slot. When I do so, I can have the familiar take on a special form (see Companion page).",
-						"Additionally, when I take the Attack action, I can forgo one of my attacks to allow my familiar to use its Reaction to make one attack of its own."
+						"Additionally, when I take the Attack action, I can forgo one of my attacks to allow my familiar to use its Reaction to make one attack of its own.",
 					]),
 					spellcastingBonus: [{
 						name: "Pact of the Chain",
 						spells: ["find familiar"],
 						selection: ["find familiar"],
-						firstCol: 'atwill',
+						firstCol: "atwill",
 					}],
 					spellChanges: {
 						"find familiar": {
@@ -3020,14 +3036,14 @@ var Base_ClassList = {
 					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 5,
 					submenu: ["[Warlock level  5+]", "[improves Pact of the Chain]"],
-					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the chain') !== -1; },
+					prereqeval: function(v) { return v.choiceActive.indexOf("pact of the chain") !== -1; },
 					description: desc([
 						"When I cast Find Familiar, the summoned create has additional benefits.",
 						" \u2022 ***Aerial or Aquatic***. It gains a Fly or Swim speed of 40 ft (my choice at casting).",
 						" \u2022 ***Quick Attack***. As a Bonus Action, I can command it to take the Attack action.",
 						" \u2022 ***Damage***. I can have it deal Necrotic or Radiant damage instead of Bludg., Pierc., or Slash.",
 						" \u2022 ***My Save DC***. If it forces a creature to make a saving throw, it uses my spell save DC.",
-						" \u2022 ***Resistance***. As a Reaction when it takes damage, I can grant it resistance vs that damage."
+						" \u2022 ***Resistance***. As a Reaction when it takes damage, I can grant it resistance vs that damage.",
 					]),
 					action: [
 						["bonus action", "Chain Master: Quick Attack"],
@@ -3045,7 +3061,7 @@ var Base_ClassList = {
 									var strFea = "##\u25C6 Investment of the Chain Master##. The " + oCrea.nameThis + " gains a Fly or Swim speed of " + spd + " (master's choice), uses its master's spell save DC instead of its own DCs, and can deal Necrotic or Radiant damage instead of Bludgeoning, Piercing, or Slashing.";
 									AddString(feaFld, strFea, true);
 								} else {
-									var strRx = '[\\n\\r]?.*Investment of the Chain Master.*';
+									var strRx = "[\\n\\r]?.*Investment of the Chain Master.*";
 									RemoveString(feaFld, strRx, false, true);
 								}
 								// Amend the speed
@@ -3057,11 +3073,11 @@ var Base_ClassList = {
 									var baseFlySpeed = Number(hasFlySpeed[1]);
 									var baseSwimSpeed = Number(hasSwimSpeed[1]);
 									if (baseFlySpeed < 40 && baseSwimSpeed >= 40) {
-										var replaceThis = 'fly.?\d+.?(ft|m)'
+										var replaceThis = "fly.?\d+.?(ft|m)"
 										var replaceWith = bAdd ? "fly " + spd : isMetric ? ConvertToMetric(hasFlySpeed[0], 0.5) : hasFlySpeed[0];
 										ReplaceString(spdFld, replaceWith, undefined, replaceThis, true);
 									} else if (baseFlySpeed >= 40 && baseSwimSpeed < 40) {
-										var replaceThis = 'swim.?\d+.?(ft|m)'
+										var replaceThis = "swim.?\d+.?(ft|m)"
 										var replaceWith = bAdd ? "swim " + spd : isMetric ? ConvertToMetric(hasSwimSpeed[0], 0.5) : hasSwimSpeed[0];
 										ReplaceString(spdFld, replaceWith, undefined, replaceThis, true);
 									}
@@ -3085,7 +3101,7 @@ var Base_ClassList = {
 									if (oCrea.attacks && oCrea.attacks[i] && oCrea.attacks[i].dc) {
 										oCrea.attacks[i].useSpellMod = "warlock";
 									}
-									var baseFld = prefix + "Comp.Use.Attack." + (i+1);
+									var baseFld = prefix + "Comp.Use.Attack." + (i + 1);
 									if (!What(baseFld + ".Weapon Selection")) continue;
 									var weaDmgTypeFld = baseFld + ".Damage Type";
 									var weaDmgTypeFldVal = What(weaDmgTypeFld);
@@ -3097,7 +3113,7 @@ var Base_ClassList = {
 										if (bAdd) AddString(weaDescrFld, "*or Necrotic or Radiant", "; ");
 									}
 									if (!bAdd) {
-										Value(weaDescrFld, weaDescrFldVal.replace(/[,; ]*\* Necrotic or Radiant/i, ''));
+										Value(weaDescrFld, weaDescrFldVal.replace(/[,; ]*\* Necrotic or Radiant/i, ""));
 									}
 								}
 							},
@@ -3112,20 +3128,20 @@ var Base_ClassList = {
 					description: desc("I have a Book of Shadows with three cantrips and two 1st-level Ritual spells. While the book is on my person, I have them prepared as Warlock spells. I can use the book as a Spellcasting Focus. I can conjure a replacement, and pick new spells, at the end of a Short or Long Rest."),
 					eval: function() {
 						// Create a separate spell list entry for this, so its not confusing which cantrips/spells can be selected for it.
-						CurrentSpells['warlock-book of shadows'] = {
-							name: 'Book of Shadows',
-							ability: 'warlock',
-							list: { level: [0, 1], ritual: true, },
+						CurrentSpells["warlock-book of shadows"] = {
+							name: "Book of Shadows",
+							ability: "warlock",
+							list: { level: [0, 1], ritual: true },
 							known: { cantrips: 3, spells: "list", prepared: [2] },
 							refType: "feat",
 							level: 1, // needed to show the prepared section
 							typeList: 4, // enable the last radio button by default
 						};
-						SetStringifieds('spells'); CurrentUpdates.types.push('spells');
+						SetStringifieds("spells"); CurrentUpdates.types.push("spells");
 					},
 					removeeval: function() {
-						delete CurrentSpells['warlock-book of shadows'];
-						SetStringifieds('spells'); CurrentUpdates.types.push('spells');
+						delete CurrentSpells["warlock-book of shadows"];
+						SetStringifieds("spells"); CurrentUpdates.types.push("spells");
 					},
 				},
 				"gift of the protectors (req: lvl 9+, pact of the tome)": {
@@ -3133,14 +3149,14 @@ var Base_ClassList = {
 					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 9,
 					submenu: ["[Warlock level  9+]", "[improves Pact of the Tome]"],
-					prereqeval: function(v) { return v.choiceActive.indexOf('pact of the tome') !== -1; },
+					prereqeval: function(v) { return v.choiceActive.indexOf("pact of the tome") !== -1; },
 					description: desc([
 						"My Book of Shadows has a new page. As an Action, a creature can write their name on it if I permit them. The page can contain my Charisma modifier of names (minimum 1).",
 						"Once per Long Rest when someone listed on the page is reduced to 0 HP but not killed, they drop to 1 HP instead. As a Magic action, I can erase a name by touching it.",
 					]),
 					usages: 1,
 					recovery: "Long Rest",
-					action: [["action", " (write/erase)"]]
+					action: [["action", " (write/erase)"]],
 				},
 			},
 			"pact magic": {
@@ -3183,7 +3199,7 @@ var Base_ClassList = {
 				name: "Contact Patron",
 				source: [["SRD24", 72], ["PHB24", 155]],
 				minlevel: 9,
-				description: desc('I always have *Contact Other Plane* prepared. Once per Long Rest, I can cast it without expending a spell slot and then automatically succeed on its saving throw.'),
+				description: desc("I always have *Contact Other Plane* prepared. Once per Long Rest, I can cast it without expending a spell slot and then automatically succeed on its saving throw."),
 				spellcastingBonus: [{
 					name: "Contact Patron",
 					spells: ["contact other plane"],
@@ -3222,7 +3238,7 @@ var Base_ClassList = {
 						function (spellKey, spellObj, spName, isDuplicate, isBonusSpell) {
 							// Special treatment for Mystic Arcanum spells (any warlock spell level 6 or higher).
 							if (spName === "warlock" && spellObj.level >= 6) {
-								var isMysticArcanumSelection = isBonusSpell && CurrentSpells.warlock.bonus['mystic arcanum'].some(function (n) { return n.selection[0] === spellKey; });
+								var isMysticArcanumSelection = isBonusSpell && CurrentSpells.warlock.bonus["mystic arcanum"].some(function (n) { return n.selection[0] === spellKey; });
 								// Add Once per Long Rest checkbox for the Mystic Arcanum spells. Put a checked box on a full class list.
 								if (isMysticArcanumSelection && !spellObj.firstCol) {
 									spellObj.firstCol = CurrentSpells.warlock.typeList === 4 ? "checkedbox" : "oncelr";
@@ -3244,7 +3260,7 @@ var Base_ClassList = {
 				minlevel: 20,
 				description: " [regain all slots with Magical Cunning]",
 			},
-		}
+		},
 	},
 
 	"wizard": {
@@ -3390,7 +3406,7 @@ var Base_ClassList = {
 								var oWiz = CurrentSpells.wizard;
 								var spellbook = oWiz.selectSp.concat(oWiz.selectBo);
 								if (oWiz.extra && oWiz.extraSpecial) spellbook = spellbook.concat(oWiz.extra);
-								var spellByLvl = CreateSpellList({spells: spellbook}, false, false, true);
+								var spellByLvl = CreateSpellList({ spells: spellbook }, false, false, true);
 								var level = isNaN(spList.spellMasteryLevel) ? 1 : spList.spellMasteryLevel;
 								var oneActionSpells = spellByLvl[level].filter(function (spell) {
 									return SpellsList[spell] && /\b(Act|1 ?a)/i.test(SpellsList[spell].time);
@@ -3415,7 +3431,7 @@ var Base_ClassList = {
 								return true;
 							}
 						},
-						""
+						"",
 					],
 				},
 			},
@@ -3450,7 +3466,7 @@ var Base_ClassList = {
 								var oWiz = CurrentSpells.wizard;
 								var spellbook = oWiz.selectSp.concat(oWiz.selectBo);
 								if (oWiz.extra && oWiz.extraSpecial) spellbook = spellbook.concat(oWiz.extra);
-								var spellByLvl = CreateSpellList({spells: spellbook}, false, false, true);
+								var spellByLvl = CreateSpellList({ spells: spellbook }, false, false, true);
 								if (spellByLvl[3].length) {
 									spList.class = undefined;
 									spList.spells = spellByLvl[3];
@@ -3469,7 +3485,7 @@ var Base_ClassList = {
 								return true;
 							}
 						},
-						""
+						"",
 					],
 				},
 			},
@@ -3500,7 +3516,7 @@ var Base_ClassSubList = {
 							var lvl = classes.known.barbarian ? classes.known.barbarian.level : false;
 							if (lvl && (v.isWeapon || v.baseWeaponName === "unarmed strike") && fields.Mod === 1 && /\bfrenzy\b/i.test(v.WeaponTextName)) {
 								var multiplier = lvl < 9 ? 2 : lvl < 16 ? 3 : 4;
-								fields.Description += (fields.Description ? '; ' : '') + '1/turn +' + multiplier + 'd6 damage';
+								fields.Description += (fields.Description ? "; " : "") + "1/turn +" + multiplier + "d6 damage";
 							}
 						},
 						'Add the text "Frenzy" to the name of a weapon that uses Strength to have the Frenzy bonus damage added to its description.',
@@ -3598,7 +3614,7 @@ var Base_ClassSubList = {
 						function (spellKey, spellObj, spName) {
 							if (spellObj.psionic || !spellObj.level || spellObj.firstCol === "atwill") return;
 							var disallowUpCasting = CurrentSpells[spName].allowUpcasting === false || spellObj.allowUpCasting === false;
-							var extraHP = (spellObj.level + 2) + (disallowUpCasting ? "": "+1/SL");
+							var extraHP = (spellObj.level + 2) + (disallowUpCasting ? "" : "+1/SL");
 							var exemption = false;
 							switch (spellKey) {
 								// Legacy - from XGtE
@@ -3680,8 +3696,8 @@ var Base_ClassSubList = {
 								return genericSpellDmgEdit(spellKey, spellObj, "heal", false, false, true, true);
 							}
 						},
-						"When I use a spell that restores hit points by rolling one or more dice to restore hit points with a spell, I instead use the highest number possible for each die."
-					]
+						"When I use a spell that restores hit points by rolling one or more dice to restore hit points with a spell, I instead use the highest number possible for each die.",
+					],
 				},
 			},
 		},
@@ -3724,19 +3740,39 @@ var Base_ClassSubList = {
 					description: desc("After a LR, I choose a land for always prepared spells: arid, polar, temperate, or tropical."),
 					spellcastingExtra: [
 						// arid
-						"fire bolt", "burning hands", "blur", "fireball", "blight", "wall of stone",
+						"fire bolt",
+"burning hands",
+"blur",
+"fireball",
+"blight",
+"wall of stone",
 						// polar
-						"ray of frost", "fog cloud", "hold person", "sleet storm", "ice storm", "cone of cold",
+						"ray of frost",
+"fog cloud",
+"hold person",
+"sleet storm",
+"ice storm",
+"cone of cold",
 						// temperate
-						"shocking grasp", "sleep", "misty step", "lightning bolt", "freedom of movement", "tree stride",
+						"shocking grasp",
+"sleep",
+"misty step",
+"lightning bolt",
+"freedom of movement",
+"tree stride",
 						// tropical
-						"acid splash", "ray of sickness", "web", "stinking cloud", "polymorph", "insect plague",
+						"acid splash",
+"ray of sickness",
+"web",
+"stinking cloud",
+"polymorph",
+"insect plague",
 					],
 					calcChanges: {
 						spellAdd: [
 							function (spellKey, spellObj, spName, isDuplicate, isBonusSpell) {
 								if (spName !== "druid" || isBonusSpell) return;
-								var oRef = ClassSubList['druid-land'].features.subclassfeature3;
+								var oRef = ClassSubList["druid-land"].features.subclassfeature3;
 								for (var i = 0; i < oRef.choices.length; i++) {
 									var chc = oRef.choices[i];
 									if (chc === "show all") continue;
@@ -3852,7 +3888,7 @@ var Base_ClassSubList = {
 					atkAdd: [
 						function (fields, v) {
 							if (!v.isSpell && !v.CritChance && !v.isDC && classes.known.fighter && classes.known.fighter.level < 15) {
-								fields.Description += (fields.Description ? '; ' : '') + 'Crit on 19-20';
+								fields.Description += (fields.Description ? "; " : "") + "Crit on 19-20";
 								v.CritChance = 19;
 							};
 						},
@@ -3896,10 +3932,10 @@ var Base_ClassSubList = {
 						function (fields, v) {
 							if (v.isSpell || v.isDC) return;
 							if (v.CritChance && v.CritChance > 18) {
-								fields.Description = fields.Description.replace('Crit on ' + CritChance + '-20', 'Crit on 18-20');
+								fields.Description = fields.Description.replace("Crit on " + CritChance + "-20", "Crit on 18-20");
 								v.CritChance = 18;
 							} else if (!v.CritChance) {
-								fields.Description += (fields.Description ? '; ' : '') + 'Crit on 18-20';
+								fields.Description += (fields.Description ? "; " : "") + "Crit on 18-20";
 								v.CritChance = 18;
 							};
 						},
@@ -4001,7 +4037,7 @@ var Base_ClassSubList = {
 					atkCalc: [
 						function (fields, v, output) {
 							if (v.isMeleeWeapon && /^(?=.*sacred)(?=.*weapon).*$|\(SW\)|\[SW\]/i.test(v.WeaponTextName)) {
-								output.extraHit += What('Cha Mod');
+								output.extraHit += What("Cha Mod");
 							};
 						},
 						'Add the text "Sacred Weapon", "(SW)", or "[SW]" to the name of a Melee weapon to have my Charisma modifier added to its To Hit.',
@@ -4177,7 +4213,7 @@ var Base_ClassSubList = {
 				minlevel: 3,
 				description: desc([
 					"When I am not wearing armor, my base AC is 10 + Dexterity modifier + Charisma modifier.",
-					"My Hit Point maximum increases by an amount equal to my Sorcerer level."
+					"My Hit Point maximum increases by an amount equal to my Sorcerer level.",
 				]),
 				calcChanges: {
 					hp: function (totalHD) {
@@ -4214,7 +4250,7 @@ var Base_ClassSubList = {
 						atkCalc: [
 							function (fields, v, output) {
 								if (v.isSpell && /acid/i.test(fields.Damage_Type)) {
-									output.extraDmg += Number(What('Cha Mod'));
+									output.extraDmg += Number(What("Cha Mod"));
 								};
 							},
 							"My spells that deal Acid damage get my Charisma modifier added to one roll of their damage.",
@@ -4235,7 +4271,7 @@ var Base_ClassSubList = {
 						atkCalc: [
 							function (fields, v, output) {
 								if (v.isSpell && /cold/i.test(fields.Damage_Type)) {
-									output.extraDmg += Number(What('Cha Mod'));
+									output.extraDmg += Number(What("Cha Mod"));
 								};
 							},
 							"My spells that deal Cold damage get my Charisma modifier added to one roll of their damage.",
@@ -4256,7 +4292,7 @@ var Base_ClassSubList = {
 						atkCalc: [
 							function (fields, v, output) {
 								if (v.isSpell && /fire/i.test(fields.Damage_Type)) {
-									output.extraDmg += Number(What('Cha Mod'));
+									output.extraDmg += Number(What("Cha Mod"));
 								};
 							},
 							"My spells that deal Fire damage get my Charisma modifier added to one roll of their damage.",
@@ -4277,7 +4313,7 @@ var Base_ClassSubList = {
 						atkCalc: [
 							function (fields, v, output) {
 								if (v.isSpell && /lightn(ing|\.)/i.test(fields.Damage_Type)) {
-									output.extraDmg += Number(What('Cha Mod'));
+									output.extraDmg += Number(What("Cha Mod"));
 								};
 							},
 							"My spells that deal Lightning damage get my Charisma modifier added to one roll of their damage.",
@@ -4298,7 +4334,7 @@ var Base_ClassSubList = {
 						atkCalc: [
 							function (fields, v, output) {
 								if (v.isSpell && /poison/i.test(fields.Damage_Type)) {
-									output.extraDmg += Number(What('Cha Mod'));
+									output.extraDmg += Number(What("Cha Mod"));
 								};
 							},
 							"My spells that deal Poison damage get my Charisma modifier added to one roll of their damage.",
@@ -4481,7 +4517,7 @@ var Base_ClassSubList = {
 					atkCalc: [
 						function (fields, v, output) {
 							if (v.thisWeapon[4].indexOf("wizard") !== -1 && SpellsList[v.thisWeapon[3]] && SpellsList[v.thisWeapon[3]].school === "Evoc") {
-								output.extraDmg += What('Int Mod');
+								output.extraDmg += What("Int Mod");
 							};
 						},
 						"I add my Intelligence modifier to a single damage roll of any wizard evocation spell I cast.",

@@ -51,7 +51,7 @@
 
 	Sheet:		v24.0.13 and above (PHB'24)
 */
-"example feature name" = { // you can ignore this, it is just here to make this file valid JavaScript
+var exampleFeatureName = { // you can ignore this, it is just here to make this file valid JavaScript
 
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> //
 // >>> Actions & Limited Features >>> //
@@ -272,7 +272,7 @@ extraLimitedFeatures: [{
 	usagescalc: "event.value = Math.max(1, What('Cha Mod'));", // OPTIONAL //
 	additional: "2d8", // OPTIONAL //
 	altResource: "SS 5+", // OPTIONAL //
-	addToExisting: true // OPTIONAL // ADDED v13.0.6
+	addToExisting: true, // OPTIONAL // ADDED v13.0.6
 }],
 /*	extraLimitedFeatures // OPTIONAL //
 	TYPE:	array of objects (variable length)
@@ -304,7 +304,7 @@ extraLimitedFeatures: [{
 toolProfs: [
 	"Herbalism kit",
 	["Thieves' tools", "Dex"],
-	["Musical instrument", 3]
+	["Musical instrument", 3],
 ],
 /*	toolProfs // OPTIONAL //
 	TYPE:	array (variable length)
@@ -324,7 +324,7 @@ toolProfs: [
 languageProfs: [
 	"Common",
 	2,
-	["Elvish or Vedalken", 1]
+	["Elvish or Vedalken", 1],
 ],
 /*	languageProfs // OPTIONAL //
 	TYPE:	array (variable length)
@@ -352,7 +352,7 @@ skills: [
 	"Acrobatics",
 	["Deception", "full"],
 	["History", "only"],
-	["Religion", "increment"]
+	["Religion", "increment"],
 ],
 /*	skills // OPTIONAL //
 	TYPE:	array (variable length)
@@ -421,7 +421,7 @@ weaponProfs: [
 		Note that the weaponProfs array requires this entry!
 	*/
 
-	["dagger", "longsword", "firearm", "Improvised Weapons"]
+	["dagger", "longsword", "firearm", "Improvised Weapons"],
 	/* weaponProfs 3rd entry // OPTIONAL //
 		TYPE:	array (variable length)
 		USE:	add weapon proficiency with the weapons or weapon-types listed
@@ -498,7 +498,7 @@ armorAdd: {
 	select: "Breastplate +1",
 	options: ["Glamoured Studded Leather", "Unarmored Defense (Con)"],
 	noStealthDis: /mithral/i,
-	forceStealthDis: /oversized/i
+	forceStealthDis: /oversized/i,
 },
 /*	armorAdd // OPTIONAL //
 	TYPE:	object
@@ -680,7 +680,7 @@ weaponOptions: [{ /* WeaponsList object, see "weapon (WeaponsList).js" syntax fi
 dmgres: [
 	"Fire",
 	["Bludgeoning", "Bludgeon. (in rage)"],
-	["Slashing", "Slash. (nonmagical)"]
+	["Slashing", "Slash. (nonmagical)"],
 ],
 /*	dmgres // OPTIONAL //
 	TYPE:	array (variable length)
@@ -734,7 +734,7 @@ savetxt: {
 		will be ignored.
 	*/
 
-	adv_vs: ["traps", "charmed", "sleep (by magic)"]
+	adv_vs: ["traps", "charmed", "sleep (by magic)"],
 	/*	adv_vs // OPTIONAL //
 		TYPE:	array of strings
 		USE:	add strings to the "Adv on saves vs" text on the 1st page
@@ -757,7 +757,7 @@ vision: [
 	["Darkvision", 60],
 	["Sunlight Sensitivity", 0],
 	["Darkvision", "+30"],
-	["Darkvision", "fixed 60"]
+	["Darkvision", "fixed 60"],
 ],
 /*	vision // OPTIONAL //
 	TYPE:	array (variable length)
@@ -890,7 +890,7 @@ carryingCapacity: 2,
 advantages: [
 	["Initiative", true],
 	["Stealth", false],
-	["Wisdom", true]
+	["Wisdom", true],
 ],
 /*	advantages // OPTIONAL //
 	TYPE:	array (variable length) with array (length 2)
@@ -1606,7 +1606,7 @@ spellcastingBonusElsewhere: {
 		attribute nor the `addToKnown` attribute are present.
 	*/
 
-	countsTowardsKnown: true
+	countsTowardsKnown: true,
 	/*	spellcastingBonus // OPTIONAL //
 		TYPE:	boolean
 		USE:	whether to count the spells added by `addToKnown` towards the maximum number allowed (true)
@@ -1670,11 +1670,12 @@ creatureOptions: [{ /* CreatureList object, see "companion, wild shape (Creature
 */
 
 creaturesAdd: [
-	["Warhorse", true,
+	["Warhorse",
+true,
 		function (AddRemove, prefix) {
 			// Make the warhorse small
 			if (AddRemove) PickDropdown(prefix + "Comp.Desc.Size", 4);
-		}
+		},
 	],
 	["Purple Crawler"],
 	["Cat", false, false, "familiar"],
@@ -1805,7 +1806,7 @@ calcChanges: {
 				        which represent an alternative HP total.
 				        Doing so will cause this number to become an option in the Set Max HP button.
 						If you do so, preferably also push a description to the end of the `altStr` array, see below.
-				altStr // array with string, empty by default but you can push a string to the end of this array,
+				altStr, // array with string, empty by default but you can push a string to the end of this array,
 				          which is used as descriptive text for the alternative HP total.
 						  Only do so when also adding something to the end of the `alt` array, see above.
 						  This string shouldn't contain the total HP added to the `alt` array,
@@ -1862,13 +1863,13 @@ calcChanges: {
 
 	atkAdd: [
 		function (fields, v) {
-			if (v.WeaponName == 'eldritch blast') fields.Description += (fields.Description ? '; ' : '') + 'Target pushed back 10 ft';
+			if (v.WeaponName == "eldritch blast") fields.Description += (fields.Description ? "; " : "") + "Target pushed back 10 ft";
 		},
-		"When I hit a creature with my Eldritch Blast cantrip, it is pushed 10 ft away from me."
+		"When I hit a creature with my Eldritch Blast cantrip, it is pushed 10 ft away from me.",
 	],
 	atkAdd: [
 		"if (WeaponName == 'eldritch blast') fields.Description += '; Target pushed back 10 ft';",
-		"When I hit a creature with my Eldritch Blast cantrip, it is pushed 10 ft away from me."
+		"When I hit a creature with my Eldritch Blast cantrip, it is pushed 10 ft away from me.",
 	],
 	/*	atkAdd // OPTIONAL //
 		TYPE:	array with three entries:
@@ -1903,7 +1904,7 @@ calcChanges: {
 				To_Hit_Bonus, // string, the text to put in the modifier field for To Hit
 				Damage_Bonus, // string, the text to put in the modifier field for Damage
 				Damage_Die, // string, the text to put in the modifier field for Damage Die
-				Weight // number, the weight in lb to put in the weight field
+				Weight, // number, the weight in lb to put in the weight field
 			};
 
 			These values will be set by the recognized weapon.
@@ -1967,15 +1968,15 @@ calcChanges: {
 
 	atkCalc: [
 		function (fields, v, output) {
-			if (classes.known.sorcerer && classes.known.sorcerer.level > 5 && v.isSpell && (/acid/i).test(fields.Damage_Type)) {
-				output.extraDmg += What('Cha Mod');
+			if (classes.known.sorcerer && classes.known.sorcerer.level > 5 && v.isSpell && /acid/i.test(fields.Damage_Type)) {
+				output.extraDmg += What("Cha Mod");
 			};
 		},
-		"Cantrips and spell that deal acid damage get my Charisma modifier added to their Damage."
+		"Cantrips and spell that deal acid damage get my Charisma modifier added to their Damage.",
 	],
 	atkCalc: [
-		"if (classes.known.sorcerer && classes.known.sorcerer.level > 5 && isSpell && (/acid/i).test(fields.Damage_Type)) { output.extraDmg += What('Cha Mod'); };",
-		"Cantrips and spell that deal acid damage get my Charisma modifier added to their Damage."
+		"if (classes.known.sorcerer && classes.known.sorcerer.level > 5 && isSpell && /acid/i.test(fields.Damage_Type)) { output.extraDmg += What('Cha Mod'); };",
+		"Cantrips and spell that deal acid damage get my Charisma modifier added to their Damage.",
 	],
 	/*	atkCalc // OPTIONAL //
 		TYPE:	array with three entries
@@ -2038,7 +2039,7 @@ calcChanges: {
 				bHit, // string, the value of the modifier field for To Hit, identical to fields.To_Hit_Bonus
 				bDmg, // string, the value of the modifier field for Damage, identical to fields.Damage_Bonus
 				extraDmg, // number, amount of bonus damage to add
-				extraHit // number, amount to add to attack roll ("roll To Hit")
+				extraHit, // number, amount to add to attack roll ("roll To Hit")
 			};
 
 			Note that this variable, output, can be changed by consecutive calcChanges.atkCalc functions
@@ -2062,7 +2063,7 @@ calcChanges: {
 		function (type, spellcasters, ability, spell) {
 			if (type == "dc") return 1;
 		},
-		"I add +1 to all the saving throw DCs of my spells."
+		"I add +1 to all the saving throw DCs of my spells.",
 	],
 	/*	spellCalc // OPTIONAL //
 		TYPE:	array with three entries
@@ -2137,7 +2138,7 @@ calcChanges: {
 			// now add the array of bonus spells to the list
 			spList.extraspells = spList.extraspells.concat(["acid splash", "druidcraft", "detect poison and disease", "expeditious retreat", "jump", "alter self", "enhance ability", "enlarge/reduce", "gaseous form", "water breathing", "wind wall", "freedom of movement", "polymorph", "creation"]);
 		},
-		"My background adds extra spells to the spell list(s) of my spellcasting class(es): Acid Splash, Druidcraft, Detect Poison and Disease, Expeditious Retreat, Jump, Alter Self, Enhance Ability, Enlarge/reduce, Gaseous Form, Water Breathing, Wind Wall, Freedom of Movement, Polymorph, and Creation."
+		"My background adds extra spells to the spell list(s) of my spellcasting class(es): Acid Splash, Druidcraft, Detect Poison and Disease, Expeditious Retreat, Jump, Alter Self, Enhance Ability, Enlarge/reduce, Gaseous Form, Water Breathing, Wind Wall, Freedom of Movement, Polymorph, and Creation.",
 	],
 	/*	spellList // OPTIONAL //
 		TYPE:	array with three entries
@@ -2775,7 +2776,7 @@ extraAC: [{
 	*/
 	stopeval: function (v) {
 		return v.wearingArmor;
-	}
+	},
 	/*	stopeval // OPTIONAL //
 		TYPE:	function
 		USE:	return 'true' if the modifier is NOT to be added
@@ -2794,7 +2795,7 @@ extraAC: [{
 			shieldProf,		// if the 'Shield' proficiency checkbox is checked (true) or not (false)
 			lightProf,		// if the 'Light' armour proficiency checkbox is checked (true) or not (false)
 			mediumProf,		// if the 'Medium' armour proficiency checkbox is checked (true) or not (false)
-			heavyProf		// if the 'Heavy' armour proficiency checkbox is checked (true) or not (false)
+			heavyProf,		// if the 'Heavy' armour proficiency checkbox is checked (true) or not (false)
 		}
 
 		The above example returns true when the character is wearing armour,
@@ -2821,7 +2822,7 @@ bonusClassExtrachoices: [{
 	The `class`, `feature`, and `bonus` attributes have to be present in each object, the rest is optional.
 	See below for an explanation of each attribute.
 */
-	'class' : "warlock",
+	"class": "warlock",
 	/*	class // REQUIRED //
 		TYPE:	string
 		USE:	the ClassList object name of the class the feature belong to
@@ -2863,7 +2864,7 @@ bonusClassExtrachoices: [{
 		If the feature you list here doesn't have the `extrachoices` attribute, this whole object
 		will be ignored.
 	*/
-	bonus: 2
+	bonus: 2,
 	/*	bonus // REQUIRED //
 		TYPE:	number
 		USE:	positive number (minimum of 1) with the amount of extrachoices to add
@@ -3211,7 +3212,7 @@ featsAdd: [
 
 eval: "Checkbox('Jack of All Trades', true);", // string, deprecated
 eval: function(lvl, chc) {
-	AddString('Extra.Notes', 'Monk features:\n\u25C6 Lose Unarmored Defense, Martial Arts, and Unarmored Movement with armor/shields', true);
+	AddString("Extra.Notes", "Monk features:\n\u25C6 Lose Unarmored Defense, Martial Arts, and Unarmored Movement with armor/shields", true);
 },
 /*	eval // OPTIONAL //
 	TYPE:	function or, for backwards-compatibility, string that is evaluated using eval()
@@ -3248,7 +3249,7 @@ eval: function(lvl, chc) {
 
 removeeval: "Checkbox('Jack of All Trades', false);", // string, deprecated
 removeeval: function(lvl, chc) {
-	RemoveString('Extra.Notes', 'Monk features:\n\u25C6 Lose Unarmored Defense, Martial Arts, and Unarmored Movement with armor/shields', true);
+	RemoveString("Extra.Notes", "Monk features:\n\u25C6 Lose Unarmored Defense, Martial Arts, and Unarmored Movement with armor/shields", true);
 },
 /*	removeeval // OPTIONAL //
 	TYPE:	function or, for backwards-compatibility, string that is evaluated using eval()
@@ -3283,10 +3284,10 @@ removeeval: function(lvl, chc) {
 	This attribute is processed first, before all other attributes are processed.
 */
 
-changeeval: "var monkSpd = function(n) {return '+' + (n < 2 ? 0 : n < 6 ? 10 : n < 10 ? 15 : n < 14 ? 20 : n < 18 ? 25 : 30);}(classes.known.monk.level); SetProf('speed', monkSpd !== '+0', {allModes : monkSpd}, displName);", // string, deprecated
+changeeval: "var monkSpd = function(n) {return '+' + (n < 2 ? 0 : n < 6 ? 10 : n < 10 ? 15 : n < 14 ? 20 : n < 18 ? 25 : 30);}(classes.known.monk.level); SetProf('speed', monkSpd !== '+0', {allModes: monkSpd}, displName);", // string, deprecated
 changeeval: function(lvl, chc) {
-	var monkSpd = '+' + (lvl[1] < 2 ? 0 : lvl[1] < 6 ? 10 : lvl[1] < 10 ? 15 : lvl[1] < 14 ? 20 : lvl[1] < 18 ? 25 : 30);
-	SetProf('speed', monkSpd !== '+0', {allModes: monkSpd}, "Monk: Unarmored Movement");
+	var monkSpd = "+" + (lvl[1] < 2 ? 0 : lvl[1] < 6 ? 10 : lvl[1] < 10 ? 15 : lvl[1] < 14 ? 20 : lvl[1] < 18 ? 25 : 30);
+	SetProf("speed", monkSpd !== "+0", { allModes: monkSpd }, "Monk: Unarmored Movement");
 },
 /*	changeeval // OPTIONAL //
 	TYPE:	function or, for backwards-compatibility, string that is evaluated using eval()

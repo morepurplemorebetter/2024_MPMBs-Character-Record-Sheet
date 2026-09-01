@@ -26,7 +26,7 @@ var Base_CreatureList = {
 			ability: 2,
 			damage: [2, 8, "thunder"],
 			range: "Melee (10 ft)",
-			description: "Two Slam attacks as an action"
+			description: "Two Slam attacks as an action",
 		}, {
 			name: "Whirlwind (Recharge 4-6)",
 			ability: 1,
@@ -45,7 +45,7 @@ var Base_CreatureList = {
 			description: "As an Attack action, the [THIS] can make two Thunderous Slam attacks.",
 		}, {
 			name: "Whirlwind (Recharge 4-6)",
-			description: " As an Action, the [THIS] can have one Medium or smaller creature in its space make a DC 13 Strength save, see attack. *Failure*: 4d10+2 Thunder damage, and the target is pushed up to 20 feet straight away from the elemental and has the Prone condition. *Success*: Half damage only."
+			description: " As an Action, the [THIS] can have one Medium or smaller creature in its space make a DC 13 Strength save, see attack. *Failure*: 4d10+2 Thunder damage, and the target is pushed up to 20 feet straight away from the elemental and has the Prone condition. *Success*: Half damage only.",
 		}],
 	},
 	"earth elemental": {

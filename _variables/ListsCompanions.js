@@ -4,7 +4,7 @@ var Base_CompanionList = {
 		nameTooltip: "the Find Familiar spell",
 		nameMenu: "Familiar (Find Familiar spell)", // required
 		source: [["SRD24", 130], ["PHB24", 272]], // required
-		includeCheck : function(sCrea, objCrea, iCreaCR, bIsAL) {
+		includeCheck: function(sCrea, objCrea, iCreaCR, bIsAL) {
 			return objCrea.type.toLowerCase() === "beast" && iCreaCR === 0;
 		},
 		action: [
@@ -36,7 +36,7 @@ var Base_CompanionList = {
 			};
 		},
 	},
-	"pact_of_the_chain" : {
+	"pact_of_the_chain": {
 		name: "Pact of the Chain",
 		nameTooltip: "Warlock (Pact of the Chain)",
 		nameOrigin: "variant of the Find Familiar 1st-level conjuration [ritual] spell",
@@ -86,7 +86,7 @@ var Base_CompanionList = {
 				objCrea.type = ["Celestial", "Fey", "Fiend"];
 				objCrea.subtype = "";
 			};
-			var activeInvocations = GetFeatureChoice('classes', 'warlock', 'eldritch invocations', true);
+			var activeInvocations = GetFeatureChoice("classes", "warlock", "eldritch invocations", true);
 			if (activeInvocations.indexOf("investment of the chain master (req: lvl 5+, pact of the chain)") !== -1 && objCrea.attacks.length) {
 				var dmgTypesRx = /((bludg(eon)?|pierc|slash)(ing|\.)?)/i;
 				for (var i = 0; i < objCrea.attacks.length; i++) {

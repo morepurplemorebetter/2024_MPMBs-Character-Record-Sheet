@@ -532,7 +532,7 @@ CreatureList["purple crawler"] = {
 		ability: 1,
 		damage: [2, 6, "slashing"],
 		range: "Melee (5 ft)",
-		description: "Two claws attacks as an Attack action"
+		description: "Two claws attacks as an Attack action",
 	}],
 /*	attacks // REQUIRED //
 	TYPE:	array (variable length) of WeaponsList objects
@@ -554,8 +554,8 @@ CreatureList["purple crawler"] = {
 	The companion page will always use the attacks defined in the creature's entry over those in the WeaponsList.
 */
 	skills: {
-		"Athletics" : 4,
-		"Perception" : 5
+		"athletics": 4,
+		"perception": 5,
 	},
 /*	skills // OPTIONAL //
 	TYPE:	object with skill names as attribute names
@@ -656,7 +656,7 @@ CreatureList["purple crawler"] = {
 		minlevel: 13,
 		description: desc([
 			" (Purplemancer 13). The purple companion gains the ability to shine in a bright purple color",
-			"Once per long rest, it can cast Hypnotic Pattern without requiring components"
+			"Once per long rest, it can cast Hypnotic Pattern without requiring components",
 		]),
 		joinString: "",
 		wildshapeShow: ". Once per long rest, cast Hypnotic Pattern without components.",
@@ -666,7 +666,7 @@ CreatureList["purple crawler"] = {
 		formatSpellDescription: function(str) {
 			return str.replace(
 				"an animal form I choose: Bat, Cat, Frog, Hawk, Lizard, Octopus, Owl, Rat, Raven, Spider, Weasel, or another Beast that has a Challenge Rating of 0.",
-				"the form of a CR 0 Beast of my choice."
+				"the form of a CR 0 Beast of my choice.",
 			);
 		},
 	}],
@@ -904,7 +904,7 @@ CreatureList["purple crawler"] = {
 */
 	addMod: [
 		{ type: "skill", field: "Init", mod: "Int", text: "The purple crawler adds its Intelligence modifier to initiative rolls." },
-		{ type: "save", field: "all", mod: "max(oCha|1)", text: "The purple crawler adds its master's Charisma modifier (min 1) to all its saving throws." }
+		{ type: "save", field: "all", mod: "max(oCha|1)", text: "The purple crawler adds its master's Charisma modifier (min 1) to all its saving throws." },
 	],
 /*	addMod // OPTIONAL //
 	TYPE:	array of objects (variable length)

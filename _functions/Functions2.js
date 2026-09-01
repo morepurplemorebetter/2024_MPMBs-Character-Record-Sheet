@@ -74,9 +74,9 @@ function FindCompRace(inputCreaTxt, aPrefix) {
 			if (resultFound && isNew) AddTooltip(prefix + "Comp.Race", undefined, inputCreaTxt);
 			// If there was an input creature and prefix, return an object of what was found
 			return {
-				type : typeFound,
-				found : resultFound,
-				new : isNew
+				type: typeFound,
+				found: resultFound,
+				new: isNew,
 			};
 		} else {
 			// Set the CurrentCompRace variable
@@ -155,7 +155,7 @@ function setCurrentCompRace(prefix, type, found, inputCreaTxt) {
 	// set the nameThis
 	var creaTxt = inputCreaTxt ? inputCreaTxt : clean(What(prefix + "Comp.Race")).toLowerCase();
 	if (!CurrentCompRace[prefix].nameThis || creaTxt.indexOf(CurrentCompRace[prefix].nameThis.toLowerCase()) === -1) {
-		CurrentCompRace[prefix].nameThis = clean(creaTxt.replace(/,? ?(giant|dire)/ig, '').replace(/ +/g, ' '));
+		CurrentCompRace[prefix].nameThis = clean(creaTxt.replace(/,? ?(giant|dire)/ig, "").replace(/ +/g, " "));
 	}
 }
 
@@ -180,7 +180,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 	var strRaceEntry = clean(newRace).toLowerCase();
 	var strRaceEntryCap = strRaceEntry.capitalize()
 	var sCurrentCompType = What(prefix + "Companion.Remember");
-	var iPageNo = tDoc.getField(prefix + 'Comp.Race').page + 1;
+	var iPageNo = tDoc.getField(prefix + "Comp.Race").page + 1;
 	if (!sCompType) sCompType = "";
 
 	var resetDescTooltips = function() {
@@ -218,7 +218,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		prefix + "Comp.Type",
 		prefix + "Comp.Use",
 		prefix + "Text.Comp.Use",
-		prefix + "BlueText.Comp.Use"
+		prefix + "BlueText.Comp.Use",
 	];
 
 	// Reset all the fields if the input is nothing
@@ -227,10 +227,10 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		thermoTxt = thermoM("Resetting the companion page...", false); //change the progress dialog text
 		undoCreaturePersists(prefix, oldCrea);
 		CurrentCompRace[prefix] = {}; //reset the global variable to nothing
-		thermoM(1/3); //increment the progress dialog's progress
+		thermoM(1 / 3); //increment the progress dialog's progress
 		tDoc.resetForm(compFields); //reset all the fields
 		resetDescTooltips(); //remove descriptive tooltips
-		thermoM(2/3); //increment the progress dialog's progress
+		thermoM(2 / 3); //increment the progress dialog's progress
 		tDoc.getField(prefix + "Comp.Race").submitName = "";
 		thermoM(thermoTxt, true); // Stop progress bar
 		return; //don't do the rest of the function
@@ -275,7 +275,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		AddTooltip(prefix + "Comp.Desc.Weight", aCrea.plural + theWeight);
 		AddTooltip(prefix + "Comp.Desc.Age", aCrea.plural + aCrea.age, "");
 
-		thermoM(1/11); //increment the progress dialog's progress
+		thermoM(1 / 11); //increment the progress dialog's progress
 
 		//set race's size
 		SetCreatureSize(prefix, strRaceEntryCap, aCrea.size);
@@ -287,7 +287,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		var theTraits = What("Unit System") === "imperial" ? aCrea.trait : ConvertToMetric(aCrea.trait, 0.5);
 		Value(prefix + "Comp.Use.Traits", theTraits);
 
-		thermoM(2/11); //increment the progress dialog's progress
+		thermoM(2 / 11); //increment the progress dialog's progress
 
 		//set speed
 		var raceSpeed = aCrea.speed;
@@ -307,7 +307,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		theSpeed = What("Unit System") === "imperial" ? theSpeed : ConvertToMetric(theSpeed, 0.5);
 		Value(prefix + "Comp.Use.Speed", theSpeed);
 
-		thermoM(3/11); //increment the progress dialog's progress
+		thermoM(3 / 11); //increment the progress dialog's progress
 
 		//set senses
 		if (aCrea.vision) {
@@ -319,7 +319,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			for (var s = 0; s < theSenses.length; s++) {
 				var aSense = theSenses[s];
 				if (isArray(aSense)) {
-					theSenseStr += (theSenseStr ? "; " : "") + aSense[0] + (aSense[1] ? " " + aSense[1] + " ft": "");
+					theSenseStr += (theSenseStr ? "; " : "") + aSense[0] + (aSense[1] ? " " + aSense[1] + " ft" : "");
 				} else {
 					theSenseStr += (theSenseStr ? "; " : "") + aSense;
 				};
@@ -328,7 +328,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			Value(prefix + "Comp.Use.Senses", theSenseStr);
 		};
 
-		thermoM(4/11); //increment the progress dialog's progress
+		thermoM(4 / 11); //increment the progress dialog's progress
 
 		//add a string of the languages known to the features
 		if (aCrea.languageProfs) {
@@ -345,7 +345,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			if (languageString) AddString(prefix + "Comp.Use.Features", languageString + ".", true);
 		};
 
-		thermoM(5/11); //increment the progress dialog's progress
+		thermoM(5 / 11); //increment the progress dialog's progress
 
 		//add a string of the saveText to the features
 		if (aCrea.savetxt) {
@@ -369,7 +369,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			AddString(prefix + "Comp.Use.Features", svString, true);
 		};
 
-		thermoM(6/11); //increment the progress dialog's progress
+		thermoM(6 / 11); //increment the progress dialog's progress
 
 		//add saving throw proficiencies
 		if (aCrea.saves && isArray(aCrea.saves)) {
@@ -390,7 +390,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			if (dmgresString) AddString(prefix + "Comp.Use.Features", dmgresString + ".", true);
 		};
 
-		thermoM(7/11); //increment the progress dialog's progress
+		thermoM(7 / 11); //increment the progress dialog's progress
 
 		//add a string of any weapon proficiencies to the features
 		var weaponProf = aCrea.weaponProfs ? aCrea.weaponProfs : aCrea.weaponprofs ? aCrea.weaponprofs : false;
@@ -415,7 +415,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			if (armourString) AddString(prefix + "Comp.Use.Features", armourString + ".", true);
 		};
 
-		thermoM(8/11); //increment the progress dialog's progress
+		thermoM(8 / 11); //increment the progress dialog's progress
 
 		//add a string of any tool proficiencies to the features
 		if (aCrea.toolProfs) {
@@ -436,7 +436,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			if (toolString) AddString(prefix + "Comp.Use.Features", toolString + ".", true);
 		};
 
-		thermoM(9/11); //increment the progress dialog's progress
+		thermoM(9 / 11); //increment the progress dialog's progress
 
 		//add skill proficiencies and feature text
 		var skillsTxt;
@@ -457,11 +457,11 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			skillsTxt = formatLineList("##\u25C6 Skill Proficiencies##.", skillsNameArr);
 		};
 		if (aCrea.skillstxt) {
-			skillsTxt = "##\u25C6 Skill Proficiencies##. " + aCrea.skillstxt.replace(/^( |\n)*.*: |\;$|\.$/g, '');
+			skillsTxt = "##\u25C6 Skill Proficiencies##. " + aCrea.skillstxt.replace(/^( |\n)*.*: |\;$|\.$/g, "");
 		}
 		if (skillsTxt) AddString(prefix + "Comp.Use.Features", skillsTxt + ".", true);
 
-		thermoM(10/11); //increment the progress dialog's progress
+		thermoM(10 / 11); //increment the progress dialog's progress
 
 		// Add HP calculations (only calcChanges.hp is supported)
 		if (aCrea.calcChanges) addCompEvals(aCrea.calcChanges, prefix, aCrea.name + hpCalcTxt, true);
@@ -480,9 +480,9 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		// If the race has any other features that aren't applied here
 		if (aCrea.eval || aCrea.features || aCrea.scores || aCrea.action) {
 			app.alert({
-				cTitle : "Player species not fully compatible with companion page",
-				nIcon : 3,
-				cMsg : "The companion page is not fully compatible with all the possible features of species that are designed to be used as a player species (i.e. normally used to create a character with levels).\n\nThe sheet has tried its best to add the '" + aCrea.name + "' species to the companion page, but some aspects will be missing:\n\u2022 Anything gained from level-dependent features;\n\u2022 Limited features;\n\u2022 Racial spellcasting;\n\u2022 Additional actions, bonus actions, and reactions;\n\u2022 Automated attack calculation changes;\n\u2022 Anything added using the 'eval' or 'changeeval' attributes."
+				cTitle: "Player species not fully compatible with companion page",
+				nIcon: 3,
+				cMsg: "The companion page is not fully compatible with all the possible features of species that are designed to be used as a player species (i.e. normally used to create a character with levels).\n\nThe sheet has tried its best to add the '" + aCrea.name + "' species to the companion page, but some aspects will be missing:\n\u2022 Anything gained from level-dependent features;\n\u2022 Limited features;\n\u2022 Racial spellcasting;\n\u2022 Additional actions, bonus actions, and reactions;\n\u2022 Automated attack calculation changes;\n\u2022 Anything added using the 'eval' or 'changeeval' attributes.",
 			})
 		}
 
@@ -512,7 +512,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		Value(prefix + "Comp.Use.HD.Level", aCrea.hd[0]); //set HD #
 		Value(prefix + "Comp.Use.HD.Die", aCrea.hd[1]); //set HD die
 
-		thermoM(1/10); //increment the progress dialog's progress
+		thermoM(1 / 10); //increment the progress dialog's progress
 
 		//add ability scores
 		for (var a = 0; a < AbilityScores.abbreviations.length; a++) {
@@ -531,7 +531,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		}
 		Value(prefix + "Comp.Use.AC", aCrea.acString, undefined, acSubmitName); //set AC
 
-		thermoM(2/10); //increment the progress dialog's progress
+		thermoM(2 / 10); //increment the progress dialog's progress
 
 		//add speed
 		var theSpeed = What("Unit System") === "imperial" ? aCrea.speed : ConvertToMetric(aCrea.speed, 0.5);
@@ -539,7 +539,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		if (typePF) theSpeed = theSpeed.replace(/(,|;) /g, "$1\n");
 		Value(prefix + "Comp.Use.Speed", theSpeed);
 
-		thermoM(3/10); //increment the progress dialog's progress
+		thermoM(3 / 10); //increment the progress dialog's progress
 
 		//add any weapons the creature possesses
 		SetWeaponsdropdown(false, prefix);
@@ -547,7 +547,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			AddWeapon(aCrea.attacks[a].name, undefined, prefix);
 		}
 
-		thermoM(4/10); //increment the progress dialog's progress
+		thermoM(4 / 10); //increment the progress dialog's progress
 
 		//calculate the ability score modifiers
 		var mods = [];
@@ -555,7 +555,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			mods[i] = Math.round((aCrea.scores[i] - 10.5) * 0.5);
 		}
 
-		thermoM(5/10); //increment the progress dialog's progress
+		thermoM(5 / 10); //increment the progress dialog's progress
 
 		//add skill proficiencies
 		if (aCrea.skills) {
@@ -576,7 +576,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			}
 		}
 
-		thermoM(6/10); //increment the progress dialog's progress
+		thermoM(6 / 10); //increment the progress dialog's progress
 
 		// Add HP calculations (only calcChanges.hp is supported)
 		if (aCrea.calcChanges) addCompEvals(aCrea.calcChanges, prefix, aCrea.name + hpCalcTxt, true);
@@ -586,7 +586,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			processMods(true, aCrea.name, aCrea.addMod, prefix);
 		}
 
-		thermoM(7/10); //increment the progress dialog's progress
+		thermoM(7 / 10); //increment the progress dialog's progress
 
 		// >>>> Features section <<<<
 		var strFeatures = [];
@@ -616,7 +616,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 
 		strFeatures = strFeatures.join("\n");
 
-		thermoM(8/10); //increment the progress dialog's progress
+		thermoM(8 / 10); //increment the progress dialog's progress
 
 		// Set the strings to the fields but remove starting line breaks and implement name
 		if (strFeatures) {
@@ -625,7 +625,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 			AddString(prefix + "Comp.Use.Features", strFeatures, true);
 		}
 
-		thermoM(9/10); //increment the progress dialog's progress
+		thermoM(9 / 10); //increment the progress dialog's progress
 
 		// Do the level-dependent features, as well as adding the features, traits, actions, and executing the 'eval'
 		UpdateCompLevelFeatures(prefix, aCrea, strRaceEntry);
@@ -651,10 +651,10 @@ function MakeCompMenu_CompOptions(prefix, MenuSelection, force) {
 		var menuLVL1 = function (aMenu, aMain) {
 			for (var i = 0; i < aMain.length; i++) {
 				aMenu.push({
-					cName : aMain[i][0],
-					cReturn : "companion#" + aMain[i][1],
-					bMarked : aMain[i][2] !== undefined ? aMain[i][2] : false,
-					bEnabled : aMain[i][3] !== undefined ? aMain[i][3] : true
+					cName: aMain[i][0],
+					cReturn: "companion#" + aMain[i][1],
+					bMarked: aMain[i][2] !== undefined ? aMain[i][2] : false,
+					bEnabled: aMain[i][3] !== undefined ? aMain[i][3] : true,
 				});
 			}
 		};
@@ -662,17 +662,17 @@ function MakeCompMenu_CompOptions(prefix, MenuSelection, force) {
 			var aSubmenu = [];
 			for (var i = 0; i < aSub.length; i++) {
 				aSubmenu.push({
-					cName : aSub[i][0],
-					cReturn : "companion#" + aMain[1] + "#" + aSub[i][1],
-					bMarked : aSub[i][2] !== undefined ? aSub[i][2] : false,
-					bEnabled : aSub[i][3] !== undefined ? aSub[i][3] : true
+					cName: aSub[i][0],
+					cReturn: "companion#" + aMain[1] + "#" + aSub[i][1],
+					bMarked: aSub[i][2] !== undefined ? aSub[i][2] : false,
+					bEnabled: aSub[i][3] !== undefined ? aSub[i][3] : true,
 				})
 			}
 			aMenu.push({
-				cName : aMain[0],
-				oSubMenu : aSubmenu,
-				bMarked : aMain[2] !== undefined ? aMain[2] : false,
-				bEnabled : aMain[3] !== undefined ? aMain[3] : true
+				cName: aMain[0],
+				oSubMenu: aSubmenu,
+				bMarked: aMain[2] !== undefined ? aMain[2] : false,
+				bEnabled: aMain[3] !== undefined ? aMain[3] : true,
 			})
 		}
 
@@ -680,12 +680,12 @@ function MakeCompMenu_CompOptions(prefix, MenuSelection, force) {
 		if ((CurrentSources.globalExcl.indexOf("SRD") !== -1 || CurrentSources.globalExcl.indexOf("SRD24") !== -1) && ((!SourceList.M || (SourceList.M && CurrentSources.globalExcl.indexOf("M") !== -1)) || (!SourceList.MM24 || (SourceList.M && CurrentSources.globalExcl.indexOf("MM24") !== -1)))) {
 			// If the SRD is excluded (and the MM if it exists), add a warning here
 			aCompMenu = [{
-				cName : "Be aware: the SRD " + (SourceList.M ? "and Monster Manual are" : "is") + " excluded from the sources!",
-				cReturn : "-",
-				bEnabled : false
+				cName: "Be aware: the SRD " + (SourceList.M ? "and Monster Manual are" : "is") + " excluded from the sources!",
+				cReturn: "-",
+				bEnabled: false,
 			}, {
-				cName : "-",
-				cReturn : "-"
+				cName: "-",
+				cReturn: "-",
 			}];
 		}
 		var sCurrentCompType = What(prefix + "Companion.Remember");
@@ -758,13 +758,13 @@ function MakeCompMenu_CompOptions(prefix, MenuSelection, force) {
 				aSubInstructions.push([
 					aCompOption[0] + (aCompOption[2] ? aCompOption[2] : ""), // cName
 					aCompOption[0] + "#" + aCompOption[1], // cReturn
-					bIsCompType && CurrentCompRace[prefix].known === aCompOption[1] && sCurrentCompRaceLC.indexOf(aCompOption[0].toLowerCase()) !== -1 // bMarked
+					bIsCompType && CurrentCompRace[prefix].known === aCompOption[1] && sCurrentCompRaceLC.indexOf(aCompOption[0].toLowerCase()) !== -1, // bMarked
 				]);
 			}
 			menuLVL2(aCompMenu, [
 				"Create " + oComp.nameMenu + sCompSrc, // cName
 				"add_comp#" + sComp, // cReturn
-				bIsCompType // bMarked
+				bIsCompType, // bMarked
 			], aSubInstructions);
 			bAddMenuDivider = true;
 		}
@@ -778,20 +778,20 @@ function MakeCompMenu_CompOptions(prefix, MenuSelection, force) {
 				aSubInstructions.push([
 					oComp.nameMenu + sCompSrc, // cName
 					sComp, // cReturn
-					sCurrentCompType === sComp // bMarked
+					sCurrentCompType === sComp, // bMarked
 				]);
 			}
 			aSubInstructions.push(["-", "-"], [
 				"Reset to normal", // cName
 				"reset", // cReturn
 				undefined, // bMarked
-				sCurrentCompType ? true : false // bEnabled
+				sCurrentCompType ? true : false, // bEnabled
 			]);
 			menuLVL2(aCompMenu,	[
 				"Change current creature into a ... (resets creature)",
 				"change",
 				false,
-				CurrentCompRace[prefix].typeFound === "creature"
+				CurrentCompRace[prefix].typeFound === "creature",
 			], aSubInstructions);
 		} else if (sCurrentCompType) {
 			// Not a creature but has a companion type, so only allow reset
@@ -807,7 +807,7 @@ function MakeCompMenu_CompOptions(prefix, MenuSelection, force) {
 			["Change visible sections", "visible"],
 			[
 				["Show box for Companion's Appearance", "comp.img", aVisLayers[0]],
-				["Show Equipment section", "comp.eqp", aVisLayers[1]]
+				["Show Equipment section", "comp.eqp", aVisLayers[1]],
 			]
 		);
 	// Reset companion page, add/remove page, show calculations
@@ -818,7 +818,7 @@ function MakeCompMenu_CompOptions(prefix, MenuSelection, force) {
 			["Add extra companion page", "add_page"],
 			["Remove this companion page", "remove_page"],
 			["-", "-"],
-			["Show things changing the companion automations", "showcalcs", undefined, creaCalcStr ? true : false]
+			["Show things changing the companion automations", "showcalcs", undefined, creaCalcStr ? true : false],
 		]);
 	// Save this menu in the global variable
 		Menus.companion = aCompMenu;
@@ -927,23 +927,23 @@ function SetCompanionListHeading(bAddRemove, prefix, sCompType, sFld) {
 	var sOrigin = oComp.nameOrigin ? oComp.nameOrigin : "";
 	var sSource = stringSource(oComp, "first,abbr", sOrigin ? ", " : "");
 	if (sSource || sOrigin) sHeading += " (" + sOrigin + sSource + ")";
-	tDoc[(bAddRemove ? "Add" : "Remove") + "String"](sFld, sHeading + ":", '\r\r');
+	tDoc[(bAddRemove ? "Add" : "Remove") + "String"](sFld, sHeading + ":", "\r\r");
 }
 
 // do the eval for a creature
 function ApplyCreatureEval(prefix, objEval, arrLvl, sType, sName) {
-	if (!objEval[sType] || typeof objEval[sType] != 'function') return;
+	if (!objEval[sType] || typeof objEval[sType] != "function") return;
 	if (arrLvl === undefined) {
 		arrLvl = [
 			Number(How(prefix + "Comp.Desc.Age")),
-			classes.totallevel ? classes.totallevel : Math.max(1, Number(What("Character Level")))
+			classes.totallevel ? classes.totallevel : Math.max(1, Number(What("Character Level"))),
 		];
 	}
 	try {
 		return objEval[sType](prefix, arrLvl);
 	} catch (error) {
-		var iPageNo = tDoc.getField(prefix + 'Comp.Race').page + 1;
-		displayError(error, 'The ' + sType + ' for "' + sName + '" on page ' + iPageNo + ' produced the error below. It will be removed for now, but please share this error message with its author so they can correct this issue.');
+		var iPageNo = tDoc.getField(prefix + "Comp.Race").page + 1;
+		displayError(error, "The " + sType + ' for "' + sName + '" on page ' + iPageNo + " produced the error below. It will be removed for now, but please share this error message with its author so they can correct this issue.");
 		delete objEval[sType];
 	}
 }
@@ -963,7 +963,7 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 	var highestClassLevel = function(input, isHD) {
 		var iReturn = isHD ? objCrea.hd[0] : classes.totallevel ? classes.totallevel :
 		What("Character Level") ? Number(What("Character Level")) : 1;
-		if (typeof input === 'function') {
+		if (typeof input === "function") {
 			try {
 				var functReturn = input(prefix);
 			} catch (e) {}
@@ -1024,7 +1024,7 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 			}
 			var fldNm = arrProps[a][1];
 			var arrFlds = [fldNm].concat(arrCompAltStrLocs);
-			var lastProp = a === 0 || fldNm !== arrProps[a-1][1] ? What(fldNm) : lastProp;
+			var lastProp = a === 0 || fldNm !== arrProps[a - 1][1] ? What(fldNm) : lastProp;
 			for (var f = 0; f < feaA.length; f++) {
 				var prop = feaA[f];
 				var propMinLvl = prop.minlevel ? prop.minlevel : 1;
@@ -1052,7 +1052,7 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 					if (strSchool && oSpell.subSchool) strSchool += " [" + oSpell.subSchool + "]";
 					if (!strSchool) strSchool = oSpell.level == 0 ? "" : "spell";
 					var useLevel = oSpell.level + (oSpell.psionic ? 10 : 0);
-					var strLevel = spellLevelList[useLevel] ? spellLevelList[useLevel].replace(/s\b| \(.+\)/g, '') : "";
+					var strLevel = spellLevelList[useLevel] ? spellLevelList[useLevel].replace(/s\b| \(.+\)/g, "") : "";
 					if (oSpell.psionic) {
 						var strSpellType = oSpell.level == 0 ? strLevel : strSchool.capitalize() + " " + strLevel.toLowerCase();
 					} else {
@@ -1102,11 +1102,11 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 	/* The other level-dependent attributes, if present */
 	// Update the Proficiency Bonus, if linked
 	if (newLvl > 0 && objCrea.proficiencyBonusLinked) {
-		Value(prefix + 'Comp.Use.Proficiency Bonus', Math.max(Number(How('Proficiency Bonus')), 2));
+		Value(prefix + "Comp.Use.Proficiency Bonus", Math.max(Number(How("Proficiency Bonus")), 2));
 	}
 	// Update the Hit Dice, if linked
 	if (newLvl > 0 && objCrea.hdLinked) {
-		Value(prefix + 'Comp.Use.HD.Level', highestClassLevel(objCrea.hdLinked, true));
+		Value(prefix + "Comp.Use.HD.Level", highestClassLevel(objCrea.hdLinked, true));
 	}
 
 	/* The main evals */
@@ -1136,9 +1136,9 @@ function RunCreatureCallback(sPrefix, sType, bAdd, fOverride, sOverrideNm) {
 	var doEval = function(evalThing, evalName) {
 		if (!evalThing) return;
 		try {
-			if (typeof evalThing == 'function') evalThing(prefix, oCrea, bAdd, sCompType);
+			if (typeof evalThing == "function") evalThing(prefix, oCrea, bAdd, sCompType);
 		} catch (error) {
-			displayError(error, 'The ' + sEvalType + ' function from "' + evalName + '" produced the error below . It will be removed from the sheet for now, but please share this error message with its author so they can correct this issue.');
+			displayError(error, "The " + sEvalType + ' function from "' + evalName + '" produced the error below . It will be removed from the sheet for now, but please share this error message with its author so they can correct this issue.');
 			if (CurrentEvals[sEvalType] && CurrentEvals[sEvalType][evalName]) {
 				delete CurrentEvals[sEvalType][evalName];
 				CurrentEvals[sEvalType + "Order"].splice(i, 1);
@@ -1171,11 +1171,11 @@ function processAddCompanions(bAddRemove, srcNm, aCreaAdds) {
 	var aChangeMsg = [];
 	var fCallBackError = false;
 	var doCallBack = function(fCallBack, prefix) {
-		if (!fCallBackError && fCallBack && typeof fCallBack == 'function') {
+		if (!fCallBackError && fCallBack && typeof fCallBack == "function") {
 			try {
 				fCallBack(bAddRemove, prefix);
 			} catch (error) {
-				displayError(error, 'The callback function of the "creaturesAdd" attribute from "' + srcNm + '" produced the error below while ' + (bAddRemove ? 'adding' : 'removing') + ' the "' + sRace + '" creature. Please share this error message with its author so they can correct this issue.');
+				displayError(error, 'The callback function of the "creaturesAdd" attribute from "' + srcNm + '" produced the error below while ' + (bAddRemove ? "adding" : "removing") + ' the "' + sRace + '" creature. Please share this error message with its author so they can correct this issue.');
 				fCallBackError = true;
 			}
 		}
@@ -1187,12 +1187,12 @@ function processAddCompanions(bAddRemove, srcNm, aCreaAdds) {
 		var bRemoveWholePage = aCreaAdd[1];
 		var aCallBack = aCreaAdd[2];
 		var sCompanionType = aCreaAdd[3] && CompanionList[aCreaAdd[3]] ? aCreaAdd[3] : false;
-		var AScompA = isTemplVis('AScomp') ? What('Template.extras.AScomp').split(',') : [];
+		var AScompA = isTemplVis("AScomp") ? What("Template.extras.AScomp").split(",") : [];
 		if (bAddRemove) { // add
 			var prefix = false, stopMatch = false;
 			for (var a = 1; a < AScompA.length; a++) {
 				// first check if a selection made in this field wasn't the one initiating this function, because then it should be skipped
-				var sFldNm = AScompA[a] + 'Comp.Race';
+				var sFldNm = AScompA[a] + "Comp.Race";
 				if (event.target && event.target.name === sFldNm) continue;
 				var sFndRace = What(sFldNm);
 				if (!prefix && !sFndRace) prefix = AScompA[a];
@@ -1203,26 +1203,26 @@ function processAddCompanions(bAddRemove, srcNm, aCreaAdds) {
 				}
 			}
 			if (!stopMatch) {
-				if (!prefix) prefix = DoTemplate('AScomp', 'Add');
+				if (!prefix) prefix = DoTemplate("AScomp", "Add");
 				ApplyCompRace(sRace, prefix, sCompanionType);
 				doCallBack(aCallBack, prefix);
-				var sChangeMsgName = '"' + What(prefix + 'Comp.Race') + '"'; // Get it from the page in case the callback changed it.
+				var sChangeMsgName = '"' + What(prefix + "Comp.Race") + '"'; // Get it from the page in case the callback changed it.
 				if (sCompanionType) sChangeMsgName = CompanionList[sCompanionType].nameMenu + " " + sChangeMsgName;
-				aChangeMsg.push('A ' + sChangeMsgName + ' has been added to the companion page at page number ' + (tDoc.getField(prefix + 'Comp.Race').page + 1) + '.');
+				aChangeMsg.push("A " + sChangeMsgName + " has been added to the companion page at page number " + (tDoc.getField(prefix + "Comp.Race").page + 1) + ".");
 			}
 		} else if (!/stop/i.test(bRemoveWholePage)) { // remove, unless bRemoveWholePage == "stop"
 			var sRaceFnd = ParseCreature(sRace);
 			for (var a = 1; a < AScompA.length; a++) {
 				var prefix = AScompA[a];
-				if (CurrentCompRace[prefix].known === sRaceFnd || What(prefix + 'Comp.Race').toLowerCase().indexOf(sRaceLow) !== -1) {
-					var iPageNo = tDoc.getField(prefix + 'Comp.Race').page + 1;
+				if (CurrentCompRace[prefix].known === sRaceFnd || What(prefix + "Comp.Race").toLowerCase().indexOf(sRaceLow) !== -1) {
+					var iPageNo = tDoc.getField(prefix + "Comp.Race").page + 1;
 					if (bRemoveWholePage) { // remove the whole page
 						DoTemplate("AScomp", "Remove", prefix, true);
 					} else {
-						Value(prefix + 'Comp.Race', ""); // reset the race field
+						Value(prefix + "Comp.Race", ""); // reset the race field
 					}
 					doCallBack(aCallBack, prefix);
-					aChangeMsg.push('The companion page at page number ' + iPageNo + ' has ' + (bRemoveWholePage ? 'been removed' : 'had its race option reset') + ' as it contained the "' + sRace + '" race.');
+					aChangeMsg.push("The companion page at page number " + iPageNo + " has " + (bRemoveWholePage ? "been removed" : "had its race option reset") + ' as it contained the "' + sRace + '" race.');
 				}
 			}
 		}
@@ -1331,7 +1331,7 @@ function FindCompWeapons(ArrayNmbr, aPrefix) {
 			tempArray[j] = [
 				"", // 0 - attack entry in WeaponsList or companion attack array
 				0,			// 1 - magic bonus
-				true		// 2 - add ability modifier to damage
+				true,		// 2 - add ability modifier to damage
 			];
 			// if a creature is found, check to see if attack entered matches one of the creature's attacks
 			var compAttackFound = false;
@@ -1433,7 +1433,7 @@ function ApplyWildshape() {
 	if (newForm === "" || newForm === "make a selection") {
 		thermoTxt = thermoM("Resetting the wild shape...", false); // Change the progress dialog text
 		tDoc.resetForm(resetFlds);
-		thermoM(1/2); // Increment the progress dialog's progress
+		thermoM(1 / 2); // Increment the progress dialog's progress
 		resetTooltipsFlds();
 		thermoM(thermoTxt, true); // Stop progress bar
 		return; // Don't do the rest of the function
@@ -1442,7 +1442,7 @@ function ApplyWildshape() {
 	var newCrea = ParseCreature(newForm);
 
 	var oldCrea = ParseCreature(event.target.value);
-	if (newCrea === oldCrea || !newCrea || !What("Character Level") || !What("Int")|| !What("Wis")|| !What("Cha")) {
+	if (newCrea === oldCrea || !newCrea || !What("Character Level") || !What("Int") || !What("Wis") || !What("Cha")) {
 		// If this returns true, it means that no (new) race was found; or that the character has not been defined enough yet so the function can be stopped
 		thermoM(thermoTxt, true); // Stop progress bar
 		return; // Don't do the rest of the function
@@ -1451,7 +1451,7 @@ function ApplyWildshape() {
 	thermoTxt = thermoM("Resetting the wild shape...", false); // Change the progress dialog text
 	tDoc.resetForm(resetFlds);
 	resetTooltipsFlds();
-	thermoM(1/8); // Increment the progress dialog's progress
+	thermoM(1 / 8); // Increment the progress dialog's progress
 
 	thermoTxt = thermoM("Applying the new wild shape...", false); // Change the progress dialog text
 
@@ -1478,7 +1478,7 @@ function ApplyWildshape() {
 
 	// Update the nameThis if not matching the creature entered
 	if (!oWS.nameThis || newForm.toLowerCase().indexOf(oWS.nameThis) !== -1) {
-		oWS.nameThis = clean(newForm.replace(/,? ?(giant|dire)/ig, '').replace(/ +/g, ' '));
+		oWS.nameThis = clean(newForm.replace(/,? ?(giant|dire)/ig, "").replace(/ +/g, " "));
 	}
 
 	// Get the setting field
@@ -1664,7 +1664,7 @@ function ApplyWildshape() {
 	// Add an array to be filled with `traits` by the wildshapeCallback
 	oWS.wildshapeTraits = [];
 
-	thermoM(2/8); // Increment the progress dialog's progress
+	thermoM(2 / 8); // Increment the progress dialog's progress
 
 	// Run calcChanges.wildshapeCallback, if any
 	if (CurrentEvals.wildshapeCallback) {
@@ -1673,9 +1673,9 @@ function ApplyWildshape() {
 			var evalThing = CurrentEvals.wildshapeCallback[evalName];
 			if (!evalThing) continue;
 			try {
-				if (typeof evalThing == 'string') {
+				if (typeof evalThing == "string") {
 					eval(evalThing);
-				} else if (typeof evalThing == 'function') {
+				} else if (typeof evalThing == "function") {
 					evalThing(prefix, Fld, oWS, newCrea);
 				}
 			} catch (error) {
@@ -1703,7 +1703,7 @@ function ApplyWildshape() {
 		charProfB = 0;
 	}
 
-	thermoM(3/8); // Increment the progress dialog's progress
+	thermoM(3 / 8); // Increment the progress dialog's progress
 
 	/* >> Populate the Fields << */
 
@@ -1740,7 +1740,7 @@ function ApplyWildshape() {
 		Value(abiFldBase + ".ST.Mod", saveMod);
 	}
 
-	thermoM(4/8); // Increment the progress dialog's progress
+	thermoM(4 / 8); // Increment the progress dialog's progress
 
 	// Size
 	SetCreatureSize([prefix, Fld], oWS.name, oWS.size);
@@ -1783,7 +1783,7 @@ function ApplyWildshape() {
 			ac.tooltip = 'The AC used here is calculated using "' + oAC.name + '".';
 		}
 	}
-	ac.tooltipFull = (ac.tooltipBase + "\n\n" +  ac.tooltip).replace(/^\n+|\n+$/, '');
+	ac.tooltipFull = (ac.tooltipBase + "\n\n" +  ac.tooltip).replace(/^\n+|\n+$/, "");
 	if (useModNotDC) {
 		ac.value -= 12;
 		if (ac.value > 0) ac.value = "+" + ac.value;
@@ -1791,7 +1791,7 @@ function ApplyWildshape() {
 	}
 	Value(fldBase + ".AC", ac.value, ac.tooltipFull);
 
-	thermoM(5/8); // Increment the progress dialog's progress
+	thermoM(5 / 8); // Increment the progress dialog's progress
 
 	// Skills
 	var skillsAllBonus = oWS.skill.allBonus ? EvalBonus(oWS.skill.allBonus, prefix, Fld, charProfB) : 0;
@@ -1872,7 +1872,7 @@ function ApplyWildshape() {
 	}
 	Value(fldBase + ".Initiative Bonus", initiative);
 
-	thermoM(6/8); //increment the progress dialog's progress
+	thermoM(6 / 8); //increment the progress dialog's progress
 
 	// Attacks
 	var atkProfB = oWS.calcSetting[1].indexOf("attacks") !== -1 ? charProfB : creaProfB;
@@ -1891,7 +1891,7 @@ function ApplyWildshape() {
 		if (atk.modifiers) {
 			if (atk.dc === undefined && atk.modifiers[0] !== undefined && /dc/i.test(atk.modifiers[0])) {
 				atk.dc = true;
-				atk.modifiers[0] = atk.modifiers[0].replace(/dc\+?/ig, '');
+				atk.modifiers[0] = atk.modifiers[0].replace(/dc\+?/ig, "");
 			}
 			if (atk.abilitytodamage === undefined && atk.modifiers[2] !== undefined && atk.modifiers[2] !== "") {
 				atk.abilitytodamage = atk.modifiers[2];
@@ -1953,7 +1953,7 @@ function ApplyWildshape() {
 		Value(atkFld + ".Damage", atkDmgTot ? atkDmgTot : "");
 	}
 
-	thermoM(7/8); //increment the progress dialog's progress
+	thermoM(7 / 8); //increment the progress dialog's progress
 
 	// Traits & Features
 	var arrTraits = [];
@@ -2037,7 +2037,7 @@ function ApplyWildshape() {
 		AddString(fldBase + ".Traits", arrTraits, true);
 	}
 
-	thermoM(8/8); //increment the progress dialog's progress
+	thermoM(8 / 8); //increment the progress dialog's progress
 
 	thermoM(thermoTxt, true); // Stop progress bar
 }
@@ -2096,7 +2096,7 @@ function RemoveWildshape(input, inCrea, bRemoveAll, bExactMatch) {
 function MakeWildshapeMenu() {
 	var prefix = getTemplPre(event.target.name, "WSfront", true);
 
-	if (!What("Character Level") || !What("Int")|| !What("Wis") || !What("Cha")) { //If the character has not been defined enough, the function can be stopped after making a warning-menu
+	if (!What("Character Level") || !What("Int") || !What("Wis") || !What("Cha")) { //If the character has not been defined enough, the function can be stopped after making a warning-menu
 		Menus.wildshape = [{
 			cName: "Please create a character on the 1st page before trying a Wild Shape", cReturn: "nothing#toreport",
 			bEnabled: false,
@@ -2314,7 +2314,7 @@ function MakeWildshapeMenu() {
 				}
 
 				//add it to the CR specific array
-				if (eval_ish(CR) <= 1/4) {
+				if (eval_ish(CR) <= 1 / 4) {
 					if (!shapesBeast["CR1/4"].entries[CRsub]) continue;
 					shapesBeast["CR1/4"].entries[CRsub].push([creaName + creaNameAddFull, creaName, sCrea]);
 				} else if (shapesBeast["CR" + CR]) {
@@ -2361,14 +2361,14 @@ function MakeWildshapeMenu() {
 		useFunction(AddWildShapeMenu, shapesBeast[key].name, shapesBeast[key].entries);
 	}
 	if (ObjLength(shapesOther)) {
-		AddWildShapeMenu.oSubMenu.push({cName : "-"}); //add a divider
+		AddWildShapeMenu.oSubMenu.push({ cName: "-" }); //add a divider
 		for (var key in shapesOther) {
 			menuLVL3(AddWildShapeMenu, shapesOther[key].name, shapesOther[key].entries);
 		}
 	}
 	WildshapeMenu.push(AddWildShapeMenu);
 
-	WildshapeMenu.push({cName: "-"}); //add a divider
+	WildshapeMenu.push({ cName: "-" }); //add a divider
 
 	//add all the options for "Remove Wild Shape"
 	if (usedShapeNames.length) { //if any shapes are currently present
@@ -2377,12 +2377,12 @@ function MakeWildshapeMenu() {
 		WildshapeMenu.push({ cName: "Remove Wild Shape", cReturn: "nothing", bEnabled: false });
 	}
 
-	WildshapeMenu.push({cName: "-"}); //add a divider
+	WildshapeMenu.push({ cName: "-" }); //add a divider
 
 	//add the options for wildshape calculation
 	var calcMenu = {
-		cName : "Calculation options",
-		oSubMenu : []
+		cName: "Calculation options",
+		oSubMenu: [],
 	};
 	menuLVL2Ext(calcMenu, [["Use druid's Prof Bonus if druid is prof.", "default"]], "wildshapeSelect");
 	//add a submenu for the next options
@@ -2474,7 +2474,7 @@ function WildshapeRecalc(order) {
 			}
 		}
 		tDoc.resetForm([prefix + "Wildshape.Race"]);
-		thermoM(p/(prefixA.length * 4 + prefixA.length)); //increment the progress dialog's progress
+		thermoM(p / (prefixA.length * 4 + prefixA.length)); //increment the progress dialog's progress
 	}
 	//order the array, if so selected
 	if (order) theFields.sort();
@@ -2482,7 +2482,7 @@ function WildshapeRecalc(order) {
 	//now add all the wildshapes in the array to the empty fields
 	for (var F = 0; F < theFields.length; F++) {
 		Value(theFieldsNames[F], theFields[F]);
-		thermoM((F + prefixA.length)/(theFields.length + prefixA.length)); //increment the progress dialog's progress
+		thermoM((F + prefixA.length) / (theFields.length + prefixA.length)); //increment the progress dialog's progress
 	}
 	// Stop progress bar
 	thermoM(thermoTxt, true);
@@ -2661,7 +2661,7 @@ function ChangeFont(newFont, oldFont) {
 			Fld.textFont = newFont;
 			if (Fld.mpmbRtFormat && Fld.textSize) Fld.richText = true;
 		}
-		thermoM((F+1)/FldNums); //increment the progress dialog's progress
+		thermoM((F + 1) / FldNums); //increment the progress dialog's progress
 	}
 
 	thermoM(thermoTxt, true); // Stop progress bar
@@ -2673,7 +2673,7 @@ function ApplyDCColorScheme(colour, DC) {
 	//stop the function if the input color is not recognized
 	if (colour || DC) {
 		colour = colour && isNaN(colour) ? colour.toLowerCase() : DC ? What("Color.DC").split(",")[DC - 1] : "red";
-		colour = colour.replace(/same as | head/ig, '');
+		colour = colour.replace(/same as | head/ig, "");
 		if (colour && colour !== "headers" && colour !== "dragons" && !ColorList[colour]) return;
 	}
 
@@ -2729,9 +2729,9 @@ function MakeActionMenu_ActionOptions(MenuSelection, FldNm, itemNmbr) {
 		var menuLVL1 = function (array) {
 			for (i = 0; i < array.length; i++) {
 				actionMenu.push({
-					cName : array[i][0],
-					cReturn : "action#" + array[i][1],
-					bEnabled : array[i][2] !== undefined ? array[i][2] : true
+					cName: array[i][0],
+					cReturn: "action#" + array[i][1],
+					bEnabled: array[i][2] !== undefined ? array[i][2] : true,
 				});
 			}
 		};
@@ -2742,12 +2742,12 @@ function MakeActionMenu_ActionOptions(MenuSelection, FldNm, itemNmbr) {
 			["-", "-"],
 			["Insert empty " + type, "insert", noDown || !theField ? false : true],
 			["Delete item", "delete"],
-			["Clear item", "clear"]
+			["Clear item", "clear"],
 		];
 		if (type === "action" && (!typePF || itemNmbr > (maxNmbr - 6))) {
 			menuArray = menuArray.concat([
 				["-", "-"],
-				["Swap with opposing field", "opposite"]
+				["Swap with opposing field", "opposite"],
 			]);
 		}
 		menuLVL1(menuArray);
@@ -2775,7 +2775,7 @@ function MakeActionMenu_ActionOptions(MenuSelection, FldNm, itemNmbr) {
 				// swap with opposite on 1st page, see which side
 				itemNmbr > (maxNmbr - 6) / 2 ? itemNmbr - ((maxNmbr - 6) / 2) : itemNmbr - ((maxNmbr + 6) / 2);
 			// Now swap the fields
-			copyField(FldNm + itemNmbr, FldNm + otherNmbr, { noCalc : true }, true);
+			copyField(FldNm + itemNmbr, FldNm + otherNmbr, { noCalc: true }, true);
 			break;
 		case "insert" :
 			ActionInsert(type, itemNmbr);
@@ -2791,7 +2791,7 @@ function MakeActionMenu_ActionOptions(MenuSelection, FldNm, itemNmbr) {
 }
 
 function AddAction(actiontype, action, actiontooltip, replaceThis, replaceMatch) {
-	var field = (/bonus/i).test(actiontype) ? "Bonus Action " : (/reaction/i).test(actiontype) ? "Reaction " : "Action ";
+	var field = /bonus/i.test(actiontype) ? "Bonus Action " : /reaction/i.test(actiontype) ? "Reaction " : "Action ";
 	var numberOfFields = field === "Action " ? FieldNumbers.trueactions : FieldNumbers.actions;
 	// first loop through all to see if it isn't already known
 	// also check if there is a match if we are trying to replace something
@@ -2827,7 +2827,7 @@ function AddAction(actiontype, action, actiontooltip, replaceThis, replaceMatch)
 };
 
 function RemoveAction(actiontype, action, actiontooltip) {
-	var field = (/bonus/i).test(actiontype) ? "Bonus Action " : (/reaction/i).test(actiontype) ? "Reaction " : "Action ";
+	var field = /bonus/i.test(actiontype) ? "Bonus Action " : /reaction/i.test(actiontype) ? "Reaction " : "Action ";
 	var numberOfFields = field === "Action " ? FieldNumbers.trueactions : FieldNumbers.actions;
 	for (var i = 1; i <= numberOfFields; i++) {
 		var actFldVal = What(field + i);
@@ -2876,7 +2876,7 @@ function ActionInsert(type, itemNmbr) {
 
 	//cycle to the slots starting with the empty one and add the values of the one above
 	for (var i = endslot; i > itemNmbr; i--) {
-		copyField(FldNm + (i - 1), FldNm + i, { noCalc : true });
+		copyField(FldNm + (i - 1), FldNm + i, { noCalc: true });
 	};
 
 	//empty the selected slot
@@ -2894,7 +2894,7 @@ function ActionDelete(type, itemNmbr) {
 	var FldNm = type.capitalize() + " ";
 	// var Field = FldNm + itemNmbr;
 	var maxNmbr = type === "action" ? FieldNumbers.trueactions : FieldNumbers.actions;
-	if (!typePF && type === "action" && itemNmbr < (maxNmbr- 6) / 2) {
+	if (!typePF && type === "action" && itemNmbr < (maxNmbr - 6) / 2) {
 		var maxNmbr = (maxNmbr - 6) / 2;
 	} else {
 		maxNmbr = itemNmbr > (maxNmbr - 6) || What(FldNm + (maxNmbr - 6)) ? maxNmbr : maxNmbr - 6; //stop at the end of the first page if last one on first page is empty
@@ -2902,7 +2902,7 @@ function ActionDelete(type, itemNmbr) {
 
 	//move every line up one space, starting with the line below the selected line
 	for (var i = itemNmbr; i < maxNmbr; i++) {
-		copyField(FldNm + (i + 1), FldNm + i, { noCalc : true });
+		copyField(FldNm + (i + 1), FldNm + i, { noCalc: true });
 	};
 
 	//delete the contents of the final line
@@ -2933,9 +2933,9 @@ function MakeLimFeaMenu() {
 				extraName = " (to first page)";
 			}
 			item.push({
-				cName : array[i] + extraName,
-				cReturn : array[i],
-				bEnabled : enabled
+				cName: array[i] + extraName,
+				cReturn: array[i],
+				bEnabled: enabled,
 			});
 		}
 	};
@@ -2956,7 +2956,7 @@ function LimFeaOptions() {
 		"Limited Feature ",
 		"Limited Feature Max Usages ",
 		"Limited Feature Recovery ",
-		"Limited Feature Used "
+		"Limited Feature Used ",
 	];
 	var Fields = [], FieldsValue = [], FieldsTool = [], FieldsCalc = [], FieldsUp = [], FieldsUpValue = [], FieldsUpTool = [], FieldsUpCalc = [], FieldsDown = [], FieldsDownValue = [], FieldsDownTool = [], FieldsDownCalc = [];
 
@@ -2995,7 +2995,7 @@ function LimFeaOptions() {
 			tDoc.getField(Fields[H]).submitName = FieldsUpCalc[H];
 			Value(FieldsUp[H], FieldsValue[H], FieldsTool[H]);
 			Value(Fields[H], FieldsUpValue[H], FieldsUpTool[H]);
-			thermoM(H/FieldNames.length); //increment the progress dialog's progress
+			thermoM(H / FieldNames.length); //increment the progress dialog's progress
 		};
 		break;
 	 case "move down":
@@ -3007,7 +3007,7 @@ function LimFeaOptions() {
 			tDoc.getField(Fields[H]).submitName = FieldsDownCalc[H];
 			Value(FieldsDown[H], FieldsValue[H], FieldsTool[H]);
 			Value(Fields[H], FieldsDownValue[H], FieldsDownTool[H]);
-			thermoM(H/FieldNames.length); //increment the progress dialog's progress
+			thermoM(H / FieldNames.length); //increment the progress dialog's progress
 		};
 		break;
 	 case "insert empty limited feature":
@@ -3024,7 +3024,7 @@ function LimFeaOptions() {
 			Value(Fields[T], "", "");
 			tDoc.getField(Fields[T]).setAction("Calculate", "");
 			tDoc.getField(Fields[T]).submitName = "";
-			thermoM(T/Fields.length); //increment the progress dialog's progress
+			thermoM(T / Fields.length); //increment the progress dialog's progress
 		}
 		break;
 	}
@@ -3039,7 +3039,7 @@ function LimFeaInsert(itemNmbr) {
 		"Limited Feature ",
 		"Limited Feature Max Usages ",
 		"Limited Feature Recovery ",
-		"Limited Feature Used "
+		"Limited Feature Used ",
 	];
 	var Fields = [];
 	for (var F = 0; F < FieldNames.length; F++) {
@@ -3096,7 +3096,7 @@ function LimFeaDelete(itemNmbr) {
 		"Limited Feature ",
 		"Limited Feature Max Usages ",
 		"Limited Feature Recovery ",
-		"Limited Feature Used "
+		"Limited Feature Used ",
 	];
 	var Fields = [];
 	var EndFields = [];
@@ -3139,7 +3139,7 @@ function Bookmark_Goto(BookNm) {
 	}
 
 	// Find the field corresponding to the bookmark name
-	var theTemplate = getBookmarkTemplate(event.type === "Bookmark" ? event.target : {name : BookNm});
+	var theTemplate = getBookmarkTemplate(event.type === "Bookmark" ? event.target : { name: BookNm });
 	var isVisible = theTemplate ? isTemplVis(theTemplate[0], true) : true;
 	var prefix = "";
 	if (isArray(isVisible)) {
@@ -3157,10 +3157,10 @@ function Bookmark_Goto(BookNm) {
 	// If the selected section is on a hidden page, alert the user.
 	if (theTemplate) {
 		var theMessage = {
-			cMsg : "The bookmark \"" + BookNm + "\" you have selected is on a page which is currently hidden.\n\You can change your page visibility settings using the \"Layout\" button in the \"JavaScript Window\" or in the bookmarks.\n\nDo you want to make the page \"" + theTemplate[1] + "\" visible now?" + (theTemplate[0] !== "SSfront" ? "" : "\n\nClicking \"Yes\" will start the Spell Sheets Generation process."),
-			nIcon : 2, //question mark
-			cTitle : "Bookmark is currently unavailable",
-			nType : 2 //Yes-No
+			cMsg: "The bookmark \"" + BookNm + "\" you have selected is on a page which is currently hidden.\n\You can change your page visibility settings using the \"Layout\" button in the \"JavaScript Window\" or in the bookmarks.\n\nDo you want to make the page \"" + theTemplate[1] + "\" visible now?" + (theTemplate[0] !== "SSfront" ? "" : "\n\nClicking \"Yes\" will start the Spell Sheets Generation process."),
+			nIcon: 2, //question mark
+			cTitle: "Bookmark is currently unavailable",
+			nType: 2, //Yes-No
 		};
 		if (app.alert(theMessage) === 4) {
 			if (theTemplate[0] !== "SSfront") {
@@ -3199,14 +3199,14 @@ function deletePage(fldNm, onTemplate, ignoreError) {
 	// Because of a bug, sometimes the page is deleted but the fields aren't, corrupting the AcroForm
 	if (!ignoreError && !onTemplate && tDoc.getField(fldNm) && tDoc.getField(fldNm).page === -1) {
 		var alert = {
-			cTitle : "ERROR: this AcroForm is corrupted",
-			cMsg : "The removal of the page caused this PDF to become corrupted. The fields from the deleted page(s) haven't been properly removed because of a bug in Adobe Acrobat (not something MPMB can fix)."+
-			"\n\nThis corruption will cause the filesize to keep increasing, the sheet to slow down significantly, and eventually you won't be able to open this PDF at all."+
-			"\n\nIMPORTANT! To remedy this, either:"+
-			"\n \u2022 Stop what you are doing, close, but don't save this file, and re-open a saved version of it."+
+			cTitle: "ERROR: this AcroForm is corrupted",
+			cMsg: "The removal of the page caused this PDF to become corrupted. The fields from the deleted page(s) haven't been properly removed because of a bug in Adobe Acrobat (not something MPMB can fix)." +
+			"\n\nThis corruption will cause the filesize to keep increasing, the sheet to slow down significantly, and eventually you won't be able to open this PDF at all." +
+			"\n\nIMPORTANT! To remedy this, either:" +
+			"\n \u2022 Stop what you are doing, close, but don't save this file, and re-open a saved version of it." +
 			"\n \u2022 Save this sheet and import it into a freshly downloaded version. You can learn how to do this on MPMB's website.",
-			nIcon : 1,
-			oCheckbox : { cMsg : "Open the step-by-step \"Upgrade to New Sheet\" guide on MPMB's website." }
+			nIcon: 1,
+			oCheckbox: { cMsg: "Open the step-by-step \"Upgrade to New Sheet\" guide on MPMB's website." },
 		};
 		app.alert(alert);
 		if (alert.oCheckbox.bAfterValue) contactMPMB("upgrade to new sheet");
@@ -3238,13 +3238,13 @@ function DoTemplate(tempNm, AddRemove, removePrefix, GoOn) {
 						// A bug in Acrobat caused the page to be deleted but not the fields, making the internal form structure corrupted
 						pageNum = pageNum[pageNum.length - 1];
 						var alert = {
-							cTitle : "ERROR: this AcroForm is corrupted",
-							cMsg : "This PDF seems to have been corrupted. Fields from deleted pages haven't been properly removed. This is caused by a bug in Adobe Acrobat and not something MPMB can fix."+
-							"\n\nThis corruption will cause the filesize to keep increasing, the sheet to slow down significantly, and eventually you won't be able to open this PDF at all."+
-							"\n\nIMPORTANT! This was not caused by the thing you just clicked, but your action did make the corruption apparent. Older saves of this PDF could also be corrupted."+
+							cTitle: "ERROR: this AcroForm is corrupted",
+							cMsg: "This PDF seems to have been corrupted. Fields from deleted pages haven't been properly removed. This is caused by a bug in Adobe Acrobat and not something MPMB can fix." +
+							"\n\nThis corruption will cause the filesize to keep increasing, the sheet to slow down significantly, and eventually you won't be able to open this PDF at all." +
+							"\n\nIMPORTANT! This was not caused by the thing you just clicked, but your action did make the corruption apparent. Older saves of this PDF could also be corrupted." +
 							"\n\nTo remedy this, please save this sheet and import it into a freshly downloaded version. You can learn how to do this on MPMB's website.",
-							nIcon : 1,
-							oCheckbox : { cMsg : "Open the step-by-step guide on MPMB's website." }
+							nIcon: 1,
+							oCheckbox: { cMsg: "Open the step-by-step guide on MPMB's website." },
 						};
 						app.alert(alert);
 						if (alert.oCheckbox.bAfterValue) contactMPMB("upgrade to new sheet");
@@ -3328,9 +3328,9 @@ function DoTemplate(tempNm, AddRemove, removePrefix, GoOn) {
 		//removing one or all pages
 		var isSS = tempNm.substring(0, 2) === "SS";
 
-		if ((/remove/i).test(AddRemove) && isTempVisible) { // If told to remove a page and a page exists
+		if (/remove/i.test(AddRemove) && isTempVisible) { // If told to remove a page and a page exists
 			var newTemplList = What("Template.extras." + tempNm).split(",");
-			var removeWhich = (/removeall/i).test(AddRemove) ? "all" : removePrefix ? tempExtras.indexOf(removePrefix) : "last";
+			var removeWhich = /removeall/i.test(AddRemove) ? "all" : removePrefix ? tempExtras.indexOf(removePrefix) : "last";
 			tempExtras = isNaN(removeWhich) ? tempExtras.splice(removeWhich === "all" ? 1 : -1) : tempExtras.splice(removeWhich, 1);
 			var removeTxt = (removeWhich === "all" ? "all " : "") +
 				TemplateNames[tempNm] +
@@ -3340,7 +3340,7 @@ function DoTemplate(tempNm, AddRemove, removePrefix, GoOn) {
 				cTitle: "Continue with deleting page(s)?",
 				cMsg: "You are about to remove " + removeTxt + ". All this data will be permanently lost.\n\nThis can't be undone!\nAre you sure you want to continue?",
 				nIcon: 2,
-				nType: 2
+				nType: 2,
 			};
 
 			// Start progress bar
@@ -3390,7 +3390,7 @@ function DoTemplate(tempNm, AddRemove, removePrefix, GoOn) {
 			// Stop progress bar
 			thermoM(thermoTxt, true);
 
-		} else if ((/add/i).test(AddRemove)) {
+		} else if (/add/i.test(AddRemove)) {
 			// find the page where we want to add the new page at
 			var tempPage = !isTempVisible ? whatPage(tempNm) : tDoc.getField(tempExtras.slice(-1)[0] + BookMarkList[tempNm]).page + 1;
 
@@ -3420,7 +3420,7 @@ function DoTemplate(tempNm, AddRemove, removePrefix, GoOn) {
 			Value("Template.extras." + tempNm, tempExtras.toString());
 
 			// Delete all the blank pages we added earlier
-			if (toDeleteArray.length) tDoc.deletePages({nStart: toDeleteArray[0], nEnd: toDeleteArray[0] + toDeleteArray.length - 1});
+			if (toDeleteArray.length) tDoc.deletePages({ nStart: toDeleteArray[0], nEnd: toDeleteArray[0] + toDeleteArray.length - 1 });
 
 			// Amend the bookmarks
 			if (!isTempVisible && BookMarkList[tempNm + "_Bookmarks"]) amendBookmarks(BookMarkList[tempNm + "_Bookmarks"], true);
@@ -3440,7 +3440,7 @@ function DoTemplate(tempNm, AddRemove, removePrefix, GoOn) {
 				AddTooltip(theNewPrefix + "spellsdiv.Text.0", "");
 				break;
 			 case "SSmore" :
-				Uneditable(theNewPrefix + "spellshead." + (!typePF? "Text" : "Image") + ".prepare.0");
+				Uneditable(theNewPrefix + "spellshead." + (!typePF ? "Text" : "Image") + ".prepare.0");
 				break;
 			};
 
@@ -3462,18 +3462,18 @@ function MakePagesMenu() {
 		for (var i = 0; i < array.length; i++) {
 			var isMarked = isTemplVis(array[i]);
 			menu.push({
-				cName : TemplateNames[array[i]],
-				cReturn : "template#" + array[i] + "#toggle",
-				bMarked : isMarked
+				cName: TemplateNames[array[i]],
+				cReturn: "template#" + array[i] + "#toggle",
+				bMarked: isMarked,
 			});
 		};
 	};
 
 	//the start menu entry
 	var pagesMenu = [{
-		cName : "[Mark the pages you want visible]",
-		cReturn : "nothing#toreport",
-		bEnabled : false
+		cName: "[Mark the pages you want visible]",
+		cReturn: "nothing#toreport",
+		bEnabled: false,
 	}];
 	//the menu items for the pages that can only be hidden/shown
 	menuLvl1(pagesMenu, ["ASfront", "ASoverflow", "ASbackgr"]);
@@ -3484,24 +3484,24 @@ function MakePagesMenu() {
 			var isVisible = isTemplVis(array[i]);
 			var templName = TemplateNames[array[i]];
 			var temp = {
-				cName : templName,
-				bMarked : isVisible
+				cName: templName,
+				bMarked: isVisible,
 			};
 			if (isVisible) {
 				var visNr = What("Template.extras." + array[i]).split(",").length - 1;
 				temp.oSubMenu = (visNr <= 1 ? [] : [{
-					cName : "[" + visNr + " " + templName + "s active]",
-					bEnabled : false
+					cName: "[" + visNr + " " + templName + "s active]",
+					bEnabled: false,
 				}]).concat([{
-					cName : "Add extra " + templName,
-					cReturn : "template#" + array[i] + "#add"
+					cName: "Add extra " + templName,
+					cReturn: "template#" + array[i] + "#add",
 				}, {
-					cName : "Remove " + (visNr > 1 ? "last " : "") + templName,
-					cReturn : "template#" + array[i] +
-					"#remove"
+					cName: "Remove " + (visNr > 1 ? "last " : "") + templName,
+					cReturn: "template#" + array[i] +
+					"#remove",
 				}]).concat(visNr <= 1 ? [] : [{
-					cName : "Remove all " + templName + "s",
-					cReturn : "template#" + array[i] + "#removeall"
+					cName: "Remove all " + templName + "s",
+					cReturn: "template#" + array[i] + "#removeall",
 				}]);
 			} else {
 				temp.cReturn = "template#" + array[i] + "#add";
@@ -3518,8 +3518,8 @@ function MakePagesMenu() {
 	//a function for adding menu items with a submenu
 	var menuLVL2 = function (menu, name, array) {
 		var temp = {
-			cName : name[0],
-			oSubMenu : []
+			cName: name[0],
+			oSubMenu: [],
 		};
 		for (var i = 0; i < array.length; i++) {
 			var splitA = array[i][1].split("#");
@@ -3533,22 +3533,22 @@ function MakePagesMenu() {
 					false) :
 				false;
 			temp.oSubMenu.push({
-				cName : array[i][0],
-				cReturn : name[1] + "#" + array[i][1] + "#" + isMarked,
-				bMarked : isMarked
+				cName: array[i][0],
+				cReturn: name[1] + "#" + array[i][1] + "#" + isMarked,
+				bMarked: isMarked,
 			});
 		};
 		menu.push(temp);
 	};
 
-	pagesMenu.push({cName : "-", cReturn : "-"}); // add a divider
+	pagesMenu.push({ cName: "-", cReturn: "-" }); // add a divider
 
 	//add a menu item for the color them options
 	if (!typePF) {
 		MakeColorMenu();
 		pagesMenu.push({
-			cName : "Color Theme options",
-			oSubMenu : Menus.colour
+			cName: "Color Theme options",
+			oSubMenu: Menus.colour,
 		});
 	};
 
@@ -3558,52 +3558,52 @@ function MakePagesMenu() {
 		["Show the D&&D logos", "show#0"],
 		["Show, but don't print the D&&D logos", "noprint#2"],
 		["Hide and don't print the D&&D logos", "hide#1"],
-		["Hide, but print the D&&D logos", "onlyprint#3"]
+		["Hide, but print the D&&D logos", "onlyprint#3"],
 	]);
 
 	//add a menu item for the text fields
 	MakeTextMenu_TextOptions("justMenu");
 	pagesMenu.push({
-		cName : "Text field options",
-		oSubMenu : Menus.texts
+		cName: "Text field options",
+		oSubMenu: Menus.texts,
 	});
 
 	//show/hide modifier fields
 	pagesMenu.push({
-		cName : "Show fields to modify calculations",
-		cReturn : "bluetextfields",
-		bMarked : CurrentVars.bluetxt
+		cName: "Show fields to modify calculations",
+		cReturn: "bluetextfields",
+		bMarked: CurrentVars.bluetxt,
 	});
 
-	pagesMenu.push({cName : "-", cReturn : "-"}); // add a divider
+	pagesMenu.push({ cName: "-", cReturn: "-" }); // add a divider
 
 	//add the menu for setting adventurers league stuff
 	MakeAdventureLeagueMenu();
 	pagesMenu.push({
-		cName : "Adventurers League options",
-		oSubMenu : Menus.adventureLeague
+		cName: "Adventurers League options",
+		oSubMenu: Menus.adventureLeague,
 	});
 
 	//other alternative rules
 	var profDice = tDoc.getField("Proficiency Bonus Dice").isBoxChecked(0);
 	pagesMenu.push({
-		cName : 'Use "Proficiency Dice" rule    [DMG 263]',
-		cReturn : "proficiencydice#" + (profDice ? 0 : 1),
-		bMarked : profDice
+		cName: 'Use "Proficiency Dice" rule    [DMG 263]',
+		cReturn: "proficiencydice#" + (profDice ? 0 : 1),
+		bMarked: profDice,
 	});
 	var playerAllRolls = tDoc.getField("BlueText.Players Make All Rolls").isBoxChecked(0);
 	pagesMenu.push({
-		cName : 'Use "Players Make All Roles" rule',
-		cReturn : "playerallrolls#" + (playerAllRolls ? 0 : 1),
-		bMarked : playerAllRolls
+		cName: 'Use "Players Make All Roles" rule',
+		cReturn: "playerallrolls#" + (playerAllRolls ? 0 : 1),
+		bMarked: playerAllRolls,
 	});
 
-	pagesMenu.push({cName : "-", cReturn : "-"}); // add a divider
+	pagesMenu.push({ cName: "-", cReturn: "-" }); // add a divider
 
 	//add a menu item for the first page
 	var pageone = {
-		cName : "1st page options",
-		oSubMenu : []
+		cName: "1st page options",
+		oSubMenu: [],
 	};
 	//1st page: add the menu for the visibility of the 7h ability score
 	var HoSvis = What("HoSRememberState").toLowerCase();
@@ -3612,25 +3612,25 @@ function MakePagesMenu() {
 		["-", "-"],
 		["Disable the 7th ability score", "disable"],
 		["Make the 7th ability score 'Honor'", "honor"],
-		["Make the 7th ability score 'Sanity'", "sanity"]
+		["Make the 7th ability score 'Sanity'", "sanity"],
 	]);
 	//1st page: add the menu for setting hp on the first page
 	MakeHPMenu_HPOptions("justMenu");
 	pageone.oSubMenu.push({
-		cName : "Hit Points",
-		oSubMenu : Menus.hp
+		cName: "Hit Points",
+		oSubMenu: Menus.hp,
 	});
 	//1st page: add the menu for setting skill order
 	MakeSkillsMenu_SkillsOptions("justMenu");
 	pageone.oSubMenu.push({
-		cName : "Skills",
-		oSubMenu : Menus.skills
+		cName: "Skills",
+		oSubMenu: Menus.skills,
 	});
 	//1st page: add the menu for setting 2nd Abilty Save DC visibility
 	var isVis2nd = isDisplay("Image.SaveDC" + (typePF ? "" : ".2"));
 	menuLVL2(pageone.oSubMenu, ["Ability Save DC", "dc"], [
 		["Show only 1 ability save DC", "hide#1"],
-		["Show both ability save DCs", "show#0"]
+		["Show both ability save DCs", "show#0"],
 	]);
 	//1st page: add the first page menu to the whole menu
 	pagesMenu.push(pageone);
@@ -3652,9 +3652,9 @@ function MakePagesMenu() {
 	var page3txt = "3rd page options";
 	if (!isTemplVis("ASfront")) {
 		pagesMenu.push({
-			cName : page3txt + " [page not visible]",
-			cReturn : "-",
-			bEnabled : false
+			cName: page3txt + " [page not visible]",
+			cReturn: "-",
+			bEnabled: false,
 		});
 	} else {
 		//3rd page: add the menu items for the equipment section
@@ -3669,12 +3669,12 @@ function MakePagesMenu() {
 	//add the menu for setting Spell Sheet things
 	MakeSpellMenu();
 	pagesMenu.push({
-		cName : "Spell Sheet options",
-		oSubMenu : Menus.spells
+		cName: "Spell Sheet options",
+		oSubMenu: Menus.spells,
 	});
 
 	//add the option to enable or disable use of the unicode functions
-	pagesMenu.push({cName : "-", cReturn : "-"}); // add a divider
+	pagesMenu.push({ cName: "-", cReturn: "-" }); // add a divider
 	makeUnicodeMenu();
 	pagesMenu.push(Menus.unicode);
 
@@ -3687,7 +3687,7 @@ function PagesOptions() {
 	if (!MenuSelection || MenuSelection[0] == "nothing") return;
 	switch (MenuSelection[0]) {
 		case "proficiencydice":
-			Checkbox('Proficiency Bonus Dice', Number(MenuSelection[1]));
+			Checkbox("Proficiency Bonus Dice", Number(MenuSelection[1]));
 			break;
 		case "playerallrolls":
 			setPlayersMakeAllRolls(Number(MenuSelection[1]));
@@ -3822,9 +3822,9 @@ function MakeNotesMenu_NotesOptions() {
 				var isMarked = isField ? tDoc.getField(array[i][1]).display !== display.visible : false;
 			}
 			item.push({
-				cName : array[i][0],
-				cReturn : array[i][1],
-				bMarked : isMarked
+				cName: array[i][0],
+				cReturn: array[i][1],
+				bMarked: isMarked,
 			});
 		}
 	};
@@ -3969,8 +3969,8 @@ function MakeAdvLogMenu_AdvLogOptions(Button) {
 	var menuLVL1 = function (item, array) {
 		for (var i = 0; i < array.length; i++) {
 			item.push({
-				cName : array[i][0],
-				cReturn : array[i][1]
+				cName: array[i][0],
+				cReturn: array[i][1],
 			});
 		}
 	};
@@ -3986,9 +3986,9 @@ function MakeAdvLogMenu_AdvLogOptions(Button) {
 				isMarked = array[i][1].split("#")[1] == cLogoDisplay;
 			};
 			menu.oSubMenu.push({
-				cName : array[i][0],
-				cReturn : name[1] + "#" + array[i][1],
-				bMarked : isMarked
+				cName: array[i][0],
+				cReturn: name[1] + "#" + array[i][1],
+				bMarked: isMarked,
 			});
 		};
 	};
@@ -3996,7 +3996,7 @@ function MakeAdvLogMenu_AdvLogOptions(Button) {
 	var AdvLogMenu = [];
 
 	var alMenuItems = [
-		["Add extra " + (Button ? "page" : "'Adventurers Log' page"), "add page"]
+		["Add extra " + (Button ? "page" : "'Adventurers Log' page"), "add page"],
 	].concat(
 		(Button || (tDoc.info.AdvLogOnly && isFirstPrefix)) ?
 		[["Remove all pages and reset the 1st", "remove all"]] :
@@ -4016,7 +4016,7 @@ function MakeAdvLogMenu_AdvLogOptions(Button) {
 			["Show the D&&D logos", "show#0"],
 			["Show, but don't print the D&&D logos", "noprint#2"],
 			["Hide and don't print the D&&D logos", "hide#1"],
-			["Hide, but print the D&&D logos", "onlyprint#3"]
+			["Hide, but print the D&&D logos", "onlyprint#3"],
 		]);
 		AdvLogMenu.push(dndLogoMenu);
 	}
@@ -4032,7 +4032,7 @@ function MakeAdvLogMenu_AdvLogOptions(Button) {
 		["12/24/2014", "m/d/yyyy"],
 		["2014 Dec 24", "yyyy mmm d"],
 		["2014-12-24", "yyyy-m-d"],
-		["2014/12/24", "yyyy/m/d"]
+		["2014/12/24", "yyyy/m/d"],
 	]);
 
 	AdvLogMenu.push(dateTypesMenu);
@@ -4056,7 +4056,7 @@ function MakeAdvLogMenu_AdvLogOptions(Button) {
 		thermoTxt = thermoM("Removing all Adventure Logsheets...");
 		calcStop();
 		tDoc.getTemplate("blank").spawn(0, false, false);
-		tDoc.deletePages({nStart: 1, nEnd: tDoc.numPages - 1});
+		tDoc.deletePages({ nStart: 1, nEnd: tDoc.numPages - 1 });
 		tDoc.getTemplate("ALlog").spawn(0, true, false);
 		Value("Template.extras.ALlog", ",P0.ALlog");
 		tDoc.deletePages(1);
@@ -4119,8 +4119,8 @@ function MakeIconMenu_IconOptions() {
 	var menuLVL1 = function (item, array) {
 		for (var i = 0; i < array.length; i++) {
 			item.push({
-				cName : array[i][0],
-				cReturn : array[i][1]
+				cName: array[i][0],
+				cReturn: array[i][1],
 			});
 		}
 	};
@@ -4130,8 +4130,8 @@ function MakeIconMenu_IconOptions() {
 		temp.oSubMenu = [];
 		for (var i = 0; i < array.length; i++) {
 			temp.oSubMenu.push({
-				cName : array[i][0],
-				cReturn : name[1] + "#" + array[i][1]
+				cName: array[i][0],
+				cReturn: name[1] + "#" + array[i][1],
 			})
 		}
 		menu.push(temp);
@@ -4143,7 +4143,7 @@ function MakeIconMenu_IconOptions() {
 	var OptionMenu = [
 		[(restrictedViewer ? "Set a pdf file as " : "Set any image/pdf file as ") + DisplayName, "set"],
 		["Reset the " + DisplayName, "reset"],
-		["Empty the " + DisplayName, "empty"]
+		["Empty the " + DisplayName, "empty"],
 	];
 	menuLVL1(IconMenu, OptionMenu);
 
@@ -4156,7 +4156,7 @@ function MakeIconMenu_IconOptions() {
 			["Harpers", "harpers"],
 			["Lords' Alliance", "lordsalliance"],
 			["Order of the Gauntlet", "ordergauntlet"],
-			["Zhentarim", "zhentarim"]
+			["Zhentarim", "zhentarim"],
 		];
 		var factionSymbols = [];
 		var factionIcons = [];
@@ -4167,7 +4167,7 @@ function MakeIconMenu_IconOptions() {
 			factionIcons.push([aFact[0], aFact[1] + "#icon"]);
 			factionBanners.push([aFact[0], aFact[1] + "#banner"]);
 		}
-		IconMenu.push({cName : "-", cReturn : "-"}); // add a divider
+		IconMenu.push({ cName: "-", cReturn: "-" }); // add a divider
 		menuLVL2(IconMenu, ["Set faction symbol", "organizationicon"], factionSymbols);
 		menuLVL2(IconMenu, ["Set faction banner", "organizationicon"], factionBanners);
 		menuLVL2(IconMenu, ["Set faction icon", "organizationicon"], factionIcons);
@@ -4186,9 +4186,9 @@ function MakeIconMenu_IconOptions() {
 			["Rogue", "rogue"],
 			["Sorcerer", "sorcerer"],
 			["Warlock", "warlock"],
-			["Wizard", "wizard"]
+			["Wizard", "wizard"],
 		];
-		IconMenu.push({cName : "-", cReturn : "-"}); // add a divider
+		IconMenu.push({ cName: "-", cReturn: "-" }); // add a divider
 		menuLVL2(IconMenu, ["Set class icon", "classicon"], classes);
 
 		//third the AL seasons
@@ -4202,9 +4202,9 @@ function MakeIconMenu_IconOptions() {
 			["7 Tomb of Annihilation", "toa"],
 			["8 Waterdeep Adventures", "wda"],
 			["9 Descent into Avernus", "dia"],
-			["10 Rime of the Frostmaiden", "rotf"]
+			["10 Rime of the Frostmaiden", "rotf"],
 		];
-		IconMenu.push({cName : "-", cReturn : "-"}); // add a divider
+		IconMenu.push({ cName: "-", cReturn: "-" }); // add a divider
 		menuLVL2(IconMenu, ["Set Adventure League season icon", "seasonicon"], ALseasons);
 	}
 
@@ -4212,7 +4212,7 @@ function MakeIconMenu_IconOptions() {
 	if (restrictedViewer) {
 		var Conversions = [
 			["-", "-"],
-			["Visit an online image-to-pdf converter", "convertor"]
+			["Visit an online image-to-pdf converter", "convertor"],
 		];
 		menuLVL1(IconMenu, Conversions);
 	}
@@ -4308,7 +4308,7 @@ function SetAdvLogCalcOrder(prefix) {
 		".gold",
 		".downtime",
 		".renown",
-		".magicItems"
+		".magicItems",
 	];
 
 
@@ -4368,9 +4368,9 @@ function createBookmarks(parent, bObj) {
 	for (var bkmrkNm in bObj) {
 		var bkmrk = bObj[bkmrkNm];
 		parent.createChild({
-			cName : bkmrk.cName ? bkmrk.cName : bkmrkNm,
-			cExpr : bkmrk.cExpr,
-			nIndex : i
+			cName: bkmrk.cName ? bkmrk.cName : bkmrkNm,
+			cExpr: bkmrk.cExpr,
+			nIndex: i,
 		});
 		parent.children[i].style = 2;
 		if (bkmrk.color) parent.children[i].color = bkmrk.color;
@@ -4440,11 +4440,11 @@ function ShowHonorSanity(input) {
 			"HoS",
 			"HoS Mod",
 			"HoS ST Mod",
-			"HoS ST Prof"
+			"HoS ST Prof",
 		];
 		var fieldsArrayHide = [
 			"Vision.0",
-			"Passive Perception.0"
+			"Passive Perception.0",
 		];
 		Value("Text.HoS.Ability", toShow.toUpperCase());
 		Value("Text.HoS.Save", toShow.toUpperCase());
@@ -4466,10 +4466,10 @@ function ShowHonorSanity(input) {
 			"HoS ST Mod",
 			"HoS ST Adv",
 			"HoS ST Dis",
-			"HoS ST Prof"
+			"HoS ST Prof",
 		];
 		var fieldsArrayHide = [
-			"Saving Throw advantages / disadvantages.0"
+			"Saving Throw advantages / disadvantages.0",
 		];
 		if (toShow) {
 			var theIcon = tDoc.getField("SaveIMG." + toShow).buttonGetIcon();
@@ -4503,20 +4503,20 @@ function setLifeStyle(input) {
 function calcHPtotals(prefix) {
 	var conFld = prefix ? prefix + "Comp.Use.Ability.Con.Score" : "Con";
 	var HD = {
-		conMod : What(conFld) ? Math.round((Math.floor(What(conFld)) - 10.5) * 0.5) : 0,
-		conCorrection : false,
-		count : 0,
-		dieStr : [],
-		average : 0,
-		fixed : 0,
-		max : 0,
-		alt : [],
-		altStr : []
+		conMod: What(conFld) ? Math.round((Math.floor(What(conFld)) - 10.5) * 0.5) : 0,
+		conCorrection: false,
+		count: 0,
+		dieStr: [],
+		average: 0,
+		fixed: 0,
+		max: 0,
+		alt: [],
+		altStr: [],
 	}
 	// loop through all the HD fields
 	for (var i = 0; i < (prefix ? 1 : 3); i++) {
-		var lvl = Math.max(Math.floor(What(prefix ? prefix + "Comp.Use.HD.Level" : "HD" + (i+1) + " Level")), 1);
-		var hd = Math.floor(What(prefix ? prefix + "Comp.Use.HD.Die" : "HD" + (i+1) + " Die"));
+		var lvl = Math.max(Math.floor(What(prefix ? prefix + "Comp.Use.HD.Level" : "HD" + (i + 1) + " Level")), 1);
+		var hd = Math.floor(What(prefix ? prefix + "Comp.Use.HD.Die" : "HD" + (i + 1) + " Die"));
 		if (!hd) continue; // no HD given, so skip it
 		HD.count += lvl;
 		HD.max += (hd + HD.conMod) * lvl;
@@ -4573,15 +4573,15 @@ function SetHPTooltip(resetHP, onlyComp, aPrefix) {
 				var evalThing = hpEvalObj[hpEval];
 				var altLen = HD.alt.length;
 				try {
-					if (typeof evalThing == 'string') {
+					if (typeof evalThing == "string") {
 						eval(evalThing);
-					} else if (typeof evalThing == 'function') {
+					} else if (typeof evalThing == "function") {
 						var addHP = evalThing(HD.count, HD, prefix);
 						if (!isArray(addHP)) addHP = [addHP];
 						if ((addHP[0] || addHP[0] === 0) && !isNaN(addHP[0])) {
 							if (!addHP[1]) addHP[1] = hpEval;
 							extrahp += addHP[0];
-							extrastring += addHP[2] ? addHP[1] : '\n ' + (addHP[0] > -1 ? "+ " : "") + addHP[0] + ' from ' + addHP[1];
+							extrastring += addHP[2] ? addHP[1] : "\n " + (addHP[0] > -1 ? "+ " : "") + addHP[0] + " from " + addHP[1];
 						}
 						// if something was added to the alt array
 						if (altLen < HD.alt.length) {
@@ -4620,7 +4620,7 @@ function SetHPTooltip(resetHP, onlyComp, aPrefix) {
 		theSetting[2] = HD.max + extrahp;
 		if (resetHP) theSetting[3] = "nothing";
 		if (HD.alt.length) theSetting = theSetting.concat(HD.alt);
-		switch (theSetting[3].replace(/:.*/, '')) {
+		switch (theSetting[3].replace(/:.*/, "")) {
 			case "average" :
 				setHP = theSetting[0];
 				break;
@@ -4631,7 +4631,7 @@ function SetHPTooltip(resetHP, onlyComp, aPrefix) {
 				setHP = theSetting[2];
 				break;
 			case "alt" :
-				var altNo = Number(theSetting[3].replace(/alt:(.*)/, '$1'));
+				var altNo = Number(theSetting[3].replace(/alt:(.*)/, "$1"));
 				setHP = theSetting[altNo] !== undefined ? theSetting[altNo] : What(HPmaxFld);
 				break;
 			case "nothing" :
@@ -4654,18 +4654,18 @@ function MakeHPMenu_HPOptions(preSelect, prefix) {
 		var optionsArray = [
 			["The total average HP", theInputs[0], "average"],
 			["The total HP using fixed values", theInputs[1], "fixed"],
-			["The total maximum HP", theInputs[2], "max"]
+			["The total maximum HP", theInputs[2], "max"],
 		];
 		if (theInputs[4]) {
 			optionsArray.push(["-", "", "-"]);
 			optionsArray.push(["[see tooltip for alternatives]", "", "-"]);
 			for (var i = 4; i < theInputs.length; i++) {
-				optionsArray.push(["Alternative [" + (i-3) + "] HP calculation", theInputs[i], "alt:"+i]);
+				optionsArray.push(["Alternative [" + (i - 3) + "] HP calculation", theInputs[i], "alt:" + i]);
 			}
 		}
 		var hpMenu = [{
-			cName : "Display HP calculations tooltip in a dialog",
-			cReturn : "hp#popup"
+			cName: "Display HP calculations tooltip in a dialog",
+			cReturn: "hp#popup",
 		}];
 
 		var menuLVL2 = function (menu, name, array, noMarked) {
@@ -4675,10 +4675,10 @@ function MakeHPMenu_HPOptions(preSelect, prefix) {
 			for (var i = 0; i < array.length; i++) {
 				var isMarked = array[i][2] === theInputs[3];
 				temp.oSubMenu.push({
-					cName : array[i][0] + (array[i][1] !== "" ? " (" + array[i][1] + ")" : ""),
-					cReturn : "hp#" + name[1] + "#" + array[i][1] + "#" + array[i][2] + "#" + (isMarked ? "marked" : ""),
-					bMarked : noMarked ? false : isMarked,
-					bEnabled : array[i][2] !== "-"
+					cName: array[i][0] + (array[i][1] !== "" ? " (" + array[i][1] + ")" : ""),
+					cReturn: "hp#" + name[1] + "#" + array[i][1] + "#" + array[i][2] + "#" + (isMarked ? "marked" : ""),
+					bMarked: noMarked ? false : isMarked,
+					bEnabled: array[i][2] !== "-",
 				})
 			}
 			menu.push(temp);
@@ -4807,45 +4807,45 @@ function MakeTextMenu_TextOptions(input) {
 
 	if (!input || input === "justMenu") {
 		Menus.texts = [{
-				cName : "Change the font size and/or font",
-				cReturn : "text#dodialog"
+				cName: "Change the font size and/or font",
+				cReturn: "text#dodialog",
 			}, {
-				cName : "-",
-				cReturn : "-"
-			}
+				cName: "-",
+				cReturn: "-",
+			},
 		];
 
 		if (typePF) {
 			Menus.texts.push({
-				cName : "Single-line fields",
-				oSubMenu : [{
-					cName : "Show boxes for single-line fields",
-					cReturn : "text#calc_boxes",
-					bMarked : isBoxesLines === "calc_boxes"
+				cName: "Single-line fields",
+				oSubMenu: [{
+					cName: "Show boxes for single-line fields",
+					cReturn: "text#calc_boxes",
+					bMarked: isBoxesLines === "calc_boxes",
 				}, {
-					cName : "Show lines for single-line fields",
-					cReturn : "text#calc_lines",
-					bMarked : isBoxesLines === "calc_lines"
-				}]
+					cName: "Show lines for single-line fields",
+					cReturn: "text#calc_lines",
+					bMarked: isBoxesLines === "calc_lines",
+				}],
 			});
-			Menus.texts.push({cName : "-", cReturn : "-"});
+			Menus.texts.push({ cName: "-", cReturn: "-" });
 		};
 
 		Menus.texts.push({
-			cName : "Multi-line fields",
-			oSubMenu : [{
-				cName : "Show lines for multi-line fields",
-				cReturn : "text#show lines",
-				bMarked : !CurrentVars.whiteout
+			cName: "Multi-line fields",
+			oSubMenu: [{
+				cName: "Show lines for multi-line fields",
+				cReturn: "text#show lines",
+				bMarked: !CurrentVars.whiteout,
 			}, {
-				cName : "Hide lines for multi-line fields",
-				cReturn : "text#hide lines",
-				bMarked : CurrentVars.whiteout
-			}]
+				cName: "Hide lines for multi-line fields",
+				cReturn: "text#hide lines",
+				bMarked: CurrentVars.whiteout,
+			}],
 		});
 		if (input !== "justMenu") {
 			makeUnicodeMenu();
-			Menus.texts.push({cName : "-", cReturn : "-"}); // add a divider
+			Menus.texts.push({ cName: "-", cReturn: "-" }); // add a divider
 			Menus.texts.push(Menus.unicode);
 		}
 		if (input === "justMenu") return;
@@ -5092,7 +5092,7 @@ function ChangeToCompleteAdvLogSheet(FAQpath) {
 	tDoc.getField("AdvLogS.Background_Faction.Text").setAction("Keystroke", "");
 
 	tDoc.getTemplate("ALlog").spawn(0, true, false);
-	tDoc.deletePages({nStart: 1, nEnd: tDoc.numPages - 1});
+	tDoc.deletePages({ nStart: 1, nEnd: tDoc.numPages - 1 });
 	tDoc.getTemplate("ALlog").hidden = false;
 	tDoc.getTemplate("remember").hidden = false;
 	tDoc.getTemplate("blank").hidden = false;
@@ -5145,8 +5145,8 @@ function ChangeToCompleteAdvLogSheet(FAQpath) {
 		"this.getTemplate('blank').hidden = true;",
 		"this.info.AdvLogOnly = true;",
 		'this.info.SheetVersion = "' + tDoc.info.SheetVersion + '";',
-		tDoc.info.SheetVersionType ? 'this.info.SheetVersionType = "' + tDoc.info.SheetVersionType + '";' : '',
-		tDoc.info.SheetVersionBuild ? 'this.info.SheetVersionBuild = "' + tDoc.info.SheetVersionBuild + '";' : '',
+		tDoc.info.SheetVersionType ? 'this.info.SheetVersionType = "' + tDoc.info.SheetVersionType + '";' : "",
+		tDoc.info.SheetVersionBuild ? 'this.info.SheetVersionBuild = "' + tDoc.info.SheetVersionBuild + '";' : "",
 		'this.info.SheetType = "' + tDoc.info.SheetType + '";',
 		'this.info.Keywords = "' + (!typePF ? keyCF : (tDoc.info.SheetType === "Printer Friendly" ? keyPF : keyPFR)) + '";',
 		'this.info.Subject = "D&D 2024; Character Sheet; Adventurers League; Adventure Logsheet";',
@@ -5155,9 +5155,9 @@ function ChangeToCompleteAdvLogSheet(FAQpath) {
 		"this.info.Title = MakeDocName();",
 		"CreateBkmrksCompleteAdvLogSheet();",
 		"this.calculateNow();",
-		FAQpath ? 'this.importDataObject({cName: "FAQ.pdf", cDIPath: "' + FAQpath + '"});' : '',
+		FAQpath ? 'this.importDataObject({cName: "FAQ.pdf", cDIPath: "' + FAQpath + '"});' : "",
 		'Value("Opening Remember", "No");',
-		'app.execMenuItem("GeneralInfo");'
+		'app.execMenuItem("GeneralInfo");',
 	];
 	console.clear();
 	console.println(forConsole.join("\n").replace(/\n{2,}/g, "\n"));
@@ -5168,46 +5168,46 @@ function ChangeToCompleteAdvLogSheet(FAQpath) {
 //create the bookmarks of a Adventure Logsheet
 function CreateBkmrksCompleteAdvLogSheet() {
 	var bkmrks = {
-		"Functions" : {
-			cExpr : "MakeButtons(); tDoc.bookmarkRoot.children[0].open = !tDoc.bookmarkRoot.children[0].open;",
-			children : {
-				"Set Pages Layout" : {
-					cExpr : "MakeAdvLogMenu_AdvLogOptions(true);",
-					color : ["RGB", 0.9098052978515625, 0.196075439453125, 0.48626708984375]
+		"Functions": {
+			cExpr: "MakeButtons(); tDoc.bookmarkRoot.children[0].open = !tDoc.bookmarkRoot.children[0].open;",
+			children: {
+				"Set Pages Layout": {
+					cExpr: "MakeAdvLogMenu_AdvLogOptions(true);",
+					color: ["RGB", 0.9098052978515625, 0.196075439453125, 0.48626708984375],
 				},
-				"Text Options" : {
-					cExpr : "MakeTextMenu_TextOptions();",
-					color : ["RGB", 0.8000030517578125, 0.6666717529296875, 0.1137237548828125]
+				"Text Options": {
+					cExpr: "MakeTextMenu_TextOptions();",
+					color: ["RGB", 0.8000030517578125, 0.6666717529296875, 0.1137237548828125],
 				},
-				"Flatten" : {
-					cExpr : "MakeMobileReady();",
-					color : ["RGB", 0.2823486328125, 0.1921539306640625, 0.478424072265625]
+				"Flatten": {
+					cExpr: "MakeMobileReady();",
+					color: ["RGB", 0.2823486328125, 0.1921539306640625, 0.478424072265625],
 				},
-				"Unit System" : {
-					cExpr : "SetUnitDecimals_Button();",
-					color : ["RGB", 0.463, 0.192, 0.467]
+				"Unit System": {
+					cExpr: "SetUnitDecimals_Button();",
+					color: ["RGB", 0.463, 0.192, 0.467],
 				},
-				"Set Color Theme" : {
-					cName : typePF ? "Set Highlight Color" : "Set Color Theme",
-					cExpr : "MakeColorMenu(); ColoryOptions();",
-					color : ["RGB", 0.5, 0.5, 0.5]
-				}
-			}
+				"Set Color Theme": {
+					cName: typePF ? "Set Highlight Color" : "Set Color Theme",
+					cExpr: "MakeColorMenu(); ColoryOptions();",
+					color: ["RGB", 0.5, 0.5, 0.5],
+				},
+			},
 		},
-		"FAQ" : {
-			cExpr : "getFAQ();"
+		"FAQ": {
+			cExpr: "getFAQ();",
 		},
-		"Get Latest Version" : {
-			cName : "Get Latest Version (current: v" + semVers + ")",
-			cExpr : "contactMPMB('spell sheets');"
+		"Get Latest Version": {
+			cName: "Get Latest Version (current: v" + semVers + ")",
+			cExpr: "contactMPMB('spell sheets');",
 		},
-		"Get Full Character Sheet" : {
-			cExpr : "contactMPMB('character sheet');"
+		"Get Full Character Sheet": {
+			cExpr: "contactMPMB('character sheet');",
 		},
-		"Contact MPMB" : {
-			cExpr : "contactMpmbMenu();",
-			color : ["CMYK", 0.76, 1, 0.03, 0.5] // DarkColorList.purple
-		}
+		"Contact MPMB": {
+			cExpr: "contactMpmbMenu();",
+			color: ["CMYK", 0.76, 1, 0.03, 0.5], // DarkColorList.purple
+		},
 	};
 	createBookmarks(tDoc.bookmarkRoot, bkmrks);
 }
@@ -5220,39 +5220,39 @@ function MakeSkillsMenu_SkillsOptions(input, onlyTooltips) {
 	var jackOf = tDoc.getField("Jack of All Trades").isBoxChecked(0);
 	if (!input || input === "justMenu") {
 		Menus.skills = [{
-			cName : "Sort skills alphabetically",
-			cReturn : "skills#alphabeta",
-			bMarked : sWho === "alphabeta"
+			cName: "Sort skills alphabetically",
+			cReturn: "skills#alphabeta",
+			bMarked: sWho === "alphabeta",
 		}, {
-			cName : "Sort skills by ability score",
-			cReturn : "skills#abilities",
-			bMarked : sWho === "abilities"
+			cName: "Sort skills by ability score",
+			cReturn: "skills#abilities",
+			bMarked: sWho === "abilities",
 		}, {
-			cName : "-"
+			cName: "-",
 		}, {
-			cName : "Show a dialog with my skill options" + (sList ? "" : " (nothing to show)"),
-			cReturn : "skills#dialog",
-			bEnabled : sList !== ""
+			cName: "Show a dialog with my skill options" + (sList ? "" : " (nothing to show)"),
+			cReturn: "skills#dialog",
+			bEnabled: sList !== "",
 		}]
 		if (input !== "justMenu") {
 			Menus.skills = Menus.skills.concat([{
-				cName : "-"
+				cName: "-",
 			}, {
-				cName : "Show fields to modify skill calculations",
-				cReturn : "skills#bluetextfields",
-				bMarked : CurrentVars.bluetxt
+				cName: "Show fields to modify skill calculations",
+				cReturn: "skills#bluetextfields",
+				bMarked: CurrentVars.bluetxt,
 			}])
 		}
 		Menus.skills = Menus.skills.concat([{
-			cName : "-"
+			cName: "-",
 		}, {
-			cName : 'Enable "Jack of All Trades"',
-			cReturn : "skills#jackofalltrades",
-			bMarked : jackOf
+			cName: 'Enable "Jack of All Trades"',
+			cReturn: "skills#jackofalltrades",
+			bMarked: jackOf,
 		}, {
-			cName : 'Enable "Remarkable Athlete" (5e rules: +1/2 Prof Bonus)',
-			cReturn : "skills#remarkableathlete",
-			bMarked : remAth
+			cName: 'Enable "Remarkable Athlete" (5e rules: +1/2 Prof Bonus)',
+			cReturn: "skills#remarkableathlete",
+			bMarked: remAth,
 		}]);
 		if (input == "justMenu") return;
 	};
@@ -5283,10 +5283,10 @@ function MakeSkillsMenu_SkillsOptions(input, onlyTooltips) {
 			ToggleBlueText();
 			break;
 		case "jackofalltrades":
-			Checkbox('Jack of All Trades', !jackOf);
+			Checkbox("Jack of All Trades", !jackOf);
 			break;
 		case "remarkableathlete":
-			Checkbox('Remarkable Athlete', !remAth);
+			Checkbox("Remarkable Athlete", !remAth);
 			break;
 		case "dialog":
 			ShowDialog("Skill proficiency origins and options", sList);
@@ -5387,7 +5387,7 @@ function MakeSkillsMenu_SkillsOptions(input, onlyTooltips) {
 
 // returns an object of the different elements to populate the class features or limited features section if olchoice is provided, oldlevel has to be provided as well
 function GetLevelFeatures(aFea, level, choice, oldlevel, oldchoice, ForceChoice) {
-	var tRe = { changed : false };
+	var tRe = { changed: false };
  	var attr = [["Add", "additional"], ["Use", "usages"], ["UseCalc", "usagescalc"], ["Recov", "recovery"], ["UseName", "name"], ["UseName", "limfeaname"], ["Descr", "description"], ["Display", "description"], ["source", "source"], ["AltRecov", "altResource"]];
 
 	for (var a = 0; a < attr.length; a++) {
@@ -5447,7 +5447,7 @@ function addALlogEntry() {
 		".gold",
 		".downtime",
 		".renown",
-		".magicItems"
+		".magicItems",
 	];
 	var ALlogA = What("Template.extras.ALlog").split(",").splice(1);
 	var emptyLog = [];
@@ -5484,13 +5484,13 @@ function addALlogEntry() {
 	var start = baseFld === "AdvLog.1." ? 0 : What(baseFld + "xp.start");
 	var total = What("Total Experience") - start;
 	Value(baseFld + "xp.gain", (total >= 0 ? "+" : "") + total);
-	thermoM(1/5);
+	thermoM(1 / 5);
 
 	// gold
 	start = baseFld === "AdvLog.1." ? 0 : What(baseFld + "gold.start");
 	total = Math.round(((Number(What("Platinum Pieces").replace(",", ".")) * 10) + Number(What("Gold Pieces").replace(",", ".")) + (Number(What("Electrum Pieces").replace(",", ".")) / 2) + (Number(What("Silver Pieces").replace(",", ".")) / 10) + (Number(What("Copper Pieces").replace(",", ".")) / 100)) * 100) / 100 - start;
 	Value(baseFld + "gold.gain", (total >= 0 ? "+" : "") + total);
-	thermoM(2/5);
+	thermoM(2 / 5);
 
 	// downtime (can't really be calculated, so just add a zero)
 	Value(baseFld + "downtime.gain", "+0");
@@ -5499,7 +5499,7 @@ function addALlogEntry() {
 	start = baseFld === "AdvLog.1." ? 0 : What(baseFld + "renown.start");
 	total = What("Background_Renown.Text") - start;
 	Value(baseFld + "renown.gain", (total >= 0 ? "+" : "") + total);
-	thermoM(3/5);
+	thermoM(3 / 5);
 
 	// magicItems
 	start = baseFld === "AdvLog.1." ? 0 : What(baseFld + "magicItems.start");
@@ -5516,10 +5516,10 @@ function addALlogEntry() {
 	};
 	total = MInr.length - start;
 	Value(baseFld + "magicItems.gain", (total >= 0 ? "+" : "") + total);
-	thermoM(4/5);
+	thermoM(4 / 5);
 
 	// set today's date
-	Value(baseFld + "date", util.printd('yy-mm-dd', new Date()));
+	Value(baseFld + "date", util.printd("yy-mm-dd", new Date()));
 
 	// set the other fields, if a previous entry was detected
 	if (emptyLog[2] !== "stop") {
@@ -5534,10 +5534,10 @@ function addALlogEntry() {
 
 	//alert the user of what happened
 	app.alert({
-		cMsg : "The sheet automatically filled '" + toUni(What(emptyLog[0] + "Text.AdvLog." + emptyLog[1]).capitalize()) + "' with the date of today.\n\nThe numerical 'gain' fields are calculated using the information from the rest of the sheet compared to the last entry.\nThe Adventure Name, Session number, and DMs Name have been taken from the previous entry.\n\nNote that the Downtime gain is set to zero as the sheet doesn't track those.",
-		cTitle : "A new Logsheet Entry has been added",
-		nType : 0,
-		nIcon : 3
+		cMsg: "The sheet automatically filled '" + toUni(What(emptyLog[0] + "Text.AdvLog." + emptyLog[1]).capitalize()) + "' with the date of today.\n\nThe numerical 'gain' fields are calculated using the information from the rest of the sheet compared to the last entry.\nThe Adventure Name, Session number, and DMs Name have been taken from the previous entry.\n\nNote that the Downtime gain is set to zero as the sheet doesn't track those.",
+		cTitle: "A new Logsheet Entry has been added",
+		nType: 0,
+		nIcon: 3,
 	});
 	thermoM(thermoTxt, true); // Stop progress bar
 };
@@ -5553,7 +5553,7 @@ function MakeAdvLogLineMenu_AdvLogLineOptions() {
 		["-", "-"],
 		["Insert empty Logsheet Entry", "insert"],
 		["Delete Logsheet Entry", "delete"],
-		["Clear Logsheet Entry", "clear"]
+		["Clear Logsheet Entry", "clear"],
 	];
 	var menuLVL1 = function (item, array) {
 		for (var i = 0; i < array.length; i++) {
@@ -5562,9 +5562,9 @@ function MakeAdvLogLineMenu_AdvLogLineOptions() {
 				isEnabled = false;
 			}
 			item.push({
-				cName : array[i][0],
-				cReturn : array[i][1],
-				bEnabled : isEnabled
+				cName: array[i][0],
+				cReturn: array[i][1],
+				bEnabled: isEnabled,
 			});
 		}
 	}
@@ -5595,7 +5595,7 @@ function doAdvLogLine(action, lineNmbr, prefix) {
 		".adventure",
 		".session",
 		".dm",
-		".notes"
+		".notes",
 	];
 	var extraPage = false;
 	switch (action) {
@@ -5723,7 +5723,7 @@ function contactMPMB(medium) {
 		case "bug" :
 			app.launchURL("https://discord.gg/MY5wKpV");
 			break; // While bug reporting through the website is not operational
-			var sheetType = typePF ? "pf" + ((/redesign/i).test(tDoc.info.SheetType) ? "r" : "") : typeA4 ? "cf-a4" : "cf-lt";
+			var sheetType = typePF ? "pf" + (/redesign/i.test(tDoc.info.SheetType) ? "r" : "") : typeA4 ? "cf-a4" : "cf-lt";
 			var acroType = app.viewerType == "Reader" ? "reader-" : "pro-";
 			var acroVers = app.viewerVersion < 9 ? "other" : acroType + (app.viewerVersion < 10 ? "ix" : app.viewerVersion < 11 ? "x" : app.viewerVersion < 12 ? "xi" : "dc");
 	// Other mediums
@@ -5763,67 +5763,67 @@ function PatreonStatement(force) {
 			var theTxt = "If you like this sheet, please consider supporting this project over at the Patreon for MPMB's Character Record Sheet.\n\nWith your contribution on Patreon:\n   \u2022 I can continue expanding the functionality of this sheet.\n   \u2022 You get to choose which new features get added.\n   \u2022 Your favourite third-party material gets added.\n   \u2022 You get instant access and alerts when new versions are released.";
 			var theTxt2 = "Don't worry, the sheet will stay available for free on my website.\nHowever, if you feel like contributing more, it will all flow back into expanding the sheets' features and content.\n\nYou can always visit the Patreon webpage using the \"Contact MPMB\" bookmarks.";
 			var PatreonDialog = {
-				initialize : function (dialog) {
+				initialize: function (dialog) {
 					dialog.load({
-						"img1" : oMyIcon
+						"img1": oMyIcon,
 					});
 				},
-				bPat : function (dialog) {contactMPMB("patreon");},
-				description : {
-					name : "SUPPORT ON PATREON DIALOG",
-					elements : [{
-						type : "view",
-						elements : [{
-							type : "view",
-							align_children : "align_distribute",
-							elements : [{
-								type : "image",
-								item_id : "img1",
-								alignment : "align_top",
-								width : 63,
-								height : 63
+				bPat: function (dialog) {contactMPMB("patreon");},
+				description: {
+					name: "SUPPORT ON PATREON DIALOG",
+					elements: [{
+						type: "view",
+						elements: [{
+							type: "view",
+							align_children: "align_distribute",
+							elements: [{
+								type: "image",
+								item_id: "img1",
+								alignment: "align_top",
+								width: 63,
+								height: 63,
 							}, {
-								type : "view",
-								char_width : 40,
-								elements : [{
-									type : "static_text",
-									name : "Become a patron",
-									item_id : "head",
-									alignment : "align_top",
-									font : "title",
-									bold : true,
-									height : 24,
-									char_width : 40
+								type: "view",
+								char_width: 40,
+								elements: [{
+									type: "static_text",
+									name: "Become a patron",
+									item_id: "head",
+									alignment: "align_top",
+									font: "title",
+									bold: true,
+									height: 24,
+									char_width: 40,
 								}, {
-									type : "static_text",
-									item_id : "txt1",
-									alignment : "align_fill",
-									font : "dialog",
-									wrap_name : true,
-									char_width : 40,
-									name : theTxt
+									type: "static_text",
+									item_id: "txt1",
+									alignment: "align_fill",
+									font: "dialog",
+									wrap_name: true,
+									char_width: 40,
+									name: theTxt,
 								}, {
-									type : "button",
-									font : "heading",
-									bold : true,
-									item_id : "bPat",
-									name : "Go to MPMB's Patreon webpage",
-									alignment : "align_center"
+									type: "button",
+									font: "heading",
+									bold: true,
+									item_id: "bPat",
+									name: "Go to MPMB's Patreon webpage",
+									alignment: "align_center",
 								}, {
-									type : "static_text",
-									item_id : "txt2",
-									alignment : "align_fill",
-									font : "dialog",
-									wrap_name : true,
-									char_width : 40,
-									name : theTxt2
-								}]
-							}]
+									type: "static_text",
+									item_id: "txt2",
+									alignment: "align_fill",
+									font: "dialog",
+									wrap_name: true,
+									char_width: 40,
+									name: theTxt2,
+								}],
+							}],
 						}, {
-							type : "ok"
-						}]
-					}]
-				}
+							type: "ok",
+						}],
+					}],
+				},
 			};
 
 			app.execDialog(PatreonDialog);
@@ -5848,7 +5848,7 @@ function addEvals(evalObj, NameEntity, Add, type, level) {
 		}
 		// If the previous and the new are identical, do not do anything with this
 		// The field transforms any line break to '\n', so correct for that before comparison
-		if (updateFromOld && updateFromOld.toSource().replace(/\r?\n/g, '\r') === evalObj.toSource().replace(/\r?\n/g, '\r')) {
+		if (updateFromOld && updateFromOld.toSource().replace(/\r?\n/g, "\r") === evalObj.toSource().replace(/\r?\n/g, "\r")) {
 			return;
 		}
 		// Else store the object so we know what was processed
@@ -5934,7 +5934,7 @@ function addEvals(evalObj, NameEntity, Add, type, level) {
 			if (oldEntry) {
 				// Updating, but doesn't exist in the new version, so delete the old version
 				if (CurrentEvals[sType]) delete CurrentEvals[sType][NameEntity];
-				if (CurrentEvals[sType+"Order"]) CurrentEvals[sType+"Order"].eject(oldPrio);
+				if (CurrentEvals[sType + "Order"]) CurrentEvals[sType + "Order"].eject(oldPrio);
 			}
 			continue;
 		}
@@ -5945,21 +5945,21 @@ function addEvals(evalObj, NameEntity, Add, type, level) {
 		if (entry[1]) objSaveStr[objTypeStr[sType]] += "\n \u2022 " + entry[1];
 		// Make sure the objects exists
 		if (!CurrentEvals[sType]) CurrentEvals[sType] = {};
-		if (!CurrentEvals[sType+"Order"]) CurrentEvals[sType+"Order"] = [];
+		if (!CurrentEvals[sType + "Order"]) CurrentEvals[sType + "Order"] = [];
 		// Add/Remove the function and priority
 		if (Add) {
 			CurrentEvals[sType][NameEntity] = entry[0];
-			CurrentEvals[sType+"Order"].push(aPrio);
+			CurrentEvals[sType + "Order"].push(aPrio);
 		} else {
 			delete CurrentEvals[sType][NameEntity];
-			CurrentEvals[sType+"Order"].eject(aPrio);
+			CurrentEvals[sType + "Order"].eject(aPrio);
 		}
 		// Process oldEntry if different from old default version
 		if (oldEntry) {
-			CurrentEvals[sType+"Order"].eject(oldPrio);
+			CurrentEvals[sType + "Order"].eject(oldPrio);
 			sameAsOld[sType] = entry[0].toSource() === oldEntry[0].toSource();
 		}
-		CurrentEvals[sType+"Order"].sort(fSortArray);
+		CurrentEvals[sType + "Order"].sort(fSortArray);
 	}
 	// Process the explanatory strings
 	for (var sStr in objSaveStr) {
@@ -6158,7 +6158,7 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 
 		//add To Hit Bonus
 		fields.To_Hit_Bonus = isReCalc ? What(fldBaseBT + "To Hit Bonus") :
-			theWea.dc ? "dc" + (theWea.modifiers && theWea.modifiers[0] ? theWea.modifiers[0].replace(/dc/ig, '') : "") :
+			theWea.dc ? "dc" + (theWea.modifiers && theWea.modifiers[0] ? theWea.modifiers[0].replace(/dc/ig, "") : "") :
 			theWea.modifiers && theWea.modifiers[0] ? theWea.modifiers[0] : 0;
 
 		//add Damage Bonus
@@ -6223,9 +6223,9 @@ function ApplyWeapon(inputText, fldName, isReCalc, onlyProf, forceRedo) {
 				var evalThing = CurrentEvals.atkAdd[evalName];
 				if (!evalThing) continue;
 				try {
-					if (typeof evalThing == 'string') {
+					if (typeof evalThing == "string") {
 						eval(evalThing);
-					} else if (typeof evalThing == 'function') {
+					} else if (typeof evalThing == "function") {
 						evalThing(fields, gatherVars);
 					}
 				} catch (error) {
@@ -6326,14 +6326,14 @@ function CalcAttackDmgHit(fldName) {
 	var fldBase = prefix + Q + "Attack." + fldNmbr + ".";
 	var fldBaseBT = prefix + "BlueText." + Q + "Attack." + fldNmbr + ".";
 	var fields = {
-		Proficiency : tDoc.getField(fldBase + "Proficiency").isBoxChecked(0),
-		Mod : tDoc.getField(fldBase + "Mod").currentValueIndices,
-		Range : What(fldBase + "Range"),
-		Damage_Type : What(fldBase + "Damage Type"),
-		Description : What(fldBase + "Description"),
-		To_Hit_Bonus : What(fldBaseBT + "To Hit Bonus"),
-		Damage_Bonus : What(fldBaseBT + "Damage Bonus"),
-		Damage_Die : What(fldBaseBT + "Damage Die")
+		Proficiency: tDoc.getField(fldBase + "Proficiency").isBoxChecked(0),
+		Mod: tDoc.getField(fldBase + "Mod").currentValueIndices,
+		Range: What(fldBase + "Range"),
+		Damage_Type: What(fldBase + "Damage Type"),
+		Description: What(fldBase + "Description"),
+		To_Hit_Bonus: What(fldBaseBT + "To Hit Bonus"),
+		Damage_Bonus: What(fldBaseBT + "Damage Bonus"),
+		Damage_Die: What(fldBaseBT + "Damage Die"),
 	};
 
 	var isDC = /dc/i.test(fields.To_Hit_Bonus);
@@ -6361,15 +6361,15 @@ function CalcAttackDmgHit(fldName) {
 
 	// get the damage bonuses from the selected modifier, magic, and the blueText field
 	var output = {
-		prof : !fields.Proficiency ? 0 : getProfBonus(false, prefix),
-		die : fields.Damage_Die,
-		modToDmg : thisWeapon[2],
-		mod : getAbiModValue(fields.Mod, prefix),
-		magic : thisWeapon[1],
-		bHit : fields.To_Hit_Bonus,
-		bDmg : fields.Damage_Bonus,
-		extraDmg : 0,
-		extraHit : 0
+		prof: !fields.Proficiency ? 0 : getProfBonus(false, prefix),
+		die: fields.Damage_Die,
+		modToDmg: thisWeapon[2],
+		mod: getAbiModValue(fields.Mod, prefix),
+		magic: thisWeapon[1],
+		bHit: fields.To_Hit_Bonus,
+		bDmg: fields.Damage_Bonus,
+		extraDmg: 0,
+		extraHit: 0,
 	};
 
 	// define some variables that we can check against later or with the CurrentEvals
@@ -6399,21 +6399,21 @@ function CalcAttackDmgHit(fldName) {
 	if (QI && CurrentEvals.atkCalc) {
 
 		var gatherVars = {
-			WeaponText : WeaponText,
-			WeaponTextName : WeaponTextName,
-			isDC : isDC,
-			isSpell : isSpell,
-			isWeapon : isWeapon,
-			isMeleeWeapon : isMeleeWeapon,
-			isRangedWeapon : isRangedWeapon,
-			isThrownWeapon : isThrownWeapon,
-			isNaturalWeapon : isNaturalWeapon,
-			isSimpleOrMartial : isSimpleOrMartial,
-			theWea : theWea,
-			WeaponName : WeaponName,
-			baseWeaponName : theWea.baseWeapon ? theWea.baseWeapon : WeaponName,
-			thisWeapon : thisWeapon,
-			isOffHand : isOffHand
+			WeaponText: WeaponText,
+			WeaponTextName: WeaponTextName,
+			isDC: isDC,
+			isSpell: isSpell,
+			isWeapon: isWeapon,
+			isMeleeWeapon: isMeleeWeapon,
+			isRangedWeapon: isRangedWeapon,
+			isThrownWeapon: isThrownWeapon,
+			isNaturalWeapon: isNaturalWeapon,
+			isSimpleOrMartial: isSimpleOrMartial,
+			theWea: theWea,
+			WeaponName: WeaponName,
+			baseWeaponName: theWea.baseWeapon ? theWea.baseWeapon : WeaponName,
+			thisWeapon: thisWeapon,
+			isOffHand: isOffHand,
 		}
 
 		for (var i = 0; i < CurrentEvals.atkCalcOrder.length; i++) {
@@ -6421,9 +6421,9 @@ function CalcAttackDmgHit(fldName) {
 			var evalThing = CurrentEvals.atkCalc[evalName];
 			if (!evalThing) continue;
 			try {
-				if (typeof evalThing == 'string') {
+				if (typeof evalThing == "string") {
 					eval(evalThing);
-				} else if (typeof evalThing == 'function') {
+				} else if (typeof evalThing == "function") {
 					evalThing(fields, gatherVars, output);
 				}
 			} catch (error) {
@@ -6476,16 +6476,16 @@ function CalcAttackDmgHit(fldName) {
 	}
 	// Now loop over the caster options, if any, to see which produces the highest total
 	if (aCasters.length) {
-		var oCasterRef = { highestTotal : false, currentHighest : "" };
+		var oCasterRef = { highestTotal: false, currentHighest: "" };
 		for (var i = 0; i < aCasters.length; i++) {
 			var sCast = aCasters[i];
 			var oCast = CurrentSpells[sCast];
 			oCasterRef[sCast] = {
 				// If a fixed total DC or spell attack
-				bFixed : oCast && oCast.abilityToUse[0] === 0 && (oCast.fixedDC || oCast.fixedSpAttack !== undefined),
+				bFixed: oCast && oCast.abilityToUse[0] === 0 && (oCast.fixedDC || oCast.fixedSpAttack !== undefined),
 				// Get bluetext modifiers from the spell sheets
-				blueTxt : oCast && oCast.blueTxt && oCast.blueTxt[spTypeShort] ? EvalBonus(oCast.blueTxt[spTypeShort], true) : 0,
-				spellCalc : 0, total : 0
+				blueTxt: oCast && oCast.blueTxt && oCast.blueTxt[spTypeShort] ? EvalBonus(oCast.blueTxt[spTypeShort], true) : 0,
+				spellCalc: 0, total: 0,
 			};
 			// Get spellCalc bonus, if appropriate
 			if (!oCasterRef[sCast].bFixed && CurrentEvals.spellCalc) {
@@ -6625,71 +6625,71 @@ function ShowDialog(hdr, strng) {
 		};
 	}
 	var ShowString_dialog = {
-		initialize : function(dialog) {
+		initialize: function(dialog) {
 			dialog.load({
-				"Eval" : strng.replace(/^[\r\n]*/, "")
+				"Eval": strng.replace(/^[\r\n]*/, ""),
 			});
 		},
-		description : {
-			name : "SIMPLE TEXT DIALOG",
-			first_tab : "CLOS",
-			elements : [{
-				type : "view",
-				align_children : "align_left",
-				elements : [{
-					type : "view",
-					elements : [{
-						type : "view",
-						align_children : "align_row",
-						elements : [{
-							type : "static_text",
-							item_id : "head",
-							alignment : "align_fill",
-							font : "heading",
-							bold : true,
-							wrap_name : true,
-							width : 548,
-							name : hdr
+		description: {
+			name: "SIMPLE TEXT DIALOG",
+			first_tab: "CLOS",
+			elements: [{
+				type: "view",
+				align_children: "align_left",
+				elements: [{
+					type: "view",
+					elements: [{
+						type: "view",
+						align_children: "align_row",
+						elements: [{
+							type: "static_text",
+							item_id: "head",
+							alignment: "align_fill",
+							font: "heading",
+							bold: true,
+							wrap_name: true,
+							width: 548,
+							name: hdr,
 						}, {
-							type : "edit_text",
-							item_id : "ding",
-							alignment : "align_fill",
-							readonly : true,
-							height : 1,
-							width : 1
-						}]
+							type: "edit_text",
+							item_id: "ding",
+							alignment: "align_fill",
+							readonly: true,
+							height: 1,
+							width: 1,
+						}],
 					}, {
-						type : "edit_text",
-						item_id : "Eval",
-						alignment : "align_fill",
-						readonly : true,
+						type: "edit_text",
+						item_id: "Eval",
+						alignment: "align_fill",
+						readonly: true,
 						multiline: true,
-						height : 500,
-						width : 550
+						height: 500,
+						width: 550,
 					}, {
-						type : "gap",
-						height : 5
-					}]
+						type: "gap",
+						height: 5,
+					}],
 				}, {
-					type : "view",
-					alignment : "align_fill",
-					align_children : "align_center",
-					elements : [{
-						type : "ok",
-						item_id : "CLOS",
-						alignment : "align_right",
-						ok_name : "Close"
+					type: "view",
+					alignment: "align_fill",
+					align_children: "align_center",
+					elements: [{
+						type: "ok",
+						item_id: "CLOS",
+						alignment: "align_right",
+						ok_name: "Close",
 					}, {
-						type : "ok_cancel",
-						alignment : "align_offscreen",
-						item_id : "CNCL",
-						ok_name : "Close",
-						cancel_name : "Close",
-						height : 0
-					}]
-				}]
-			}]
-		}
+						type: "ok_cancel",
+						alignment: "align_offscreen",
+						item_id: "CNCL",
+						ok_name: "Close",
+						cancel_name: "Close",
+						height: 0,
+					}],
+				}],
+			}],
+		},
 	};
 	app.execDialog(ShowString_dialog);
 };
@@ -6702,9 +6702,9 @@ function CalcInitDexMod() {
 
 function FunctionIsNotAvailable() {
 	app.alert({
-		nIcon : 0,
-		cTitle : "Please update your Adobe Acrobat",
-		cMsg : "This feature doesn't work (correctly) with the version of Adobe Acrobat you are using. This version of Adobe Acrobat is not supported for use with MPMB's D&D 2024 Character Tools. Please update to Adobe Acrobat DC.\n\nYou can get Adobe Acrobat Reader DC for free at https://get.adobe.com/reader/"
+		nIcon: 0,
+		cTitle: "Please update your Adobe Acrobat",
+		cMsg: "This feature doesn't work (correctly) with the version of Adobe Acrobat you are using. This version of Adobe Acrobat is not supported for use with MPMB's D&D 2024 Character Tools. Please update to Adobe Acrobat DC.\n\nYou can get Adobe Acrobat Reader DC for free at https://get.adobe.com/reader/",
 	});
 };
 
@@ -6753,14 +6753,14 @@ function getAbiModValue(ability, prefix, wildshapeNo, returnScore) {
  * @returns {number} depends on returnAbbr: if `== true` returns abbreviation ("Str", "Dex", etc.), otherwise (default) returns index number (1=Str, 2=Dex, 3=Con, 4=Int, 5=Wis, 6=Cha)
 */
 function getHighestAbility(abilities, prefix, wildshapeNo, returnAbbr) {
-	var defaultAbilities = AbilityScores.abbreviations.concat('HoS');
+	var defaultAbilities = AbilityScores.abbreviations.concat("HoS");
 	var oResult = abilities.reduce(function (acc, abi) {
 		var score = getAbiModValue(abi, prefix, wildshapeNo, true);
 		if (!acc.score || score > acc.score) {
 			return { score: score, abi: abi };
 		}
 		return acc;
-	}, {score: 0, abi: 0});
+	}, { score: 0, abi: 0 });
 	if (returnAbbr) {
 		return isNaN(oResult.abi) ? oResult.abi : defaultAbilities[oResult.abi - 1];
 	} else {
@@ -6864,16 +6864,16 @@ function SetThisFldVal() {
 			["RESULT\n4\n3\n8", 5, "align_center"],
 			["gap"],
 			["INPUT\nmax(Str|1)\nmin(Str|1)\nmin(Str|3)*2+1", 8, "align_left"],
-			["RESULT\n4\n1\n7", 5, "align_center"]
+			["RESULT\n4\n1\n7", 5, "align_center"],
 		];
 		var theDialTxt4 = "The field will display a number only after looking at the conditions above. Thus, the shown value might be different from what you see calculated in this dialog.";
 		var theDialog = {
-			notComp : QI,
-			isDmgDie : dmgDie,
-			theExp : theExpl,
-			theTXT : theVal,
-			initialize : function (dialog) {
-				var toLoad = { "user" : this.theTXT };
+			notComp: QI,
+			isDmgDie: dmgDie,
+			theExp: theExpl,
+			theTXT: theVal,
+			initialize: function (dialog) {
+				var toLoad = { "user": this.theTXT };
 				if (this.theTXT) {
 					var calcVal = this.isDmgDie ? EvalDmgDie(this.theTXT, this.notComp, "test") : EvalBonus(this.theTXT, this.notComp, "test");
 					toLoad["rslt"] = calcVal === undefined ? "ERROR" : calcVal.toString();
@@ -6884,146 +6884,146 @@ function SetThisFldVal() {
 				dialog.load(toLoad);
 				dialog.setForeColorRed("warn");
 			},
-			commit : function (dialog) {
+			commit: function (dialog) {
 				var oResult = dialog.store();
 				this.theTXT = oResult["user"];
 			},
-			calc : function (dialog) {
+			calc: function (dialog) {
 				var oResult = dialog.store()["user"];
 				var calcVal = this.isDmgDie ? EvalDmgDie(oResult, this.notComp, "test") : EvalBonus(oResult, this.notComp, "test");
 				dialog.load({
-					"rslt" : calcVal === undefined ? "ERROR" : calcVal.toString()
+					"rslt": calcVal === undefined ? "ERROR" : calcVal.toString(),
 				});
 			},
-			description : {
-				name : "SET MODIFIER DIALOG",
-				elements : [{
-					type : "view",
-					align_children : "align_left",
-					elements : [{
-						type : "static_text",
-						item_id : "head",
-						alignment : "align_fill",
-						font : "heading",
-						bold : true,
-						wrap_name : true,
-						char_width : 40,
-						name : theName ? theName : "Set the field's value"
+			description: {
+				name: "SET MODIFIER DIALOG",
+				elements: [{
+					type: "view",
+					align_children: "align_left",
+					elements: [{
+						type: "static_text",
+						item_id: "head",
+						alignment: "align_fill",
+						font: "heading",
+						bold: true,
+						wrap_name: true,
+						char_width: 40,
+						name: theName ? theName : "Set the field's value",
 					}, {
-						type : "cluster",
-						alignment : "align_fill",
-						name : "Fill out the value you want to set",
-						font : "dialog",
-						bold : true,
-						elements : [{
-							type : "static_text",
-							alignment : "align_left",
-							item_id : "txt0",
-							font : "palette",
-							name : theDialTxt,
-							char_width : 35,
-							wrap_name : true
+						type: "cluster",
+						alignment: "align_fill",
+						name: "Fill out the value you want to set",
+						font: "dialog",
+						bold: true,
+						elements: [{
+							type: "static_text",
+							alignment: "align_left",
+							item_id: "txt0",
+							font: "palette",
+							name: theDialTxt,
+							char_width: 35,
+							wrap_name: true,
 						}, {
-							type : "static_text",
-							alignment : "align_left",
-							item_id : "txt2",
-							font : "palette",
-							name : theDialTxt2,
-							char_width : 35,
-							wrap_name : true
+							type: "static_text",
+							alignment: "align_left",
+							item_id: "txt2",
+							font: "palette",
+							name: theDialTxt2,
+							char_width: 35,
+							wrap_name: true,
 						}].concat(dmgDie || theExpl ? [] : [{
-							type : "static_text",
-							alignment : "align_left",
-							item_id : "txt3",
-							font : "palette",
-							char_width : 35,
-							wrap_name : true,
-							name : theDialTxt3
+							type: "static_text",
+							alignment: "align_left",
+							item_id: "txt3",
+							font: "palette",
+							char_width: 35,
+							wrap_name: true,
+							name: theDialTxt3,
 						}, {
-							type : "view",
-							alignment : "align_center",
-							align_children : "align_row",
-							elements : theDialTxt3sub.map(function (entry, idx) {
+							type: "view",
+							alignment: "align_center",
+							align_children: "align_row",
+							elements: theDialTxt3sub.map(function (entry, idx) {
 								if (entry[0] === "gap") {
-									return { type : "gap", char_width : 3 };
+									return { type: "gap", char_width: 3 };
 								}
 								return {
-									type : "static_text",
-									alignment : entry[2],
-									item_id : "txt" + (6+idx),
-									char_width : entry[1],
-									font : "palette",
-									wrap_name : true,
-									name : entry[0] 
+									type: "static_text",
+									alignment: entry[2],
+									item_id: "txt" + (6 + idx),
+									char_width: entry[1],
+									font: "palette",
+									wrap_name: true,
+									name: entry[0], 
 								};
-							})
+							}),
 						}]).concat([{
-							type : "edit_text",
-							alignment : "align_left",
-							item_id : "user",
-							char_width : 35,
-							height : 20
+							type: "edit_text",
+							alignment: "align_left",
+							item_id: "user",
+							char_width: 35,
+							height: 20,
 						}, {
-							type : "view",
-							align_children : "align_distribute",
-							char_width : 35,
-							elements : [{
-								type : "static_text",
-								alignment : "align_left",
-								item_id : "txtC",
-								name : "This calculates to:",
-								char_width : 1,
-								height : 25
+							type: "view",
+							align_children: "align_distribute",
+							char_width: 35,
+							elements: [{
+								type: "static_text",
+								alignment: "align_left",
+								item_id: "txtC",
+								name: "This calculates to:",
+								char_width: 1,
+								height: 25,
 							}, {
-								type : "static_text",
-								alignment : "align_left",
-								item_id : "rslt",
-								font : "dialog",
-								bold : true,
-								name : "0",
-								char_width : 8,
-								height : 25
+								type: "static_text",
+								alignment: "align_left",
+								item_id: "rslt",
+								font: "dialog",
+								bold: true,
+								name: "0",
+								char_width: 8,
+								height: 25,
 							}, {
-								type : "button",
-								alignment : "align_left",
-								item_id : "calc",
-								name : "<< Re-Calculate This"
-							}]
-						}])
+								type: "button",
+								alignment: "align_left",
+								item_id: "calc",
+								name: "<< Re-Calculate This",
+							}],
+						}]),
 					}, {
-						type : "static_text",
-						alignment : "align_fill",
-						item_id : "txt1",
-						wrap_name : true,
-						name : theDialTxt1,
-						char_width : 35
+						type: "static_text",
+						alignment: "align_fill",
+						item_id: "txt1",
+						wrap_name: true,
+						name: theDialTxt1,
+						char_width: 35,
 					}].concat(theExpl ? [{
-						type : "cluster",
-						alignment : "align_fill",
-						name : "Modifiers set by class features, species, feats, or magic items",
-						font : "dialog",
-						bold : true,
-						elements : [{
-							type : "edit_text",
-							item_id : "expl",
-							alignment : "align_fill",
-							readonly : true,
+						type: "cluster",
+						alignment: "align_fill",
+						name: "Modifiers set by class features, species, feats, or magic items",
+						font: "dialog",
+						bold: true,
+						elements: [{
+							type: "edit_text",
+							item_id: "expl",
+							alignment: "align_fill",
+							readonly: true,
 							multiline: true,
-							char_width : 35,
-							height : 200
+							char_width: 35,
+							height: 200,
 						}].concat(!isAcFld ? [] : {
-							type : "static_text",
-							alignment : "align_fill",
-							item_id : "warn",
-							wrap_name : true,
-							name : theDialTxt4,
-							char_width : 35
-						})
+							type: "static_text",
+							alignment: "align_fill",
+							item_id: "warn",
+							wrap_name: true,
+							name: theDialTxt4,
+							char_width: 35,
+						}),
 					}] : []).concat([{
-						type : "ok_cancel"
-					}])
-				}]
-			}
+						type: "ok_cancel",
+					}]),
+				}],
+			},
 		};
 		if (app.execDialog(theDialog) === "ok") {
 			event.target.value = theDialog.theTXT;
@@ -7107,9 +7107,9 @@ function processMods(AddRemove, NameEntity, items, prefix) {
 			case "initiative" :
 				Fld = QI ? "Init Bonus" : prefix + "Comp.Use.Combat.Init.Bonus";
 			case "skill" :
-				if ((/^all/i).test(Fld)) {
+				if (/^all/i.test(Fld)) {
 					Fld = QI ? "All Skills Bonus" : prefix + "BlueText.Comp.Use.Skills.All.Bonus";
-				} else if ((/^pass/i).test(Fld)) {
+				} else if (/^pass/i.test(Fld)) {
 					Fld = QI ? "Passive Perception Bonus" : prefix + "BlueText.Comp.Use.Skills.Perc.Pass.Bonus";
 				} else {
 					var skill = Fld.substr(0,4).capitalize();
@@ -7338,7 +7338,7 @@ function setSkillTooltips(noPopUp) {
 	}
 	if (!noPopUp && CurrentUpdates.types.indexOf("skills") === -1) {
 		CurrentUpdates.types.push("skills");
-		CurrentUpdates.skillStrOld = oldTooltipTxt.replace(/.+(\r|\n)*/, '');
+		CurrentUpdates.skillStrOld = oldTooltipTxt.replace(/.+(\r|\n)*/, "");
 	}
 	AddTooltip("SkillsClick", "Click here to change the order of the skills. You can select either alphabetic order or ordered by ability score." + (tooltipTxt ? "\n\n" + tooltipTxt : ""));
 }
@@ -7346,7 +7346,7 @@ function setSkillTooltips(noPopUp) {
 function applySkillClick(theSkill, isExp) {
 	if (SkillsList.abbreviations.indexOf(theSkill) == -1) return;
 	var isCheck = event.target.isBoxChecked(0) ? true : false;
-	if (Who('Text.SkillsNames') !== 'alphabeta') {
+	if (Who("Text.SkillsNames") !== "alphabeta") {
 		theSkill = SkillsList.abbreviationsByAS[SkillsList.abbreviations.indexOf(theSkill)];
 	}
 	var setExp = !isExp ? false : isCheck || (!isCheck && CurrentProfs.skill[theSkill]  && CurrentProfs.skill[theSkill].length > 1) ? "full" : "only";
@@ -7369,8 +7369,7 @@ function processWeaponProfs(AddRemove, srcNm, itemArr) {
 	var weaponTypes = ["simple", "martial", "other", "otherEval"];
 	for (var i = 0; i < itemArr.length; i++) {
 		if (itemArr[i] && weaponTypes[i]) {
-			SetProf("weapon", AddRemove, weaponTypes[i], srcNm,
-				i != 2 ? false : isArray(itemArr[i]) && itemArr[i].length ? itemArr[i] : itemArr[i] ? [itemArr[i]] : false
+			SetProf("weapon", AddRemove, weaponTypes[i], srcNm, i != 2 ? false : isArray(itemArr[i]) && itemArr[i].length ? itemArr[i] : itemArr[i] ? [itemArr[i]] : false
 			);
 		}
 	}
@@ -7389,19 +7388,19 @@ function setCheckboxProfsManual(theField) {
 	calcStop();
 	var fld = theField ? tDoc.getField(theField) : event.target;
 	var isActive = fld.isBoxChecked(0) === 1;
-	var sort = (/simple|martial/i).test(fld.name) ? "weapon" : "armour";
-	var type = fld.name.replace(/proficiency |armor |weapon /ig, '').toLowerCase();
+	var sort = /simple|martial/i.test(fld.name) ? "weapon" : "armour";
+	var type = fld.name.replace(/proficiency |armor |weapon /ig, "").toLowerCase();
 	var normalState = CurrentProfs[sort][type] ? true : false;
-	delete CurrentProfs[sort][type+"_manualon"];
-	delete CurrentProfs[sort][type+"_manualoff"];
-	if (normalState != isActive) CurrentProfs[sort][type+"_manual" + (isActive ? "on" : "off")] = true;
+	delete CurrentProfs[sort][type + "_manualon"];
+	delete CurrentProfs[sort][type + "_manualoff"];
+	if (normalState != isActive) CurrentProfs[sort][type + "_manual" + (isActive ? "on" : "off")] = true;
 	SetProf(sort, undefined, type, undefined, true);
 }
 // do something with the manually entered 'other' weapon proficiencies (field action)
 function setOtherWeaponProfsManual() {
 	calcStop();
 	var set = CurrentProfs.weapon;
-	if (!set.otherWea) set.otherWea = { finalProfs : [], finalString : "", finalNamesNotManual : [], finalProfsNotManual : [] };
+	if (!set.otherWea) set.otherWea = { finalProfs: [], finalString: "", finalNamesNotManual: [], finalProfsNotManual: [] };
 	var iSet = set.otherWea;
 	var remString = iSet.finalString;
 	var othWea = What("Proficiency Weapon Other Description");
@@ -7413,7 +7412,7 @@ function setOtherWeaponProfsManual() {
 		var aWea = othWeaArr[i];
 		if (!aWea) continue;
 		// first test if this same name doesn't already exist by the regularly added stuff
-		var testRegExp = RegExp("\\b"+aWea+"\\b", "i");
+		var testRegExp = RegExp("\\b" + aWea + "\\b", "i");
 		var isKnownProf = iSet.finalNamesNotManual.some(function (wea) { return testRegExp.test(wea) });
 		if (isKnownProf) continue;
 		// then test if the weapon key is not already known
@@ -7453,10 +7452,10 @@ function processExtraAC(AddRemove, srcNm, itemArr, parentName) {
 // Function is still present for backwards-compatibility. If 'useMod' == 0, remove
 function AddACMisc(useMod, useName, useText, useStopeval) {
 	var makeObject = {
-		name : useName,
-		mod : useMod,
-		text : useText,
-		stopeval : useStopeval
+		name: useName,
+		mod: useMod,
+		text: useText,
+		stopeval: useStopeval,
 	};
 	var extra = "-addacmisc";
 	// if we are removing something, we first have to fint the mod that was previously used
@@ -7504,19 +7503,19 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 			}
 			// add the expertise, if any
 			if (Extra) {
-				if (!set[ProfObj+"_Exp"]) set[ProfObj+"_Exp"] = {};
-				set[ProfObj+"_Exp"][ProfSrc] = Extra;
+				if (!set[ProfObj + "_Exp"]) set[ProfObj + "_Exp"] = {};
+				set[ProfObj + "_Exp"][ProfSrc] = Extra;
 			}
 		} else { // remove
 			// delete the proficiency entry
-			if ((!Extra || !(/only/i).test(Extra)) && set[ProfObj] && set[ProfObj].indexOf(ProfSrc) !== -1) {
+			if ((!Extra || !/only/i.test(Extra)) && set[ProfObj] && set[ProfObj].indexOf(ProfSrc) !== -1) {
 				set[ProfObj].splice(set[ProfObj].indexOf(ProfSrc), 1);
 				if (set[ProfObj].length == 0) delete set[ProfObj];
 			}
 			// delete the expertise entry
-			if (set[ProfObj+"_Exp"] && set[ProfObj+"_Exp"][ProfSrc]) {
-				delete set[ProfObj+"_Exp"][ProfSrc];
-				if (ObjLength(set[ProfObj+"_Exp"]) === 0) delete set[ProfObj+"_Exp"];
+			if (set[ProfObj + "_Exp"] && set[ProfObj + "_Exp"][ProfSrc]) {
+				delete set[ProfObj + "_Exp"][ProfSrc];
+				if (ObjLength(set[ProfObj + "_Exp"]) === 0) delete set[ProfObj + "_Exp"];
 			}
 			// also remove the descriptive text if it is still there
 			if (set.descrTxt && set.descrTxt[ProfSrc]) delete set.descrTxt[ProfSrc];
@@ -7524,9 +7523,9 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 		// now determine the new state of the skill
 		var isProf = set[ProfObj] ? true : false;
 		// then see if we need to add exp
-		if (set[ProfObj+"_Exp"]) {
-			for (var expSrc in set[ProfObj+"_Exp"]) {
-				var aExp = set[ProfObj+"_Exp"][expSrc];
+		if (set[ProfObj + "_Exp"]) {
+			for (var expSrc in set[ProfObj + "_Exp"]) {
+				var aExp = set[ProfObj + "_Exp"][expSrc];
 				var isExp = /full/i.test(aExp) ? true : isProf && /only/i.test(aExp) ? true : isProf && /increment/i.test(aExp) && (set[ProfObj].length > 1 || set[ProfObj][0] !== expSrc);
 				if (isExp) break;
 			}
@@ -7534,7 +7533,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 			var isExp = false;
 		}
 		// get the name of the skill field
-		var skillFld = Who('Text.SkillsNames') === 'alphabeta' ? ProfObj : SkillsList.abbreviations[SkillsList.abbreviationsByAS.indexOf(ProfObj)];
+		var skillFld = Who("Text.SkillsNames") === "alphabeta" ? ProfObj : SkillsList.abbreviations[SkillsList.abbreviationsByAS.indexOf(ProfObj)];
 		// now update the fields
 		Checkbox(skillFld + " Prof", isProf);
 		Checkbox(skillFld + " Exp", isExp);
@@ -7616,8 +7615,8 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 		}
 		// if simple or martial proficiency, do the same as the armour proficiency below
 	case "armour" : { // if (Extra == true) means to not change the field, only the tooltip
-		var sort = ProfType.replace('ou', 'o');
-		var fld = "Proficiency " + ((/shield/i).test(ProfObj) ? "Shields" : (sort + " " + ProfObj).capitalize());
+		var sort = ProfType.replace("ou", "o");
+		var fld = "Proficiency " + (/shield/i.test(ProfObj) ? "Shields" : (sort + " " + ProfObj).capitalize());
 		var fldState = tDoc.getField(fld).isBoxChecked(0) === 1;
 		if (!tDoc.getField(fld)) return;
 		// set the object
@@ -7627,20 +7626,20 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 			} else if (set[ProfObj].indexOf(ProfSrc) === -1) {
 				set[ProfObj].push(ProfSrc);
 			}
-			delete set[ProfObj+"_manualon"];
+			delete set[ProfObj + "_manualon"];
 		} else if (!Extra && set[ProfObj] && set[ProfObj].indexOf(ProfSrc) !== -1) { // remove
 			set[ProfObj].splice(set[ProfObj].indexOf(ProfSrc), 1);
 			if (set[ProfObj].length === 0) {
 				delete set[ProfObj];
-				delete set[ProfObj+"_manualoff"];
+				delete set[ProfObj + "_manualoff"];
 			}
 		};
 		// set the field and tooltip
 		var tooltipArr = [].concat(set[ProfObj] ? set[ProfObj] : []);
-		if (set[ProfObj+"_manualoff"]) tooltipArr.push("[Manually disabled]");
-		if (set[ProfObj+"_manualon"]) tooltipArr.push("[Manually enabled]");
+		if (set[ProfObj + "_manualoff"]) tooltipArr.push("[Manually disabled]");
+		if (set[ProfObj + "_manualon"]) tooltipArr.push("[Manually enabled]");
 		var TooltipTxt = tooltipArr.length ? formatMultiList(ProfObj.capitalize() + " " + sort + " proficiency gained from:", tooltipArr) : "";
-		var isOn = set[ProfObj+"_manualon"] ? true : set[ProfObj+"_manualoff"] ? false : set[ProfObj] ? true : false;
+		var isOn = set[ProfObj + "_manualon"] ? true : set[ProfObj + "_manualoff"] ? false : set[ProfObj] ? true : false;
 		if (Extra || isOn == fldState) {
 			AddTooltip(fld, TooltipTxt);
 		} else {
@@ -7684,7 +7683,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 	case "resistance" : { // Extra is something to replace the actual text, if even one source has no condition for the resistance (e.g. not something like "Bludg. (in Rage)"), then there is no need to add multiple instances of essentially the same resistance
 		var setRem = !set[ProfObjLC] ? undefined : set[ProfObjLC].merge;
 		if (AddRemove) { // add
-			if (!set[ProfObjLC]) set[ProfObjLC] = {name : ProfObj, src : [], cond : [], lookup : {}, merge : false};
+			if (!set[ProfObjLC]) set[ProfObjLC] = { name: ProfObj, src: [], cond: [], lookup: {}, merge: false };
 			var theSet = set[ProfObjLC];
 			if (theSet.src.indexOf(ProfSrc) !== -1) return; // the thing already exists so exit
 			theSet.src.push(ProfSrc);
@@ -7753,7 +7752,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 		if (optNmbr) {
 			var uID = ProfSrc + "_#_" + ProfObj + "_#_" + optNmbr;
 			if (AddRemove) { // add
-				if (!set[uID]) set[uID] = {source : ProfSrc, entries : [], choices : []};
+				if (!set[uID]) set[uID] = { source: ProfSrc, entries: [], choices: [] };
 				// first ask the user to select choices
 				var optType = ProfType.capitalize() + "s";
 				var optSubj = [];
@@ -7851,7 +7850,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 		var preTxt = { adv_vs: "**Adv vs**", immune: "**Immunities**." };
 		var parseSvTxt = function() {
 			var sUseName = metric ? "nameMetric" : "name";
-			var oTypes = { adv_vs : [], immune : [] };
+			var oTypes = { adv_vs: [], immune: [] };
 			for (var sType in oTypes) {
 				for (var sThing in set[sType]) {
 					var obj = set[sType][sThing];
@@ -7884,7 +7883,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 						setT[iAddLC] = {
 							name: iAdd,
 							nameMetric: iAddM,
-							src: [ProfSrc]
+							src: [ProfSrc],
 						};
 						var aMatchCond = iAddLC.match(rxCond);
 						if (aMatchCond) {
@@ -7973,7 +7972,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 		var range = Extra ? Extra : 0;
 		if (AddRemove) { // add
 			if (!set[ProfObjLC]) {
-				set[ProfObjLC] = {name : ProfObj, src : [], ranges : {}};
+				set[ProfObjLC] = { name: ProfObj, src: [], ranges: {} };
 				var prevNm = "";
 			} else {
 				var prevNm = set[ProfObjLC].name + getHighestTotal(set[ProfObjLC].ranges);
@@ -8029,12 +8028,12 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 		var fldEncdW = What(fldEnc).replace(/\n|\r/g, "").replace(/,/g, ".");
 		var spdTypes = ["walk", "burrow", "climb", "fly", "swim"];
 		// Backwards compatibility, when `speed` was still an array
-		if (isArray(ProfObj)) ProfObj = { walk : {spd : parseFloat(ProfObj[0]), enc : parseFloat(ProfObj[1])} };
+		if (isArray(ProfObj)) ProfObj = { walk: { spd: parseFloat(ProfObj[0]), enc: parseFloat(ProfObj[1]) } };
 		// Create the set object if it doesn't already have any content
 		var setKeys = function() {
 			for (var e in set) { return true; };
-			CurrentProfs.speed = { allModes : {} };
-			for (var i = 0; i < spdTypes.length; i++) CurrentProfs.speed[spdTypes[i]] = {spd : {}, enc : {}};
+			CurrentProfs.speed = { allModes: {} };
+			for (var i = 0; i < spdTypes.length; i++) CurrentProfs.speed[spdTypes[i]] = { spd: {}, enc: {} };
 			set = CurrentProfs.speed;
 		};
 		setKeys();
@@ -8063,7 +8062,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 			var idx = bSetNumberValue ? 1 : 0;
 			var oBaseWalk = { 
 				spd: parseSpeed("walk", set.walk.spd, "both", 0, oDeltaSpds.walkSpd),
-				enc: parseSpeed("walk", set.walk.enc, "both", 0, oDeltaSpds.walkEnc)
+				enc: parseSpeed("walk", set.walk.enc, "both", 0, oDeltaSpds.walkEnc),
 			};
 			var oTotals = { walkSpd: oBaseWalk.spd[idx], walkEnc: oBaseWalk.enc[idx] };
 			for (var i = 0; i < spdTypes.length; i++) {
@@ -8134,7 +8133,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 			if (eSpd) encString += (!encString ? "" : typePF ? ", " : ",\n") + eSpd;
 		};
 		// Create the tooltips
-		var ttips = {spd : "", enc : ""};
+		var ttips = { spd: "", enc: "" };
 		for (var i = 0; i < spdTypes.length; i++) {
 			var sT = spdTypes[i];
 			// Create a string for the allModes of this speed
@@ -8160,7 +8159,7 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 				modArray.push(spMod + " [" + theVal + "]");
 			};
 			// The strings for full speed and encumbered speed
-			var arrs = {spd : [], enc : []};
+			var arrs = { spd: [], enc: [] };
 			for (var n = 0; n <= 1; n++) {
 				var sV = n ? "enc" : "spd";
 				var theSpeeds = set[sT][sV];
@@ -8200,24 +8199,24 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 	case "specialarmour" : { // Extra is to make the entry unique (the array index)
 		if (!ProfObj.mod && ProfObj.mod !== 0) return;
 		var fldNms = {
-			magic : ["AC Magic", "AC Magic Description"],
-			misc1 : ["AC Misc Mod 1", "AC Misc Mod 1 Description"],
-			misc2 : ["AC Misc Mod 2", "AC Misc Mod 2 Description"]
+			magic: ["AC Magic", "AC Magic Description"],
+			misc1: ["AC Misc Mod 1", "AC Misc Mod 1 Description"],
+			misc2: ["AC Misc Mod 2", "AC Misc Mod 2 Description"],
 		};
 		var objName = ProfSrc + "-" + Extra;
 		if (AddRemove) { // add
 			var tObj = {
-				name : ProfObj.name,
-				mod : ProfObj.mod,
-				text : ProfObj.text,
-				stopeval : ProfObj.stopeval,
-				source : ProfSrc
+				name: ProfObj.name,
+				mod: ProfObj.mod,
+				text: ProfObj.text,
+				stopeval: ProfObj.stopeval,
+				source: ProfSrc,
 			};
 			if (ProfObj.magic) {
 				tObj.type = "magic";
 			} else {
 				// count how many of each misc we got, and add to the fewest
-				var tCount = { misc1 : 0, misc2 : 0 };
+				var tCount = { misc1: 0, misc2: 0 };
 				for (var key in set) if (set[key].type != "magic") tCount[set[key].type] += 1;
 				tObj.type = tCount.misc1 <= tCount.misc2 ? "misc1" : "misc2";
 			}
@@ -8482,29 +8481,29 @@ function AskUserOptions(optType, optSrc, optSubj, knownOpt, notProficiencies, sB
 	for (var i = 0; i < optSubj.length; i++) {
 		if (knownOpt === "radio") {
 			selectionLines.push({
-				type : "radio",
-				item_id : "r" + ("00" + i).slice(-3),
-				group_id : "slct",
-				name : optSubj[i]
+				type: "radio",
+				item_id: "r" + ("00" + i).slice(-3),
+				group_id: "slct",
+				name: optSubj[i],
 			});
 		} else {
 			selectionLines.push({
-				type : "view",
-				alignment : "align_fill",
-				align_children : "align_row",
-				elements : [{
-					type : "edit_text",
-					alignment : "align_left",
-					item_id : "r" + ("00" + i).slice(-3),
-					char_width : 30,
-					height : 20
+				type: "view",
+				alignment: "align_fill",
+				align_children: "align_row",
+				elements: [{
+					type: "edit_text",
+					alignment: "align_left",
+					item_id: "r" + ("00" + i).slice(-3),
+					char_width: 30,
+					height: 20,
 				}, {
-					type : "static_text",
-					alignment : "align_right",
-					item_id : "t" + ("00" + i).slice(-3),
-					font : "dialog",
-					name : "Already known!"
-				}]
+					type: "static_text",
+					alignment: "align_right",
+					item_id: "t" + ("00" + i).slice(-3),
+					font: "dialog",
+					name: "Already known!",
+				}],
 			});
 		};
 	};
@@ -8512,46 +8511,46 @@ function AskUserOptions(optType, optSrc, optSubj, knownOpt, notProficiencies, sB
 	if (knownOpt === "radio" && optSubj.length > 7) {
 		var sliceLen, leftCol, midColL = [], midColR = [], rightCol;
 		if (optSubj.length > 51) {
-			sliceLen = Math.ceil(selectionLines.length/4);
+			sliceLen = Math.ceil(selectionLines.length / 4);
 			leftCol = selectionLines.slice(0,sliceLen);
-			midColL = selectionLines.slice(sliceLen,sliceLen*2);
-			midColR = selectionLines.slice(sliceLen*2,sliceLen*3);
-			rightCol = selectionLines.slice(sliceLen*3);
+			midColL = selectionLines.slice(sliceLen,sliceLen * 2);
+			midColR = selectionLines.slice(sliceLen * 2,sliceLen * 3);
+			rightCol = selectionLines.slice(sliceLen * 3);
 		} else if (optSubj.length > 30) {
-			sliceLen = Math.ceil(selectionLines.length/3);
+			sliceLen = Math.ceil(selectionLines.length / 3);
 			leftCol = selectionLines.slice(0,sliceLen);
-			midColL = selectionLines.slice(sliceLen,sliceLen*2);
-			rightCol = selectionLines.slice(sliceLen*2);
+			midColL = selectionLines.slice(sliceLen,sliceLen * 2);
+			rightCol = selectionLines.slice(sliceLen * 2);
 		} else {
-			sliceLen = Math.ceil(selectionLines.length/2);
+			sliceLen = Math.ceil(selectionLines.length / 2);
 			leftCol = selectionLines.slice(0,sliceLen);
 			rightCol = selectionLines.slice(sliceLen);
 		}
 		selectionLines = [{
-			type : "view",
-			alignment : "align_fill",
-			align_children : "align_distribute",
-			elements : [{
-				type : "view",
-				alignment : "align_left",
-				align_children : "align_left",
-				elements : leftCol
+			type: "view",
+			alignment: "align_fill",
+			align_children: "align_distribute",
+			elements: [{
+				type: "view",
+				alignment: "align_left",
+				align_children: "align_left",
+				elements: leftCol,
 			}, {
-				type : "view",
-				alignment : "align_center",
-				align_children : "align_left",
-				elements : midColL
+				type: "view",
+				alignment: "align_center",
+				align_children: "align_left",
+				elements: midColL,
 			}, {
-				type : "view",
-				alignment : "align_center",
-				align_children : "align_left",
-				elements : midColR
+				type: "view",
+				alignment: "align_center",
+				align_children: "align_left",
+				elements: midColR,
 			}, {
-				type : "view",
-				alignment : "align_right",
-				align_children : "align_left",
-				elements : rightCol
-			}]
+				type: "view",
+				alignment: "align_right",
+				align_children: "align_left",
+				elements: rightCol,
+			}],
 		}];
 	}
 
@@ -8565,10 +8564,10 @@ function AskUserOptions(optType, optSrc, optSubj, knownOpt, notProficiencies, sB
 	};
 
 	var theDialog = {
-		choices : [],
-		already : knownOpt,
-		subj : optSubj, //array of default choices
-		initialize : function (dialog) {
+		choices: [],
+		already: knownOpt,
+		subj: optSubj, //array of default choices
+		initialize: function (dialog) {
 			if (this.already === "radio") return;
 			var toLoad = {};
 			var toShow = {};
@@ -8581,7 +8580,7 @@ function AskUserOptions(optType, optSrc, optSubj, knownOpt, notProficiencies, sB
 			dialog.load(toLoad);
 			dialog.visible(toShow);
 		},
-		commit : function (dialog) {
+		commit: function (dialog) {
 			var oResult = dialog.store();
 			this.choices = [];
 			for (var i = 0; i < this.subj.length; i++) {
@@ -8596,7 +8595,7 @@ function AskUserOptions(optType, optSrc, optSubj, knownOpt, notProficiencies, sB
 				};
 			};
 		},
-		check : function (dialog, nmbr) {
+		check: function (dialog, nmbr) {
 			if (!this.already || this.already === "radio") return;
 			var toChk = "r" + ("00" + nmbr).slice(-3);
 			var tTxt = "t" + ("00" + nmbr).slice(-3);
@@ -8605,99 +8604,99 @@ function AskUserOptions(optType, optSrc, optSubj, knownOpt, notProficiencies, sB
 			toShow[tTxt] = this.already.indexOf(tResult) !== -1;
 			dialog.visible(toShow);
 		},
-		description : {
-			name : "ASK USER DIALOG",
-			elements : [{
-				type : "view",
-				align_children : "align_left",
-				elements : [{
-					type : "static_text",
-					item_id : "head",
-					alignment : "align_fill",
-					font : "heading",
-					bold : true,
-					wrap_name : true,
-					char_width : 40,
-					name : diaHeader
+		description: {
+			name: "ASK USER DIALOG",
+			elements: [{
+				type: "view",
+				align_children: "align_left",
+				elements: [{
+					type: "static_text",
+					item_id: "head",
+					alignment: "align_fill",
+					font: "heading",
+					bold: true,
+					wrap_name: true,
+					char_width: 40,
+					name: diaHeader,
 				}].concat(notProficiencies ? [{
-					type : "static_text",
-					item_id : "txtA",
-					alignment : "align_fill",
-					font : "dialog",
-					wrap_name : true,
-					char_width : 40,
-					name : optSrc
+					type: "static_text",
+					item_id: "txtA",
+					alignment: "align_fill",
+					font: "dialog",
+					wrap_name: true,
+					char_width: 40,
+					name: optSrc,
 				}] : [{
-					type : "view",
-					alignment : "align_fill",
-					align_children : "align_row",
-					elements : [{
-						type : "view",
-						alignment : "align_left",
-						align_children : "align_left",
-						elements : [{
-							type : "static_text",
-							alignment : "align_left",
-							font : "dialog",
-							item_id : "txt0",
-							name : "Regarding:"
+					type: "view",
+					alignment: "align_fill",
+					align_children: "align_row",
+					elements: [{
+						type: "view",
+						alignment: "align_left",
+						align_children: "align_left",
+						elements: [{
+							type: "static_text",
+							alignment: "align_left",
+							font: "dialog",
+							item_id: "txt0",
+							name: "Regarding:",
 						}, {
-							type : "static_text",
-							alignment : "align_left",
-							font : "dialog",
-							item_id : "txt2",
-							name : "Gained from:"
-						}]
+							type: "static_text",
+							alignment: "align_left",
+							font: "dialog",
+							item_id: "txt2",
+							name: "Gained from:",
+						}],
 					}, {
-						type : "view",
-						alignment : "align_right",
-						align_children : "align_left",
-						elements : [{
-							type : "static_text",
-							alignment : "align_left",
-							item_id : "txt1",
-							font : "dialog",
-							bold : true,
-							name : optType
+						type: "view",
+						alignment: "align_right",
+						align_children: "align_left",
+						elements: [{
+							type: "static_text",
+							alignment: "align_left",
+							item_id: "txt1",
+							font: "dialog",
+							bold: true,
+							name: optType,
 						}, {
-							type : "static_text",
-							alignment : "align_left",
-							item_id : "txt3",
-							font : "dialog",
-							bold : true,
-							name : optSrc
-						}]
-					}]
+							type: "static_text",
+							alignment: "align_left",
+							item_id: "txt3",
+							font: "dialog",
+							bold: true,
+							name: optSrc,
+						}],
+					}],
 				}]).concat([{
-					type : "view",
-					alignment : "align_center",
-					align_children : "align_left",
-					elements : selectionLines
+					type: "view",
+					alignment: "align_center",
+					align_children: "align_left",
+					elements: selectionLines,
 				}]).concat(!showOptions ? [] : [{
-					type : "static_text",
-					alignment : "align_fill",
-					item_id : "txtO",
-					wrap_name : true,
-					name : "Currently already known: " + showOptions + ".",
-					char_width : 40
+					type: "static_text",
+					alignment: "align_fill",
+					item_id: "txtO",
+					wrap_name: true,
+					name: "Currently already known: " + showOptions + ".",
+					char_width: 40,
 				}]).concat([{
-					type : "static_text",
-					alignment : "align_fill",
-					item_id : "txtL",
-					wrap_name : true,
-					name : sBottomMsg ? sBottomMsg : "You can always change what you set here at a later time by editing the corresponding field on the sheet. What you select here is not permanent.",
-					char_width : 40
+					type: "static_text",
+					alignment: "align_fill",
+					item_id: "txtL",
+					wrap_name: true,
+					name: sBottomMsg ? sBottomMsg : "You can always change what you set here at a later time by editing the corresponding field on the sheet. What you select here is not permanent.",
+					char_width: 40,
 				}, {
-					type : "ok"
-				}])
-			}]
-		}
+					type: "ok",
+				}]),
+			}],
+		},
 	};
 	if (knownOpt !== "radio") { for (var i = 0; i < optSubj.length; i++) {
 		theDialog["r" + ("00" + i).slice(-3)] = Function("dialog", "this.check(dialog, " + i + ");");
 	}; };
 	app.execDialog(theDialog)
-	if (bReturnIndex && knownOpt === "radio" && typeof theDialog.choices == 'string') {
+	if (bReturnIndex && knownOpt === "radio" && typeof theDialog.choices == "string") {
 		return optSubj.indexOf(theDialog.choices);
 	}
 	return theDialog.choices;
@@ -8844,7 +8843,7 @@ function processToNotesPage(AddRemove, items, type, mainObj, parentObj, namesArr
 		if (!noteOrig) noteStr = noteStr.replace("(, ", "(");
 		if (noteObj.page3notes) { // add to 3rd page notes section
 			if (AddRemove) {
-				AddString('Extra.Notes', noteStr, true);
+				AddString("Extra.Notes", noteStr, true);
 				var changeMsg = alertTxt + " has been added to the Notes section on the third page. They either wouldn't be apprioprate for or wouldn't fit in the " + fallback.alertType + ".";
 				CurrentUpdates.types.push("notes");
 				if (!CurrentUpdates.notesChanges) {
@@ -8853,7 +8852,7 @@ function processToNotesPage(AddRemove, items, type, mainObj, parentObj, namesArr
 					CurrentUpdates.notesChanges.push(changeMsg);
 				}
 			} else {
-				RemoveString('Extra.Notes', noteStr);
+				RemoveString("Extra.Notes", noteStr);
 			}
 		} else { // add to its own section on a notes page
 			if (AddRemove) {
@@ -8920,7 +8919,7 @@ function AddToNotes(noteStr, alertTxt, oldNoteStr, alertType, isProcessed, amend
 	ReplaceString(noteFld, noteStr, true, oldNoteStr ? oldNoteStr : "");
 	if (!replaceOldNote && noteStr && alertTxt) {
 		if (!alertType) alertType = "Class Features section";
-		var changeMsg = alertTxt + ' has been added to the Notes page at page number ' + (tDoc.getField(noteFld).page + 1) + ". They wouldn't fit in the " + alertType + " or the third page's Notes section.";
+		var changeMsg = alertTxt + " has been added to the Notes page at page number " + (tDoc.getField(noteFld).page + 1) + ". They wouldn't fit in the " + alertType + " or the third page's Notes section.";
 		CurrentUpdates.types.push("notes");
 		if (!CurrentUpdates.notesChanges) {
 			CurrentUpdates.notesChanges = [changeMsg];
@@ -8940,9 +8939,9 @@ function hasSkillProf(theSkill) {
 		skill = skill.substr(0,3);
 		if (SkillsList.abbreviations.indexOf(skill) === -1) return [false, false];
 	};
-	var skillFld = Who('Text.SkillsNames') === 'alphabeta' ? skill : SkillsList.abbreviations[SkillsList.abbreviationsByAS.indexOf(skill)];
-	var hasProf = tDoc.getField(skillFld + ' Prof').isBoxChecked(0) != 0;
-	var hasExp = !hasProf ? false : tDoc.getField(skillFld + ' Exp').isBoxChecked(0) != 0;
+	var skillFld = Who("Text.SkillsNames") === "alphabeta" ? skill : SkillsList.abbreviations[SkillsList.abbreviationsByAS.indexOf(skill)];
+	var hasProf = tDoc.getField(skillFld + " Prof").isBoxChecked(0) != 0;
+	var hasExp = !hasProf ? false : tDoc.getField(skillFld + " Exp").isBoxChecked(0) != 0;
 	return [hasProf, hasExp];
 };
 
@@ -8953,11 +8952,11 @@ function setCalcOrder() {
 	var abis = ["Str", "Dex", "Con", "Int", "Wis", "Cha", "HoS"];
 	var skills = ["Acr", "Ani", "Arc", "Ath", "Dec", "His", "Ins", "Inti", "Inv", "Med", "Nat", "Perc", "Perf", "Pers", "Rel", "Sle", "Ste", "Sur"];
 	// ability modifiers
-	for (var i = 0; i < abis.length; i++) cFlds.push(abis[i]+" Mod");
+	for (var i = 0; i < abis.length; i++) cFlds.push(abis[i] + " Mod");
 	// Proficiency bonus
 	cFlds.push("Proficiency Bonus");
 	// saving throws
-	for (var i = 0; i < abis.length; i++) cFlds.push(abis[i]+" ST Mod");
+	for (var i = 0; i < abis.length; i++) cFlds.push(abis[i] + " ST Mod");
 	// skills & initiative * HP
 	cFlds = cFlds.concat(skills);
 	cFlds = cFlds.concat(["Too", "Passive Perception", "Initiative bonus", "HP Max"]);
@@ -8965,9 +8964,9 @@ function setCalcOrder() {
 	// AC
 	cFlds = cFlds.concat(["AC Dexterity Modifier", "AC"]);
 	// HD
-	if (!typePF) for (var i = 1; i <= 3; i++) cFlds.push("HD"+i+" Con Mod");
+	if (!typePF) for (var i = 1; i <= 3; i++) cFlds.push("HD" + i + " Con Mod");
 	// attacks
-	for (var i = 1; i <= FieldNumbers.attacks; i++) cFlds.push("Attack."+i+".To Hit");
+	for (var i = 1; i <= FieldNumbers.attacks; i++) cFlds.push("Attack." + i + ".To Hit");
 	// weight information
 	cFlds = cFlds.concat(["Weight Encumbered", "Weight Heavily Encumbered", "Weight Push/Drag/Lift", "Weight Carrying Capacity.Field"]);
 	if (!typePF) cFlds = cFlds.concat(["Weight Encumbered Text", "Display.Speed.Enc", "Weight Heavily Encumbered Text", "Display.Speed.EncH", "Weight Push/Drag/Lift Text", "Display.Speed.Push", "Weight Carrying Capacity.Text"]);
@@ -8975,10 +8974,10 @@ function setCalcOrder() {
 	cFlds.push("Adventuring Gear Weight Subtotal Right");
 	if (typePF) cFlds.push("Adventuring Gear Weight Subtotal Middle");
 	cFlds.push("Adventuring Gear Weight Subtotal Left");
-	for (var i = 1; i <= (typePF ? 9 : 6); i++) cFlds.push("Adventuring Gear Location.Subtotal "+i);
+	for (var i = 1; i <= (typePF ? 9 : 6); i++) cFlds.push("Adventuring Gear Location.Subtotal " + i);
 	// equipment 3rd page
 	cFlds = cFlds.concat(["Extra.Gear Weight Subtotal Right", "Extra.Gear Weight Subtotal Left"]);
-	for (var i = 1; i <= 6; i++) cFlds.push("Extra.Gear Location.Subtotal "+i);
+	for (var i = 1; i <= 6; i++) cFlds.push("Extra.Gear Location.Subtotal " + i);
 	// weight carried
 	cFlds.push("Weight Carried");
 	// unrelated fields
@@ -8991,54 +8990,54 @@ function setCalcOrder() {
 	for (var t = 0; t < tpls.length; t++) {
 		var tpl = tpls[t];
 		// companion ability modifiers
-		for (var i = 0; i < (abis.length - 1); i++) cFlds.push(tpl+"Comp.Use.Ability."+abis[i]+".Mod");
+		for (var i = 0; i < (abis.length - 1); i++) cFlds.push(tpl + "Comp.Use.Ability." + abis[i] + ".Mod");
 		// companion saving throws
-		for (var i = 0; i < (abis.length - 1); i++) cFlds.push(tpl+"Comp.Use.Ability."+abis[i]+".ST.Mod");
+		for (var i = 0; i < (abis.length - 1); i++) cFlds.push(tpl + "Comp.Use.Ability." + abis[i] + ".ST.Mod");
 		// companion skills
-		for (var i = 0; i < skills.length; i++) cFlds.push(tpl+"Comp.Use.Skills."+skills[i]+".Mod");
-		cFlds.push(tpl+"Comp.Use.Skills.Perc.Pass.Mod");
+		for (var i = 0; i < skills.length; i++) cFlds.push(tpl + "Comp.Use.Skills." + skills[i] + ".Mod");
+		cFlds.push(tpl + "Comp.Use.Skills.Perc.Pass.Mod");
 		// companion HP
-		cFlds.push(tpl+"Comp.Use.HP.Max");
+		cFlds.push(tpl + "Comp.Use.HP.Max");
 		// companion initiative
-		if (!typePF) cFlds = cFlds.concat([tpl+"Comp.Use.Combat.Init.Dex", tpl+"Comp.Use.Combat.Init.Bonus"]);
-		cFlds.push(tpl+"Comp.Use.Combat.Init.Mod");
+		if (!typePF) cFlds = cFlds.concat([tpl + "Comp.Use.Combat.Init.Dex", tpl + "Comp.Use.Combat.Init.Bonus"]);
+		cFlds.push(tpl + "Comp.Use.Combat.Init.Mod");
 		// AC
-		cFlds.push(tpl+"Comp.Use.AC");
+		cFlds.push(tpl + "Comp.Use.AC");
 		// companion HD
-		if (!typePF) cFlds.push(tpl+"Comp.Use.HD.Con");
+		if (!typePF) cFlds.push(tpl + "Comp.Use.HD.Con");
 		// companion equipment
 		if (typePF) {
-			cFlds.push(tpl+"Comp.eqp.Gear Weight Subtotal");
+			cFlds.push(tpl + "Comp.eqp.Gear Weight Subtotal");
 		} else {
-			cFlds = cFlds.concat([tpl+"Comp.eqp.Gear Weight Subtotal Left", tpl+"Comp.eqp.Gear Weight Subtotal Right"]);
+			cFlds = cFlds.concat([tpl + "Comp.eqp.Gear Weight Subtotal Left", tpl + "Comp.eqp.Gear Weight Subtotal Right"]);
 		}
 		// companion notes
-		cFlds = cFlds.concat([tpl+"Comp.eqp.Notes", tpl+"Comp.eqp.Display.Weighttxt"]);
-		if (!typePF) cFlds.push(tpl+"Comp.img.Notes");
+		cFlds = cFlds.concat([tpl + "Comp.eqp.Notes", tpl + "Comp.eqp.Display.Weighttxt"]);
+		if (!typePF) cFlds.push(tpl + "Comp.img.Notes");
 		// companion attacks
-		for (var i = 1; i <= 3; i++) cFlds.push(tpl+"Comp.Use.Attack."+i+".To Hit");
+		for (var i = 1; i <= 3; i++) cFlds.push(tpl + "Comp.Use.Attack." + i + ".To Hit");
 	}
 	// Wild Shape page
 	var tpls = What("Template.extras.WSfront").split(",");
 	for (var t = 0; t < tpls.length; t++) {
 		var tpl = tpls[t];
-		if (tpl) cFlds.push(tpl+"AdvLog.Player Name");
+		if (tpl) cFlds.push(tpl + "AdvLog.Player Name");
 		for (var w = 1; w <= 4; w++) {
-			for (var i = 0; i < (abis.length - 1); i++) cFlds.push(tpl+"Wildshape."+w+".Ability."+abis[i]+".Mod")
+			for (var i = 0; i < (abis.length - 1); i++) cFlds.push(tpl + "Wildshape." + w + ".Ability." + abis[i] + ".Mod")
 		}
 	}
 	// spell sheet pages
 	var tpls = (What("Template.extras.SSfront") + "," + What("Template.extras.SSmore")).replace(/,(,)|,$()/, "$1").split(",");
 	for (var t = 0; t < tpls.length; t++) {
 		var tpl = tpls[t];
-		cFlds.push(tpl+"SpellSheetInformation");
+		cFlds.push(tpl + "SpellSheetInformation");
 		if (typePF) {
-			cFlds.push(tpl+"zAdvLog.PC Name");
+			cFlds.push(tpl + "zAdvLog.PC Name");
 		} else if (tpl) {
-			cFlds.push(tpl+"AdvLog.PC Name");
+			cFlds.push(tpl + "AdvLog.PC Name");
 		}
-		if (!typePF && What("Template.extras.SSfront").indexOf(tpl) !== -1) cFlds.push(tpl+"spellshead.Text.prepare.0");
-		for (var i = 0; i <= 3; i++) cFlds.push(tpl+"spellshead.prepare."+i);
+		if (!typePF && What("Template.extras.SSfront").indexOf(tpl) !== -1) cFlds.push(tpl + "spellshead.Text.prepare.0");
+		for (var i = 0; i <= 3; i++) cFlds.push(tpl + "spellshead.prepare." + i);
 	}
 	// Ability Save DCs (have to come after spell save DCs)
 	cFlds = cFlds.concat(["Spell save DC 1", "Spell save DC 2"]);
@@ -9048,17 +9047,17 @@ function setCalcOrder() {
 	for (var t = 0; t < tpls.length; t++) {
 		var tpl = tpls[t];
 		cFlds = cFlds.concat([
-			tpl+"AdvLog.previous",
-			tpl+"AdvLog.DCI.Text",
-			tpl+"AdvLog.Player Name",
-			tpl+"AdvLog.PC Name",
-			tpl+"AdvLog.Class and Levels",
-			tpl+"AdvLog.sheetNumber" // before the numeric fields for correct working of the SetAdvLogCalcOrder() function
+			tpl + "AdvLog.previous",
+			tpl + "AdvLog.DCI.Text",
+			tpl + "AdvLog.Player Name",
+			tpl + "AdvLog.PC Name",
+			tpl + "AdvLog.Class and Levels",
+			tpl + "AdvLog.sheetNumber", // before the numeric fields for correct working of the SetAdvLogCalcOrder() function
 		]);
 		for (var l = 1; l <= FieldNumbers.logs; l++) {
 			for (var i = 0; i < advT.length; i++) {
-				var aLog = tpl+"AdvLog."+l+advT[i];
-				cFlds = cFlds.concat([aLog+".start", aLog+".total"]);
+				var aLog = tpl + "AdvLog." + l + advT[i];
+				cFlds = cFlds.concat([aLog + ".start", aLog + ".total"]);
 			}
 		}
 	}
@@ -9075,32 +9074,32 @@ function setCalcOrder() {
 };
 
 function BuildFaqMenu() {
-	var hasFaqBuiltin = tDoc.dataObjects.some(function (n) { return n.name === 'FAQ.pdf' });
+	var hasFaqBuiltin = tDoc.dataObjects.some(function (n) { return n.name === "FAQ.pdf" });
 	Menus.faq = [{
-		cName : hasFaqBuiltin ? "Go to the online FAQ (more up to date)" : "FAQ online",
-		cReturn : "faq#online"
+		cName: hasFaqBuiltin ? "Go to the online FAQ (more up to date)" : "FAQ online",
+		cReturn: "faq#online",
 	}].concat(!hasFaqBuiltin ? [] : {
-		cName : "Open the built-in FAQ.pdf",
-		cReturn : "faq#pdf"
+		cName: "Open the built-in FAQ.pdf",
+		cReturn: "faq#pdf",
 	}).concat([{
-		cName : "-"
+		cName: "-",
 	}, {
-		cName : "See the license used for distributing WotC material (SRD)",
-		cReturn : "faq#srd"
+		cName: "See the license used for distributing WotC material (SRD)",
+		cReturn: "faq#srd",
 	}, {
-		cName : "See the license under which this document is distributed",
-		cReturn : "faq#gplv3"
+		cName: "See the license under which this document is distributed",
+		cReturn: "faq#gplv3",
 	}]);
 	Menus.faqextended = Menus.faq.concat({
-		cName : "-"
+		cName: "-",
 	}, {
-		cName : "Get the latest version",
-		cReturn : "contact#latest version"
+		cName: "Get the latest version",
+		cReturn: "contact#latest version",
 	}, {
-		cName : "-"
+		cName: "-",
 	}, {
-		cName : "Contact MPMB",
-		oSubMenu : Menus.contact
+		cName: "Contact MPMB",
+		oSubMenu: Menus.contact,
 	});
 };
 
@@ -9132,7 +9131,7 @@ function getFAQ(input, delay) {
 			break;
 		case "pdf" :
 			if (delay) return true;
-			tDoc.exportDataObject({ cName: 'FAQ.pdf', nLaunch: 2 });
+			tDoc.exportDataObject({ cName: "FAQ.pdf", nLaunch: 2 });
 			break;
 		case "srd" :
 			ShowDialog("System Reference Document 5.2.1 Attribution Statement", licenseSRD);
@@ -9147,9 +9146,9 @@ function getFAQ(input, delay) {
 function makeUnicodeMenu() {
 	var isEnabled = What("UseUnicode") != "";
 	Menus.unicode = {
-		cName : "Use Unicode " + (isEnabled ? "(disable if you can't read this: \"" + toUni("This") + "\")" : "[disabled]"),
-		cReturn : "unicode#unicode#" + (isEnabled ? "" : "true"),
-		bMarked : isEnabled
+		cName: "Use Unicode " + (isEnabled ? "(disable if you can't read this: \"" + toUni("This") + "\")" : "[disabled]"),
+		cReturn: "unicode#unicode#" + (isEnabled ? "" : "true"),
+		bMarked: isEnabled,
 	}
 }
 
@@ -9161,9 +9160,9 @@ function setUnicodeUse(enable, force) {
 		Value("UseUnicode", enable ? "true" : "");
 		if (!force) {
 			app.alert({
-				cMsg : "You have changed the use of unicode characters to: " + (enable ? "ENABLED" : "DISABLED") + "\nUnicode characters are those that are bold, italic, or superscript in tooltips and dialogs. Not all systems handle them well.\n\nNote that there still will be some static tooltips that use unicode and thus might have unreadable characters for you.\n\nYou can already see the result of your change here:\n\"" + toUni("This text is bold and italic if unicode is enabled") + '\".',
-				nIcon : 3,
-				cTitle : "Unicode has been " + (enable ? "ENABLED" : "DISABLED")
+				cMsg: "You have changed the use of unicode characters to: " + (enable ? "ENABLED" : "DISABLED") + '\nUnicode characters are those that are bold, italic, or superscript in tooltips and dialogs. Not all systems handle them well.\n\nNote that there still will be some static tooltips that use unicode and thus might have unreadable characters for you.\n\nYou can already see the result of your change here:\n"' + toUni("This text is bold and italic if unicode is enabled") + '".',
+				nIcon: 3,
+				cTitle: "Unicode has been " + (enable ? "ENABLED" : "DISABLED"),
 			});
 		}
 

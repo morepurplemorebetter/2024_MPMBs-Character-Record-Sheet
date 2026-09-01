@@ -1,6 +1,6 @@
 var Base_SourceList = {
 	// Basic sources
-	"SRD24" : {
+	"SRD24": {
 		name: "System Reference Document v5.2.1",
 		abbreviation: "SRD'24",
 		abbreviationSpellsheet: "SR",
@@ -9,7 +9,7 @@ var Base_SourceList = {
 		date: "2025/04/22", // SRD 5.2 release date
 	},
 	// Sources for custom scripts
-	"HB" : {
+	"HB": {
 		name: "Homebrew",
 		abbreviation: "Homebrew",
 		abbreviationSpellsheet: "HB",

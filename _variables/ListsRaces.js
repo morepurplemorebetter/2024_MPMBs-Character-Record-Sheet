@@ -15,7 +15,7 @@ var Base_RaceList = {
 				recovery: "long rest",
 				usagescalc: "event.value = How('Proficiency Bonus');",
 				additional: cantripDie.map(function (n) {
-					return n + 'd10';
+					return n + "d10";
 				}),
 				weaponOptions: [{
 					regExpSearch: /^(?=.*breath)(?=.*weapon).*$/i,
@@ -34,10 +34,10 @@ var Base_RaceList = {
 				calcChanges: {
 					atkAdd: [
 						function (fields, v) {
-							if (v.theWea.dbBreathWeapon && CurrentRace.known === 'dragonborn' && CurrentRace.dmgres) {
+							if (v.theWea.dbBreathWeapon && CurrentRace.known === "dragonborn" && CurrentRace.dmgres) {
 								fields.Damage_Type = CurrentRace.dmgres[0];
 							};
-						}, '', 1,
+						}, "", 1,
 					],
 				},
 			},
@@ -123,7 +123,7 @@ var Base_RaceList = {
 		size: 4,
 		speed: { walk: { spd: 30, enc: 20 } },
 		vision: [["Darkvision", 60]],
-		savetxt: { text : ["Adv on Int/Wis/Cha saves"] },
+		savetxt: { text: ["Adv on Int/Wis/Cha saves"] },
 		variants: ["forest", "rock"],
 		// form PHB'14:
 		age: " start adult life around age 40 and can live 350 to almost 500 years",
@@ -169,7 +169,7 @@ var Base_RaceList = {
 		source: [["SRD24", 86], ["PHB24", 193]],
 		plural: "Halflings",
 		speed: { walk: { spd: 30, enc: 20 } },
-		savetxt: { adv_vs : ["Frightened"] },
+		savetxt: { adv_vs: ["Frightened"] },
 		trait: [
 			"**Halfling**",
 			"##\u25C6 Brave##. I have Advantage on saving throws to avoid or end being Frightened.",
@@ -212,10 +212,10 @@ var Base_RaceList = {
 		source: [["SRD24", 86], ["PHB24", 195]],
 		plural: "Orcs",
 		size: 3,
-		speed: { walk : { spd : 30, enc : 20 } },
+		speed: { walk: { spd: 30, enc: 20 } },
 		vision: [["Darkvision", 120]],
 		features: {
-			"adrenaline rush" : {
+			"adrenaline rush": {
 				name: "Adrenaline Rush",
 				source: [["SRD24", 86], ["PHB24", 195]],
 				minlevel: 1,
@@ -225,7 +225,7 @@ var Base_RaceList = {
 				additional: ProficiencyBonusList.map(function(n) { return "+" + n + " temp HP"; }),
 				action: [["bonus action", ""]],
 			},
-			"relentless endurance" : {
+			"relentless endurance": {
 				name: "Relentless Endurance",
 				source: [["SRD24", 86], ["PHB24", 195]],
 				minlevel: 1,
@@ -259,7 +259,7 @@ var Base_RaceList = {
 			spells: ["thaumaturgy"],
 			selection: ["thaumaturgy"],
 		}],
-		variants: ['abyssal', 'chthonic', 'infernal'],
+		variants: ["abyssal", "chthonic", "infernal"],
 		// from PHB'14:
 		age: " reach adulthood in their late teens and live around 100 years",
 		height: " are about 3-4 ft (small) or 4-7 ft (medium) tall (4'9\" + 2d8\")",
@@ -528,7 +528,7 @@ var Base_RaceSubList = {
 			},
 		},
 	},
-	'gnome-forest': {
+	"gnome-forest": {
 		regExpSearch: /^(?=.*gnome)(?=.*(wood|forest|wild|green)).*$/i,
 		name: "Forest Gnome",
 		source: [["SRD24", 85], ["PHB24", 191]],
@@ -560,7 +560,7 @@ var Base_RaceSubList = {
 			"##\u25C6 Forest Gnome Lineage##. I know the *Minor Illusion* cantrip. I always have *Speak with Animals* prepared and I can cast it without a spell slot my Proficiency Bonus times per Long Rest. I can also use any spell slots I have to cast the spell as normal. Int, Wis, or Cha is my spellcasting ability for these (choose when selecting the lineage).",
 		].join("\n"),
 	},
-	'gnome-rock': {
+	"gnome-rock": {
 		regExpSearch: /^(?=.*gnome)(?=.*(rock|tinker)).*$/i,
 		name: "Rock Gnome",
 		source: [["SRD24", 85], ["PHB24", 191]],

@@ -30,8 +30,8 @@ var Base_FeatsList = {
 			"***Repeatable***. You can take this feat more than once, but you must choose a different spell list each time.",
 		],
 		allowDuplicates: true,
-		choices: ['Cleric', 'Druid', 'Wizard'],
-		'cleric': {
+		choices: ["Cleric", "Druid", "Wizard"],
+		"cleric": {
 			description: "I learn two cantrips and one 1st-level spell of my choice from the Cleric spell list. I can swap one of these whenever I gain a level. I can cast the 1st-level spell with a spell slot, and once per long rest without expending a spell slot. I choose my spellcasting ability for these when picking this feat: Int, Wis, or Cha.",
 			spellcastingAbility: [4, 5, 6],
 			spellFirstColTitle: "PR",
@@ -47,7 +47,7 @@ var Base_FeatsList = {
 				firstCol: "oncelr+markedbox",
 			}],
 		},
-		'druid': {
+		"druid": {
 			description: "I learn two cantrips and one 1st-level spell of my choice from the Druid spell list. I can swap one of these whenever I gain a level. I can cast the 1st-level spell with a spell slot, and once per long rest without expending a spell slot. I choose my spellcasting ability for these when picking this feat: Int, Wis, or Cha.",
 			spellcastingAbility: [4, 5, 6],
 			spellFirstColTitle: "PR",
@@ -63,7 +63,7 @@ var Base_FeatsList = {
 				firstCol: "oncelr+markedbox",
 			}],
 		},
-		'wizard': {
+		"wizard": {
 			description: "I learn two cantrips and one 1st-level spell of my choice from the Wizard spell list. I can swap one of these whenever I gain a level. I can cast the 1st-level spell with a spell slot, and once per long rest without expending a spell slot. I choose my spellcasting ability for these when picking this feat: Int, Wis, or Cha.",
 			spellcastingAbility: [4, 5, 6],
 			spellFirstColTitle: "PR",
@@ -97,7 +97,7 @@ var Base_FeatsList = {
 			"You gain proficiency in any combination of three skills or tools of your choice.",
 			"***Repeatable***. You can take this feat more than once.",
 		],
-		allowDuplicates : true,
+		allowDuplicates: true,
 	},
 	// General feats
 	"grappler": {
@@ -120,10 +120,10 @@ var Base_FeatsList = {
 			atkAdd: [
 				function(fields, v) {
 					if (v.baseWeaponName == "unarmed strike" ) {
-						fields.Description += (fields.Description ? '; ' : '') + '1/turn also Grapple; Adv vs Grappled';
+						fields.Description += (fields.Description ? "; " : "") + "1/turn also Grapple; Adv vs Grappled";
 					};
 				},
-				'I have Advantage on attack rolls against a creature Grappled by me. Once per turn I can use both the Damage and Grapple option when I make an Unarmed Strike as part of the Attack action on my turn.',
+				"I have Advantage on attack rolls against a creature Grappled by me. Once per turn I can use both the Damage and Grapple option when I make an Unarmed Strike as part of the Attack action on my turn.",
 			],
 		},
 		choices: ["Strength", "Dexterity"],
@@ -177,7 +177,7 @@ var Base_FeatsList = {
 			atkAdd: [
 				function (fields, v) {
 					if (v.isMeleeWeapon && /\bversatile\b|((^|[^+-]\b)2|\btwo).?hand(ed)?s?\b/i.test(fields.Description)) {
-						fields.Description += (fields.Description ? '; ' : '') + '1 or 2 on damage die are 3' + (/versatile/i.test(fields.Description) ? ' when two-handed' : '');
+						fields.Description += (fields.Description ? "; " : "") + "1 or 2 on damage die are 3" + (/versatile/i.test(fields.Description) ? " when two-handed" : "");
 					};
 				},
 				"While wielding a two-handed or versatile melee weapon in two hands, I can treat any roll of 1 or 2 on damage dice as a 3.",
