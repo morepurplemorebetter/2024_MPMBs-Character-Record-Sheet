@@ -2677,19 +2677,19 @@ var Base_ClassList = {
 				extrachoices: [
 					// no prerequisites
 					"Armor of Shadows",
-"Eldritch Mind", 
+					"Eldritch Mind", 
 					// level 2+
 					"Devil's Sight",
-"Fiendish Vigor",
-"Mask of Many Faces",
-"Misty Visions",
-"Otherworldly Leap", 
+					"Fiendish Vigor",
+					"Mask of Many Faces",
+					"Misty Visions",
+					"Otherworldly Leap", 
 					// level 5+
 					"Ascendant Step",
-"Gaze of Two Minds",
-"Gift of the Depths",
-"Master of Myriad Forms",
-"One with Shadows", 
+					"Gaze of Two Minds",
+					"Gift of the Depths",
+					"Master of Myriad Forms",
+					"One with Shadows", 
 					// level 7+
 					"Whispers of the Grave",
 					// level 9+
@@ -2698,16 +2698,16 @@ var Base_ClassList = {
 					"Witch Sight",
 					// Pact of the Blade tree
 					"Pact of the Blade",
-"Devouring Blade (req: lvl 12+, Thirsting Blade)",
-"Eldritch Smite (req: lvl 5+, Pact of the Blade)",
-"Lifedrinker (req: lvl 12+, Pact of the Blade)",
-"Thirsting Blade (req: lvl 5+, Pact of the Blade)",
+					"Devouring Blade (req: lvl 12+, Thirsting Blade)",
+					"Eldritch Smite (req: lvl 5+, Pact of the Blade)",
+					"Lifedrinker (req: lvl 12+, Pact of the Blade)",
+					"Thirsting Blade (req: lvl 5+, Pact of the Blade)",
 					// Pact of the Chain tree
 					"Pact of the Chain",
-"Investment of the Chain Master (req: lvl 5+, Pact of the Chain)",
+					"Investment of the Chain Master (req: lvl 5+, Pact of the Chain)",
 					// Pact of the Tome tree
 					"Pact of the Tome",
-"Gift of the Protectors (req: lvl 9+, Pact of the Tome)",
+					"Gift of the Protectors (req: lvl 9+, Pact of the Tome)",
 				],
 				extraTimes: levels.map(function (n) {
 					return n < 2 ? 1 : n < 5 ? 3 : n < 7 ? 5 : n < 9 ? 6 : n < 12 ? 7 : n < 15 ? 8 : n < 18 ? 9 : 10;
@@ -3741,32 +3741,32 @@ var Base_ClassSubList = {
 					spellcastingExtra: [
 						// arid
 						"fire bolt",
-"burning hands",
-"blur",
-"fireball",
-"blight",
-"wall of stone",
+						"burning hands",
+						"blur",
+						"fireball",
+						"blight",
+						"wall of stone",
 						// polar
 						"ray of frost",
-"fog cloud",
-"hold person",
-"sleet storm",
-"ice storm",
-"cone of cold",
+						"fog cloud",
+						"hold person",
+						"sleet storm",
+						"ice storm",
+						"cone of cold",
 						// temperate
 						"shocking grasp",
-"sleep",
-"misty step",
-"lightning bolt",
-"freedom of movement",
-"tree stride",
+						"sleep",
+						"misty step",
+						"lightning bolt",
+						"freedom of movement",
+						"tree stride",
 						// tropical
 						"acid splash",
-"ray of sickness",
-"web",
-"stinking cloud",
-"polymorph",
-"insect plague",
+						"ray of sickness",
+						"web",
+						"stinking cloud",
+						"polymorph",
+						"insect plague",
 					],
 					calcChanges: {
 						spellAdd: [
