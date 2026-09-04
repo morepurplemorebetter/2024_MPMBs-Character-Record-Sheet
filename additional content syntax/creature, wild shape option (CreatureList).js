@@ -505,18 +505,31 @@ CreatureList["purple crawler"] = {
 	USE:	add text to the Senses section on the Companion page
 	CHANGE:	v14.0.5 (made optional)
 
-	Even though most creature stat blocks list Passive Perception under senses, do not include
-	it in this attribute. Passive Perception will be calculated automatically from the
-	Perception bonus.
-	If Passive Perception is different than 10 + Perception bonus, you can use the `addMod`
-	attribute to add the bonus to the modifier field.
+	Even though most creature stat blocks list Passive Perception under senses, do not
+	include it in this attribute. Passive Perception will be calculated automatically
+	from the Perception bonus.
+	If Passive Perception is different than 10 + Perception bonus, you can use the
+	`passivePerception` attribute below.
 
-	This text are also displayed on the wild shape page, but in the singular Traits &
-	Features section, together with all other descriptive `traits`, `features`, and
+	This text is also displayed on the wild shape page, but in the singular "Traits &
+	Features" section, together with all other descriptive `traits`, `features`, and
 	`action` attributes.
-	As the wild shape pages offer limited space, it is recommended to test if all of these
-	and the other attributes together will fit.
+	As the wild shape pages offer limited space, it is recommended to test if all of
+	these and the other attributes together will fit.
 	If they don't fit (well), consider using the `wildshapeString` attribute, see below.
+*/
+	passivePerception: 10,
+/*	passivePerception	// OPTIONAL //
+	TYPE:	number
+	USE:	the Passive Perception value to be used to create 
+	CHANGE:	v14.0.14 (also apples to companion page)
+
+	Prior to v14.0.14, this attribute was only used on the Wild Shape page because of a bug.
+
+	This attribute is used to calculate the bonus to Passive Perception, to see if it
+	differs from 10 + Perception bonus.
+	You really only need to add this attribute if the Passive Perception is different than
+	10 + Perception bonus, but there is no harm in adding it anyway.
 */
 	attacksAction: 2,
 /*	attacksAction // REQUIRED //
@@ -666,7 +679,7 @@ CreatureList["purple crawler"] = {
 		formatSpellDescription: function(str) {
 			return str.replace(
 				"an animal form I choose: Bat, Cat, Frog, Hawk, Lizard, Octopus, Owl, Rat, Raven, Spider, Weasel, or another Beast that has a Challenge Rating of 0.",
-				"the form of a CR 0 Beast of my choice.",
+				"the form of a CR 0 Beast of my choice."
 			);
 		},
 	}],
