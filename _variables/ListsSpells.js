@@ -2296,7 +2296,7 @@ var Base_SpellsList = {
 			"***Sculpt Element***. You cause dirt, sand, fire, smoke, mist, or water that can fit in a 1-foot Cube to assume a crude shape (such as that of a creature) for 1 hour.",
 		],
 	},
-/* Elementalist with 2 extra explanatory lines, probably too verbose
+	/* Elementalist with 2 extra explanatory lines, probably too verbose
 	"elementalism": {
 		name: "Elementalism",
 		classes: ["druid", "sorcerer", "wizard"],

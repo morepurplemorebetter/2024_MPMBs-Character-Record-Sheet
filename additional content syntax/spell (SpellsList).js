@@ -98,14 +98,14 @@ SpellsList["sindering purple"] = {
 	Note the use of only lower case! Also note the absence of the word "var" and the use of brackets [].
 */
 	name: "Sindering Purple",
-/*	name // REQUIRED //
+	/*	name // REQUIRED //
 	TYPE:	string
 	USE:	name of the spell as it will be used by the sheet
 
 	This name will be used to recognize what is entered in a spell name field if the 'regExpSearch' attribute is not present.
 */
 	nameAlt: "Sindering Colour",
-/*	nameAlt // OPTIONAL //
+	/*	nameAlt // OPTIONAL //
 	TYPE:	string
 	USE:	alternative setting-independent name with which the sheet can recognize the spell
 
@@ -117,7 +117,7 @@ SpellsList["sindering purple"] = {
 	This name will also be used to recognize what is typed into the spell name field if the 'regExpSearch' attribute is not present.
 */
 	nameShort: "Sind. Purple",
-/*	nameShort // OPTIONAL //
+	/*	nameShort // OPTIONAL //
 	TYPE:	string
 	USE:	name of the spell that fits in the spell name field
 
@@ -127,7 +127,7 @@ SpellsList["sindering purple"] = {
 	This name will also be used to recognize what is typed into the spell name field if the 'regExpSearch' attribute is not present.
 */
 	regExpSearch: /^(?=.*sind(\.|ering))(?=.*(colou?r|purple)).*$/i,
-/*	regExpSearch // OPTIONAL //
+	/*	regExpSearch // OPTIONAL //
 	TYPE:	regular expression
 	USE:	used to match the text in the spell field to see if this spell is present
 
@@ -142,7 +142,7 @@ SpellsList["sindering purple"] = {
 */
 	source: ["SRD", 204],
 	source: [["E", 7], ["S", 115]],
-/*	source // REQUIRED //
+	/*	source // REQUIRED //
 	TYPE:	array with two entries (or array of these arrays)
 	USE:	define where the spell is found
 
@@ -166,7 +166,7 @@ SpellsList["sindering purple"] = {
 	"HB" refers to the 'homebrew' source.
 */
 	defaultExcluded: true,
-/*	defaultExcluded // OPTIONAL //
+	/*	defaultExcluded // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether this spell should be excluded by default (true) or included by default (false)
 
@@ -180,7 +180,7 @@ SpellsList["sindering purple"] = {
 	Setting this attribute to false is the same as not including this attribute.
 */
 	classes: ["druid", "ranger", "sorcerer", "wizard"],
-/*	classes // OPTIONAL, but almost always NECESSARY //
+	/*	classes // OPTIONAL, but almost always NECESSARY //
 	TYPE:	array (variable length)
 	USE:	define for which classes this spell appears on their spell list
 
@@ -201,7 +201,7 @@ SpellsList["sindering purple"] = {
 	If you omit this attribute, the spell will only be selectable through the 'dependencies' attribute, see below.
 */
 	level: 5,
-/*	level // REQUIRED //
+	/*	level // REQUIRED //
 	TYPE:	number (0-9)
 	USE:	define what the level of the spell is
 
@@ -209,7 +209,7 @@ SpellsList["sindering purple"] = {
 	Use level 1 for a psionic discipline.
 */
 	school: "Necro",
-/*	school // OPTIONAL //
+	/*	school // OPTIONAL //
 	TYPE:	string
 	USE:	the school the spell belongs to
 
@@ -239,7 +239,7 @@ SpellsList["sindering purple"] = {
 	Be aware that the object name can use capitalization but the entered sting can't.
 */
 	time: "1 min",
-/*	time // REQUIRED //
+	/*	time // REQUIRED //
 	TYPE:	string
 	USE:	the casting time of the spell as it should appear on the sheet
 	CHANGE: v24.0.0 (update recommended abbreviations to be more in line with PHB'24)
@@ -268,7 +268,7 @@ SpellsList["sindering purple"] = {
 
 */
 	timeFull: "Reaction, which you take when you see a creature within 60 feet of you casting a spell",
-/*	timeFull // OPTIONAL //
+	/*	timeFull // OPTIONAL //
 	TYPE:	string
 	USE:	the casting time of the spell as should appear in the spell's full description
 	ADDED:	v13.1.0
@@ -284,7 +284,7 @@ SpellsList["sindering purple"] = {
 	of 1 reaction, as those have extra explanatory text.
 */
 	range: "60 ft",
-/*	range // REQUIRED //
+	/*	range // REQUIRED //
 	TYPE:	string
 	USE:	the range of the spell
 
@@ -304,7 +304,7 @@ SpellsList["sindering purple"] = {
 	And, "Self (15-ft cone)" is written as "S:15-ft cone".
 */
 	rangeMetric: "S:8-km rad",
-/*	range // REQUIRED //
+	/*	range // REQUIRED //
 	TYPE:	string
 	USE:	the range of the spell when using the metric system
 	ADDED:	v13.0.6
@@ -321,7 +321,7 @@ SpellsList["sindering purple"] = {
 	all other things can be converted by the sheet on the fly.
 */
 	components: "V,S,M",
-/*	components // OPTIONAL //
+	/*	components // OPTIONAL //
 	TYPE:	string
 	USE:	the components required to cast the spell
 
@@ -335,14 +335,14 @@ SpellsList["sindering purple"] = {
 	Please never use spaces, just commas.
 */
 	compMaterial: "A purple gem",
-/*	compMaterial // OPTIONAL //
+	/*	compMaterial // OPTIONAL //
 	TYPE:	string
 	USE:	an explanation of the material component required to cast the spell
 
 	This attribute is only used in tooltips and pop-ups, so there are no length constraints.
 */
 	duration: "Instantaneous",
-/*	duration // REQUIRED //
+	/*	duration // REQUIRED //
 	TYPE:	string
 	USE:	the duration of the spell
 
@@ -360,7 +360,7 @@ SpellsList["sindering purple"] = {
 	Thus, "Concentration, up to 10 minutes" is abbreviated to "Conc, 10 min".
 */
 	save: "Int",
-/*	save // OPTIONAL //
+	/*	save // OPTIONAL //
 	TYPE:	string
 	USE:	the ability score that the spell's saving throw uses
 
@@ -373,7 +373,7 @@ SpellsList["sindering purple"] = {
 	If the spell doesn't require a saving throw, don't include this attribute.
 */
 	description: "20-ft rad all crea 5d6+1d6/SL Psychic dmg; save half; all flames in area are purple for the duration",
-/*	description // REQUIRED //
+	/*	description // REQUIRED //
 	TYPE:	string
 	USE:	the text to be filled in the description field of the spell
 
@@ -390,7 +390,7 @@ SpellsList["sindering purple"] = {
 		  (e.g. Fire or Lightning).
 		- You can write "damage" instead of "dmg".
 		- "+CdZ/SL" represents the bonus damage die per spell slot level above the spell's level. For example,
-		  this is written as "8d6+1d6/SL fire dmg" for Fireball, which adds 1d6 to the damage for each spell 
+		  this is written as "8d6+1d6/SL fire dmg" for Fireball, which adds 1d6 to the damage for each spell
 		  slot used above 3rd-level (the level of the spell).
 		- The damage die don't necessarily have to include a bonus per spell slot level above current level,
 		  nor be a die at all, static damage also works. E.g. "2d8 Thunder dmg" and "5 Cold dmg" are valid.
@@ -407,12 +407,12 @@ SpellsList["sindering purple"] = {
 		Necrotic       Necro.
 		Piercing       Pierc.
 		Slashing       Slash.
-	
+
 	If the damage (or only some of the damage) in the description doesn't match this syntax,
 	you can use the `dynamicDamageBonus` object (see below) to tell the script how to find the damage string.
 */
 	descriptionCantripDie: "1 creature save or `CD`d12 Poison dmg",
-/*	descriptionCantripDie // OPTIONAL //
+	/*	descriptionCantripDie // OPTIONAL //
 	TYPE:	string
 	USE:	the text to be filled in the description field of a cantrip,
 			but showing the damage for the current character level
@@ -426,7 +426,7 @@ SpellsList["sindering purple"] = {
 	For example, `CD-1` will produce the cantrip die minus 1, so 0 at level 2, 1 at level 5, 4 at level 15, etc.
 */
 	descriptionMetric: "6-m rad all crea 5d6+1d6/SL Psychic dmg; save half; all flames in area are purple for the duration",
-/*	descriptionMetric // OPTIONAL //
+	/*	descriptionMetric // OPTIONAL //
 	TYPE:	string
 	USE:	the text to be filled in the description field of the spell when the sheet is set to use the metric system
 
@@ -460,7 +460,7 @@ SpellsList["sindering purple"] = {
 		],
 		">>Header Paragraph<<. This paragraph will be preceded by a line break and three spaces. The text 'Header Paragraph' will be rendered with unicode as being bold and italic.",
 	],
-/*	descriptionFull // OPTIONAL //
+	/*	descriptionFull // OPTIONAL //
 	TYPE:	array or string
 	USE:	description of the spell as it appears in its source
 	CHANGE: v14.0.0 (array option & formatting characters)
@@ -517,7 +517,7 @@ SpellsList["sindering purple"] = {
 	`useDescriptionFull: true`, for example.
 */
 	reqLoS: true,
-/*	reqLoS // OPTIONAL //
+	/*	reqLoS // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether this spell requires line of sight to the target or not
 	ADDED:	v24.0.0
@@ -528,7 +528,7 @@ SpellsList["sindering purple"] = {
 	Setting this attribute to false is the same as not including this attribute.
 */
 	ritual: true,
-/*	ritual // OPTIONAL //
+	/*	ritual // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether this spell can be cast as a ritual
 	CHANGE: v14.0.1 (now adds registered trademark symbol instead of "(R)")
@@ -539,14 +539,14 @@ SpellsList["sindering purple"] = {
 	Setting this attribute to false is the same as not including this attribute.
 */
 	psionic: true,
-/*	psionic // OPTIONAL //
+	/*	psionic // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether this spell is a psionic talent/discipline
 
 	Setting this attribute to false is the same as not including this attribute.
 */
 	firstCol: "6",
-/*	firstCol // OPTIONAL //
+	/*	firstCol // OPTIONAL //
 	TYPE:	string
 	USE:	force the first column of the spell line to be set to this
 	CHANGE:	v14.0.1 (onceXr+markedbox options)
@@ -572,7 +572,7 @@ SpellsList["sindering purple"] = {
 	Setting this attribute to an empty string ("") is the same as not including this attribute.
 */
 	dependencies: ["te1-tremorsense", "te2-unwavering eye", "te3-piercing sight", "te4-truesight"],
-/*	dependencies // OPTIONAL //
+	/*	dependencies // OPTIONAL //
 	TYPE:	array (variable length)
 	USE:	define spells that always will be added to the spell list after this spell
 
@@ -588,7 +588,7 @@ SpellsList["sindering purple"] = {
 	Setting this attribute to an empty array ([]) is the same as not including this attribute, but doing so will slow the sheet down considerably.
 */
 	allowUpCasting: false,
-/*	allowUpCasting // OPTIONAL //
+	/*	allowUpCasting // OPTIONAL //
 	TYPE:	boolean
 	USE:	limit spell to only be cast at their lowest level
 	ADDED:	v13.0.7
@@ -609,10 +609,10 @@ SpellsList["sindering purple"] = {
 */
 
 
-// >>>>>>>>>>>>>>>>>>>>>>>>>>> //
-// >>> genericSpellDmgEdit >>> //
-// >>>>>>>>>>>>>>>>>>>>>>>>>>> //
-/*
+	// >>>>>>>>>>>>>>>>>>>>>>>>>>> //
+	// >>> genericSpellDmgEdit >>> //
+	// >>>>>>>>>>>>>>>>>>>>>>>>>>> //
+	/*
 	These attributes are used by the `genericSpellDmgEdit` function, which is used by the common attribute
 	calcChanges.spellAdd to add a dynamic modifier to the damage of a spell.
 	For example, a class feature could let the character add their Intelligence modifier to a spell's damage.
@@ -629,7 +629,7 @@ SpellsList["sindering purple"] = {
 */
 
 	descriptionShorter: "20-ft rad all crea 5d6+1d6/SL Psychic dmg; save half; flames in area are purple",
-/*	descriptionShorter // OPTIONAL //
+	/*	descriptionShorter // OPTIONAL //
 	TYPE:	string
 	USE:	shorter version of the description of the spell to be filled in the description field
 	ADDED:	v13.0.7
@@ -689,7 +689,7 @@ SpellsList["sindering purple"] = {
 	is checked (see 'descriptionCantripDie' explanation above).
 */
 	descriptionShorterMetric: "6-m rad all crea 5d6+1d6/SL Psychic dmg; save half; flames in area are purple",
-/*	descriptionShorterMetric // OPTIONAL //
+	/*	descriptionShorterMetric // OPTIONAL //
 	TYPE:	string
 	USE:	shorter version of the description of the spell to be filled in the description field when the sheet is set to use the metric system
 	ADDED:	v13.0.7
@@ -712,7 +712,7 @@ SpellsList["sindering purple"] = {
 	regardless of the unit system being set to metric.
 */
 	dynamicDamageBonus: {
-/*	dynamicDamageBonus // OPTIONAL //
+		/*	dynamicDamageBonus // OPTIONAL //
 	TYPE:	object (optional attributes)
 	USE:	instructions for the `genericSpellDmgEdit` function
 	ADDED:	v13.0.7
@@ -721,10 +721,10 @@ SpellsList["sindering purple"] = {
 	This object can have several pre-defined attributes, which are explained below.
 */
 		doNotProcess: true,
-	/*	doNotProcess // OPTIONAL //
+		/*	doNotProcess // OPTIONAL //
 		TYPE:	boolean
 		USE:	tell the `genericSpellDmgEdit` function not to process this spell
-	
+
 		If the description of the spell as it will be displayed on the sheet includes damage,
 		the `genericSpellDmgEdit` function can dynamically edit it by adding a modifier under certain
 		conditions set by a feature.
@@ -736,7 +736,7 @@ SpellsList["sindering purple"] = {
 		Setting this attribute to false is the same as not including it.
 	*/
 		multipleDmgMoments: true,
-	/*	multipleDmgMoments // OPTIONAL //
+		/*	multipleDmgMoments // OPTIONAL //
 		TYPE:	boolean
 		USE:	force the `genericSpellDmgEdit` function to treat this spell as a single damage instance (false) or as one with multiple damage instances (true)
 
@@ -753,16 +753,16 @@ SpellsList["sindering purple"] = {
 		For example, a spell with a duration of "concentration, up to 1 minute" that can be ended to deal
 		damage, will be recognized as a spell that has multiple damage instances because of its duration.
 		For this spell, you should set this attribute to false.
-	
+
 		If a spell has a duration of "instantaneous" but has you make multiple attack rolls for different
 		targets, that spell doesn't have a single damage roll.
 		For this spell, you should set this attribute to true.
 	*/
 		allDmgTypesSingleMoment: true,
-	/*	allDmgTypesSingleMoment // OPTIONAL //
+		/*	allDmgTypesSingleMoment // OPTIONAL //
 		TYPE:	boolean
 		USE:	force the `genericSpellDmgEdit` function to treat multiple damage listings as a single damage instance
-	
+
 		See the explanation for `descriptionShorter` above for how the `genericSpellDmgEdit` function
 		normally determines whether the spell has a single or multiple damage instances.
 		Only use this attribute if the `genericSpellDmgEdit` function yields the wrong outcome.
@@ -778,7 +778,7 @@ SpellsList["sindering purple"] = {
 		Setting this attribute to false is the same as not including it.
 	*/
 		extraDmgGroupsSameType: /((?:\+?\d+d?\d*)+)( crit)/i,
-	/*	allDmgTypesSingleMoment // OPTIONAL //
+		/*	allDmgTypesSingleMoment // OPTIONAL //
 		TYPE:	regular expression
 		USE:	regex to match other damage instances in the description of the same damage type that doesn't adhere to the normal syntax
 
@@ -808,7 +808,7 @@ SpellsList["sindering purple"] = {
 			dmgTypes: ["acid", "cold", "fire", "lightning", "thunder"],
 			inDescriptionAs: "Acid, Cold, Fire, Lightning, or Thunder|Acid/Cold/Fire/Lightning/Thunder",
 		},
-	/*	multipleDmgTypes // OPTIONAL //
+		/*	multipleDmgTypes // OPTIONAL //
 		TYPE:	object (with exactly two attributes)
 		USE:	the damage type of the spell can be two or more different types and/or doesn't adhere to the normal syntax in the description
 

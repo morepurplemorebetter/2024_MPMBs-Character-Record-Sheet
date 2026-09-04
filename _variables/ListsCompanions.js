@@ -4,7 +4,7 @@ var Base_CompanionList = {
 		nameTooltip: "the Find Familiar spell",
 		nameMenu: "Familiar (Find Familiar spell)", // required
 		source: [["SRD24", 130], ["PHB24", 272]], // required
-		includeCheck: function(sCrea, objCrea, iCreaCR, bIsAL) {
+		includeCheck: function (sCrea, objCrea, iCreaCR, bIsAL) {
 			return objCrea.type.toLowerCase() === "beast" && iCreaCR === 0;
 		},
 		action: [
@@ -25,7 +25,7 @@ var Base_CompanionList = {
 				useSpellDescription: "find familiar",
 			}],
 		},
-		attributesChange: function(sCrea, objCrea) {
+		attributesChange: function (sCrea, objCrea) {
 			// can't do any attacks
 			objCrea.attacks = [];
 			if (objCrea.type.toLowerCase() === "beast") {
@@ -42,7 +42,7 @@ var Base_CompanionList = {
 		nameOrigin: "variant of the Find Familiar 1st-level conjuration [ritual] spell",
 		nameMenu: "Pact of the Chain familiar (Warlock's Eldritch Invocation)",
 		source: [["SRD24", 74], ["PHB24", 157]],
-		includeCheck: function(sCrea, objCrea, iCreaCR, bIsAL) {
+		includeCheck: function (sCrea, objCrea, iCreaCR, bIsAL) {
 			if (objCrea.companion) {
 				if (objCrea.companion.indexOf("familiar") !== -1) return true;
 				if (bIsAL && objCrea.companion.indexOf("familiar_not_al") !== -1) return " (if DM approves)";
@@ -63,7 +63,7 @@ var Base_CompanionList = {
 				name: "Pact of the Chain: Find Familiar",
 				source: [["SRD24", 74], ["PHB24", 157]],
 				useSpellDescription: "find familiar",
-				formatSpellDescription: function(str) {
+				formatSpellDescription: function (str) {
 					str = str.replace(
 						"an animal form I choose: Bat, Cat, Frog, Hawk, Lizard, Octopus, Owl, Rat, Raven, Spider, Weasel, or another Beast that has a Challenge Rating of 0.",
 						"the form of a CR 0 Beast, Imp, Pseudodragon, Quasit, Skeleton, Slaad Tadpole, Sphinx of Wonder, Sprite, or Venomous Snake."
@@ -81,7 +81,7 @@ var Base_CompanionList = {
 				},
 			}],
 		},
-		attributesChange: function(sCrea, objCrea) {
+		attributesChange: function (sCrea, objCrea) {
 			if (objCrea.type.toLowerCase() === "beast") {
 				objCrea.type = ["Celestial", "Fey", "Fiend"];
 				objCrea.subtype = "";

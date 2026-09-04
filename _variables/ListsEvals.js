@@ -3,7 +3,7 @@ var Base_DefaultEvalsList = {
 		atkAdd: [
 			function (fields, v) {
 				if (v.WeaponName === "shillelagh-club" || v.WeaponName === "shillelagh-quarterstaff") {
-					fields.Damage_Die = function(n){ return n < 5 ? "1d8" : n < 11 ? "1d10" : n < 17 ? "1d12" : "2d6"}(classes.totallevel);
+					fields.Damage_Die = function (n){ return n < 5 ? "1d8" : n < 11 ? "1d10" : n < 17 ? "1d12" : "2d6"}(classes.totallevel);
 				};
 			},
 			"", // no description means it doesn't appear in the dialog/menu listing changes

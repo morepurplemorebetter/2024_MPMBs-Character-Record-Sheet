@@ -13,8 +13,8 @@ var Base_FeatsList = {
 		description: "I can add my Proficiency Bonus to my Initiative rolls. Immediately after I roll Initiative, I can swap Initiative with one willing ally as long as neither of us has the Incapacitated condition.",
 		descriptionFull: [
 			"You gain the following benefits.",
-		 	"***Initiative Proficiency***. When you roll Initiative, you can add your Proficiency Bonus to the roll.",
-		 	"***Initiative Swap***. Immediately after you roll Initiative, you can swap your Initiative with the Initiative of one willing ally in the same combat. You can't make this swap if you or the ally has the Incapacitated condition.",
+			"***Initiative Proficiency***. When you roll Initiative, you can add your Proficiency Bonus to the roll.",
+			"***Initiative Swap***. Immediately after you roll Initiative, you can swap your Initiative with the Initiative of one willing ally in the same combat. You can't make this swap if you or the ally has the Incapacitated condition.",
 		],
 	},
 	"magic initiate": {
@@ -118,7 +118,7 @@ var Base_FeatsList = {
 		],
 		calcChanges: {
 			atkAdd: [
-				function(fields, v) {
+				function (fields, v) {
 					if (v.baseWeaponName == "unarmed strike" ) {
 						fields.Description += (fields.Description ? "; " : "") + "1/turn also Grapple; Adv vs Grappled";
 					};

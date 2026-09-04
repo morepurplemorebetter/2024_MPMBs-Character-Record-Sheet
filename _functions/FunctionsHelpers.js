@@ -10,7 +10,7 @@
  * @param {string[]} choicesFightingStyles.include only Fighting Style names in this array are added to the choices
  * @param {string} choicesFightingStyles.submenu add this attribute to each choice (i.e. put them all in the submenu by this name)
  * @param {string} choicesFightingStyles.namePrefix add this before the name of the Fighting Style instead of the default "Fighting Style: "
- * 
+ *
  * Note that Fighting Style names are the lowercase version of their `name` attribute, or `sortName` if defined.
  */
 function processChoicesFightingStyles() {
@@ -34,7 +34,7 @@ function processChoicesFightingStyles() {
 		}
 	}
 	// Then go over all class features and see where we need to add this
-	var processFsFeature = function(feaObj) {
+	var processFsFeature = function (feaObj) {
 		// Amend the choices array
 		if (!feaObj.choices) feaObj.choices = [];
 		feaObj.choices = feaObj.choices.concat(fightingStylesChoices);
@@ -90,9 +90,9 @@ function processChoicesWeaponMasteries() {
 	 * With "Cleave" Mastery  -> Halberd (Cleave)   Do this for each mastery
 	 * \xA0Mastery Text Only  -> Cleave             "\xA0" prefix to make it last in the menu
 	 */
-	var reCalcWeaponsOnSelection = function() { ReCalcWeapons(); };
-	var reCalcWeaponsOnDeselection = function() { ReCalcWeapons(false, true); };
-	var createChoiceObject = function(name, oMastery, submenus, weaponKey, addEvals) {
+	var reCalcWeaponsOnSelection = function () { ReCalcWeapons(); };
+	var reCalcWeaponsOnDeselection = function () { ReCalcWeapons(false, true); };
+	var createChoiceObject = function (name, oMastery, submenus, weaponKey, addEvals) {
 		var choiceObj = {
 			name: name,
 			source: oMastery.source,
@@ -132,7 +132,7 @@ function processChoicesWeaponMasteries() {
 		weaponMasteries[oMastery.name.toLowerCase()] = createChoiceObject(oMastery.name, oMastery, "\xA0Mastery Text Only");
 	}
 	// Then go over all class features and see where we need to add this
-	var processWmFeature = function(feaObj) {
+	var processWmFeature = function (feaObj) {
 		// Amend the choices array
 		if (!feaObj.extrachoices) feaObj.extrachoices = [];
 		feaObj.extrachoices = feaObj.extrachoices.concat(weaponMasteryChoices);
@@ -218,7 +218,7 @@ function addAbilityScoreChoicesToFeat(oFeat, abilities, iScoresMaximum, bAddName
  * using getHighestTotal.
  * @param {string} range a string with a number and unit (e.g. "20 ft" or "6 m")
  * @param {function} [stopFunction] a function to stop the addition when returned true
- * 
+ *
  * @returns {object} {number} range in feet, prefix and suffix of that range
  * @returns {undefined} if the input wasn't usable
  */
@@ -247,12 +247,12 @@ function rangeStringToPartsObject(range, stopFunction) {
 
 /** Amends an object created by `rangeStringToPartsObject` with an addition
  *  and processes it using getHighestTotal.
- * 
+ *
  * @param {string|object} range `rangeStringToPartsObject` function output (created if this input is a string)
  * @param {string} srcName name of the addition (or thing to overwrite)
  * @param {string} addition number modifier (e.g. "+60", "*2", "fixed10")
  * @param {function} [stopFunction] a function to stop the addition when returned true
- * 
+ *
  * @returns {object|undefined} new `rangeObject` with the attributes `result` and
  * `resultFT` the output from getHighestTotal, or undefined if the input wasn't usable.
  */
@@ -293,7 +293,7 @@ function dynamicFeatureCreation() {
 	var atkSpellEx = dmgSpellEx;
 	var rngSpellRx = /^(?!.*(S:|rad|touch|self|cone|cube)).*\d+([.,]\d+)?.?(f.{0,2}t|m).*$/i;
 	var range10FtFunc = function (sRange, nRangeFT) { return nRangeFT < 10; };
-	var prereqFunc = function(v) {
+	var prereqFunc = function (v) {
 		var invocationFeature = ClassList.warlock.features["eldritch invocations"];
 		var cantrip = invocationFeature[v.choice].invocationMeta.cantrip;
 		var oSpell = SpellsList[cantrip];
@@ -301,7 +301,7 @@ function dynamicFeatureCreation() {
 		var isWarlockSpell = oSpell.classes.indexOf("warlock") !== -1;
 		return classes.known.warlock.level >= 2 && isSpellUsed(cantrip).find(/warlock/i) !== -1 ? true : isWarlockSpell ? false : "skip";
 	};
-	var evalFunc = function(lvlA, choiceA) {
+	var evalFunc = function (lvlA, choiceA) {
 		var addIt = lvlA[1] ? true : false;
 		var choice = choiceA[addIt ? 1 : 0];
 		var invocationFeature = ClassList.warlock.features["eldritch invocations"];
@@ -365,7 +365,7 @@ function dynamicFeatureCreation() {
 		}
 	}
 	// Warlock invocations that add origin feat
-	var prereqFuncFeat = function(v) {
+	var prereqFuncFeat = function (v) {
 		var invocationFeature = ClassList.warlock.features["eldritch invocations"];
 		var invocationMeta = invocationFeature[v.choice].invocationMeta;
 		var feat = invocationMeta.feat;
@@ -412,11 +412,11 @@ function dynamicFeatureCreation() {
 
 /** For warlock invocations to check which invocations are selected, filtered by
  * the `invocationMeta` attribute.
- * 
+ *
  * @param {string} invocation the `type` attribute of `invocationMeta`
  * @param {object|boolean} [matchObject] object with attributes to match with `invocationMeta`
  * @param {string} [skipInvocation] invocation entry key to ignore
- * 
+ *
  * @returns {boolean|array} `false` if nothing to return, otherwise an array with all
  * invocation keys that match the provided parameters
  */

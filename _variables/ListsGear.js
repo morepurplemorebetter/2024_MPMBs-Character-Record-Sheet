@@ -1415,7 +1415,7 @@ var Base_GearList = {
 		amount: "",
 		weight: "",
 	},
-/* removed in PHB'24, now included with a saddle
+	/* removed in PHB'24, now included with a saddle
 	"bit and bridle": {
 		infoname: "Bit and bridle [2 gp]",
 		name: "Bit and bridle",
@@ -1483,7 +1483,7 @@ var Base_GearList = {
 		amount: "",
 		weight: 10,
 	},
-/* removed in PHB'24
+	/* removed in PHB'24
 	"chalk (1 piece)": {
 		infoname: "Chalk (1 piece) [1 cp]",
 		name: "Chalk, pieces of",
@@ -1503,7 +1503,7 @@ var Base_GearList = {
 		amount: "",
 		weight: 12,
 	},
-/* removed in PHB'24
+	/* removed in PHB'24
 	"common": {
 		infoname: "Common [5 sp]",
 		name: "Common clothes",
@@ -1552,7 +1552,7 @@ var Base_GearList = {
 		weight: "",
 		type: "druidic focus",
 	},
-/* removed in PHB'24
+	/* removed in PHB'24
 	"totem": {
 		infoname: "Totem [1 gp]",
 		name: "Totem druidic focus",
@@ -1575,7 +1575,7 @@ var Base_GearList = {
 		weight: 1,
 		type: "druidic focus",
 	},
-/* removed in PHB'24
+	/* removed in PHB'24
 	"fishing tackle": {
 		infoname: "Fishing tackle [1 gp]",
 		name: "Fishing tackle",
@@ -1595,7 +1595,7 @@ var Base_GearList = {
 		amount: "",
 		weight: 4,
 	},
-/* removed in PHB'24
+	/* removed in PHB'24
 	"hammer": {
 		infoname: "Hammer [1 gp]",
 		name: "Hammer",
@@ -1642,7 +1642,7 @@ var Base_GearList = {
 		amount: "",
 		weight: 1,
 	},
-/* removed in PHB'24
+	/* removed in PHB'24
 	"hourglass": {
 		infoname: "Hourglass [25 gp]",
 		name: "Hourglass",
@@ -1674,7 +1674,7 @@ var Base_GearList = {
 		amount: "",
 		weight: 4,
 	},
-/* removed in PHB'24
+	/* removed in PHB'24
 	"small knife": {
 		infoname: "Small Knife [1 sp]",
 		name: "Small Knife",
@@ -1730,7 +1730,7 @@ var Base_GearList = {
 		amount: "",
 		weight: "",
 	},
-/* removed in PHB'24
+	/* removed in PHB'24
 	"mess kit": {
 		infoname: "Mess kit [2 sp]",
 		name: "Mess kit",
@@ -1768,7 +1768,7 @@ var Base_GearList = {
 		amount: "",
 		weight: "",
 	},
-/* removed in PHB'24
+	/* removed in PHB'24
 	"pick, miner's": {
 		infoname: "Pick, miner's [2 gp]",
 		name: "Miner's pick",
@@ -1836,7 +1836,7 @@ var Base_GearList = {
 		amount: "",
 		weight: 4,
 	},
-/* removed in PHB'24, now just "Rope"
+	/* removed in PHB'24, now just "Rope"
 	"rope, hempen (50 feet)": {
 		infoname: "Rope, hempen (50 feet) [1 gp]",
 		name: "Hempen rope, feet of",
@@ -1876,7 +1876,7 @@ var Base_GearList = {
 		weight: 30,
 		type: "saddle",
 	},
-/* removed in PHB'24
+	/* removed in PHB'24
 	"saddle, pack": {
 		infoname: "Pack [5 gp]",
 		name: "Pack saddle",
@@ -1892,7 +1892,7 @@ var Base_GearList = {
 		weight: 25,
 		type: "saddle",
 	},
-/* removed in PHB'24
+	/* removed in PHB'24
 	"saddlebags": {
 		infoname: "Saddlebags [4 gp]",
 		name: "Saddlebags",
@@ -1924,7 +1924,7 @@ var Base_GearList = {
 		amount: "",
 		weight: "",
 	},
-/* removed in PHB'24
+	/* removed in PHB'24
 	"signet ring": {
 		infoname: "Signet ring [5 gp]",
 		name: "Signet ring",

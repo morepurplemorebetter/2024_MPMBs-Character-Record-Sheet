@@ -585,7 +585,7 @@ var Base_ClassList = {
 					return cantrips + " cantrips \x26 " + spells + " spells known";
 				}),
 			},
-			"expertise": function() {
+			"expertise": function () {
 				var a = {
 					name: "Expertise",
 					source: [["SRD24", 32], ["PHB24", 60]],
@@ -604,7 +604,7 @@ var Base_ClassList = {
 					a[attr] = {
 						name: skill,
 						skills: [[skill, "only"]],
-						prereqeval: function(v) {
+						prereqeval: function (v) {
 							return v.skillProfsLC.indexOf(v.choice) === -1 ? false : v.skillExpertiseLC.indexOf(v.choice) === -1 ? true : "markButDisable";
 						},
 					}
@@ -616,8 +616,8 @@ var Base_ClassList = {
 				source: [["SRD24", 32], ["PHB24", 60]],
 				minlevel: 2,
 				description: desc("I can add half my Proficiency Bonus to any skill check that doesn't otherwise use it."),
-				eval: function() { Checkbox("Jack of All Trades", true); },
-				removeeval: function() { Checkbox("Jack of All Trades", false); },
+				eval: function () { Checkbox("Jack of All Trades", true); },
+				removeeval: function () { Checkbox("Jack of All Trades", false); },
 			},
 			"subclassfeature3": {
 				name: "Bard Subclass",
@@ -645,12 +645,12 @@ var Base_ClassList = {
 				description: desc("Whenever I choose prepared spells for my Bard spellcasting feature, I can pick from the Bard, Cleric, Druid, and Wizard spell lists, and they count as Bard spells for me."),
 				calcChanges: {
 					spellList: [
-						function(spList, spName, spType) {
+						function (spList, spName, spType) {
 							if (spName === "bard" && spType.indexOf("bonus") === -1) return;
-								var MagicalSecrets = CreateSpellList({
-									"class": ["cleric", "druid", "wizard"],
-									level: [1, 9],
-								});
+							var MagicalSecrets = CreateSpellList({
+								"class": ["cleric", "druid", "wizard"],
+								level: [1, 9],
+							});
 							spList.extraspells = spList.extraspells.concat(MagicalSecrets);
 						},
 						"From 10th level Bard onwards, I can pick 1st-level and higher spells from the Bard, Cleric, Druid, and Wizard spell lists whenever I choose new prepared spells or swap out a previously prepared spell.",
@@ -1126,7 +1126,7 @@ var Base_ClassList = {
 							"Once per turn when I hit a creature with an attack roll using a weapon or a Beast form's attack in Wild Shape, I can deal the target extra Cold, Fire, Lightning, or Thunder damage (my choice).",
 						],
 						wildshapeCallback: [
-							function(prefix, fieldNo, oWildshape, sCrea) {
+							function (prefix, fieldNo, oWildshape, sCrea) {
 								if (!classes.known.druid) return;
 								var lvl = classes.known.druid.level < 15 ? 7 : 15;
 								var dice = classes.known.druid.level < 15 ? 1 : 2;
@@ -2021,7 +2021,7 @@ var Base_ClassList = {
 				extraname: "Weapon Mastery",
 				choicesWeaponMasteries: true,
 			},
-			"expertise": function() {
+			"expertise": function () {
 				var a = {
 					name: "Deft Explorer",
 					source: [["SRD24", 59], ["PHB24", 120]],
@@ -2041,7 +2041,7 @@ var Base_ClassList = {
 					a[attr] = {
 						name: skill,
 						skills: [[skill, "only"]],
-						prereqeval: function(v) {
+						prereqeval: function (v) {
 							return v.skillProfsLC.indexOf(v.choice) === -1 ? false : v.skillExpertiseLC.indexOf(v.choice) === -1 ? true : "markButDisable";
 						},
 					}
@@ -2093,8 +2093,8 @@ var Base_ClassList = {
 				description: levels.map(function (n) {
 					return desc(
 						n < 17 ?
-						"As a Magic action, I can gain Temporary " + (typePF ? "Hit Points" : "HP") + " equal to 1d8 + my Wisdom modifier, which I can do my Wis " + (typePF ? "modifier" : "mod") + " times per Long Rest. A Short Rest reduces my Exhaustion level by 1." :
-						"As a Magic action, I gain 1d8 + Wis mod Temp HP. Short Rests reduce my Exhaustion by 1."
+							"As a Magic action, I can gain Temporary " + (typePF ? "Hit Points" : "HP") + " equal to 1d8 + my Wisdom modifier, which I can do my Wis " + (typePF ? "modifier" : "mod") + " times per Long Rest. A Short Rest reduces my Exhaustion level by 1." :
+							"As a Magic action, I gain 1d8 + Wis mod Temp HP. Short Rests reduce my Exhaustion by 1."
 					);
 				}),
 				usages: "Wisdom modifier per ",
@@ -2212,7 +2212,7 @@ var Base_ClassList = {
 		subclasses: ["Rogue Subclass", ["rogue-thief"]],
 		subclassGainedLevel: 3,
 		features: {
-			"expertise": function() {
+			"expertise": function () {
 				var a = {
 					name: "Expertise",
 					source: [["SRD24", 61], ["PHB24", 129]],
@@ -2231,7 +2231,7 @@ var Base_ClassList = {
 					a[attr] = {
 						name: skill,
 						skills: [[skill, "only"]],
-						prereqeval: function(v) {
+						prereqeval: function (v) {
 							return v.skillProfsLC.indexOf(v.choice) === -1 ? false : v.skillExpertiseLC.indexOf(v.choice) === -1 ? true : "markButDisable";
 						},
 					}
@@ -2677,19 +2677,19 @@ var Base_ClassList = {
 				extrachoices: [
 					// no prerequisites
 					"Armor of Shadows",
-					"Eldritch Mind", 
+					"Eldritch Mind",
 					// level 2+
 					"Devil's Sight",
 					"Fiendish Vigor",
 					"Mask of Many Faces",
 					"Misty Visions",
-					"Otherworldly Leap", 
+					"Otherworldly Leap",
 					// level 5+
 					"Ascendant Step",
 					"Gaze of Two Minds",
 					"Gift of the Depths",
 					"Master of Myriad Forms",
-					"One with Shadows", 
+					"One with Shadows",
 					// level 7+
 					"Whispers of the Grave",
 					// level 9+
@@ -2965,7 +2965,7 @@ var Base_ClassList = {
 					source: [["SRD24", 72], ["PHB24", 155]],
 					minlevel: 12,
 					submenu: ["[Warlock level 12+]", "[improves Pact of the Blade]"],
-					prereqeval: function(v) {
+					prereqeval: function (v) {
 						return v.choiceActive.indexOf("thirsting blade (req: lvl 5+, pact of the blade)") !== -1;
 					},
 					description: desc("When I take the Attack action on my turn, I can attack three times with my pact weapon."),
@@ -2976,7 +2976,7 @@ var Base_ClassList = {
 					source: [["SRD24", 72], ["PHB24", 155]],
 					minlevel: 5,
 					submenu: ["[Warlock level  5+]", "[improves Pact of the Blade]"],
-					prereqeval: function(v) { return v.choiceActive.indexOf("pact of the blade") !== -1; },
+					prereqeval: function (v) { return v.choiceActive.indexOf("pact of the blade") !== -1; },
 					description: desc("Once per turn when I hit a creature with my pact weapon, I can expend a Pact Magic spell slot to deal it 1d8+1d8/slot level Force damage and knock it Prone if it is Huge or smaller."),
 					additional: levels.map(function (n) {
 						// No. of d8s = Pact Magic spell slot level + 1
@@ -2989,7 +2989,7 @@ var Base_ClassList = {
 					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 12,
 					submenu: ["[Warlock level 12+]", "[improves Pact of the Blade]"],
-					prereqeval: function(v) { return v.choiceActive.indexOf("pact of the blade") !== -1; },
+					prereqeval: function (v) { return v.choiceActive.indexOf("pact of the blade") !== -1; },
 					description: desc("Once per turn when I hit a creature with my pact weapon, I can deal +1d6 Necrotic, Psychic, or Radiant damage, and I can use one HD to heal myself for its roll plus my " + (typePF ? "Constitution" : "Con") + " modifier."),
 					calcChanges: {
 						atkAdd: [
@@ -3005,7 +3005,7 @@ var Base_ClassList = {
 					source: [["SRD24", 75], ["PHB24", 157]],
 					minlevel: 5,
 					submenu: ["[Warlock level  5+]", "[improves Pact of the Blade]"],
-					prereqeval: function(v) { return v.choiceActive.indexOf("pact of the blade") !== -1; },
+					prereqeval: function (v) { return v.choiceActive.indexOf("pact of the blade") !== -1; },
 					description: desc("When I take the Attack action on my turn, I can attack twice with my pact weapon."),
 					action: [["action", "Pact Weapon (2 attacks per Action)"]],
 				},
@@ -3036,7 +3036,7 @@ var Base_ClassList = {
 					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 5,
 					submenu: ["[Warlock level  5+]", "[improves Pact of the Chain]"],
-					prereqeval: function(v) { return v.choiceActive.indexOf("pact of the chain") !== -1; },
+					prereqeval: function (v) { return v.choiceActive.indexOf("pact of the chain") !== -1; },
 					description: desc([
 						"When I cast Find Familiar, the summoned create has additional benefits.",
 						" \u2022 ***Aerial or Aquatic***. It gains a Fly or Swim speed of 40 ft (my choice at casting).",
@@ -3051,7 +3051,7 @@ var Base_ClassList = {
 					],
 					calcChanges: {
 						companionCallback: [
-							function(prefix, oCrea, bAdd, sCompType) {
+							function (prefix, oCrea, bAdd, sCompType) {
 								if (sCompType !== "pact_of_the_chain") return;
 								// Amend the Traits
 								var isMetric = What("Unit System") === "metric";
@@ -3126,7 +3126,7 @@ var Base_ClassList = {
 					name: "Pact of the Tome",
 					source: [["SRD24", 74], ["PHB24", 157]],
 					description: desc("I have a Book of Shadows with three cantrips and two 1st-level Ritual spells. While the book is on my person, I have them prepared as Warlock spells. I can use the book as a Spellcasting Focus. I can conjure a replacement, and pick new spells, at the end of a Short or Long Rest."),
-					eval: function() {
+					eval: function () {
 						// Create a separate spell list entry for this, so its not confusing which cantrips/spells can be selected for it.
 						CurrentSpells["warlock-book of shadows"] = {
 							name: "Book of Shadows",
@@ -3139,7 +3139,7 @@ var Base_ClassList = {
 						};
 						SetStringifieds("spells"); CurrentUpdates.types.push("spells");
 					},
-					removeeval: function() {
+					removeeval: function () {
 						delete CurrentSpells["warlock-book of shadows"];
 						SetStringifieds("spells"); CurrentUpdates.types.push("spells");
 					},
@@ -3149,7 +3149,7 @@ var Base_ClassList = {
 					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 9,
 					submenu: ["[Warlock level  9+]", "[improves Pact of the Tome]"],
-					prereqeval: function(v) { return v.choiceActive.indexOf("pact of the tome") !== -1; },
+					prereqeval: function (v) { return v.choiceActive.indexOf("pact of the tome") !== -1; },
 					description: desc([
 						"My Book of Shadows has a new page. As an Action, a creature can write their name on it if I permit them. The page can contain my Charisma modifier of names (minimum 1).",
 						"Once per Long Rest when someone listed on the page is reduced to 0 HP but not killed, they drop to 1 HP instead. As a Magic action, I can erase a name by touching it.",
@@ -3399,7 +3399,7 @@ var Base_ClassList = {
 				}],
 				calcChanges: {
 					spellList: [
-						function(spList, spName, spType) {
+						function (spList, spName, spType) {
 							// Limit the selectable spells to those in the spellbook
 							// This has the downside that newly added spells to the spellbook are only selectable the next time the dialog is opened
 							if (spList.spellMasteryLevel && CurrentSpells.wizard && CurrentSpells.wizard.selectSP) {
@@ -3459,7 +3459,7 @@ var Base_ClassList = {
 				}],
 				calcChanges: {
 					spellList: [
-						function(spList, spName, spType) {
+						function (spList, spName, spType) {
 							// Limit the selectable spells to those in the spellbook
 							// This has the downside that newly added spells to the spellbook are only selectable the next time the dialog is opened
 							if (spList.signatureSpell && CurrentSpells.wizard && CurrentSpells.wizard.selectSP) {
@@ -3814,7 +3814,7 @@ var Base_ClassSubList = {
 				additional: levels.map(function (n) {
 					var lvls = Math.ceil(n / 2);
 					var lr = typePF ? "LR; " : "Long Rest; ";
-					return "each 1\xD7 per " + lr + lvls + 
+					return "each 1\xD7 per " + lr + lvls +
 					" level" + (lvls > 1 ? "s" : "") + " of spell slots";
 				}),
 				extraLimitedFeatures: [{

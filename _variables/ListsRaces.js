@@ -78,14 +78,14 @@ var Base_RaceList = {
 			hp: function (totalHD) { return [totalHD, "Dwarven Toughness"]; },
 		},
 		features: {
-		  "stonecunning": {
-			name: "Stonecunning",
-			minlevel: 1,
-			usages: "Proficiency Bonus per ",
-			usagescalc: "event.value = How('Proficiency Bonus');",
-			recovery: "long rest",
-			action: [["bonus action", " (Tremorsense)"]],
-		  },
+			"stonecunning": {
+				name: "Stonecunning",
+				minlevel: 1,
+				usages: "Proficiency Bonus per ",
+				usagescalc: "event.value = How('Proficiency Bonus');",
+				recovery: "long rest",
+				action: [["bonus action", " (Tremorsense)"]],
+			},
 		},
 		// from PHB'14:
 		age: " are considered young until they are 50 and live about 350 years",
@@ -222,7 +222,7 @@ var Base_RaceList = {
 				usages: "Proficiency Bonus per ",
 				usagescalc: "event.value = How('Proficiency Bonus');",
 				recovery: "short rest",
-				additional: ProficiencyBonusList.map(function(n) { return "+" + n + " temp HP"; }),
+				additional: ProficiencyBonusList.map(function (n) { return "+" + n + " temp HP"; }),
 				action: [["bonus action", ""]],
 			},
 			"relentless endurance": {
