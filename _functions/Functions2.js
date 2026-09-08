@@ -8467,7 +8467,7 @@ function getHighestTotal(nmbrObj, notRound, replaceWalk, extraMods, type, withCl
 	if (fixedVals.length > 1) {
 		tValue = Math.max.apply(Math, fixedVals.concat([tValue]));
 	};
-	var prefix = type === false || type === "walk" ? "" : type ? type + " " : " ";
+	var prefix = type === false || type === "walk" ? "" : type ? type.capitalize() + " " : " ";
 	if (!tValue) {
 		return withCleanValue ? ["", 0, 0] : "";
 	} else if (tValue >= 9999) {
@@ -9191,9 +9191,5 @@ function setUnicodeUse(enable, force) {
 		setSkillTooltips(true);
 		MakeSkillsMenu_SkillsOptions(true, true);
 		SetHPTooltip();
-		AtHigherLevels = "\n   " + toUni("At Higher Levels") + ": ";
-		UsingHigherLvl = toUni("Using a Higher-Level Spell Slot") + ". ";
-		CantripUpgrade = toUni("Cantrip Upgrade") + ". ";
-		PsychicFocus = "\n   " + toUni("Psychic Focus") + ": "
 	}
 }

@@ -1,9 +1,11 @@
-var AtHigherLevels = "\n   ***At Higher Levels***. ";
 var UsingHigherLvl = "***Using a Higher-Level Spell Slot***. ";
 var CantripUpgrade = "***Cantrip Upgrade***. ";
 var SpellRitualTag = "\xAE"; // registered trademark symbol
 var SpellRitualTagNonUnicode = "(R)";
 var SpellReqLosTag = "\u25C9"; // fisheye symbol
+
+// For backwards compatibility
+var AtHigherLevels = "\n   ***At Higher Levels***. ";
 
 var Base_spellLevelList = ["Cantrips (0-level)", "1st-level", "2nd-level", "3rd-level", "4th-level", "5th-level", "6th-level", "7th-level", "8th-level", "9th-level", "Talents", "Disciplines"];
 
@@ -5946,7 +5948,7 @@ var Base_SpellsList = {
 		descriptionShorter: "Spell atk 1d8 elemental/Poison/Psych. dmg; +1d8 per 8, max +spell mod d8s; +1d8 CL 5,11,17",
 		descriptionCantripDie: "Spell atk `CD`d8 Acid/Cold/Fire/Lightn./Pois./Psych/Thndr dmg; +1d8 per 8, max +spell mod d8s",
 		descriptionFull: [
-			"You cast sorcerous energy at one creature or object within range. Make a ranged attack roll against the target. On a hit, the target takes 1d8 damage of a type you choose: Acid, Cold, Fire, Lightning, Poison, Psychic, or Thunder.",
+			"You cast sorcerous energy at one creature or object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d8 damage of a type you choose: Acid, Cold, Fire, Lightning, Poison, Psychic, or Thunder.",
 			"If you roll an 8 on a d8 for this spell, you can roll another d8, and add it to the damage. When you cast this spell, the maximum number of these d8s you can add to the spell's damage equals your spellcasting ability modifier.",
 			CantripUpgrade + "The damage increases by 1d8 when you reach levels 5 (2d8), 11 (3d8), and 17 (4d8).",
 		],
