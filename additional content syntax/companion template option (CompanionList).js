@@ -109,7 +109,7 @@ CompanionList["purple familiar"] = {
 	Also note the absence of the word "var" and the use of brackets [].
 */
 	name: "Purple Familiar",
-	/*	name // REQUIRED //
+/*	name // REQUIRED //
 	TYPE:	string
 	USE:	name of the companion option as it will be displayed on the sheet
 
@@ -117,14 +117,14 @@ CompanionList["purple familiar"] = {
 	This name will not be used in the Companion Options menu, the `nameMenu` will be used instead.
 */
 	nameMenu: "Familiar (Purple Familiar class feature)",
-	/*	nameMenu // REQUIRED //
+/*	nameMenu // REQUIRED //
 	TYPE:	string
 	USE:	name of the companion option as it will appear in the Companion Options menu
 
 	This name will also be used on several other places, like the changes dialog pop-up or in error messages.
 */
 	nameTooltip: "the Purple Familiar class feature",
-	/*	nameTooltip // OPTIONAL //
+/*	nameTooltip // OPTIONAL //
 	TYPE:	string
 	USE:	name of the companion options as it will appear in tooltips for actions on the 1st page
 
@@ -132,7 +132,7 @@ CompanionList["purple familiar"] = {
 	If `nameTooltip` is not defined, the `name` attribute will be used instead.
 */
 	nameOrigin: "variant of the Find Familiar 1st-level conjuration [ritual] spell",
-	/*	nameOrigin // OPTIONAL //
+/*	nameOrigin // OPTIONAL //
 	TYPE:	string
 	USE:	additional information displayed in the
 
@@ -149,7 +149,7 @@ CompanionList["purple familiar"] = {
 */
 	source: ["SRD", 204],
 	source: [["E", 7], ["S", 115]],
-	/*	source // REQUIRED //
+/*	source // REQUIRED //
 	TYPE:	array with two entries (or array of these arrays)
 	USE:	define where the companion option is found
 
@@ -174,7 +174,7 @@ CompanionList["purple familiar"] = {
 	"HB" refers to the 'homebrew' source.
 */
 	defaultExcluded: true,
-	/*	defaultExcluded // OPTIONAL //
+/*	defaultExcluded // OPTIONAL //
 	TYPE:	boolean
 	USE:	whether this companion option should be excluded by default (true) or included by default (false)
 
@@ -191,7 +191,7 @@ CompanionList["purple familiar"] = {
 		["reaction", " (start)"],
 		["bonus action", "Shove"],
 	],
-	/*	action // OPTIONAL //
+/*	action // OPTIONAL //
 	TYPE:	array (variable length)
 	USE:	add entry to the "Actions", "Bonus Actions", or "Reactions" section on the 1st page
 
@@ -210,7 +210,7 @@ CompanionList["purple familiar"] = {
 	includeCheck: function (sCrea, objCrea, iCreaCR, bIsAL) {
 		return objCrea.type.toLowerCase() === "beast" && objCrea.size >= 3 && iCreaCR <= 1 / 4 ? true : false;
 	},
-	/*	includeCheck // OPTIONAL //
+/*	includeCheck // OPTIONAL //
 	TYPE:	function
 	USE:	filter things from the list of creatures to create the menu options
 	CHANGE:	v13.1.12 (bIsAL variable, "_not_al" suffix)
@@ -259,7 +259,7 @@ CompanionList["purple familiar"] = {
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> //
 	// >>> Change CreatureList object >>> //
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> //
-	/*
+/*
 	When a companion template option is selected, the sheet will create a temporary CreatureList object.
 	This object is based on the CreatureList object of the base selected creature (the "Race" dropdown)
 	but will be amended with the settings of the CompanionList object.
@@ -277,7 +277,7 @@ CompanionList["purple familiar"] = {
 			description: "",
 		}],
 	},
-	/*	attributesAdd // OPTIONAL //
+/*	attributesAdd // OPTIONAL //
 	TYPE:	object containing any attributes of the CreatureList object
 	USE:	add or overwrite attributes in the base CreatureList object
 
@@ -320,7 +320,7 @@ CompanionList["purple familiar"] = {
 			objCrea.subtype = "";
 		}
 	},
-	/*	attributesChange // OPTIONAL //
+/*	attributesChange // OPTIONAL //
 	TYPE:	function
 	USE:	change attributes of the temporary CreatureList object
 
@@ -365,7 +365,7 @@ CompanionList["purple familiar"] = {
 			PickDropdown(prefix + "Comp.Desc.Size", 3);
 		},
 	}],
-	/*	notes // OPTIONAL //
+/*	notes // OPTIONAL //
 	TYPE:	array (variable length) with objects
 	USE:	add text to the leftmost Notes sections on the Companion page
 	CHANGE: v14.0.0 (formatting characters)
@@ -427,7 +427,7 @@ CompanionList["purple familiar"] = {
 	The array is processed in the order it is in the code, no sorting will take place.
 */
 
-	/*	minlevel // OPTIONAL //
+/*	minlevel // OPTIONAL //
 	(Part of `notes` object, see above)
 	TYPE:	number
 	USE:	the level at which to add the note
@@ -442,7 +442,7 @@ CompanionList["purple familiar"] = {
 	Setting this attribute to 1 is the same as not including it.
 */
 
-	/*	addMod // OPTIONAL //
+/*	addMod // OPTIONAL //
 	(Part of `notes` object, see above)
 	TYPE:	array of objects (variable length)
 	USE:	add value to a modifier field
@@ -455,7 +455,7 @@ CompanionList["purple familiar"] = {
 	Please look there for a complete explanation.
 */
 
-	/*	eval & removeeval // OPTIONAL //
+/*	eval & removeeval // OPTIONAL //
 	(Part of `notes` object, see above)
 	TYPE:	variable, see the entries for `eval` or `removeeval`
 	USE:	variable, see the entries for `eval` or `removeeval`
@@ -471,7 +471,7 @@ CompanionList["purple familiar"] = {
 	// >>> Change Companion Page calculations >>> //
 	// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> //
 	calcChanges: {
-		/*	calcChanges // OPTIONAL //
+/*	calcChanges // OPTIONAL //
 	TYPE:	object (optional attributes)
 	USE:	change how the hit points automation works
 
@@ -496,7 +496,7 @@ CompanionList["purple familiar"] = {
 			HDobj.alt.push( Math.max(creaHP, rngrCompHp) );
 			HDobj.altStr.push(" = the highest of either\n \u2022 " + creaHp + " from " + creaName + "'s normal maximum HP, or\n \u2022 4 \xD7 " + rngrLvl + " from four times my ranger level (" + rngrCompHp + ")");
 		},
-		/*	hp // OPTIONAL //
+	/*	hp // OPTIONAL //
 		TYPE:	function
 		USE:	change how Hit Points are calculated and what the Hit Points tooltip says
 
@@ -523,7 +523,7 @@ CompanionList["purple familiar"] = {
 	eval: function (prefix, lvl) {
 		AddString(prefix + "Cnote.Left", "The purple familiar always serves a singular master. If that master gets killed, it will serve the one who killed its master, if any.", true);
 	},
-	/*	eval // OPTIONAL //
+/*	eval // OPTIONAL //
 	TYPE:	function
 	USE:	runs a piece of code when the companion option is selected
 
@@ -549,7 +549,7 @@ CompanionList["purple familiar"] = {
 	removeeval: function (prefix, lvl) {
 		RemoveString(prefix + "Cnote.Left", "The purple familiar always serves a singular master. If that master gets killed, it will serve the one who killed its master, if any.", true);
 	},
-	/*	removeeval // OPTIONAL //
+/*	removeeval // OPTIONAL //
 	TYPE:	function
 	USE:	runs a piece of code when the companion options is removed
 

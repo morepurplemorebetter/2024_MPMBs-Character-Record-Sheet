@@ -105,7 +105,7 @@ WeaponMasteriesList["purplefication"] = {
 	otherwise there is no point in added the mastery.
 */
 	name: "Purplefication",
-	/*	name // REQUIRED //
+/*	name // REQUIRED //
 	TYPE:	string
 	USE:	name of the mastery as it will be used by the sheet
 
@@ -116,7 +116,7 @@ WeaponMasteriesList["purplefication"] = {
 */
 	source: ["SRD24", 204],
 	source: [["PHB24", 214], ["S", 115]],
-	/*	source // REQUIRED //
+/*	source // REQUIRED //
 	TYPE:	array with two entries (or array of these arrays)
 	USE:	define where the mastery is found
 
@@ -140,7 +140,7 @@ WeaponMasteriesList["purplefication"] = {
 	"HB" refers to the 'homebrew' source.
 */
 	description: "If I hit a creature, I gain advantage on Dex (Stealth) checks to hide until my next turn ends.",
-	/*	description // REQUIRED //
+/*	description // REQUIRED //
 	TYPE:	string
 	USE:	the text to be filled in the 3rd page notes section
 
