@@ -3773,6 +3773,28 @@ var Base_CreatureList = {
 		}],
 	},
 	// Exotic mounts and pets
+	"axe beak": {
+		name: "Axe Beak",
+		source: [["SRD24", 260], ["MM24", 24]],
+		size: 2,
+		type: "Monstrosity",
+		alignment: "Unaligned",
+		ac: 11,
+		hp: 19,
+		hd: [3, 10],
+		speed: "50 ft",
+		scores: [14, 12, 12, 2, 10, 5],
+		passivePerception: 10,
+		challengeRating: "1/4",
+		proficiencyBonus: 2,
+		attacksAction: 1,
+		attacks: [{
+			name: "Beak",
+			ability: 1,
+			damage: [1, 8, "slashing"],
+			range: "Melee (5 ft)",
+		}],
+	},
 	"griffon": {
 		name: "Griffon",
 		source: [["SRD24", 295], ["MM24", 159]],
