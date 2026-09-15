@@ -447,8 +447,6 @@ function ResetAll(GoOn, noTempl, deleteImports) {
 		};
 	};
 
-	setListsUnitSystem("imperial"); //reset the values of some variables to the right unit system
-
 	thermoM(2 / 9); //increment the progress dialog's progress
 
 	// Reset of all the form field values
@@ -9932,7 +9930,6 @@ function SetUnitDecimals_Button() {
 					FldsGameMech.push(prefix + "Wildshape." + i + ".Attack.2.Range");
 					FldsGameMech.push(prefix + "Wildshape." + i + ".Attack.2.Description");
 					FldsGameMech.push(prefix + "Wildshape." + i + ".Speed");
-					FldsGameMech.push(prefix + "Wildshape." + i + ".Senses");
 					FldsGameMech.push(prefix + "Wildshape." + i + ".Traits");
 				}
 			}
@@ -9975,7 +9972,6 @@ function SetUnitDecimals_Button() {
 	}
 	if (!minVer && SetUnitDecimals_Dialog.bSys !== unitSys) { //do something if the unit system was changed
 		thermoTxt = thermoM("Converting to " + SetUnitDecimals_Dialog.bSys + "...", false); //change the progress dialog text
-		setListsUnitSystem(SetUnitDecimals_Dialog.bSys); //update some variables
 		Value("Unit System", SetUnitDecimals_Dialog.bSys);
 		Value("Decimal Separator", SetUnitDecimals_Dialog.bDec);
 		if (typePF) {
@@ -10079,7 +10075,6 @@ function SetUnitDecimals_Button() {
 
 	} else if (!minVer && SetUnitDecimals_Dialog.bDec !== decSep) { //or if only the decimal separator has been changed
 		thermoTxt = thermoM("Converting to " + SetUnitDecimals_Dialog.bDec + " decimal separator...", false); //change the progress dialog text
-		setListsUnitSystem(unitSys); //update some variables
 		Value("Decimal Separator", SetUnitDecimals_Dialog.bDec);
 
 		FldsWeight.push("Total Experience");
