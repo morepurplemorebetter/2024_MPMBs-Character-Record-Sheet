@@ -226,7 +226,7 @@ function rangeStringToPartsObject(range, stopFunction) {
 	// First test if this is an actual range that we can use
 	var rangeParts = range.match(/(\d*[,.]?\d+).?(ft|feet|foot|m\b|metre|meter)/i);
 	if (!rangeParts) return;
-	var rangeFT = Number(rangeParts[1].replace(",", "."));
+	var rangeFT = stringToNumber(rangeParts[1]);
 	if (rangeParts[2].toLowerCase()[0] === "m") {
 		// If the range is in metres, convert it to feet
 		rangeFT = RoundTo(rangeFT / UnitsList.metric.length, 0.5);
