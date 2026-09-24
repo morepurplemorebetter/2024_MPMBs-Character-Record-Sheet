@@ -166,7 +166,8 @@ function GetSpellObject(theSpl, theCast, firstCol, isDuplicate, tooltipOnly) {
 	}
 	// If this spell is gained from an item remove scaling effects (2024 change: race & feat spells can now be upcast by default)
 	if (aCast && !aCast.allowUpCasting && !aSpell.allowUpCasting && (aCast.allowUpCasting === false || aSpell.allowUpCasting === false || aCast.typeSp == "item" || aCast.refType == "item")) {
-		if (removeSpellUpcasting(aSpell) && aSpell.allowUpCasting === undefined) {
+		var isRemoved = removeSpellUpcasting(aSpell);
+		if (isRemoved && aSpell.allowUpCasting === undefined && aCast.allowUpCasting === undefined) {
 			aSpell.changesObj["Innate Spellcasting"] = "\n \u2022 Spell cast by magic items can only be cast at the spell's lowest possible level, not with higher level spell slots.";
 		}
 	}
@@ -231,7 +232,7 @@ function GetSpellObject(theSpl, theCast, firstCol, isDuplicate, tooltipOnly) {
 	}
 
 	// Backwards compatibility - update the time attribute from the old to the new way
-	aSpell.time = aSpell.time.replace("1 a", "Act").replace("1 bns", "Bns").replace("1 rea", "React");
+	aSpell.time = aSpell.time.replace(/1 a(ct)?|\baction/i, "Act").replace(/1 bns|(1 )?bonus/i, "Bns").replace(/1 re(act)?|reaction/i, "React");
 
 	// Make the tooltip for the description field
 	var spTooltip = "";
@@ -2924,10 +2925,7 @@ function DefineSpellSheetDialogs(force, formHeight) {
 function AskUserSpellSheet() {
 	DefineSpellSheetDialogs();
 	var dia = spDias.spellSelect;
-	var classesArray = [];
-	for (var aC in CurrentSpells) {
-		classesArray.push(aC);
-	};
+	var classesArray = Object.keys(CurrentSpells);
 
 	// go through all the entries in CurrentSpells and ask the user for input that we then store back in that same variable
 	for (var theI = 0; theI < classesArray.length; theI++) {
@@ -5937,7 +5935,7 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 	var isDieType = /^\d*d\d+$/i.test(ability), addDieType;
 	var abiMod = isDieType ? ability.replace(/^1d(\d+)$/i, "d$1") : !isNaN(ability) ? ability : tDoc.getField(ability + " Mod") ? Number(What(ability + " Mod")) : ability;
 	var abiIsStr = !isDieType && isNaN(abiMod);
-	var abiIfUpcasting = abiIsStr && /\/(\d*SL|PP|extra \w+)/i.test(abiMod);
+	var abiIfUpcasting = abiIsStr && /\/(\d*SL|PP|extra \w+|ch(rg|arge)?s?)/i.test(abiMod);
 
 	// Stop now if there is nothing (positive) to add or nothing to maximize
 	if (!maximizeRolls && ((isNaN(ability) && abiMod < 1) || abiMod === 0 || (abiIfUpcasting && spellObj.allowUpCasting === false))) return;
@@ -5967,10 +5965,10 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 			strReplace = strReplace.replace(bMatch, bTotal);
 		}
 		// Add consecutive bonuses (per group 'X/SL' and not 'X/SL')
-		var qRx = /(([\+\-]?\d+)(\/\d*SL|\/PP|\/extra \w+)?)+( \((Str|Dex|Con|Int|Wis|Cha)\))?/i;
+		var qRx = /(([\+\-]?\d+)(\/\d*SL|\/PP|\/extra \w+|\/ch(rg|arge)?s?)?)+( \((Str|Dex|Con|Int|Wis|Cha)\))?/i;
 		if (qRx.test(strReplace)) {
 			var qMatch = strReplace.match(qRx)[0];
-			var qParts = qMatch.match(/[\+\-]?\d+(\/\d*SL|\/PP|\/extra \w+)?/ig);
+			var qParts = qMatch.match(/[\+\-]?\d+(\/\d*SL|\/PP|\/extra \w+|\/ch(rg|arge)?s?)?/ig);
 			var qObj = { nr: 0 };
 			for (var q = 0; q < qParts.length; q++) {
 				if (!isNaN(qParts[q])) {
@@ -5994,7 +5992,7 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 	}
 	// The function to fix a string of multiple X/SL+Y/SL to (X+Y)/SL
 	var fixMultiPerSL = function (strSl) {
-		var slMatch = strSl.match(/(\+?)(\d+d?\d*)(\/\d*SL|\/PP|\/extra \w+)\+(\d+d?\d*|\(.*?\))(\3)/i);
+		var slMatch = strSl.match(/(\+?)(\d+d?\d*)(\/\d*SL|\/PP|\/extra \w+|\/ch(rg|arge)?s?)\+(\d+d?\d*|\(.*?\))(\3)/i);
 		if (!slMatch) return strSl;
 		var aVals = [slMatch[2], slMatch[4]]; // Make an array of just the numerical/dice parts
 		if (/\(.*?\)/.test(aVals[1])) {
@@ -6092,7 +6090,7 @@ function genericSpellDmgEdit(spellKey, spellObj, dmgType, ability, notMultiple, 
 	} else if (/\bany\b/i.test(dmgType)) {
 		dmgType = "\\w+\\.?";
 	}
-	var sRegex = (isHealing ? "(heals? |to life with )" : "") + "((?:\\+?\\d+d?\\d*)+)((?:\\+(?:\\((?:\\+?\\d+d?\\d*)+\\)|\\d+d?\\d*)\\/(?:\\d*SL|PP|extra \\w+))*(?:\\+ ?spell mod|(?:\\+|-)\\d+ \\(.{3}\\))? (?:" + (isHealing ? "" : dmgType) + ") ?(?:" + (isHealing ? "hp|hit points?" : "dmg|damage") + ")(?: per \\w+| each|/rnd|/turn)?)";
+	var sRegex = (isHealing ? "(heals? |to life with )" : "") + "((?:\\+?\\d+d?\\d*)+)((?:\\+(?:\\((?:\\+?\\d+d?\\d*)+\\)|\\d+d?\\d*)\\/(?:\\d*SL|PP|extra \\w+|ch(rg|arge)?s?))*(?: ?\\+ ?spell mod|(?:\\+|-)\\d+ \\(.{3}\\))? (?:" + (isHealing ? "" : dmgType) + ") ?(?:" + (isHealing ? "hp|hit points?" : "dmg|damage") + ")(?: per \\w+| each|/rnd|/turn)?)";
 
 	// If the spell has multiple damage types, we need to check if any or all of them match the dmgType we are looking for
 	var onlySomeDmgTypes = false;

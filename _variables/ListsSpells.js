@@ -1655,7 +1655,7 @@ var Base_SpellsList = {
 		compMaterial: "A dried carrot",
 		duration: "8 h",
 		description: "1 willing creature has Darkvision 150 ft for the duration",
-		descriptionFull: ["For the duration, a willing creature you touch has Darkvision with a range of 150 feet."],
+		descriptionFull: "For the duration, a willing creature you touch has Darkvision with a range of 150 feet.",
 	},
 	"daylight": {
 		name: "Daylight",
@@ -2020,7 +2020,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "1 min",
 		description: "My weapon attacks deal +1d4 Radiant damage for the duration",
-		descriptionFull: ["Until the spell ends, your attacks with weapons deal an extra 1d4 Radiant damage on a hit."],
+		descriptionFull: "Until the spell ends, your attacks with weapons deal an extra 1d4 Radiant damage on a hit.",
 	},
 	"divine smite": {
 		name: "Divine Smite",
@@ -2530,7 +2530,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 10 min",
 		description: "I can take the Dash action now and as a Bonus Action for the duration",
-		descriptionFull: ["You take the Dash action, and until the spell ends, you can take that action again as a Bonus Action."],
+		descriptionFull: "You take the Dash action, and until the spell ends, you can take that action again as a Bonus Action.",
 	},
 	"eyebite": {
 		name: "Eyebite",
@@ -3230,7 +3230,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 1 min",
 		description: "1 creature becomes Invisible until the spell ends",
-		descriptionFull: ["A creature you touch has the Invisible condition until the spell ends."],
+		descriptionFull: "A creature you touch has the Invisible condition until the spell ends.",
 	},
 	"greater restoration": {
 		name: "Greater Restoration",
@@ -3311,7 +3311,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 1 min",
 		description: "Choose skill; 1 willing creature adds +1d4 to ability checks with chosen skill for duration",
-		descriptionFull: ["You touch a willing creature and choose a skill. Until the spell ends, the creature adds 1d4 to any ability check using the chosen skill."],
+		descriptionFull: "You touch a willing creature and choose a skill. Until the spell ends, the creature adds 1d4 to any ability check using the chosen skill.",
 	},
 	"guiding bolt": {
 		name: "Guiding Bolt",
@@ -3927,7 +3927,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Instantaneous",
 		description: "1 creature ends 1 condition affecting it: Blinded, Deafened, Paralyzed, or Poisoned",
-		descriptionFull: ["You touch a creature and end one condition on it: Blinded, Deafened, Paralyzed, or Poisoned."],
+		descriptionFull: "You touch a creature and end one condition on it: Blinded, Deafened, Paralyzed, or Poisoned.",
 	},
 	"levitate": {
 		name: "Levitate",
@@ -4504,7 +4504,7 @@ var Base_SpellsList = {
 		components: "V",
 		duration: "Instantaneous",
 		description: "I teleport up to 30 ft to an unoccupied space I can see",
-		descriptionFull: ["Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space you can see."],
+		descriptionFull: "Briefly surrounded by silvery mist, you teleport up to 30 feet to an unoccupied space you can see.",
 	},
 	"modify memory": {
 		name: "Modify Memory",
@@ -4993,7 +4993,7 @@ var Base_SpellsList = {
 		components: "V",
 		duration: "Instantaneous",
 		description: "1 creature dies if it has 100 or less current HP, else it takes 12d12 Psychic damage",
-		descriptionFull: ["You compel one creature you can see within range to die. If the target has 100 Hit Points or fewer, it dies. Otherwise, it takes 12d12 Psychic damage."],
+		descriptionFull: "You compel one creature you can see within range to die. If the target has 100 Hit Points or fewer, it dies. Otherwise, it takes 12d12 Psychic damage.",
 	},
 	"power word stun": {
 		name: "Power Word Stun",
@@ -5252,8 +5252,8 @@ var Base_SpellsList = {
 		range: "Touch",
 		components: "V,S",
 		duration: "Conc, 1 h",
-		description: "1 willing creature gains resistance to Acid, Cold, Fire, Lightning, or Thunder damage",
-		descriptionFull: ["For the duration, the willing creature you touch has Resistance to one damage type of your choice: Acid, Cold, Fire, Lightning, or Thunder."],
+		description: "1 willing creature gains Resistance to Acid, Cold, Fire, Lightning, or Thunder damage",
+		descriptionFull: "For the duration, the willing creature you touch has Resistance to one damage type of your choice: Acid, Cold, Fire, Lightning, or Thunder.",
 	},
 	"protection from evil and good": {
 		name: "Protection from Evil and Good",
@@ -5280,7 +5280,7 @@ var Base_SpellsList = {
 		range: "Touch",
 		components: "V,S",
 		duration: "1 h",
-		description: "1 creature cured of Poisoned, gains resistance to Poison damage, and Adv on saves vs Poisoned",
+		description: "1 creature cured of Poisoned, gains Resistance to Poison damage, and Adv on saves vs Poisoned",
 		descriptionFull: "You touch a creature and end the Poisoned condition on it. For the duration, the target has Advantage on saving throws to avoid or end the Poisoned condition, and it has Resistance to Poison damage.",
 	},
 	"purify food and drink": {
@@ -5295,7 +5295,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Instantaneous",
 		description: "5-ft radius of nonmagical food and drink is rendered free from all poison and rot",
-		descriptionFull: ["You remove poison and rot from nonmagical food and drink in a 5-foot-radius Sphere centered on a point within range."],
+		descriptionFull: "You remove poison and rot from nonmagical food and drink in a 5-foot-radius Sphere centered on a point within range.",
 	},
 	"raise dead": {
 		name: "Raise Dead",
@@ -5771,7 +5771,7 @@ var Base_SpellsList = {
 		compMaterial: "A prayer scroll",
 		duration: "Conc, 10 min",
 		description: "1 creature gains +2 AC for the duration",
-		descriptionFull: ["A shimmering field surrounds a creature of your choice within range, granting it a +2 bonus to AC for the duration."],
+		descriptionFull: "A shimmering field surrounds a creature of your choice within range, granting it a +2 bonus to AC for the duration.",
 	},
 	"shillelagh": {
 		name: "Shillelagh",
@@ -6169,8 +6169,8 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Diamond dust worth 100+ GP, which the spell consumes",
 		duration: "Conc, 1 h",
-		description: "1 willing creature has resistance to Bludgeoning, Piercing, and Slashing damage (100gp cons)",
-		descriptionFull: ["Until the spell ends, one willing creature you touch has Resistance to Bludgeoning, Piercing, and Slashing damage."],
+		description: "1 willing creature has Resistance to Bludgeoning, Piercing, and Slashing damage (100gp cons)",
+		descriptionFull: "Until the spell ends, one willing creature you touch has Resistance to Bludgeoning, Piercing, and Slashing damage.",
 	},
 	"storm of vengeance": {
 		name: "Storm of Vengeance",
@@ -6625,7 +6625,7 @@ var Base_SpellsList = {
 		compMaterial: "Mushroom powder worth 25+ GP, which the spell consumes",
 		duration: "1 h",
 		description: "1 willing crea gets Truesight 120 ft: pierce darkness, illus., invisible, ethereal, shape shift (25gp cons)",
-		descriptionFull: ["For the duration, the willing creature you touch has Truesight with a range of 120 feet."],
+		descriptionFull: "For the duration, the willing creature you touch has Truesight with a range of 120 feet.",
 	},
 	"true strike": {
 		name: "True Strike",
@@ -7007,7 +7007,7 @@ var Base_SpellsList = {
 		components: "V,S,M",
 		compMaterial: "A candle",
 		duration: "8 h",
-		description: "Me \x26 10 willing crea assume gaseous form with 300 ft fly, hover, physical dmg resistance; see book",
+		description: "Me \x26 10 willing crea assume gaseous form with 300 ft fly, hover, physical dmg Resistance; see book",
 		descriptionFull: [
 			"You and up to ten willing creatures of your choice within range assume gaseous forms for the duration, appearing as wisps of cloud. While in this cloud form, a target has a Fly Speed of 300 feet and can hover; it has Immunity to the Prone condition; and it has Resistance to Bludgeoning, Piercing, and Slashing damage. The only actions a target can take in this form are the Dash action or a Magic action to begin reverting to its normal form. Reverting takes 1 minute, during which the target has the Stunned condition. Until the spell ends, the target can revert to cloud form, which also requires a Magic action followed by a 1-minute transformation.",
 			"If a target is in cloud form and flying when the effect ends, the target descends 60 feet per round for 1 minute until it lands, which it does safely. If it can't land after 1 minute, it falls the remaining distance.",
@@ -7046,7 +7046,7 @@ var Base_SpellsList = {
 		range: "Self",
 		components: "V",
 		duration: "Instantaneous",
-		description: "Duplicate any 8th-lvl or lower spell as Act, create objects, heal, grant resistance, alter time, etc.; see B",
+		description: "Duplicate any 8th-lvl or lower spell as Act, create objects, heal, grant Resistance, alter time, etc.; see B",
 		descriptionFull: [
 			"*Wish* is the mightiest spell a mortal can cast. By simply speaking aloud, you can alter reality itself.",
 			"The basic use of this spell is to duplicate any other spell of level 8 or lower. If you use it this way, you don't need to meet any requirements to cast that spell, including costly components. The spell simply takes effect.",

@@ -5120,16 +5120,13 @@ function AddFeature(identifier, usages, additionaltxt, recovery, tooltip, Update
 
 // Remove a limited feature
 function RemoveFeature(identifier, usages, additionaltxt, recovery, tooltip, UpdateOrReplace, Calc) {
+	if (typeof usages === "string") usages = usages.trim();
 	var theFlds = [
 		"Limited Feature ",
 		"Limited Feature Max Usages ",
 		"Limited Feature Recovery ",
 		"Limited Feature Used ",
 	];
-	var EndFldsArray = [];
-	for (var F = 0; F < theFlds.length; F++) {
-		EndFldsArray.push(theFlds[F] + FieldNumbers.limfea);
-	}
 	for (var i = 1; i <= FieldNumbers.limfea; i++) {
 		var FldsArray = [];
 		for (var l = 0; l < theFlds.length; l++) {
@@ -5138,7 +5135,7 @@ function RemoveFeature(identifier, usages, additionaltxt, recovery, tooltip, Upd
 		var featureFld = tDoc.getField(FldsArray[0]);
 		var usageFld = tDoc.getField(FldsArray[1]);
 		if (featureFld.value.toLowerCase().indexOf(identifier.toLowerCase()) !== -1) {
-			if (!usages || usageFld.value === usages || Calc || isNaN(usages)) {
+			if (!usages || usageFld.value == usages || Calc || isNaN(usages)) {
 				LimFeaDelete(i); //delete the limited feature at this row and move all the ones up below it
 			} else {
 				usageFld.value -= usages;
@@ -9802,7 +9799,7 @@ function UpdateDecimals(input, oldDecimalSeparator) {
 	if (!oldDecimalSeparator || (oldDecimalSeparator !== "." && oldDecimalSeparator !== ",")) {
 		oldDecimalSeparator = currentDecimalSeparator === "," ? "." : ",";
 	}
-	if (oldDecimalSeparator === currentDecimalSeparator) return;
+	if (oldDecimalSeparator === currentDecimalSeparator) return input;
 
 	// Othwerise, search the string for any numbers separated with a dot or comma
 	var matches = input.toString().match(/\d+([.,]\d{3})*[.,]?\d+/g);

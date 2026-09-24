@@ -937,10 +937,52 @@ var Base_CreatureList = {
 		}, {
 			name: "Spellcasting",
 			description: [
-				"The [THIS]] can cast the following spells, requiring no spell components and using Wisdom as the spellcasting ability:",
-				"**At Will**: Detect Evil and Good, Detect Magic",
-				"**1/Day**: Clairvoyance",
-			].join("\n"),
+				"The [THIS] can cast the following spells, requiring no spell components and using Wisdom as the spellcasting ability:",
+				"**At Will**: *Detect Evil and Good*, *Detect Magic*",
+				"**1/Day**: *Clairvoyance*",
+			].join("\n   "),
+			eval: function (prefix, lvl) {
+				// Add spellcasting
+				var spName = prefix + "giant owl";
+				CurrentSpells[spName] = {
+					name: "Giant Owl (creature)",
+					ability: 5,
+					fixedDC: 12,
+					typeSp: "creature",
+					refType: "creature",
+					allowUpCasting: false,
+					bonus: {},
+				};
+				processSpBonus(true, "giant owl", [{
+					name: "At Will by Giant Owl",
+					spells: ["detect evil and good", "detect magic"],
+					selection: ["detect evil and good", "detect magic"],
+					firstCol: "atwill",
+					times: 2,
+				}, {
+					name: "1/Day by Giant Owl",
+					spells: ["clairvoyance"],
+					selection: ["clairvoyance"],
+					firstCol: "onceday",
+				}], "magic", spName);
+				var changesObj = {
+					components: "",
+					compMaterial: "Spells cast by a Giant Owl don't require any components.",
+					ritual: false,
+					changes: "Spells cast by a Giant Owl don't require any components.",
+				};
+				processSpChanges(true, "Giant Owl", {
+					"detect evil and good": changesObj,
+					"detect magic": changesObj,
+					"clairvoyance": Object.assign({}, changesObj, {
+						description: "See or hear a familiar/obvious location; Bonus action to switch between seeing and hearing",
+					}),
+				}, spName);
+			},
+			removeeval: function (prefix, lvl) {
+				// Remove spellcasting
+				processSpBonus(false, "giant owl", false, "magic", prefix + "giant owl");
+			},
 		}],
 		attacks: [{
 			name: "Talons",
@@ -2820,7 +2862,7 @@ var Base_CreatureList = {
 		passivePerception: 13,
 		challengeRating: "1",
 		proficiencyBonus: 2,
-		attacksAction: 3,
+		attacksAction: 2,
 		traits: [{
 			name: "Pack Tactics",
 			description: "The [THIS] has Advantage on an attack roll against a creature if at least one of its allies is within 5 ft of the creature and the ally isn't Incapacitated.",

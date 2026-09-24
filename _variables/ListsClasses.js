@@ -3612,8 +3612,10 @@ var Base_ClassSubList = {
 						 * 		Revivify, Raise Dead
 						*/
 						function (spellKey, spellObj, spName) {
-							if (spellObj.psionic || !spellObj.level || spellObj.firstCol === "atwill") return;
-							var disallowUpCasting = CurrentSpells[spName].allowUpcasting === false || spellObj.allowUpCasting === false;
+							var castObj = CurrentSpells[spName];
+							// Stop if the spell is psionic, has no level, is At Will (no spell slot), or the source doesn't use spell slots (no `factor` attribute)
+							if (spellObj.psionic || !spellObj.level || spellObj.firstCol === "atwill" || !castObj.factor) return;
+							var disallowUpCasting = (castObj.allowUpcasting === false || spellObj.allowUpCasting === false) && spellObj.allowUpCasting !== false;
 							var extraHP = (spellObj.level + 2) + (disallowUpCasting ? "" : "+1/SL");
 							var exemption = false;
 							switch (spellKey) {
@@ -3645,7 +3647,6 @@ var Base_ClassSubList = {
 								default:
 									if ((!exemption && !/instant/i.test(spellObj.duration)) || !genericSpellDmgEdit(spellKey, spellObj, "heal", 2 + spellObj.level, true)) return;
 									if (spellObj.level < 9 && spellObj.allowUpCasting !== false) genericSpellDmgEdit(spellKey, spellObj, "heal", "1/SL", true);
-									spellObj.discipleOfLife = true; // for Supreme Healing
 									return true;
 							}
 						},
@@ -3677,26 +3678,24 @@ var Base_ClassSubList = {
 				calcChanges: {
 					spellAdd: [
 						function (spellKey, spellObj, spName) {
-							var exemption = false;
 							switch (spellKey) {
+								// Cases that needn't be touched
+								case "enervation": case "life transference": // XGtE
+								case "heal": case "vampiric touch": case "mass heal": // PHB
+									return false;
 								// Not generic, needs special attention
 								case "arcane vigor":
 									spellObj.description = spellObj.description.replace(" and roll", "").replace(/(Heal) (roll)/i, "$1 max dice $2");
 									return true;
 								// Exemptions
 								case "conjure celestial":
-									exemption = !CurrentCasters.useDependencies;
-									break;
-								case "conjure celestial-1-healing light":
-									exemption = true;
+									if (CurrentCasters.useDependencies) return;
 									break;
 							}
-							// Maximize dice for those set by Disciple of Life and exemptions
-							if (exemption || spellObj.discipleOfLife) {
-								return genericSpellDmgEdit(spellKey, spellObj, "heal", false, false, true, true);
-							}
+							// Maximize dice for any healing through spells
+							return genericSpellDmgEdit(spellKey, spellObj, "heal", false, false, true, true);
 						},
-						"When I use a spell that restores hit points by rolling one or more dice to restore hit points with a spell, I instead use the highest number possible for each die.",
+						"When I use a spell that restores Hit Points by rolling one or more dice, I use the highest number possible for each die instead of rolling them.",
 					],
 				},
 			},
