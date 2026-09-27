@@ -5486,7 +5486,11 @@ function ApplyFeat(input, FldNmbr) {
 
 		// Create the tooltip
 		var tooltipStr = toUni(theFeat.name, "bold");
-		if (theFeat.type) tooltipStr += "\n \u2022 Type: " + theFeat.type[0].toUpperCase() +  theFeat.type.substr(1) + (/gift/i.test(theFeat.type) ? "" : " feat");
+		if (theFeat.type) {
+			var typeString = theFeat.type.capitalize();
+			if (!/gift|charm|blessing/i.test(theFeat.type)) typeString += " Feat";
+			tooltipStr += "\n \u2022 Type: " + typeString;
+		}
 		if (theFeat.prerequisite) tooltipStr += "\n \u2022 Prerequisite: " + theFeat.prerequisite;
 		tooltipStr += stringSource(theFeat, "full,page", "\n \u2022 Source: ", ".");
 		if (theFeat.descriptionFull) tooltipStr += "\n\n" + formatDescriptionFull(theFeat.descriptionFull);
@@ -5538,7 +5542,7 @@ function SetFeatsdropdown(forceTooltips) {
 		var sFeatName = oFeat.name;
 		if (aFeatCheck.indexOf(sFeatName) !== -1) continue; // already processed
 		aFeatCheck.push(sFeatName);
-		var sTypeLC = oFeat.type ? oFeat.type.toLowerCase() : "general";
+		var sTypeLC = oFeat.type ? oFeat.type.replace(/ ?\(.*?\)/g, "").trim().toLowerCase() : "general";
 		if (!oFeatTypes[sTypeLC]) { // create type entry if not recognized
 			oFeatTypes[sTypeLC] = {
 				name: oFeat.type.capitalize() + (/gift/i.test(oFeat.type) ? "s" : " Feats"),

@@ -164,9 +164,12 @@ FeatsList["purple power"] = {
 		"fighting style"
 		"epic boon"
 		"supernatural gift"
+		"supernatural gift (charm)"
+		"supernatural gift (blessing)"
 
 	You can also define a custom type, or even a subtype.
-	For example, "origin (dwarf)" would have the feat appear both when `featsAdd.type` is
+	The subtype is the part of the string in brackets.
+	For example, "origin (dwarf)" would have the feat appear both when `featsAdd` is
 	set to `type: "origin"` and `type: "origin (dwarf)"`.
 
 	FIGHTING STYLES

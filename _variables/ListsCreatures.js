@@ -34,7 +34,7 @@ var Base_CreatureList = {
 			range: "in shared space",
 			dc: true,
 			description: "1 \u2264Medium creature Str save; Fail: pushed 20 ft straight and Prone; Success: half damage only",
-			tooltip: "As an Action, the elemental can have one Medium or smaller creature in its space make a DC 13 Strength save. Failure: 4d10+2 Thunder damage, and the target is pushed up to 20 ft straight away from the elemental and has the Prone condition. Success: Half damage only.",
+			tooltip: "As an Action, the elemental can have one Medium or smaller creature in its space make a DC 13 Strength saving throw. *Failure*: 4d10+2 Thunder damage, and the target is pushed up to 20 ft straight away from the elemental and has the Prone condition. *Success*: Half damage only.",
 		}],
 		traits: [{
 			name: "Air Form",
@@ -175,7 +175,7 @@ var Base_CreatureList = {
 			damage: [4, 8, "bludgeoning"],
 			range: "All in shared space",
 			description: "Str save; Fail: dmg/grappled/restrained/can't breathe until grapple ends (escape DC 14); Success: half damage only",
-			tooltip: "As an Action, the [THIS] can have each creature in its space make a DC 15 Strength save. *Failure*: 4d8+4 Bludgeoning damage. If the target is a Large or smaller creature, it has the Grappled condition (escape DC 14). Until the grapple ends, the target has the Restrained condition, is suffocating unless it can breathe water, and takes 2d8 Bludgeoning damage at the start of each of the [THIS]'s turns. The [THIS] can grapple one Large creature or up to two Medium or smaller creatures at a time with Whelm. As an action, a creature within 5 ft of the [THIS] can pull a creature out of it by succeeding on a DC 14 Strength (Athletics) check. *Success*: Half damage only.",
+			tooltip: "As an Action, the elemental can have each creature in its space make a DC 15 Strength saving throw. *Failure*: 4d8+4 Bludgeoning damage. If the target is a Large or smaller creature, it has the Grappled condition (escape DC 14). Until the grapple ends, the target has the Restrained condition, is suffocating unless it can breathe water, and takes 2d8 Bludgeoning damage at the start of each of the elemental's turns. The elemental can grapple one Large creature or up to two Medium or smaller creatures at a time with Whelm. As an action, a creature within 5 ft of the elemental can pull a creature out of it by succeeding on a DC 14 Strength (Athletics) check. *Success*: Half damage only.",
 		}],
 		features: [{
 			name: "Freeze",
@@ -4199,7 +4199,6 @@ var Base_CreatureList = {
 			description: "Con save to halve the damage taken",
 			dc: true,
 			abilitytodamage: false,
-			tooltip: "*Constitution Saving Throw*: DC 18, each creature in a 60-foot Cone. *Failure*: 55 (10d10) Poison damage. *Success*: Half damage.",
 		}],
 	},
 	"stone golem": {

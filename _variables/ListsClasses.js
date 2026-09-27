@@ -1058,7 +1058,7 @@ var Base_ClassList = {
 						compMaterial: "",
 						duration: "Instant., till LR",
 						description: "Gain the services of a familiar until next LR; Bns see through its eyes; it can deliver touch spells; see B",
-						changes: "Using my Wild Companion feature, I can cast Find Familiar as an action without Material components. When cast this way, the familiar is Fey and disappears when I finish a Long Rest.",
+						changes: "Using my Wild Companion feature, I can cast *Find Familiar* as an action without Material components. When cast this way, the familiar is Fey and disappears when I finish a Long Rest.",
 					},
 				},
 			},
@@ -2727,7 +2727,7 @@ var Base_ClassList = {
 						"mage armor": {
 							range: "Self",
 							description: "If I'm not wearing armor, I gain AC 13 + Dex modifier for the duration; spell ends if I don armor",
-							changes: "With the Armor of Shadows invocation I can cast Mage Armor without expending a spell slot, but only on myself.",
+							changes: "With the Armor of Shadows invocation I can cast *Mage Armor* without expending a spell slot, but only on myself.",
 						},
 					},
 				},
@@ -2760,7 +2760,7 @@ var Base_ClassList = {
 					spellChanges: {
 						"false life": {
 							description: "I gain 12 Temporary Hit Points",
-							changes: "With the Fiendish Vigor invocation I can cast False Life without expending a spell slot and I don't roll the dice for the Temporary Hit Points; I automatically get the highest number.",
+							changes: "With the Fiendish Vigor invocation I can cast *False Life* without expending a spell slot and I don't roll the dice for the Temporary Hit Points; I automatically get the highest number.",
 						},
 					},
 				},
@@ -2806,7 +2806,7 @@ var Base_ClassList = {
 						"jump": {
 							range: "Self",
 							description: "Once per turn, I can spend 10 ft movement to jump 30 ft",
-							changes: "With the Otherworldly Leap invocation I can cast Jump without expending a spell slot, but only on myself.",
+							changes: "With the Otherworldly Leap invocation I can cast *Jump* without expending a spell slot, but only on myself.",
 						},
 					},
 				},
@@ -2827,7 +2827,7 @@ var Base_ClassList = {
 						"levitate": {
 							range: "Self",
 							description: "I rise vertically, up to 20 ft; as part of my move, I can move up/down up to 20 ft; spell end: float down",
-							changes: "With the Ascendant Step invocation I can cast Levitate without expending a spell slot, but only on myself.",
+							changes: "With the Ascendant Step invocation I can cast *Levitate* without expending a spell slot, but only on myself.",
 						},
 					},
 				},
@@ -2886,7 +2886,7 @@ var Base_ClassList = {
 						"invisibility": {
 							range: "Self",
 							description: "Can cast if in dim light or darkness; I become Invisible; attacking, casting, or dealing damage ends it",
-							changes: "With the One with Shadows invocation I can cast Invisibility without expending a spell slot, but only on myself while I'm in an area of Dim Light or Darkness.",
+							changes: "With the One with Shadows invocation I can cast *Invisibility* without expending a spell slot, but only on myself while I'm in an area of Dim Light or Darkness.",
 						},
 					},
 				},
@@ -3027,7 +3027,7 @@ var Base_ClassList = {
 						"find familiar": {
 							time: "Act",
 							ritual: false,
-							changes: "With the Pact of the Chain invocation I can cast Find Familiar as an Action without expending a spell slot.",
+							changes: "With the Pact of the Chain invocation I can cast *Find Familiar* as an Action without expending a spell slot.",
 						},
 					},
 				},
@@ -4073,7 +4073,7 @@ var Base_ClassSubList = {
 					"divine smite": {
 						description: "Cast on melee wea hit; +2d8+1d8/SL Radiant dmg; Fiends/Undead +1d8 dmg; aura \xBD Cover till SoT",
 						descriptionShorter: "On melee wea hit; +2d8+1d8/SL Radiant dmg; Fiends/Undead +1d8 dmg; aura \xBD Cover till SoT",
-						changes: "Whenever I cast Divine Smite, my Aura of Protection grants Half Cover to my allies and myself until the start of my next turn.",
+						changes: "Whenever I cast *Divine Smite*, my Aura of Protection grants Half Cover to my allies and myself until the start of my next turn.",
 					},
 				},
 			},
@@ -4369,7 +4369,7 @@ var Base_ClassSubList = {
 						duration: "1m | Conc, 1h",
 						description: "Chosen Draconic Spirit; obeys verbal commands; takes turn after mine; vanishes at 0 HP; see Book",
 						firstCol: "oncelr+markedbox",
-						changes: "I don't require a Material component to cast Summon Dragon.\n \u2022 When I cast Summon Dragon, I can modify it so that it doesn't require Concentration, but then its duration becomes 1 minute for that casting.",
+						changes: "I don't require a Material component to cast *Summon Dragon*.\n \u2022 When I cast *Summon Dragon*, I can modify it so that it doesn't require Concentration, but then its duration becomes 1 minute for that casting.",
 					},
 				},
 			},
