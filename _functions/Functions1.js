@@ -5579,7 +5579,6 @@ function SetFeatsdropdown(forceTooltips) {
 //Make a generic menu entry for all feats, sorted by different criteria
 function ParseFeatMenu() {
 	AddFeatsMenu = []; // reset the global variable
-	var featName; // needs to be at this namespace for `forEachScores`
 	var fMenus = {
 		alphabetical: {},
 		source: { namesArr: [] },
@@ -5590,14 +5589,15 @@ function ParseFeatMenu() {
 			"epic boon": { name: "Epic Boon Feat", entries: [] },
 			"supernatural gift": { name: "Supernatural Gift", entries: [] },
 		},
-		asi: [
-			{ name: "Strength increase", entries: [] },
-			{ name: "Dexterity increase", entries: [] },
-			{ name: "Constitution increase", entries: [] },
-			{ name: "Intelligence increase", entries: [] },
-			{ name: "Wisdom increase", entries: [] },
-			{ name: "Charisma increase", entries: [] },
-		],
+		asi: {
+			"Str": { name: "Strength increase", entries: [] },
+			"Dex": { name: "Dexterity increase", entries: [] },
+			"Con": { name: "Constitution increase", entries: [] },
+			"Int": { name: "Intelligence increase", entries: [] },
+			"Wis": { name: "Wisdom increase", entries: [] },
+			"Cha": { name: "Charisma increase", entries: [] },
+			"any": { name: "Any ability score increase", entries: [] },
+		},
 		ref: {},
 	};
 	var spaceArr = new Array(38).join("\u2002");
@@ -5605,8 +5605,54 @@ function ParseFeatMenu() {
 		if (!srcTxt) return nameTxt;
 		return nameTxt + spaceArr.slice(0, nameTxt.length < 35 ? 38 - nameTxt.length : 4) + srcTxt;
 	}
-	var forEachScores = function (value, index) {
-		if (value && fMenus.asi[index].entries.indexOf(featName) === -1) fMenus.asi[index].entries.push(featName);
+	var testForScoreIncrease = function (inObj, useName) {
+		var bonusTo = {
+			"Str": false,
+			"Dex": false,
+			"Con": false,
+			"Int": false,
+			"Wis": false,
+			"Cha": false,
+		}
+		var anythingToAdd = false;
+		var forEachScores = function (value, index) {
+			if (value && index < 6) {
+				var abi = AbilityScores.abbreviations[index];
+				bonusTo[abi] = true;
+				anythingToAdd = true;
+			}
+		}
+		var forEachChoices = function (subObj) {
+			if (subObj.scores) subObj.scores.forEach(forEachScores);
+			if (subObj.scoresOverride) subObj.scoresOverride.forEach(forEachScores);
+			if (subObj.scoresMaximum) subObj.scoresMaximum.forEach(forEachScores);
+			if (subObj.scorestxt) {
+				if (/strength|\bstr\b/i.test(subObj.scorestxt)) forEachScores(true, 0);
+				if (/dexterity|\bdex\b/i.test(subObj.scorestxt)) forEachScores(true, 1);
+				if (/constitution|\bcon\b/i.test(subObj.scorestxt)) forEachScores(true, 2);
+				if (/intelligence|\bint\b/i.test(subObj.scorestxt)) forEachScores(true, 3);
+				if (/wisdom|\bwis\b/i.test(subObj.scorestxt)) forEachScores(true, 4);
+				if (/charisma|\bcha\b/i.test(subObj.scorestxt)) forEachScores(true, 5);
+			}
+		}
+		if (inObj.choices) {
+			for (var i = 0; i < inObj.choices.length; i++) {
+				var sChc = inObj.choices[i].toLowerCase();
+				if (inObj[sChc]) forEachChoices(inObj[sChc]);
+			}
+		} else {
+			forEachChoices(inObj);
+		}
+		if (!anythingToAdd) return;
+		// Now add to the menu
+		var bonusToAny = Object.values(bonusTo).every(function (value) { return value; });
+		if (bonusToAny) {
+			if (fMenus.asi.any.entries.indexOf(useName) === -1) fMenus.asi.any.entries.push(useName);
+		} else {
+			for (var abi in bonusTo) {
+				if (bonusTo[abi] && fMenus.asi[abi].entries.indexOf(useName) === -1) fMenus.asi[abi].entries.push(useName);
+			}
+		}
 	}
 	var mapFeatEntries = function (sFeatEntry) {
 		return {
@@ -5624,7 +5670,7 @@ function ParseFeatMenu() {
 		}
 		var iSrc = tObj.source ? stringSource(tObj, "first,abbr", "(", ")") : false;
 		var sMainFeatName = fObj.sortname ? fObj.sortname : fObj.name;
-		featName = amendSrc(RemoveZeroWidths(!sObj ? sMainFeatName : sObj.sortname ? sObj.sortname : sObj.name ? sObj.name : sMainFeatName + " [" + subFeat + "]"), iSrc);
+		var featName = amendSrc(RemoveZeroWidths(!sObj ? sMainFeatName : sObj.sortname ? sObj.sortname : sObj.name ? sObj.name : sMainFeatName + " [" + subFeat + "]"), iSrc);
 		var firstLetter = featName[0].toUpperCase();
 		// If this is a subfeat and it has the exact same name as a previously added subfeat, we have to make sure it is unique
 		if (sObj && sObj.name && fMenus.ref[featName]) {
@@ -5658,18 +5704,8 @@ function ParseFeatMenu() {
 			}
 		};
 		fMenus.type[sTypeLC].entries.push(featName);
-		// Add the entry for the ability score improvements
-		if (tObj.scores) tObj.scores.forEach(forEachScores);
-		if (tObj.scoresOverride) tObj.scoresOverride.forEach(forEachScores);
-		if (tObj.scoresMaximum) tObj.scoresMaximum.forEach(forEachScores);
-		if (tObj.scorestxt) {
-			if (/strength|\bstr\b/i.test(tObj.scorestxt)) forEachScores(true, 0);
-			if (/dexterity|\bdex\b/i.test(tObj.scorestxt)) forEachScores(true, 1);
-			if (/constitution|\bcon\b/i.test(tObj.scorestxt)) forEachScores(true, 2);
-			if (/intelligence|\bint\b/i.test(tObj.scorestxt)) forEachScores(true, 3);
-			if (/wisdom|\bwis\b/i.test(tObj.scorestxt)) forEachScores(true, 4);
-			if (/charisma|\bcha\b/i.test(tObj.scorestxt)) forEachScores(true, 5);
-		}
+		// Add entries for ability score improvements, even for choices regardless of `choicesNotInMenu`
+		testForScoreIncrease(tObj, featName);
 	}
 	// Loop over all the feats and add them to the fMenus object where appropriate
 	for (var key in FeatsList) {
@@ -5724,34 +5760,27 @@ function ParseFeatMenu() {
 		cName: "By source",
 		oSubMenu: aMenuSource,
 	}, { cName: "-" });
-	// Add the listing per type
-	var aMenuType = [], aMenuTypeSub;
-	for (var sTypeLC in fMenus.type) {
-		if (!fMenus.type[sTypeLC].entries.length) continue;
-		fMenus.type[sTypeLC].entries.sort();
-		aMenuTypeSub = fMenus.type[sTypeLC].entries.map(mapFeatEntries);
-		aMenuType.push({
-			cName: fMenus.type[sTypeLC].name,
-			oSubMenu: aMenuTypeSub,
-		})
+	// Add the listings per type and per ability score increse
+	var objectToMenu = function (oInput) {
+		var aMenu = [];
+		for (var key in oInput) {
+			var oType = oInput[key];
+			if (!oType.entries.length) continue;
+			oType.entries.sort();
+			aMenu.push({
+				cName: oType.name,
+				oSubMenu: oType.entries.map(mapFeatEntries),
+			});
+		}
+		return aMenu;
 	}
-	if (aMenuType.length) {
+	var aMenuType = objectToMenu(fMenus.type);
+	var aMenuAsi = objectToMenu(fMenus.asi);
+	if (aMenuType.length || aMenuAsi.length) {
 		aMenuType.push({ cName: "-" });
-		AddFeatsMenu = AddFeatsMenu.concat(aMenuType);
+		if (aMenuType.length) AddFeatsMenu = AddFeatsMenu.concat(aMenuType);
+		if (aMenuAsi.length) AddFeatsMenu = AddFeatsMenu.concat(aMenuAsi);
 	}
-	// Add the listing per ability score
-	var aMenuAsi = [], aMenuAsiSub;
-	for (var i = 0; i < fMenus.asi.length; i++) {
-		var oAsi = fMenus.asi[i];
-		if (!oAsi.entries.length) continue;
-		oAsi.entries.sort();
-		aMenuAsiSub = oAsi.entries.map(mapFeatEntries);
-		aMenuAsi.push({
-			cName: oAsi.name,
-			oSubMenu: aMenuAsiSub,
-		})
-	}
-	if (aMenuAsi.length) AddFeatsMenu = AddFeatsMenu.concat(aMenuAsi);
 }
 
 //Make menu for the button on each Feat line and parse it to Menus.feats
