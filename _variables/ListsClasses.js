@@ -3886,7 +3886,7 @@ var Base_ClassSubList = {
 				calcChanges: {
 					atkAdd: [
 						function (fields, v) {
-							if (!v.isSpell && !v.CritChance && !v.isDC && classes.known.fighter && classes.known.fighter.level < 15) {
+							if ((v.isWeapon || v.baseWeaponName === "unarmed strike") && !v.CritChance && !v.isDC && classes.known.fighter && classes.known.fighter.level < 15) {
 								fields.Description += (fields.Description ? "; " : "") + "Crit on 19-20";
 								v.CritChance = 19;
 							};
@@ -3929,7 +3929,7 @@ var Base_ClassSubList = {
 				calcChanges: {
 					atkAdd: [
 						function (fields, v) {
-							if (v.isSpell || v.isDC) return;
+							if ((!v.isWeapon && v.baseWeaponName !== "unarmed strike") || v.isDC) return;
 							if (v.CritChance && v.CritChance > 18) {
 								fields.Description = fields.Description.replace("Crit on " + CritChance + "-20", "Crit on 18-20");
 								v.CritChance = 18;
