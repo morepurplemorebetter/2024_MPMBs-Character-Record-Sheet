@@ -2503,6 +2503,7 @@ var Base_MagicItemsList = {
 			var oCrea = Object.assign({}, Base_CreatureList[creature]);
 			delete oCrea.nameAlt;
 			delete oCrea.companion;
+			delete oCrea.companionApply;
 			oCrea.eval = function (prefix) {
 				Value(prefix + "Comp.Desc.Name", "Figurine of Wondrous Power");
 			};
@@ -2530,7 +2531,7 @@ var Base_MagicItemsList = {
 			"bronze griffon (rare)": {
 				name: "Figurine of Wondrous Power (Bronze Griffon)",
 				rarity: "Rare",
-				description: "As a Magic action, I can throw this statuette to an empty space within 60 ft, where it becomes a **Griffon** for 6 hours or until it drops to 0 HP or I touch it and use a Magic action to revert it back. The griffon is Friendly, obeys my commands, and acts after me on my Initiative. See Companion page.",
+				description: "As a Magic action, I can throw this statuette to an empty space within 60 ft, where it becomes a **Griffon** for 6 hours or until it drops to 0 HP or I touch it and use a Magic action to make it revert back. The griffon is Friendly, obeys my commands, and acts after me on my Initiative. See Companion page.",
 				descriptionFull: descriptionFull.concat([
 					"***Bronze Griffon (Rare)***. This bronze statuette is of a griffon rampant. It can become a **Griffon** for up to 6 hours. Once it has been used, it can't be used again until 5 days have passed.",
 				]),
@@ -2634,7 +2635,7 @@ var Base_MagicItemsList = {
 				name: "Figurine of Wondrous Power (Ivory Goats)",
 				rarity: "Rare",
 				description: "As a Magic action, I can throw 1 of these 3 statuettes to an empty space within 60 ft. Each figurine turns into a creature for a number of hours or until it drops to 0 HP or I touch it and use a Magic action to revert it. It is Friendly, obeys my commands, and acts after me on my Initiative. See Companion pages.",
-				descriptionLong: "As a Magic action, I can throw one of these three statuettes to an empty space within 60 ft. Each figurine turns into a specific creature for a number of hours or until it drops to 0 HP or I touch it and use a Magic action to revert it back. Each creature is Friendly, obeys my commands, understands my languages, and acts after me on my Initiative. The ***Goat of Terror*** can become a **Giant Goat** for 3 hours. The ***Goat of Traveling*** can become a large goat (**Riding Horse** stats) for 24 hours, which don't need to be consecutive. The ***Goat of Travail*** can become a **Giant Goat** for 3 hours. See Companion pages.",
+				descriptionLong: "As a Magic action, I can throw one of these three statuettes to an empty space within 60 ft. Each figurine turns into a specific creature for a number of hours or until it drops to 0 HP or I touch it and use a Magic action to make it revert back. Each creature is Friendly, obeys my commands, understands my languages, and acts after me on my Initiative. The ***Goat of Terror*** can become a **Giant Goat** for 3 hours. The ***Goat of Traveling*** can become a large goat (**Riding Horse** stats) for 24 hours, which don't need to be consecutive. The ***Goat of Travail*** can become a **Giant Goat** for 3 hours. See Companion pages.",
 				descriptionFull: descriptionFull.concat([
 					"***Ivory Goats (Rare)***. These ivory statuettes of goats are always created in sets of three. Each goat looks unique and functions differently from the others. Their properties are as follows:",
 					" \u2022 **Goat of Terror**. This figurine can become a **Giant Goat** for up to 3 hours. The goat can't attack, but you can (harmlessly) remove its horns and use them as weapons. One horn becomes a *+1 Lance*, and the other becomes a *+2 Longsword*. Removing a horn requires a Magic action, and the weapons disappear and the horns return when the goat reverts to figurine form. While you ride the goat, any Hostile creature that starts its turn within a 30-foot Emanation originating from the goat must succeed on a DC 15 Wisdom saving throw or have the Frightened condition for 1 minute, until you are no longer riding the goat, or until the goat reverts to figurine form. The Frightened creature repeats the save at the end of each of its turns, ending the effect on itself on a success. Once it succeeds on the save, a creature is immune to this effect for the next 24 hours. Once the figurine has been used, it can't be used again until 15 days have passed.",
@@ -2746,7 +2747,7 @@ var Base_MagicItemsList = {
 			"marble elephant (rare)": {
 				name: "Figurine of Wondrous Power (Marble Elephant)",
 				rarity: "Rare",
-				description: "As a Magic action, I can throw this statuette to an empty space within 60 ft, where it becomes a **Elephant** for 24 hours or until it drops to 0 HP or I touch it and use a Magic action to revert it back. The elephant is Friendly, obeys my commands, and acts after me on my Initiative. See Companion page.",
+				description: "As a Magic action, I can throw this statuette to an empty space within 60 ft, where it becomes a **Elephant** for 24 hours or until it drops to 0 HP or I touch it and use a Magic action to make it revert back. The elephant is Friendly, obeys my commands, and acts after me on my Initiative. See Companion page.",
 				descriptionFull: descriptionFull.concat([
 					"***Marble Elephant (Rare)***. This marble statuette resembles a trumpeting elephant. It can become an **Elephant** for up to 24 hours. Once it has been used, it can't be used again until 7 days have passed.",
 				]),
@@ -2779,7 +2780,7 @@ var Base_MagicItemsList = {
 			"obsidian steed (very rare)": {
 				name: "Figurine of Wondrous Power (Obsidian Steed)",
 				rarity: "Very Rare",
-				description: "As a Magic action, I can throw this statuette to an empty space within 60 ft, where it becomes a **Nightmare** for 24 hours or until it drops to 0 HP or I touch it and use a Magic action" + (typePF ? "" : " to revert it back") + ". It's Friendly, obeys my commands 90% of the time, acts after me on my Initiative, and only fights to defend itself. See Companion page.",
+				description: "As a Magic action, I can throw this statuette to an empty space within 60 ft. There it becomes a **Nightmare** for 24 hours or until it drops to 0 HP or I touch it and use a Magic action" + (typePF ? "" : " to command it to revert back") + ". It's Friendly, acts after me on my Initiative, obeys my commands 90% of the time, but only fights to defend itself. See Companion page.",
 				descriptionFull: descriptionFull.concat([
 					"***Obsidian Steed (Very Rare)***. This polished obsidian horse can become a **Nightmare** for up to 24 hours. The nightmare fights only to defend itself. Once it has been used, it can't be used again until 5 days have passed.",
 					"The figurine has a 10 percent chance each time you use it to ignore your orders, including a command to revert to figurine form. If you mount the nightmare while it is ignoring your orders, you and the nightmare are instantly transported to a random location on the plane of Hades, where the nightmare reverts to figurine form.",
@@ -2819,7 +2820,7 @@ var Base_MagicItemsList = {
 			"onyx dog (rare)": {
 				name: "Figurine of Wondrous Power (Onyx Dog)",
 				rarity: "Rare",
-				description: "As a Magic action, I can throw this statuette to an empty space within 60 ft, where it becomes a **Mastiff** for 6 hours or until it drops to 0 HP or I touch it and use a Magic action" + (typePF ? "" : " to revert it back") + ". It is Friendly, obeys my commands, has Int" + (typePF ? "" : "elligence") + " 8, speaks Common, has Blindsight 60 ft, and acts after me on my Initiative. See Companion page.",
+				description: "As a Magic action, I can throw this statuette to an empty space within 60 ft, where it becomes a **Mastiff** for 6 hours or until it drops to 0 HP or I touch it and use a Magic action" + (typePF ? "" : " to make it revert back") + ". It is Friendly, obeys my commands, has Int" + (typePF ? "" : "elligence") + " 8, speaks Common, has Blindsight 60 ft, and acts after me on my Initiative. See Companion page.",
 				descriptionFull: descriptionFull.concat([
 					"***Onyx Dog (Rare)***. This onyx statuette of a dog can become a **Mastiff** for up to 6 hours. The mastiff has an Intelligence of 8 and can speak Common. It also has Blindsight with a range of 60 feet. Once it has been used, it can't be used again until 7 days have passed.",
 				]),
@@ -2855,7 +2856,7 @@ var Base_MagicItemsList = {
 			"serpentine owl (rare)": {
 				name: "Figurine of Wondrous Power (Serpentine Owl)",
 				rarity: "Rare",
-				description: "As a Magic action, I can throw this statuette to an empty space within 60 ft, where it becomes a **Giant Owl** for 8 hours or until it drops to 0 HP or I touch it and use a Magic action" + (typePF ? "" : " to revert it back") + ". It is Friendly, obeys my commands, and acts after me on my Initiative. We can speak telepathically if on the same plane. See Companion page.",
+				description: "As a Magic action, I can throw this statuette to an empty space within 60 ft, where it becomes a **Giant Owl** for 8 hours or until it drops to 0 HP or I touch it and use a Magic action" + (typePF ? "" : " to make it revert back") + ". It is Friendly, obeys my commands, and acts after me on my Initiative. We can speak telepathically if on the same plane. See Companion page.",
 				descriptionFull: descriptionFull.concat([
 					"***Serpentine Owl (Rare)***. This serpentine statuette of an owl can become a **Giant Owl** for up to 8 hours. The owl can communicate telepathically with you at any range if you and it are on the same plane of existence. Once it has been used, it can't be used again until 2 days have passed.",
 				]),
@@ -2892,7 +2893,7 @@ var Base_MagicItemsList = {
 			"silver raven (uncommon)": {
 				name: "Figurine of Wondrous Power (Silver Raven)",
 				rarity: "Uncommon",
-				description: "As a Magic action, I can throw this statuette to an empty space within 60 ft, where it becomes a **Raven** for 12 hours or until it drops to 0 HP or I touch it and use a Magic action" + (typePF ? "" : " to revert it back") + ". The raven is Friendly, obeys my commands, acts after me on my Initiative, and I can cast *Animal Messenger* on it. See Companion page.",
+				description: "As a Magic action, I can throw this statuette to an empty space within 60 ft, where it becomes a **Raven** for 12 hours or until it drops to 0 HP or I touch it and use a Magic action" + (typePF ? "" : " to make it revert back") + ". The raven is Friendly, obeys my commands, acts after me on my Initiative, and I can cast *Animal Messenger* on it. See Companion page.",
 				descriptionFull: descriptionFull.concat([
 					"***Silver Raven (Uncommon)***. This silver statuette of a raven can become a **Raven** for up to 12 hours. Once it has been used, it can't be used again until 2 days have passed. While in raven form, the figurine grants you the ability to cast *Animal Messenger* on it.",
 				]),
@@ -3712,7 +3713,7 @@ var Base_MagicItemsList = {
 				name: metal + " Horn of Valhalla",
 				sortname: "Horn of Valhalla, " + metal,
 				rarity: rarity,
-				description: "As a Magic action once every 7 days, I can blow this horn to summon " + spiritCount + " warrior spirits within 60 ft of me. They are **Berserkers** and disappear after 1 hour, or when they drop to 0 HP. " + friendlySection,
+				description: "As a Magic action once every 7 days, I can blow this horn to summon " + spiritCount + " warrior spirits within 60 ft. They are **Berserkers** and disappear after 1 hour, or when they drop to 0 HP. " + friendlySection,
 				descriptionFull: [
 					"You can take a Magic action to blow this " + metal.toLowerCase() + " horn. In response, warrior spirits from the plane of Ysgard appear in unoccupied spaces within 60 feet of you. Each spirit uses the **Berserker** stat block and returns to Ysgard after 1 hour or when it drops to 0 Hit Points. The spirits look like living, breathing warriors, and they have Immunity to the Charmed and Frightened conditions. Once you use the horn, it can't be used again until 7 days have passed.",
 					"This horn requires that you be " + (hasArmorRequirement ? "trained" : "proficient") + " with all " + requirement + ".",
@@ -3983,11 +3984,13 @@ var Base_MagicItemsList = {
 			name: "Iron Bands of Bilarro",
 			source: [["SRD24", 228], ["DMG24", 274]],
 			ability: 2,
-			type: "Natural",
-			damage: ["―", "", "Restrained"],
+			type: "Magic Item",
+			damage: ["\u2013", "", "Restrained"],
 			range: "60 ft",
 			description: "Restrains Huge or smaller creature; DC 20 Atheltics check to free Restrained creature",
 			abilitytodamage: false,
+			isNotWeapon: true,
+			isAlwaysProf: true,
 			weight: 1,
 			selectNow: true,
 		}],
@@ -6510,7 +6513,7 @@ var Base_MagicItemsList = {
 		rarity: "Legendary",
 		magicItemTable: "Relics",
 		attunement: true,
-		description: "This rod has 5 charges and regains 1 expended charge daily at dawn. While holding it, I can cast one of the following spells from it: *Heal* (expends 1 charge) or *Resurrection* (expends 5 charges). If I expend the last charge, roll 1d20. On a 1, the rod disappears in a harmless burst of radiance.",
+		description: "This rod has 5 charges and regains 1 expended charge daily at dawn. While holding it, I can cast one of the following spells from it: *Heal* (expends 1 charge) or *Resurrection* (expends 5 charges). If I expend the last charge, I must roll 1d20. On a 1, the rod disappears in a harmless burst of radiance.",
 		descriptionFull: [
 			"The rod has 5 charges. While you hold it, you can cast one of the following spells from it: *Heal* (expends 1 charge) or *Resurrection* (expends 5 charges).",
 			"The rod regains 1 expended charge daily at dawn. If you expend the last charge, roll 1d20. On a 1, the rod disappears in a harmless burst of radiance.",
@@ -6775,12 +6778,13 @@ var Base_MagicItemsList = {
 			name: "Shield of the Cavalier: Forceful Bash",
 			source: [["SRD24", 243], ["DMG24", 304]],
 			ability: 1,
-			type: "AlwaysProf",
+			type: "Magic Item",
 			damage: [2, 6, "force"],
 			range: "Melee",
 			description: "Creature pushed 10 ft, also Prone if \u2264my Size",
-			isNotWeapon: true,
 			modifiers: ["", 2],
+			isNotWeapon: true,
+			isAlwaysProf: true,
 			selectNow: true,
 		}],
 		toNotesPage: [{
@@ -7002,7 +7006,7 @@ var Base_MagicItemsList = {
 		},
 		description: "This staff has 10 charges usable to cast spells and regains 1d8+2 at dawn. It has a 5% chance of being destroyed if the last charge is used. If I need to save vs an Enchantment spell targetting only me: *Failure*: Once per dawn, I can succeed instead, *Success*: As a Reaction, I can use 1 charge to cast the same spell on the caster.",
 		descriptionLong: [
-			"This staff has 10 charges and regains 1d8+2 charges at dawn. If I use the last charge, roll 1d20. On a 1, the staff crumbles to dust. While holding the staff, I can expend 1 charge to cast *Charm Person*, *Command*, or *Comprehend Languages* using my spell save DC.",
+			"This staff has 10 charges and regains 1d8+2 charges at dawn. If I use the last charge, I roll 1d20. On a 1, the staff crumbles to dust. While holding the staff, I can expend 1 charge to cast *Charm Person*, *Command*, or *Comprehend Languages* using my spell save DC.",
 			(typePF ? "If" : "When") + " an Enchantment spell targets only me while I'm holding the staff, I can do the following.",
 			"***Reflect Enchantment***. As a Reaction when I succeed on the save, I can expend 1 charge to turn the spell back on its caster as if I had cast the spell.",
 			"***Resist Enchantment***. Once per dawn when I fail the save, I can turn it into a success.",
@@ -7347,7 +7351,7 @@ var Base_MagicItemsList = {
 			return !!classes.known.bard || !!classes.known.cleric || !!classes.known.druid || !!classes.known.sorcerer || !!classes.known.warlock || !!classes.known.wizard;
 		},
 		description: "This staff has 10 charges usable to cast spells and regains 1d6+4 at dawn. As a Magic action while holding it, I can use 1 charge to create a swarm of insects lasting for 10 min, in a 30-ft Emanation from me, Heavily Obscuring the area for all but me, ended by a strong wind. If I use the last charge, 5% chance the staff breaks.",
-		descriptionLong: "This staff has 10 charges and regains 1d6+4 expended charges daily at dawn. While holding it, I can cast *Giant Insect* (4 charges) or *Insect Plague* (5 charges) from the staff using my spell save DC. As a Magic action while holding the staff, I can expend 1 charge to cause a swarm of harmless flying insects to fill a 30-ft Emanation originating from me for 10 minutes. The insects make the area Heavily Obscured for creatures other than me. A strong wind disperses the swarm and ends the effect. If I expend the last charge, roll 1d20. On a 1, a swarm of insects consumes and destroys the staff, then disperses.",
+		descriptionLong: "This staff has 10 charges and regains 1d6+4 expended charges daily at dawn. While holding it, I can cast *Giant Insect* (4 charges) or *Insect Plague* (5 charges) from the staff using my spell save DC. As a Magic action while holding the staff, I can expend 1 charge to cause a swarm of harmless flying insects to fill a 30-ft Emanation originating from me for 10 minutes. The insects make the area Heavily Obscured for creatures other than me. A strong wind disperses the swarm and ends the effect. If I expend the last charge, I must roll 1d20. On a 1, a swarm of insects consumes and destroys the staff, then disperses.",
 		descriptionFull: [
 			"This staff has 10 charges.",
 			"***Insect Cloud***. While holding the staff, you can take a Magic action and expend 1 charge to cause a swarm of harmless flying insects to fill a 30-foot Emanation originating from you. The insects remain for 10 minutes, making the area Heavily Obscured for creatures other than you. A strong wind (like that created by *Gust of Wind*) disperses the swarm and ends the effect.",
@@ -7516,7 +7520,7 @@ var Base_MagicItemsList = {
 		rarity: "Uncommon",
 		magicItemTable: ["Arcana", "Relics"],
 		attunement: true,
-		description: "As a Magic action, I can turn this staff into a **Giant Constrictor Snake** in an empty space in 10 ft. It shares my Initiative. While in 60 ft, I can mentally command it on my turn. As a Bonus Action, I can revert its form, causing it to regain all HP, and can transform it again after 1 hour. If it drops to 0 HP, the staff is destroyed.",
+		description: "As a Magic action, I can turn this staff into a **Giant Constrictor Snake** in an empty space in 10 ft. It shares my Initiative. While in 60 ft, I can mentally command it on my turn. As a Bonus Action, I can revert it back, causing it to regain all HP, and can transform it again after 1 hour. If it drops to 0 HP, the staff is destroyed.",
 		descriptionLong: "As a Magic action, I can throw this staff so it lands in an unoccupied space within 10 ft, causing it to become a **Giant Constrictor Snake** that shares my Initiative, taking its turn right after mine. On my turn, I can mentally command the snake (no action) if within 60 ft and I'm not Incapacitated, deciding its actions or giving it a general command. Without orders, it defends itself. As a Bonus Action, I can command it to revert to staff form, causing it to regain all its lost HP. Once reverted, I can't have it become a snake again for 1 hour. If the snake is reduced to 0 HP, it dies and the staff shatters and is destroyed.",
 		descriptionFull: [
 			"As a Magic action, you can throw this staff so that it lands in an unoccupied space within 10 feet of you, causing the staff to become a **Giant Constrictor Snake** in that space. The snake is under your control and shares your Initiative count, taking its turn immediately after yours.",
@@ -7849,7 +7853,7 @@ var Base_MagicItemsList = {
 		rarity: "Rare",
 		magicItemTable: "Armaments",
 		attunement: true,
-		description: "This magic weapon does maximum damage against objects it hits instead of rolling its damage dice. When I attack a creature with it and roll a 20 on the d20 for the attack roll, that target takes an extra 14 Slashing damage and gains 1 Exhaustion level.",
+		description: "When I attack an object with this magic weapon and hit, I maximize the weapon's damage dice against the target. When I attack a creature with it and roll a 20 on the d20 for the attack roll, that target takes an extra 14 Slashing damage and gains 1 Exhaustion level.",
 		descriptionFull: [
 			"When you attack an object with this magic weapon and hit, maximize your weapon damage dice against the target.",
 			"When you attack a creature with this weapon and roll a 20 on the d20 for the attack roll, that target takes an extra 14 Slashing damage and gains 1 Exhaustion level.",
@@ -7899,7 +7903,7 @@ var Base_MagicItemsList = {
 				function (fields, v) {
 					if (!v.theWea.isMagicWeapon && v.isMeleeWeapon && /glaive|rapier|scimitar|sword/i.test(v.baseWeaponName) && /wounding/i.test(v.WeaponTextName)) {
 						v.theWea.isMagicWeapon = true;
-						fields.Description += (fields.Description ? "; " : "") + "+2d6 Necrotic damage; DC 15 Con save or no HP regain for 1 hour";
+						fields.Description += (fields.Description ? "; " : "") + "+2d6 Necrotic dmg; DC 15 Con save or 1 hour no HP regain (repeat at its EoT)";
 					};
 				},
 				'If I include the word "Wounding" in the name of a Glaive, Greatsword, Longsword, Rapier, Scimitar, or Shortsword, it will be treated as the magic weapon Sword of Wounding. It deals +2d6 Necrotic damage and the target must make a DC 15 Constitution saving throw or be unable to regain Hit Points for 1 hour.',
@@ -8144,7 +8148,7 @@ var Base_MagicItemsList = {
 		rarity: "Legendary",
 		magicItemTable: "Armaments",
 		attunement: true,
-		description: "I gain a +3 bonus to attack and damage rolls with this magic weapon. It ignores Slashing damage Resistance, and on a roll of 20 to hit, it cuts off one head" + (typePF ? "" : ", possibly killing it instantly") + ". If the target does not need a head, has Slashing damage Immunity, uses a Legendary Resistance, or its neck is too wide, it takes 30 Slashing damage instead.",
+		description: "This +3 magic weapon ignores Slashing damage Resistance. On a roll of 20 to hit, it cuts off one head, killing the creature if it cannot survive without the lost head. If the target doesn't need a head, its neck is too wide, it uses a Legendary Resistance, or has Slashing damage Immunity, it takes 30 Slashing damage instead.",
 		descriptionFull: [
 			"You gain a +3 bonus to attack rolls and damage rolls made with this magic weapon. In addition, the weapon ignores Resistance to Slashing damage.",
 			"When you use this weapon to attack a creature that has at least one head and roll a 20 on the d20 for the attack roll, you cut off one of the creature's heads. The creature dies if it can't survive without the lost head. A creature is immune to this effect if it has Immunity to Slashing damage, if it doesn't have or need a head, or if the GM decides that the creature is too big for its head to be cut off with this weapon. Such a creature instead takes an extra 30 Slashing damage from the hit. If the creature has Legendary Resistance, it can expend one daily use of that trait to avoid losing its head, taking the extra damage instead",
@@ -8184,7 +8188,7 @@ var Base_MagicItemsList = {
 		rarity: "Rare",
 		magicItemTable: "Arcana",
 		attunement: true,
-		description: "This wand has 7 charges and regains 1d6+1 expended charges daily at dawn. While holding the wand, I can expend charges to cast (save DC 17) *Hold Monster* (5 charges) or *Hold Person* (2 charges). If I expend the last charge, roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
+		description: "This wand has 7 charges and regains 1d6+1 expended charges daily at dawn. While holding the wand, I can expend charges to cast (save DC 17) *Hold Monster* (5 charges) or *Hold Person* (2 charges). If I expend the last charge, I must roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
 		descriptionFull: [
 			"This wand has 7 charges.",
 			"***Spells***. While holding the wand, you can cast one of the spells (save DC 17) on the following table from it. The table indicates how many charges you must expend to cast the spell.",
@@ -8220,7 +8224,7 @@ var Base_MagicItemsList = {
 		rarity: "Rare",
 		magicItemTable: ["Implements", "Implements"],
 		attunement: true,
-		description: "This wand has 7 charges and regains 1d6+1 at dawn. As a Magic action, I can expend 1 charge to, for 1 minute while holding it, know the direction of the nearest creature hostile to me within 60 ft even of it is Invisible, ethereal, disguised, or hidden. If I use the last charge, roll 1d20. On a 1, the wand crumbles into ashes.",
+		description: "This wand has 7 charges and regains 1d6+1 at dawn. As a Magic action, I can expend 1 charge to, for 1 minute while holding it, know the direction of the nearest creature Hostile to me within 60 ft even if it is Invisible, ethereal, disguised, or hidden. If I use the last charge, I roll 1d20. On a 1, the wand is destroyed.",
 		descriptionFull: [
 			"This wand has 7 charges. While holding it, you can take a Magic action to expend 1 charge. For 1 minute, you know the direction of the nearest creature Hostile to you within 60 feet, but not its distance from you. The wand can sense the presence of Hostile creatures that are Invisible, ethereal, disguised, or hidden, as well as those in plain sight. The effect ends if you stop holding the wand.",
 			"***Regaining Charges***. The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
@@ -8238,7 +8242,7 @@ var Base_MagicItemsList = {
 		rarity: "Rare",
 		magicItemTable: "Arcana",
 		attunement: true,
-		description: 'This wand has 7 charges and regains 1d6+1 expended charges daily at dawn. While holding the wand, I can expend charges to cast (save DC 15) *Command* (1 charge, "flee" or "grovel" only) or *Fear* (3 charges, 60-ft Cone). If I expend the last charge, roll 1d20. On a 1, it crumbles into ashes and is destroyed.',
+		description: 'This wand has 7 charges and regains 1d6+1 expended charges daily at dawn. While holding the wand, I can expend charges to cast (save DC 15) *Command* (1 charge, "flee" or "grovel" only) or *Fear* (3 charges, 60-ft Cone). If I expend the last charge, I must roll 1d20. On a 1, it crumbles into ashes and is destroyed.',
 		descriptionFull: [
 			"This wand has 7 charges.",
 			"***Spells***. While holding the wand, you can cast one of the spells (save DC 15) on the following table from it. The table indicates how many charges you must expend to cast the spell.",
@@ -8286,7 +8290,7 @@ var Base_MagicItemsList = {
 		attunement: true,
 		prerequisite: "Requires Attunement by a Spellcaster",
 		prereqeval: function (v) { return v.isSpellcaster; },
-		description: "This wand has 7 charges and regains 1d6+1 at dawn. While holding it, I can expend 1-3 charges to cast *Fireball* (save DC 15) from it. The spell's level is 3 when expending 1 charge and increases with each additional charge expended. If I expend the last charge, roll 1d20. On a 1, the wand crumbles into ashes.",
+		description: "This wand has 7 charges and regains 1d6+1 at dawn. While holding it, I can expend 1-3 charges to cast *Fireball* (save DC 15) from it. The spell's level is 3 when expending 1 charge and increases with each additional charge expended. If I expend the last charge, I roll 1d20. On a 1, the wand crumbles into ashes.",
 		descriptionFull: [
 			"This wand has 7 charges. While holding it, you can expend no more than 3 charges to cast *Fireball* (save DC 15) from it. For 1 charge, you cast the level 3 version of the spell. You can increase the spell's level by 1 for each additional charge you expend.",
 			"***Regaining Charges***. The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
@@ -8319,7 +8323,7 @@ var Base_MagicItemsList = {
 		attunement: true,
 		prerequisite: "Requires Attunement by a Spellcaster",
 		prereqeval: function (v) { return v.isSpellcaster; },
-		description: "This wand has 7 charges and regains 1d6+1 at dawn. While holding it, I can expend 1-3 charges to cast *Lightning Bolt* (save DC 15) from it. The spell's level is 3 when expending 1 charge and increases with each additional charge expended. If I expend the last charge, roll 1d20. On a 1, the wand crumbles into ashes.",
+		description: "This wand has 7 charges and regains 1d6+1 at dawn. While holding it, I can expend 1-3 charges to cast *Lightning Bolt* (save DC 15) from it. The spell's level is 3 when expending 1 charge and increases with each additional charge expended. If I expend the last charge, I roll 1d20. On a 1, the wand is destroyed.",
 		descriptionFull: [
 			"This wand has 7 charges. While holding it, you can expend no more than 3 charges to cast *Lightning Bolt* (save DC 15) from it. For 1 charge, you cast the level 3 version of the spell. You can increase the spell's level by 1 for each additional charge you expend.",
 			"***Regaining Charges***. The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
@@ -8369,7 +8373,7 @@ var Base_MagicItemsList = {
 		type: "Wand",
 		rarity: "Uncommon",
 		magicItemTable: "Arcana",
-		description: "This wand has 7 charges and regains 1d6+1 at dawn. While holding it, I can expend no more than 3 charges to cast *Magic Missile* from it. The spell's level is the same as the number of charges expended. If I expend the last charge, roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
+		description: "This wand has 7 charges and regains 1d6+1 at dawn. While holding it, I can expend no more than 3 charges to cast *Magic Missile* from it. The spell's level is the same as the number of charges expended. If I expend the last charge, I must roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
 		descriptionFull: [
 			"This wand has 7 charges. While holding it, you can expend no more than 3 charges to cast *Magic Missile* from it. For 1 charge, you cast the level 1 version of the spell. You can increase the spell's level by 1 for each additional charge you expend.",
 			"***Regaining Charges***. The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
@@ -8401,7 +8405,7 @@ var Base_MagicItemsList = {
 		attunement: true,
 		prerequisite: "Requires Attunement by a Spellcaster",
 		prereqeval: function (v) { return v.isSpellcaster; },
-		description: "This wand has 7 charges and regains 1d6+1 at dawn. As a Magic action, I can expend 1 charge to have a creature I can see within 60 ft make a DC 15 Con save or be Paralyzed for 1 minute. The target repeats this save at the end of each of its turns. If I use the last charge, roll 1d20. On a 1, the wand crumbles into ashes.",
+		description: "This wand has 7 charges and regains 1d6+1 at dawn. As a Magic action, I can expend 1 charge to have a creature I can see within 60 ft make a DC 15 Con save or be Paralyzed for 1 minute. The target repeats this save at the end of each of its turns. If I use the last charge, I roll 1d20. On a 1, the wand crumbles into ashes.",
 		descriptionFull: [
 			"This wand has 7 charges. While holding it, you can take a Magic action to expend 1 charge to cause a thin blue ray to streak from the tip toward a creature you can see within 60 feet of yourself. The target must succeed on a DC 15 Constitution saving throw or have the Paralyzed condition for 1 minute. At the end of each of the target's turns, it repeats the save, ending the effect on itself on a success.",
 			"***Regaining Charges***. The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
@@ -8421,7 +8425,7 @@ var Base_MagicItemsList = {
 		attunement: true,
 		prerequisite: "Requires Attunement by a Spellcaster",
 		prereqeval: function (v) { return v.isSpellcaster; },
-		description: "This wand has 7 charges and regains 1d6+1 expended charges daily at dawn. While holding it, I can expend 1 charge to cast *Polymorph* (save DC 15) from it. If I expend the last charge, roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
+		description: "This wand has 7 charges and regains 1d6+1 expended charges daily at dawn. While holding it, I can expend 1 charge to cast *Polymorph* (save DC 15) from it. If I expend the last charge, I must roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
 		descriptionFull: [
 			"This wand has 7 charges. While holding it, you can expend 1 charge to cast *Polymorph* (save DC 15) from it.",
 			"***Regaining Charges***. The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
@@ -8520,7 +8524,7 @@ var Base_MagicItemsList = {
 		attunement: true,
 		prerequisite: "Requires Attunement by a Spellcaster",
 		prereqeval: function (v) { return v.isSpellcaster; },
-		description: "This wand has 7 charges and regains 1d6+1 expended charges daily at dawn. While holding it, I can expend 1 charge to cast *Web* (save DC 13) from it. If I expend the last charge, roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
+		description: "This wand has 7 charges and regains 1d6+1 expended charges daily at dawn. While holding it, I can expend 1 charge to cast *Web* (save DC 13) from it. If I expend the last charge, I must roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
 		descriptionFull: [
 			"This wand has 7 charges. While holding it, you can expend 1 charge to cast *Web* (save DC 13) from it.",
 			"***Regaining Charges***. The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll 1d20. On a 1, the wand crumbles into ashes and is destroyed.",
@@ -8545,7 +8549,7 @@ var Base_MagicItemsList = {
 		rarity: "Rare",
 		magicItemTable: "Arcana",
 		attunement: true,
-		description: "This wand has 7 charges and regains 1d6+1 expended charges daily at dawn. As a Magic action while holding it, I can expend 1 charge and choose a point within 120 ft. I then roll a 1d100 to see what happens. See Notes page. If I expend the last charge, roll 1d20. On a 1, the wand crumbles into dust and is destroyed.",
+		description: "This wand has 7 charges and regains 1d6+1 expended charges daily at dawn. As a Magic action while holding it, I can expend 1 charge and choose a point within 120 ft. I then roll a 1d100 to see what happens. See Notes page. If I expend the last charge, roll I must 1d20. On a 1, the wand is destroyed.",
 		descriptionFull: [
 			"This wand has 7 charges. While holding it, you can take a Magic action to expend 1 charge while choosing a point within 120 feet of yourself. That location becomes the point of origin of a spell or other magical effect determined by rolling on the table below. Spells cast from the wand have a save DC of 15. If a spell's maximum range is normally less than 120 feet, it becomes 120 feet when cast from the wand. If an effect has multiple possible subjects, the DM determines randomly which among them are affected.",
 			"***Regaining Charges***. The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll 1d20. On a 1, the wand crumbles into dust and is destroyed.",
@@ -8703,8 +8707,8 @@ var Base_MagicItemsList = {
 		attunement: true,
 		description: [
 			"While this magic weapon is within my reach, it grants the following benefits to me and my allies within 30 ft.",
-			"***Alarm***. The weapon magically awakens each from nonmagical sleep when combat begins.",
-			"***Supernatural Readiness***. Each has Advantage on Initiative rolls.",
+			"***Alarm***. The weapon magically awakens us from nonmagical sleep when combat begins.",
+			"***Supernatural Readiness***. We have Advantage on Initiative rolls.",
 		],
 		descriptionFull: [
 			"As long as this weapon is within your reach and you are attuned to it, you and allies within 30 feet of you gain the following benefits.",
