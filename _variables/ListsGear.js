@@ -1277,14 +1277,6 @@ var Base_PacksList = {
 };
 
 var Base_GearList = {
-/* removed in PHB'24
-	"abacus": {
-		infoname: "Abacus [2 gp]",
-		name: "Abacus",
-		amount: "",
-		weight: 2,
-	},
-*/
 	"acid": {
 		infoname: "Acid (vial) [25 gp]",
 		name: "Acid, vials of",
@@ -1415,14 +1407,6 @@ var Base_GearList = {
 		amount: "",
 		weight: "",
 	},
-	/* removed in PHB'24, now included with a saddle
-	"bit and bridle": {
-		infoname: "Bit and bridle [2 gp]",
-		name: "Bit and bridle",
-		amount: "",
-		weight: 1,
-	},
-*/
 	"blanket": {
 		infoname: "Blanket [5 sp]",
 		name: "Blanket",
@@ -1483,14 +1467,6 @@ var Base_GearList = {
 		amount: "",
 		weight: 10,
 	},
-	/* removed in PHB'24
-	"chalk (1 piece)": {
-		infoname: "Chalk (1 piece) [1 cp]",
-		name: "Chalk, pieces of",
-		amount: "",
-		weight: "",
-	},
-*/
 	"chest": {
 		infoname: "Chest [5 gp]",
 		name: "Chest",
@@ -1503,15 +1479,6 @@ var Base_GearList = {
 		amount: "",
 		weight: 12,
 	},
-	/* removed in PHB'24
-	"common": {
-		infoname: "Common [5 sp]",
-		name: "Common clothes",
-		amount: "",
-		weight: 3,
-		type: "clothes",
-	},
-*/
 	"costume": {
 		infoname: "Costume [5 gp]",
 		name: "Costume clothes",
@@ -1552,15 +1519,6 @@ var Base_GearList = {
 		weight: "",
 		type: "druidic focus",
 	},
-	/* removed in PHB'24
-	"totem": {
-		infoname: "Totem [1 gp]",
-		name: "Totem druidic focus",
-		amount: "",
-		weight: "",
-		type: "druidic focus",
-	},
-*/
 	"wooden staff": {
 		infoname: "Wooden staff [5 gp]",
 		name: "Wooden staff druidic focus",
@@ -1575,14 +1533,6 @@ var Base_GearList = {
 		weight: 1,
 		type: "druidic focus",
 	},
-	/* removed in PHB'24
-	"fishing tackle": {
-		infoname: "Fishing tackle [1 gp]",
-		name: "Fishing tackle",
-		amount: "",
-		weight: 4,
-	},
-*/
 	"flask": {
 		infoname: "Flask [2 cp]",
 		name: "Flask",
@@ -1595,20 +1545,6 @@ var Base_GearList = {
 		amount: "",
 		weight: 4,
 	},
-	/* removed in PHB'24
-	"hammer": {
-		infoname: "Hammer [1 gp]",
-		name: "Hammer",
-		amount: "",
-		weight: 3,
-	},
-	"hammer, sledge": {
-		infoname: "Hammer, sledge [2 gp]",
-		name: "Sledge hammer",
-		amount: "",
-		weight: 10,
-	},
-*/
 	"healer's kit": {
 		infoname: "Healer's kit [5 gp]",
 		name: "Healer's kit",
@@ -1642,14 +1578,6 @@ var Base_GearList = {
 		amount: "",
 		weight: 1,
 	},
-	/* removed in PHB'24
-	"hourglass": {
-		infoname: "Hourglass [25 gp]",
-		name: "Hourglass",
-		amount: "",
-		weight: 1,
-	},
-*/
 	"hunting trap": {
 		infoname: "Hunting trap [5 gp]",
 		name: "Hunting trap",
@@ -1674,14 +1602,6 @@ var Base_GearList = {
 		amount: "",
 		weight: 4,
 	},
-	/* removed in PHB'24
-	"small knife": {
-		infoname: "Small Knife [1 sp]",
-		name: "Small Knife",
-		amount: "",
-		weight: 0.25,
-	},
-*/
 	"ladder": {
 		infoname: "Ladder (10 ft) [1 sp]",
 		name: "10-ft ladder",
@@ -1730,14 +1650,6 @@ var Base_GearList = {
 		amount: "",
 		weight: "",
 	},
-	/* removed in PHB'24
-	"mess kit": {
-		infoname: "Mess kit [2 sp]",
-		name: "Mess kit",
-		amount: "",
-		weight: 1,
-	},
-*/
 	"mirror": {
 		infoname: "Mirror [5 gp]",
 		name: "Mirror",
@@ -1768,20 +1680,6 @@ var Base_GearList = {
 		amount: "",
 		weight: "",
 	},
-	/* removed in PHB'24
-	"pick, miner's": {
-		infoname: "Pick, miner's [2 gp]",
-		name: "Miner's pick",
-		amount: "",
-		weight: 10,
-	},
-	"piton": {
-		infoname: "Piton [5 cp]",
-		name: "Piton",
-		amount: "",
-		weight: 0.25,
-	},
-*/
 	"poison, basic": {
 		infoname: "Poison, basic (vial) [100 gp]",
 		name: "Basic poison, vials of",
@@ -1836,20 +1734,6 @@ var Base_GearList = {
 		amount: "",
 		weight: 4,
 	},
-	/* removed in PHB'24, now just "Rope"
-	"rope, hempen (50 feet)": {
-		infoname: "Rope, hempen (50 feet) [1 gp]",
-		name: "Hempen rope, feet of",
-		amount: 50,
-		weight: 0.2,
-	},
-	"rope, silk (50 feet)": {
-		infoname: "Rope, silk (50 feet) [10 gp]",
-		name: "Silk rope, feet of",
-		amount: 50,
-		weight: 0.1,
-	},
-*/
 	"rope": {
 		infoname: "Rope [1 gp]",
 		name: "Rope",
@@ -1876,15 +1760,6 @@ var Base_GearList = {
 		weight: 30,
 		type: "saddle",
 	},
-	/* removed in PHB'24
-	"saddle, pack": {
-		infoname: "Pack [5 gp]",
-		name: "Pack saddle",
-		amount: "",
-		weight: 15,
-		type: "saddle",
-	},
-*/
 	"saddle, riding": {
 		infoname: "Riding [10 gp]",
 		name: "Riding saddle",
@@ -1892,26 +1767,6 @@ var Base_GearList = {
 		weight: 25,
 		type: "saddle",
 	},
-	/* removed in PHB'24
-	"saddlebags": {
-		infoname: "Saddlebags [4 gp]",
-		name: "Saddlebags",
-		amount: "",
-		weight: 8,
-	},
-	"scale, merchant's": {
-		infoname: "Scale, merchant's [5 gp]",
-		name: "Merchant's scale",
-		amount: "",
-		weight: 3,
-	},
-	"sealing wax": {
-		infoname: "Sealing wax [5 cp]",
-		name: "Sealing wax",
-		amount: "",
-		weight: "",
-	},
-*/
 	"shovel": {
 		infoname: "Shovel [2 gp]",
 		name: "Shovel",
@@ -1924,20 +1779,6 @@ var Base_GearList = {
 		amount: "",
 		weight: "",
 	},
-	/* removed in PHB'24
-	"signet ring": {
-		infoname: "Signet ring [5 gp]",
-		name: "Signet ring",
-		amount: "",
-		weight: "",
-	},
-	"soap": {
-		infoname: "Soap [2 cp]",
-		name: "Soap",
-		amount: "",
-		weight: "",
-	},
-*/
 	"spellbook": {
 		infoname: "Spellbook [50 gp]", // No price mentioned in PHB'24
 		name: "Spellbook",
@@ -1998,14 +1839,6 @@ var Base_GearList = {
 		amount: "",
 		weight: 5,
 	},
-/* removed in PHB'24
-	"whetstone": {
-		infoname: "Whetstone [1 cp]",
-		name: "Whetstone",
-		amount: "",
-		weight: 1,
-	},
-*/
 };
 
 var Base_ToolsList = {

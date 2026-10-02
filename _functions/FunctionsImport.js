@@ -506,6 +506,7 @@ function DirectImport(consoleTrigger) {
 			var fromBefore13_1_5 = FromVersion < semVersToNmbr("13.1.5");
 			var fromBefore13_2 = FromVersion < semVersToNmbr("13.2.0");
 			var fromBefore14 = FromVersion < semVersToNmbr(14);
+			var fromBefore24 = FromVersion < semVersToNmbr(24);
 			var isEditionSwitch = global.docFrom.use2024Rules !== global.docTo.use2024Rules;
 			if (FromVersion > ToVersion || (FromVersion >= semVersToNmbr("13.0.0-beta1") && fromBefore13)) {
 			// If importing from a newer version or from a v13.0.0-beta1-beta13
@@ -559,15 +560,33 @@ function DirectImport(consoleTrigger) {
 
 			if (filesScriptFrom) {
 			// add the old to the new, preferring the new if both have the same entries
-				var filesScriptToNms = [], equalScrNmRx = /\d+\/\d+\/\d+ - |[._\- ]min(ified)?\b/ig;
-				for (var toScr in filesScriptTo) filesScriptToNms.push(toScr.replace(equalScrNmRx, ""));
-				var hasAllPubUA = filesScriptToNms.indexOf("all_WotC_pub+UA.js") !== -1, rxAllPubUA = /all_WotC_(published|unearthed_arcana)/i
-				for (var fromScr in filesScriptFrom) {
-					if (filesScriptToNms.indexOf(fromScr.replace(equalScrNmRx, "")) !== -1 || (hasAllPubUA && rxAllPubUA.test(fromScr))) continue;
-					filesScriptTo[fromScr] = filesScriptFrom[fromScr];
+				var equalScrNmRx = /\d+\/\d+\/\d+ - |[._\- ]min(ified)?\b/ig;
+				var rxAllWotC5e = /all_WotC_5e/;
+				var toAllWotCScripts = {};
+				Object.keys(filesScriptTo).forEach(function (keyTo) {
+					getWotCParts(keyTo).forEach(function (part) {
+						toAllWotCScripts[part] = true;
+					});
+				});
+				var filesScriptToNms = Object.keys(filesScriptTo).map(function (key) {
+					return key.replace(equalScrNmRx, "");
+				});
+				var fromScriptsNotInTo = Object.keys(filesScriptFrom).filter(function (keyFrom) {
+					if (
+						(fromBefore24 && rxAllWotC5e.test(keyFrom)) ||
+						filesScriptToNms.indexOf(keyFrom.replace(equalScrNmRx, "")) !== -1
+					) {
+						return false;
+					}
+					return !getWotCParts(keyFrom).every(function (part) {
+						return toAllWotCScripts[part];
+					});
+				});
+				if (fromScriptsNotInTo.length) {
 					newFilesScriptFrom = true;
-				};
-				if (newFilesScriptFrom) {
+					fromScriptsNotInTo.forEach(function (keyFrom) {
+						filesScriptTo[keyFrom] = filesScriptFrom[keyFrom];
+					});
 					CurrentScriptFiles = filesScriptTo;
 					SetStringifieds("scriptfiles");
 				}
@@ -2667,7 +2686,7 @@ function RunUserScript(atStartup, manualUserScripts) {
 	};
 	var runIt = function (aScript, scriptName, isManual) {
 		var RequiredSheetVersion = function (minNumber, maxNumber) {
-			if (atStartup) return;
+			if (atStartup && IsNotImport) return;
 			var getVersString = function (input) {
 				var inputStr = input.toString();
 				return /-|beta|\+/i.test(inputStr) ? inputStr.replace(/^\D+/, "").replace(/([^\-])\.?beta/i, "$1-beta") : getSemVers(input);
@@ -2711,7 +2730,9 @@ function RunUserScript(atStartup, manualUserScripts) {
 					nType: 2,
 				};
 			}
-			if (failedTestMsg && app.alert(failedTestMsg) !== 4) return false;
+			if (failedTestMsg && (!IsNotImport || app.alert(failedTestMsg) !== 4)) {
+				return false;
+			}
 			return true;
 		} catch (error) {
 			if (/out of memory/i.test(error.toSource())) return "outOfMemory";
@@ -3576,3 +3597,16 @@ function ImportScriptOptions(input) {
 			break;
 	};
 };
+
+// Return the content parts of an all_WotC_* file name, e.g. "all_WotC_2024_pub+legacy.min.js" -> ["pub", "legacy"]
+// The file name can be preceded by a date, e.g. "20250101_all_WotC_2024_pub+legacy.min.js" or "2025-01-01 all_WotC_2024_pub+legacy.min.js"
+function getWotCParts(fileName) {
+	var aliases = { pub: "pub", published: "pub", ua: "ua", unearthed_arcana: "ua", legacy: "legacy" };
+	var match = fileName.toLowerCase().match(/^[\d\s._\/-]*all_wotc_(?:[^_]+_)?(.+?)(?:\.min)?\.js$/);
+	if (!match) return [];
+	return match[1].split("+").map(function (part) {
+		return aliases[part];
+	}).filter(function (part) {
+		return part;
+	});
+}
