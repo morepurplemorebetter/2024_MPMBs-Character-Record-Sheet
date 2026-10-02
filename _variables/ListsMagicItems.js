@@ -8500,7 +8500,7 @@ var Base_MagicItemsList = {
 			},
 		},
 		"+3 wand of the war mage (very rare)": {
-			name: "+3 Wand of the War Mage",
+			name: "Wand of the War Mage +3",
 			nameTest: /^(?=.*war.mage)(?=.*(arcane focus|crystal|orb|rod|staff|wand))(?=.*\+3)(?!.*\+[12]).*$/i,
 			rarity: "Very Rare",
 			magicItemTable: ["Arcana", "Relics"],

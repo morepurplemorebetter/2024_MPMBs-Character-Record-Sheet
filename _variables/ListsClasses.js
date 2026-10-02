@@ -2984,11 +2984,11 @@ var Base_ClassList = {
 						return "+" + nmbr + "d8 Force damage";
 					}),
 				},
-				"lifedrinker (req: lvl 12+, pact of the blade)": {
+				"lifedrinker (req: lvl 9+, pact of the blade)": {
 					name: "Lifedrinker",
 					source: [["SRD24", 73], ["PHB24", 156]],
-					minlevel: 12,
-					submenu: ["[Warlock level 12+]", "[improves Pact of the Blade]"],
+					minlevel: 9,
+					submenu: ["[Warlock level 9+]", "[improves Pact of the Blade]"],
 					prereqeval: function (v) { return v.choiceActive.indexOf("pact of the blade") !== -1; },
 					description: desc("Once per turn when I hit a creature with my pact weapon, I can deal +1d6 Necrotic, Psychic, or Radiant damage, and I can use one HD to heal myself for its roll plus my " + (typePF ? "Constitution" : "Con") + " modifier."),
 					calcChanges: {
@@ -3495,7 +3495,7 @@ var Base_ClassList = {
 
 var Base_ClassSubList = {
 	"barbarian-berserker": {
-		regExpSearch: /^((?=.*\b(berserker|berserk|berserkr|ulfheoinn|ulfheonar)s?\b)|((?=.*(warrior|fighter))(?=.*(odin|thor)))).*$/i,
+		regExpSearch: /^((?=.*\b(berserker|berserk|berserkr|ulfheoinn|ulfheonar)s?\b)|((?=.*warrior)(?=.*(odin|thor)))).*$/i,
 		subname: "Path of the Berserker",
 		subnameShort: "Berserker",
 		fullname: "Berserker",

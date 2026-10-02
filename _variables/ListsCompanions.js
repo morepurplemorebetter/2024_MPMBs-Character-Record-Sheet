@@ -23,6 +23,14 @@ var Base_CompanionList = {
 			}],
 			notes: [{
 				useSpellDescription: "find familiar",
+				formatSpellDescription: function (str) {
+					if (typePF) {
+						return str.replace(
+							"**Octopus**, **Owl**",
+							"**Owl**, **Octopus**"
+						);
+					};
+				},
 			}],
 		},
 		attributesChange: function (sCrea, objCrea) {
@@ -65,7 +73,7 @@ var Base_CompanionList = {
 				useSpellDescription: "find familiar",
 				formatSpellDescription: function (str) {
 					str = str.replace(
-						"an animal form I choose: Bat, Cat, Frog, Hawk, Lizard, Octopus, Owl, Rat, Raven, Spider, Weasel, or another Beast that has a Challenge Rating of 0.",
+						/an animal form I choose.*?Challenge Rating of 0\./,
 						"the form of a CR 0 Beast, Imp, Pseudodragon, Quasit, Skeleton, Slaad Tadpole, Sphinx of Wonder, Sprite, or Venomous Snake."
 					).replace(
 						"but it can take other actions as normal.",
