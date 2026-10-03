@@ -252,7 +252,7 @@ function AddFolderJavaScript(justConsole) {
 	var theDialog = app.execDialog(AddJS_dialog);
 
 	if (theDialog === "cons") {
-		displayError(false, "Select the line below that says `StartDirectImport();`\"` and press Ctrl+Enter.\n\nStartDirectImport();", false, true);
+		displayError(false, "Select the line below that says `StartDirectImport();` and press Ctrl+Enter.\n\nStartDirectImport();", false, true);
 	}
 
 	return theDialog === "ok";
@@ -561,7 +561,7 @@ function DirectImport(consoleTrigger) {
 			if (filesScriptFrom) {
 			// add the old to the new, preferring the new if both have the same entries
 				var equalScrNmRx = /\d+\/\d+\/\d+ - |[._\- ]min(ified)?\b/ig;
-				var rxAllWotC5e = /all_WotC_5e/;
+				var rxAllWotC5e = /all_WotC_(5e|pub|unearthed)/;
 				var toAllWotCScripts = {};
 				Object.keys(filesScriptTo).forEach(function (keyTo) {
 					getWotCParts(keyTo).forEach(function (part) {
@@ -773,7 +773,7 @@ function DirectImport(consoleTrigger) {
 					var onlySpawnsFromT = onlySpawnsFrom || templ.substring(0, 2) === "SS";
 					//see if the template exists in the docFrom
 					var dFfldT = onlySpawnsFrom ? global.docFrom.isTemplVis(templ) : global.docFrom.BookMarkList[templ] ? global.docFrom.getField(global.docFrom.BookMarkList[templ]) : false;
-					if (dFfldT) pagesLayout[templ] = onlySpawnsFrom ? true : dFfldT.page !== -1;
+					pagesLayout[templ] = !dFfldT ? false : onlySpawnsFrom ? true : dFfldT.page !== -1;
 					var dFfldTE = global.docFrom.getField("Template.extras." + templ); //see if any extra versions have been added
 					if (dFfldTE) {
 						pagesLayout[templ + "Extras"] = dFfldTE.value.split(",").length - (onlySpawnsFromT || !pagesLayout[templ] ? 1 : 0);
@@ -902,7 +902,7 @@ function DirectImport(consoleTrigger) {
 							}
 					}
 					if (iColNewIdx === -1) return;
-					var oColNew = CurrentStats.cols[oColNewIdx];
+					var oColNew = CurrentStats.cols[iColNewIdx];
 					oColNew.scores = oCol.scores;
 				});
 				SetStringifieds("stats");
