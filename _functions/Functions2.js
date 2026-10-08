@@ -1009,7 +1009,7 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 	// Enqueue the main objects' eval if adding the creature for the first time
 	if (oldLvl === 0 && newLvl > 0) {
 		if (objCrea.eval) arrToEval.push([objCrea, "eval", objCrea.name]);
-		if (objComp && objComp.eval) arrToEval.push([objComp, "eval", objComp.menuName]);
+		if (objComp && objComp.eval) arrToEval.push([objComp, "eval", objComp.nameMenu]);
 	}
 
 	/* The string for the Features and Traits fields */
@@ -1045,8 +1045,9 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 				var addIt = newLvl >= propMinLvl;
 				var propName = !prop.name ? "" : isMetric ? ConvertToMetric(prop.name, 0.5) : prop.name;
 				var propDescription = !doPropTxt ? "" : isMetric ? ConvertToMetric(prop.description, 0.5) : prop.description;
+				var formattingChar = prop.formattingChar !== undefined ? prop.formattingChar : "##";
 				var joinString = prop.joinString !== undefined ? prop.joinString : ". ";
-				var bulletString = prop.bulletString !== undefined ? "##" + prop.bulletString + " " : "##\u25C6 ";
+				var bulletString = prop.bulletString !== undefined ? formattingChar + prop.bulletString + " " : formattingChar + "\u25C6 ";
 				if (doPropTxt) {
 					// Amend the joinString to the front of propDescription
 					propDescription = joinString + propDescription;
@@ -1074,7 +1075,7 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 					// Get the source string
 					var strSource = stringSource(prop.source ? prop : oSpell, "first,abbr", ", ");
 					// Create the full property string
-					var propFirstLine = bulletString + (propName ? propName : oSpell.name) + "##";
+					var propFirstLine = bulletString + (propName ? propName : oSpell.name) + formattingChar;
 					var propRef = " (" + strSpellType + strSource + ")";
 					var spellDescription = ConvertToFirstPerson(formatDescriptionFull(oSpell.descriptionFull, true), prop.formatSpellDescription, objUse.name);
 					if (isMetric) spellDescription = ConvertToMetric(spellDescription, 0.5);
@@ -1082,7 +1083,7 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 					doPropTxt = true;
 				} else if (doPropTxt) {
 					// Create the strings for the property
-					var propFirstLine = bulletString + propName + "##";
+					var propFirstLine = bulletString + propName + formattingChar;
 					// Replace [THIS] with the species of the creature
 					if (rxThisAdd.test(propFirstLine)) {
 						propFirstLine = propFirstLine.replace(replaceThis, replaceWith);

@@ -24,12 +24,8 @@ var Base_CompanionList = {
 			notes: [{
 				useSpellDescription: "find familiar",
 				formatSpellDescription: function (str) {
-					if (typePF) {
-						return str.replace(
-							"**Octopus**, **Owl**",
-							"**Owl**, **Octopus**"
-						);
-					};
+					return !typePF ? str : str
+						.replace("**Octopus**, **Owl**", "**Owl**, **Octopus**");
 				},
 			}],
 		},
