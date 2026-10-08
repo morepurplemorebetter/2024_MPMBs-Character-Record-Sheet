@@ -401,7 +401,7 @@ function dynamicFeatureCreation() {
 					invocationMeta: { type: "lessons of the first ones", feat: obj.key, choice: obj.choice },
 					prereqeval: prereqFuncFeat,
 					submenu: lessonsOfTheFirstOnesSubMenu,
-					description: " [gain the feat]",
+					description: "",
 					featsAdd: [{ key: obj.key, choice: obj.choice }],
 				};
 				invocationFeature.extrachoices.push(lessonsOfTheFirstOnesName);

@@ -805,7 +805,7 @@ var Base_WeaponsList = {
 		damage: ["Dex save", "", "Restrained"],
 		range: "15 ft",
 		weight: 3,
-		description: "Up to Large target; DC 10 Athletics to escape as an Action",
+		description: "Up to Large target; DC 10 Athletics to escape as an action",
 		tooltip: [
 			"When I take the Attack action, I can replace one of my attacks with throwing a Net. I can target a creature I can see within 15 ft. The target must succeed on a Dexterity saving throw (DC 8 plus my Dexterity modifier and Proficiency Bonus) or have the Restrained condition until it escapes. The target succeeds automatically if it is Huge or larger.",
 			"To escape, the target or a creature within 5 ft of it must take an action to make a DC 10 Strength (Athletics) check, freeing the Restrained creature on a success. Destroying the Net (AC 10; 5 HP; Immunity to Bludgeoning, Poison, and Psychic damage) also frees the target, ending the effect.",

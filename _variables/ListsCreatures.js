@@ -26,7 +26,7 @@ var Base_CreatureList = {
 			ability: 2,
 			damage: [2, 8, "thunder"],
 			range: "Melee (10 ft)",
-			description: "Two Slam attacks as an Action",
+			description: "Two Slam attacks as an action",
 		}, {
 			name: "Whirlwind (Recharge 4-6)",
 			ability: 1,
@@ -34,7 +34,7 @@ var Base_CreatureList = {
 			range: "in shared space",
 			dc: true,
 			description: "1 \u2264Medium creature Str save; Fail: pushed 20 ft straight and Prone; Success: half damage only",
-			tooltip: "As an Action, the elemental can have one Medium or smaller creature in its space make a DC 13 Strength saving throw. *Failure*: 4d10+2 Thunder damage, and the target is pushed up to 20 ft straight away from the elemental and has the Prone condition. *Success*: Half damage only.",
+			tooltip: "As an action, the elemental can have one Medium or smaller creature in its space make a DC 13 Strength saving throw. *Failure*: 4d10+2 Thunder damage, and the target is pushed up to 20 ft straight away from the elemental and has the Prone condition. *Success*: Half damage only.",
 		}],
 		traits: [{
 			name: "Air Form",
@@ -45,7 +45,7 @@ var Base_CreatureList = {
 			description: "As an Attack action, the [THIS] can make two Thunderous Slam attacks.",
 		}, {
 			name: "Whirlwind (Recharge 4-6)",
-			description: " As an Action, the [THIS] can have one Medium or smaller creature in its space make a DC 13 Strength save, see attack. *Failure*: 4d10+2 Thunder damage, and the target is pushed up to 20 feet straight away from the elemental and has the Prone condition. *Success*: Half damage only.",
+			description: "As an action, the [THIS] can have one Medium or smaller creature in its space make a DC 13 Strength save, see attack. *Failure*: 4d10+2 Thunder damage, and the target is pushed up to 20 feet straight away from the elemental and has the Prone condition. *Success*: Half damage only.",
 		}],
 	},
 	"earth elemental": {
@@ -74,13 +74,13 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [2, 8, "bludgeoning"],
 			range: "Melee (10 ft)",
-			description: "Two Slam/Rock Launch attacks as an Action",
+			description: "Two Slam/Rock Launch attacks as an action",
 		}, {
 			name: "Rock Launch",
 			ability: 1,
 			damage: [1, 6, "bludgeoning"],
 			range: "60 ft",
-			description: "Two Slam/Rock Launch attacks as an Action; \u2264Large creature hit is knocked Prone",
+			description: "Two Slam/Rock Launch attacks as an action; \u2264Large creature hit is knocked Prone",
 		}],
 		actions: [{
 			name: "Multiattack",
@@ -120,7 +120,7 @@ var Base_CreatureList = {
 			ability: 2,
 			damage: [2, 6, "fire"],
 			range: "Melee (5 ft)",
-			description: "Two Burn attacks as an Action; Creatures and flammable objects hit start Burning",
+			description: "Two Burn attacks as an action; Creatures and flammable objects hit start Burning",
 		}],
 		features: [{
 			name: "Illumination",
@@ -167,7 +167,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [2, 8, "bludgeoning"],
 			range: "Melee (5 ft)",
-			description: "Two Slam attacks as an Action; \u2264Medium creature hit is knocked Prone",
+			description: "Two Slam attacks as an action; \u2264Medium creature hit is knocked Prone",
 		}, {
 			name: "Whelm (Recharge 4-6)",
 			ability: 1,
@@ -175,7 +175,7 @@ var Base_CreatureList = {
 			damage: [4, 8, "bludgeoning"],
 			range: "All in shared space",
 			description: "Str save; Fail: dmg/grappled/restrained/can't breathe until grapple ends (escape DC 14); Success: half damage only",
-			tooltip: "As an Action, the elemental can have each creature in its space make a DC 15 Strength saving throw. *Failure*: 4d8+4 Bludgeoning damage. If the target is a Large or smaller creature, it has the Grappled condition (escape DC 14). Until the grapple ends, the target has the Restrained condition, is suffocating unless it can breathe water, and takes 2d8 Bludgeoning damage at the start of each of the elemental's turns. The elemental can grapple one Large creature or up to two Medium or smaller creatures at a time with Whelm. As an action, a creature within 5 ft of the elemental can pull a creature out of it by succeeding on a DC 14 Strength (Athletics) check. *Success*: Half damage only.",
+			tooltip: "As an action, the elemental can have each creature in its space make a DC 15 Strength saving throw. *Failure*: 4d8+4 Bludgeoning damage. If the target is a Large or smaller creature, it has the Grappled condition (escape DC 14). Until the grapple ends, the target has the Restrained condition, is suffocating unless it can breathe water, and takes 2d8 Bludgeoning damage at the start of each of the elemental's turns. The elemental can grapple one Large creature or up to two Medium or smaller creatures at a time with Whelm. As an action, a creature within 5 ft of the elemental can pull a creature out of it by succeeding on a DC 14 Strength (Athletics) check. *Success*: Half damage only.",
 		}],
 		features: [{
 			name: "Freeze",
@@ -189,7 +189,7 @@ var Base_CreatureList = {
 			description: "As an Attack action, the [THIS] can make two Slam attacks.",
 		}, {
 			name: "Whelm (Recharge 4-6)",
-			description: "As an Action, the [THIS] can have each creature in its space make a Strength save, see attack. *Failure*: 4d8+4 Bludgeoning damage. If the target is a Large or smaller creature, it has the Grappled condition (escape DC 14). Until the grapple ends, the target has the Restrained condition, is suffocating unless it can breathe water, and takes 2d8 Bludgeoning damage at the start of each of the [THIS]'s turns. The [THIS] can grapple one Large creature or up to two Medium or smaller creatures at a time with Whelm. As an action, a creature within 5 ft of the [THIS] can pull a creature out of it by succeeding on a DC 14 Strength (Athletics) check. *Success*: Half damage only.",
+			description: "As an action, the [THIS] can have each creature in its space make a Strength save, see attack. *Failure*: 4d8+4 Bludgeoning damage. If the target is a Large or smaller creature, it has the Grappled condition (escape DC 14). Until the grapple ends, the target has the Restrained condition, is suffocating unless it can breathe water, and takes 2d8 Bludgeoning damage at the start of each of the [THIS]'s turns. The [THIS] can grapple one Large creature or up to two Medium or smaller creatures at a time with Whelm. As an action, a creature within 5 ft of the [THIS] can pull a creature out of it by succeeding on a DC 14 Strength (Athletics) check. *Success*: Half damage only.",
 		}],
 	},
 	// Awaken spel creations
@@ -279,10 +279,10 @@ var Base_CreatureList = {
 		}],
 		actions: [{
 			name: "Invisibility",
-			description: "As an Action, the [THIS] can cast Invisibility on itself, requiring no spell components and using Charisma as the spellcasting ability.",
+			description: "As an action, the [THIS] can cast Invisibility on itself, requiring no spell components and using Charisma as the spellcasting ability.",
 		}, {
 			name: "Shape-Shift",
-			description: "As an Action, the [THIS] can shape-shift to resemble a rat (Speed 20 ft), a raven (20 ft, Fly 60 ft), or a spider (20 ft, Climb 20 ft), or return to its true form. Its statistics are the same in each form, except for its Speed. Any equipment it is wearing or carrying isn't transformed.",
+			description: "As an action, the [THIS] can shape-shift to resemble a rat (Speed 20 ft), a raven (20 ft, Fly 60 ft), or a spider (20 ft, Climb 20 ft), or return to its true form. Its statistics are the same in each form, except for its Speed. Any equipment it is wearing or carrying isn't transformed.",
 		}],
 		attacks: [{
 			name: "Sting",
@@ -324,14 +324,14 @@ var Base_CreatureList = {
 			description: "As an Attack action, the [THIS] can make two Bite attacks.",
 		}, {
 			name: "Sting",
-			description: "As an Action, the [THIS] can sting one creature it can see within 5 ft. It must make a Constitution save or take 2d4 Poison damage and " + (typePF ? "be Poisoned" : "have the Poisoned condition") + " for 1 hour. While Poisoned, the target also has the Unconscious condition, which ends early if the target takes damage or a creature within 5 ft of it takes an action to wake it.",
+			description: "As an action, the [THIS] can sting one creature it can see within 5 ft. It must make a Constitution save or take 2d4 Poison damage and " + (typePF ? "be Poisoned" : "have the Poisoned condition") + " for 1 hour. While Poisoned, the target also has the Unconscious condition, which ends early if the target takes damage or a creature within 5 ft of it takes an action to wake it.",
 		}],
 		attacks: [{
 			name: "Bite",
 			ability: 2,
 			damage: [1, 4, "piercing"],
 			range: "Melee (5 ft)",
-			description: "Two Bite attacks as an Action",
+			description: "Two Bite attacks as an action",
 		}, {
 			name: "Sting",
 			ability: 2,
@@ -372,13 +372,13 @@ var Base_CreatureList = {
 		}],
 		actions: [{
 			name: "Invisibility",
-			description: "As an Action, the [THIS] can cast Invisibility on itself, requiring no spell components and using Charisma as the spellcasting ability.",
+			description: "As an action, the [THIS] can cast Invisibility on itself, requiring no spell components and using Charisma as the spellcasting ability.",
 		}, {
 			name: "Scare (1/Day)",
-			description: "As an Action, the [THIS] can scare one creature it can see within 20 ft. It must make on a Wisdom save or have the Frightened condition. At the end of each of its turns, it can repeat the save to end the effect. After 1 minute, it succeeds automatically.",
+			description: "As an action, the [THIS] can scare one creature it can see within 20 ft. It must make on a Wisdom save or have the Frightened condition. At the end of each of its turns, it can repeat the save to end the effect. After 1 minute, it succeeds automatically.",
 		}, {
 			name: "Shape-Shift",
-			description: "As an Action, the [THIS] can shape-shift to resemble a bat (Speed 10 ft, Fly 40 ft), a centipede (40 ft, Climb 40 ft), or a toad (40 ft, Swim 40 ft), or return to its true form. Its statistics are the same in each form, except for its Speed. Any equipment it is wearing or carrying isn't transformed.",
+			description: "As an action, the [THIS] can shape-shift to resemble a bat (Speed 10 ft, Fly 40 ft), a centipede (40 ft, Climb 40 ft), or a toad (40 ft, Swim 40 ft), or return to its true form. Its statistics are the same in each form, except for its Speed. Any equipment it is wearing or carrying isn't transformed.",
 		}],
 		attacks: [{
 			name: "Rend",
@@ -494,10 +494,10 @@ var Base_CreatureList = {
 		attacksAction: 1,
 		actions: [{
 			name: "Invisibility",
-			description: "As an Action, the [THIS] can cast Invisibility on itself, requiring no spell components and using Charisma as the spellcasting ability.",
+			description: "As an action, the [THIS] can cast Invisibility on itself, requiring no spell components and using Charisma as the spellcasting ability.",
 		}, {
 			name: "Heart Sight",
-			description: "As an Action, the [THIS] can sense the innate goodness of one creature it can see within 5 ft. It must make a Charisma save (Celestials, Fiends, and Undead automatically fail) or the [THIS] knows the target's emotions and alignment.",
+			description: "As an action, the [THIS] can sense the innate goodness of one creature it can see within 5 ft. It must make a Charisma save (Celestials, Fiends, and Undead automatically fail) or the [THIS] knows the target's emotions and alignment.",
 		}],
 		attacks: [{
 			name: "Needle Sword",
@@ -594,7 +594,7 @@ var Base_CreatureList = {
 			ability: 2,
 			damage: [1, 6, "piercing"],
 			range: "Melee (5 ft)",
-			description: "+1d6 Necrotic damage; Two Bite attacks as an Action",
+			description: "+1d6 Necrotic damage; Two Bite attacks as an action",
 		}, {
 			name: "Claw",
 			ability: 2,
@@ -865,7 +865,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [1, 4, "slashing"],
 			range: "Melee (5 ft)",
-			description: "+1d6 Radiant damage; Two Rend attacks as an Action",
+			description: "+1d6 Radiant damage; Two Rend attacks as an action",
 		}],
 	},
 	"giant elk": {
@@ -975,7 +975,7 @@ var Base_CreatureList = {
 					"detect evil and good": changesObj,
 					"detect magic": changesObj,
 					"clairvoyance": Object.assign({}, changesObj, {
-						description: "See or hear a familiar/obvious location; Bonus action to switch between seeing and hearing",
+						description: "See or hear a familiar/obvious location; Bonus Action to switch between seeing and hearing",
 					}),
 				}, spName);
 			},
@@ -1119,7 +1119,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [1, 4, "bludgeoning"],
 			range: "Melee (5 ft)",
-			description: "Two Fist attacks as an Action",
+			description: "Two Fist attacks as an action",
 		}, {
 			name: "Rock (Recharge 6)",
 			ability: 1,
@@ -1159,7 +1159,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [3, 6, "piercing"],
 			range: "Melee (5 ft)",
-			description: "Two Bite attacks as an Action",
+			description: "Two Bite attacks as an action",
 		}],
 	},
 	"baboon": {
@@ -1270,7 +1270,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [1, 6, "slashing"],
 			range: "Melee (5 ft)",
-			description: "Two Rend attacks as an Action",
+			description: "Two Rend attacks as an action",
 		}],
 	},
 	"blood hawk": {
@@ -1679,7 +1679,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [2, 8, "piercing"],
 			range: "Melee (5 ft)",
-			description: "If moved 20 ft and hit \u2264Huge: knocked Prone; Two Gore attacks as an Action",
+			description: "If moved 20 ft and hit \u2264Huge: knocked Prone; Two Gore attacks as an action",
 		}, {
 			name: "Trample",
 			ability: 1,
@@ -1799,7 +1799,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [3, 10, "bludgeoning"],
 			range: "Melee (10 ft)",
-			description: "Two Fist attacks as an Action",
+			description: "Two Fist attacks as an action",
 		}, {
 			name: "Boulder Toss (Recharge 6)",
 			ability: 1,
@@ -2124,8 +2124,8 @@ var Base_CreatureList = {
 		}],
 		actions: [{
 			name: "Swallow",
-			description: "As an Action, the [THIS] swallows a Small or smaller target it is grappling. While swallowed, the target isn't Grappled but has the Blinded and Restrained conditions, and it has Total Cover against attacks and other effects outside the [THIS]. While swallowing the target, the [THIS] can't use Bite, and if it dies, the swallowed target is no longer Restrained and can escape from the corpse using 5 ft of movement, exiting with the Prone condition.\nAt the end of the [THIS]'s next turn, the swallowed target takes 2d4 Acid damage. If that damage doesn't kill it, the [THIS] disgorges it, causing it to exit Prone.",
-			wildshapeShow: "As an Action, swallow grappled \u2264Small target. I then can't use Bite, but it's Blinded, Restrained, has Total Cover from outside, and takes 2d4 Acid damage at my next turn's end. If that doesn't kill it, I disgorge it Prone.",
+			description: "As an action, the [THIS] swallows a Small or smaller target it is grappling. While swallowed, the target isn't Grappled but has the Blinded and Restrained conditions, and it has Total Cover against attacks and other effects outside the [THIS]. While swallowing the target, the [THIS] can't use Bite, and if it dies, the swallowed target is no longer Restrained and can escape from the corpse using 5 ft of movement, exiting with the Prone condition.\nAt the end of the [THIS]'s next turn, the swallowed target takes 2d4 Acid damage. If that damage doesn't kill it, the [THIS] disgorges it, causing it to exit Prone.",
+			wildshapeShow: "As an action, swallow grappled \u2264Small target. I then can't use Bite, but it's Blinded, Restrained, has Total Cover from outside, and takes 2d4 Acid damage at my next turn's end. If that doesn't kill it, I disgorge it Prone.",
 		}],
 		attacks: [{
 			name: "Bite",
@@ -2414,7 +2414,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [3, 10, "piercing"],
 			range: "Melee (5 ft)",
-			description: "Adv if target is not at full HP; Two Bite attacks as an Action",
+			description: "Adv if target is not at full HP; Two Bite attacks as an action",
 		}],
 	},
 	"giant spider": {
@@ -2494,8 +2494,8 @@ var Base_CreatureList = {
 		}],
 		actions: [{
 			name: "Swallow",
-			description: "As an Action, the [THIS] swallows a Medium or smaller target it is grappling. While swallowed, the target isn't Grappled but has the Blinded and Restrained conditions, and it has Total Cover against attacks and other effects outside the [THIS]. In addition, the target takes 3d6 Acid damage at the end of each of the [THIS]'s turns. The [THIS] can have only one target swallowed at a time, and it can't use Bite while it has a swallowed target. If the [THIS] dies, a swallowed creature is no longer Restrained and can escape from the corpse using 5 ft of movement, exiting with the Prone condition.",
-			wildshapeShow: "As an Action, swallow grappled \u2264Med target. I then can't use Bite, but it's Blinded, Restrained, has Total Cover from outside, and takes 3d6 Acid damage at my next turn's end. If that doesn't kill it, I disgorge it Prone.",
+			description: "As an action, the [THIS] swallows a Medium or smaller target it is grappling. While swallowed, the target isn't Grappled but has the Blinded and Restrained conditions, and it has Total Cover against attacks and other effects outside the [THIS]. In addition, the target takes 3d6 Acid damage at the end of each of the [THIS]'s turns. The [THIS] can have only one target swallowed at a time, and it can't use Bite while it has a swallowed target. If the [THIS] dies, a swallowed creature is no longer Restrained and can escape from the corpse using 5 ft of movement, exiting with the Prone condition.",
+			wildshapeShow: "As an action, swallow grappled \u2264Med target. I then can't use Bite, but it's Blinded, Restrained, has Total Cover from outside, and takes 3d6 Acid damage at my next turn's end. If that doesn't kill it, I disgorge it Prone.",
 		}],
 		attacks: [{
 			name: "Bite",
@@ -2717,7 +2717,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [2, 10, "piercing"],
 			range: "Melee (5 ft)",
-			description: "Two Bite attacks as an Action",
+			description: "Two Bite attacks as an action",
 		}],
 	},
 	"hunter shark": {
@@ -2880,7 +2880,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [1, 8, "slashing"],
 			range: "Melee (5 ft)",
-			description: "Two Rend attacks as an Action",
+			description: "Two Rend attacks as an action",
 		}, {
 			name: "Roar",
 			ability: 5,
@@ -2952,7 +2952,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [2, 10, "piercing"],
 			range: "Melee (10 ft)",
-			description: "If moved 20 ft and hit \u2264Huge: knocked Prone; Two Gore attacks as an Action",
+			description: "If moved 20 ft and hit \u2264Huge: knocked Prone; Two Gore attacks as an action",
 		}, {
 			name: "Trample",
 			ability: 1,
@@ -3214,7 +3214,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [1, 8, "slashing"],
 			range: "Melee (5 ft)",
-			description: "Two Rend attacks as an Action",
+			description: "Two Rend attacks as an action",
 		}],
 	},
 	"pony": {
@@ -3460,7 +3460,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [2, 6, "slashing"],
 			range: "Melee (5 ft)",
-			description: "Two Rend attacks as an Action",
+			description: "Two Rend attacks as an action",
 		}],
 	},
 	"scorpion": {
@@ -3512,7 +3512,7 @@ var Base_CreatureList = {
 		}],
 		actions: [{
 			name: "Bubble Dash",
-			description: "As an Action while underwater, the [THIS] moves up to its Swim Speed without provoking Opportunity Attacks.",
+			description: "As an action while underwater, the [THIS] moves up to its Swim Speed without provoking Opportunity Attacks.",
 		}],
 		attacks: [],
 	},
@@ -3614,7 +3614,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [2, 12, "piercing"],
 			range: "Melee (5 ft)",
-			description: "If moved 20 ft and hit \u2264Huge: +2d8 damage \x26 knocked Prone; Two Gore attacks as an Action",
+			description: "If moved 20 ft and hit \u2264Huge: +2d8 damage \x26 knocked Prone; Two Gore attacks as an action",
 		}],
 	},
 	"tyrannosaurus rex": {
@@ -3865,7 +3865,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [1, 8, "piercing"],
 			range: "Melee (5 ft)",
-			description: "\u2264Medium is Grappled (escape DC 14) by both front claws; Two Rend attacks as an Action",
+			description: "\u2264Medium is Grappled (escape DC 14) by both front claws; Two Rend attacks as an action",
 		}],
 	},
 	"hippogriff": {
@@ -3899,7 +3899,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [1, 8, "slashing"],
 			range: "Melee (5 ft)",
-			description: "Two Rend attacks as an Action",
+			description: "Two Rend attacks as an action",
 		}],
 	},
 	"nightmare": {
@@ -3928,7 +3928,7 @@ var Base_CreatureList = {
 		}],
 		actions: [{
 			name: "Ethereal Stride",
-			description: "As an Action, the [THIS] and up to three willing creatures within 5 ft of it teleport to the Ethereal Plane from the Material Plane, or vice versa.",
+			description: "As an action, the [THIS] and up to three willing creatures within 5 ft of it teleport to the Ethereal Plane from the Material Plane, or vice versa.",
 		}],
 		attacks: [{
 			name: "Hooves",
@@ -3966,7 +3966,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [2, 8, "slashing"],
 			range: "Melee (5 ft)",
-			description: "Two Rend attacks as an Action",
+			description: "Two Rend attacks as an action",
 		}],
 	},
 	"pegasus": {
@@ -4085,7 +4085,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [1, 10, "bludgeoning"],
 			range: "Melee (5 ft)",
-			description: "+1d12 Acid damage, which reduces target's max HP; 2 Slams as an Action (3 if Hasten)",
+			description: "+1d12 Acid damage, which reduces target's max HP; 2 Slams as an action (3 if Hasten)",
 		}],
 	},
 	"flesh golem": {
@@ -4134,7 +4134,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [2, 8, "bludgeoning"],
 			range: "Melee (5 ft)",
-			description: "+1d8 Lightning damage; Two Slam attacks as an Action",
+			description: "+1d8 Lightning damage; Two Slam attacks as an action",
 		}],
 	},
 	"iron golem": {
@@ -4176,20 +4176,20 @@ var Base_CreatureList = {
 			description: "As an Attack action, the [THIS] can make two attacks, using Bladed Arm or Fiery Bolt in any combination.",
 		}, {
 			name: "Poison Breath (Recharge 6)",
-			description: "As an Action, the [THIS] can have each creature in a 60-ft Cone make a Constitution save, see attack. *Failure*: 10d10 Poison damage. *Success*: Half damage.",
+			description: "As an action, the [THIS] can have each creature in a 60-ft Cone make a Constitution save, see attack. *Failure*: 10d10 Poison damage. *Success*: Half damage.",
 		}],
 		attacks: [{
 			name: "Bladed Arm",
 			ability: 1,
 			damage: [3, 8, "slashing"],
 			range: "Melee (10 ft)",
-			description: "+3d6 Fire damage; Two Bladed Arm/Fiery Bolt attacks as an Action",
+			description: "+3d6 Fire damage; Two Bladed Arm/Fiery Bolt attacks as an action",
 		}, {
 			name: "Fiery Bolt",
 			ability: 3,
 			damage: [8, 8, "fire"],
 			range: "120 ft",
-			description: "Two Bladed Arm/Fiery Bolt attacks as an Action",
+			description: "Two Bladed Arm/Fiery Bolt attacks as an action",
 			abilitytodamage: false,
 		}, {
 			name: "Poison Breath (Recharge 6)",
@@ -4244,13 +4244,13 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [2, 8, "bludgeoning"],
 			range: "Melee (5 ft)",
-			description: "+2d8 Force damage; Two Slam/Force Bolt attacks as an Action",
+			description: "+2d8 Force damage; Two Slam/Force Bolt attacks as an action",
 		}, {
 			name: "Force Bolt",
 			ability: 3,
 			damage: [4, 10, "force"],
 			range: "120 ft",
-			description: "Two Slam/Force Bolt attacks as an Action",
+			description: "Two Slam/Force Bolt attacks as an action",
 			abilitytodamage: false,
 		}, {
 			name: "Slow (Recharge 5-6)",
@@ -4305,7 +4305,7 @@ var Base_CreatureList = {
 			ability: 1,
 			damage: [2, 6, "bludgeoning"],
 			range: "Melee (10 ft)",
-			description: "+2d6 Force damage; Two Fist attacks as an Action",
+			description: "+2d6 Force damage; Two Fist attacks as an action",
 		}],
 	},
 };

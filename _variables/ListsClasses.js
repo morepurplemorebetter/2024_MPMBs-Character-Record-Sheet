@@ -2553,7 +2553,7 @@ var Base_ClassList = {
 				"quickened spell": {
 					name: "Quickened Spell",
 					source: [["SRD24", 67], ["PHB24", 142]],
-					description: desc("I can spend 2 SP to change the casting time of a spell from an Action to a Bonus Action. If I do so, I can't cast a level 1+ spell on the same turn besides the modified spell."),
+					description: desc("I can spend 2 SP to change the casting time of a spell from an action to a Bonus Action. If I do so, I can't cast a level 1+ spell on the same turn besides the modified spell."),
 					additional: "2 Sorcery Points",
 				},
 				"seeking spell": {
@@ -2700,7 +2700,7 @@ var Base_ClassList = {
 					"Pact of the Blade",
 					"Devouring Blade (req: lvl 12+, Thirsting Blade)",
 					"Eldritch Smite (req: lvl 5+, Pact of the Blade)",
-					"Lifedrinker (req: lvl 12+, Pact of the Blade)",
+					"Lifedrinker (req: lvl 9+, Pact of the Blade)",
 					"Thirsting Blade (req: lvl 5+, Pact of the Blade)",
 					// Pact of the Chain tree
 					"Pact of the Chain",
@@ -2969,7 +2969,7 @@ var Base_ClassList = {
 						return v.choiceActive.indexOf("thirsting blade (req: lvl 5+, pact of the blade)") !== -1;
 					},
 					description: desc("When I take the Attack action on my turn, I can attack three times with my pact weapon."),
-					action: [["action", "Pact Weapon (3 attacks per Action)", "Pact Weapon (2 attacks per Action)"]],
+					action: [["action", "Pact Weapon (3 attacks per action)", "Pact Weapon (2 attacks per action)"]],
 				},
 				"eldritch smite (req: lvl 5+, pact of the blade)": {
 					name: "Eldritch Smite",
@@ -3007,7 +3007,7 @@ var Base_ClassList = {
 					submenu: ["[Warlock level  5+]", "[improves Pact of the Blade]"],
 					prereqeval: function (v) { return v.choiceActive.indexOf("pact of the blade") !== -1; },
 					description: desc("When I take the Attack action on my turn, I can attack twice with my pact weapon."),
-					action: [["action", "Pact Weapon (2 attacks per Action)"]],
+					action: [["action", "Pact Weapon (2 attacks per action)"]],
 				},
 				// Pact of the Chain tree
 				"pact of the chain": {
@@ -3027,7 +3027,7 @@ var Base_ClassList = {
 						"find familiar": {
 							time: "Act",
 							ritual: false,
-							changes: "With the Pact of the Chain invocation I can cast *Find Familiar* as an Action without expending a spell slot.",
+							changes: "With the Pact of the Chain invocation I can cast *Find Familiar* as a Magic action without expending a spell slot.",
 						},
 					},
 				},
@@ -3151,7 +3151,7 @@ var Base_ClassList = {
 					submenu: ["[Warlock level  9+]", "[improves Pact of the Tome]"],
 					prereqeval: function (v) { return v.choiceActive.indexOf("pact of the tome") !== -1; },
 					description: desc([
-						"My Book of Shadows has a new page. As an Action, a creature can write their name on it if I permit them. The page can contain my Charisma modifier of names (minimum 1).",
+						"My Book of Shadows has a new page. As an action, a creature can write their name on it if I permit them. The page can contain my Charisma modifier of names (minimum 1).",
 						"Once per Long Rest when someone listed on the page is reduced to 0 HP but not killed, they drop to 1 HP instead. As a Magic action, I can erase a name by touching it.",
 					]),
 					usages: 1,

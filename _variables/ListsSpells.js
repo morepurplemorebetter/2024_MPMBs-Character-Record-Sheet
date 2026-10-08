@@ -860,7 +860,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u0192",
 		compMaterial: "A focus worth 100+ GP, either a jeweled horn for hearing or a glass eye for seeing",
 		duration: "Conc, 10 min",
-		description: "See or hear a familiar/obvious location; Bonus action to switch between seeing and hearing (100gp)",
+		description: "See or hear a familiar/obvious location; Bonus Action to switch between seeing and hearing (100gp)",
 		descriptionFull: [
 			"You create an Invisible sensor within range in a location familiar to you (a place you have visited or seen before) or in an obvious location that is unfamiliar to you (such as behind a door, around a corner, or in a grove of trees). The intangible, invulnerable sensor remains in place for the duration.",
 			"When you cast the spell, choose seeing or hearing. You can use the chosen sense through the sensor as if you were in its space. As a Bonus Action, you can switch between seeing and hearing.",
@@ -1368,7 +1368,7 @@ var Base_SpellsList = {
 		components: "V,S,M",
 		compMaterial: "A mixture of water and dust",
 		duration: "Conc, 10 min",
-		description: "Affect water in up to 100-ft cube with 1 option below; change effect as Magic Action",
+		description: "Affect water in up to 100-ft cube with 1 option below; change effect as Magic action",
 		descriptionFull: [
 			"Until the spell ends, you control any water inside an area you choose that is a Cube up to 100 feet on a side, using one of the following effects. As a Magic action on your later turns, you can repeat the same effect or choose a different one.",
 			"***Flood***. You cause the water level of all standing water in the area to rise by as much as 20 feet. If you choose an area in a large body of water, you instead create a 20-foot tall wave that travels from one side of the area to the other and then crashes. Any Huge or smaller vehicles in the wave's path are carried with it to the other side. Any Huge or smaller vehicles struck by the wave have a 25 chance of capsizing.",
@@ -1760,7 +1760,7 @@ var Base_SpellsList = {
 		range: "S:30-ft rad",
 		components: "V,S",
 		duration: "Conc, 10 min",
-		description: "Sense magic effects within 30 ft; Magic Action to see aura on objects/creatures and determine school",
+		description: "Sense magic effects within 30 ft; Magic action to see aura on objects/creatures and determine school",
 		descriptionFull: [
 			"For the duration, you sense the presence of magical effects within 30 feet of yourself. If you sense such effects, you can take the Magic action to see a faint aura around any visible creature or object in the area that bears the magic, and if an effect was created by a spell, you learn the spell's school of magic.",
 			"The spell is blocked by 1 foot of stone, dirt, or wood; 1 inch of metal; or a thin sheet of lead.",
@@ -1872,7 +1872,7 @@ var Base_SpellsList = {
 		range: "Self",
 		components: "V,S",
 		duration: "1 h",
-		description: "Alter appearance with illusion; Study Action: Int (Investigation) check vs spell DC to discern disguise",
+		description: "Alter appearance with illusion; Study action: Int (Investigation) check vs spell DC to discern disguise",
 		descriptionFull: [
 			"You make yourself\u2014including your clothing, armor, weapons, and other belongings on your person\u2014look different until the spell ends. You can seem 1 foot shorter or taller and can appear heavier or lighter. You must adopt a form that has the same basic arrangement of limbs as you have. Otherwise, the extent of the illusion is up to you.",
 			"The changes wrought by this spell fail to hold up to physical inspection. For example, if you use this spell to add a hat to your outfit, objects pass through the hat, and anyone who touches it would feel nothing.",
@@ -2544,7 +2544,7 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Conc, 1 min",
 		save: "Wis",
-		description: "At cast \x26 as Action: 1 crea (not saved before) in 60 ft save or Asleep, Panicked, or Sickened; see below",
+		description: "At cast \x26 as action: 1 crea (not saved before) in 60 ft save or Asleep, Panicked, or Sickened; see below",
 		descriptionFull: [
 			"For the duration, your eyes become an inky void. One creature of your choice within 60 feet of you that you can see must succeed on a Wisdom saving throw or be affected by one of the following effects of your choice for the duration.",
 			"On each of your turns until the spell ends, you can take a Magic action to target another creature but can't target a creature again if it has succeeded on a save against this casting of the spell.",

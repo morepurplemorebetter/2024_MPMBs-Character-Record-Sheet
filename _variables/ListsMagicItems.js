@@ -25,7 +25,7 @@ var sentientItemConflictNote = {
 		"\u2022 Attempt to take control of its bearer, whereupon the bearer makes a Charisma saving throw (DC 12 plus the item's Charisma modifier). On a failed save, the bearer has the Charmed condition for 1d12 hours. While Charmed in this way, the bearer must try to follow the item's commands. If the bearer takes damage, it repeats the save, ending the effect on a success. Whether or not the attempt to control its bearer succeeds, the item can't use this power again until the next dawn.",
 	],
 };
-var sentientItemConflictTxt = sentientItemConflictNote.note; // For backwards compatibility
+var sentientItemConflictTxt = "#\u25C6 Sentient Item Conflict# (SRD'24 208, DMG'24 227)" + desc(sentientItemConflictNote.note, "\n   "); // For backwards compatibility
 
 var Base_MagicItemsList = {
 	"adamantine armor": {
@@ -540,7 +540,7 @@ var Base_MagicItemsList = {
 		rarity: "Very Rare",
 		magicItemTable: ["Arcana", "Implements"],
 		description: "This bag is a feeding orifice for a creature that devours all edible matter placed inside. When part of a creature enters the bag, it has a 50% chance of being pulled inside. As an action, it can try to escape (Athletics, DC 15) or another can free it (Athletics, DC 20). A creature that starts its turn inside the bag is destroyed.",
-		descriptionLong: "This bag is a feeding orifice for an extradimensional creature that devours all animal and vegetable matter placed inside. Turning the bag inside out closes the orifice. When part of a living creature enters the bag, it has a 50% chance of being pulled inside. As an action, it can try to escape (Athletics, DC 15) or another creature can try to pull it out (Athletics, DC 20). A creature that starts its turn inside the bag is destroyed. Up to 1 cu ft of inanimate objects can be stored inside, but once each day they are swallowed by the bag and spat out into a random plane. If the bag is pierced or torn, it is destroyed and its content lost" + (!typePF ? " in a random location on the Astral Plane." : "."),
+		descriptionLong: "This bag is a feeding orifice for an extradimensional creature that devours all animal and vegetable matter placed inside. Turning the bag inside out closes the orifice. When part of a living creature enters the bag, it has a 50% chance of being pulled inside. As an action, it can try to escape (Athletics, DC 15) or another creature can try to pull it out (Athletics, DC 20). A creature that starts its turn inside the bag is destroyed. Up to 1 cu ft of inanimate objects can be stored inside, but once each day they are swallowed by the bag and spat out into a random plane. If the bag is pierced or torn, it is destroyed and its content lost" + (typePF ? "." : " on the Astral Plane."),
 		descriptionFull: [
 			"This bag resembles a *Bag of Holding* but is a feeding orifice for a gigantic extradimensional creature. Turning the bag inside out closes the orifice.",
 			"The extradimensional creature attached to the bag can sense whatever is placed inside the bag. Animal or vegetable matter placed wholly in the bag is devoured and lost forever. When part of a living creature is placed in the bag, as happens when someone reaches inside it, there is a 50 percent chance that the creature is pulled inside the bag. A creature inside the bag can take an action to try to escape, doing so with a successful DC 15 Strength (Athletics) check. Another creature can take an action to reach into the bag to pull a creature out, doing so with a successful DC 20 Strength (Athletics) check, provided the puller isn't pulled inside the bag first. Any creature that starts its turn inside the bag is devoured, its body destroyed.",
@@ -1773,7 +1773,7 @@ var Base_MagicItemsList = {
 			name: "Cards and their effects",
 			additional: "part 1",
 			note: [
-				"***Balance***. I can increase one of my ability scores by 2, to a maximum of 22, provided that I also decrease another one of my ability scores by 2. I can't decrease an ability that has a score of 5 or lower. Alternatively, I can choose not to adjust my ability scores, in which case this card has no effect.",
+				"   ***Balance***. I can increase one of my ability scores by 2, to a maximum of 22, provided that I also decrease another one of my ability scores by 2. I can't decrease an ability that has a score of 5 or lower. Alternatively, I can choose not to adjust my ability scores, in which case this card has no effect.",
 				"***Comet***. The next time that I enter combat against one or more Hostile creatures, I can select one of them as my foe when I roll Initiative. If I reduce my foe to 0 Hit Points during that combat, I have Advantage on Death Saving Throws for 1 year. If someone else reduces my chosen foe to 0 Hit Points or I don't choose a foe, this card has no effect.",
 				"***Donjon***. I disappear and become entombed in a state of suspended animation in an extradimensional sphere. Everything I'm wearing and carrying disappears with me except for Artifacts, which stay behind in the space I occupied when I disappeared. I remain imprisoned until I am found and removed from the sphere. I can't be located by any Divination magic, but a *Wish* spell can reveal the location of my prison. I draw no more cards.",
 				"***Euryale***. The card's medusa-like visage curses me. I take a -2 penalty to saving throws while cursed in this way. Only a god or the magic of the Fates card can end this curse.",
@@ -2241,13 +2241,13 @@ var Base_MagicItemsList = {
 				ability: 1,
 				damage: [2, 6, "slashing"],
 				range: "Melee (5 ft)",
-				description: "+2d12 Fire damage; Three Heated Blade/Hurl Flame attacks as an Action",
+				description: "+2d12 Fire damage; Three Heated Blade/Hurl Flame attacks as an action",
 			}, {
 				name: "Hurl Flame",
 				ability: 6,
 				damage: [7, 6, "fire"],
 				range: "120 ft",
-				description: "Three Heated Blade/Hurl Flame attacks as an Action",
+				description: "Three Heated Blade/Hurl Flame attacks as an action",
 				abilitytodamage: false,
 			}],
 		}],
@@ -3964,8 +3964,8 @@ var Base_MagicItemsList = {
 		type: "Wondrous Item",
 		rarity: "Rare",
 		magicItemTable: "Arcana",
-		description: "As a Magic action once per dawn, I can make a ranged attack (Dex + Prof B) vs a \u2264Huge creature in 60 ft. On a hit, the target is Restrained until I use a Bonus Action to release it. As an Action once every 24 hours, a creature can make a DC 20 Athletics check to try to free the trapped creature and destroy the bands.",
-		descriptionLong: "As a Magic action once per dawn, I can make a ranged attack roll (Dexterity modifier plus Proficiency Bonus) against a Huge or smaller creature within 60 ft. On a hit, the target is Restrained until I take a Bonus Action to release it. Doing so, or missing with the attack, causes the bands to contract and become a sphere once more. As an Action, a creature that can touch the bands, including the one Restrained, can make a DC 20 Athletics check to free the Restrained creature and destroy the bands on a success. If the check fails, any further attempts made by that creature automatically fail until 24 hours have elapsed.",
+		description: "As a Magic action once per dawn, I can make a ranged attack (Dex + Prof B) vs a \u2264Huge creature in 60 ft. On a hit, the target is Restrained until I use a Bonus Action to release it. As an action once every 24 hours, a creature can make a DC 20 Athletics check to try to free the trapped creature and destroy the bands.",
+		descriptionLong: "As a Magic action once per dawn, I can make a ranged attack roll (Dexterity modifier plus Proficiency Bonus) against a Huge or smaller creature within 60 ft. On a hit, the target is Restrained until I take a Bonus Action to release it. Doing so, or missing with the attack, causes the bands to contract and become a sphere once more. As an action, a creature that can touch the bands, including the one Restrained, can make a DC 20 Athletics check to free the Restrained creature and destroy the bands on a success. If the check fails, any further attempts made by that creature automatically fail until 24 hours have elapsed.",
 		descriptionFull: [
 			"This rusty iron sphere measures 3 inches in diameter and weighs 1 pound. You can take a Magic action to throw the sphere at a Huge or smaller creature you can see within 60 feet of yourself. As the sphere moves through the air, it opens into a tangle of metal bands.",
 			"Make a ranged attack roll with an attack bonus equal to your Dexterity modifier plus your Proficiency Bonus. On a hit, the target has the Restrained condition until you take a Bonus Action to issue a command that releases it. Doing so or missing with the attack causes the bands to contract and become a sphere once more.",
@@ -5527,13 +5527,13 @@ var Base_MagicItemsList = {
 				ability: 1,
 				damage: [2, 6, "slashing"],
 				range: "Melee (5 ft)",
-				description: "+2d6 Lightning damage; 3 Storm Blade/Storm Bolt attacks as an Action",
+				description: "+2d6 Lightning damage; 3 Storm Blade/Storm Bolt attacks as an action",
 			}, {
 				name: "Storm Bolt",
 				ability: 1,
 				damage: [3, 8, "thunder"],
 				range: "120 ft",
-				description: "\u2264Large creature hit is knocked Prone; 3 Storm Blade/Storm Bolt attacks as an Action",
+				description: "\u2264Large creature hit is knocked Prone; 3 Storm Blade/Storm Bolt attacks as an action",
 				abilitytodamage: false,
 			}, {
 				name: "Create Whirlwind",
@@ -6016,7 +6016,7 @@ var Base_MagicItemsList = {
 				duration: "Conc, 1 min",
 				save: "Dex",
 				description: "1-4 spheres; Bns move all 30 ft; 1st crea in 5 ft Lightning dmg (1:4d12, 2:5d4, 3:2d6, 4:2d4); save half",
-				descriptionMetric: "1-4 spheres; Bns move all 9 m; 1st crea in 1,5 m Lightn. dmg (1:4d12, 2:5d4, 3:2d6, 4:2d4); save half",
+				descriptionMetric: "1-4 spheres; Bns move all 9m; 1st crea in 1,5m Lightn. dmg (1:4d12, 2:5d4, 3:2d6, 4:2d4); save half",
 				descriptionShorter: undefined,
 				descriptionFull: [
 					"You can expend 2 charges from the *Ring of Shooting Stars* as a Magic action to create up to four 3-foot-diameter spheres of lightning.",
@@ -7781,7 +7781,7 @@ var Base_MagicItemsList = {
 		rarity: "Rare",
 		magicItemTable: "Armaments",
 		attunement: true,
-		description: "As a Bonus Action, I can have this hilt emit a blade of radiance. With the blade, it acts like a +2 Longsword with Finesse that deals Radiant damage (+1d8 to Undead) and emits sunlight, 15 ft radius Bright Light plus 15 ft Dim. As a Magic Action, I can alter the radius of both lights by 5 ft, between 10 ft and 30 ft.",
+		description: "As a Bonus Action, I can have this hilt emit a blade of radiance. With the blade, it acts like a +2 Longsword with Finesse that deals Radiant damage (+1d8 to Undead) and emits sunlight, 15 ft radius Bright Light plus 15 ft Dim. As a Magic action, I can alter the radius of both lights by 5 ft, between 10 ft and 30 ft.",
 		descriptionLong: "As a Bonus Action, I can have this sword hilt create or dismiss a blade of pure radiance. While the blade exists, it acts like a Longsword with Finesse that grants a +2 bonus to attack and damage rolls, deals Radiant damage and deals +1d8 Radiant damage to Undead. The blade emits sunlight, Bright Light in a 15-ft radius and Dim Light for an additional 15 ft. As a Magic action, I can expand or reduce both the Bright and Dim Light's radius by 5 ft each, to a maximum of 30 ft each or a minimum of 10 ft each. I am proficient with this weapon if I'm proficient with either Longswords or Shortswords.",
 		descriptionFull: [
 			"This item appears to be a sword hilt.",
