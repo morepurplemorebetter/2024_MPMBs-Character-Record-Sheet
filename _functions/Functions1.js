@@ -2441,7 +2441,7 @@ function FindRace(inputracetxt, novardialog, aOldRace) {
 	if (tempFound[2] && tempFound[2].length) {
 		DontPrint("Race Features Menu");
 		// if no variant was found, ask the user if he wants to select one
-		if (!novardialog && IsNotImport && inputracetxt && !tempFound[1] && !CurrentVars.manual.race) {
+		if (!novardialog && IsNotImport && inputracetxt && (!tempFound[1] || tempFound[1] === "basic") && !CurrentVars.manual.race) {
 			var aRace = RaceList[tempFound[0]];
 			var rSource = stringSource(aRace, "first,abbr", "    [", "]");
 			// v24 change: no longer allow just selecting the RaceList entry if linked RaceSubList exist
@@ -2450,7 +2450,7 @@ function FindRace(inputracetxt, novardialog, aOldRace) {
 			for (var i = 0; i < tempFound[2].length; i++) {
 				var varR = tempFound[2][i];
 				var varRobj = RaceSubList[tempFound[0] + "-" + varR];
-				var varRname = varRobj.sortname ? varRobj.sortname : varRobj.name ? varRobj.name : varR.capitalize() + " " + aRace.name.toLowerCase();
+				var varRname = varRobj.sortname ? varRobj.sortname : varRobj.name ? varRobj.name : varR.capitalize() + " " + aRace.name;
 				var varRsrc = varRobj && varRobj.source ? stringSource(varRobj, "first,abbr", "    [", "]") : rSource;
 				rVarNames.push(varRname + varRsrc);
 				rVarObj[varRname + varRsrc] = varR;
@@ -9412,7 +9412,7 @@ function MakeRaceMenu() {
 			var key = CurrentRace.known + "-" + varR;
 			var varRobj = RaceSubList[key];
 			var varRsrc = varRobj && varRobj.source ? stringSource(varRobj, "first,abbr", "\t   [", "]") : rSource;
-			var varName = varRobj.sortname ? varRobj.sortname : varRobj.name ? varRobj.name : varR.capitalize() + " " + aRace.name.toLowerCase();
+			var varName = varRobj.sortname ? varRobj.sortname : varRobj.name ? varRobj.name : varR.capitalize() + " " + CurrentRace.name;
 			item.push({
 				cName: varName + varRsrc,
 				cReturn: CurrentRace.known + "#" + varR,

@@ -50,6 +50,10 @@ var Base_RaceList = {
 				action: [["bonus action", ""]],
 			},
 		},
+		trait: [ // Just for subraces to reference
+			"##\u25C6 Breath Weapon##. Instead of one attack during an Attack action on my turn, I can use my breath weapon: all in a 15-ft Cone or a 5-ft wide, 30-ft Line (choose each time) take 1d10 DAMAGE_TYPE damage, Dex save for half damage (DC 8 + Con mod + Prof Bonus). I can do this my Prof Bonus per Long Rest. The damage die increases as I level (" + (typePF ? "2d10 at level 5, 3d10 at level 11, 4d10 at level 17" : "see attack") + ").",
+			"##\u25C6 Draconic Flight## (level 5). As a Bonus Action once per Long Rest, I can " + (typePF ? "sprout spectral wings to " : "") + "gain a Fly Speed equal to my Speed. This lasts for 10 min, until I end it (no action), or I'm Incapacitated.",
+		],
 		variants: ["black", "blue", "brass", "bronze", "copper", "gold", "green", "red", "silver", "white"],
 		// form PHB'14:
 		age: " reach adulthood by 15 and live around 80 years",
@@ -73,7 +77,7 @@ var Base_RaceList = {
 			"##\u25C6 Dwarven Resilience##. I have resistance to Poison damage and Advantage on saving throws to avoid or end being Poisoned.",
 			"##\u25C6 Dwarven Toughness##. My Hit Point maximum increases by 1 for every level I have.",
 			"##\u25C6 Stonecunning##. As a Bonus Action, I can gain 60 ft Tremorsense for 10 min when on or touching natural or worked stone. I can use this Proficiency Bonus times per Long Rest.",
-		].join("\n"),
+		],
 		calcChanges: {
 			hp: function (totalHD) { return [totalHD, "Dwarven Toughness"]; },
 		},
@@ -108,6 +112,11 @@ var Base_RaceList = {
 		},
 		skillstxt: "Choose 1: Insight, Perception, or Survival",
 		variants: ["drow", "high", "wood"],
+		trait: [ // Just for subraces to reference
+			"##\u25C6 Fey Ancestry##. I have Advantage on saves to avoid" + (typePF ? "/end" : " or end being") + " Charmed.",
+			"##\u25C6 Keen Senses##. I gain proficiency in Insight, Perception, or Survival.",
+			"##\u25C6 Trance##. I don't need to sleep and magic can't put me to sleep. I can have a Long Rest in 4 hours if I spend it in a trancelike meditation, during which I retain consciousness.",
+		],
 		// from PHB'14:
 		age: " typically claim adulthood around age 100 and can live to be 750 years old",
 		height: " are about 5-6 ft tall (4'6\" + 2d10\")",
@@ -151,10 +160,10 @@ var Base_RaceList = {
 				action: [["bonus action", ""]],
 			},
 		},
-		trait: [
+		trait: [ // Just for subraces to reference
 			"##\u25C6 Powerful Build##. I have Adv on checks to end being Grappled and I count as one size larger when determining my carrying capacity.",
 			"##\u25C6 Large Form## (level 5). As a Bonus Action once per Long Rest, I can become Large, if I fit, for 10 min or until I end it (no action). I have Adv on Str checks and +10 ft Speed during.",
-		].join("\n"),
+		],
 		variants: ["cloud", "fire", "frost", "hill", "stone", "storm"],
 		// from VGM:
 		age: " reach adulthood in their late teens and live less than 100 years",
@@ -176,7 +185,7 @@ var Base_RaceList = {
 			"##\u25C6 Halfling Nimbleness##. I can move through the space of any creature that is a size larger than me.",
 			"##\u25C6 Luck##. When I roll a 1 on a D20 Test, I can reroll the die and must use the new roll.",
 			"##\u25C6 Naturally Stealthy##. I can attempt to hide even when I am obscured only by a creature that is at least one size larger than me.",
-		].join("\n"),
+		],
 		// from PHB'14:
 		age: " reach adulthood at age 20 and live around 150 years",
 		height: " are about 2-3 ft tall (2'7\" + 2d4\")",
@@ -198,7 +207,7 @@ var Base_RaceList = {
 			"##\u25C6 Resourceful##. I gain Heroic Inspiration whenever I finish a Long Rest.",
 			"##\u25C6 Skillful##. I gain proficiency in one skill of my choice.",
 			"##\u25C6 Versatile##. I gain an origin feat of my choice.",
-		].join("\n"),
+		],
 		// from PHB'14:
 		age: " reach adulthood in their late teens and live less than 100 years",
 		height: " are about 2-4 ft (small) or 4-7 ft (medium) tall (4'8\" + 2d10\")",
@@ -237,7 +246,7 @@ var Base_RaceList = {
 			"**Orc**",
 			"##\u25C6 Adrenaline Rush##. As a Bonus Action, I can take the Dash action and gain a number of Temporary Hit Points equal to my Proficiency Bonus. I can do this a number of times equal to my Proficiency Bonus times per Short Rest.",
 			"##\u25C6 Relentless Endurance##. When I'm reduced to 0 Hit Points but not killed outright, I can drop to 1 Hit Point instead. I can do this once per Long Rest.",
-		].join("\n"),
+		],
 		// from VGM:
 		age: " reach adulthood at age 12 and live up to 50 years",
 		height: " are usually over 6 ft tall (5'4\" + 2d8\")",
@@ -259,6 +268,9 @@ var Base_RaceList = {
 			spells: ["thaumaturgy"],
 			selection: ["thaumaturgy"],
 		}],
+		trait: [ // Just for subraces to reference
+			"##\u25C6 Otherworldly Presence##. I know the Thaumaturgy cantrip and use the same spellcasting ability for it.",
+		],
 		variants: ["abyssal", "chthonic", "infernal"],
 		// from PHB'14:
 		age: " reach adulthood in their late teens and live around 100 years",
@@ -277,9 +289,9 @@ var Base_RaceSubList = {
 		dmgres: ["Acid"],
 		trait: [
 			"**Black Dragonborn**",
-			"##\u25C6 Breath Weapon##. Instead of one attack during an Attack action on my turn, I can use my breath weapon: all in a 15-ft Cone or a 5-ft wide, 30-ft Line (choose each time) take 1d10 Acid damage, Dex save for half damage (DC 8 + Con mod + Prof Bonus). I can do this my Prof Bonus per Long Rest. The damage die increases as I level (" + (typePF ? "2d10 at level 5, 3d10 at level 11, 4d10 at level 17" : "see attack") + ").",
-			"##\u25C6 Draconic Flight## (level 5). As a Bonus Action once per Long Rest, I can " + (typePF ? "sprout spectral wings to " : "") + "gain a Fly Speed equal to my Speed. This lasts for 10 min, until I end it (no action), or I'm Incapacitated.",
-		].join("\n"),
+			Base_RaceList.dragonborn.trait[0].replace("DAMAGE_TYPE", "Acid"),
+			Base_RaceList.dragonborn.trait[1],
+		],
 	},
 	"dragonborn-blue": {
 		name: "Blue Dragonborn",
@@ -288,9 +300,9 @@ var Base_RaceSubList = {
 		dmgres: ["Lightning"],
 		trait: [
 			"**Blue Dragonborn**",
-			"##\u25C6 Breath Weapon##. Instead of one attack during an Attack action on my turn, I can use my breath weapon: all in a 15-ft Cone or a 5-ft wide, 30-ft Line (choose each time) take 1d10 Lightning damage, Dex save for half damage (DC 8 + Con mod + Prof Bonus). I can do this my Prof Bonus per Long Rest. The damage die increases as I level (" + (typePF ? "2d10 at level 5, 3d10 at level 11, 4d10 at level 17" : "see attack") + ").",
-			"##\u25C6 Draconic Flight## (level 5). As a Bonus Action once per Long Rest, I can " + (typePF ? "sprout spectral wings to " : "") + "gain a Fly Speed equal to my Speed. This lasts for 10 min, until I end it (no action), or I'm Incapacitated.",
-		].join("\n"),
+			Base_RaceList.dragonborn.trait[0].replace("DAMAGE_TYPE", "Lightning"),
+			Base_RaceList.dragonborn.trait[1],
+		],
 	},
 	"dragonborn-green": {
 		name: "Green Dragonborn",
@@ -299,9 +311,9 @@ var Base_RaceSubList = {
 		dmgres: ["Poison"],
 		trait: [
 			"**Green Dragonborn**",
-			"##\u25C6 Breath Weapon##. Instead of one attack during an Attack action on my turn, I can use my breath weapon: all in a 15-ft Cone or a 5-ft wide, 30-ft Line (choose each time) take 1d10 Poison damage, Dex save for half damage (DC 8 + Con mod + Prof Bonus). I can do this my Prof Bonus per Long Rest. The damage die increases as I level (" + (typePF ? "2d10 at level 5, 3d10 at level 11, 4d10 at level 17" : "see attack") + ").",
-			"##\u25C6 Draconic Flight## (level 5). As a Bonus Action once per Long Rest, I can " + (typePF ? "sprout spectral wings to " : "") + "gain a Fly Speed equal to my Speed. This lasts for 10 min, until I end it (no action), or I'm Incapacitated.",
-		].join("\n"),
+			Base_RaceList.dragonborn.trait[0].replace("DAMAGE_TYPE", "Poison"),
+			Base_RaceList.dragonborn.trait[1],
+		],
 	},
 	"dragonborn-red": {
 		name: "Red Dragonborn",
@@ -310,9 +322,9 @@ var Base_RaceSubList = {
 		dmgres: ["Fire"],
 		trait: [
 			"**Red Dragonborn**",
-			"##\u25C6 Breath Weapon##. Instead of one attack during an Attack action on my turn, I can use my breath weapon: all in a 15-ft Cone or a 5-ft wide, 30-ft Line (choose each time) take 1d10 Fire damage, Dex save for half damage (DC 8 + Con mod + Prof Bonus). I can do this my Prof Bonus per Long Rest. The damage die increases as I level (" + (typePF ? "2d10 at level 5, 3d10 at level 11, 4d10 at level 17" : "see attack") + ").",
-			"##\u25C6 Draconic Flight## (level 5). As a Bonus Action once per Long Rest, I can " + (typePF ? "sprout spectral wings to " : "") + "gain a Fly Speed equal to my Speed. This lasts for 10 min, until I end it (no action), or I'm Incapacitated.",
-		].join("\n"),
+			Base_RaceList.dragonborn.trait[0].replace("DAMAGE_TYPE", "Fire"),
+			Base_RaceList.dragonborn.trait[1],
+		],
 	},
 	"dragonborn-white": {
 		name: "White Dragonborn",
@@ -321,9 +333,9 @@ var Base_RaceSubList = {
 		dmgres: ["Cold"],
 		trait: [
 			"**White Dragonborn**",
-			"##\u25C6 Breath Weapon##. Instead of one attack during an Attack action on my turn, I can use my breath weapon: all in a 15-ft Cone or a 5-ft wide, 30-ft Line (choose each time) take 1d10 Cold damage, Dex save for half damage (DC 8 + Con mod + Prof Bonus). I can do this my Prof Bonus per Long Rest. The damage die increases as I level (" + (typePF ? "2d10 at level 5, 3d10 at level 11, 4d10 at level 17" : "see attack") + ").",
-			"##\u25C6 Draconic Flight## (level 5). As a Bonus Action once per Long Rest, I can " + (typePF ? "sprout spectral wings to " : "") + "gain a Fly Speed equal to my Speed. This lasts for 10 min, until I end it (no action), or I'm Incapacitated.",
-		].join("\n"),
+			Base_RaceList.dragonborn.trait[0].replace("DAMAGE_TYPE", "Cold"),
+			Base_RaceList.dragonborn.trait[1],
+		],
 	},
 	"dragonborn-brass": {
 		name: "Brass Dragonborn",
@@ -332,9 +344,9 @@ var Base_RaceSubList = {
 		dmgres: ["Fire"],
 		trait: [
 			"**Brass Dragonborn**",
-			"##\u25C6 Breath Weapon##. Instead of one attack during an Attack action on my turn, I can use my breath weapon: all in a 15-ft Cone or a 5-ft wide, 30-ft Line (choose each time) take 1d10 Fire damage, Dex save for half damage (DC 8 + Con mod + Prof Bonus). I can do this my Prof Bonus per Long Rest. The damage die increases as I level (" + (typePF ? "2d10 at level 5, 3d10 at level 11, 4d10 at level 17" : "see attack") + ").",
-			"##\u25C6 Draconic Flight## (level 5). As a Bonus Action once per Long Rest, I can " + (typePF ? "sprout spectral wings to " : "") + "gain a Fly Speed equal to my Speed. This lasts for 10 min, until I end it (no action), or I'm Incapacitated.",
-		].join("\n"),
+			Base_RaceList.dragonborn.trait[0].replace("DAMAGE_TYPE", "Fire"),
+			Base_RaceList.dragonborn.trait[1],
+		],
 	},
 	"dragonborn-bronze": {
 		name: "Bronze Dragonborn",
@@ -343,9 +355,9 @@ var Base_RaceSubList = {
 		dmgres: ["Lightning"],
 		trait: [
 			"**Bronze Dragonborn**",
-			"##\u25C6 Breath Weapon##. Instead of one attack during an Attack action on my turn, I can use my breath weapon: all in a 15-ft Cone or a 5-ft wide, 30-ft Line (choose each time) take 1d10 Lightning damage, Dex save for half damage (DC 8 + Con mod + Prof Bonus). I can do this my Prof Bonus per Long Rest. The damage die increases as I level (" + (typePF ? "2d10 at level 5, 3d10 at level 11, 4d10 at level 17" : "see attack") + ").",
-			"##\u25C6 Draconic Flight## (level 5). As a Bonus Action once per Long Rest, I can " + (typePF ? "sprout spectral wings to " : "") + "gain a Fly Speed equal to my Speed. This lasts for 10 min, until I end it (no action), or I'm Incapacitated.",
-		].join("\n"),
+			Base_RaceList.dragonborn.trait[0].replace("DAMAGE_TYPE", "Lightning"),
+			Base_RaceList.dragonborn.trait[1],
+		],
 	},
 	"dragonborn-copper": {
 		name: "Copper Dragonborn",
@@ -354,9 +366,9 @@ var Base_RaceSubList = {
 		dmgres: ["Acid"],
 		trait: [
 			"**Copper Dragonborn**",
-			"##\u25C6 Breath Weapon##. Instead of one attack during an Attack action on my turn, I can use my breath weapon: all in a 15-ft Cone or a 5-ft wide, 30-ft Line (choose each time) take 1d10 Acid damage, Dex save for half damage (DC 8 + Con mod + Prof Bonus). I can do this my Prof Bonus per Long Rest. The damage die increases as I level (" + (typePF ? "2d10 at level 5, 3d10 at level 11, 4d10 at level 17" : "see attack") + ").",
-			"##\u25C6 Draconic Flight## (level 5). As a Bonus Action once per Long Rest, I can " + (typePF ? "sprout spectral wings to " : "") + "gain a Fly Speed equal to my Speed. This lasts for 10 min, until I end it (no action), or I'm Incapacitated.",
-		].join("\n"),
+			Base_RaceList.dragonborn.trait[0].replace("DAMAGE_TYPE", "Acid"),
+			Base_RaceList.dragonborn.trait[1],
+		],
 	},
 	"dragonborn-gold": {
 		name: "Gold Dragonborn",
@@ -365,9 +377,9 @@ var Base_RaceSubList = {
 		dmgres: ["Fire"],
 		trait: [
 			"**Gold Dragonborn**",
-			"##\u25C6 Breath Weapon##. Instead of one attack during an Attack action on my turn, I can use my breath weapon: all in a 15-ft Cone or a 5-ft wide, 30-ft Line (choose each time) take 1d10 Fire damage, Dex save for half damage (DC 8 + Con mod + Prof Bonus). I can do this my Prof Bonus per Long Rest. The damage die increases as I level (" + (typePF ? "2d10 at level 5, 3d10 at level 11, 4d10 at level 17" : "see attack") + ").",
-			"##\u25C6 Draconic Flight## (level 5). As a Bonus Action once per Long Rest, I can " + (typePF ? "sprout spectral wings to " : "") + "gain a Fly Speed equal to my Speed. This lasts for 10 min, until I end it (no action), or I'm Incapacitated.",
-		].join("\n"),
+			Base_RaceList.dragonborn.trait[0].replace("DAMAGE_TYPE", "Fire"),
+			Base_RaceList.dragonborn.trait[1],
+		],
 	},
 	"dragonborn-silver": {
 		name: "Silver Dragonborn",
@@ -376,9 +388,9 @@ var Base_RaceSubList = {
 		dmgres: ["Cold"],
 		trait: [
 			"**Silver Dragonborn**",
-			"##\u25C6 Breath Weapon##. Instead of one attack during an Attack action on my turn, I can use my breath weapon: all in a 15-ft Cone or a 5-ft wide, 30-ft Line (choose each time) take 1d10 Cold damage, Dex save for half damage (DC 8 + Con mod + Prof Bonus). I can do this my Prof Bonus per Long Rest. The damage die increases as I level (" + (typePF ? "2d10 at level 5, 3d10 at level 11, 4d10 at level 17" : "see attack") + ").",
-			"##\u25C6 Draconic Flight## (level 5). As a Bonus Action once per Long Rest, I can " + (typePF ? "sprout spectral wings to " : "") + "gain a Fly Speed equal to my Speed. This lasts for 10 min, until I end it (no action), or I'm Incapacitated.",
-		].join("\n"),
+			Base_RaceList.dragonborn.trait[0].replace("DAMAGE_TYPE", "Cold"),
+			Base_RaceList.dragonborn.trait[1],
+		],
 	},
 	"elf-drow": {
 		regExpSearch: /^((?=.*drow)|(?=.*(elfs?|elv(es|ish|en))\b)(?=.*(dark|underdark|deep|depth))).*$/i,
@@ -389,10 +401,7 @@ var Base_RaceSubList = {
 		spellcastingAbility: [4, 5, 6],
 		trait: [
 			"##\u25C6 Drow Lineage##. I know *Dancing Lights*, *Faerie Fire* at level 3, and *Darkness* at level 5. I can cast each spell once per Long Rest or by using a spell slot as normal; Int, Wis, or Cha is my spellcasting ability for these (choose when selecting the lineage).",
-			"##\u25C6 Fey Ancestry##. I have Advantage on saves to avoid or end Charmed.",
-			"##\u25C6 Keen Senses##. I gain proficiency in Insight, Perception, or Survival.",
-			"##\u25C6 Trance##. I don't need to sleep and magic can't put me to sleep. I can have a Long Rest in 4 hours if I spend it in a trancelike meditation, during which I retain consciousness.",
-		].join("\n"),
+		].concat(Base_RaceList.elf.trait),
 		features: {
 			"drow lineage 1": {
 				name: "Dancing Lights (Drow Lineage)",
@@ -436,12 +445,12 @@ var Base_RaceSubList = {
 		spellcastingAbility: [4, 5, 6],
 		trait: [
 			"##\u25C6 High Elf Lineage##. I know *Prestidigitation* and can replace it with another Wizard cantrip after a Long Rest, *Detect Magic* at level 3, and *Misty Step* at level 5. I can cast each spell once per Long Rest or by using a spell slot as normal; Int, Wis, or Cha is my spellcasting ability for these (choose one)." + (typePF ?
-				"\n##\u25C6 Keen Senses##. I gain proficiency in Insight, Perception, or Survival." :
+				"\n" + Base_RaceList.elf.trait[0] :
 				" ##\u25C6 Keen Senses##. Insight, Perception, or Survival proficiency."
 			),
-			"##\u25C6 Fey Ancestry##. I have Advantage on saves to avoid" + (typePF ? "/" : " or ") + "end Charmed.",
-			"##\u25C6 Trance##. I don't need to sleep and magic can't put me to sleep. I can have a Long Rest in 4 hours if I spend it in a trancelike meditation, during which I retain consciousness.",
-		].join("\n"),
+			Base_RaceList.elf.trait[1], // Fey Ancestry
+			Base_RaceList.elf.trait[2], // Trance
+		],
 		features: {
 			"high elf lineage 1": {
 				name: "Prestidigitation (High Elf Lineage)",
@@ -488,10 +497,7 @@ var Base_RaceSubList = {
 		spellcastingAbility: [4, 5, 6],
 		trait: [
 			"##\u25C6 Wood Elf Lineage##. I know *Druidcraft*, *Longstrider* at level 3, and *Pass without Trace* at level 5. I can cast each spell once per Long Rest or by using a spell slot as normal; Int, Wis, or Cha is my spellcasting ability for these (choose when selecting the lineage).",
-			"##\u25C6 Fey Ancestry##. I have Advantage on saves to avoid or end Charmed.",
-			"##\u25C6 Keen Senses##. I gain proficiency in Insight, Perception, or Survival.",
-			"##\u25C6 Trance##. I don't need to sleep and magic can't put me to sleep. I can have a Long Rest in 4 hours if I spend it in a trancelike meditation, during which I retain consciousness.",
-		].join("\n"),
+		].concat(Base_RaceList.elf.trait),
 		features: {
 			"wood elf lineage 1": {
 				name: "Druidcraft (Wood Elf Lineage)",
@@ -558,7 +564,7 @@ var Base_RaceSubList = {
 			"**Forest Gnome**",
 			"##\u25C6 Gnomish Cunning##. I have Advantage on Intelligence, Wisdom, and Charisma saving throws.",
 			"##\u25C6 Forest Gnome Lineage##. I know the *Minor Illusion* cantrip. I always have *Speak with Animals* prepared and I can cast it without a spell slot my Proficiency Bonus times per Long Rest. I can also use any spell slots I have to cast the spell as normal. Int, Wis, or Cha is my spellcasting ability for these (choose when selecting the lineage).",
-		].join("\n"),
+		],
 	},
 	"gnome-rock": {
 		regExpSearch: /^(?=.*gnome)(?=.*(rock|tinker)).*$/i,
@@ -582,7 +588,7 @@ var Base_RaceSubList = {
 			"**Rock Gnome**",
 			"##\u25C6 Gnomish Cunning##. I have Adv" + (typePF ? "antage" : "") + " on Intelligence, Wisdom, and Charisma saving throws.",
 			"##\u25C6 Rock Gnome Lineage##. I know the *Mending* and *Prestidigitation* cantrips. I can create a Tiny clockwork device (AC 5, 1 HP) if I spend 10 min casting Prestidigitation; I choose (one option of) one of its effects, which the device produces when a creature uses a Bonus Action to activate it via touch. I can have three such devices in existence at a time, and each falls apart after 8 hours or when I dismantle it via touch as a Utilize action.",
-		].join("\n"),
+		],
 	},
 	"goliath-cloud": {
 		regExpSearch: /^(?=.*cloud)(?=.*goliath).*$/i,
@@ -603,8 +609,7 @@ var Base_RaceSubList = {
 		trait: [
 			"**Goliath (Cloud Giant Ancestry)**",
 			"##\u25C6 Cloud's Jaunt##. As a Bonus Action, I can magically teleport up to 30 ft to an unoccupied space I can see. I can do this my Proficiency Bonus times per Long Rest.",
-			Base_RaceList.goliath.trait,
-		].join("\n"),
+		].concat(Base_RaceList.goliath.trait),
 	},
 	"goliath-fire": {
 		regExpSearch: /^(?=.*fire)(?=.*goliath).*$/i,
@@ -624,8 +629,7 @@ var Base_RaceSubList = {
 		trait: [
 			"**Goliath (Fire Giant Ancestry)**",
 			"##\u25C6 Fire's Burn##. When I hit a target with an attack roll and damage it, I can deal it an extra +1d10 Fire damage. I can do this my Proficiency Bonus times per Long Rest.",
-			Base_RaceList.goliath.trait,
-		].join("\n"),
+		].concat(Base_RaceList.goliath.trait),
 	},
 	"goliath-frost": {
 		regExpSearch: /^(?=.*frost)(?=.*goliath).*$/i,
@@ -645,8 +649,7 @@ var Base_RaceSubList = {
 		trait: [
 			"**Goliath (Frost Giant Ancestry)**",
 			"##\u25C6 Frost's Chill##. My Prof Bonus times per Long Rest, when my attack roll deals damage to a target, I can do it +1d6 Cold damage and give it -10 ft Speed until my next turn starts.",
-			Base_RaceList.goliath.trait,
-		].join("\n"),
+		].concat(Base_RaceList.goliath.trait),
 	},
 	"goliath-hill": {
 		regExpSearch: /^(?=.*hill)(?=.*goliath).*$/i,
@@ -666,8 +669,7 @@ var Base_RaceSubList = {
 		trait: [
 			"**Goliath (Hill Giant Ancestry)**",
 			"##\u25C6 Hill's Tumble##. When I hit a Large or smaller creature with an attack roll and damage it, I can give it the Prone condition. I can do this my Proficiency Bonus times per Long Rest.",
-			Base_RaceList.goliath.trait,
-		].join("\n"),
+		].concat(Base_RaceList.goliath.trait),
 	},
 	"goliath-stone": {
 		regExpSearch: /^(?=.*stone)(?=.*goliath).*$/i,
@@ -688,8 +690,7 @@ var Base_RaceSubList = {
 		trait: [
 			"**Goliath (Stone Giant Ancestry)**",
 			"##\u25C6 Stone's Endurance##. As a Reaction when I take damage, I can reduce that damage with 1d12 + my Constitution modifier. I can do this my Proficiency Bonus times per Long Rest.",
-			Base_RaceList.goliath.trait,
-		].join("\n"),
+		].concat(Base_RaceList.goliath.trait),
 	},
 	"goliath-storm": {
 		regExpSearch: /^(?=.*storm)(?=.*goliath).*$/i,
@@ -710,8 +711,7 @@ var Base_RaceSubList = {
 		trait: [
 			"**Goliath (Storm Giant Ancestry)**",
 			"##\u25C6 Storm's Thunder##. As a Reaction when I take damage by a creature within 60 ft, I can deal it 1d8 Thunder damage. I can do this my Proficiency Bonus times per Long Rest.",
-			Base_RaceList.goliath.trait,
-		].join("\n"),
+		].concat(Base_RaceList.goliath.trait),
 	},
 	"tiefling-abyssal": {
 		regExpSearch: /^(?=.*(tiefling|planetouched))(?=.*(abyssal|demon)).*$/i,
@@ -756,8 +756,7 @@ var Base_RaceSubList = {
 		trait: [
 			"**Abyssal Tiefling**",
 			"##\u25C6 Fiendish Legacy##. I known the *Poison Spray* cantrip. I learn *Ray of Sickness* at level 3 and *Hold Person* at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy).",
-			"##\u25C6 Otherworldly Presence##. I know the Thaumaturgy cantrip and use the same spellcasting ability for it.",
-		].join("\n"),
+		].concat(RaceList.tiefling.trait),
 	},
 	"tiefling-chthonic": {
 		regExpSearch: /^(?=.*(tiefling|planetouched))(?=.*(chthonic|yugoloth)).*$/i,
@@ -802,8 +801,7 @@ var Base_RaceSubList = {
 		trait: [
 			"**Chthonic Tiefling**",
 			"##\u25C6 Fiendish Legacy##. I known the *Chill Touch* cantrip. I learn *False Life* at level 3 and *Ray of Enfeeblement* at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy).",
-			"##\u25C6 Otherworldly Presence##. I know the Thaumaturgy cantrip and use the same spellcasting ability for it.",
-		].join("\n"),
+		].concat(RaceList.tiefling.trait),
 	},
 	"tiefling-infernal": {
 		regExpSearch: /^(?=.*(tiefling|planetouched))(?=.*(infernal|devil)).*$/i,
@@ -848,7 +846,6 @@ var Base_RaceSubList = {
 		trait: [
 			"**Infernal Tiefling**",
 			"##\u25C6 Fiendish Legacy##. I known the *Fire Bolt* cantrip. I learn *Hellish Rebuke* at level 3 and *Darkness* at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy).",
-			"##\u25C6 Otherworldly Presence##. I know the Thaumaturgy cantrip and use the same spellcasting ability for it.",
-		].join("\n"),
+		].concat(RaceList.tiefling.trait),
 	},
 };

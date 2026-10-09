@@ -55,6 +55,7 @@ var Base_BackgroundList = {
 			"I am pessimistic and distrustful of strangers.",
 			"Once I choose an objective, I become so single minded that the rest of my life fades into the background.",
 		],
+		lifestyle: "modest",
 	},
 	"criminal": {
 		regExpSearch: /criminal/i,
@@ -126,6 +127,7 @@ var Base_BackgroundList = {
 			"Smuggler",
 			"Spy",
 		],
+		lifestyle: "poor",
 	},
 	"sage": {
 		regExpSearch: /sage/i,
@@ -196,6 +198,7 @@ var Base_BackgroundList = {
 			"Wizard's apprentice",
 			"Scribe",
 		],
+		lifestyle: "modest",
 	},
 	"soldier": {
 		regExpSearch: /^(?!.*mercenary)(?=.*soldier).*$/i,
@@ -269,6 +272,7 @@ var Base_BackgroundList = {
 			"Standard-bearer",
 			"Support staff",
 		],
+		lifestyle: "modest",
 	},
 };
 
