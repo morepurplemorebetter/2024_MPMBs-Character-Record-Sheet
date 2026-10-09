@@ -744,8 +744,8 @@ function GetFightingStyleSelection() {
 		if (/fighting style/i.test(oFeat.type)) {
 			// Fighting Style type feats
 			fndObj[sFeat] = ["feats", sFeat, "\t   (selected: " + oFeat.name + " Fighting Style Feat)", oFeat.name + " (feat)"];
-		} else if (!oFeat.type && /fighting style/i.test(oFeat.descriptionFull)) {
-			// Legacy feats
+		} else if (oFeat.choicesFightingStyles || (!oFeat.type && /fighting style/i.test(oFeat.descriptionFull) && oFeat.choices)) {
+			// Feats with Fighting Styles as choices
 			var sFeatChoice = CurrentFeats.choices[CurrentFeats.known.indexOf(sFeat)];
 			if (sFeatChoice) fndObj[sFeatChoice] = ["feats", sFeat, "\t   (selected: " + oFeat.name + " - " + sFeatChoice.capitalize() + ")", sFeat + " (feat): " + sFeatChoice.capitalize()];
 		}
