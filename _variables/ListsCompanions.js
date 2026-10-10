@@ -5,7 +5,7 @@ var Base_CompanionList = {
 		nameMenu: "Familiar (Find Familiar spell)", // required
 		source: [["SRD24", 130], ["PHB24", 272]], // required
 		includeCheck: function (sCrea, objCrea, iCreaCR, bIsAL) {
-			return objCrea.type.toLowerCase() === "beast" && iCreaCR === 0;
+			return /\bbeast\b/i.test(objCrea.type) && iCreaCR === 0;
 		},
 		action: [
 			["action", "Familiar (dismiss/reappear)"],
@@ -49,9 +49,9 @@ var Base_CompanionList = {
 		includeCheck: function (sCrea, objCrea, iCreaCR, bIsAL) {
 			if (objCrea.companion) {
 				if (objCrea.companion.indexOf("familiar") !== -1) return true;
-				if (bIsAL && objCrea.companion.indexOf("familiar_not_al") !== -1) return " (if DM approves)";
+				if (!bIsAL && objCrea.companion.indexOf("familiar_not_al") !== -1) return " (if DM approves)";
 			}
-			return objCrea.type.toLowerCase() === "beast" && iCreaCR === 0;
+			return /\bbeast\b/i.test(objCrea.type) && iCreaCR === 0;
 		},
 		action: [
 			["action", "Familiar (dismiss/reappear)"],
