@@ -2877,7 +2877,7 @@ var Base_SpellsList = {
 		classes: ["druid", "sorcerer", "wizard"],
 		source: [["SRD24", 132], ["PHB24", 275]],
 		level: 2,
-		school: "Conj",
+		school: "Evoc", // Errata PHB'24 2026-10-07
 		time: "Act",
 		range: "60 ft",
 		components: "V,S,M",
