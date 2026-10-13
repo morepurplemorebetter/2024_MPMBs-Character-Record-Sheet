@@ -3597,13 +3597,13 @@ var Base_MagicItemsList = {
 			return !classes.known.paladin ? "" : classes.known.paladin.level < 17 ? "paladin level 1-16 (10-ft aura)" : "paladin level 17+ (30-ft aura)";
 		},
 		"paladin level 1-16 (10-ft aura)": {
-			name: "Holy\uFEFF Avenger",
+			name: "Holy Avenger \uFEFF",
 			description: "I have a +3 bonus to attack and damage rolls made with this magic weapon. It deals +2d10 Radiant damage against Fiends and Undead. While holding the drawn weapon, a 10-ft radius Emanation originates from me that grants my allies and I Advantage on saves against spells and magical effects.",
 			prerequisite: "Requires Attunement by a Paladin",
 			prereqeval: function (v) { return !!classes.known.paladin; },
 		},
 		"paladin level 17+ (30-ft aura)": {
-			name: "Holy \uFEFFAvenger",
+			name: "Holy Avenger \uFEFF\uFEFF",
 			description: "I have a +3 bonus to attack and damage rolls made with this magic weapon. It deals +2d10 Radiant damage against Fiends and Undead. While holding the drawn weapon, a 30-ft radius Emanation originates from me that grants my allies and I Advantage on saves against spells and magical effects.",
 			prerequisite: "Requires Attunement by a level 17+ Paladin",
 			prereqeval: function (v) {
@@ -8863,8 +8863,8 @@ Base_MagicItemsList["hammer of thunderbolts"] = function () {
 			"Attuned to Gauntlets of Ogre Power",
 		],
 		"not attuned to gauntlets of ogre power or belt of giant strength": {
-			name: "Hammer of Thunderbolts\uFEFF",
-			nameTest: "of Thunderbolts\uFEFF",
+			name: "Hammer of Thunderbolts \uFEFF",
+			nameTest: "of Thunderbolts \uFEFF",
 			description: "This +1 weapon has 5 charges and regains 1d4+1 at dawn. I can expend 1 charge to make it Thrown (20/60 ft) and Returning for 1 attack. If that attack hits, it unleashes a thunderclap audible out to 300 ft and all within 30 ft of the target need to make a DC 17 Con save or be Stunned until the end of my next turn.",
 		},
 		"attuned to gauntlets of ogre power": {

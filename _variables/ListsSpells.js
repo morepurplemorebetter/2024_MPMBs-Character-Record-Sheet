@@ -106,7 +106,7 @@ var Base_SpellsList = {
 		compMaterial: "A morsel of food",
 		duration: "24 h",
 		save: "Wis",
-		description: "1+1/SL beasts save or Charmed; ends if the beast is damaged by me or my allies",
+		description: "1+1/SL Beasts save or Charmed; ends if the beast is damaged by me or my allies",
 		descriptionFull: [
 			"Target a Beast that you can see within range. The target must succeed on a Wisdom saving throw or have the Charmed condition for the duration. If you or one of your allies deals damage to the target, the spell ends.",
 			UsingHigherLvl + "You can target one additional Beast for each spell slot level above 1.",

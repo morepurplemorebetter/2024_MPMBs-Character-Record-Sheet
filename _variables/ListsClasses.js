@@ -2988,7 +2988,7 @@ var Base_ClassList = {
 					name: "Lifedrinker",
 					source: [["SRD24", 73], ["PHB24", 156]],
 					minlevel: 9,
-					submenu: ["[Warlock level 9+]", "[improves Pact of the Blade]"],
+					submenu: ["[Warlock level  9+]", "[improves Pact of the Blade]"],
 					prereqeval: function (v) { return v.choiceActive.indexOf("pact of the blade") !== -1; },
 					description: desc("Once per turn when I hit a creature with my pact weapon, I can deal +1d6 Necrotic, Psychic, or Radiant damage, and I can use one HD to heal myself for its roll plus my " + (typePF ? "Constitution" : "Con") + " modifier."),
 					calcChanges: {
@@ -3658,7 +3658,7 @@ var Base_ClassSubList = {
 				name: "Preserve Life",
 				source: [["SRD24", 40], ["PHB24", 73]],
 				minlevel: 3,
-				description: desc("As a Magic action, I can expend a use 1 CD to heal Bloodied creatures within 30 ft (me included) up to half their HP maximum. I divide the HP among them as I see fit."),
+				description: desc("As a Magic action, I can expend 1 Channel Divinity to heal Bloodied creatures within 30 ft (me included) up to half their HP maximum. I divide the HP among them as I see fit."),
 				additional: levels.map(function (n) {
 					return n < 3 ? "" : "1 Channel Divinity; divide " + (n * 5) + (typePF ? "HP" : " Hit Points");
 				}),

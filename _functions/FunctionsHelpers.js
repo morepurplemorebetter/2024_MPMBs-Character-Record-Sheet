@@ -313,10 +313,10 @@ function dynamicFeatureCreation() {
 			addEvals(genericFeature.calcChanges, "Warlock: " + genericFeature.name, addIt, "classes");
 		}
 	};
-	var agonizingBlastSubMenu = "Agonizing Blast (req: lvl 2+)" + stringSource(GenericClassFeatures["agonizing blast"], "first,abbr", "   \t[", "]");
-	var eldritchSpearSubMenu = "Eldritch Spear (req: lvl 2+)" + stringSource(GenericClassFeatures["eldritch spear"], "first,abbr", "   \t[", "]");
+	var agonizingBlastSubMenu = "[Warlock level  2+] Agonizing Blast" + stringSource(GenericClassFeatures["agonizing blast"], "first,abbr", "   \t[", "]");
+	var eldritchSpearSubMenu = "[Warlock level  2+] Eldritch Spear" + stringSource(GenericClassFeatures["eldritch spear"], "first,abbr", "   \t[", "]");
 	var eldritchSpearAdditional = levels.map(function (n) { return "+" + (n * 30) + " ft range" });
-	var repellingBlastSubMenu = "Repelling Blast (req: lvl 2+)" + stringSource(GenericClassFeatures["repelling blast"], "first,abbr", "   \t[", "]");
+	var repellingBlastSubMenu = "[Warlock level  2+] Repelling Blast" + stringSource(GenericClassFeatures["repelling blast"], "first,abbr", "   \t[", "]");
 	for (var key in SpellsList) {
 		var oSpell = SpellsList[key];
 		var descriptions = oSpell.description + oSpell.descriptionFull;
@@ -375,7 +375,7 @@ function dynamicFeatureCreation() {
 			return n === feat && (!featChoice || nChoice === featChoice);
 		});
 	};
-	var lessonsOfTheFirstOnesSubMenu = "Lessons of the First Ones (req: lvl 2+)" + stringSource({ source: [["SRD24", 73], ["PHB24", 156]] }, "first,abbr", "   \t[", "]");
+	var lessonsOfTheFirstOnesSubMenu = "[Warlock level  2+] Lessons of the First Ones" + stringSource({ source: [["SRD24", 73], ["PHB24", 156]] }, "first,abbr", "   \t[", "]");
 	for (var key in FeatsList) {
 		var oFeat = FeatsList[key];
 		if (/origin/i.test(oFeat.type)) {

@@ -9,7 +9,7 @@ Types of ability score increases:
 		scoresMaximum: undefined,
 		scoresMaxLimited: undefined,
 
-2. One-time and a change to the maximum, not by a magic item (`MagicItemsList` are type 5)
+2. One-time and a change to the maximum, not by a magic item (`MagicItemsList` are type 7)
 	5e (2014) does this, but 5.5e (2024) abandoned the practice of a separate maximum.
 	In 5.5e (2024), everything is worded as "increases by X, up to a maximum of Y",
 	which is type AA.
@@ -51,7 +51,7 @@ Types of ability score increases:
 
 5. Ongoing, up to maximum above 20, only applicable to magic items (others are type 2)
 	`isSpecial` will be set to `"ongoing"`
-	Their maximum isn't added to the normal list of maximums (type 2 & 6), 
+	Their maximum isn't added to the normal list of maximums (type 2 & 6),
 	because it is only applicable to this one increase.
 	This should only be done by automation, so these go into a column that users can't change
 	and that is updated when the effective value changes.
@@ -81,18 +81,31 @@ Types of ability score increases:
 	if the item is selected multiple times. Set the following attribute to do so.
 		scoresStackable: true,
 
-// types 7-8 are options without the `scores` attribute
-7. Maximum (no `scores` defined)
+7. One-time stackable, and a change to the maximum, by a magic item (others are type 2)
+	`isSpecial === "stackable"`
+	This works identical to type 2, but when the item is selected, the user will be
+	prompted if the change should be applied or not, as the item might is considered
+	to be a consumable. If it is not a consumable, it can't be stackable and should
+	be coded as type 5.
+	When the magic item is removed, the user will be prompted if the change should
+	remain despite the item being removed.
+
+		scores: [2, 0, 2, 0, 0, 0],
+		scoresMaximum: [22, 0, "+2", 0, 0, 0],
+		scoresMaxLimited: undefined,
+		scoresStackable: true,
+
+// types 8-9 are options without the `scores` attribute
+8. Maximum (no `scores` defined)
 	`isSpecial === "maximums"`
 	Only adds a new maximum, which will be the new maximum if it is the highest.
 	No official content does this.
-	Note that defining 
 
 		scores: undefined,
 		scoresMaximum: [24, 0, "+2", 0, 0, 0],
 		scoresMaxLimited: undefined,
 
-8. Override (works independent from other scores attribute)
+9. Override (works independent from other scores attribute)
 	`isSpecial === "overrides"`
 	The stat will be either its calculated total, or the override, whichever is higher.
 	Nothing stacks with the override (change in v14.0.12/v24.0.12).
@@ -140,7 +153,7 @@ MagicItemsList["ability score tester"] = {
 	source: [["HB", 0]],
 	descriptionFull: "The types of ability scores, except those that can't be accomplished with a MagicItemsList object.",
 	allowDuplicates: true,
-	choices: ["type 4", "type 5", "type 6", "type 6 (stackable)", "type 7", "type 8","legacy function"],
+	choices: ["type 4", "type 5", "type 6", "type 6 (stackable)", "type 7", "type 8", "type 9", "legacy function"],
 	"type 4": {
 		description: "Ongoing ability score increase, up to max 20. If this would be done by something else than a MagicItemsList object, it would be type 1.",
 		scores: [-2, 0, 0, 2, 0, 0],
@@ -162,10 +175,16 @@ MagicItemsList["ability score tester"] = {
 		scoresStackable: true,
 	},
 	"type 7": {
+		description: "One-time ability score and maximum increase, stackable with itself. This causes a pop-up asking to apply these changes when the item is selected, even if it was applied before. When the item is removed, another pop-up will ask if the changes should remain despite the item being removed. If this wasn't a magic item, there would be no pop-up dialogs, the changes would just be applied/removed.",
+		scores: [2, -2, 2, 0, 2, 2],
+		scoresMaximum: [22, 0, "+2", 0, 17, "-2"],
+		scoresStackable: true,
+	},
+	"type 8": {
 		description: "Only add a new maximum, no ability score increases. This will be the new maximum if it is the highest.",
 		scoresMaximum: [24, 0, "+2", 0, 17, "-2"],
 	},
-	"type 8": {
+	"type 9": {
 		description: "Override. The stat will be either its calculated total, or the override, whichever is higher.",
 		scoresOverride: [21, 0, 0, 0, 0, 0],
 	},
