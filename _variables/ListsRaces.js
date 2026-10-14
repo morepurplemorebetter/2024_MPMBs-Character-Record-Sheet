@@ -210,7 +210,7 @@ var Base_RaceList = {
 		],
 		// from PHB'14:
 		age: " reach adulthood in their late teens and live less than 100 years",
-		height: " are about 2-4 ft (small) or 4-7 ft (medium) tall (4'8\" + 2d10\")",
+		height: " are about 2-4 ft (small) or 5-7 ft (medium) tall (4'8\" + 2d10\")",
 		weight: " (medium) weigh around 165 lb (110 + 2d10 \xD7 2d4 lb)",
 		heightMetric: " are about 60-120 cm (small) or 120-210 cm (medium) tall (145 + 5d10 cm)",
 		weightMetric: " (medium) weigh around 75 kg (50 + 5d10 \xD7 4d4 / 10 kg)",
@@ -274,7 +274,7 @@ var Base_RaceList = {
 		variants: ["abyssal", "chthonic", "infernal"],
 		// from PHB'14:
 		age: " reach adulthood in their late teens and live around 100 years",
-		height: " are about 3-4 ft (small) or 4-7 ft (medium) tall (4'9\" + 2d8\")",
+		height: " are about 3-4 ft (small) or 5-7 ft (medium) tall (4'9\" + 2d8\")",
 		weight: " weigh around 155 lb (110 + 2d8 \xD7 2d4 lb)",
 		heightMetric: " are about 90-120 cm (small) or 120-210 cm (medium) tall (145 + 5d8 cm)",
 		weightMetric: " weigh around 70 kg (50 + 5d8 \xD7 4d4 / 10 kg)",
@@ -756,7 +756,7 @@ var Base_RaceSubList = {
 		trait: [
 			"**Abyssal Tiefling**",
 			"##\u25C6 Fiendish Legacy##. I known the *Poison Spray* cantrip. I learn *Ray of Sickness* at level 3 and *Hold Person* at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy).",
-		].concat(RaceList.tiefling.trait),
+		].concat(Base_RaceList.tiefling.trait),
 	},
 	"tiefling-chthonic": {
 		regExpSearch: /^(?=.*(tiefling|planetouched))(?=.*(chthonic|yugoloth)).*$/i,
@@ -801,7 +801,7 @@ var Base_RaceSubList = {
 		trait: [
 			"**Chthonic Tiefling**",
 			"##\u25C6 Fiendish Legacy##. I known the *Chill Touch* cantrip. I learn *False Life* at level 3 and *Ray of Enfeeblement* at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy).",
-		].concat(RaceList.tiefling.trait),
+		].concat(Base_RaceList.tiefling.trait),
 	},
 	"tiefling-infernal": {
 		regExpSearch: /^(?=.*(tiefling|planetouched))(?=.*(infernal|devil)).*$/i,
@@ -846,6 +846,6 @@ var Base_RaceSubList = {
 		trait: [
 			"**Infernal Tiefling**",
 			"##\u25C6 Fiendish Legacy##. I known the *Fire Bolt* cantrip. I learn *Hellish Rebuke* at level 3 and *Darkness* at level 5. I then always have these spells prepared and can cast each once per Long Rest without a spell slot, or by using a spell slot as normal. Intelligence, Wisdom, or Charisma is my spellcasting ability for these (choose when selecting the legacy).",
-		].concat(RaceList.tiefling.trait),
+		].concat(Base_RaceList.tiefling.trait),
 	},
 };
