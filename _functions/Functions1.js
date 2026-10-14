@@ -2438,7 +2438,7 @@ function FindRace(inputracetxt, novardialog, aOldRace) {
 
 
 	// Show the option button if the race has (more than 1) selectable variants
-	if (tempFound[2] && tempFound[2].length) {
+	if (tempFound[2] && tempFound[2].length > 1) {
 		DontPrint("Race Features Menu");
 		// if no variant was found, ask the user if he wants to select one
 		if (!novardialog && IsNotImport && inputracetxt && (!tempFound[1] || tempFound[1] === "basic") && !CurrentVars.manual.race) {

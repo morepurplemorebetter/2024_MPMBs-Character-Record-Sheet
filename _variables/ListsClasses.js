@@ -2716,6 +2716,7 @@ var Base_ClassList = {
 				"armor of shadows": {
 					name: "Armor of Shadows",
 					source: [["SRD24", 72], ["PHB24", 155]],
+					submenu: "[Warlock level  0+]",
 					description: desc("I can cast *Mage Armor* on myself without expending a spell slot."),
 					spellcastingBonus: [{
 						name: "Armor of Shadows",
@@ -2734,6 +2735,7 @@ var Base_ClassList = {
 				"eldritch mind": {
 					name: "Eldritch Mind",
 					source: [["SRD24", 72], ["PHB24", 155]],
+					submenu: "[Warlock level  0+]",
 					description: desc("I have Advantage on Constitution saving throws to maintain Concentration."),
 				},
 				// level 2+
@@ -2862,7 +2864,6 @@ var Base_ClassList = {
 					minlevel: 5,
 					submenu: "[Warlock level  5+]",
 					description: desc("I can cast *Alter Self* without expending a spell slot."),
-					submenu: "[Warlock level 15+]",
 					spellcastingBonus: [{
 						name: "Mask of Myriad Forms",
 						spells: ["alter self"],
@@ -2930,6 +2931,7 @@ var Base_ClassList = {
 				// Pact of the Blade tree
 				"pact of the blade": {
 					name: "Pact of the Blade",
+					submenu: ["[Warlock level  0+]", "[improves Pact of the Blade]"],
 					source: [["SRD24", 74], ["PHB24", 156]],
 					description: desc([
 						"As a Bonus Action, I can bond with a magical weapon I touch, or conjure a pact weapon, a Melee weapon of my choice. I have proficiency with it and can use it as a Spellcasting Focus.",
@@ -3012,6 +3014,7 @@ var Base_ClassList = {
 				// Pact of the Chain tree
 				"pact of the chain": {
 					name: "Pact of the Chain",
+					submenu: ["[Warlock level  0+]", "[improves Pact of the Chain]"],
 					source: [["SRD24", 74], ["PHB24", 157]],
 					description: desc([
 						"As a Magic action, I can cast *Find Familiar* without expending a spell slot. When I do so, I can have the familiar take on a special form (see Companion page).",
@@ -3124,6 +3127,7 @@ var Base_ClassList = {
 				// Pact of the Tome tree
 				"pact of the tome": {
 					name: "Pact of the Tome",
+					submenu: ["[Warlock level  0+]", "[improves Pact of the Tome]"],
 					source: [["SRD24", 74], ["PHB24", 157]],
 					description: desc("I have a Book of Shadows with three cantrips and two 1st-level Ritual spells. While the book is on my person, I have them prepared as Warlock spells. I can use the book as a Spellcasting Focus. I can conjure a replacement, and pick new spells, at the end of a Short or Long Rest."),
 					eval: function () {

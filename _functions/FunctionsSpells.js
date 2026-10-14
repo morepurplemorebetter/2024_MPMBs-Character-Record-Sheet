@@ -236,12 +236,13 @@ function GetSpellObject(theSpl, theCast, firstCol, isDuplicate, tooltipOnly) {
 
 	// Make the tooltip for the description field
 	var spTooltip = "";
+	var spSchoolNm = "";
 	var ttSpellObj = aSpell.completeRewrite ? aSpell : foundSpell;
 	if (ttSpellObj.descriptionFull || tooltipOnly) {
 		spTooltip = toUni(ttSpellObj.name, "bold") + " \u2014 ";
 
 		if (ttSpellObj.school) {
-			var spSchoolNm = spellSchoolList[ttSpellObj.school] ? spellSchoolList[ttSpellObj.school] : ttSpellObj.school;
+			spSchoolNm = spellSchoolList[ttSpellObj.school] ? spellSchoolList[ttSpellObj.school] : ttSpellObj.school;
 			if (spSchoolNm && ttSpellObj.subSchool) spSchoolNm += " (" + ttSpellObj.subSchool + ")";
 		} else {
 			spSchoolNm = ttSpellObj.level == 0 ? "" : "spell";
@@ -251,13 +252,12 @@ function GetSpellObject(theSpl, theCast, firstCol, isDuplicate, tooltipOnly) {
 			spTooltip += ttSpellObj.level == 0 ?
 				spLevelNm :
 				spSchoolNm.capitalize() + " " + spLevelNm.toLowerCase();
+		} else if (ttSpellObj.level === 0) {
+			var spLevelNm = spellLevelList[0].replace(/s\b/, "");
+			if (spSchoolNm) spSchoolNm += " ";
+			spTooltip += spSchoolNm + spLevelNm;
 		} else {
-			var spLevelNm = spellLevelList[ttSpellObj.level] ? spellLevelList[ttSpellObj.level].replace(/s\b/, "") : "";
-			spTooltip += ttSpellObj.level != 0 ?
-				spLevelNm + " " + spSchoolNm :
-				spSchoolNm ?
-					spSchoolNm.capitalize() + " " + spLevelNm.toLowerCase() :
-					spLevelNm;
+			spTooltip += ["Level", ttSpellObj.level, spSchoolNm].join(" ");
 		}
 
 		if (ttSpellObj.timeFull) {

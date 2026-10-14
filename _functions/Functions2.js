@@ -1062,16 +1062,22 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 				if (prop.useSpellDescription && SpellsList[prop.useSpellDescription] && SpellsList[prop.useSpellDescription].descriptionFull) {
 					var oSpell = SpellsList[prop.useSpellDescription];
 					// Get the type of spell string
-					var strSchool = spellSchoolList[oSpell.school] ? spellSchoolList[oSpell.school] : oSpell.school;
-					if (strSchool && oSpell.subSchool) strSchool += " [" + oSpell.subSchool + "]";
+					var strSchool = spellSchoolList[oSpell.school] ? spellSchoolList[oSpell.school] : oSpell.school ? oSpell.school : "spell";
+					if (oSpell.school && oSpell.subSchool) strSchool += " [" + oSpell.subSchool + "]";
 					if (!strSchool) strSchool = oSpell.level == 0 ? "" : "spell";
 					var useLevel = oSpell.level + (oSpell.psionic ? 10 : 0);
 					var strLevel = spellLevelList[useLevel] ? spellLevelList[useLevel].replace(/s\b| \(.+\)/g, "") : "";
+					var strSpellType = "";
 					if (oSpell.psionic) {
-						var strSpellType = oSpell.level == 0 ? strLevel : strSchool.capitalize() + " " + strLevel.toLowerCase();
+						strSpellType = oSpell.level == 0 ? strLevel : strSchool.capitalize() + " " + strLevel.toLowerCase();
+					} else if (oSpell.level == 0) {
+						strSpellType = oSpell.level != 0 ? strLevel + " " + strSchool + " spell" : strSchool ? strSchool.capitalize() + " " + strLevel.toLowerCase() : strLevel;
+					} else if (oSpell.level === 0) {
+						strSpellType =  strSchool + " " + strLevel;
 					} else {
-						var strSpellType = oSpell.level != 0 ? strLevel + " " + strSchool + " spell" : strSchool ? strSchool.capitalize() + " " + strLevel.toLowerCase() : strLevel;
+						strSpellType += ["Level", oSpell.level, strSchool].join(" ");
 					}
+					strSpellType = strSpellType.trim();
 					// Get the source string
 					var strSource = stringSource(prop.source ? prop : oSpell, "first,abbr", ", ");
 					// Create the full property string

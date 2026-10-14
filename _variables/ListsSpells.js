@@ -10,14 +10,14 @@ var AtHigherLevels = "\n   ***At Higher Levels***. ";
 var Base_spellLevelList = ["Cantrips (0-level)", "1st-level", "2nd-level", "3rd-level", "4th-level", "5th-level", "6th-level", "7th-level", "8th-level", "9th-level", "Talents", "Disciplines"];
 
 var Base_spellSchoolList = {
-	"Abjur": "abjuration",
-	"Conj": "conjuration",
-	"Div": "divination",
-	"Ench": "enchantment",
-	"Evoc": "evocation",
-	"Illus": "illusion",
-	"Necro": "necromancy",
-	"Trans": "transmutation",
+	"Abjur": "Abjuration",
+	"Conj": "Conjuration",
+	"Div": "Divination",
+	"Ench": "Enchantment",
+	"Evoc": "Evocation",
+	"Illus": "Illusion",
+	"Necro": "Necromancy",
+	"Trans": "Transmutation",
 };
 
 var Base_SpellsList = {

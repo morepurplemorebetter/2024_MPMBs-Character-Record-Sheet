@@ -91,7 +91,7 @@ var Base_RaceList = {
 				action: [["bonus action", " (Tremorsense)"]],
 			},
 		},
-		// from PHB'14:
+		// from PHB'14, for the Hill Dwarf:
 		age: " are considered young until they are 50 and live about 350 years",
 		height: " are about 4-5 ft tall (3'8\" + 2d4\")",
 		weight: " weigh around 150 lb (115 + 2d4 \xD7 2d6 lb)",
@@ -117,7 +117,7 @@ var Base_RaceList = {
 			"##\u25C6 Keen Senses##. I gain proficiency in Insight, Perception, or Survival.",
 			"##\u25C6 Trance##. I don't need to sleep and magic can't put me to sleep. I can have a Long Rest in 4 hours if I spend it in a trancelike meditation, during which I retain consciousness.",
 		],
-		// from PHB'14:
+		// from PHB'14, for the High Elf:
 		age: " typically claim adulthood around age 100 and can live to be 750 years old",
 		height: " are about 5-6 ft tall (4'6\" + 2d10\")",
 		weight: " weigh around 115 lb (90 + 2d10 \xD7 1d4 lb)",
@@ -177,6 +177,7 @@ var Base_RaceList = {
 		name: "Halfling",
 		source: [["SRD24", 86], ["PHB24", 193]],
 		plural: "Halflings",
+		size: 4,
 		speed: { walk: { spd: 30, enc: 20 } },
 		savetxt: { adv_vs: ["Frightened"] },
 		trait: [
@@ -437,6 +438,11 @@ var Base_RaceSubList = {
 				}],
 			},
 		},
+		// from PHB'14:
+		height: " are about 5 ft tall (4'5\" + 2d6\")",
+		weight: " weigh around 100 lb (75 + 2d6 \xD7 1d6 lb)",
+		heightMetric: " are about 140-165 cm tall (135 + 5d6 cm)",
+		weightMetric: " weigh around 45 kg (35 + 5d6 \xD7 2d6 / 10 kg)",
 	},
 	"elf-high": {
 		regExpSearch: /^((?=.*(silvanesti|qualinesti))|(?=.*(elfs?|elv(es|ish|en))\b)(?=.*\b(high|sun|moon|grey|gray|valleys?|silvers?)\b)).*$/i,
@@ -533,6 +539,9 @@ var Base_RaceSubList = {
 				}],
 			},
 		},
+		// from PHB'14, where different than the High Elf:
+		weight: " weigh around 125 lb (100 + 2d10 \xD7 1d4 lb)",
+		weightMetric: " weigh around 60 kg (45 + 5d10 \xD7 2d4 / 10 kg)",
 	},
 	"gnome-forest": {
 		regExpSearch: /^(?=.*gnome)(?=.*(wood|forest|wild|green)).*$/i,

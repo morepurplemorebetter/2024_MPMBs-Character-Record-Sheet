@@ -2913,7 +2913,7 @@ function RunFunctionAtEnd(inFunc) {
 };
 
 // a way to add a racial variant without conflicts
-function AddRacialVariant(race, variantName, variantObj) {
+function AddSubRace(race, variantName, variantObj) {
 	race = race.toLowerCase();
 	if (!RaceList[race]) return;
 	if (!RaceList[race].variants || !isArray(RaceList[race].variants)) {
@@ -2923,14 +2923,18 @@ function AddRacialVariant(race, variantName, variantObj) {
 		RaceList[race].variants = ["basic"];
 	}
 	var suffix = 1;
-	variantName = variantName.toLowerCase();
-	while (RaceList[race].variants.indexOf(variantName) !== -1) {
-		suffix += 1;
-		variantName += suffix;
+	var useVarName = variantName.toLowerCase();
+	while (RaceList[race].variants.indexOf(useVarName) !== -1) {
+		suffix++;
+		useVarName = variantName + "-" + suffix;
 	};
-	RaceList[race].variants.push(variantName);
-	RaceSubList[race + "-" + variantName] = variantObj;
+	RaceList[race].variants.push(useVarName);
+	RaceSubList[race + "-" + useVarName] = variantObj;
+	return race + "-" + useVarName;
 };
+// set for backwards and forwards compatibility
+var AddRacialVariant = AddSubRace;
+var AddSubSpecies = AddSubRace;
 
 // a way to add a subclass without conflicts
 function AddSubClass(iClass, subclassName, subclassObj, bDoNotConvert) {
@@ -3030,10 +3034,11 @@ function AddBackgroundVariant(background, variantName, variantObj) {
 	if (!BackgroundList[background]) return;
 	if (!BackgroundList[background].variant || !isArray(BackgroundList[background].variant)) BackgroundList[background].variant = [];
 	var suffix = 1;
-	var fullBvNm = background + "-" + variantName;
+	var baseBvNm = background + "-" + variantName;
+	var fullBvNm = baseBvNm;
 	while (BackgroundList[background].variant.indexOf(fullBvNm) !== -1) {
 		suffix += 1;
-		fullBvNm += suffix;
+		fullBvNm = baseBvNm + "-" + suffix;
 	};
 	BackgroundList[background].variant.push(fullBvNm);
 	BackgroundSubList[fullBvNm] = variantObj;
@@ -3107,6 +3112,14 @@ function AddFeatureChoice(pObj, cType, cName, cObj, force, bSort) {
 }
 // --- backwards compatibility --- //
 function AddWarlockInvocation(invocName, invocObj) { // Add a warlock invocation
+	if (!invocObj.submenu) {
+		var lvl = invocObj.minlevel ? invocObj.minlevel : 0;
+		if (!lvl && invocObj.prereqeval && /.*warlock.level.*?(\d+).*/.test(invocObj.prereqeval)) {
+			lvl = invocObj.prereqeval.replace(/.*warlock.level.*?(\d+).*/, "$1");
+		}
+		if (lvl.toString().length == 1) lvl = " " + lvl;
+		invocObj.submenu = "[Warlock level " + lvl + "+]";
+	}
 	AddFeatureChoice(ClassList.warlock.features["eldritch invocations"], true, invocName, invocObj);
 };
 function AddWarlockPactBoon(boonName, boonObj) { // Add a warlock pact boon
