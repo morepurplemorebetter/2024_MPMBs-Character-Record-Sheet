@@ -121,7 +121,7 @@ var Base_RaceList = {
 		age: " typically claim adulthood around age 100 and can live to be 750 years old",
 		height: " are about 5-6 ft tall (4'6\" + 2d10\")",
 		weight: " weigh around 115 lb (90 + 2d10 \xD7 1d4 lb)",
-		heightMetric: " are about 150-180 cm tall (140 + 5d10 cm)",
+		heightMetric: " are about 150-180 cm tall (137 + 5d10 cm)",
 		weightMetric: " weigh around 55 kg (40 + 5d10 \xD7 2d4 / 10 kg)",
 	},
 	"gnome": {
@@ -138,7 +138,7 @@ var Base_RaceList = {
 		age: " start adult life around age 40 and can live 350 to almost 500 years",
 		height: " are about 3-4 ft tall (2'11\" + 2d4\")",
 		weight: " weigh around 40 lb (35 + 2d4 lb)",
-		heightMetric: " are about 90-120 cm tall (2'11\" + 5d4)",
+		heightMetric: " are about 90-110 cm tall (89 + 5d4 cm)",
 		weightMetric: " weigh around 18 kg (16 + 5d4 / 10 kg)",
 	},
 	"goliath": {

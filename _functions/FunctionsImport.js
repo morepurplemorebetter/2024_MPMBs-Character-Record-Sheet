@@ -2929,6 +2929,7 @@ function AddSubRace(race, variantName, variantObj) {
 		useVarName = variantName + "-" + suffix;
 	};
 	RaceList[race].variants.push(useVarName);
+	RaceList[race].variants.sort();
 	RaceSubList[race + "-" + useVarName] = variantObj;
 	return race + "-" + useVarName;
 };

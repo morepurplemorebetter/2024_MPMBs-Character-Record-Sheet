@@ -106,7 +106,7 @@ var Base_SpellsList = {
 		compMaterial: "A morsel of food",
 		duration: "24 h",
 		save: "Wis",
-		description: "1+1/SL Beasts save or Charmed; ends if the beast is damaged by me or my allies",
+		description: "1+1/SL Beasts save or Charmed; ends if the Beast is damaged by me or my allies",
 		descriptionFull: [
 			"Target a Beast that you can see within range. The target must succeed on a Wisdom saving throw or have the Charmed condition for the duration. If you or one of your allies deals damage to the target, the spell ends.",
 			UsingHigherLvl + "You can target one additional Beast for each spell slot level above 1.",
@@ -5543,8 +5543,8 @@ var Base_SpellsList = {
 		components: "V,S",
 		duration: "Instantaneous",
 		save: "Dex",
-		description: "1 creature save or 1d8 Radiant damage; no save bonus for 1/2 or 3/4 cover; +1d8 at CL 5, 11, and 17",
-		descriptionCantripDie: "1 visible creature save or `CD`d8 Radiant dmg; no bonus for 1/2 or 3/4 cover on save",
+		description: "1 creature save or 1d8 Radiant damage; no save bonus for 1/2 or 3/4 Cover; +1d8 at CL 5, 11, and 17",
+		descriptionCantripDie: "1 visible creature save or `CD`d8 Radiant dmg; no bonus for 1/2 or 3/4 Cover on save",
 		descriptionFull: [
 			"Flame-like radiance descends on a creature that you can see within range. The target must succeed on a Dexterity saving throw or take 1d8 Radiant damage. The target gains no benefit from Half Cover or Three-Quarters Cover for this save.",
 			CantripUpgrade + "The damage increases by 1d8 when you reach levels 5 (2d8), 11 (3d8), and 17 (4d8).",
@@ -5871,7 +5871,7 @@ var Base_SpellsList = {
 		components: "V,S,M\u2020",
 		compMaterial: "Powdered ruby worth 1,500+ GP, which the spell consumes",
 		duration: "Till dispelled",
-		description: "Create snow/ice duplicate of humanoid/beast; follows commands \x26 acts on turn; see B (1500gp cons)",
+		description: "Create snow/ice copy of Humanoid/Beast; follows commands \x26 acts on my turn; see B (1500gp cons)",
 		descriptionFull: [
 			"You create a simulacrum of one Beast or Humanoid that is within 10 feet of you for the entire casting of the spell. You finish the casting by touching both the creature and a pile of ice or snow that is the same size as that creature, and the pile turns into the simulacrum, which is a creature. It uses the game statistics of the original creature at the time of casting, except it is a Construct, its Hit Point maximum is half as much, and it can't cast this spell.",
 			"The simulacrum is Friendly to you and creatures you designate. It obeys your commands and acts on your turn in combat. The simulacrum can't gain levels, and it can't take Short or Long Rests.",

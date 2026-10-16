@@ -16,6 +16,16 @@
 	Sheet:		v12.999 (2017-11-29)
 */
 
+/*	-TODO, FOR WHEN THIS FILE IS REWRITTEN TO THE NEW STANDARD-
+	Document how the `features` attribute of a variant combines with the `features` of its parent race (FindRace and AmendOldToNewRace in Functions1.js):
+	- A `features` object is merged with the parent's features. Features with the same key replace the parent's, other features of the parent are kept.
+	- A feature set to `null` in the variant cancels that feature of the parent, e.g. `features: { "stonecunning": null }`.
+	- `features` set to a falsy value (`null` or `""`) removes all of the parent's features.
+	- An empty object (`features: {}`) is a normal merge, so it keeps all of the parent's features.
+	- The `features` objects of RaceList and RaceSubList are never changed by the sheet; it only uses copies.
+	- Don't forget to replace `AddRacialVariant` with its new name `AddSubRace` (the old name still works).
+*/
+
 var iFileName = "Homebrew Syntax - RaceSubList.js"; // Optional; This is how the file will be named in the sheet if you import it as a file and not copy-paste its content. Only the first occurrence of this variable will be used
 RequiredSheetVersion(12.999); // Optional; This is the minimum required version number of the sheet for the script to work. If the sheet being used to import the script is of an earlier version, the user will be warned
 

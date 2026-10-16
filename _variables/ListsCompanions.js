@@ -43,7 +43,7 @@ var Base_CompanionList = {
 	"pact_of_the_chain": {
 		name: "Pact of the Chain",
 		nameTooltip: "Warlock (Pact of the Chain)",
-		nameOrigin: "variant of the Find Familiar 1st-level conjuration [ritual] spell",
+		nameOrigin: "variant of the Find Familiar level 1 Conjuration [ritual]",
 		nameMenu: "Pact of the Chain familiar (Warlock's Eldritch Invocation)",
 		source: [["SRD24", 74], ["PHB24", 157]],
 		includeCheck: function (sCrea, objCrea, iCreaCR, bIsAL) {
