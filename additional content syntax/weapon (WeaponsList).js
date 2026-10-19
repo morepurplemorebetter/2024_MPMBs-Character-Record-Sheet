@@ -184,6 +184,8 @@ WeaponsList["purple sword"] = {
 		"Cantrip"			// cantrips (always proficient)
 		"Spell"				// 1st-level and higher spells (always proficient)
 		"Improvised Weapons"// improvised weapons such as vial of acid
+		"Magic Item"		// special attacks modes of magic items
+		"Weapon"			// special attacks that should be considered weapons, aren't Simple or Martial, but should gain bonuses from calcChanges
 
 	Alternatively, you can define a type yourself.
 	If this type matches a word in the 'Other Weapon Proficiencies' field,

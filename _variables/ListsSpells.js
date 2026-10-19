@@ -5544,7 +5544,7 @@ var Base_SpellsList = {
 		duration: "Instantaneous",
 		save: "Dex",
 		description: "1 creature save or 1d8 Radiant damage; no save bonus for 1/2 or 3/4 Cover; +1d8 at CL 5, 11, and 17",
-		descriptionCantripDie: "1 visible creature save or `CD`d8 Radiant dmg; no bonus for 1/2 or 3/4 Cover on save",
+		descriptionCantripDie: "1 creature save or `CD`d8 Radiant dmg; no save bonus for 1/2 or 3/4 Cover",
 		descriptionFull: [
 			"Flame-like radiance descends on a creature that you can see within range. The target must succeed on a Dexterity saving throw or take 1d8 Radiant damage. The target gains no benefit from Half Cover or Three-Quarters Cover for this save.",
 			CantripUpgrade + "The damage increases by 1d8 when you reach levels 5 (2d8), 11 (3d8), and 17 (4d8).",

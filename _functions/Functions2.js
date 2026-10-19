@@ -6413,7 +6413,7 @@ function CalcAttackDmgHit(fldName) {
 	// Gather some information on the weapon
 	var WeaponText = WeaponTextName + " " + fields.Description;
 	var isSpell = thisWeapon[3] || (theWea && /cantrip|spell/i.test(theWea.type)) || (!theWea && /\b(cantrip|spell)\b/i.test(WeaponText)) ? true : false;
-	var isWeapon = theWea && theWea.isNotWeapon ? false : theWea ? /simple|martial|exotic|firearm|improvised weapon/i.test(theWea.type) : !isSpell;
+	var isWeapon = theWea && theWea.isNotWeapon ? false : theWea ? /simple|martial|exotic|firearm|weapon/i.test(theWea.type) : !isSpell;
 	var isMeleeWeapon = isWeapon && /melee/i.test(fields.Range);
 	var isRangedWeapon = isWeapon && !isMeleeWeapon && /\d/i.test(fields.Range);
 	var isThrownWeapon = isWeapon && /\bthrown\b/i.test(fields.Description) && /\d ?(ft|m)\.?($|[^)])/i.test(fields.Range);
