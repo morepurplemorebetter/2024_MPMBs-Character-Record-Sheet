@@ -2923,10 +2923,11 @@ function AddSubRace(race, variantName, variantObj) {
 		RaceList[race].variants = ["basic"];
 	}
 	var suffix = 1;
-	var useVarName = variantName.toLowerCase();
+	var variantNameLC = variantName.toLowerCase();
+	var useVarName = variantNameLC;
 	while (RaceList[race].variants.indexOf(useVarName) !== -1) {
 		suffix++;
-		useVarName = variantName + "-" + suffix;
+		useVarName = variantNameLC + "-" + suffix;
 	};
 	RaceList[race].variants.push(useVarName);
 	RaceList[race].variants.sort();

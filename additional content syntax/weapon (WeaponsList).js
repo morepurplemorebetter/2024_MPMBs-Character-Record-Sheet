@@ -58,7 +58,7 @@ var iFileName = "Homebrew Syntax - WeaponsList.js";
 	Only the first occurrence of this variable will be used.
 */
 
-RequiredSheetVersion("14.0.5", "24.0.0");
+RequiredSheetVersion("24.0.6");
 /*	RequiredSheetVersion // OPTIONAL //
 	TYPE:	function call with one variable, a string or number
 	USE:	the minimum and maximum versions of the sheet required for the add-on script to work
@@ -91,7 +91,7 @@ RequiredSheetVersion("14.0.5", "24.0.0");
 
 WeaponsList["purple sword"] = {
 /* 	WeaponsList object name // REQUIRED //
-	TYPE:	string
+	TYPE:	string (lowercase)
 	USE:	object name of the weapon as it will be used by the sheet
 
 	By adding a new object to the existing WeaponsList object, we create a new weapon/attack.
@@ -483,14 +483,16 @@ WeaponsList["purple sword"] = {
 */
 	ammo: "bolt",
 /*	ammo // OPTIONAL //
-	TYPE:	string
+	TYPE:	string (lowercase)
 	USE:	the AmmoList object name of the ammunition that this attack uses
 
 	If the attack you are adding is a weapon that uses ammunition,
 	you can have the sheet automatically add it to the ammunition section when the weapon is added to the sheet.
 
-	The options are: "arrow", "bolt", "bullet", "dagger", "dart", "flask", "axe", "javelin",
-	"hammer", "needle", "spear", "trident", and "vial" [note the use of only lower case!].
+	The default options are: "arrow", "bolt", "sling bullet", "firearm bullet",
+	"dagger", "dart", "flask", "axe", "javelin", "hammer", "needle", "spear",
+	"trident", "vial", "alchemist fire", "vials of acid", "holy water", and "oil".
+	Note the use of only lower case, as these are object names in the AmmoList.
 
 	This list of options can be greater if you add another AmmoList object using the "ammunition (AmmoList).js" syntax file.
 

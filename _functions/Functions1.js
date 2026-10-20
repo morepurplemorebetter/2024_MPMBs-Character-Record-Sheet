@@ -2450,12 +2450,13 @@ function FindRace(inputracetxt, novardialog, aOldRace) {
 			for (var i = 0; i < tempFound[2].length; i++) {
 				var varR = tempFound[2][i];
 				var varRobj = RaceSubList[tempFound[0] + "-" + varR];
-				var varRname = varRobj.sortname ? varRobj.sortname : varRobj.name ? varRobj.name : varR.capitalize() + " " + aRace.name;
+				var varRname = varRobj && varRobj.sortname ? varRobj.sortname :
+					varRobj && varRobj.name ? varRobj.name : varR.capitalize() + " " + aRace.name;
 				var varRsrc = varRobj && varRobj.source ? stringSource(varRobj, "first,abbr", "    [", "]") : rSource;
 				rVarNames.push(varRname + varRsrc);
 				rVarObj[varRname + varRsrc] = varR;
 			}
-			var aResp = AskUserOptions("Select Species Variant", "The '" + aRace.name + "' species offers a choice of variants, please select the one you want here.\n\nYou can change the selected variant by typing the full name of another variant into the Species field, or with the Racial Options button in the Racial Traits section on the second page.\n\nThe name on the first page will be changed to the selected variant's name.", rVarNames, "radio", true);
+			var aResp = AskUserOptions("Select Species Variant", "The '" + aRace.name + "' species offers a choice. This can be a choice of lineage, subrace, variant, for a single feature, or something along those lines.\n\nYou can change the selected variant by typing the full name of another variant into the Species field, or with the \"Racial Options\" button in the Racial Traits section on the second page.\n\nThe name on the first page will be changed to the selected variant's name.", rVarNames, "radio", true);
 			if (rVarObj[aResp]) {
 				CurrentRace.variant = rVarObj[aResp];
 				// Change the Species field on the 1st page to the selected variant's name (if any)
@@ -4540,7 +4541,7 @@ function MakeBackgroundMenu_BackgroundOptions(MenuSelection) {
 				bMarked: false,
 			};
 			for (var sType in traitTypes) {
-				if (!oBack[sType]) return;
+				if (!oBack[sType]) continue;
 				var markParent = menuLVL2(entry.oSubMenu, sType, sListType, key, oBack[sType]);
 				if (markParent) entry.bMarked = true;
 			}
@@ -9412,7 +9413,7 @@ function MakeRaceMenu() {
 	if (CurrentRace.known && CurrentRace.variants) {
 		for (var r = 0; r < CurrentRace.variants.length; r++) {
 			var theR = CurrentRace.known + "-" + CurrentRace.variants[r];
-			if (testSource(theR, RaceSubList[theR], "racesExcl")) continue; // test if the racial variant or its source isn't excluded
+			if (testSource(theR, RaceSubList[theR], "racesExcl") && isCurrent !== CurrentRace.variants[r]) continue; // test if the racial variant or its source isn't excluded
 			racialVarArr.push(CurrentRace.variants[r]);
 		}
 	};
@@ -9424,7 +9425,8 @@ function MakeRaceMenu() {
 			var key = CurrentRace.known + "-" + varR;
 			var varRobj = RaceSubList[key];
 			var varRsrc = varRobj && varRobj.source ? stringSource(varRobj, "first,abbr", "\t   [", "]") : rSource;
-			var varName = varRobj.sortname ? varRobj.sortname : varRobj.name ? varRobj.name : varR.capitalize() + " " + CurrentRace.name;
+			var varName = varRobj && varRobj.sortname ? varRobj.sortname :
+				varRobj && varRobj.name ? varRobj.name : varR.capitalize() + " " + CurrentRace.name;
 			item.push({
 				cName: varName + varRsrc,
 				cReturn: CurrentRace.known + "#" + varR,
@@ -9435,7 +9437,7 @@ function MakeRaceMenu() {
 
 	var RaceMenu = [];
 
-	if (racialVarArr.length === 1) {
+	if (racialVarArr.length <= 1) {
 		RaceMenu = [{
 			cName: "No species options that require a choice",
 			cReturn: "nothing",

@@ -57,7 +57,7 @@ var iFileName = "Homebrew Syntax - ArmourList.js";
 	Only the first occurrence of this variable will be used.
 */
 
-RequiredSheetVersion("14.0.5", "24.0.0");
+RequiredSheetVersion("24.0.0");
 /*	RequiredSheetVersion // OPTIONAL //
 	TYPE:	function call with one variable, a string or number
 	USE:	the minimum and maximum versions of the sheet required for the add-on script to work
@@ -90,7 +90,7 @@ RequiredSheetVersion("14.0.5", "24.0.0");
 
 ArmourList["purple mail"] = {
 /* 	ArmourList object name // REQUIRED //
-	TYPE:	string
+	TYPE:	string (lowercase)
 	USE:	object name of the armour as it will be used by the sheet
 
 	By adding a new object to the existing ArmourList object, we create a new armour.

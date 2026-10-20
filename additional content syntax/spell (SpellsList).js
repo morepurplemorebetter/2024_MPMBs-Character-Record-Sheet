@@ -56,7 +56,7 @@ var iFileName = "Homebrew Syntax - SpellsList.js";
 	Only the first occurrence of this variable will be used.
 */
 
-RequiredSheetVersion("14.0.5", "24.0.0");
+RequiredSheetVersion("24.0.0");
 /*	RequiredSheetVersion // OPTIONAL //
 	TYPE:	function call with one variable, a string or number
 	USE:	the minimum and maximum versions of the sheet required for the add-on script to work
@@ -89,7 +89,7 @@ RequiredSheetVersion("14.0.5", "24.0.0");
 
 SpellsList["sindering purple"] = {
 /* 	SpellsList object name // REQUIRED //
-	TYPE:	string
+	TYPE:	string (lowercase)
 	USE:	object name of the spell as it will be used by the sheet
 
 	By adding a new object to the existing SpellsList object, we create a new spell.
@@ -257,7 +257,7 @@ SpellsList["sindering purple"] = {
 		h				hours(s)
 
 	>> 5.5e (2024) changes
-	The above recommended abbreviations have been changed to be more in line with the 2024
+	The above recommended abbreviations have been changed to be more in line with the 5.5e (2024)
 	rules as presented in the PHB'24. For backwards compatibility, the sheet automatically
 	changes the old abbreviations to the new format.
 	Old way of abbreviating:

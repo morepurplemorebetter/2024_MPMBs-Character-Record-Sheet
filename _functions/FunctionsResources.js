@@ -1054,13 +1054,12 @@ function resourceSelectionDialog(type) {
 					if (!inclObj[uGroup]) inclObj[uGroup] = {};
 					var rLen = RaceList[u].variants.length;
 					for (var z = 0; z < rLen; z++) {
-						var uSub = z === rLen ? u : u + "-" + RaceList[u].variants[z];
-						var uRaceVar = z === rLen ? RaceList[u] : RaceSubList[uSub];
+						var uSub = u + "-" + RaceList[u].variants[z];
+						var uRaceVar = RaceSubList[uSub];
 						if (!uRaceVar) continue;
 						var uSubTest = testSource(uSub, uRaceVar, CSatt, true);
 						if (uSubTest === "source") continue;
-						doAny = z !== rLen ? true : doAny;
-						if (z === rLen && !doAny) continue;
+						doAny = true;
 						var uName = uRaceVar && uRaceVar.name ? uRaceVar.name : RaceList[u].variants[z].capitalize() + " " + useName;
 						uName = amendSource(uName, uRaceVar, RaceList[u]);
 						refObj[uName] = uSub;
@@ -1071,7 +1070,7 @@ function resourceSelectionDialog(type) {
 						}
 					}
 				}
-				if (!doAny) {
+				if (!doAny) { // all variants excluded because their sources were
 					if (uTest) {
 						exclObj[uGroup] = -1;
 					} else {

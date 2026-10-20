@@ -1959,9 +1959,9 @@ var exampleFeatureName = { // you can ignore this, it is just here to make this 
 				WeaponTextName, // string, just the name
 				isDC, // boolean, whether or not this attack has a To Hit (false) or a DC (true)
 				isSpell, // boolean, whether (true) or not (false) this attack is a recognized cantrip or spell or has the word 'cantrip' or 'spell' in its name or description. Be aware that something can be both a spell/cantrip and a weapon attack
-				isWeapon, // boolean, whether (true) or not (false) this attack is considered a weapon (in 2024 rules, this is `false` for natural attacks like Unarmed Strike) [changed v24.0.8]
-				isMeleeWeapon, // boolean, whether (true) or not (false) this attack has a range of 'melee' and is considered a melee weapon attack (i.e. not natural attacks in 2024 rules) [changed v24.0.8]
-				isRangedWeapon, // boolean, whether (true) or not (false) this attack has a range that doesn't include 'melee' and is considered a ranged weapon attack (i.e. not natural attacks in 2024 rules) [changed v24.0.8]
+				isWeapon, // boolean, whether (true) or not (false) this attack is considered a weapon (in 5.5e/2024 rules, this is `false` for natural attacks like Unarmed Strike) [changed v24.0.8]
+				isMeleeWeapon, // boolean, whether (true) or not (false) this attack has a range of 'melee' and is considered a melee weapon attack (i.e. not natural attacks in 5.5e/2024 rules) [changed v24.0.8]
+				isRangedWeapon, // boolean, whether (true) or not (false) this attack has a range that doesn't include 'melee' and is considered a ranged weapon attack (i.e. not natural attacks in 5.5e/2024 rules) [changed v24.0.8]
 				isThrownWeapon, // boolean, whether (true) or not (false) this attack is a weapon and has the 'thrown' property [added v13.1.1]
 				isNaturalWeapon, // boolean, whether (true) or not (false) this attack has the type 'natural' (then `v.isWeapon === false`) [changed v24.0.8]
 				isSimpleOrMartial, // boolean, whether (true) or not (false) this weapon has the Simple or Martial type [added v14.0.13]
@@ -2054,9 +2054,9 @@ var exampleFeatureName = { // you can ignore this, it is just here to make this 
 				WeaponTextName, // string, just the name
 				isDC, // boolean, whether or not this attack has a To Hit (false) or a DC (true)
 				isSpell, // boolean, whether (true) or not (false) this attack is a recognized cantrip or spell or has the word 'cantrip' or 'spell' in its name or description. Be aware that something can be both a spell/cantrip and a weapon attack
-				isWeapon, // boolean, whether (true) or not (false) this attack is considered a weapon (in 2024 rules, this is `false` for natural attacks like Unarmed Strike) [changed v24.0.8]
-				isMeleeWeapon, // boolean, whether (true) or not (false) this attack has a range of 'melee' and is considered a melee weapon attack (i.e. not natural attacks in 2024 rules) [changed v24.0.8]
-				isRangedWeapon, // boolean, whether (true) or not (false) this attack has a range that doesn't include 'melee' and is considered a ranged weapon attack (i.e. not natural attacks in 2024 rules) [changed v24.0.8]
+				isWeapon, // boolean, whether (true) or not (false) this attack is considered a weapon (in 5.5e/2024 rules, this is `false` for natural attacks like Unarmed Strike) [changed v24.0.8]
+				isMeleeWeapon, // boolean, whether (true) or not (false) this attack has a range of 'melee' and is considered a melee weapon attack (i.e. not natural attacks in 5.5e/2024 rules) [changed v24.0.8]
+				isRangedWeapon, // boolean, whether (true) or not (false) this attack has a range that doesn't include 'melee' and is considered a ranged weapon attack (i.e. not natural attacks in 5.5e/2024 rules) [changed v24.0.8]
 				isThrownWeapon, // boolean, whether (true) or not (false) this attack is a weapon and has the 'thrown' property [added v13.1.1]
 				isNaturalWeapon, // boolean, whether (true) or not (false) this attack has the type 'natural' (then `v.isWeapon === false`) [changed v24.0.8]
 				isSimpleOrMartial, // boolean, whether (true) or not (false) this weapon has the Simple or Martial type [added v14.0.13]

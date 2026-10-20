@@ -41,8 +41,8 @@
 				but by adding an entry as explained below, these alteration will happen
 				regardless of a specific feature being present.
 
-	Remarks:	You will also need the syntax for common attributes, as that is where the
-				`calcChanges` object is explained.
+	Remarks:  - You will also need the syntax for common attributes, as that is where the
+				`calcChanges` object is explained, see "_common attributes.js".
 
 	Sheet:		v24.0.0 and above (PHB'24)
 */
@@ -61,7 +61,7 @@ var iFileName = "Homebrew Syntax - DefaultEvalsList.js";
 	Only the first occurrence of this variable will be used.
 */
 
-RequiredSheetVersion("14.0.5", "24.0.0");
+RequiredSheetVersion("24.0.0");
 /*	RequiredSheetVersion // OPTIONAL //
 	TYPE:	function call with one variable, a string or number
 	USE:	the minimum and maximum versions of the sheet required for the add-on script to work

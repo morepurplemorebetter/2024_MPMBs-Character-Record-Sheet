@@ -34,10 +34,10 @@
 
 	Effect:		This is the syntax for adding a new magic item to the sheet.
 
-	Remarks:	You will also need the syntax for common attributes if you want the magic item
-				to do anything besides populating its description field.
-				You will also need the syntax for adding a source if you want the magic item
-				to have a source that doesn't yet exist in the sheet.
+	Remarks:  - You will also need the syntax for common attributes if you want the magic item
+				to do anything besides populating its description field, see "_common attributes.js".
+			  - You will also need the syntax for adding a source if you want the magic item
+				to have a source that doesn't yet exist in the sheet, see "source (SourceList).js".
 
 	Sheet:		v14.0.16 and above
 
@@ -57,7 +57,7 @@ var iFileName = "Homebrew Syntax - MagicItemsList.js";
 	Only the first occurrence of this variable will be used.
 */
 
-RequiredSheetVersion("14.0.5", "24.0.0");
+RequiredSheetVersion("24.0.16");
 /*	RequiredSheetVersion // OPTIONAL //
 	TYPE:	function call with one variable, a string or number
 	USE:	the minimum and maximum versions of the sheet required for the add-on script to work
@@ -90,7 +90,7 @@ RequiredSheetVersion("14.0.5", "24.0.0");
 
 MagicItemsList["staff of purple"] = {
 /* 	MagicItemsList object name // REQUIRED //
-	TYPE:	string
+	TYPE:	string (lowercase)
 	USE:	object name of the magic item as it will be used by the sheet
 
 	By adding a new object to the existing MagicItemsList object, we create a new magic item.
@@ -580,9 +580,9 @@ MagicItemsList["staff of purple"] = {
 				isDC, // boolean, whether or not this attack has a To Hit (false) or a DC (true)
 				isSpell, // boolean, whether (true) or not (false) this attack is a recognized cantrip or spell. Be aware that something can be both a spell/cantrip and a weapon attack
 				isSpellKey, // string, the recognized key of the spell in the SpellsList object
-				isWeapon, // boolean, whether (true) or not (false) this attack is considered a weapon (in 2024 rules, this is `false` for natural attacks like Unarmed Strike)
-				isMeleeWeapon, // boolean, whether (true) or not (false) this attack has a range of 'melee' and is considered a melee weapon attack (i.e. not natural attacks in 2024 rules)
-				isRangedWeapon, // boolean, whether (true) or not (false) this attack has a range that doesn't include 'melee' and is considered a ranged weapon attack (i.e. not natural attacks in 2024 rules)
+				isWeapon, // boolean, whether (true) or not (false) this attack is considered a weapon (in 5.5e/2024 rules, this is `false` for natural attacks like Unarmed Strike)
+				isMeleeWeapon, // boolean, whether (true) or not (false) this attack has a range of 'melee' and is considered a melee weapon attack (i.e. not natural attacks in 5.5e/2024 rules)
+				isRangedWeapon, // boolean, whether (true) or not (false) this attack has a range that doesn't include 'melee' and is considered a ranged weapon attack (i.e. not natural attacks in 5.5e/2024 rules)
 				isThrownWeapon, // boolean, whether (true) or not (false) this attack is a weapon and has the 'thrown' property
 				isNaturalWeapon, // boolean, whether (true) or not (false) this attack has the type 'natural' (then `v.isWeapon === false`)
 				isSimpleOrMartial, // boolean, whether (true) or not (false) this weapon has the Simple or Martial type
