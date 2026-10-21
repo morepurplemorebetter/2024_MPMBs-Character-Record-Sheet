@@ -3177,14 +3177,14 @@ function ParseMagicItemMenu() {
 			Staff: [],
 			Tattoo: [],
 			Wand: [],
-			"Wondrous item": [],
+			"Wondrous Item": [],
 			Weapon: [],
 		},
 		special: {
 			"Ability score increase": [],
 			"Hit Points": [],
 			Movement: [],
-			"Resistances or immunities": [],
+			"Resistances or Immunities": [],
 			Skills: [],
 			Spells: [],
 			"Spellcasting improvement": [],
@@ -3267,7 +3267,7 @@ function ParseMagicItemMenu() {
 			iMenus.special["Ability score increase"].push(itemName);
 		}
 		if (tObj.calcChanges) {
-			if (tObj.calcChanges.hp) iMenus.special["Hit points"].push(itemName);
+			if (tObj.calcChanges.hp) iMenus.special["Hit Points"].push(itemName);
 			if (tObj.calcChanges.spellAdd || tObj.calcChanges.spellCalc) {
 				iMenus.special["Spellcasting improvement"].push(itemName);
 			}
@@ -3276,7 +3276,7 @@ function ParseMagicItemMenu() {
 			iMenus.special.Movement.push(itemName);
 		}
 		if (tObj.dmgres || (tObj.savetxt && tObj.savetxt.immune)) {
-			iMenus.special["Resistances or immunities"].push(itemName);
+			iMenus.special["Resistances or Immunities"].push(itemName);
 		}
 		if (tObj.skills || tObj.skillstxt || tObj.advantage) {
 			iMenus.special.Skills.push(itemName);
@@ -3308,7 +3308,7 @@ function ParseMagicItemMenu() {
 		}
 		if (justDoMainItem) sortItem(item);
 	}
-	// First add the alphabetical listing of all the magic items (and Wondrous items)
+	// First add the alphabetical listing of all the magic items (and Wondrous Items)
 	var tempMenu = [], alphabetaArr = [], woundrousAlphabetaArr = [];
 	for (var letter in iMenus.alphabetical) alphabetaArr.push(letter);
 	for (var letter in iMenus.wondrousAlphabetical) woundrousAlphabetaArr.push(letter);
@@ -3339,7 +3339,7 @@ function ParseMagicItemMenu() {
 				cReturn: "item#set#" + iMenus.ref[tempMenu2[a]],
 			}
 		}
-		iMenus.type["Wondrous item"].push({ cName: sLetter, oSubMenu: [].concat(tempMenu2) });
+		iMenus.type["Wondrous Item"].push({ cName: sLetter, oSubMenu: [].concat(tempMenu2) });
 	}
 	// Also parse the wondrous items
 	// Then a menu per rarity
@@ -3382,7 +3382,7 @@ function ParseMagicItemMenu() {
 	}, { cName: "-" });
 	// Then a main menu item per type
 	var processItemType = function (entry, tempMenu2) {
-		if (entry !== "Wondrous item") {
+		if (entry !== "Wondrous Item") {
 			tempMenu2.sort();
 			for (var a = 0; a < tempMenu2.length; a++) {
 				tempMenu2[a] = {

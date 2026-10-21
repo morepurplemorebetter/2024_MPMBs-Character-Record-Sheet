@@ -2395,26 +2395,24 @@ function ParseRace(input) {
 					availableVariants = subFoundVariants;
 				}
 			}
-			// Fill the availableVariants variable if the RaceList entry matches, but no variant did
+			// Fill the available variants variable if the RaceList entry matches, but no variant did
 			if (i == 1 && mainFound === key && !subFound) availableVariants = subFoundVariants.length ? subFoundVariants : false;
 		}
 	}
 	return [mainFound, subFound, availableVariants];
 };
 
-//detects race entered and put information to global CurrentRace variable
-function FindRace(inputracetxt, novardialog, aOldRace) {
+// Detects species entered and put information to global CurrentRace variable
+function FindRace(inputracetxt, novardialog, aOldRace, parsedResult) {
 	var tempString = inputracetxt !== undefined ? inputracetxt : CurrentVars.manual.race ? CurrentVars.manual.race[0] : What("Race Remember");
 
 	if (inputracetxt !== undefined && CurrentVars.manual.race) return; // don't do the rest of this function if race is set to manual and this is not a startup event
 
-	var tempFound = ParseRace(tempString);
+	var tempFound = parsedResult ? parsedResult : ParseRace(tempString);
 	if (!aOldRace && CurrentVars.oldRace) {
 		aOldRace = CurrentVars.oldRace;
-	} else if (IsNotImport && aOldRace && (!CurrentVars.oldRace || CurrentVars.oldRace[0] !== aOldRace[0])) {
-		// only change if the known is new or changes, not just the variant
+	} else if (IsNotImport && aOldRace && (!CurrentVars.oldRace || CurrentVars.oldRace[0] !== aOldRace[0] || CurrentVars.oldRace[1] !== aOldRace[1])) {
 		CurrentVars.oldRace = aOldRace;
-		SetStringifieds("vars");
 	}
 
 	CurrentRace = {
@@ -2438,7 +2436,7 @@ function FindRace(inputracetxt, novardialog, aOldRace) {
 
 
 	// Show the option button if the race has (more than 1) selectable variants
-	if (tempFound[2] && tempFound[2].length > 1) {
+	if (tempFound[2] && tempFound[2].length) {
 		DontPrint("Race Features Menu");
 		// if no variant was found, ask the user if he wants to select one
 		if (!novardialog && IsNotImport && inputracetxt && (!tempFound[1] || tempFound[1] === "basic") && !CurrentVars.manual.race) {
@@ -2456,7 +2454,12 @@ function FindRace(inputracetxt, novardialog, aOldRace) {
 				rVarNames.push(varRname + varRsrc);
 				rVarObj[varRname + varRsrc] = varR;
 			}
-			var aResp = AskUserOptions("Select Species Variant", "The '" + aRace.name + "' species offers a choice. This can be a choice of lineage, subrace, variant, for a single feature, or something along those lines.\n\nYou can change the selected variant by typing the full name of another variant into the Species field, or with the \"Racial Options\" button in the Racial Traits section on the second page.\n\nThe name on the first page will be changed to the selected variant's name.", rVarNames, "radio", true);
+			if (rVarNames.length === 1) {
+				var aResp = rVarNames[0];
+				Hide("Race Features Menu");
+			} else {
+				var aResp = AskUserOptions("Select Species Variant", "The '" + aRace.name + "' species offers a choice. This can be a choice of lineage, subrace, variant, for a single feature, or something along those lines.\n\nYou can change the selected variant by typing the full name of another variant into the Species field, or with the \"Racial Options\" button in the Racial Traits section on the second page.\n\nThe name on the first page will be changed to the selected variant's name.", rVarNames, "radio", true);
+			}
 			if (rVarObj[aResp]) {
 				CurrentRace.variant = rVarObj[aResp];
 				// Change the Species field on the 1st page to the selected variant's name (if any)
@@ -2549,17 +2552,31 @@ function FindRace(inputracetxt, novardialog, aOldRace) {
 	if (inputracetxt === undefined && CurrentRace.known) CurrentRace.level = CurrentVars.manual.race ? CurrentVars.manual.race[1] : What("Character Level") ? Number(What("Character Level")) : 1;
 };
 
-//apply the effect of the player's race
+// Apply the effect of the player's species
 function ApplyRace(inputracetxt, novardialog, newLvlForce) {
 	if (IsSetDropDowns) return; // when just changing the dropdowns, don't do anything
 
-	var newRace = ParseRace(inputracetxt);
-	var oldRace = [CurrentRace.known, CurrentRace.variant];
-	var isMetric = What("Unit System") === "metric";
+	var aNewRace = ParseRace(inputracetxt);
 
-	if (CurrentVars.manual.race) {
-		// if race is set to manual, just put the text in the Race Remember
-		Value("Race Remember", newRace[0] + (newRace[1] ? "-" + newRace[1]  : ""));
+	if (aNewRace[0] === CurrentRace.known && aNewRace[1] === CurrentRace.variant) {
+		// Nothing changed, so stop now
+		return;
+	} else if (CurrentVars.manual.race) {
+		// If race is set to manual, only put the text in the Race Remember field
+		Value("Race Remember", aNewRace[0] + (aNewRace[1] ? "-" + aNewRace[1]  : ""));
+		return;
+	}
+
+	// Use FindRace now, so the user gets prompted to select a variant and we know if that is the same variant as was previously selected so we don't undo and than redo everything again
+	var oRaceOld = CurrentRace, aCurrentVarsOld = CurrentVars.oldRace;
+	FindRace(inputracetxt, novardialog, [oRaceOld.known, oRaceOld.variant], aNewRace);
+
+	// Test if there was a dialog asking for a variant and the exact same variant was selected as before
+	if (oRaceOld.known === CurrentRace.known && oRaceOld.variant === CurrentRace.variant) {
+		// Same variant selected as before, so stop here, but put some variables back that have been reset
+		CurrentRace = oRaceOld;
+		CurrentVars.oldRace = aCurrentVarsOld;
+		SetStringifieds("vars");
 		return;
 	}
 
@@ -2567,31 +2584,40 @@ function ApplyRace(inputracetxt, novardialog, newLvlForce) {
 	var thermoTxt = thermoM("Applying species...");
 	calcStop();
 
-	if (newRace[0] !== oldRace[0] || newRace[1] !== oldRace[1]) {
-		if (CurrentRace.known) {// remove the old race if one was detected
-			thermoTxt = thermoM("Removing the " + CurrentRace.name + " features...", false); //change the progress dialog text
+	// Save the new race to the remember field
+	Value("Race Remember", CurrentRace.known + (CurrentRace.variant ? "-" + CurrentRace.variant : ""));
 
-			// Remove tooltips from some fields
-			var tooltipRemove = ["Height", "Weight", "Age"];
-			for (i = 0; i < tooltipRemove.length; i++) {
-				AddTooltip(tooltipRemove[i], "", "");
-			};
-			AddTooltip("Size Category", "Selected size category will effect encumbrance on the second page.");
-			Value("Racial Traits", "", "");
+	// Remove the old
+	if (oRaceOld.known) {
+		thermoTxt = thermoM("Removing the " + oRaceOld.name + " features...", false); //change the progress dialog text
 
-			// Remove the common attributes from the CurrentRace object and remove the CurrentRace features
-			UpdateLevelFeatures("race", 0);
+		// Remove tooltips from some fields
+		var tooltipRemove = ["Height", "Weight", "Age"];
+		for (i = 0; i < tooltipRemove.length; i++) {
+			AddTooltip(tooltipRemove[i], "", "");
+		};
+		AddTooltip("Size Category", "Selected size category will effect encumbrance on the second page.");
+		Value("Racial Traits", "", "");
 
-			// Remove the remembered ability save, if any
-			if (CurrentVars.raceAbilitySave !== undefined) delete CurrentVars.raceAbilitySave;
-		}
-		FindRace(inputracetxt, novardialog, oldRace);
-		Value("Race Remember", CurrentRace.known + (CurrentRace.variant ? "-" + CurrentRace.variant : ""));
+		// Temporary use oRaceOld as the CurrentRace object, so `UpdateLevelFeatures` uses the correct stuff
+		var oRaceNew = CurrentRace;
+		CurrentRace = oRaceOld;
+		// Remove the common attributes from the old CurrentRace object and features
+		UpdateLevelFeatures("race", 0);
+
+		// Remove the remembered ability save, if any
+		if (CurrentVars.raceAbilitySave !== undefined) delete CurrentVars.raceAbilitySave;
+
+		// Put CurrentRace back
+		CurrentRace = oRaceNew;
 	}
 
-	if (CurrentRace.known && (CurrentRace.known !== oldRace[0] || CurrentRace.variant !== oldRace[1])) {
+	// Apply the new
+	if (CurrentRace.known) {
 		thermoTxt = thermoM("Applying the " + CurrentRace.name + " features...", false); //change the progress dialog text
 		thermoM(1 / 10); //increment the progress dialog's progress
+
+		var isMetric = What("Unit System") === "metric";
 
 		// Add race height
 		var theHeight = (isMetric || !CurrentRace.height) && CurrentRace.heightMetric ? CurrentRace.heightMetric : CurrentRace.height;
@@ -9406,11 +9432,13 @@ function SetBackgroundFeaturesdropdown(forceTooltips) {
 	Value("Background Feature", theFldVal, tempString);
 }
 
-//Make menu for 'choose race feature' button and parse it to Menus.raceoptions
+// Make menu for 'choose race feature' button and parse it to Menus.raceoptions
 function MakeRaceMenu() {
-	//make an array of the variants that are not excluded by the resource settings
+	// make an array of the variants that are not excluded by the resource settings
 	var racialVarArr = [];
-	if (CurrentRace.known && CurrentRace.variants) {
+	var baseRace = RaceList[CurrentRace.known];
+	var isCurrent = CurrentRace.variant;
+	if (baseRace && CurrentRace.variants) {
 		for (var r = 0; r < CurrentRace.variants.length; r++) {
 			var theR = CurrentRace.known + "-" + CurrentRace.variants[r];
 			if (testSource(theR, RaceSubList[theR], "racesExcl") && isCurrent !== CurrentRace.variants[r]) continue; // test if the racial variant or its source isn't excluded
@@ -9419,14 +9447,13 @@ function MakeRaceMenu() {
 	};
 
 	var menuLVL1R = function (item, array) {
-		var rSource = stringSource(RaceList[CurrentRace.known], "first,abbr", "\t   [", "]");
 		for (var i = 0; i < array.length; i++) {
 			var varR = array[i];
 			var key = CurrentRace.known + "-" + varR;
 			var varRobj = RaceSubList[key];
 			var varRsrc = varRobj && varRobj.source ? stringSource(varRobj, "first,abbr", "\t   [", "]") : rSource;
 			var varName = varRobj && varRobj.sortname ? varRobj.sortname :
-				varRobj && varRobj.name ? varRobj.name : varR.capitalize() + " " + CurrentRace.name;
+				varRobj && varRobj.name ? varRobj.name : varR.capitalize() + " " + baseRace.name;
 			item.push({
 				cName: varName + varRsrc,
 				cReturn: CurrentRace.known + "#" + varR,
@@ -9444,27 +9471,32 @@ function MakeRaceMenu() {
 			bEnabled: false,
 		}];
 	} else {
+		var rSource = stringSource(baseRace, "first,abbr", "\t   [", "]");
 		menuLVL1R(RaceMenu, racialVarArr);
 	}
 
 	Menus.raceoptions = RaceMenu;
 }
 
-//call the Race Features menu and do something with the results
-function RaceFeatureOptions() {
-	var MenuSelection = getMenu("raceoptions");
+// Call the Race Features menu and do something with the results
+function RaceFeatureOptions(MenuSelection) {
+	MenuSelection = MenuSelection ? MenuSelection : getMenu("raceoptions");
+	if (!MenuSelection || MenuSelection[0] === "nothing") return;
 
-	if (MenuSelection && MenuSelection[0] !== "nothing") {
-		var key = MenuSelection.join("-");
-		if (RaceSubList[key]) {
-			var varName = RaceSubList[key].name ? RaceSubList[key].name : MenuSelection[1].capitalize() + " " + RaceList[MenuSelection[0]].name.toLowerCase();
-			if (What("Race") !== varName) {
-				Value("Race", varName);
-			} else {
-				ApplyRace(MenuSelection.toString(), true);
-			}
-		}
+	var key = MenuSelection.join("-");
+	var oParentRace = RaceList[MenuSelection[0]];
+	var oRaceVariant = RaceSubList[key];
+
+	// Change the name in the dropdown box, to that of the variant if it has one, or the parent race otherwise
+	var raceName = oRaceVariant && oRaceVariant.name ? oRaceVariant.name :
+		oParentRace && oParentRace.name ? oParentRace.name : false;
+	if (raceName && What("Race").toLowerCase() !== raceName.toLowerCase()) {
+		tDoc.getField("Race").setVal = raceName;
 	}
+
+	// Apply the selection, without prompting for a variant if "basic" is detected
+	var raceToApply = oRaceVariant ? key : oParentRace ? oParentRace.name : false;
+	if (raceToApply) ApplyRace(raceToApply, true);
 }
 
 function imperialUnitToMetric(amount, unit, exact, rounding) {
