@@ -1386,11 +1386,8 @@ var Base_MagicItemsList = {
 			name: "Once per dawn, DC 17",
 			spells: ["suggestion"],
 			selection: ["suggestion"],
-			firstCol: "checkbox",
+			firstCol: "onceday",
 		}],
-		limfeaname: "Suggestion through Crystal Ball",
-		usages: 1,
-		recovery: "Dawn",
 		spellChanges: {
 			"suggestion": {
 				duration: "8 h (Scrying)",
@@ -8758,6 +8755,7 @@ var Base_MagicItemsList = {
 			name: "+20% to destroy per use",
 			spells: ["gust of wind"],
 			selection: ["gust of wind"],
+			firstCol: "onceday",
 		}],
 	},
 	"winged boots": {

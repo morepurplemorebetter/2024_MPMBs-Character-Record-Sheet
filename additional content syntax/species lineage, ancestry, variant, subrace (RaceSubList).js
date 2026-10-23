@@ -47,7 +47,7 @@
 			  - You will also need the syntax for adding a source if you want the variant to
 				have a source that doesn't yet exist in the sheet, see "source (SourceList).js".
 
-	Sheet:		v24.1.3 and above (PHB'24)
+	Sheet:		v24.2.0 and above (PHB'24)
 */
 
 var iFileName = "Homebrew Syntax - RaceSubList.js";
@@ -64,7 +64,7 @@ var iFileName = "Homebrew Syntax - RaceSubList.js";
 	Only the first occurrence of this variable will be used.
 */
 
-RequiredSheetVersion("24.1.3");
+RequiredSheetVersion("24.2.0");
 /*	RequiredSheetVersion // OPTIONAL //
 	TYPE:	function call with one variable, a string or number
 	USE:	the minimum and maximum versions of the sheet required for the add-on script to work

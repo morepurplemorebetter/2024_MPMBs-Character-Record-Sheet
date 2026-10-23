@@ -3425,13 +3425,20 @@ var Base_ClassList = {
 					],
 					spellAdd: [
 						function (spellKey, spellObj, spName, isDuplicate) {
-							if (spName !== "wizard" || isDuplicate || spellObj.level < 1 || spellObj.level > 2 || !CurrentSpells.wizard) return;
+							if (spName !== "wizard" || spellObj.level < 1 || spellObj.level > 2 || !CurrentSpells.wizard) return;
 							var masterySpells = CurrentSpells.wizard.bonus["spell mastery"].map(function (n) {
 								return n.selection[0];
 							});
 							if (masterySpells.indexOf(spellKey) !== -1) {
-								removeSpellUpcasting(spellObj);
-								spellObj.changesObj["Changes by Wizard: Spell Mastery"] = "\n \u2022 I can cast the spells picked for my Spell Mastery only at their lowest level when cast without expending a spell slot.";
+								if (isDuplicate) {
+									// Mark the regular version as always prepared
+									spellObj.firstCol = "markedbox";
+								} else {
+									// Remove upcasting from the "atwill" version
+									removeSpellUpcasting(spellObj);
+									spellObj.firstCol = "atwill";
+								}
+								spellObj.changesObj["Changes by Wizard: Spell Mastery"] = "\n \u2022 I have the spells picked for my Spell Mastery always prepared, and can cast them at will without expending a spell slot, but then at their lowest level.";
 								return true;
 							}
 						},
@@ -3443,16 +3450,7 @@ var Base_ClassList = {
 				name: "Signature Spells",
 				source: [["SRD24", 79], ["PHB24", 167]],
 				minlevel: 20,
-				description: "\nI pick two 3rd-level spells from my spellbook. I always have these spells prepared and I can cast each once per Short Rest without expending a spell slot.",
-				extraLimitedFeatures: [{
-					name: "Signature Spell (1st pick)",
-					recovery: "Short Rest",
-					usages: 1,
-				}, {
-					name: "Signature Spell (2nd pick)",
-					recovery: "Short Rest",
-					usages: 1,
-				}],
+				description: desc("I pick two 3rd-level spells from my spellbook. I always have these spells prepared and I can cast each once per Short Rest without expending a spell slot."),
 				spellcastingBonus: [{
 					name: "Signature Spells",
 					"class": "wizard",
@@ -3468,7 +3466,10 @@ var Base_ClassList = {
 							// This has the downside that newly added spells to the spellbook are only selectable the next time the dialog is opened
 							if (spList.signatureSpell && CurrentSpells.wizard && CurrentSpells.wizard.selectSP) {
 								var oWiz = CurrentSpells.wizard;
-								var spellbook = oWiz.selectSp.concat(oWiz.selectBo);
+								var signatureSpells = oWiz.bonus["signature spells"][0].selection;
+								var spellbook = oWiz.selectBo.filter(function (spell) {
+									return !signatureSpells ? true : signatureSpells.indexOf(spell) === -1;
+								}).concat(oWiz.selectSp);
 								if (oWiz.extra && oWiz.extraSpecial) spellbook = spellbook.concat(oWiz.extra);
 								var spellByLvl = CreateSpellList({ spells: spellbook }, false, false, true);
 								if (spellByLvl[3].length) {
@@ -3481,11 +3482,18 @@ var Base_ClassList = {
 					],
 					spellAdd: [
 						function (spellKey, spellObj, spName, isDuplicate) {
-							if (spName !== "wizard" || isDuplicate || spellObj.level !== 3 || !CurrentSpells.wizard) return;
+							if (spName !== "wizard" || spellObj.level !== 3 || !CurrentSpells.wizard) return;
 							var signatureSpells = CurrentSpells.wizard.bonus["signature spells"][0].selection;
 							if (signatureSpells.indexOf(spellKey) !== -1) {
-								removeSpellUpcasting(spellObj);
-								spellObj.changesObj["Changes by Wizard: Signature Spells"] = "\n \u2022 I can cast the spells picked as my Signature Spells only at their lowest level when cast without expending a spell slot.";
+								if (isDuplicate) {
+									// Mark the regular version as always prepared
+									spellObj.firstCol = "markedbox";
+								} else {
+									// Remove upcasting from the "oncesr" version
+									removeSpellUpcasting(spellObj);
+									spellObj.firstCol = "oncesr";
+								}
+								spellObj.changesObj["Changes by Wizard: Signature Spells"] = "\n \u2022 I have the spells picked as my Signature Spells always prepared, and can cast each once per short rest without expending a spell slot, but then at their lowest level.";
 								return true;
 							}
 						},
