@@ -646,12 +646,13 @@ var Base_ClassList = {
 				calcChanges: {
 					spellList: [
 						function (spList, spName, spType) {
-							if (spName === "bard" && spType.indexOf("bonus") === -1) return;
-							var MagicalSecrets = CreateSpellList({
-								"class": ["cleric", "druid", "wizard"],
-								level: [1, 9],
-							});
-							spList.extraspells = spList.extraspells.concat(MagicalSecrets);
+							if (spName === "bard" && spType.indexOf("bonus") === -1) {
+								var MagicalSecrets = CreateSpellList({
+									"class": ["cleric", "druid", "wizard"],
+									level: [1, 9],
+								});
+								spList.extraspells = spList.extraspells.concat(MagicalSecrets);
+							}
 						},
 						"From 10th level Bard onwards, I can pick 1st-level and higher spells from the Bard, Cleric, Druid, and Wizard spell lists whenever I choose new prepared spells or swap out a previously prepared spell.",
 					],

@@ -6019,7 +6019,7 @@ var Base_SpellsList = {
 		range: "S:30-ft rad",
 		components: "V,S",
 		duration: "10 min",
-		description: "Speak with plants \x26 plant crea in fixed 30-ft rad about last 24h; dif. plant ter. to normal or vice versa",
+		description: "Speak with plants \x26 Plant crea in static 30-ft rad about last 24h; dif. plant ter. to normal or vice versa",
 		descriptionFull: [
 			"You imbue plants in an immobile 30-foot Emanation with limited sentience and animation, giving them the ability to communicate with you and follow your simple commands. You can question plants about events in the spell's area within the past day, gaining information about creatures that have passed, weather, and other circumstances.",
 			"You can also turn Difficult Terrain caused by plant growth (such as thickets and undergrowth) into ordinary terrain that lasts for the duration. Or you can turn ordinary terrain where plants are present into Difficult Terrain that lasts for the duration.",
