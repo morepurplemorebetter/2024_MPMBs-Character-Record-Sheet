@@ -2913,7 +2913,7 @@ function RunFunctionAtEnd(inFunc) {
 };
 
 // a way to add a racial variant without conflicts
-function AddSubRace(race, variantName, variantObj) {
+function AddSubRace(race, variantName, variantObj, amendSourceToParent) {
 	race = race.toLowerCase();
 	if (!RaceList[race]) return;
 	if (!RaceList[race].variants || !isArray(RaceList[race].variants)) {
@@ -2931,8 +2931,26 @@ function AddSubRace(race, variantName, variantObj) {
 	};
 	RaceList[race].variants.push(useVarName);
 	RaceList[race].variants.sort();
-	RaceSubList[race + "-" + useVarName] = variantObj;
-	return race + "-" + useVarName;
+	var subName = race + "-" + useVarName;
+	RaceSubList[subName] = variantObj;
+	if (amendSourceToParent && RaceList[race].source && variantObj.source) {
+		// normalise both to [[source, page]] without testing against SourceList
+		var normSrc = function (src) {
+			if (typeof src == "string") return [[src, 0]];
+			if (!isArray(src[0])) return [src];
+			return src;
+		};
+		var parentSource = [].concat(normSrc(RaceList[race].source));
+		var sources = parentSource.map(function (src) { return src[0]; });
+		normSrc(variantObj.source).forEach(function (src) {
+			if (sources.indexOf(src[0]) === -1) {
+				parentSource.push(src);
+				sources.push(src[0]);
+			}
+		});
+		RaceList[race].source = parentSource;
+	}
+	return subName;
 };
 // set for backwards and forwards compatibility
 var AddRacialVariant = AddSubRace;

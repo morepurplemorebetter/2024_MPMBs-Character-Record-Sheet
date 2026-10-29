@@ -99,7 +99,7 @@ AddSubClass("purplemancer", "violet", {
 	RETURNS: string, the object name of the subclass in the ClassSubList object
 
 	This function takes four variables, of which the first three are required:
-	1. string
+	1. string (required)
 		The object name of the parent class, as it is used in the ClassList object.
 		For the classes in the sheet by default, these are:
 			"barbarian", "bard", "cleric", "druid", "fighter", "monk",
@@ -110,7 +110,7 @@ AddSubClass("purplemancer", "violet", {
 		otherwise the function will do nothing.
 		So if you add a class and its subclasses in the same file, add the class first.
 
-	2. string
+	2. string (required)
 		The name to use for the object name of the subclass.
 		This is not displayed anywhere, it is only used by the sheet to refer to the subclass.
 
@@ -124,11 +124,11 @@ AddSubClass("purplemancer", "violet", {
 		for example `classes.known.purplemancer.subclass === "purplemancer-violet"`.
 		Because of this, you shouldn't change this string after publishing your script.
 
-	3. object
+	3. object (required)
 		The subclass object, which is explained below.
 		It starts with the opening bracket `{` at the end of the line above.
 
-	4. boolean
+	4. boolean (optional) [added v24.0.8]
 		Set this to true to stop the function from converting legacy 5e (2014) subclass
 		features to the 5.5e (2024) style.
 		By default, the function does the following conversions:

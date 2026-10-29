@@ -964,8 +964,14 @@ var Base_ClassList = {
 				name: "Druidic",
 				source: [["SRD24", 42], ["PHB24", 80]],
 				minlevel: 1,
-				description: desc("I always have Speak with Animals prepared. I know Druidic. I can leave hidden messages in it. Druidic speakers understand, but others need a DC 15 Investigation check just to spot " + (typePF ? "them." : "it.")),
+				description: desc("I always have *Speak with Animals* prepared. I know Druidic. I can leave hidden messages in it. Druidic speakers understand, but others need a DC 15 Investigation check just to spot " + (typePF ? "them." : "it.")),
 				languageProfs: ["Druidic"],
+				spellcastingBonus: [{
+					name: "Always prepared",
+					spells: ["speak with animals"],
+					selection: ["speak with animals"],
+					firstCol: "markedbox",
+				}],
 			},
 			"primal order": {
 				name: "Primal Order",
@@ -2263,7 +2269,7 @@ var Base_ClassList = {
 				source: [["SRD24", 62], ["PHB24", 129]],
 				minlevel: 1,
 				description: desc("I know Thieves' Cant so I can convey messages inconspicuously, and one other language."),
-				languageProfs: ["Thieves' Cant", 1],
+				languageProfs: ["Thieves' Cant", ["+1 language from Rogue", 1]],
 				calcChanges: {
 					atkAdd: [ // Mark light and finesse martial weapons as proficient if Rogue is the primary class
 						function (fields, v) {

@@ -47,7 +47,7 @@
 			  - You will also need the syntax for adding a source if you want the variant to
 				have a source that doesn't yet exist in the sheet, see "source (SourceList).js".
 
-	Sheet:		v24.2.0 and above (PHB'24)
+	Sheet:		v24.2.1 and above (PHB'24)
 */
 
 var iFileName = "Homebrew Syntax - RaceSubList.js";
@@ -97,12 +97,12 @@ RequiredSheetVersion("24.2.0");
 
 AddSubRace("purple catfolk", "lavender", {
 /*	AddSubRace // REQUIRED //
-	TYPE:	function call with three variables
+	TYPE:	function call with three or four variables
 	USE:	add a variant to the RaceSubList object and link it to its parent species
 	RETURNS: string, the object name of the variant in the RaceSubList object
 
-	This function takes three variables, all of which are required:
-	1. string
+	This function takes four variables, of which the first three are required:
+	1. string (required)
 		The object name of the parent species, as it is used in the RaceList object.
 		For the species in the sheet by default, these are:
 			"dragonborn", "dwarf", "elf", "gnome", "goliath", "halfling", "human", "orc", and "tiefling"
@@ -112,7 +112,7 @@ AddSubRace("purple catfolk", "lavender", {
 		otherwise the function will do nothing.
 		So if you add a species and its variants in the same file, add the species first.
 
-	2. string
+	2. string (required)
 		The name to use for the object name of the variant.
 		This is not displayed anywhere, it is only used by the sheet to refer to the variant.
 
@@ -127,9 +127,34 @@ AddSubRace("purple catfolk", "lavender", {
 		for example `CurrentRace.known === "purple catfolk" && CurrentRace.variant === "lavender"`.
 		Because of this, you shouldn't change this string after publishing your script.
 
-	3. object
+	3. object (required)
 		The variant object, which is explained below.
 		It starts with the opening bracket `{` at the end of the line above.
+
+	4. boolean (optional) [added v24.2.1]
+		Whether to add the sources of the variant to the `source` attribute of the parent species.
+		If set to `true`, any source in the `source` attribute of the variant object that
+		the parent species doesn't already have is added to the `source` of the parent species.
+		If not present or set to `false`, the `source` of the parent species is not changed.
+		This variable comes after the closing bracket of the variant object, for example:
+			AddSubRace("purple catfolk", "lavender", { ... }, true);
+
+		This is useful because variants added with this functions are not listed in the drop-down
+		of the Species field, only their parent species is, see "SELECTING THE VARIANT" below.
+		So if the parent species is not selectable, because all of its sources are excluded,
+		its variants can't be selected either, even if their own source is included.
+
+		By adding the sources of the variant to the parent species, including the source of the
+		variant also makes the parent species selectable in the drop-down, and thus the variant.
+
+		You only really need to set this to `true` if the parent species is not built-in (i.e.
+		not from the SRD), but added by another source. Especially if that source is excluded
+		by default, as is the case for legacy and Unearthed Arcana sources.
+
+		This fourth argument doesn't exist in v14 (for 5e, 2014), because there subraces are
+		added to the `RaceList` and listed separately in the drop-down of the Species field.
+
+		Setting this fourth argument to `false` is the same as not including it.
 
 	ADDING THE VARIANT TO THE SPECIES
 	The function will add this string (the part after the hyphen) to the `variants` attribute
@@ -178,7 +203,7 @@ AddSubRace("purple catfolk", "lavender", {
 		- Exactly one: that variant is selected automatically.
 		- None: the sheet uses the parent species itself, without a variant.
 	This is a break with the 5e (2014) sheet, where variants were optional and a species with
-	variants could always be used without selecting one.
+	variants could be used without selecting one.
 
 	If more than one variant is selectable, the player can also change the variant with the
 	"Racial Options" button in the Racial Traits section on the 2nd page.
@@ -256,6 +281,8 @@ AddSubRace("purple catfolk", "lavender", {
 	"HB" refers to the 'homebrew' source.
 
 	Note that if the parent species is excluded, none of its variants are available either.
+	To make the parent species available when the source of the variant is included,
+	set the fourth variable of the `AddSubRace()` function to `true`, see above.
 
 	If this attribute is not present, the variant is listed with the source of the parent species,
 	but it can't be excluded by excluding a source, only by excluding the variant itself
