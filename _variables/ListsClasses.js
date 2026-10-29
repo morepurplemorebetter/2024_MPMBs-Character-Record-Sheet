@@ -523,8 +523,8 @@ var Base_ClassList = {
 			secondary: "Choose any 1 skill.",
 		},
 		toolProfs: {
-			primary: [["Musical instrument", 3]],
-			secondary: [["Musical instrument", 1]],
+			primary: [["Musical Instrument", 3]],
+			secondary: [["Musical Instrument", 1]],
 		},
 		armorProfs: {
 			primary: [true, false, false, false],
@@ -911,7 +911,7 @@ var Base_ClassList = {
 			primary: "Choose 2: Arcana, Animal Handling, Insight, Medicine, Nature, Perception, Religion, or Survival.",
 		},
 		toolProfs: {
-			primary: ["Herbalism kit"],
+			primary: ["Herbalism Kit"],
 		},
 		armorProfs: {
 			primary: [true, false, false, true],
@@ -1397,7 +1397,7 @@ var Base_ClassList = {
 		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
 		saves: ["Str", "Dex"],
 		toolProfs: {
-			primary: [["Artisan's tool or Musical instrument", 1]],
+			primary: [["Artisan's Tool or Musical Instrument", 1]],
 		},
 		skillstxt: {
 			primary: "Choose 2: Acrobatics, Athletics, History, Insight, Religion, or Stealth.",
@@ -2184,8 +2184,8 @@ var Base_ClassList = {
 			secondary: "Choose 1: Acrobatics, Athletics, Deception, Insight, Intimidation, Investigation, Perception, Persuasion, Sleight of Hand, or Stealth.",
 		},
 		toolProfs: {
-			primary: [["Thieves' tools", "Dex"]],
-			secondary: [["Thieves' tools", "Dex"]],
+			primary: [["Thieves' Tools", "Dex"]],
+			secondary: [["Thieves' Tools", "Dex"]],
 		},
 		armorProfs: {
 			primary: [true, false, false, false],
@@ -2269,7 +2269,7 @@ var Base_ClassList = {
 				source: [["SRD24", 62], ["PHB24", 129]],
 				minlevel: 1,
 				description: desc("I know Thieves' Cant so I can convey messages inconspicuously, and one other language."),
-				languageProfs: ["Thieves' Cant", ["+1 language from Rogue", 1]],
+				languageProfs: ["Thieves' Cant", ["from Rogue", 1]],
 				calcChanges: {
 					atkAdd: [ // Mark light and finesse martial weapons as proficient if Rogue is the primary class
 						function (fields, v) {

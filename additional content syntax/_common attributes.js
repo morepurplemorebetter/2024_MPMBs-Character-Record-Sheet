@@ -302,9 +302,9 @@ var exampleFeatureName = { // you can ignore this, it is just here to make this 
 	// >>>>>>>>>>>>>>>>>>>>> //
 
 	toolProfs: [
-		"Herbalism kit",
-		["Thieves' tools", "Dex"],
-		["Musical instrument", 3],
+		"Herbalism Kit",
+		["Thieves' Tools", "Dex"],
+		["Musical Instrument", 3],
 	],
 /*	toolProfs // OPTIONAL //
 	TYPE:	array (variable length)

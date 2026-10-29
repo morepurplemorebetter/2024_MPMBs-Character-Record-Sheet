@@ -351,8 +351,8 @@ ClassList["purplemancer"] = {
 	Don't include the name of the class or a line break at the start.
 */
 	toolProfs: {
-		primary: [["Musical instrument", 3], ["Thieves' tools", "Dex"]],
-		secondary: [["Musical instrument", 1]],
+		primary: [["Musical Instrument", 3], ["Thieves' Tools", "Dex"]],
+		secondary: [["Musical Instrument", 1]],
 	},
 /*	toolProfs // OPTIONAL //
 	TYPE:	object with two optional attributes, `primary` and `secondary`
