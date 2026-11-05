@@ -1054,7 +1054,7 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 					// Replace [THIS] with the species of the creature
 					var replaceThis = addIt ? rxThisAdd : rxThisRemove;
 					var replaceWith = addIt ? objCrea.nameThis : "";
-					if (rxThisAdd.test(propDescription)) {
+					if (propDescription.indexOf("[THIS]") !== -1) {
 						propDescription = propDescription.replace(replaceThis, replaceWith);
 					}
 				}
@@ -1091,7 +1091,7 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 					// Create the strings for the property
 					var propFirstLine = bulletString + propName + formattingChar;
 					// Replace [THIS] with the species of the creature
-					if (rxThisAdd.test(propFirstLine)) {
+					if (propFirstLine.indexOf("[THIS]") !== -1) {
 						propFirstLine = propFirstLine.replace(replaceThis, replaceWith);
 					}
 					var propFullLine = propFirstLine + propDescription;

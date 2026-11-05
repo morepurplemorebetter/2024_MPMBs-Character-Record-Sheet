@@ -206,7 +206,7 @@ var Base_BackgroundList = {
 		source: [["SRD24", 83], ["PHB24", 185]],
 		scorestxt: "+2 to one and +1 to another -or- +1 to all three: Strength, Dexterity, and Constitution",
 		skills: ["Athletics", "Intimidation"],
-		toolProfs: [["Gaming Set", 1]],
+		toolProfs: [["A Gaming Set", 1]],
 		gold: 14,
 		equipleft: [
 			["Gaming set (same as proficiency)", "", ""],

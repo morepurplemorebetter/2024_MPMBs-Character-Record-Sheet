@@ -3645,7 +3645,7 @@ var Base_MagicItemsList = {
 			weight: 2,
 			usages: 1,
 			recovery: "7 days",
-			creaturesAdd: [["Warrior Spirit", true]],
+			creaturesAdd: [["Berserker", true]],
 			creatureOptions: [{
 				name: "Berserker",
 				nameThis: "spirit",
@@ -3653,7 +3653,6 @@ var Base_MagicItemsList = {
 				eval: function (prefix) {
 					Value(prefix + "Comp.Desc.Name", "Horn of Valhalla's Warrior Spirit");
 					Value(prefix + "Comp.Type", "Summon");
-					Value(prefix + "Comp.Use.Attack.1.Weapon Selection", "Greataxe");
 				},
 				size: [4, 3],
 				type: "Humanoid",
@@ -3669,7 +3668,10 @@ var Base_MagicItemsList = {
 				challengeRating: "2",
 				proficiencyBonus: 2,
 				attacksAction: 1,
-				attacks: [],
+				attacks: [{
+					baseWeapon: "greataxe",
+					name: "Greataxe",
+				}],
 				traits: [{
 					name: "Bloodied Frenzy",
 					description: "While Bloodied, the [THIS] has Advantage on attack rolls and saving throws.",
@@ -4768,7 +4770,7 @@ var Base_MagicItemsList = {
 			}],
 			traits: [{
 				name: "Swarm",
-				description: "The [THIS] can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny rat. The swarm can't regain Hit Points or gain Temporary Hit Points.",
+				description: "The swarm can occupy another creature's space and vice versa, and the swarm can move through any opening large enough for a Tiny rat. The swarm can't regain Hit Points or gain Temporary Hit Points.",
 			}],
 		}],
 	},

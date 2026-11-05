@@ -511,7 +511,7 @@ BackgroundList["purple pilgrim"] = {
 	This works identical to the `skillstxt` attribute found in the "_common attributes.js" file.
 */
 	toolProfs: [["Calligrapher's Supplies", "Dex"]],
-	toolProfs: [["Gaming Set", 1]],
+	toolProfs: [["A Gaming Set", 1]],
 /*	toolProfs // OPTIONAL //
 	TYPE:	array (variable length)
 	USE:	add tool proficiencies

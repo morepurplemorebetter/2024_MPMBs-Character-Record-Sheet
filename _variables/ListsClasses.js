@@ -523,8 +523,8 @@ var Base_ClassList = {
 			secondary: "Choose any 1 skill.",
 		},
 		toolProfs: {
-			primary: [["Musical Instrument", 3]],
-			secondary: [["Musical Instrument", 1]],
+			primary: [["A Musical Instrument", 3]],
+			secondary: [["A Musical Instrument", 1]],
 		},
 		armorProfs: {
 			primary: [true, false, false, false],
@@ -1397,7 +1397,7 @@ var Base_ClassList = {
 		improvements: [0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 5, 5],
 		saves: ["Str", "Dex"],
 		toolProfs: {
-			primary: [["Artisan's Tool or Musical Instrument", 1]],
+			primary: [["An Artisan's Tool or Musical Instrument", 1]],
 		},
 		skillstxt: {
 			primary: "Choose 2: Acrobatics, Athletics, History, Insight, Religion, or Stealth.",
