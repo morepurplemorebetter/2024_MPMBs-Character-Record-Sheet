@@ -2154,7 +2154,7 @@ var Base_SpellsList = {
 	},
 	"dragon's breath": {
 		name: "Dragon's Breath",
-		classes: ["sorcerer", "wizard"],
+		classes: ["artificer", "sorcerer", "wizard"],
 		source: [["SRD24", 126], ["PHB24", 266]],
 		level: 2,
 		school: "Trans",
@@ -2280,7 +2280,7 @@ var Base_SpellsList = {
 	},
 	"elementalism": {
 		name: "Elementalism",
-		classes: ["druid", "sorcerer", "wizard"],
+		classes: ["artificer", "druid", "sorcerer", "wizard"],
 		source: [["SRD24", 127], ["PHB24", 267]],
 		level: 0,
 		school: "Trans",
@@ -4173,7 +4173,7 @@ var Base_SpellsList = {
 	},
 	"magic weapon": {
 		name: "Magic Weapon",
-		classes: ["paladin", "ranger", "sorcerer", "wizard"],
+		classes: ["artificer", "paladin", "ranger", "sorcerer", "wizard"],
 		source: [["SRD24", 146], ["PHB24", 295]],
 		level: 2,
 		school: "Trans",
@@ -6629,7 +6629,7 @@ var Base_SpellsList = {
 	},
 	"true strike": {
 		name: "True Strike",
-		classes: ["bard", "sorcerer", "warlock", "wizard"],
+		classes: ["artificer", "bard", "sorcerer", "warlock", "wizard"],
 		source: [["SRD24", 171], ["PHB24", 336]],
 		level: 0,
 		school: "Div",

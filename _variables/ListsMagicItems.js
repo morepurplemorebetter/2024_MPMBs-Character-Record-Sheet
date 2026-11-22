@@ -289,7 +289,7 @@ var Base_MagicItemsList = {
 				"\u2022 20 AC, 200 HP.",
 				"\u2022 Speed 30 ft, Swim 30 ft (only with legs extended).",
 				"\u2022 Immunity to Poison and Psychic damage.",
-				"\rTo be used as a vehicle, the apparatus requires one pilot. While the apparatus's hatch is closed, the compartment is airtight and watertight. The compartment holds enough air for 10 hours of breathing, divided by the number of breathing creatures inside.",
+				"\nTo be used as a vehicle, the apparatus requires one pilot. While the apparatus's hatch is closed, the compartment is airtight and watertight. The compartment holds enough air for 10 hours of breathing, divided by the number of breathing creatures inside.",
 				"The apparatus floats on water. It can also go underwater to a depth of 900 ft. Below that, the vehicle takes 2d6 Bludgeoning damage each minute from pressure.",
 				"A creature in the compartment can take a Utilize action to move as many as two of the apparatus's levers up or down. After each use, a lever goes back to its neutral position. Each lever, from left to right, functions as shown below.",
 				[

@@ -248,7 +248,7 @@ RaceList["purple catfolk"] = {
 /*	trait // REQUIRED //
 	TYPE:	string or array of strings
 	USE:	the text to be filled in the Racial Traits field on the 2nd page
-	CHANGE:	v14.2.0 (array input joined by carriage return "\r")
+	CHANGE:	v14.2.0 (array input joined by line break "\n")
 
 	This is the description of all the traits of the species.
 	Note that the sheet normally uses the first person for this.
@@ -257,7 +257,7 @@ RaceList["purple catfolk"] = {
 	so use the Printer Friendly sheets to test if the description fits.
 
 	If this is a string, you can use "\n" for a line break, as in the first example above.
-	If this attribute is an array, the sheet will join it with a carriage return "\r",
+	If this attribute is an array, the sheet will join it with a line break "\n",
 	as in the second example above.
 
 	If the sheet is set to use the metric system, the sheet will convert the units in

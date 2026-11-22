@@ -2324,7 +2324,7 @@ var Base_ClassList = {
 				"poison": {
 					name: "Poison",
 					source: [["SRD24", 63], ["PHB24", 130]],
-					description: desc("If I have a Poisoner's Kit on my person, I can add a toxin to my strike. The target must make a " + (typePF ? "Constitution" : "Con") + " save or be Poisoned for 1 min. It can repeat the save at the end of each of its turns."),
+					description: desc("If I have a Poisoner's Kit on my person, I can add a toxin to my strike. The target must make a Con save or be Poisoned for 1 min. It can repeat the save at the end of each of its turns."),
 					additional: "1d6 cost; Poisoner's Kit required",
 				},
 				"trip": {

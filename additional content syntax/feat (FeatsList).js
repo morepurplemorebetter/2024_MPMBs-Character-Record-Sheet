@@ -288,7 +288,7 @@ FeatsList["purple power"] = {
 	TYPE:	string
 	USE:	the text to be filled in the description field of the feat
 	CHANGE: v14.0.0 (formatting characters)
-	CHANGE: v14.0.13 (array input joined by carriage return "\r")
+	CHANGE: v14.0.13 (array input joined by line break "\n")
 
 	Note that the sheet normally uses the first person for this.
 	Make sure that this description is not too long and fits in the description field.
@@ -333,7 +333,7 @@ FeatsList["purple power"] = {
 	Be aware that the default font on the Colourful sheets is already italic,
 	so making something only italic won't be visible on the Colourful sheets.
 
-	If this attribute is an array, the sheet will join it with a carriage return "\r".
+	If this attribute is an array, the sheet will join it with a line break "\n".
 */
 	descriptionClassFeature: "I treat 1 or 2 on damage as 3 for Two-Handed/Versatile Melee weapons held with 2 hands.",
 /*	descriptionClassFeature // OPTIONAL //
@@ -536,7 +536,7 @@ FeatsList["purple power"] = {
 		The name of an option should be unique, it can't be the same as the parent feat.
 	*/
 
-		description: "As an action, I can drink this potion or administer it to another to gain the effects of Haste for 1 minute (no concentration required).\rThe potion's yellow fluid is streaked with black and swirls on its own.",
+		description: "As an action, I can drink this potion or administer it to another to gain the effects of Haste for 1 minute (no concentration required).\nThe potion's yellow fluid is streaked with black and swirls on its own.",
 	/*
 		>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		>>> FeatsList Attributes (inside choice) >>>

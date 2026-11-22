@@ -634,7 +634,7 @@ function ApplyCompRace(newRace, prefix, sCompType) {
 		// Set the strings to the fields but remove starting line breaks and implement name
 		if (strFeatures) {
 			if (What("Unit System") === "metric") strFeatures = ConvertToMetric(strFeatures, 0.5);
-			strFeatures = strFeatures.replace(/\[THIS\]/g, strRaceEntry);
+			strFeatures = strFeatures.replace(/^[\n\r]+/g, "").replace(/\[THIS\]/g, strRaceEntry);
 			AddString(prefix + "Comp.Use.Features", strFeatures, true);
 		}
 
@@ -940,7 +940,7 @@ function SetCompanionListHeading(bAddRemove, prefix, sCompType, sFld) {
 	var sOrigin = oComp.nameOrigin ? oComp.nameOrigin : "";
 	var sSource = stringSource(oComp, "first,abbr", sOrigin ? ", " : "");
 	if (sSource || sOrigin) sHeading += " (" + sOrigin + sSource + ")";
-	tDoc[(bAddRemove ? "Add" : "Remove") + "String"](sFld, sHeading + ":", "\r\r");
+	tDoc[(bAddRemove ? "Add" : "Remove") + "String"](sFld, sHeading + ":", "\n\n");
 }
 
 // do the eval for a creature
@@ -1105,7 +1105,7 @@ function UpdateCompLevelFeatures(prefix, objCrea, useName, newLvl) {
 						Value(fldNm, propFullLine);
 					} else if (doPropTxt) {
 						// Insert or remove it after the previous entry
-						var insertResult = applyClassFeatureText(addIt ? "insert" : "remove", arrFlds, [propFirstLine, "\r" + propFullLine], [propFirstLine, "\r" + propFullLine], lastProp);
+						var insertResult = applyClassFeatureText(addIt ? "insert" : "remove", arrFlds, [propFirstLine, "\n" + propFullLine], [propFirstLine, "\n" + propFullLine], lastProp);
 						if (insertResult === false && addIt) AddString(fldNm, propFullLine, true);
 					}
 					// Queue the (remove)eval
@@ -5246,7 +5246,7 @@ function CreateBkmrksCompleteAdvLogSheet() {
 //a function to change the sorting of the skills
 function MakeSkillsMenu_SkillsOptions(input, onlyTooltips) {
 	var sWho = Who("Text.SkillsNames");
-	var sList = Who("Acr Prof").replace(/^.*(\n|\r)*/, "");
+	var sList = Who("Acr Prof").replace(/^.*[\n\r]*/, "");
 	var remAth = tDoc.getField("Remarkable Athlete").isBoxChecked(0);
 	var jackOf = tDoc.getField("Jack of All Trades").isBoxChecked(0);
 	if (!input || input === "justMenu") {
@@ -5881,7 +5881,7 @@ function addEvals(evalObj, NameEntity, Add, type, level) {
 			updateFromOld = CurrentEvals.defaultsProcessed[NameEntity];
 		}
 		// If the previous and the new are identical, do not do anything with this
-		// The field transforms any line break to '\n', so correct for that before comparison
+		// The field transforms any line break to '\r', so correct for that before comparison
 		if (updateFromOld && updateFromOld.toSource().replace(/\r?\n/g, "\r") === evalObj.toSource().replace(/\r?\n/g, "\r")) {
 			return;
 		}
@@ -7374,7 +7374,7 @@ function setSkillTooltips(noPopUp) {
 	}
 	if (!noPopUp && CurrentUpdates.types.indexOf("skills") === -1) {
 		CurrentUpdates.types.push("skills");
-		CurrentUpdates.skillStrOld = oldTooltipTxt.replace(/.+(\r|\n)*/, "");
+		CurrentUpdates.skillStrOld = oldTooltipTxt.replace(/.+[\r\n]*/, "");
 	}
 	AddTooltip("SkillsClick", "Click here to change the order of the skills. You can select either alphabetic order or ordered by ability score." + (tooltipTxt ? "\n\n" + tooltipTxt : ""));
 }
@@ -8059,9 +8059,9 @@ function SetProf(ProfType, AddRemove, ProfObj, ProfSrc, Extra) {
 		}; break;
 		case "speed" : {
 			var fldSpd = "Speed";
-			var fldSpdW = What(fldSpd).replace(/\n|\r/g, "").replace(/(\d),(\d)/g, "$1.$2");
+			var fldSpdW = What(fldSpd).replace(/[\n\r]+/g, "").replace(/(\d),(\d)/g, "$1.$2");
 			var fldEnc = "Speed encumbered";
-			var fldEncdW = What(fldEnc).replace(/\n|\r/g, "").replace(/(\d),(\d)/g, "$1.$2");
+			var fldEncdW = What(fldEnc).replace(/[\n\r]+/g, "").replace(/(\d),(\d)/g, "$1.$2");
 			var spdTypes = ["walk", "burrow", "climb", "fly", "swim"];
 			// Backwards compatibility, when `speed` was still an array
 			if (isArray(ProfObj)) ProfObj = { walk: { spd: parseFloat(ProfObj[0]), enc: parseFloat(ProfObj[1]) } };
@@ -8860,7 +8860,7 @@ function processToNotesPage(AddRemove, items, type, mainObj, parentObj, namesArr
 		var noteSrc = noteObj.source ? stringSource(noteObj, "first,abbr", ", ") : fallback.noteSrc;
 		var noteDesc = "";
 		if (noteObj.useDescriptionFull && fallback.descrFull) {
-			noteDesc = "\r" + ConvertToFirstPerson(
+			noteDesc = "\n" + ConvertToFirstPerson(
 				formatDescriptionFull(fallback.descrFull, true),
 				noteObj.useDescriptionFull,
 				fallback.noteOrig
@@ -8868,9 +8868,9 @@ function processToNotesPage(AddRemove, items, type, mainObj, parentObj, namesArr
 		} else {
 			noteDesc = !isArray(noteObj.note) ? noteObj.note :
 				noteObj.page3notes ? desc(noteObj.note) :
-					"\r" + formatDescriptionFull(noteObj.note, true);
+					"\n" + formatDescriptionFull(noteObj.note, true);
 		}
-		noteDesc = noteDesc.replace(/\n/g, "\r");
+		noteDesc = noteDesc.replace(/\r/g, "\n");
 		var noteAdditional = noteObj.additional ? " #[" + noteObj.additional + "]#" : "";
 		if (What("Unit System") === "metric") {
 			noteDesc = ConvertToMetric(noteDesc, 0.5);
@@ -8912,11 +8912,11 @@ function AddToNotes(noteStr, alertTxt, oldNoteStr, alertType, isProcessed, amend
 			if (noteStr) noteStr = ConvertToMetric(noteStr, 0.5);
 			if (oldNoteStr) oldNoteStr = ConvertToMetric(oldNoteStr, 0.5);
 		}
-		if (noteStr) noteStr = noteStr.replace(/\n/g, "\r");
-		if (oldNoteStr) oldNoteStr = oldNoteStr.replace(/\n/g, "\r");
+		if (noteStr) noteStr = noteStr.replace(/\r/g, "\n");
+		if (oldNoteStr) oldNoteStr = oldNoteStr.replace(/\r/g, "\n");
 	};
 	var replaceOldNote = false;
-	if (noteStr && !isTemplVis("ASnotes")) {
+	if (noteStr && !isTemplVis("ASnotes")) { // Adding but no Notes page visible
 		var noteFld = DoTemplate("ASnotes", "Add");
 		noteFld += "Notes.Left";
 	} else {
@@ -8925,23 +8925,28 @@ function AddToNotes(noteStr, alertTxt, oldNoteStr, alertType, isProcessed, amend
 		var notesPrefix = What("Template.extras.ASnotes").split(",");
 		var noteStrLC = noteStr.toLowerCase();
 		var oldNoteStrLC = oldNoteStr ? oldNoteStr.toLowerCase() : false;
-		if (amendToNote) amendToNote = amendToNote.toLowerCase();
+		var noteStrRx = getCompareRegex(noteStr);
+		var oldNoteStrRx = getCompareRegex(oldNoteStr);
+		if (amendToNote) {
+			amendToNote = amendToNote.toLowerCase();
+			var amendToNoteRx = getCompareRegex(amendToNote);
+		}
 		for (var i = 1; i < notesPrefix.length; i++) {
 			for (var n = 0; n < noteFlds.length; n++) {
 				var aFld = notesPrefix[i] + noteFlds[n];
 				var inFld = What(aFld).toLowerCase();
-				if (noteStr && inFld.indexOf(noteStrLC) !== -1) {
+				if (noteStr && (inFld.indexOf(noteStrLC) !== -1 || noteStrRx.test(inFld))) {
 					return;
-				} else if (oldNoteStr && inFld.indexOf(oldNoteStrLC) !== -1) {
+				} else if (oldNoteStr && (inFld.indexOf(oldNoteStrLC) !== -1 || oldNoteStrRx.test(inFld))) {
 					prefix = notesPrefix[i];
 					noteFld = aFld;
 					replaceOldNote = true;
 					i = noteFlds.length;
 					break;
-				} else if (amendToNote && inFld.indexOf(amendToNote) !== -1 && !noteFld) {
+				} else if (!noteFld && amendToNote && (inFld.indexOf(amendToNote) !== -1 || amendToNoteRx.test(inFld))) {
 					noteFld = aFld;
 					amendFld = aFld;
-				} else if (inFld === "" && !noteFld) {
+				} else if (!noteFld && inFld === "") {
 					noteFld = aFld;
 				};
 			};
@@ -8953,7 +8958,7 @@ function AddToNotes(noteStr, alertTxt, oldNoteStr, alertType, isProcessed, amend
 			return;
 		};
 	};
-	if (noteFld === amendFld) noteStr = "\r" + noteStr;
+	if (noteFld === amendFld) noteStr = "\n" + noteStr;
 	ReplaceString(noteFld, noteStr, true, oldNoteStr ? oldNoteStr : "");
 	if (!replaceOldNote && noteStr && alertTxt) {
 		if (!alertType) alertType = "Class Features section";

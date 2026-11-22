@@ -1309,7 +1309,6 @@ function DirectImport(consoleTrigger) {
 				}
 			}
 
-
 			//extra equipment
 			nmbrFlds = global.docFrom.FieldNumbers && global.docFrom.FieldNumbers.extragear ? global.docFrom.FieldNumbers.extragear : FieldNumbers.extragear;
 			for (var i = 1; i <= nmbrFlds; i++) {
@@ -1776,8 +1775,8 @@ function ImportField(fldNm, actionsObj, fromFldNm) {
 				didChange = true;
 			}
 		} else if (actionsObj.compareNoSpaces) {
-			testValFrom = testValFrom.replace(/\r/g, "").replace(/ /g, "");
-			testValTo = testValTo.replace(/\r/g, "").replace(/ /g, "");
+			testValFrom = testValFrom.replace(/[\r\n\s]+/g, "");
+			testValTo = testValTo.replace(/[\r\n\s]+/g, "");
 			if (testValFrom !== testValTo) {
 				toFld.value = fromFld.value;
 				didChange = true;
@@ -1985,7 +1984,7 @@ function ImportExtraChoices() {
 	if (!global.docFrom.getField("Extra.Notes")) return; //nothing to do
 	//use the content of the sheet we are importing from as a means to test what choices/extrachoices things had been selected
 	var toTest = global.docFrom.getField("Class Features Remember").value;
-	var toTestE = global.docFrom.getField("Extra.Notes").value + "\r" + global.docFrom.getField("Class Features").value;
+	var toTestE = global.docFrom.getField("Extra.Notes").value + "\n" + global.docFrom.getField("Class Features").value;
 	for (var aClass in global.docFrom.classes.known) {
 		var classlevel = global.docFrom.classes.known[aClass].level;
 		var Temps = global.docFrom.CurrentClasses[aClass];
@@ -2408,7 +2407,7 @@ function MakeXFDFExport(partial) {
 
 //add a script to be run upon start of the sheet
 function AddUserScript(retResDia) {
-	var theUserScripts = What("User Script").match(/(.|\r){1,65500}/g);
+	var theUserScripts = What("User Script").match(/(.|\n|\r){1,65500}/g);
 	if (!theUserScripts) theUserScripts = [];
 	var defaultTxt = toUni("The JavaScript") + " you paste into the field below will be run now and whenever the sheet is opened, using eval(). If that add-on script results in an error you will be informed immediately and the script will not be added to the sheet.\n" + toUni("This overwrites") + " whatever code you have previously added to the sheet using this dialog.\n" + toUni("Resetting the sheet is recommended") + " before you enter any custom content into it.";
 	var defaultTxt2 = "Be warned, things you do here can break the sheet! You can ask MorePurpleMoreBetter for help using the contact bookmarks.";
@@ -2895,7 +2894,7 @@ function RequiredSheetVersion(minNumber, maxNumber) {
 };
 function RunFunctionAtEnd(inFunc) {
 	if (!inFunc && typeof inFunc !== "function") return;
-	var funcstart = inFunc.toString().replace(/function *\([^)]*\) *{(\r\n)*\t*/i,"").substr(0,50);
+	var funcstart = inFunc.toString().replace(/function *\([^)]*\) *{[\r\n\s]*/i,"").substr(0,50);
 	app.alert({
 		cMsg: "The script you are running from the console contains the function RunFunctionAtEnd(). This function can be exectured from the console, but will be executed immediately after you close this dialog, and not at the end of all the code you are trying to run from console. When you import this script as a file, or manually paste it into the dialog for scripts, it will be run at the end of all scripts as intended.\n\nAfter clicking 'OK', the function will be run that starts with the following:\n\t\"" + funcstart + "...\"",
 		nIcon: 1,
