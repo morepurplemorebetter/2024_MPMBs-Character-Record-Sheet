@@ -44,7 +44,7 @@
 			  - You will also need the syntax for adding a source if you want the species to
 				have a source that doesn't yet exist in the sheet, see "source (SourceList).js".
 
-	Sheet:		v24.2.0 and above (PHB'24)
+	Sheet:		v24.2.1 and above (PHB'24)
 */
 
 var iFileName = "Homebrew Syntax - RaceList.js";
@@ -61,7 +61,7 @@ var iFileName = "Homebrew Syntax - RaceList.js";
 	Only the first occurrence of this variable will be used.
 */
 
-RequiredSheetVersion("24.2.0");
+RequiredSheetVersion("24.2.1");
 /*	RequiredSheetVersion // OPTIONAL //
 	TYPE:	function call with one variable, a string or number
 	USE:	the minimum and maximum versions of the sheet required for the add-on script to work

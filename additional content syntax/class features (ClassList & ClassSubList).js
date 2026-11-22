@@ -45,7 +45,7 @@
 				to do anything besides populating the Class Features section,
 				see "class features (ClassList & ClassSubList).js".
 
-	Sheet:		v24.0.8 and above (PHB'24)
+	Sheet:		v24.2.1 and above (PHB'24)
 */
 
 /*	-CLASS FEATURES AND SUBCLASS FEATURES-

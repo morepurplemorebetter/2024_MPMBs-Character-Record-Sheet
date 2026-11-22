@@ -39,7 +39,7 @@
 			  - You will also need the syntax for adding a source if you want the magic item
 				to have a source that doesn't yet exist in the sheet, see "source (SourceList).js".
 
-	Sheet:		v14.0.16 and above
+	Sheet:		v24.2.1 and above
 
 */
 
@@ -57,7 +57,7 @@ var iFileName = "Homebrew Syntax - MagicItemsList.js";
 	Only the first occurrence of this variable will be used.
 */
 
-RequiredSheetVersion("24.0.16");
+RequiredSheetVersion("24.2.1");
 /*	RequiredSheetVersion // OPTIONAL //
 	TYPE:	function call with one variable, a string or number
 	USE:	the minimum and maximum versions of the sheet required for the add-on script to work
